@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "SimpleCam.h"
+#import <TesseractOCR/TesseractOCR.h>
 
-
-@interface ViewController : UIViewController <SimpleCamDelegate>
+@interface ViewController : UIViewController <SimpleCamDelegate,TesseractDelegate, UIActionSheetDelegate>
 
 @end

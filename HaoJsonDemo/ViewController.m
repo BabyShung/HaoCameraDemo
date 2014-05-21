@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 
-@interface ViewController () <UIActionSheetDelegate>
+@interface ViewController ()
 
 @property (strong, nonatomic) UIImageView * imgView;
 
@@ -49,6 +49,45 @@
     [tap addTarget:self action:@selector(handleTap:)];
     [self.view addGestureRecognizer:tap];
 }
+
+#pragma mark Tesseract
+
+//tesseract processing
+-(void)recognizeImageWithTesseract:(UIImage *)img
+{
+    NSLog(@"cool");
+    //Threading
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//		[self.activityIndicator startAnimating];
+//	});
+    
+    Tesseract* tesseract = [[Tesseract alloc] initWithLanguage:@"eng+ita"];//langague package
+    tesseract.delegate = self;
+    [tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" forKey:@"tessedit_char_whitelist"]; //limit search
+    [tesseract setImage:img]; //image to check
+    [tesseract recognize];//processing
+    
+    NSString *recognizedText = [tesseract recognizedText];
+    NSLog(@"Recognized: %@", recognizedText);
+    
+    //Threading
+    dispatch_async(dispatch_get_main_queue(), ^{
+		//[self.activityIndicator stopAnimating];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tesseract OCR iOS" message:recognizedText delegate:nil cancelButtonTitle:@"Yeah!" otherButtonTitles:nil];
+        [alert show];
+        
+    });
+    
+    tesseract = nil; //deallocate and free all memory *****
+}
+
+- (BOOL)shouldCancelImageRecognitionForTesseract:(Tesseract*)tesseract {
+    NSLog(@"progress: %d", tesseract.progress);
+    return NO;  // return YES, if you need to interrupt tesseract before it finishes
+}
+
+
 
 #pragma mark ACTIONSHEET
 
@@ -156,6 +195,9 @@
                                      image.size.width, image.size.height);
         
 
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self recognizeImageWithTesseract:image];
+        });
         
     }
     else {
