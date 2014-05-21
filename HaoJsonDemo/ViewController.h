@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SimpleCam.h"
 
-@interface ViewController : UIViewController
+
+@interface ViewController : UIViewController <SimpleCamDelegate>
 
 @end
