@@ -21,7 +21,7 @@
 		B82353BE192BE2F400D6BCAC /* Download.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353BA192BE2F400D6BCAC /* Download.png */; };
 		B82353BF192BE2F400D6BCAC /* Lightening.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353BB192BE2F400D6BCAC /* Lightening.png */; };
 		B82353C0192BE2F400D6BCAC /* Previous.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353BC192BE2F400D6BCAC /* Previous.png */; };
-		B82353C3192BE2FB00D6BCAC /* SimpleCam.m in Sources */ = {isa = PBXBuildFile; fileRef = B82353C2192BE2FB00D6BCAC /* SimpleCam.m */; };
+		B82353C3192BE2FB00D6BCAC /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B82353C2192BE2FB00D6BCAC /* CameraViewController.m */; };
 		B82353EC192CFB2800D6BCAC /* TesseractOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B82353EB192CFB2800D6BCAC /* TesseractOCR.framework */; };
 		B82353EE192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B82353ED192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib */; };
 		B82353F0192CFC4C00D6BCAC /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = B82353EF192CFC4C00D6BCAC /* tessdata */; };
@@ -66,8 +66,8 @@
 		B82353BA192BE2F400D6BCAC /* Download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Download.png; sourceTree = "<group>"; };
 		B82353BB192BE2F400D6BCAC /* Lightening.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Lightening.png; sourceTree = "<group>"; };
 		B82353BC192BE2F400D6BCAC /* Previous.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Previous.png; sourceTree = "<group>"; };
-		B82353C1192BE2FB00D6BCAC /* SimpleCam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleCam.h; sourceTree = "<group>"; };
-		B82353C2192BE2FB00D6BCAC /* SimpleCam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleCam.m; sourceTree = "<group>"; };
+		B82353C1192BE2FB00D6BCAC /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
+		B82353C2192BE2FB00D6BCAC /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
 		B82353EB192CFB2800D6BCAC /* TesseractOCR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TesseractOCR.framework; sourceTree = "<group>"; };
 		B82353ED192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
 		B82353EF192CFC4C00D6BCAC /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
@@ -182,8 +182,8 @@
 			isa = PBXGroup;
 			children = (
 				B82353EF192CFC4C00D6BCAC /* tessdata */,
-				B82353C1192BE2FB00D6BCAC /* SimpleCam.h */,
-				B82353C2192BE2FB00D6BCAC /* SimpleCam.m */,
+				B82353C1192BE2FB00D6BCAC /* CameraViewController.h */,
+				B82353C2192BE2FB00D6BCAC /* CameraViewController.m */,
 				B8FA464E18F9E954007DA680 /* Main.storyboard */,
 				B82353F1192CFC9600D6BCAC /* ViewController.h */,
 				B82353F2192CFC9600D6BCAC /* ViewController.m */,
@@ -338,7 +338,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B82353C3192BE2FB00D6BCAC /* SimpleCam.m in Sources */,
+				B82353C3192BE2FB00D6BCAC /* CameraViewController.m in Sources */,
 				B8FA464D18F9E954007DA680 /* AppDelegate.m in Sources */,
 				B82353F3192CFC9600D6BCAC /* ViewController.m in Sources */,
 				B8FA464918F9E954007DA680 /* main.m in Sources */,

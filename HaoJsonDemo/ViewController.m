@@ -1,6 +1,6 @@
 //
 //  ViewController.m
-//  HaoJsonDemo
+//  Edible
 //
 //  Created by Hao Zheng on 4/12/14.
 //  Copyright (c) 2014 Hao Zheng. All rights reserved.
@@ -14,7 +14,7 @@
 
 @property (strong, nonatomic) UILabel * tapLabel;
 
-@property (nonatomic,strong) SimpleCam *simpleCam;
+@property (nonatomic,strong) CameraViewController *simpleCam;
 
 @property (nonatomic) BOOL takePhotoImmediately;
 
@@ -98,10 +98,10 @@
     switch (buttonIndex) {
         case 0: // default
         {
-            SimpleCam * simpleCam = [SimpleCam new];
+            CameraViewController * simpleCam = [CameraViewController new];
             simpleCam.delegate= self;
             
-            simpleCam.isSquareMode = YES;
+            simpleCam.isCropMode = YES;
             
             [self presentViewController:simpleCam animated:YES completion:nil];
         }
@@ -111,7 +111,7 @@
         {
             self.takePhotoImmediately = YES;
             
-            SimpleCam * simpleCam = [SimpleCam new];
+            CameraViewController * simpleCam = [CameraViewController new];
             simpleCam.delegate= self;
             // [simpleCam setHideCaptureButton:YES];
             // [simpleCam setHideBackButton:YES];
@@ -125,7 +125,7 @@
             
         case 2: // overlay
         {
-            self.simpleCam = [SimpleCam new];
+            self.simpleCam = [CameraViewController new];
             self.simpleCam.delegate= self;
             
             //hide all components
@@ -183,7 +183,7 @@
 
 #pragma mark SIMPLE CAM DELEGATE
 
-- (void) simpleCam:(SimpleCam *)simpleCam didFinishWithImage:(UIImage *)image {
+- (void) simpleCam:(CameraViewController *)simpleCam didFinishWithImage:(UIImage *)image {
     
     if (image) {
         // simple cam finished with image
@@ -196,7 +196,11 @@
         
 
         dispatch_async(dispatch_get_main_queue(), ^{
+            //1.Use tesseract to recognize image
             [self recognizeImageWithTesseract:image];
+            
+            //2.save image to album
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
         });
         
     }
@@ -222,7 +226,7 @@
 }
 
 //View did load in SimpleCam VC
-- (void) simpleCamDidLoadCameraIntoView:(SimpleCam *)simpleCam {
+- (void) simpleCamDidLoadCameraIntoView:(CameraViewController *)simpleCam {
     NSLog(@"Camera loaded ... ");
     
     if (self.takePhotoImmediately) {

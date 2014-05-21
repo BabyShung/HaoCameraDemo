@@ -1,44 +1,10 @@
 //
-//  SimpleCam.m
-//  SimpleCam
+//  CameraViewController.h
+//  Edible
 //
-//  Created by Logan Wright on 2/1/14.
-//  Copyright (c) 2014 Logan Wright. All rights reserved.
+//  Created by Hao Zheng on 4/12/14.
+//  Copyright (c) 2014 Hao Zheng. All rights reserved.
 //
-//  Mozilla Public License v2.0
-//
-//  **
-//
-//  PLEASE FAMILIARIZE YOURSELF WITH THE ----- Mozilla Public License v2.0
-//
-//  **
-//
-//  Attribution is satisfied by acknowledging the use of SimpleCam,
-//  or its creation by Logan Wright
-//
-//  **
-//
-//  You can use, modify and redistribute this code in your product,
-//  but to satisfy the requirements of Mozilla Public License v2.0,
-//  it is required to provide the source code for any fixes you make to it.
-//
-//  **
-//
-//  Covered Software is provided under this License on an “as is” basis, without warranty of any
-//  kind, either expressed, implied, or statutory, including, without limitation, warranties that
-//  the Covered Software is free of defects, merchantable, fit for a particular purpose or non-
-//  infringing. The entire risk as to the quality and performance of the Covered Software is with
-//  You. Should any Covered Software prove defective in any respect, You (not any Contributor)
-//  assume the cost of any necessary servicing, repair, or correction. This disclaimer of
-//  warranty constitutes an essential part of this License. No use of any Covered Software is
-//  authorized under this License except under this disclaimer.
-//
-//  **
-//
-
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 static CGFloat optionAvailableAlpha = 0.6;
 static CGFloat optionUnavailableAlpha = 0.2;
@@ -50,9 +16,9 @@ static CGFloat optionUnavailableAlpha = 0.2;
 #define CROPFRAME_OFFSET 0
 
 
-#import "SimpleCam.h"
+#import "CameraViewController.h"
 
-@interface SimpleCam ()
+@interface CameraViewController ()
 {
     // Measurements
     CGFloat screenWidth;
@@ -72,8 +38,8 @@ static CGFloat optionUnavailableAlpha = 0.2;
 // Used to cover animation flicker during rotation
 @property (strong, nonatomic) UIView * rotationCover;
 
-// Square Border
-@property (strong, nonatomic) UIView * squareV;
+// Crop View
+@property (strong, nonatomic) UIView * CropView;
 
 // Controls
 @property (strong, nonatomic) UIButton * backBtn;
@@ -84,17 +50,17 @@ static CGFloat optionUnavailableAlpha = 0.2;
 
 // AVFoundation Properties
 @property (strong, nonatomic) AVCaptureSession * mySesh;
-@property (strong, nonatomic) AVCaptureStillImageOutput *stillImageOutput;
+@property (strong, nonatomic) AVCaptureStillImageOutput *stillImageOutput;//for still image
 @property (strong, nonatomic) AVCaptureDevice * myDevice;
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer * captureVideoPreviewLayer;
 
 // View Properties
-@property (strong, nonatomic) UIView * imageStreamV;//STREAM of the realtime photo data
-@property (strong, nonatomic) UIImageView * capturedImageV;//captured image view
+@property (strong, nonatomic) UIView * StreamView;//STREAM of the realtime photo data
+@property (strong, nonatomic) UIImageView * capturedImageView;//captured image view
 
 @end
 
-@implementation SimpleCam;
+@implementation CameraViewController;
 
 @synthesize hideAllControls = _hideAllControls, hideBackButton = _hideBackButton, hideCaptureButton = _hideCaptureButton;
 
@@ -112,22 +78,24 @@ static CGFloat optionUnavailableAlpha = 0.2;
     //landscape mode
     if  (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) self.view.frame = CGRectMake(0, 0, screenHeight, screenWidth);
     
-    if (_imageStreamV == nil) _imageStreamV = [[UIView alloc]init];
-    _imageStreamV.alpha = 0;
-    _imageStreamV.frame = self.view.bounds;
-    [self.view addSubview:_imageStreamV];
+    if (_StreamView == nil)
+        _StreamView = [[UIView alloc]init];
+    _StreamView.alpha = 0;
+    _StreamView.frame = self.view.bounds;
+    [self.view addSubview:_StreamView];
     
-    if (_capturedImageV == nil) _capturedImageV = [[UIImageView alloc]init];
-    _capturedImageV.frame = _imageStreamV.frame; // just to even it out
-    _capturedImageV.backgroundColor = [UIColor clearColor];
-    _capturedImageV.userInteractionEnabled = YES;
-    _capturedImageV.contentMode = UIViewContentModeScaleAspectFill;
-    [self.view insertSubview:_capturedImageV aboveSubview:_imageStreamV];
+    if (_capturedImageView == nil)
+        _capturedImageView = [[UIImageView alloc]init];
+    _capturedImageView.frame = _StreamView.frame; // just to even it out
+    _capturedImageView.backgroundColor = [UIColor clearColor];
+    _capturedImageView.userInteractionEnabled = YES;
+    _capturedImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.view insertSubview:_capturedImageView aboveSubview:_StreamView];
     
     // for focus
     UITapGestureRecognizer * focusTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapSent:)];
     focusTap.numberOfTapsRequired = 1;
-    [_capturedImageV addGestureRecognizer:focusTap];
+    [_capturedImageView addGestureRecognizer:focusTap];
     
     
     
@@ -136,40 +104,61 @@ static CGFloat optionUnavailableAlpha = 0.2;
      Setup Camera
      
      ***************/
+    
+    
+    /******************
+     Session: Photo
+     ***************/
     if (_mySesh == nil) _mySesh = [[AVCaptureSession alloc] init];
 	_mySesh.sessionPreset = AVCaptureSessionPresetPhoto;
     
+    /******************
+     Preview layer
+     ***************/
     _captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_mySesh];
 	_captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-	_captureVideoPreviewLayer.frame = _imageStreamV.layer.bounds; // parent of layer
+	_captureVideoPreviewLayer.frame = _StreamView.layer.bounds; // parent of layer
     
-	[_imageStreamV.layer addSublayer:_captureVideoPreviewLayer];
+	[_StreamView.layer addSublayer:_captureVideoPreviewLayer];
 	
-    // rear camera: 0 front camera: 1
+    /***************************************
+     Device: rear camera: 0, front camera: 1
+     *******************************************/
     _myDevice = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo][0];
     
-    //Flash light
+    /******************
+     Flash light
+     ***************/
     if ([_myDevice isFlashAvailable] && _myDevice.flashActive && [_myDevice lockForConfiguration:nil]) {
         //NSLog(@"SC: Turning Flash Off ...");
         _myDevice.flashMode = AVCaptureFlashModeOff;
         [_myDevice unlockForConfiguration];
     }
     
+    /********************
+     Define device input
+     *******************/
     NSError * error = nil;
 	AVCaptureDeviceInput * input = [AVCaptureDeviceInput deviceInputWithDevice:_myDevice error:&error];
     
-	if (!input) {
-		// Handle the error appropriately.
+	if (!input) {// Handle the error appropriately.
 		NSLog(@"SC: ERROR: trying to open camera: %@", error);
-        [_delegate simpleCam:self didFinishWithImage:_capturedImageV.image];
+        [_delegate simpleCam:self didFinishWithImage:_capturedImageView.image];
 	}
     
 	[_mySesh addInput:input];
     
+    /**********************
+     Define device output
+     *********************/
     _stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
+    
     NSDictionary * outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys: AVVideoCodecJPEG, AVVideoCodecKey, nil];
     [_stillImageOutput setOutputSettings:outputSettings];
     [_mySesh addOutput:_stillImageOutput];
+    
+    
+    
     
     
 	[_mySesh startRunning];//begin the stream
@@ -181,19 +170,20 @@ static CGFloat optionUnavailableAlpha = 0.2;
         _captureVideoPreviewLayer.connection.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
     }
     
-    if (_isSquareMode) {
+    
+    if (_isCropMode) {
         NSLog(@"SC: isSquareMode");
-        _squareV = [[UIView alloc]init];
-        _squareV.backgroundColor = [UIColor clearColor];
-        _squareV.layer.borderWidth = CROPFRAME_BOARDER_WIDTH;
-        _squareV.layer.borderColor = [UIColor colorWithWhite:1 alpha:.6].CGColor;
-        _squareV.bounds = CGRectMake(0, 0 , CROPFRAME_FRAME_WIDTH, CROPFRAME_FRAME_HEIGHT );
+        _CropView = [[UIView alloc]init];
+        _CropView.backgroundColor = [UIColor clearColor];
+        _CropView.layer.borderWidth = CROPFRAME_BOARDER_WIDTH;
+        _CropView.layer.borderColor = [UIColor colorWithWhite:1 alpha:.6].CGColor;
+        _CropView.bounds = CGRectMake(0, 0 , CROPFRAME_FRAME_WIDTH, CROPFRAME_FRAME_HEIGHT );
         //Hao: frame important!
-        _squareV.center = CGPointMake(self.view.center.x, self.view.center.y - CROPFRAME_OFFSET);
+        _CropView.center = CGPointMake(self.view.center.x, self.view.center.y - CROPFRAME_OFFSET);
         
-        _squareV.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+        _CropView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
         
-        [self.view addSubview:_squareV];
+        [self.view addSubview:_CropView];
     }
     
     
@@ -211,7 +201,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
     _rotationCover.center = self.view.center;
     _rotationCover.autoresizingMask = UIViewAutoresizingNone;
     _rotationCover.alpha = 0;
-    [self.view insertSubview:_rotationCover belowSubview:_imageStreamV];
+    [self.view insertSubview:_rotationCover belowSubview:_StreamView];
     // -- LOAD ROTATION COVERS END -- //
     
     
@@ -224,7 +214,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
 
 - (void) viewDidAppear:(BOOL)animated {
     [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        _imageStreamV.alpha = 1;
+        _StreamView.alpha = 1;
         _rotationCover.alpha = 1;
     } completion:^(BOOL finished) {
         if (finished) {
@@ -332,8 +322,14 @@ static CGFloat optionUnavailableAlpha = 0.2;
     static CGFloat portraitFontSize = 16.0;
     static CGFloat landscapeFontSize = 12.5;
     
-    [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut  animations:^{
+    [UIView animateWithDuration:.35 delay:0 options:UIViewAnimationOptionCurveEaseOut  animations:^{
         
+        
+        /************************************************************************
+         
+         Rearranging(not initing) controls based on portrait or landscape
+         
+         ************************************************************************/
         if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
             
             CGFloat centerY = screenHeight - 8 - 20; // 8 is offset from bottom (portrait), 20 is half btn height
@@ -380,7 +376,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
          */
         
         // If camera preview -- show preview controls / hide capture controls
-        if (_capturedImageV.image) {
+        if (_capturedImageView.image) {
             // Hide
             for (UIButton * btn in @[_captureBtn, _flashBtn, _switchCameraBtn]) btn.hidden = YES;
             // Show
@@ -468,7 +464,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
          }
          
          isCapturingImage = NO;
-         _capturedImageV.image = capturedImage;
+         _capturedImageView.image = capturedImage;
          imageData = nil;
          
          // If we have disabled the photo preview directly fire the delegate callback, otherwise, show user a preview
@@ -478,7 +474,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
 
 - (void) photoCaptured {
     if (isImageResized) {
-        [_delegate simpleCam:self didFinishWithImage:_capturedImageV.image];
+        [_delegate simpleCam:self didFinishWithImage:_capturedImageView.image];
     }
     else {
         isSaveWaitingForResizedImage = YES;
@@ -515,21 +511,21 @@ static CGFloat optionUnavailableAlpha = 0.2;
 }
 
 - (void) backBtnPressed:(id)sender {
-    if (_capturedImageV.image) {
-        _capturedImageV.contentMode = UIViewContentModeScaleAspectFill;
-        _capturedImageV.backgroundColor = [UIColor clearColor];
-        _capturedImageV.image = nil;
+    if (_capturedImageView.image) {
+        _capturedImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _capturedImageView.backgroundColor = [UIColor clearColor];
+        _capturedImageView.image = nil;
         
         isRotateWaitingForResizedImage = NO;
         isImageResized = NO;
         isSaveWaitingForResizedImage = NO;
         
-        [self.view insertSubview:_rotationCover belowSubview:_imageStreamV];
+        [self.view insertSubview:_rotationCover belowSubview:_StreamView];
         
         [self drawControls];
     }
     else {
-        [_delegate simpleCam:self didFinishWithImage:_capturedImageV.image];
+        [_delegate simpleCam:self didFinishWithImage:_capturedImageView.image];
     }
 }
 
@@ -587,8 +583,8 @@ static CGFloat optionUnavailableAlpha = 0.2;
 
 - (void) tapSent:(UITapGestureRecognizer *)sender {
     
-    if (_capturedImageV.image == nil) {
-        CGPoint aPoint = [sender locationInView:_imageStreamV];
+    if (_capturedImageView.image == nil) {
+        CGPoint aPoint = [sender locationInView:_StreamView];
         if (_myDevice != nil) {
             if([_myDevice isFocusPointOfInterestSupported] &&
                [_myDevice isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
@@ -600,8 +596,8 @@ static CGFloat optionUnavailableAlpha = 0.2;
                 // THIS APPLIES EVEN IF THE DEVICE IS IN PORTRAIT MODE
                 // (from docs)
                 // this is all a touch wonky
-                double pX = aPoint.x / _imageStreamV.bounds.size.width;
-                double pY = aPoint.y / _imageStreamV.bounds.size.height;
+                double pX = aPoint.x / _StreamView.bounds.size.width;
+                double pY = aPoint.y / _StreamView.bounds.size.height;
                 double focusX = pY;
                 // x is equal to y but y is equal to inverse x ?
                 double focusY = 1 - pX;
@@ -633,10 +629,10 @@ static CGFloat optionUnavailableAlpha = 0.2;
     // Set Size
     CGSize size = (isLandscape) ? CGSizeMake(screenHeight, screenWidth) : CGSizeMake(screenWidth, screenHeight);
     
-    if (_isSquareMode){//overwrite size since you have a new crop frame
-        size = _squareV.bounds.size;
-        NSLog(@"X: %f",_squareV.bounds.origin.x);
-        NSLog(@"Y: %f",_squareV.bounds.origin.y);
+    if (_isCropMode){//overwrite size since you have a new crop frame
+        size = _CropView.bounds.size;
+        NSLog(@"X: %f",_CropView.bounds.origin.x);
+        NSLog(@"Y: %f",_CropView.bounds.origin.y);
     }
     
     // Set Draw Rect
@@ -668,15 +664,15 @@ static CGFloat optionUnavailableAlpha = 0.2;
     
     // START CONTEXT
     UIGraphicsBeginImageContextWithOptions(size, YES, 2.0);
-    [_capturedImageV.image drawInRect:drawRect];
-    _capturedImageV.image = UIGraphicsGetImageFromCurrentImageContext();
+    [_capturedImageView.image drawInRect:drawRect];
+    _capturedImageView.image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     // END CONTEXT
     
     
     // See if someone's waiting for resized image
-    if (isSaveWaitingForResizedImage == YES) [_delegate simpleCam:self didFinishWithImage:_capturedImageV.image];
-    if (isRotateWaitingForResizedImage == YES) _capturedImageV.contentMode = UIViewContentModeScaleAspectFit;
+    if (isSaveWaitingForResizedImage == YES) [_delegate simpleCam:self didFinishWithImage:_capturedImageView.image];
+    if (isRotateWaitingForResizedImage == YES) _capturedImageView.contentMode = UIViewContentModeScaleAspectFit;
     
     isImageResized = YES;
 }
@@ -686,11 +682,11 @@ static CGFloat optionUnavailableAlpha = 0.2;
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
                                 duration:(NSTimeInterval)duration {
     
-    if (_capturedImageV.image) {
-        _capturedImageV.backgroundColor = [UIColor blackColor];
+    if (_capturedImageView.image) {
+        _capturedImageView.backgroundColor = [UIColor blackColor];
         
         // Move for rotation
-        [self.view insertSubview:_rotationCover belowSubview:_capturedImageV];
+        [self.view insertSubview:_rotationCover belowSubview:_capturedImageView];
         
         if (!isImageResized) {
             isRotateWaitingForResizedImage = YES;
@@ -718,12 +714,12 @@ static CGFloat optionUnavailableAlpha = 0.2;
     
     
     [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        for (UIView * v in @[_capturedImageV, _imageStreamV, self.view]) {
+        for (UIView * v in @[_capturedImageView, _StreamView, self.view]) {
             v.frame = targetRect;
         }
         
         // not in for statement, cuz layer
-        _captureVideoPreviewLayer.frame = _imageStreamV.bounds;
+        _captureVideoPreviewLayer.frame = _StreamView.bounds;
         
     } completion:^(BOOL finished) {
         [self drawControls];
@@ -754,12 +750,12 @@ static CGFloat optionUnavailableAlpha = 0.2;
         [_mySesh stopRunning];
         _mySesh = nil;
         
-        _capturedImageV.image = nil;
-        [_capturedImageV removeFromSuperview];
-        _capturedImageV = nil;
+        _capturedImageView.image = nil;
+        [_capturedImageView removeFromSuperview];
+        _capturedImageView = nil;
         
-        [_imageStreamV removeFromSuperview];
-        _imageStreamV = nil;
+        [_StreamView removeFromSuperview];
+        _StreamView = nil;
         
         [_rotationCover removeFromSuperview];
         _rotationCover = nil;
