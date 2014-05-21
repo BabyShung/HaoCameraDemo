@@ -14,7 +14,7 @@
 
 @property (strong, nonatomic) UILabel * tapLabel;
 
-@property (nonatomic,strong) CameraViewController *simpleCam;
+@property (nonatomic,strong) CameraViewController *CameraVC;
 
 @property (nonatomic) BOOL takePhotoImmediately;
 
@@ -125,13 +125,13 @@
             
         case 2: // overlay
         {
-            self.simpleCam = [CameraViewController new];
-            self.simpleCam.delegate= self;
+            self.CameraVC = [CameraViewController new];
+            self.CameraVC.delegate= self;
             
             //hide all components
-            [self.simpleCam setHideAllControls:YES];
+            [self.CameraVC setHideAllControls:YES];
             
-            [self.simpleCam setDisablePhotoPreview:NO];
+            [self.CameraVC setDisablePhotoPreview:NO];
             
             CGRect frame;
             frame.size = CGSizeMake(self.view.frame.size.width, 120);
@@ -153,9 +153,9 @@
             [overlayView addSubview:button];
             
             
-            [self.simpleCam.view addSubview:overlayView];
+            [self.CameraVC.view addSubview:overlayView];
             
-            [self presentViewController:self.simpleCam animated:YES completion:nil];
+            [self presentViewController:self.CameraVC animated:YES completion:nil];
         }
             break;
             
@@ -168,7 +168,7 @@
 
 - (void)actionPhoto     //take photo
 {
-    [self.simpleCam capturePhoto];
+    [self.CameraVC capturePhoto];
 }
 
 #pragma mark TAP RECOGNIZER
@@ -186,8 +186,11 @@
 - (void) simpleCam:(CameraViewController *)simpleCam didFinishWithImage:(UIImage *)image {
     
     if (image) {
-        // simple cam finished with image
-        
+        /*****************************
+         
+         simple cam finished with image
+         
+        ****************************/
         _imgView.image = image;
         //_tapLabel.hidden = NO;
         
@@ -199,22 +202,21 @@
             //1.Use tesseract to recognize image
             [self recognizeImageWithTesseract:image];
             
+        });
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
             //2.save image to album
             UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
         });
         
-    }
-    else {
-        // simple cam finished w/o image
-        
+    }else {// simple cam finished w/o image
         _imgView.image = nil;
         //_tapLabel.hidden = NO;
     }
     
     /*****************************
      
-     Close simpleCam -
-     
+     Close Camera -
      use this as opposed to 'dismissViewController' otherwise,
      the captureSession may not close properly and may result in memory leaks.
     

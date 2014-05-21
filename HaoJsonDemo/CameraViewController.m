@@ -17,6 +17,8 @@ static CGFloat optionUnavailableAlpha = 0.2;
 
 
 #import "CameraViewController.h"
+#import "ImageCropView.h"
+
 
 @interface CameraViewController ()
 {
@@ -33,13 +35,17 @@ static CGFloat optionUnavailableAlpha = 0.2;
     
     // Capture Toggle
     BOOL isCapturingImage;
+    
+    
+    //CMTime defaultVideoMaxFrameDuration;
+    
 }
 
 // Used to cover animation flicker during rotation
 @property (strong, nonatomic) UIView * rotationCover;
 
 // Crop View
-@property (strong, nonatomic) UIView * CropView;
+@property (strong, nonatomic) ImageCropView * CropView;
 
 // Controls
 @property (strong, nonatomic) UIButton * backBtn;
@@ -53,6 +59,8 @@ static CGFloat optionUnavailableAlpha = 0.2;
 @property (strong, nonatomic) AVCaptureStillImageOutput *stillImageOutput;//for still image
 @property (strong, nonatomic) AVCaptureDevice * myDevice;
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer * captureVideoPreviewLayer;
+//@property (nonatomic, strong) AVCaptureDeviceFormat *defaultFormat;
+
 
 // View Properties
 @property (strong, nonatomic) UIView * StreamView;//STREAM of the realtime photo data
@@ -135,6 +143,20 @@ static CGFloat optionUnavailableAlpha = 0.2;
         [_myDevice unlockForConfiguration];
     }
     
+    /*************************************
+     Format: save the default format
+    ************************************/
+    //self.defaultFormat = _myDevice.activeFormat;
+    //defaultVideoMaxFrameDuration = _myDevice.activeVideoMaxFrameDuration;
+//    [_myDevice lockForConfiguration:nil];
+//    
+//    _myDevice.activeVideoMinFrameDuration = CMTimeMake(1, (int32_t)60.0);
+//    _myDevice.activeVideoMaxFrameDuration = CMTimeMake(1, (int32_t)60.0);
+//    [_myDevice unlockForConfiguration];
+
+    
+    
+    
     /********************
      Define device input
      *******************/
@@ -170,20 +192,15 @@ static CGFloat optionUnavailableAlpha = 0.2;
         _captureVideoPreviewLayer.connection.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
     }
     
-    
     if (_isCropMode) {
-        NSLog(@"SC: isSquareMode");
-        _CropView = [[UIView alloc]init];
-        _CropView.backgroundColor = [UIColor clearColor];
-        _CropView.layer.borderWidth = CROPFRAME_BOARDER_WIDTH;
-        _CropView.layer.borderColor = [UIColor colorWithWhite:1 alpha:.6].CGColor;
-        _CropView.bounds = CGRectMake(0, 0 , CROPFRAME_FRAME_WIDTH, CROPFRAME_FRAME_HEIGHT );
-        //Hao: frame important!
-        _CropView.center = CGPointMake(self.view.center.x, self.view.center.y - CROPFRAME_OFFSET);
+        NSLog(@"SC: isCropMode");
+        _CropView  = [[ImageCropView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
+        //_CropView.backgroundColor = [UIColor clearColor];
         
-        _CropView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+        
         
         [self.view addSubview:_CropView];
+  
     }
     
     
@@ -630,14 +647,23 @@ static CGFloat optionUnavailableAlpha = 0.2;
     CGSize size = (isLandscape) ? CGSizeMake(screenHeight, screenWidth) : CGSizeMake(screenWidth, screenHeight);
     
     if (_isCropMode){//overwrite size since you have a new crop frame
-        size = _CropView.bounds.size;
-        NSLog(@"X: %f",_CropView.bounds.origin.x);
-        NSLog(@"Y: %f",_CropView.bounds.origin.y);
+        
+        //size = _CropView.bounds.size;
+        size = _CropView.cropAreaInView.size;
+        
+        NSLog(@"X: %f",_CropView.cropAreaInView.origin.x);
+        NSLog(@"Y: %f",_CropView.cropAreaInView.origin.y);
+        NSLog(@"W: %f",_CropView.cropAreaInView.size.width);
+        NSLog(@"H: %f",_CropView.cropAreaInView.size.height);
     }
     
     // Set Draw Rect
     CGRect drawRect = (isLandscape) ? ({
-        // IS CURRENTLY LANDSCAPE
+        /**********************
+         
+         IS CURRENTLY LANDSCAPE
+         
+         **********************/
         
         // targetHeight is the height our image would need to be at the current screenwidth if we maintained the image ratio.
         CGFloat targetHeight = screenHeight * 0.75; // 3:4 ratio
@@ -649,8 +675,12 @@ static CGFloat optionUnavailableAlpha = 0.2;
         CGFloat offsetLeft = (screenHeight - size.width) / 2;
         CGRectMake(-offsetLeft, -offsetTop, screenHeight, targetHeight);
     }) : ({
-        // IS CURRENTLY PORTRAIT
-        
+        /**********************
+         
+         IS CURRENTLY PORTRAIT
+         
+         **********************/
+
         // targetWidth is the width our image would need to be at the current screenheight if we maintained the image ratio.
         CGFloat targetWidth = screenHeight * 0.75; // 3:4 ratio
         
