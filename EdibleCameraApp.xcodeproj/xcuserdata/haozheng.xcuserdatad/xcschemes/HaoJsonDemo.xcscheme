@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B8FA463818F9E954007DA680"
                BuildableName = "HaoJsonDemo.app"
-               BlueprintName = "HaoJsonDemo"
-               ReferencedContainer = "container:HaoJsonDemo.xcodeproj">
+               BlueprintName = "EdibleCameraApp"
+               ReferencedContainer = "container:EdibleCameraApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,8 +34,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B8FA465918F9E954007DA680"
                BuildableName = "HaoJsonDemoTests.xctest"
-               BlueprintName = "HaoJsonDemoTests"
-               ReferencedContainer = "container:HaoJsonDemo.xcodeproj">
+               BlueprintName = "EdibleCameraAppTests"
+               ReferencedContainer = "container:EdibleCameraApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -44,8 +44,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B8FA463818F9E954007DA680"
             BuildableName = "HaoJsonDemo.app"
-            BlueprintName = "HaoJsonDemo"
-            ReferencedContainer = "container:HaoJsonDemo.xcodeproj">
+            BlueprintName = "EdibleCameraApp"
+            ReferencedContainer = "container:EdibleCameraApp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -63,8 +63,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B8FA463818F9E954007DA680"
             BuildableName = "HaoJsonDemo.app"
-            BlueprintName = "HaoJsonDemo"
-            ReferencedContainer = "container:HaoJsonDemo.xcodeproj">
+            BlueprintName = "EdibleCameraApp"
+            ReferencedContainer = "container:EdibleCameraApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -81,8 +81,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B8FA463818F9E954007DA680"
             BuildableName = "HaoJsonDemo.app"
-            BlueprintName = "HaoJsonDemo"
-            ReferencedContainer = "container:HaoJsonDemo.xcodeproj">
+            BlueprintName = "EdibleCameraApp"
+            ReferencedContainer = "container:EdibleCameraApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
