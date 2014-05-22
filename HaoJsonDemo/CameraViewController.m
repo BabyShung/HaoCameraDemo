@@ -139,9 +139,9 @@ static CGFloat optionUnavailableAlpha = 0.2;
     /******************
      Flash light
      ***************/
-    if ([_myDevice isFlashAvailable] && _myDevice.flashActive && [_myDevice lockForConfiguration:nil]) {
+    if ([_myDevice isTorchActive] && _myDevice.torchActive && [_myDevice lockForConfiguration:nil]) {
         //NSLog(@"SC: Turning Flash Off ...");
-        _myDevice.flashMode = AVCaptureFlashModeOff;
+        _myDevice.torchMode = AVCaptureTorchModeOff;
         [_myDevice unlockForConfiguration];
     }
     
@@ -512,16 +512,18 @@ static CGFloat optionUnavailableAlpha = 0.2;
 }
 
 - (void) flashBtnPressed:(id)sender {
-    if ([_myDevice isFlashAvailable]) {
-        if (_myDevice.flashActive) {
+    
+    
+    if ([_myDevice isTorchAvailable]) {
+        if (_myDevice.torchActive) {
             if([_myDevice lockForConfiguration:nil]) {
-                _myDevice.flashMode = AVCaptureFlashModeOff;
+                _myDevice.torchMode = AVCaptureTorchModeOff;
                 [_flashBtn setTintColor:[self redColor]];
             }
         }
         else {
             if([_myDevice lockForConfiguration:nil]) {
-                _myDevice.flashMode = AVCaptureFlashModeOn;
+                _myDevice.torchMode = AVCaptureTorchModeOn;
                 [_flashBtn setTintColor:[self greenColor]];
             }
         }

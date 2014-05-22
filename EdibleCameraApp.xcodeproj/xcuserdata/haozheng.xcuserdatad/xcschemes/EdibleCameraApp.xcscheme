@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B8FA463818F9E954007DA680"
-               BuildableName = "HaoJsonDemo.app"
+               BuildableName = "EdibleCameraApp.app"
                BlueprintName = "EdibleCameraApp"
                ReferencedContainer = "container:EdibleCameraApp.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B8FA465918F9E954007DA680"
-               BuildableName = "HaoJsonDemoTests.xctest"
+               BuildableName = "EdibleCameraAppTests.xctest"
                BlueprintName = "EdibleCameraAppTests"
                ReferencedContainer = "container:EdibleCameraApp.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B8FA463818F9E954007DA680"
-            BuildableName = "HaoJsonDemo.app"
+            BuildableName = "EdibleCameraApp.app"
             BlueprintName = "EdibleCameraApp"
             ReferencedContainer = "container:EdibleCameraApp.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B8FA463818F9E954007DA680"
-            BuildableName = "HaoJsonDemo.app"
+            BuildableName = "EdibleCameraApp.app"
             BlueprintName = "EdibleCameraApp"
             ReferencedContainer = "container:EdibleCameraApp.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B8FA463818F9E954007DA680"
-            BuildableName = "HaoJsonDemo.app"
+            BuildableName = "EdibleCameraApp.app"
             BlueprintName = "EdibleCameraApp"
             ReferencedContainer = "container:EdibleCameraApp.xcodeproj">
          </BuildableReference>
