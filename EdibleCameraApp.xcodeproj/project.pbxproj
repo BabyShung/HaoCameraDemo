@@ -296,6 +296,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Hao Zheng";
 				TargetAttributes = {
+					B8FA463818F9E954007DA680 = {
+						DevelopmentTeam = 2QU346BL3Y;
+					};
 					B8FA465918F9E954007DA680 = {
 						TestTargetID = B8FA463818F9E954007DA680;
 					};
@@ -493,6 +496,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LIBRARY = "compiler-default";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -502,6 +507,7 @@
 				INFOPLIST_FILE = "HaoJsonDemo/EdibleCameraApp-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = EdibleCameraApp;
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -512,6 +518,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LIBRARY = "compiler-default";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -521,6 +529,7 @@
 				INFOPLIST_FILE = "HaoJsonDemo/EdibleCameraApp-Info.plist";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = EdibleCameraApp;
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

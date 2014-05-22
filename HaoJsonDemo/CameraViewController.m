@@ -84,8 +84,12 @@ static CGFloat optionUnavailableAlpha = 0.2;
     screenHeight = self.view.bounds.size.height;
     
     //landscape mode
-    if  (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) self.view.frame = CGRectMake(0, 0, screenHeight, screenWidth);
+    if  (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
+        self.view.frame = CGRectMake(0, 0, screenHeight, screenWidth);
     
+    /******************
+     stream image view
+     ***************/
     if (_StreamView == nil)
         _StreamView = [[UIView alloc]init];
     _StreamView.alpha = 0;
@@ -93,6 +97,9 @@ static CGFloat optionUnavailableAlpha = 0.2;
     
     [self.view addSubview:_StreamView];
     
+    /********************
+     captured image view
+     ******************/
     if (_capturedImageView == nil)
         _capturedImageView = [[UIImageView alloc]init];
     _capturedImageView.frame = _StreamView.frame; // just to even it out
@@ -102,7 +109,9 @@ static CGFloat optionUnavailableAlpha = 0.2;
     
     [self.view insertSubview:_capturedImageView aboveSubview:_StreamView];
     
-    // for focus
+    /****************
+     Tap for focus
+     ***************/
     UITapGestureRecognizer * focusTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapSent:)];
     focusTap.numberOfTapsRequired = 1;
     [_capturedImageView addGestureRecognizer:focusTap];
@@ -195,6 +204,9 @@ static CGFloat optionUnavailableAlpha = 0.2;
     }
     
     
+    _isCropMode = YES;
+    
+    
     /**********************
      Check crop mode
      *********************/
@@ -231,6 +243,11 @@ static CGFloat optionUnavailableAlpha = 0.2;
     
     
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+
+}
+
 
 - (void) viewDidAppear:(BOOL)animated {
     [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
@@ -583,11 +600,11 @@ static CGFloat optionUnavailableAlpha = 0.2;
 
 - (void) evaluateFlashBtn {
     // Evaluate Flash Available?
-    if (_myDevice.isFlashAvailable) {
+    if (_myDevice.isTorchAvailable) {
         _flashBtn.alpha = optionAvailableAlpha;
         
         // Evaluate Flash Active?
-        if (_myDevice.isFlashActive) {
+        if (_myDevice.isTorchActive) {
             [_flashBtn setTintColor:[self greenColor]];
         }
         else {

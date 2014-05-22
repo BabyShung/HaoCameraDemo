@@ -132,6 +132,7 @@
             frame.size = image.size;
             frame.origin.x = (overlayView.frame.size.width -frame.size.width)/2;
             frame.origin.y = (overlayView.frame.size.height -frame.size.height)/2;
+            
             UIButton *button = [[UIButton alloc] initWithFrame:frame];
             [button setImage:image forState:UIControlStateNormal];
             [button addTarget:self action:@selector(actionPhoto) forControlEvents:UIControlEventTouchUpInside];
@@ -163,8 +164,6 @@
     
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Camera" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Default", @"Take Photo Immediately", @"Custom", nil];
     [sheet showInView:self.view];
-    
-    
 }
 
 #pragma mark SIMPLE CAM DELEGATE

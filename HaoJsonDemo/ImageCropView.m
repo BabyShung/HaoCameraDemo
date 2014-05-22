@@ -8,12 +8,13 @@
 
 #import "ImageCropView.h"
 
-static CGFloat const DEFAULT_MASK_ALPHA = 0.55;
-static bool const square = NO;
+#define DEFAULT_MASK_ALPHA 0.50
+#define square NO
+#define DEFAULT_CONTROL_POINT_SIZE 0
 
-
-static CGFloat const DEFAULT_CONTROL_POINT_SIZE = 0;
-
+#define CROPVIEW_WIDTH 280
+#define CROPVIEW_HEIGHT 80
+#define CROPVIEW_TOP_MARGIN 110
 
 
 @implementation ImageCropView
@@ -37,15 +38,11 @@ static CGFloat const DEFAULT_CONTROL_POINT_SIZE = 0;
     return self;
 }
 
-
 CGRect SquareCGRectAtCenter(CGFloat centerX, CGFloat centerY, CGFloat size) {
     CGFloat x = centerX - size / 2.0;
     CGFloat y = centerY - size / 2.0;
     return CGRectMake(x, y, size, size);
 }
-
-
-
 
 - (void)initViews {
     CGRect subviewFrame = self.bounds;
@@ -53,24 +50,24 @@ CGRect SquareCGRectAtCenter(CGFloat centerX, CGFloat centerY, CGFloat size) {
     //the shade
     shadeView = [[ShadeView alloc] initWithFrame:subviewFrame];
     
-    //the image
+    //the image (didn't use at all since the image is nil so that we see the stream view)
     imageView = [[UIImageView alloc] initWithFrame:subviewFrame];
 
     //control points size
     controlPointSize = DEFAULT_CONTROL_POINT_SIZE;
     
     
-    int initialClearAreaSize = self.frame.size.width / 3;
+    int halfOfCropViewWidth = CROPVIEW_WIDTH/2;//half size of the crop view
     
     CGPoint centerInView = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
+   
+    topLeftPoint = [self createControlPointAt:SquareCGRectAtCenter(centerInView.x - halfOfCropViewWidth,CROPVIEW_TOP_MARGIN,controlPointSize)];
     
-    topLeftPoint = [self createControlPointAt:SquareCGRectAtCenter(centerInView.x - initialClearAreaSize,centerInView.y - initialClearAreaSize,controlPointSize)];
+    bottomLeftPoint = [self createControlPointAt:SquareCGRectAtCenter(centerInView.x - halfOfCropViewWidth,CROPVIEW_TOP_MARGIN + CROPVIEW_HEIGHT,controlPointSize)];
     
-    bottomLeftPoint = [self createControlPointAt:SquareCGRectAtCenter(centerInView.x - initialClearAreaSize,centerInView.y + initialClearAreaSize,controlPointSize)];
+    bottomRightPoint = [self createControlPointAt:SquareCGRectAtCenter(centerInView.x + halfOfCropViewWidth, CROPVIEW_TOP_MARGIN + CROPVIEW_HEIGHT , controlPointSize) ];
     
-    bottomRightPoint = [self createControlPointAt:SquareCGRectAtCenter(centerInView.x + initialClearAreaSize, centerInView.y + initialClearAreaSize, controlPointSize) ];
-    
-    topRightPoint = [self createControlPointAt:SquareCGRectAtCenter(centerInView.x + initialClearAreaSize,centerInView.y - initialClearAreaSize, controlPointSize)];
+    topRightPoint = [self createControlPointAt:SquareCGRectAtCenter(centerInView.x + halfOfCropViewWidth,CROPVIEW_TOP_MARGIN, controlPointSize)];
     
     //the "hole"
     CGRect cropArea = [self clearAreaFromControlPoints];
@@ -143,6 +140,7 @@ CGRect SquareCGRectAtCenter(CGFloat centerX, CGFloat centerY, CGFloat size) {
     
     return view;
 }
+
 - (void)handleDrag:(UIPanGestureRecognizer*)recognizer {
     if (recognizer.state==UIGestureRecognizerStateBegan) {
         dragView = [self checkHit:[recognizer locationInView:self]];
