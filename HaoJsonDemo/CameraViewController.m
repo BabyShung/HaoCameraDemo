@@ -90,6 +90,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
         _StreamView = [[UIView alloc]init];
     _StreamView.alpha = 0;
     _StreamView.frame = self.view.bounds;
+    
     [self.view addSubview:_StreamView];
     
     if (_capturedImageView == nil)
@@ -98,6 +99,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
     _capturedImageView.backgroundColor = [UIColor clearColor];
     _capturedImageView.userInteractionEnabled = YES;
     _capturedImageView.contentMode = UIViewContentModeScaleAspectFill;
+    
     [self.view insertSubview:_capturedImageView aboveSubview:_StreamView];
     
     // for focus
@@ -192,12 +194,13 @@ static CGFloat optionUnavailableAlpha = 0.2;
         _captureVideoPreviewLayer.connection.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
     }
     
+    
+    /**********************
+     Check crop mode
+     *********************/
     if (_isCropMode) {
         NSLog(@"SC: isCropMode");
         _CropView  = [[ImageCropView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
-        //_CropView.backgroundColor = [UIColor clearColor];
-        
-        
         
         [self.view addSubview:_CropView];
   
@@ -245,7 +248,6 @@ static CGFloat optionUnavailableAlpha = 0.2;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     NSLog(@"SC: DID RECIEVE MEMORY WARNING");
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark CAMERA CONTROLS
@@ -643,6 +645,9 @@ static CGFloat optionUnavailableAlpha = 0.2;
     // Set Orientation
     BOOL isLandscape = UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? YES : NO;
     
+    NSLog(@"isLandscape: %d",isLandscape);
+    
+    
     // Set Size
     CGSize size = (isLandscape) ? CGSizeMake(screenHeight, screenWidth) : CGSizeMake(screenWidth, screenHeight);
     
@@ -673,6 +678,9 @@ static CGFloat optionUnavailableAlpha = 0.2;
         // by drawing outside it, we remove the edges of the picture
         CGFloat offsetTop = (targetHeight - size.height) / 2;
         CGFloat offsetLeft = (screenHeight - size.width) / 2;
+        
+        
+        
         CGRectMake(-offsetLeft, -offsetTop, screenHeight, targetHeight);
     }) : ({
         /**********************
@@ -687,8 +695,16 @@ static CGFloat optionUnavailableAlpha = 0.2;
         // we have to draw around the context of the screen
         // our final image will be the image that is left in the frame of the context
         // by drawing outside it, we remove the edges of the picture
-        CGFloat offsetTop = (screenHeight - size.height) / 2;
-        CGFloat offsetLeft = (targetWidth - size.width) / 2;
+        
+        //CGFloat offsetTop = (screenHeight - size.height) / 2;
+        //CGFloat offsetLeft = (targetWidth - size.width) / 2;
+        
+        /**********
+         Hao fixed
+         **********/
+        CGFloat offsetTop = _CropView.cropAreaInView.origin.y;
+        CGFloat offsetLeft = _CropView.cropAreaInView.origin.x+(targetWidth-screenWidth)/2;
+        
         CGRectMake(-offsetLeft, -offsetTop, targetWidth, screenHeight);
     });
     
