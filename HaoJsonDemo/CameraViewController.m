@@ -50,7 +50,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
 // Controls
 @property (strong, nonatomic) UIButton * backBtn;
 @property (strong, nonatomic) UIButton * captureBtn;
-@property (strong, nonatomic) UIButton * flashBtn;
+@property (strong, nonatomic) UIButton * TorchBtn;
 @property (strong, nonatomic) UIButton * switchCameraBtn;
 @property (strong, nonatomic) UIButton * saveBtn;
 
@@ -109,12 +109,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
     
     [self.view insertSubview:_capturedImageView aboveSubview:_StreamView];
     
-    /****************
-     Tap for focus
-     ***************/
-    UITapGestureRecognizer * focusTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapSent:)];
-    focusTap.numberOfTapsRequired = 1;
-    [_capturedImageView addGestureRecognizer:focusTap];
+
     
     
     
@@ -146,7 +141,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
     _myDevice = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo][0];
     
     /******************
-     Flash light
+     Torch light
      ***************/
     if ([_myDevice isTorchActive] && _myDevice.torchActive && [_myDevice lockForConfiguration:nil]) {
         //NSLog(@"SC: Turning Flash Off ...");
@@ -156,15 +151,15 @@ static CGFloat optionUnavailableAlpha = 0.2;
     
     /*************************************
      Format: save the default format
-    ************************************/
+     ************************************/
     //self.defaultFormat = _myDevice.activeFormat;
     //defaultVideoMaxFrameDuration = _myDevice.activeVideoMaxFrameDuration;
-//    [_myDevice lockForConfiguration:nil];
-//    
-//    _myDevice.activeVideoMinFrameDuration = CMTimeMake(1, (int32_t)60.0);
-//    _myDevice.activeVideoMaxFrameDuration = CMTimeMake(1, (int32_t)60.0);
-//    [_myDevice unlockForConfiguration];
-
+    //    [_myDevice lockForConfiguration:nil];
+    //
+    //    _myDevice.activeVideoMinFrameDuration = CMTimeMake(1, (int32_t)60.0);
+    //    _myDevice.activeVideoMaxFrameDuration = CMTimeMake(1, (int32_t)60.0);
+    //    [_myDevice unlockForConfiguration];
+    
     
     
     
@@ -191,9 +186,6 @@ static CGFloat optionUnavailableAlpha = 0.2;
     [_mySesh addOutput:_stillImageOutput];
     
     
-    
-    
-    
 	[_mySesh startRunning];//begin the stream
     
     if (self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
@@ -215,9 +207,25 @@ static CGFloat optionUnavailableAlpha = 0.2;
         _CropView  = [[ImageCropView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
         
         [self.view addSubview:_CropView];
-  
+        
+        /****************
+         Tap for focus
+         ***************/
+        UITapGestureRecognizer * focusTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapSent:)];
+        focusTap.numberOfTapsRequired = 1;
+        [_CropView addGestureRecognizer:focusTap];
+        
+    }else{
+        /****************
+         Tap for focus
+         ***************/
+        UITapGestureRecognizer * focusTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapSent:)];
+        focusTap.numberOfTapsRequired = 1;
+        [_capturedImageView addGestureRecognizer:focusTap];
     }
     
+    
+
     
     
     // -- LOAD ROTATION COVERS BEGIN -- //
@@ -245,7 +253,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-
+    
 }
 
 
@@ -285,11 +293,11 @@ static CGFloat optionUnavailableAlpha = 0.2;
     [_backBtn setTintColor:[self redColor]];
     [_backBtn setImageEdgeInsets:UIEdgeInsetsMake(9, 10, 9, 13)];
     
-    _flashBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_flashBtn addTarget:self action:@selector(flashBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [_flashBtn setImage:lighteningImg forState:UIControlStateNormal];
-    [_flashBtn setTintColor:[self redColor]];
-    [_flashBtn setImageEdgeInsets:UIEdgeInsetsMake(6, 9, 6, 9)];
+    _TorchBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [_TorchBtn addTarget:self action:@selector(torchBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_TorchBtn setImage:lighteningImg forState:UIControlStateNormal];
+    [_TorchBtn setTintColor:[self redColor]];
+    [_TorchBtn setImageEdgeInsets:UIEdgeInsetsMake(6, 9, 6, 9)];
     
     _switchCameraBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [_switchCameraBtn setImage:cameraRotateImg forState:UIControlStateNormal];
@@ -312,7 +320,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
     // -- LOAD BUTTONS END -- //
     
     // Stylize buttons
-    for (UIButton * btn in @[_backBtn, _captureBtn, _flashBtn, _switchCameraBtn, _saveBtn])  {
+    for (UIButton * btn in @[_backBtn, _captureBtn, _TorchBtn, _switchCameraBtn, _saveBtn])  {
         
         btn.bounds = CGRectMake(0, 0, 40, 40);
         btn.backgroundColor = [UIColor colorWithWhite:1 alpha:.96];
@@ -379,10 +387,10 @@ static CGFloat optionUnavailableAlpha = 0.2;
             _captureBtn.center = CGPointMake(_backBtn.center.x + (_backBtn.bounds.size.width / 2) + offsetBetweenButtons + (_captureBtn.bounds.size.width / 2), centerY);
             
             // offset from capturebtn is '20'
-            _flashBtn.center = CGPointMake(_captureBtn.center.x + (_captureBtn.bounds.size.width / 2) + offsetBetweenButtons + (_flashBtn.bounds.size.width / 2), centerY);
+            _TorchBtn.center = CGPointMake(_captureBtn.center.x + (_captureBtn.bounds.size.width / 2) + offsetBetweenButtons + (_TorchBtn.bounds.size.width / 2), centerY);
             
             // offset from flashBtn is '20'
-            _switchCameraBtn.center = CGPointMake(_flashBtn.center.x + (_flashBtn.bounds.size.width / 2) + offsetBetweenButtons + (_switchCameraBtn.bounds.size.width / 2), centerY);
+            _switchCameraBtn.center = CGPointMake(_TorchBtn.center.x + (_TorchBtn.bounds.size.width / 2) + offsetBetweenButtons + (_switchCameraBtn.bounds.size.width / 2), centerY);
             
         }
         else {
@@ -398,10 +406,10 @@ static CGFloat optionUnavailableAlpha = 0.2;
             _captureBtn.center = CGPointMake(centerX, _backBtn.center.y + (_backBtn.bounds.size.height / 2) + offsetBetweenButtons + (_captureBtn.bounds.size.height / 2));
             
             // offset from capturebtn is '20'
-            _flashBtn.center = CGPointMake(centerX, _captureBtn.center.y + (_captureBtn.bounds.size.height / 2) + offsetBetweenButtons + (_flashBtn.bounds.size.height / 2));
+            _TorchBtn.center = CGPointMake(centerX, _captureBtn.center.y + (_captureBtn.bounds.size.height / 2) + offsetBetweenButtons + (_TorchBtn.bounds.size.height / 2));
             
             // offset from flashBtn is '20'
-            _switchCameraBtn.center = CGPointMake(centerX, _flashBtn.center.y + (_flashBtn.bounds.size.height / 2) + offsetBetweenButtons + (_switchCameraBtn.bounds.size.height / 2));
+            _switchCameraBtn.center = CGPointMake(centerX, _TorchBtn.center.y + (_TorchBtn.bounds.size.height / 2) + offsetBetweenButtons + (_switchCameraBtn.bounds.size.height / 2));
         }
         
         // just so it's ready when we need it to be.
@@ -414,7 +422,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
         // If camera preview -- show preview controls / hide capture controls
         if (_capturedImageView.image) {
             // Hide
-            for (UIButton * btn in @[_captureBtn, _flashBtn, _switchCameraBtn]) btn.hidden = YES;
+            for (UIButton * btn in @[_captureBtn, _TorchBtn, _switchCameraBtn]) btn.hidden = YES;
             // Show
             _saveBtn.hidden = NO;
             
@@ -425,7 +433,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
         // ELSE camera stream -- show capture controls / hide preview controls
         else {
             // Show
-            for (UIButton * btn in @[_flashBtn, _switchCameraBtn]) btn.hidden = NO;
+            for (UIButton * btn in @[_TorchBtn, _switchCameraBtn]) btn.hidden = NO;
             // Hide
             _saveBtn.hidden = YES;
             
@@ -528,20 +536,20 @@ static CGFloat optionUnavailableAlpha = 0.2;
     [self photoCaptured];
 }
 
-- (void) flashBtnPressed:(id)sender {
+- (void) torchBtnPressed:(id)sender {
     
     
     if ([_myDevice isTorchAvailable]) {
         if (_myDevice.torchActive) {
             if([_myDevice lockForConfiguration:nil]) {
                 _myDevice.torchMode = AVCaptureTorchModeOff;
-                [_flashBtn setTintColor:[self redColor]];
+                [_TorchBtn setTintColor:[self redColor]];
             }
         }
         else {
             if([_myDevice lockForConfiguration:nil]) {
                 _myDevice.torchMode = AVCaptureTorchModeOn;
-                [_flashBtn setTintColor:[self greenColor]];
+                [_TorchBtn setTintColor:[self greenColor]];
             }
         }
         [_myDevice unlockForConfiguration];
@@ -599,27 +607,28 @@ static CGFloat optionUnavailableAlpha = 0.2;
 }
 
 - (void) evaluateFlashBtn {
-    // Evaluate Flash Available?
-    if (_myDevice.isTorchAvailable) {
-        _flashBtn.alpha = optionAvailableAlpha;
+    if (_myDevice.isTorchAvailable) {   // Evaluate Flash Available?
+        _TorchBtn.alpha = optionAvailableAlpha;
         
         // Evaluate Flash Active?
         if (_myDevice.isTorchActive) {
-            [_flashBtn setTintColor:[self greenColor]];
+            [_TorchBtn setTintColor:[self greenColor]];
         }
         else {
-            [_flashBtn setTintColor:[self redColor]];
+            [_TorchBtn setTintColor:[self redColor]];
         }
     }
     else {
-        _flashBtn.alpha = optionUnavailableAlpha;
-        [_flashBtn setTintColor:[self darkGreyColor]];
+        _TorchBtn.alpha = optionUnavailableAlpha;
+        [_TorchBtn setTintColor:[self darkGreyColor]];
     }
 }
 
 #pragma mark TAP TO FOCUS
 
 - (void) tapSent:(UITapGestureRecognizer *)sender {
+    
+    NSLog(@"tapped..");
     
     if (_capturedImageView.image == nil) {
         CGPoint aPoint = [sender locationInView:_StreamView];
@@ -707,7 +716,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
          IS CURRENTLY PORTRAIT
          
          **********************/
-
+        
         // targetWidth is the width our image would need to be at the current screenheight if we maintained the image ratio.
         CGFloat targetWidth = screenHeight * 0.75; // 3:4 ratio
         
