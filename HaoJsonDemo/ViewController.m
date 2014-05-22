@@ -26,24 +26,8 @@
 {
     [super viewDidLoad];
     
-    _imgView = [UIImageView new];
-    _imgView.bounds = CGRectMake(0, 0, 320, 568);
-    _imgView.center = self.view.center;
-    _imgView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
-    _imgView.contentMode = UIViewContentModeScaleAspectFit;
-    [self.view addSubview:_imgView];
-    
-    _tapLabel = [UILabel new];
-    _tapLabel.bounds = CGRectMake(0, 0, 200, 100);
-    _tapLabel.text = @"TAP TO TAKE PHOTO";
-    _tapLabel.textAlignment = NSTextAlignmentCenter;
-    _tapLabel.center = self.view.center;
-    _tapLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
-    [self.view addSubview:_tapLabel];
-    
-    UITapGestureRecognizer * tap = [UITapGestureRecognizer new];
-    [tap addTarget:self action:@selector(handleTap:)];
-    [self.view addGestureRecognizer:tap];
+    [self initControls];
+
 }
 
 #pragma mark Tesseract
@@ -75,86 +59,9 @@
     return NO;  // return YES, if you need to interrupt tesseract before it finishes
 }
 
-#pragma mark ACTIONSHEET
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-    self.takePhotoImmediately = NO;
-    
-    switch (buttonIndex) {
-        case 0: // default
-        {
-            CameraViewController * simpleCam = [CameraViewController new];
-            simpleCam.delegate= self;
-            
-            simpleCam.isCropMode = YES;
-            
-            [self presentViewController:simpleCam animated:YES completion:nil];
-        }
-            break;
-            
-        case 1: // take photo immediately
-        {
-            self.takePhotoImmediately = YES;
-            
-            CameraViewController * simpleCam = [CameraViewController new];
-            simpleCam.delegate= self;
-            // [simpleCam setHideCaptureButton:YES];
-            // [simpleCam setHideBackButton:YES];
-            
-            simpleCam.hideAllControls = YES;
-            [simpleCam setDisablePhotoPreview:YES];
-            
-            [self presentViewController:simpleCam animated:YES completion:nil];
-        }
-            break;
-            
-        case 2: // overlay
-        {
-            self.CameraVC = [CameraViewController new];
-            self.CameraVC.delegate= self;
-            
-            //hide all components
-            [self.CameraVC setHideAllControls:YES];
-            
-            [self.CameraVC setDisablePhotoPreview:NO];
-            
-            CGRect frame;
-            frame.size = CGSizeMake(self.view.frame.size.width, 120);
-            frame.origin.x = 0;
-            frame.origin.y = self.view.frame.size.height -frame.size.height;
-            UIView *overlayView = [[UIView alloc] initWithFrame:frame];
-            overlayView.backgroundColor = [UIColor blackColor];
-            overlayView.alpha = 0.3;
-            overlayView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-            
-            UIImage *image = [UIImage imageNamed:@"shutter"];
-            frame.size = image.size;
-            frame.origin.x = (overlayView.frame.size.width -frame.size.width)/2;
-            frame.origin.y = (overlayView.frame.size.height -frame.size.height)/2;
-            
-            UIButton *button = [[UIButton alloc] initWithFrame:frame];
-            [button setImage:image forState:UIControlStateNormal];
-            [button addTarget:self action:@selector(actionPhoto) forControlEvents:UIControlEventTouchUpInside];
-            button.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-            [overlayView addSubview:button];
-            
-            
-            [self.CameraVC.view addSubview:overlayView];
-            
-            [self presentViewController:self.CameraVC animated:YES completion:nil];
-        }
-            break;
-            
-        default:
-            break;
-    }
-}
-
-#pragma mark PRIVATE
-
-- (void)actionPhoto     //take photo
-{
+#pragma mark take photo
+- (void)actionPhoto{
     [self.CameraVC capturePhoto];
 }
 
@@ -162,13 +69,15 @@
 
 - (void) handleTap:(UITapGestureRecognizer *)tap {
     
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Camera" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Default", @"Take Photo Immediately", @"Custom", nil];
-    [sheet showInView:self.view];
+    CameraViewController * simpleCam = [CameraViewController new];
+    simpleCam.delegate= self;
+    //simpleCam.isCropMode = YES;
+    [self presentViewController:simpleCam animated:YES completion:nil];
 }
 
-#pragma mark SIMPLE CAM DELEGATE
+#pragma mark CAMERA DELEGATE
 
-- (void) simpleCam:(CameraViewController *)simpleCam didFinishWithImage:(UIImage *)image {
+- (void) EdibleCamera:(CameraViewController *)simpleCam didFinishWithImage:(UIImage *)image {
     
     if (image) {
         /*****************************
@@ -213,7 +122,7 @@
 }
 
 //View did load in SimpleCam VC
-- (void) simpleCamDidLoadCameraIntoView:(CameraViewController *)simpleCam {
+- (void) EdibleCameraDidLoadCameraIntoView:(CameraViewController *)simpleCam {
     NSLog(@"Camera loaded ... ");
     
     if (self.takePhotoImmediately) {
@@ -221,6 +130,25 @@
     }
 }
 
-
+-(void)initControls{
+    _imgView = [UIImageView new];
+    _imgView.bounds = CGRectMake(0, 0, 320, 568);
+    _imgView.center = self.view.center;
+    _imgView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
+    _imgView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:_imgView];
+    
+    _tapLabel = [UILabel new];
+    _tapLabel.bounds = CGRectMake(0, 0, 200, 100);
+    _tapLabel.text = @"TAP TO TAKE PHOTO";
+    _tapLabel.textAlignment = NSTextAlignmentCenter;
+    _tapLabel.center = self.view.center;
+    _tapLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
+    [self.view addSubview:_tapLabel];
+    
+    UITapGestureRecognizer * tap = [UITapGestureRecognizer new];
+    [tap addTarget:self action:@selector(handleTap:)];
+    [self.view addGestureRecognizer:tap];
+}
 
 @end

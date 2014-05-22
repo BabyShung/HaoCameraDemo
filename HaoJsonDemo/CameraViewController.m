@@ -176,7 +176,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
     
 	if (!input) {// Handle the error appropriately.
 		NSLog(@"SC: ERROR: trying to open camera: %@", error);
-        [_delegate simpleCam:self didFinishWithImage:_capturedImageView.image];
+        [_delegate EdibleCamera:self didFinishWithImage:_capturedImageView.image];
 	}
     
 	[_mySesh addInput:input];
@@ -255,8 +255,8 @@ static CGFloat optionUnavailableAlpha = 0.2;
         _rotationCover.alpha = 1;
     } completion:^(BOOL finished) {
         if (finished) {
-            if ([(NSObject *)_delegate respondsToSelector:@selector(simpleCamDidLoadCameraIntoView:)]) {
-                [_delegate simpleCamDidLoadCameraIntoView:self];
+            if ([(NSObject *)_delegate respondsToSelector:@selector(EdibleCameraDidLoadCameraIntoView:)]) {
+                [_delegate EdibleCameraDidLoadCameraIntoView:self];
             }
         }
     }];
@@ -510,7 +510,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
 
 - (void) photoCaptured {
     if (isImageResized) {
-        [_delegate simpleCam:self didFinishWithImage:_capturedImageView.image];
+        [_delegate EdibleCamera:self didFinishWithImage:_capturedImageView.image];
     }
     else {
         isSaveWaitingForResizedImage = YES;
@@ -563,7 +563,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
         [self drawControls];
     }
     else {
-        [_delegate simpleCam:self didFinishWithImage:_capturedImageView.image];
+        [_delegate EdibleCamera:self didFinishWithImage:_capturedImageView.image];
     }
 }
 
@@ -736,7 +736,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
     
     
     // See if someone's waiting for resized image
-    if (isSaveWaitingForResizedImage == YES) [_delegate simpleCam:self didFinishWithImage:_capturedImageView.image];
+    if (isSaveWaitingForResizedImage == YES) [_delegate EdibleCamera:self didFinishWithImage:_capturedImageView.image];
     if (isRotateWaitingForResizedImage == YES) _capturedImageView.contentMode = UIViewContentModeScaleAspectFit;
     
     isImageResized = YES;

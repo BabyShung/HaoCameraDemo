@@ -10,6 +10,6 @@
 #import "CameraViewController.h"
 #import <TesseractOCR/TesseractOCR.h>
 
-@interface ViewController : UIViewController <SimpleCamDelegate,TesseractDelegate, UIActionSheetDelegate>
+@interface ViewController : UIViewController <EdibleCameraDelegate,TesseractDelegate, UIActionSheetDelegate>
 
 @end

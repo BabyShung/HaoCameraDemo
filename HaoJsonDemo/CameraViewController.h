@@ -17,15 +17,15 @@
  
  ************/
 
-@protocol SimpleCamDelegate
+@protocol EdibleCameraDelegate
 
 @required
 //Called when the user is done with SimpleCam.  If image is nil, user backed out w/o image.
-- (void) simpleCam:(CameraViewController *)simpleCam didFinishWithImage:(UIImage *)image;
+- (void) EdibleCamera:(CameraViewController *)simpleCam didFinishWithImage:(UIImage *)image;
 
 @optional
 //Called when the camera is successfully loaded into the view.
-- (void) simpleCamDidLoadCameraIntoView:(CameraViewController *)simpleCam;
+- (void) EdibleCameraDidLoadCameraIntoView:(CameraViewController *)simpleCam;
 
 @end
 
@@ -44,7 +44,7 @@
  ***************/
 
 //Must adhere to SimpleCamDelegate protocol
-@property (retain, nonatomic) id <SimpleCamDelegate> delegate;
+@property (retain, nonatomic) id <EdibleCameraDelegate> delegate;
 
 //Used if you'd like your pictures cropped to squareMode - defaults to NO (beta)
 @property BOOL isCropMode;
