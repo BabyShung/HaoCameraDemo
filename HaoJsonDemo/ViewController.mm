@@ -19,8 +19,6 @@
 @property (weak, nonatomic) UILabel *regLabel1;
 @property (weak, nonatomic) UILabel *regLabel2;
 
-@property (strong, nonatomic) Tesseract * tesseract;
-
 @property (strong, nonatomic) UILabel * tapLabel;
 
 @property (nonatomic,strong) CameraViewController *CameraVC;
@@ -46,9 +44,7 @@
     testCV = [UIImage imageWithCVMat:tempMat];
     
     
-    self.tesseract = [[Tesseract alloc] initWithLanguage:@"eng+ita"];//langague package
-    self.tesseract.delegate = self;
-    [self.tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" forKey:@"tessedit_char_whitelist"]; //limit search
+
     
     [self initControls];
 
@@ -58,14 +54,18 @@
 //tesseract processing
 -(NSString *)recognizeImageWithTesseract:(UIImage *)img
 {
+    Tesseract *tesseract = [[Tesseract alloc] initWithLanguage:@"eng+ita"];//langague package
+    tesseract.delegate = self;
+    [tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" forKey:@"tessedit_char_whitelist"]; //limit search
     
-    [self.tesseract setImage:img]; //image to check
-    [self.tesseract recognize];//processing
     
-    NSString *recognizedText = [self.tesseract recognizedText];
+    [tesseract setImage:img]; //image to check
+    [tesseract recognize];//processing
+    
+    NSString *recognizedText = [tesseract recognizedText];
     NSLog(@"Recognized: %@", recognizedText);
     
-    self.tesseract = nil; //deallocate and free all memory *****
+    tesseract = nil; //deallocate and free all memory *****
     
     return recognizedText;
 }
