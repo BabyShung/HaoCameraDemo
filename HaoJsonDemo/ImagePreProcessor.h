@@ -26,6 +26,8 @@
 
 -(UIImage *)toGrayUIImage:(cv::Mat) inputMat;
 
+-(cv::Mat)removeBackgroud:(cv::Mat)inputImage;
+
 
 //Fang
 -(cv::Mat)canny:(cv::Mat)input;

@@ -114,9 +114,8 @@
         cv::Mat tempMat= [ipp toGrayMat:image];
         
         //tempMat = [ipp threadholdControl:tempMat];//change here to change filter
-        //tempMat = [ipp erode:tempMat];
-        //tempMat = [ipp dilate:tempMat];//change here to change filter
-        
+        tempMat = [ipp removeBackgroud:tempMat];
+        //tempMat = [ipp canny:tempMat];
         image =[ipp toGrayUIImage:tempMat];
         
         
