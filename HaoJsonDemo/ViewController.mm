@@ -13,7 +13,13 @@
 
 @interface ViewController ()
 
-@property (strong, nonatomic) UIImageView * imgView;
+
+@property (weak, nonatomic) UIImageView *imageView1;
+@property (weak, nonatomic) UIImageView *imageView2;
+@property (weak, nonatomic) UILabel *regLabel1;
+@property (weak, nonatomic) UILabel *regLabel2;
+
+@property (strong, nonatomic) Tesseract * tesseract;
 
 @property (strong, nonatomic) UILabel * tapLabel;
 
@@ -39,35 +45,33 @@
     cv::Canny(tempMat, tempMat, 0.8, 0.5);
     testCV = [UIImage imageWithCVMat:tempMat];
     
+    
+    self.tesseract = [[Tesseract alloc] initWithLanguage:@"eng+ita"];//langague package
+    self.tesseract.delegate = self;
+    [self.tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" forKey:@"tessedit_char_whitelist"]; //limit search
+    
     [self initControls];
 
 }
 
 #pragma mark Tesseract
 //tesseract processing
--(void)recognizeImageWithTesseract:(UIImage *)img
+-(NSString *)recognizeImageWithTesseract:(UIImage *)img
 {
-    Tesseract* tesseract = [[Tesseract alloc] initWithLanguage:@"eng+ita"];//langague package
-    tesseract.delegate = self;
-    [tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" forKey:@"tessedit_char_whitelist"]; //limit search
-    [tesseract setImage:img]; //image to check
-    [tesseract recognize];//processing
     
-    NSString *recognizedText = [tesseract recognizedText];
+    [self.tesseract setImage:img]; //image to check
+    [self.tesseract recognize];//processing
+    
+    NSString *recognizedText = [self.tesseract recognizedText];
     NSLog(@"Recognized: %@", recognizedText);
     
-    //Threading
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Text detection" message:recognizedText delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
-        [alert show];
-        
-    });
+    self.tesseract = nil; //deallocate and free all memory *****
     
-    tesseract = nil; //deallocate and free all memory *****
+    return recognizedText;
 }
 
 - (BOOL)shouldCancelImageRecognitionForTesseract:(Tesseract*)tesseract {
-    NSLog(@"progress: %d", tesseract.progress);
+    //NSLog(@"progress: %d", tesseract.progress);
     return NO;  // return YES, if you need to interrupt tesseract before it finishes
 }
 
@@ -80,10 +84,8 @@
 #pragma mark TAP RECOGNIZER
 
 - (void) handleTap:(UITapGestureRecognizer *)tap {
-    
     CameraViewController * simpleCam = [CameraViewController new];
     simpleCam.delegate= self;
-    //simpleCam.isCropMode = YES;
     [self presentViewController:simpleCam animated:YES completion:nil];
 }
 
@@ -97,6 +99,12 @@
          simple cam finished with image
          
         ****************************/
+        
+        
+        //original image, put in top imageview and get text in label
+        [self placeImageInView:self.imageView1 withImage:image withLabel:self.regLabel1];
+        
+        
         
         
         //------------------------------------- Charlie add image pre processing
@@ -117,27 +125,13 @@
         
         
         
-        _imgView.image = image;
-        //_tapLabel.hidden = NO;
+        //precessed image, put in top imageview and get text in label
+        [self placeImageInView:self.imageView2 withImage:image withLabel:self.regLabel2];
         
-        _imgView.frame = CGRectMake(_imgView.frame.origin.x, _imgView.frame.origin.y,
-                                     image.size.width, image.size.height);
-        
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            //1.Use tesseract to recognize image
-            [self recognizeImageWithTesseract:image];
-            
-        });
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            //2.save image to album
-            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
-        });
         
     }else {// simple cam finished w/o image
-        _imgView.image = nil;
-        //_tapLabel.hidden = NO;
+        self.imageView1.image = nil;
+        self.imageView2.image = nil;
     }
     
     /*****************************
@@ -153,6 +147,28 @@
     }];
 }
 
+
+//helper for viewing
+-(void)placeImageInView:(UIImageView *)imageView withImage:(UIImage *)image withLabel:(UILabel *)label{
+    
+
+    imageView.image = image;
+    imageView.frame = CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y,
+                                       image.size.width, image.size.height);
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //1.Use tesseract to recognize image
+        label.text = [self recognizeImageWithTesseract:image];
+        
+    });
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //2.save image to album
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+    });
+}
+
+
 //View did load in SimpleCam VC
 - (void) EdibleCameraDidLoadCameraIntoView:(CameraViewController *)simpleCam {
     NSLog(@"Camera loaded ... ");
@@ -163,12 +179,6 @@
 }
 
 -(void)initControls{
-    _imgView = [UIImageView new];
-    _imgView.bounds = CGRectMake(0, 0, 320, 568);
-    _imgView.center = self.view.center;
-    _imgView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
-    _imgView.contentMode = UIViewContentModeScaleAspectFit;
-    [self.view addSubview:_imgView];
     
     _tapLabel = [UILabel new];
     _tapLabel.bounds = CGRectMake(0, 0, 200, 100);
@@ -178,9 +188,38 @@
     _tapLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
     [self.view addSubview:_tapLabel];
     
+    //add debug views
+    self.imageView1 = [self createImageViewWithRect:CGRectMake(0, 0, 320, 200)];
+    self.imageView2 = [self createImageViewWithRect:CGRectMake(0, 284, 320, 200)];
+    self.regLabel1 = [self createLabelWithRect:CGRectMake(0, 200, 320, 60)];
+    self.regLabel2 = [self createLabelWithRect:CGRectMake(0, 484, 320, 60)];
+
+    //add tap gesture
     UITapGestureRecognizer * tap = [UITapGestureRecognizer new];
     [tap addTarget:self action:@selector(handleTap:)];
     [self.view addGestureRecognizer:tap];
 }
+
+-(UIImageView *)createImageViewWithRect:(CGRect)rect{
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:rect];
+    //imageView.bounds = CGRectMake(0, 0, 320, 568);
+    //imageView.bounds = rect;
+    //imageView.center = self.view.center;
+    imageView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:imageView];
+    return imageView;
+}
+
+-(UILabel *)createLabelWithRect:(CGRect)rect{
+    UILabel *label= [[UILabel alloc]initWithFrame:rect];
+    label.text = @"";
+    //label.textAlignment = NSTextAlignmentCenter;
+    //label.center = self.view.center;
+    label.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
+    [self.view addSubview:label];
+    return label;
+}
+
 
 @end
