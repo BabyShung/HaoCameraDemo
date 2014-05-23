@@ -162,10 +162,10 @@
         
     });
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        //2.save image to album
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        //2.save image to album
+//        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+//    });
 }
 
 
