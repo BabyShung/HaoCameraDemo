@@ -182,17 +182,17 @@
     
     _tapLabel = [UILabel new];
     _tapLabel.bounds = CGRectMake(0, 0, 200, 100);
-    _tapLabel.text = @"TAP TO TAKE PHOTO";
+    _tapLabel.text = @"TAP";
     _tapLabel.textAlignment = NSTextAlignmentCenter;
     _tapLabel.center = self.view.center;
     _tapLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
     [self.view addSubview:_tapLabel];
     
     //add debug views
-    self.imageView1 = [self createImageViewWithRect:CGRectMake(0, 0, 320, 200)];
-    self.imageView2 = [self createImageViewWithRect:CGRectMake(0, 284, 320, 200)];
-    self.regLabel1 = [self createLabelWithRect:CGRectMake(0, 200, 320, 60)];
-    self.regLabel2 = [self createLabelWithRect:CGRectMake(0, 484, 320, 60)];
+    self.imageView1 = [self createImageViewWithRect:CGRectMake(0, 0, 320, 150)];
+    self.imageView2 = [self createImageViewWithRect:CGRectMake(0, 284, 320, 150)];
+    self.regLabel1 = [self createLabelWithRect:CGRectMake(0, 150, 320, 60)];
+    self.regLabel2 = [self createLabelWithRect:CGRectMake(0, 434, 320, 60)];
 
     //add tap gesture
     UITapGestureRecognizer * tap = [UITapGestureRecognizer new];
