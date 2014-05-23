@@ -109,15 +109,19 @@
         
         //------------------------------------- Charlie add image pre processing
         
-        
+       
         ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
+        
         cv::Mat tempMat= [ipp toGrayMat:image];
         
-        //tempMat = [ipp threadholdControl:tempMat];//change here to change filter
-        tempMat = [ipp removeBackgroud:tempMat];
-        //tempMat = [ipp canny:tempMat];
+        //tempMat = [ipp removeBackgroud:tempMat];//change here to change filter
+        tempMat = [ipp processImage:tempMat];//change here to change filter
+        
+        
         image =[ipp toGrayUIImage:tempMat];
         
+        
+       
         
         
         //------------------------------------- / End of pre pro

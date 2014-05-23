@@ -131,6 +131,272 @@
 //==========================================/Fang
 
 
+
+//========================================ANPR
+
+//-----
+
+- (cv::Mat)processImage:(cv::Mat)src
+{
+    cv::Mat source = src;
+    cv::Mat output = [self filterMedianSmoot:source];
+    
+    //threshold(output, output, 230, 255, CV_THRESH_OTSU+CV_THRESH_BINARY);
+    //threshold( output, output, 150, 255, CV_THRESH_BINARY );
+    //GaussianBlur(output, output, cv::Size(5, 5), 0, 0);
+    //adaptiveThreshold(output, output, 255, CV_ADAPTIVE_THRESH_MEAN_C, CV_THRESH_BINARY, 75, 10);
+    
+    /* Pre-processing */
+    
+    cv::Mat img_gray;
+    cv::cvtColor(source, img_gray, CV_BGR2GRAY);
+    blur(img_gray, img_gray, cv::Size(5,5));
+    //medianBlur(img_gray, img_gray, 9);
+    cv::Mat img_sobel;
+    cv::Sobel(img_gray, img_sobel, CV_8U, 1, 0, 3, 1, 0, cv::BORDER_DEFAULT);
+    cv::Mat img_threshold;
+    threshold(img_gray, img_threshold, 0, 255, CV_THRESH_OTSU+CV_THRESH_BINARY);
+    cv::Mat element = getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3) );
+    morphologyEx(img_threshold, img_threshold, CV_MOP_CLOSE, element);
+    
+    /* Search for contours */
+    
+    std::vector<std::vector<cv::Point> > contours;
+    cv::Mat contourOutput = img_threshold.clone();
+    cv::findContours( contourOutput, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE );
+    
+    std::vector<cv::Vec4i> hierarchy;
+    
+    /* Get the largest contour (Possible license plate) */
+    
+    int largestArea = -1;
+    std::vector<std::vector<cv::Point> > largestContour;
+    
+    std::vector<std::vector<cv::Point> > polyContours( contours.size() );
+    
+    //std::vector<cv::Point> approx;
+    for( int i = 0; i < contours.size(); i++ ){
+        approxPolyDP( cv::Mat(contours[i]), polyContours[i], arcLength(cv::Mat(contours[i]), true)*0.02, true );
+        
+        if (polyContours[i].size() == 4 && fabs(contourArea(cv::Mat(polyContours[i]))) > 1000 && isContourConvex(cv::Mat(polyContours[i]))){
+            double maxCosine = 0;
+            
+            for (int j = 2; j < 5; j++){
+                double cosine = fabs(angle(polyContours[i][j%4], polyContours[i][j-2], polyContours[i][j-1]));
+                
+                maxCosine = MAX(maxCosine, cosine);
+            }
+            
+            if (maxCosine < 0.3)
+                NSLog(@"Square detected");
+        }
+        
+    }
+    
+    for( int i = 0; i< polyContours.size(); i++ ){
+        
+        int area = fabs(contourArea(polyContours[i],false));
+        if(area > largestArea){
+            largestArea = area;
+            largestContour.clear();
+            largestContour.push_back(polyContours[i]);
+        }
+        
+    }
+    
+    // Contour drawing debug
+    cv::Mat drawing = cv::Mat::zeros( contourOutput.size(), CV_8UC3 );
+    if(largestContour.size()>=1){
+        
+        cv::drawContours(source, largestContour, -1, cv::Scalar(0, 255, 0), 0);
+        
+    }
+    
+    /* Get RotatedRect for the largest contour */
+    
+    std::vector<cv::RotatedRect> minRect( largestContour.size() );
+    for( int i = 0; i < largestContour.size(); i++ )
+        minRect[i] = minAreaRect( cv::Mat(largestContour[i]) );
+    
+    cv::Mat drawing2 = cv::Mat::zeros( img_threshold.size(), CV_8UC3 );
+    for( int i = 0; i< largestContour.size(); i++ ){
+        
+        cv::Point2f rect_points[4]; minRect[i].points( rect_points );
+        for( int j = 0; j < 4; j++ ){
+            line( drawing2, rect_points[j], rect_points[(j+1)%4], cv::Scalar(0,255,0), 1, 8 );
+            
+        }
+        
+    }
+    
+    //Get Region Of Interest ROI
+    
+    cv::RotatedRect box = minAreaRect( cv::Mat(largestContour[0]));
+    cv::Rect box2 = cv::RotatedRect(box.center, box.size, box.angle).boundingRect();
+    
+    box2.x += box2.width * 0.028;
+    box2.width -= box2.width * 0.05;
+    box2.y += box2.height * 0.25;
+    box2.height -= box2.height * 0.55;
+    
+    cv::Mat cvMat = img_threshold(box2).clone();
+    
+    //UIImage *filtered=[UIImage imageWithCVMat:cvMat];
+    return cvMat;
+}
+
+
+
+double angle( cv::Point pt1, cv::Point pt2, cv::Point pt0 )
+{
+    double dx1 = pt1.x - pt0.x;
+    double dy1 = pt1.y - pt0.y;
+    double dx2 = pt2.x - pt0.x;
+    double dy2 = pt2.y - pt0.y;
+    return (dx1 * dx2 + dy1 * dy2)/sqrt((dx1 * dx1 + dy1 * dy1) * (dx2 * dx2 + dy2 * dy2) + 1e-10);
+}
+
+//-----
+
+
+
+
+-(cv::Mat)filterMedianSmoot:(cv::Mat)source{
+
+    cv::Mat results;
+    cv::medianBlur(source, results, 3);
+    return results;
+
+}
+
+-(cv::Mat) filterGaussian:(cv::Mat)source{
+    
+    cv::Mat results;
+    cv::GaussianBlur(source, results, cvSize(3, 3), 0);
+    return results;
+}
+
+
+-(cv::Mat)equalize:(cv::Mat)source{
+
+    cv::Mat results;
+    cv::equalizeHist(source, results);
+    return results;
+}
+
+
+-(cv::Mat) binarize:(cv::Mat)source{
+
+    cv::Mat results;
+    int blockDim = MIN( source.size().height / 4, source.size().width / 4);
+    if(blockDim % 2 != 1) blockDim++;
+    cv::adaptiveThreshold(source, results, 255, cv::ADAPTIVE_THRESH_MEAN_C, cv::THRESH_BINARY, blockDim, 0);
+    return results;
+
+}
+
+
+
+
+-(int) correctRotation: (cv::Mat) image :(cv::Mat) output :(float) height{
+
+    float prop = 0;
+	prop = height / image.cols;
+	int cols = image.cols * prop;
+	int rows = image.rows * prop;
+    
+	std::vector<cv::Vec4i> lines;
+	cv::Mat resized(cols, rows, CV_8UC1, 0);
+	cv::Mat dst(cols, rows, CV_8UC1, 255);
+	cv::Mat original = image.clone();
+	cv::Mat kernel(1, 2, CV_8UC1, 0);
+	cv::Mat kernel2(3, 3, CV_8UC1, 0);
+	
+	cv::Size si(0, 0);
+    
+	cv::threshold(image, image, 100, 255, CV_THRESH_BINARY);
+	cv::morphologyEx(image, image, cv::MORPH_OPEN, kernel2, cv::Point(1, 1), 15);
+	cv::Canny(image, image, 0, 100);
+	cv::HoughLinesP(image, lines, 1, CV_PI / 180, 80, 30, 10 );
+    
+	double ang = 0;
+    
+	cuadrante c[4];
+	for (int i = 0; i < 4; i++){
+		c[i].media = 0;
+		c[i].contador = 0;
+	}
+	for( size_t i = 0; i < lines.size(); i++ ){
+		cv::Vec4i l = lines[i];
+		cv::line( dst, cv::Point(l[0], l[1]), cv::Point(l[2], l[3]), cv::Scalar(0, 0, 0), 3, CV_AA);
+		ang = atan2(l[1] - l[3], l[0] - l[2]);
+		if (ang >= 0 && ang <= CV_PI / 3){
+			c[0].media += ang;
+			c[0].contador++;
+		} else if (ang >(2 * CV_PI) / 3 && ang <= CV_PI){
+			c[1].media += ang;
+			c[1].contador++;
+		} else if (ang > -1 * CV_PI && ang < -2 * CV_PI / 3){
+			c[2].media += ang;
+			c[2].contador++;
+		} else if (ang > CV_PI / 3 && ang < 0){
+			c[3].media += ang;
+			c[3].contador++;
+		}
+	}
+	int biggest = 0;
+	int bi = 0;
+	double rot = 0;
+	double aux;
+    
+	for (int i =0; i < 4;i++)
+		if (c[i].contador > bi){
+			biggest = i;
+			bi = c[i].contador;
+		}
+    
+	aux = (180 * (c[biggest].media / c[biggest].contador) / CV_PI);
+	aux = (aux < 0) ? -1 * aux : aux;
+	if (biggest == 1 || biggest == 2){
+        rot = 180 - aux;
+	} else {
+		rot = aux;
+	}
+	
+	if (!(biggest == 0 || biggest == 2)){
+		rot = rot * -1;
+	}
+    
+	if (rot<-3 || rot > 3){
+		image = [self rotateImage: original :rot];
+	} else {
+		image = original;
+	}
+	output = image.clone();
+	return 0;
+}
+
+
+-(cv::Mat) rotateImage:(cv::Mat) source :(double) angle{
+
+    cv::Point2f src_center(source.cols / 2.0F, source.rows / 2.0F);
+    cv::Mat rot_mat = cv::getRotationMatrix2D(src_center, angle, 1.0);
+    cv::Mat dst;
+    cv::warpAffine(source, dst, rot_mat, source.size());
+    return dst;
+
+}
+
+
+
+
+
+//========================================/ANPR
+
+
+//========================================Wiener filter
+
+
 -(UIImage *)deBlur:(UIImage *)inputimage{
     
     //use Wiener filter

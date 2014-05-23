@@ -8,6 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+
+typedef struct{
+    int contador;
+    double media;
+} cuadrante;
+
+
+
+
 @interface ImagePreProcessor : UIImage
 
 -(cv::Mat)toGrayMat:(UIImage *) inputImage;
@@ -41,5 +50,20 @@
 -(cv::Mat)dilate:(cv::Mat)input;
 
 -(cv::Mat)laplacian2:(cv::Mat)input;
+
+
+
+// Referrencing ANPR Image Processor.cpp
+
+
+-(cv::Mat)filterMedianSmoot:(cv::Mat)source;
+-(cv::Mat) filterGaussian:(cv::Mat)source;
+-(cv::Mat)equalize:(cv::Mat)source;
+-(cv::Mat) binarize:(cv::Mat)source;
+-(int) correctRotation: (cv::Mat) image :(cv::Mat) output :(float) height;
+-(cv::Mat) rotateImage:(cv::Mat) source :(double) angle;
+
+
+- (cv::Mat)processImage:(cv::Mat)src;
 
 @end
