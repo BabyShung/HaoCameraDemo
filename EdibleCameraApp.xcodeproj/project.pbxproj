@@ -7,9 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3AA1BD8A192FA1B8002729BC /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA1BD89192FA1B8002729BC /* opencv2.framework */; };
 		3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */; };
 		3AA1BD90192FA982002729BC /* ImagePreProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1BD8F192FA982002729BC /* ImagePreProcessor.mm */; };
+		ACA171E8192FC88A005E7D51 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACA171E7192FC88A005E7D51 /* opencv2.framework */; };
+		ACA171EC192FCDBD005E7D51 /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ACA171EB192FCDBD005E7D51 /* libstdc++.6.0.9.dylib */; };
+		ACA171F0192FCF46005E7D51 /* TDTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA171EF192FCF46005E7D51 /* TDTestViewController.m */; };
+		ACA171F3192FCF64005E7D51 /* TextDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = ACA171F2192FCF64005E7D51 /* TextDetector.mm */; };
+		ACA171F5192FD0A0005E7D51 /* STOP_sign.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ACA171F4192FD0A0005E7D51 /* STOP_sign.jpg */; };
 		B82353AE192BE2D800D6BCAC /* Attribution_PixelLove.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353A4192BE2D800D6BCAC /* Attribution_PixelLove.png */; };
 		B82353AF192BE2D800D6BCAC /* landscape_Camera.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353A5192BE2D800D6BCAC /* landscape_Camera.png */; };
 		B82353B0192BE2D800D6BCAC /* landscape_Preview.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353A6192BE2D800D6BCAC /* landscape_Preview.png */; };
@@ -26,7 +30,6 @@
 		B82353C0192BE2F400D6BCAC /* Previous.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353BC192BE2F400D6BCAC /* Previous.png */; };
 		B82353C3192BE2FB00D6BCAC /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B82353C2192BE2FB00D6BCAC /* CameraViewController.m */; };
 		B82353EC192CFB2800D6BCAC /* TesseractOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B82353EB192CFB2800D6BCAC /* TesseractOCR.framework */; };
-		B82353EE192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B82353ED192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib */; };
 		B82353F0192CFC4C00D6BCAC /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = B82353EF192CFC4C00D6BCAC /* tessdata */; };
 		B82353F3192CFC9600D6BCAC /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B82353F2192CFC9600D6BCAC /* ViewController.mm */; };
 		B8235404192D474D00D6BCAC /* ShadeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B82353FF192D474D00D6BCAC /* ShadeView.m */; };
@@ -58,11 +61,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3AA1BD89192FA1B8002729BC /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		3AA1BD8B192FA282002729BC /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
 		3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
 		3AA1BD8E192FA982002729BC /* ImagePreProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreProcessor.h; sourceTree = "<group>"; };
 		3AA1BD8F192FA982002729BC /* ImagePreProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImagePreProcessor.mm; sourceTree = "<group>"; };
+		ACA171E7192FC88A005E7D51 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		ACA171EB192FCDBD005E7D51 /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
+		ACA171EE192FCF46005E7D51 /* TDTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDTestViewController.h; sourceTree = "<group>"; };
+		ACA171EF192FCF46005E7D51 /* TDTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDTestViewController.m; sourceTree = "<group>"; };
+		ACA171F1192FCF64005E7D51 /* TextDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDetector.h; sourceTree = "<group>"; };
+		ACA171F2192FCF64005E7D51 /* TextDetector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextDetector.mm; sourceTree = "<group>"; };
+		ACA171F4192FD0A0005E7D51 /* STOP_sign.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = STOP_sign.jpg; sourceTree = "<group>"; };
 		B82353A4192BE2D800D6BCAC /* Attribution_PixelLove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Attribution_PixelLove.png; sourceTree = "<group>"; };
 		B82353A5192BE2D800D6BCAC /* landscape_Camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = landscape_Camera.png; sourceTree = "<group>"; };
 		B82353A6192BE2D800D6BCAC /* landscape_Preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = landscape_Preview.png; sourceTree = "<group>"; };
@@ -80,7 +89,6 @@
 		B82353C1192BE2FB00D6BCAC /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
 		B82353C2192BE2FB00D6BCAC /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
 		B82353EB192CFB2800D6BCAC /* TesseractOCR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TesseractOCR.framework; sourceTree = "<group>"; };
-		B82353ED192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
 		B82353EF192CFC4C00D6BCAC /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		B82353F1192CFC9600D6BCAC /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		B82353F2192CFC9600D6BCAC /* ViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
@@ -114,8 +122,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AA1BD8A192FA1B8002729BC /* opencv2.framework in Frameworks */,
-				B82353EE192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib in Frameworks */,
+				ACA171EC192FCDBD005E7D51 /* libstdc++.6.0.9.dylib in Frameworks */,
+				ACA171E8192FC88A005E7D51 /* opencv2.framework in Frameworks */,
 				B82353EC192CFB2800D6BCAC /* TesseractOCR.framework in Frameworks */,
 				B8FA463F18F9E954007DA680 /* CoreGraphics.framework in Frameworks */,
 				B8FA464118F9E954007DA680 /* UIKit.framework in Frameworks */,
@@ -136,9 +144,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		ACA171ED192FCF1F005E7D51 /* TextDetector */ = {
+			isa = PBXGroup;
+			children = (
+				ACA171EE192FCF46005E7D51 /* TDTestViewController.h */,
+				ACA171EF192FCF46005E7D51 /* TDTestViewController.m */,
+				ACA171F1192FCF64005E7D51 /* TextDetector.h */,
+				ACA171F2192FCF64005E7D51 /* TextDetector.mm */,
+			);
+			name = TextDetector;
+			sourceTree = "<group>";
+		};
 		B82353B8192BE2DF00D6BCAC /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				ACA171F4192FD0A0005E7D51 /* STOP_sign.jpg */,
 				B82353A4192BE2D800D6BCAC /* Attribution_PixelLove.png */,
 				B82353A5192BE2D800D6BCAC /* landscape_Camera.png */,
 				B82353A6192BE2D800D6BCAC /* landscape_Preview.png */,
@@ -199,8 +219,8 @@
 		B8FA463B18F9E954007DA680 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3AA1BD89192FA1B8002729BC /* opencv2.framework */,
-				B82353ED192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib */,
+				ACA171EB192FCDBD005E7D51 /* libstdc++.6.0.9.dylib */,
+				ACA171E7192FC88A005E7D51 /* opencv2.framework */,
 				B82353EB192CFB2800D6BCAC /* TesseractOCR.framework */,
 				B8FA463C18F9E954007DA680 /* Foundation.framework */,
 				B8FA463E18F9E954007DA680 /* CoreGraphics.framework */,
@@ -213,6 +233,7 @@
 		B8FA464218F9E954007DA680 /* HaoJsonDemo */ = {
 			isa = PBXGroup;
 			children = (
+				ACA171ED192FCF1F005E7D51 /* TextDetector */,
 				B82353EF192CFC4C00D6BCAC /* tessdata */,
 				B82353FD192D473F00D6BCAC /* imageCropView */,
 				B82353C1192BE2FB00D6BCAC /* CameraViewController.h */,
@@ -351,6 +372,7 @@
 				B82353AF192BE2D800D6BCAC /* landscape_Camera.png in Resources */,
 				B82353BD192BE2F400D6BCAC /* CameraRotate.png in Resources */,
 				B82353B6192BE2D800D6BCAC /* shutter@2x.png in Resources */,
+				ACA171F5192FD0A0005E7D51 /* STOP_sign.jpg in Resources */,
 				B8FA465518F9E954007DA680 /* Images.xcassets in Resources */,
 				B82353BF192BE2F400D6BCAC /* Lightening.png in Resources */,
 				B82353F0192CFC4C00D6BCAC /* tessdata in Resources */,
@@ -383,9 +405,11 @@
 				B8235406192D474D00D6BCAC /* ImageCropView.m in Sources */,
 				B82353C3192BE2FB00D6BCAC /* CameraViewController.m in Sources */,
 				B8FA464D18F9E954007DA680 /* AppDelegate.m in Sources */,
+				ACA171F3192FCF64005E7D51 /* TextDetector.mm in Sources */,
 				B82353F3192CFC9600D6BCAC /* ViewController.mm in Sources */,
 				B8FA464918F9E954007DA680 /* main.m in Sources */,
 				B8235404192D474D00D6BCAC /* ShadeView.m in Sources */,
+				ACA171F0192FCF46005E7D51 /* TDTestViewController.m in Sources */,
 				B8235405192D474D00D6BCAC /* ControlPointView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

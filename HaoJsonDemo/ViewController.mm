@@ -29,14 +29,14 @@
 {
     [super viewDidLoad];
     
-    UIImage *testCV = [UIImage imageNamed:@"placeit.png"];
+    UIImage *testCV = [UIImage imageNamed:@"portrait_Preview.png"];
     
     cv:: Mat tempMat = [testCV CVMat];
     cv::Size size;
     size.height = 3;
     size.width = 3;
     
-    cv::Canny(tempMat, tempMat, 0.8, 0.5);
+    //cv::Canny(tempMat, tempMat, 0.8, 0.5);
     testCV = [UIImage imageWithCVMat:tempMat];
     
     [self initControls];
@@ -102,14 +102,14 @@
         //------------------------------------- Charlie add image pre processing
         
         
-        ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
-        cv::Mat tempMat= [ipp toGrayMat:image];
+        //ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
+        //cv::Mat tempMat= [ipp toGrayMat:image];
         
         //tempMat = [ipp threadholdControl:tempMat];//change here to change filter
         //tempMat = [ipp erode:tempMat];
         //tempMat = [ipp dilate:tempMat];//change here to change filter
         
-        image =[ipp toGrayUIImage:tempMat];
+        //image =[ipp toGrayUIImage:tempMat];
         
         
         
