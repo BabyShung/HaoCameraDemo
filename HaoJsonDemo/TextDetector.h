@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface TextDetector : NSObject
-
++(UIImage *)detectTextRegions:(UIImage *)orgImg;
 @end

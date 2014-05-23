@@ -7,6 +7,7 @@
 //
 
 #import "TDTestViewController.h"
+#import "TextDetector.h"
 
 @interface TDTestViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *originView;
@@ -37,6 +38,9 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (IBAction)DectBtnPressed:(id)sender {
+    [TextDetector detectTextRegions:self.originView.image];
 }
 
 /*

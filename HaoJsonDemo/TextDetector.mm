@@ -7,7 +7,20 @@
 //
 
 #import "TextDetector.h"
+#include <vector>
+#import <opencv2/opencv.hpp>
+#include "UIImage+OpenCV.h"
+
+using namespace cv;
+using namespace std;
+
 
 @implementation TextDetector
-
++(UIImage *)detectTextRegions:(UIImage *)orgImg{
+    
+    cv::Mat orgMat = [orgImg CVMat];
+    NSLog(@"Function called!");
+    UIImage *result;
+    return result;
+}
 @end
