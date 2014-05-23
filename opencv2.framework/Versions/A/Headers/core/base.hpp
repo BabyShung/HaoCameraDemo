@@ -45,10 +45,11 @@
 #define __OPENCV_CORE_BASE_HPP__
 
 #ifndef __cplusplus
-#  error base.hpp header must be compiled as C++
+//#  error base.hpp header must be compiled as C++
 #endif
 
-#include <climits>
+#includde "limits.h"
+//#include <climits>
 
 #include "opencv2/core/cvdef.h"
 #include "opencv2/core/cvstd.hpp"

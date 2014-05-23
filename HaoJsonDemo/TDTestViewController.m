@@ -25,6 +25,9 @@
     }
     return self;
 }
+- (IBAction)detectBtnPressed:(id)sender {
+    [TextDetector DetectTextRegions:self.originView.image];
+}
 
 - (void)viewDidLoad
 {
