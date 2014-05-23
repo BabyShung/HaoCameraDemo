@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3AA1BD8A192FA1B8002729BC /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA1BD89192FA1B8002729BC /* opencv2.framework */; };
+		3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */; };
+		3AA1BD90192FA982002729BC /* ImagePreProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1BD8F192FA982002729BC /* ImagePreProcessor.mm */; };
 		B82353AE192BE2D800D6BCAC /* Attribution_PixelLove.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353A4192BE2D800D6BCAC /* Attribution_PixelLove.png */; };
 		B82353AF192BE2D800D6BCAC /* landscape_Camera.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353A5192BE2D800D6BCAC /* landscape_Camera.png */; };
 		B82353B0192BE2D800D6BCAC /* landscape_Preview.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353A6192BE2D800D6BCAC /* landscape_Preview.png */; };
@@ -25,7 +28,7 @@
 		B82353EC192CFB2800D6BCAC /* TesseractOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B82353EB192CFB2800D6BCAC /* TesseractOCR.framework */; };
 		B82353EE192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B82353ED192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib */; };
 		B82353F0192CFC4C00D6BCAC /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = B82353EF192CFC4C00D6BCAC /* tessdata */; };
-		B82353F3192CFC9600D6BCAC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B82353F2192CFC9600D6BCAC /* ViewController.m */; };
+		B82353F3192CFC9600D6BCAC /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B82353F2192CFC9600D6BCAC /* ViewController.mm */; };
 		B8235404192D474D00D6BCAC /* ShadeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B82353FF192D474D00D6BCAC /* ShadeView.m */; };
 		B8235405192D474D00D6BCAC /* ControlPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8235401192D474D00D6BCAC /* ControlPointView.m */; };
 		B8235406192D474D00D6BCAC /* ImageCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8235403192D474D00D6BCAC /* ImageCropView.m */; };
@@ -55,6 +58,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3AA1BD89192FA1B8002729BC /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		3AA1BD8B192FA282002729BC /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
+		3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
+		3AA1BD8E192FA982002729BC /* ImagePreProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreProcessor.h; sourceTree = "<group>"; };
+		3AA1BD8F192FA982002729BC /* ImagePreProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImagePreProcessor.mm; sourceTree = "<group>"; };
 		B82353A4192BE2D800D6BCAC /* Attribution_PixelLove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Attribution_PixelLove.png; sourceTree = "<group>"; };
 		B82353A5192BE2D800D6BCAC /* landscape_Camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = landscape_Camera.png; sourceTree = "<group>"; };
 		B82353A6192BE2D800D6BCAC /* landscape_Preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = landscape_Preview.png; sourceTree = "<group>"; };
@@ -75,7 +83,7 @@
 		B82353ED192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
 		B82353EF192CFC4C00D6BCAC /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		B82353F1192CFC9600D6BCAC /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		B82353F2192CFC9600D6BCAC /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		B82353F2192CFC9600D6BCAC /* ViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		B82353FE192D474D00D6BCAC /* ShadeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadeView.h; sourceTree = "<group>"; };
 		B82353FF192D474D00D6BCAC /* ShadeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadeView.m; sourceTree = "<group>"; };
 		B8235400192D474D00D6BCAC /* ControlPointView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlPointView.h; sourceTree = "<group>"; };
@@ -106,6 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AA1BD8A192FA1B8002729BC /* opencv2.framework in Frameworks */,
 				B82353EE192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib in Frameworks */,
 				B82353EC192CFB2800D6BCAC /* TesseractOCR.framework in Frameworks */,
 				B8FA463F18F9E954007DA680 /* CoreGraphics.framework in Frameworks */,
@@ -190,6 +199,7 @@
 		B8FA463B18F9E954007DA680 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3AA1BD89192FA1B8002729BC /* opencv2.framework */,
 				B82353ED192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib */,
 				B82353EB192CFB2800D6BCAC /* TesseractOCR.framework */,
 				B8FA463C18F9E954007DA680 /* Foundation.framework */,
@@ -209,7 +219,11 @@
 				B82353C2192BE2FB00D6BCAC /* CameraViewController.m */,
 				B8FA464E18F9E954007DA680 /* Main.storyboard */,
 				B82353F1192CFC9600D6BCAC /* ViewController.h */,
-				B82353F2192CFC9600D6BCAC /* ViewController.m */,
+				B82353F2192CFC9600D6BCAC /* ViewController.mm */,
+				3AA1BD8E192FA982002729BC /* ImagePreProcessor.h */,
+				3AA1BD8F192FA982002729BC /* ImagePreProcessor.mm */,
+				3AA1BD8B192FA282002729BC /* UIImage+OpenCV.h */,
+				3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */,
 				B8FA465418F9E954007DA680 /* Images.xcassets */,
 				B82353C4192BE46C00D6BCAC /* ICON */,
 				B82353B8192BE2DF00D6BCAC /* Image */,
@@ -364,10 +378,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AA1BD90192FA982002729BC /* ImagePreProcessor.mm in Sources */,
+				3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */,
 				B8235406192D474D00D6BCAC /* ImageCropView.m in Sources */,
 				B82353C3192BE2FB00D6BCAC /* CameraViewController.m in Sources */,
 				B8FA464D18F9E954007DA680 /* AppDelegate.m in Sources */,
-				B82353F3192CFC9600D6BCAC /* ViewController.m in Sources */,
+				B82353F3192CFC9600D6BCAC /* ViewController.mm in Sources */,
 				B8FA464918F9E954007DA680 /* main.m in Sources */,
 				B8235404192D474D00D6BCAC /* ShadeView.m in Sources */,
 				B8235405192D474D00D6BCAC /* ControlPointView.m in Sources */,
@@ -505,7 +521,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HaoJsonDemo/EdibleCameraApp-Prefix.pch";
 				INFOPLIST_FILE = "HaoJsonDemo/EdibleCameraApp-Info.plist";
-				OTHER_LDFLAGS = "-ObjC";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				OTHER_LDFLAGS = "";
+				"OTHER_LDFLAGS[arch=*]" = "";
 				PRODUCT_NAME = EdibleCameraApp;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -527,7 +545,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HaoJsonDemo/EdibleCameraApp-Prefix.pch";
 				INFOPLIST_FILE = "HaoJsonDemo/EdibleCameraApp-Info.plist";
-				OTHER_LDFLAGS = "-ObjC";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = EdibleCameraApp;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
