@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TextDetector.h"
 
 @interface TDTestViewController : UIViewController
 

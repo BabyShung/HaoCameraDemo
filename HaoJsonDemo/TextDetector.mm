@@ -8,19 +8,6 @@
 
 #import "TextDetector.h"
 
-using namespace cv;
-using namespace std;
-
 @implementation TextDetector
-+(UIImage *) DetectTextRegions:(UIImage *)originImage{
-    
-    UIImage *resultImage;
-    
-    Mat originMat = [originImage CVMat];
-    vector<int> intvec;
-    intvec.push_back(1);
-    NSLog(@"no = %lu",intvec.size()/sizeof(int));
-    
-    return resultImage;
-}
+
 @end
