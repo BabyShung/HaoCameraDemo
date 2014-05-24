@@ -24,14 +24,20 @@
 		B82353BE192BE2F400D6BCAC /* Download.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353BA192BE2F400D6BCAC /* Download.png */; };
 		B82353BF192BE2F400D6BCAC /* Lightening.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353BB192BE2F400D6BCAC /* Lightening.png */; };
 		B82353C0192BE2F400D6BCAC /* Previous.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353BC192BE2F400D6BCAC /* Previous.png */; };
-		B82353C3192BE2FB00D6BCAC /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B82353C2192BE2FB00D6BCAC /* CameraViewController.m */; };
 		B82353EC192CFB2800D6BCAC /* TesseractOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B82353EB192CFB2800D6BCAC /* TesseractOCR.framework */; };
 		B82353EE192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B82353ED192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib */; };
 		B82353F0192CFC4C00D6BCAC /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = B82353EF192CFC4C00D6BCAC /* tessdata */; };
-		B82353F3192CFC9600D6BCAC /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B82353F2192CFC9600D6BCAC /* ViewController.mm */; };
 		B8235404192D474D00D6BCAC /* ShadeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B82353FF192D474D00D6BCAC /* ShadeView.m */; };
 		B8235405192D474D00D6BCAC /* ControlPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8235401192D474D00D6BCAC /* ControlPointView.m */; };
 		B8235406192D474D00D6BCAC /* ImageCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8235403192D474D00D6BCAC /* ImageCropView.m */; };
+		B8F29C5519311A5C008979A7 /* FrameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C4A19311A5C008979A7 /* FrameViewController.m */; };
+		B8F29C5619311A5C008979A7 /* EP_firstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C4C19311A5C008979A7 /* EP_firstViewController.m */; };
+		B8F29C5719311A5C008979A7 /* EP_secondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C4E19311A5C008979A7 /* EP_secondViewController.m */; };
+		B8F29C5819311A5C008979A7 /* EP_thirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C5019311A5C008979A7 /* EP_thirdViewController.m */; };
+		B8F29C5919311A5C008979A7 /* EP_forthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C5219311A5C008979A7 /* EP_forthViewController.m */; };
+		B8F29C5A19311A5C008979A7 /* EParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C5419311A5C008979A7 /* EParentViewController.m */; };
+		B8F29C6019311E77008979A7 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C5F19311E77008979A7 /* CameraViewController.m */; };
+		B8F29C6319314357008979A7 /* DebugViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C6219314357008979A7 /* DebugViewController.mm */; };
 		B8FA463D18F9E954007DA680 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8FA463C18F9E954007DA680 /* Foundation.framework */; };
 		B8FA463F18F9E954007DA680 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8FA463E18F9E954007DA680 /* CoreGraphics.framework */; };
 		B8FA464118F9E954007DA680 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8FA464018F9E954007DA680 /* UIKit.framework */; };
@@ -77,19 +83,31 @@
 		B82353BA192BE2F400D6BCAC /* Download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Download.png; sourceTree = "<group>"; };
 		B82353BB192BE2F400D6BCAC /* Lightening.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Lightening.png; sourceTree = "<group>"; };
 		B82353BC192BE2F400D6BCAC /* Previous.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Previous.png; sourceTree = "<group>"; };
-		B82353C1192BE2FB00D6BCAC /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
-		B82353C2192BE2FB00D6BCAC /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
 		B82353EB192CFB2800D6BCAC /* TesseractOCR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TesseractOCR.framework; sourceTree = "<group>"; };
 		B82353ED192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
 		B82353EF192CFC4C00D6BCAC /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
-		B82353F1192CFC9600D6BCAC /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		B82353F2192CFC9600D6BCAC /* ViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		B82353FE192D474D00D6BCAC /* ShadeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadeView.h; sourceTree = "<group>"; };
 		B82353FF192D474D00D6BCAC /* ShadeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadeView.m; sourceTree = "<group>"; };
 		B8235400192D474D00D6BCAC /* ControlPointView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlPointView.h; sourceTree = "<group>"; };
 		B8235401192D474D00D6BCAC /* ControlPointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlPointView.m; sourceTree = "<group>"; };
 		B8235402192D474D00D6BCAC /* ImageCropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCropView.h; sourceTree = "<group>"; };
 		B8235403192D474D00D6BCAC /* ImageCropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCropView.m; sourceTree = "<group>"; };
+		B8F29C4919311A5C008979A7 /* FrameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameViewController.h; sourceTree = "<group>"; };
+		B8F29C4A19311A5C008979A7 /* FrameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrameViewController.m; sourceTree = "<group>"; };
+		B8F29C4B19311A5C008979A7 /* EP_firstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EP_firstViewController.h; sourceTree = "<group>"; };
+		B8F29C4C19311A5C008979A7 /* EP_firstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EP_firstViewController.m; sourceTree = "<group>"; };
+		B8F29C4D19311A5C008979A7 /* EP_secondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EP_secondViewController.h; sourceTree = "<group>"; };
+		B8F29C4E19311A5C008979A7 /* EP_secondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EP_secondViewController.m; sourceTree = "<group>"; };
+		B8F29C4F19311A5C008979A7 /* EP_thirdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EP_thirdViewController.h; sourceTree = "<group>"; };
+		B8F29C5019311A5C008979A7 /* EP_thirdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EP_thirdViewController.m; sourceTree = "<group>"; };
+		B8F29C5119311A5C008979A7 /* EP_forthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EP_forthViewController.h; sourceTree = "<group>"; };
+		B8F29C5219311A5C008979A7 /* EP_forthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EP_forthViewController.m; sourceTree = "<group>"; };
+		B8F29C5319311A5C008979A7 /* EParentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EParentViewController.h; sourceTree = "<group>"; };
+		B8F29C5419311A5C008979A7 /* EParentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EParentViewController.m; sourceTree = "<group>"; };
+		B8F29C5E19311E77008979A7 /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraViewController.h; path = ../CameraViewController.h; sourceTree = "<group>"; };
+		B8F29C5F19311E77008979A7 /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CameraViewController.m; path = ../CameraViewController.m; sourceTree = "<group>"; };
+		B8F29C6119314357008979A7 /* DebugViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugViewController.h; sourceTree = "<group>"; };
+		B8F29C6219314357008979A7 /* DebugViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DebugViewController.mm; sourceTree = "<group>"; };
 		B8FA463918F9E954007DA680 /* EdibleCameraApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EdibleCameraApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8FA463C18F9E954007DA680 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B8FA463E18F9E954007DA680 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -188,6 +206,25 @@
 			name = ImageProcessing;
 			sourceTree = "<group>";
 		};
+		B8F29C4819311A4F008979A7 /* Frame */ = {
+			isa = PBXGroup;
+			children = (
+				B8F29C4919311A5C008979A7 /* FrameViewController.h */,
+				B8F29C4A19311A5C008979A7 /* FrameViewController.m */,
+				B8F29C4B19311A5C008979A7 /* EP_firstViewController.h */,
+				B8F29C4C19311A5C008979A7 /* EP_firstViewController.m */,
+				B8F29C4D19311A5C008979A7 /* EP_secondViewController.h */,
+				B8F29C4E19311A5C008979A7 /* EP_secondViewController.m */,
+				B8F29C4F19311A5C008979A7 /* EP_thirdViewController.h */,
+				B8F29C5019311A5C008979A7 /* EP_thirdViewController.m */,
+				B8F29C5119311A5C008979A7 /* EP_forthViewController.h */,
+				B8F29C5219311A5C008979A7 /* EP_forthViewController.m */,
+				B8F29C5319311A5C008979A7 /* EParentViewController.h */,
+				B8F29C5419311A5C008979A7 /* EParentViewController.m */,
+			);
+			name = Frame;
+			sourceTree = "<group>";
+		};
 		B8FA463018F9E954007DA680 = {
 			isa = PBXGroup;
 			children = (
@@ -225,13 +262,14 @@
 			isa = PBXGroup;
 			children = (
 				B82353EF192CFC4C00D6BCAC /* tessdata */,
+				B8F29C4819311A4F008979A7 /* Frame */,
 				B8DABCFA192FC2A100FF545E /* ImageProcessing */,
 				B82353FD192D473F00D6BCAC /* imageCropView */,
-				B82353C1192BE2FB00D6BCAC /* CameraViewController.h */,
-				B82353C2192BE2FB00D6BCAC /* CameraViewController.m */,
+				B8F29C5E19311E77008979A7 /* CameraViewController.h */,
+				B8F29C5F19311E77008979A7 /* CameraViewController.m */,
 				B8FA464E18F9E954007DA680 /* Main.storyboard */,
-				B82353F1192CFC9600D6BCAC /* ViewController.h */,
-				B82353F2192CFC9600D6BCAC /* ViewController.mm */,
+				B8F29C6119314357008979A7 /* DebugViewController.h */,
+				B8F29C6219314357008979A7 /* DebugViewController.mm */,
 				B8FA465418F9E954007DA680 /* Images.xcassets */,
 				B82353C4192BE46C00D6BCAC /* ICON */,
 				B82353B8192BE2DF00D6BCAC /* Image */,
@@ -386,12 +424,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8F29C5519311A5C008979A7 /* FrameViewController.m in Sources */,
 				3AA1BD90192FA982002729BC /* ImagePreProcessor.mm in Sources */,
 				3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */,
+				B8F29C5719311A5C008979A7 /* EP_secondViewController.m in Sources */,
 				B8235406192D474D00D6BCAC /* ImageCropView.m in Sources */,
-				B82353C3192BE2FB00D6BCAC /* CameraViewController.m in Sources */,
+				B8F29C6019311E77008979A7 /* CameraViewController.m in Sources */,
+				B8F29C6319314357008979A7 /* DebugViewController.mm in Sources */,
+				B8F29C5A19311A5C008979A7 /* EParentViewController.m in Sources */,
 				B8FA464D18F9E954007DA680 /* AppDelegate.m in Sources */,
-				B82353F3192CFC9600D6BCAC /* ViewController.mm in Sources */,
+				B8F29C5619311A5C008979A7 /* EP_firstViewController.m in Sources */,
+				B8F29C5919311A5C008979A7 /* EP_forthViewController.m in Sources */,
+				B8F29C5819311A5C008979A7 /* EP_thirdViewController.m in Sources */,
 				B8FA464918F9E954007DA680 /* main.m in Sources */,
 				B8235404192D474D00D6BCAC /* ShadeView.m in Sources */,
 				B8235405192D474D00D6BCAC /* ControlPointView.m in Sources */,

@@ -1,53 +1,59 @@
 //
-//  ViewController.m
-//  Edible
+//  DebugViewController.m
+//  EdibleCameraApp
 //
-//  Created by Hao Zheng on 4/12/14.
+//  Created by Hao Zheng on 5/24/14.
 //  Copyright (c) 2014 Hao Zheng. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "DebugViewController.h"
 #import "opencv2/opencv.hpp"
 #import "UIImage+OpenCV.h"
 #import "ImagePreProcessor.h"
 
-@interface ViewController ()
 
+@interface DebugViewController ()
 
 @property (weak, nonatomic) UIImageView *imageView1;
 @property (weak, nonatomic) UIImageView *imageView2;
 @property (weak, nonatomic) UILabel *regLabel1;
 @property (weak, nonatomic) UILabel *regLabel2;
 
-@property (strong, nonatomic) UILabel * tapLabel;
-
-@property (nonatomic,strong) CameraViewController *CameraVC;
-
-@property (nonatomic) BOOL takePhotoImmediately;
 
 @end
 
-@implementation ViewController
+@implementation DebugViewController
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    UIImage *testCV = [UIImage imageNamed:@"placeit.png"];
     
-    cv:: Mat tempMat = [testCV CVMat];
-    cv::Size size;
-    size.height = 3;
-    size.width = 3;
-    
-    cv::Canny(tempMat, tempMat, 0.8, 0.5);
-    testCV = [UIImage imageWithCVMat:tempMat];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        UIImage *testCV = [UIImage imageNamed:@"placeit.png"];
+        
+        cv:: Mat tempMat = [testCV CVMat];
+        cv::Size size;
+        size.height = 3;
+        size.width = 3;
+        
+        cv::Canny(tempMat, tempMat, 0.8, 0.5);
+        testCV = [UIImage imageWithCVMat:tempMat];
+        
+        
+    });
     
     
 
     
     [self initControls];
+    
+}
 
+-(void)viewDidAppear:(BOOL)animated{
+    [self.delegate checkTabbarStatus:self.pageIndex];
 }
 
 #pragma mark Tesseract
@@ -76,19 +82,6 @@
 }
 
 
-#pragma mark take photo
-- (void)actionPhoto{
-    [self.CameraVC capturePhoto];
-}
-
-#pragma mark TAP RECOGNIZER
-
-- (void) handleTap:(UITapGestureRecognizer *)tap {
-    CameraViewController * simpleCam = [CameraViewController new];
-    simpleCam.delegate= self;
-    [self presentViewController:simpleCam animated:YES completion:nil];
-}
-
 #pragma mark CAMERA DELEGATE
 
 - (void) EdibleCamera:(CameraViewController *)simpleCam didFinishWithImage:(UIImage *)image {
@@ -98,7 +91,7 @@
          
          simple cam finished with image
          
-        ****************************/
+         ****************************/
         
         
         //original image, put in top imageview and get text in label
@@ -142,22 +135,20 @@
      Close Camera -
      use this as opposed to 'dismissViewController' otherwise,
      the captureSession may not close properly and may result in memory leaks.
+     
+     *********************************/
     
-    *********************************/
-    
-    [simpleCam closeWithCompletion:^{
-        NSLog(@"SimpleCam is done closing ... ");
-    }];
+    NSLog(@"****************** PHOTO TAKEN ********************");
 }
 
 
 //helper for viewing
 -(void)placeImageInView:(UIImageView *)imageView withImage:(UIImage *)image withLabel:(UILabel *)label{
     
-
+    
     imageView.image = image;
     imageView.frame = CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y,
-                                       image.size.width, image.size.height);
+                                 image.size.width, image.size.height);
     
     dispatch_async(dispatch_get_main_queue(), ^{
         //1.Use tesseract to recognize image
@@ -175,32 +166,24 @@
 //View did load in SimpleCam VC
 - (void) EdibleCameraDidLoadCameraIntoView:(CameraViewController *)simpleCam {
     NSLog(@"Camera loaded ... ");
-    
-    if (self.takePhotoImmediately) {
-        [simpleCam capturePhoto];
-    }
+
 }
 
+
+
+
+/********
+ 
+ Layouts
+ 
+ ******/
 -(void)initControls{
-    
-    _tapLabel = [UILabel new];
-    _tapLabel.bounds = CGRectMake(0, 0, 200, 100);
-    _tapLabel.text = @"TAP";
-    _tapLabel.textAlignment = NSTextAlignmentCenter;
-    _tapLabel.center = self.view.center;
-    _tapLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
-    [self.view addSubview:_tapLabel];
     
     //add debug views
     self.imageView1 = [self createImageViewWithRect:CGRectMake(0, 0, 320, 150)];
     self.imageView2 = [self createImageViewWithRect:CGRectMake(0, 284, 320, 150)];
     self.regLabel1 = [self createLabelWithRect:CGRectMake(0, 150, 320, 60)];
     self.regLabel2 = [self createLabelWithRect:CGRectMake(0, 434, 320, 60)];
-
-    //add tap gesture
-    UITapGestureRecognizer * tap = [UITapGestureRecognizer new];
-    [tap addTarget:self action:@selector(handleTap:)];
-    [self.view addGestureRecognizer:tap];
 }
 
 -(UIImageView *)createImageViewWithRect:(CGRect)rect{

@@ -10,7 +10,7 @@
 
 #define DEFAULT_MASK_ALPHA 0.50
 #define square NO
-#define DEFAULT_CONTROL_POINT_SIZE 0
+#define DEFAULT_CONTROL_POINT_SIZE 5
 
 #define CROPVIEW_WIDTH 280
 #define CROPVIEW_HEIGHT 80
@@ -45,10 +45,15 @@ CGRect SquareCGRectAtCenter(CGFloat centerX, CGFloat centerY, CGFloat size) {
 }
 
 - (void)initViews {
+    
+    //Hao modified
     CGRect subviewFrame = self.bounds;
+    
     
     //the shade
     shadeView = [[ShadeView alloc] initWithFrame:subviewFrame];
+    
+    shadeView.cropBorderColor = [UIColor redColor];
     
     //the image (didn't use at all since the image is nil so that we see the stream view)
     imageView = [[UIImageView alloc] initWithFrame:subviewFrame];
@@ -57,6 +62,7 @@ CGRect SquareCGRectAtCenter(CGFloat centerX, CGFloat centerY, CGFloat size) {
     controlPointSize = DEFAULT_CONTROL_POINT_SIZE;
     
     
+    //Hao defined
     int halfOfCropViewWidth = CROPVIEW_WIDTH/2;//half size of the crop view
     
     CGPoint centerInView = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
@@ -75,11 +81,19 @@ CGRect SquareCGRectAtCenter(CGFloat centerX, CGFloat centerY, CGFloat size) {
     cropAreaView.opaque = NO;
     cropAreaView.backgroundColor = [UIColor clearColor];
     
-    
+    //pan gesture
     UIPanGestureRecognizer* dragRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDrag:)];
-    [self.viewForBaselineLayout addGestureRecognizer:dragRecognizer];
     
-    [self addSubview:imageView];
+    /*****************
+     
+     important for pan
+     
+     *****************/
+    //[self.viewForBaselineLayout addGestureRecognizer:dragRecognizer];
+    [self addGestureRecognizer:dragRecognizer];
+    
+    
+    [self addSubview:imageView];//bottom
     [self addSubview:shadeView];
     [self addSubview:cropAreaView];
     [self addSubview:topRightPoint];
@@ -141,7 +155,14 @@ CGRect SquareCGRectAtCenter(CGFloat centerX, CGFloat centerY, CGFloat size) {
     return view;
 }
 
+
+/********************
+ 
+ pan selector
+ 
+ ******************/
 - (void)handleDrag:(UIPanGestureRecognizer*)recognizer {
+    
     if (recognizer.state==UIGestureRecognizerStateBegan) {
         dragView = [self checkHit:[recognizer locationInView:self]];
         dragPoint.dragStart = [recognizer locationInView:self];
@@ -318,6 +339,11 @@ CGRect SquareCGRectAtCenter(CGFloat centerX, CGFloat centerY, CGFloat size) {
     
 }
 
+/********************
+ 
+ getters and setters
+ 
+ ******************/
 - (void)setControlPointSize:(CGFloat)_controlPointSize {
     CGFloat halfSize = _controlPointSize;
     CGRect topLeftPointFrame = CGRectMake(topLeftPoint.center.x - halfSize, topLeftPoint.center.y - halfSize, controlPointSize, controlPointSize);

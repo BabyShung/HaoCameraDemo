@@ -1,13 +1,14 @@
 //
-//  CameraViewController.h
-//  Edible
+//  haoViewController.h
+//  EdibleCameraApp
 //
-//  Created by Hao Zheng on 4/12/14.
+//  Created by Hao Zheng on 5/24/14.
 //  Copyright (c) 2014 Hao Zheng. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "EParentViewController.h"
 
 @class CameraViewController;
 
@@ -35,7 +36,10 @@
  
  ***************/
 
-@interface CameraViewController : UIViewController
+
+
+
+@interface CameraViewController : EParentViewController
 
 /******************
  
@@ -44,7 +48,7 @@
  ***************/
 
 //Must adhere to SimpleCamDelegate protocol
-@property (retain, nonatomic) id <EdibleCameraDelegate> delegate;
+@property (retain, nonatomic) id <EdibleCameraDelegate> camDelegate;
 
 //Used if you'd like your pictures cropped to squareMode - defaults to NO (beta)
 @property BOOL isCropMode;
@@ -73,5 +77,6 @@
 
 //Use this method for programmatically acquire a photo
 - (void) capturePhoto;
+
 
 @end

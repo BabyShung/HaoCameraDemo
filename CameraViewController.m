@@ -1,10 +1,11 @@
 //
-//  CameraViewController.h
-//  Edible
+//  haoViewController.m
+//  EdibleCameraApp
 //
-//  Created by Hao Zheng on 4/12/14.
+//  Created by Hao Zheng on 5/24/14.
 //  Copyright (c) 2014 Hao Zheng. All rights reserved.
 //
+
 
 static CGFloat optionAvailableAlpha = 0.6;
 static CGFloat optionUnavailableAlpha = 0.2;
@@ -12,15 +13,19 @@ static CGFloat optionUnavailableAlpha = 0.2;
 #define CROPFRAME_BOARDER_WIDTH 3
 #define CROPFRAME_FRAME_WIDTH 220
 #define CROPFRAME_FRAME_HEIGHT 80
-//x and y are centered
-#define CROPFRAME_OFFSET 0
 
 
-#import "CameraViewController.h"
+#define CROPVIEW_HEIGHT 378
+
+#define DEFAULT_MASK_ALPHA 0.50
+
+
+#import "ShadeView.h"
 #import "ImageCropView.h"
-
+#import "CameraViewController.h"
 
 @interface CameraViewController ()
+
 {
     // Measurements
     CGFloat screenWidth;
@@ -66,9 +71,13 @@ static CGFloat optionUnavailableAlpha = 0.2;
 @property (strong, nonatomic) UIView * StreamView;//STREAM of the realtime photo data
 @property (strong, nonatomic) UIImageView * capturedImageView;//captured image view
 
+
+
+
 @end
 
-@implementation CameraViewController;
+@implementation CameraViewController
+
 
 @synthesize hideAllControls = _hideAllControls, hideBackButton = _hideBackButton, hideCaptureButton = _hideCaptureButton;
 
@@ -109,7 +118,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
     
     [self.view insertSubview:_capturedImageView aboveSubview:_StreamView];
     
-
+    
     
     
     
@@ -171,7 +180,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
     
 	if (!input) {// Handle the error appropriately.
 		NSLog(@"SC: ERROR: trying to open camera: %@", error);
-        [_delegate EdibleCamera:self didFinishWithImage:_capturedImageView.image];
+        [self.camDelegate EdibleCamera:self didFinishWithImage:_capturedImageView.image];
 	}
     
 	[_mySesh addInput:input];
@@ -204,9 +213,16 @@ static CGFloat optionUnavailableAlpha = 0.2;
      *********************/
     if (_isCropMode) {
         NSLog(@"SC: isCropMode");
-        _CropView  = [[ImageCropView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
+        _CropView  = [[ImageCropView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, CROPVIEW_HEIGHT)];
         
         [self.view addSubview:_CropView];
+        
+        //Hao: since cropview is not whole screen, we need to add a face shade view
+        ShadeView *shadeView = [[ShadeView alloc] initWithFrame:CGRectMake(0, CROPVIEW_HEIGHT, screenWidth, screenHeight - CROPVIEW_HEIGHT)];
+        
+        shadeView.shadeAlpha = DEFAULT_MASK_ALPHA;
+        
+        [self.view addSubview:shadeView];
         
         /****************
          Tap for focus
@@ -225,7 +241,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
     }
     
     
-
+    
     
     
     // -- LOAD ROTATION COVERS BEGIN -- //
@@ -258,13 +274,17 @@ static CGFloat optionUnavailableAlpha = 0.2;
 
 
 - (void) viewDidAppear:(BOOL)animated {
+    
+    
+    [self.delegate checkTabbarStatus:self.pageIndex];
+    
     [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         _StreamView.alpha = 1;
         _rotationCover.alpha = 1;
     } completion:^(BOOL finished) {
         if (finished) {
-            if ([(NSObject *)_delegate respondsToSelector:@selector(EdibleCameraDidLoadCameraIntoView:)]) {
-                [_delegate EdibleCameraDidLoadCameraIntoView:self];
+            if ([(NSObject *)self.camDelegate respondsToSelector:@selector(EdibleCameraDidLoadCameraIntoView:)]) {
+                [self.camDelegate EdibleCameraDidLoadCameraIntoView:self];
             }
         }
     }];
@@ -517,13 +537,28 @@ static CGFloat optionUnavailableAlpha = 0.2;
 }
 
 - (void) photoCaptured {
+    NSLog(@"****************** photoCaptured ********************");
+
+    
     if (isImageResized) {
-        [_delegate EdibleCamera:self didFinishWithImage:_capturedImageView.image];
+        NSLog(@"****************** isImageResized ********************");
+        
+        [self.camDelegate EdibleCamera:self didFinishWithImage:_capturedImageView.image];
+        
+        
+        
     }
     else {
         isSaveWaitingForResizedImage = YES;
         [self resizeImage];
     }
+    
+    //-----debug
+    
+    //move tab to 1
+    [self.delegate moveToTab:1];
+    //click back btn
+    [self backBtnPressed:nil];
 }
 
 #pragma mark BUTTON EVENTS
@@ -571,7 +606,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
         [self drawControls];
     }
     else {
-        [_delegate EdibleCamera:self didFinishWithImage:_capturedImageView.image];
+        [self.camDelegate EdibleCamera:self didFinishWithImage:_capturedImageView.image];
     }
 }
 
@@ -745,7 +780,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
     
     
     // See if someone's waiting for resized image
-    if (isSaveWaitingForResizedImage == YES) [_delegate EdibleCamera:self didFinishWithImage:_capturedImageView.image];
+    if (isSaveWaitingForResizedImage == YES) [self.camDelegate EdibleCamera:self didFinishWithImage:_capturedImageView.image];
     if (isRotateWaitingForResizedImage == YES) _capturedImageView.contentMode = UIViewContentModeScaleAspectFit;
     
     isImageResized = YES;
@@ -838,7 +873,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
         _myDevice = nil;
         
         self.view = nil;
-        _delegate = nil;
+        self.camDelegate = nil;
         [self removeFromParentViewController];
         
     }];
@@ -890,5 +925,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
 - (BOOL) hideCaptureButton {
     return _hideCaptureButton;
 }
+
+
 
 @end
