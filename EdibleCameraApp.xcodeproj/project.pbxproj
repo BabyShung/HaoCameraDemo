@@ -14,14 +14,14 @@
 		ACA171F0192FCF46005E7D51 /* TDTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA171EF192FCF46005E7D51 /* TDTestViewController.m */; };
 		ACA171F3192FCF64005E7D51 /* TextDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = ACA171F2192FCF64005E7D51 /* TextDetector.mm */; };
 		ACA171FD192FF1A1005E7D51 /* stop.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ACA171FC192FF1A1005E7D51 /* stop.jpg */; };
-		ACA1721319315C04005E7D51 /* Function.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACA1721119315C04005E7D51 /* Function.cpp */; };
 		ACA1722519339B9C005E7D51 /* alpha.txt in Resources */ = {isa = PBXBuildFile; fileRef = ACA1722019339B9C005E7D51 /* alpha.txt */; };
-		ACA1722619339B9C005E7D51 /* stop.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ACA1722119339B9C005E7D51 /* stop.jpg */; };
 		ACA1722719339B9C005E7D51 /* trained_classifier_erGrouping.xml in Resources */ = {isa = PBXBuildFile; fileRef = ACA1722219339B9C005E7D51 /* trained_classifier_erGrouping.xml */; };
 		ACA1722819339B9C005E7D51 /* trained_classifierNM1.xml in Resources */ = {isa = PBXBuildFile; fileRef = ACA1722319339B9C005E7D51 /* trained_classifierNM1.xml */; };
 		ACA1722919339B9C005E7D51 /* trained_classifierNM2.xml in Resources */ = {isa = PBXBuildFile; fileRef = ACA1722419339B9C005E7D51 /* trained_classifierNM2.xml */; };
-		ACA1722B1933B7EC005E7D51 /* 5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ACA1722A1933B7EC005E7D51 /* 5.jpg */; };
-		ACA1722D1933B8B6005E7D51 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = ACA1722C1933B8B6005E7D51 /* 1.png */; };
+		ACA172321933CFE7005E7D51 /* r1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ACA1722E1933CFE7005E7D51 /* r1.jpg */; };
+		ACA172331933CFE7005E7D51 /* r2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ACA1722F1933CFE7005E7D51 /* r2.jpg */; };
+		ACA172341933CFE7005E7D51 /* w1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ACA172301933CFE7005E7D51 /* w1.jpg */; };
+		ACA172351933CFE7005E7D51 /* w2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ACA172311933CFE7005E7D51 /* w2.jpg */; };
 		B82353AE192BE2D800D6BCAC /* Attribution_PixelLove.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353A4192BE2D800D6BCAC /* Attribution_PixelLove.png */; };
 		B82353AF192BE2D800D6BCAC /* landscape_Camera.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353A5192BE2D800D6BCAC /* landscape_Camera.png */; };
 		B82353B0192BE2D800D6BCAC /* landscape_Preview.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353A6192BE2D800D6BCAC /* landscape_Preview.png */; };
@@ -80,15 +80,14 @@
 		ACA171F1192FCF64005E7D51 /* TextDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDetector.h; sourceTree = "<group>"; };
 		ACA171F2192FCF64005E7D51 /* TextDetector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextDetector.mm; sourceTree = "<group>"; };
 		ACA171FC192FF1A1005E7D51 /* stop.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = stop.jpg; sourceTree = "<group>"; };
-		ACA1721119315C04005E7D51 /* Function.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Function.cpp; sourceTree = "<group>"; };
-		ACA1721219315C04005E7D51 /* Function.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Function.h; sourceTree = "<group>"; };
 		ACA1722019339B9C005E7D51 /* alpha.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = alpha.txt; sourceTree = "<group>"; };
-		ACA1722119339B9C005E7D51 /* stop.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = stop.jpg; sourceTree = "<group>"; };
 		ACA1722219339B9C005E7D51 /* trained_classifier_erGrouping.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = trained_classifier_erGrouping.xml; sourceTree = "<group>"; };
 		ACA1722319339B9C005E7D51 /* trained_classifierNM1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = trained_classifierNM1.xml; sourceTree = "<group>"; };
 		ACA1722419339B9C005E7D51 /* trained_classifierNM2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = trained_classifierNM2.xml; sourceTree = "<group>"; };
-		ACA1722A1933B7EC005E7D51 /* 5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5.jpg; sourceTree = "<group>"; };
-		ACA1722C1933B8B6005E7D51 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
+		ACA1722E1933CFE7005E7D51 /* r1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = r1.jpg; sourceTree = "<group>"; };
+		ACA1722F1933CFE7005E7D51 /* r2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = r2.jpg; sourceTree = "<group>"; };
+		ACA172301933CFE7005E7D51 /* w1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = w1.jpg; sourceTree = "<group>"; };
+		ACA172311933CFE7005E7D51 /* w2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = w2.jpg; sourceTree = "<group>"; };
 		B82353A4192BE2D800D6BCAC /* Attribution_PixelLove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Attribution_PixelLove.png; sourceTree = "<group>"; };
 		B82353A5192BE2D800D6BCAC /* landscape_Camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = landscape_Camera.png; sourceTree = "<group>"; };
 		B82353A6192BE2D800D6BCAC /* landscape_Preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = landscape_Preview.png; sourceTree = "<group>"; };
@@ -164,8 +163,6 @@
 		ACA171ED192FCF1F005E7D51 /* TextDetector */ = {
 			isa = PBXGroup;
 			children = (
-				ACA1721119315C04005E7D51 /* Function.cpp */,
-				ACA1721219315C04005E7D51 /* Function.h */,
 				ACA171EE192FCF46005E7D51 /* TDTestViewController.h */,
 				ACA171EF192FCF46005E7D51 /* TDTestViewController.m */,
 				ACA171F1192FCF64005E7D51 /* TextDetector.h */,
@@ -178,10 +175,11 @@
 		ACA1721F19339B9C005E7D51 /* files */ = {
 			isa = PBXGroup;
 			children = (
-				ACA1722C1933B8B6005E7D51 /* 1.png */,
-				ACA1722A1933B7EC005E7D51 /* 5.jpg */,
+				ACA1722E1933CFE7005E7D51 /* r1.jpg */,
+				ACA1722F1933CFE7005E7D51 /* r2.jpg */,
+				ACA172301933CFE7005E7D51 /* w1.jpg */,
+				ACA172311933CFE7005E7D51 /* w2.jpg */,
 				ACA1722019339B9C005E7D51 /* alpha.txt */,
-				ACA1722119339B9C005E7D51 /* stop.jpg */,
 				ACA1722219339B9C005E7D51 /* trained_classifier_erGrouping.xml */,
 				ACA1722319339B9C005E7D51 /* trained_classifierNM1.xml */,
 				ACA1722419339B9C005E7D51 /* trained_classifierNM2.xml */,
@@ -400,16 +398,18 @@
 				B82353B2192BE2D800D6BCAC /* placeit.png in Resources */,
 				B82353B5192BE2D800D6BCAC /* portrait_RotatedPreview.png in Resources */,
 				B82353B3192BE2D800D6BCAC /* portrait_Camera.png in Resources */,
+				ACA172351933CFE7005E7D51 /* w2.jpg in Resources */,
 				B82353B0192BE2D800D6BCAC /* landscape_Preview.png in Resources */,
 				B82353AE192BE2D800D6BCAC /* Attribution_PixelLove.png in Resources */,
-				ACA1722D1933B8B6005E7D51 /* 1.png in Resources */,
+				ACA172331933CFE7005E7D51 /* r2.jpg in Resources */,
 				ACA1722519339B9C005E7D51 /* alpha.txt in Resources */,
 				ACA1722819339B9C005E7D51 /* trained_classifierNM1.xml in Resources */,
 				B82353B7192BE2D800D6BCAC /* SimpleCamCover.png in Resources */,
+				ACA172321933CFE7005E7D51 /* r1.jpg in Resources */,
 				B82353AF192BE2D800D6BCAC /* landscape_Camera.png in Resources */,
 				B82353BD192BE2F400D6BCAC /* CameraRotate.png in Resources */,
 				B82353B6192BE2D800D6BCAC /* shutter@2x.png in Resources */,
-				ACA1722619339B9C005E7D51 /* stop.jpg in Resources */,
+				ACA172341933CFE7005E7D51 /* w1.jpg in Resources */,
 				B8FA465518F9E954007DA680 /* Images.xcassets in Resources */,
 				B82353BF192BE2F400D6BCAC /* Lightening.png in Resources */,
 				B82353F0192CFC4C00D6BCAC /* tessdata in Resources */,
@@ -419,7 +419,6 @@
 				ACA1722719339B9C005E7D51 /* trained_classifier_erGrouping.xml in Resources */,
 				B82353B1192BE2D800D6BCAC /* landscape_RotatedPreview.png in Resources */,
 				B8FA464718F9E954007DA680 /* InfoPlist.strings in Resources */,
-				ACA1722B1933B7EC005E7D51 /* 5.jpg in Resources */,
 				B8FA465018F9E954007DA680 /* Main.storyboard in Resources */,
 				B82353B4192BE2D800D6BCAC /* portrait_Preview.png in Resources */,
 				B82353C0192BE2F400D6BCAC /* Previous.png in Resources */,
@@ -448,7 +447,6 @@
 				B8FA464D18F9E954007DA680 /* AppDelegate.m in Sources */,
 				ACA171F3192FCF64005E7D51 /* TextDetector.mm in Sources */,
 				B82353F3192CFC9600D6BCAC /* ViewController.mm in Sources */,
-				ACA1721319315C04005E7D51 /* Function.cpp in Sources */,
 				B8FA464918F9E954007DA680 /* main.m in Sources */,
 				B8235404192D474D00D6BCAC /* ShadeView.m in Sources */,
 				ACA171F0192FCF46005E7D51 /* TDTestViewController.m in Sources */,

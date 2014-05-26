@@ -4,7 +4,6 @@ r1
 cCheck dependencies
 cProcessPCH++ /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/PrecompiledHeaders/EdibleCameraApp-Prefix-goplzcvqzkxymcerbmbblzvcmiei/EdibleCameraApp-Prefix.pch.pch HaoJsonDemo/EdibleCameraApp-Prefix.pch normal i386 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler
 cProcessPCH /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/PrecompiledHeaders/EdibleCameraApp-Prefix-dyearwjxewtdhlfaeawzczyjvwru/EdibleCameraApp-Prefix.pch.pch HaoJsonDemo/EdibleCameraApp-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-cProcessPCH++ /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/PrecompiledHeaders/EdibleCameraApp-Prefix-dmeenejjslmbjocyhckevmlacicw/EdibleCameraApp-Prefix.pch.pch HaoJsonDemo/EdibleCameraApp-Prefix.pch normal i386 c++ com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/ImagePreProcessor.o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/ImagePreProcessor.mm normal i386 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/UIImage+OpenCV.o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/UIImage+OpenCV.mm normal i386 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/ImageCropView.o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/ImageCropView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
@@ -12,7 +11,6 @@ cCompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/
 cCompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/AppDelegate.o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/AppDelegate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TextDetector.o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TextDetector.mm normal i386 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/ViewController.o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/ViewController.mm normal i386 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler
-cCompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/Function.o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/Function.cpp normal i386 c++ com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/main.o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/main.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/ShadeView.o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/ShadeView.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 cCompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TDTestViewController.o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TDTestViewController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
@@ -21,27 +19,28 @@ cLd /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Buil
 cCpResource HaoJsonDemo/placeit.png DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/placeit.png
 cCpResource HaoJsonDemo/portrait_RotatedPreview.png DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/portrait_RotatedPreview.png
 cCpResource HaoJsonDemo/portrait_Camera.png DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/portrait_Camera.png
+cCpResource HaoJsonDemo/files/w2.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/w2.jpg
 cCpResource HaoJsonDemo/landscape_Preview.png DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/landscape_Preview.png
 cCpResource HaoJsonDemo/Attribution_PixelLove.png DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/Attribution_PixelLove.png
-cCpResource HaoJsonDemo/files/1.png DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/1.png
+cCpResource HaoJsonDemo/files/r2.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/r2.jpg
 cCpResource HaoJsonDemo/files/alpha.txt DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/alpha.txt
 cCpResource HaoJsonDemo/files/trained_classifierNM1.xml DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/trained_classifierNM1.xml
 cCpResource HaoJsonDemo/SimpleCamCover.png DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/SimpleCamCover.png
+cCpResource HaoJsonDemo/files/r1.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/r1.jpg
 cCpResource HaoJsonDemo/landscape_Camera.png DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/landscape_Camera.png
 cCpResource HaoJsonDemo/CameraRotate.png DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/CameraRotate.png
 cCpResource HaoJsonDemo/shutter@2x.png DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/shutter@2x.png
-cCpResource HaoJsonDemo/files/stop.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpg
-cCpResource HaoJsonDemo/stop.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpg
+cCpResource HaoJsonDemo/files/w1.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/w1.jpg
 cCpResource HaoJsonDemo/Lightening.png DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/Lightening.png
 cCpResource HaoJsonDemo/tessdata DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/tessdata
+cCpResource HaoJsonDemo/stop.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpg
 cCpResource HaoJsonDemo/files/trained_classifierNM2.xml DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/trained_classifierNM2.xml
 cCpResource HaoJsonDemo/Download.png DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/Download.png
 cCpResource HaoJsonDemo/files/trained_classifier_erGrouping.xml DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/trained_classifier_erGrouping.xml
 cCpResource HaoJsonDemo/landscape_RotatedPreview.png DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/landscape_RotatedPreview.png
 cCopyStringsFile /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/en.lproj/InfoPlist.strings HaoJsonDemo/en.lproj/InfoPlist.strings
-cCpResource HaoJsonDemo/files/5.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/5.jpg
-cCompileStoryboard /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/Base.lproj/Main.storyboard
 cCpResource HaoJsonDemo/portrait_Preview.png DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/portrait_Preview.png
+cCompileStoryboard /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/Base.lproj/Main.storyboard
 cCpResource HaoJsonDemo/Previous.png DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/Previous.png
 cCompileAssetCatalog /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/Images.xcassets
 cProcessInfoPlistFile /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/Info.plist /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/EdibleCameraApp-Info.plist
@@ -321,11 +320,12 @@ t1400971941
 s42952
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/EdibleCameraApp.LinkFileList
-c0000000053835347000000000000091A
-t1401115463
-s2330
+c0000000053838F37000000000000085D
+t1401130807
+s2141
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/Function.o
+c000000005383534A00000000000005F4
 t1401115466
 s1524
 
@@ -342,20 +342,20 @@ t1400971941
 s46008
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TDTestViewController.o
-t1401127240
+t1401133501
 s45520
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TextDetector.o
-t1401124562
-s353212
+t1401134923
+s353276
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/UIImage+OpenCV.o
 t1400971940
 s87936
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/ViewController.o
-t1400971941
-s143572
+t1401130808
+s147788
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/main.o
 t1400971941
@@ -390,11 +390,11 @@ t1400971939
 s20926708
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app
-t1401127241
-s1122
+t1401134924
+s1258
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app.dSYM
-t1401127140
+t1401133502
 s102
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/1.png
@@ -410,7 +410,7 @@ t1400968698
 s13026
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/Base.lproj/Main.storyboardc
-t1400968701
+t1401134925
 s170
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/CameraRotate.png
@@ -422,8 +422,8 @@ t1400968698
 s1206
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/EdibleCameraApp
-t1401127241
-s8941332
+t1401134924
+s8946432
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/Info.plist
 t1400968701
@@ -481,12 +481,20 @@ N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/P
 t1400968698
 s157659
 
+N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/r1.jpg
+t1401133254
+s229270
+
+N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/r2.jpg
+t1401133254
+s2102100
+
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/shutter@2x.png
 t1400968698
 s4200
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpg
-t1401127241
+t1401133254
 s806107
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/tessdata
@@ -509,6 +517,14 @@ N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/P
 t1401119797
 s677150
 
+N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/w1.jpg
+t1401133254
+s190627
+
+N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/w2.jpg
+t1401133254
+s639047
+
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/AppDelegate.h
 c00000000537F7EA60000000000000115
 t1400864422
@@ -525,8 +541,8 @@ t1400855934
 s13026
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/Base.lproj/Main.storyboard
-c00000000537FA7EB0000000000001927
-t1400874987
+c0000000053839F490000000000001927
+t1401134921
 s6439
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/CameraRotate.png
@@ -635,9 +651,9 @@ t1400874416
 s227
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TDTestViewController.m
-c00000000538381470000000000000581
-t1401127239
-s1409
+c00000000538399BD0000000000000582
+t1401133501
+s1410
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TextDetector.h
 c00000000538104D30000000000000105
@@ -645,9 +661,9 @@ t1400964307
 s261
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TextDetector.mm
-c00000000538376D00000000000000D34
-t1401124560
-s3380
+c0000000053839F490000000000000D4E
+t1401134921
+s3406
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/UIImage+OpenCV.h
 c00000000538105BE00000000000002F4
@@ -665,9 +681,9 @@ t1400855934
 s345
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/ViewController.mm
-c00000000537F976B0000000000001614
-t1400870763
-s5652
+c0000000053838B970000000000001C1A
+t1401129879
+s7194
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/en.lproj/InfoPlist.strings
 c00000000537F5D7E000000000000002D
@@ -689,6 +705,16 @@ c000000005380F68D0000000000000134
 t1400960653
 s308
 
+N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/files/r1.jpg
+c00000000538397A90000000000037F96
+t1401132969
+s229270
+
+N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/files/r2.jpg
+c00000000538396580000000000201354
+t1401132632
+s2102100
+
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/files/stop.jpg
 c000000005252D70E00000000000C4CDB
 t1381160718
@@ -708,6 +734,16 @@ N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/files/trained_classifie
 c00000000537D078B00000000000A551E
 t1400702859
 s677150
+
+N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/files/w1.jpg
+c0000000053839806000000000002E8A3
+t1401133062
+s190627
+
+N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/files/w2.jpg
+c0000000053839831000000000009C047
+t1401133105
+s639047
 
 N/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/landscape_Camera.png
 c00000000537F5D7E0000000000066BBF
@@ -1142,7 +1178,7 @@ r0
 
 CCheck dependencies
 r0
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies18"Check dependenciesd0b6a2c7b833b941^d654bac7b833b941^-187"Warning: Multiple build commands for output file /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpg1(21%IDEActivityLogMessage2@186"Warning: Multiple build commands for output file /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpg-422820039#18446744073709551615#0#-1#27"com.apple.dt.IDE.LogMessage-27"Dependency Analysis Warning--0#1#1#--18"Check dependencies36"9F46FC18-8460-400D-9BFB-49A239CC0D87-
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies18"Check dependencies2e71b0c9d633b941^909eb2c9d633b941^---0#1#1#--18"Check dependencies36"00DBAECE-60E4-41DD-944D-98AE380C41EC-
 
 CCompileAssetCatalog /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/Images.xcassets
 s422661498.859563
@@ -1279,8 +1315,8 @@ lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection75"Compile
 bE58F2F87-CA41-4B10-B849-7E3F3D5ED43D
 
 CCompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TDTestViewController.o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TDTestViewController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
-s422820039.733542
-e422820040.789110
+s422826301.642574
+e422826301.724821
 r1
 xCompileC
 xDerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TDTestViewController.o
@@ -1292,12 +1328,12 @@ xcom.apple.compilers.llvm.clang.1_0.compiler
 d/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TDTestViewController.m
 d/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TDTestViewController.h
 d/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TextDetector.h
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection86"Compile /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TDTestViewController.m268"CompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TDTestViewController.o HaoJsonDemo/TDTestViewController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler29e7bbc7b833b941^1904cac8b833b941^---0#0#1#-19%DVTDocumentLocation2@85"file:///Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TDTestViewController.m0000000000000000^4439"CompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TDTestViewController.o HaoJsonDemo/TDTestViewController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/mei/Desktop/BlueCheese/HaoCameraDemo    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -std=gnu99 -fobjc-arc -fmodules -fmodules-cache-path=/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/ModuleCache -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Werror=return-type -Wno-implicit-atomic-properties -Werror=deprecated-objc-isa-usage -Werror=objc-root-class -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wshorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector -Wno-deprecated-implementations -DGLIBCXXDEBUGPEDANTIC=1 -DGLIBCXX_DEBUG=1 -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk -fexceptions -fasm-blocks -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch -mios-simulator-version-min=7.1 -iquote /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/EdibleCameraApp-generated-files.hmap -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/EdibleCameraApp-own-target-headers.hmap -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/EdibleCameraApp-all-target-headers.hmap -iquote /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/EdibleCameraApp-project-headers.hmap -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/DerivedSources/i386 -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/DerivedSources -F/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator -F/Users/mei/Desktop/BlueCheese/HaoCameraDemo -include /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/PrecompiledHeaders/EdibleCameraApp-Prefix-dyearwjxewtdhlfaeawzczyjvwru/EdibleCameraApp-Prefix.pch -MMD -MT dependencies -MF /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TDTestViewController.d --serialize-diagnostics /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TDTestViewController.dia -c /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TDTestViewController.m -o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TDTestViewController.o36"F477B9F8-3852-42DA-B221-8AA816BABBAC-
-b0A47A5BB-D598-4E71-8641-7E47C61AA533
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection86"Compile /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TDTestViewController.m268"CompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TDTestViewController.o HaoJsonDemo/TDTestViewController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler25b1a43dd133b941^548eb93dd133b941^---0#0#1#-19%DVTDocumentLocation2@85"file:///Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TDTestViewController.m0000000000000000^4439"CompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TDTestViewController.o HaoJsonDemo/TDTestViewController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/mei/Desktop/BlueCheese/HaoCameraDemo    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -std=gnu99 -fobjc-arc -fmodules -fmodules-cache-path=/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/ModuleCache -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Werror=return-type -Wno-implicit-atomic-properties -Werror=deprecated-objc-isa-usage -Werror=objc-root-class -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wshorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector -Wno-deprecated-implementations -DGLIBCXXDEBUGPEDANTIC=1 -DGLIBCXX_DEBUG=1 -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk -fexceptions -fasm-blocks -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch -mios-simulator-version-min=7.1 -iquote /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/EdibleCameraApp-generated-files.hmap -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/EdibleCameraApp-own-target-headers.hmap -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/EdibleCameraApp-all-target-headers.hmap -iquote /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/EdibleCameraApp-project-headers.hmap -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/DerivedSources/i386 -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/DerivedSources -F/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator -F/Users/mei/Desktop/BlueCheese/HaoCameraDemo -include /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/PrecompiledHeaders/EdibleCameraApp-Prefix-dyearwjxewtdhlfaeawzczyjvwru/EdibleCameraApp-Prefix.pch -MMD -MT dependencies -MF /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TDTestViewController.d --serialize-diagnostics /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TDTestViewController.dia -c /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TDTestViewController.m -o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TDTestViewController.o36"F9F9E617-4F7F-4F07-979A-94AB8D6E594C-
+b19B999E4-9584-420F-BAAF-A6A70863BC6F
 
 CCompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TextDetector.o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TextDetector.mm normal i386 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler
-s422817360.620578
-e422817362.639767
+s422827721.692766
+e422827723.641207
 r1
 xCompileC
 xDerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TextDetector.o
@@ -1309,8 +1345,8 @@ xcom.apple.compilers.llvm.clang.1_0.compiler
 d/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TextDetector.mm
 d/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TextDetector.h
 d/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/UIImage+OpenCV.h
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection79"Compile /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TextDetector.mm255"CompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TextDetector.o HaoJsonDemo/TextDetector.mm normal i386 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler069da050ae33b941^8ac9a352ae33b941^---0#0#1#-19%DVTDocumentLocation2@78"file:///Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TextDetector.mm0000000000000000^4526"CompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TextDetector.o HaoJsonDemo/TextDetector.mm normal i386 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/mei/Desktop/BlueCheese/HaoCameraDemo    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c++ -arch i386 -fmessage-length=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -std=gnu++11 -fobjc-arc -fmodules -fmodules-cache-path=/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/ModuleCache -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Werror=return-type -Wno-implicit-atomic-properties -Werror=deprecated-objc-isa-usage -Werror=objc-root-class -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector -Wno-deprecated-implementations -Wno-c++11-extensions -DGLIBCXXDEBUGPEDANTIC=1 -DGLIBCXX_DEBUG=1 -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk -fexceptions -fasm-blocks -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -Winvalid-offsetof -g -fvisibility-inlines-hidden -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch -mios-simulator-version-min=7.1 -iquote /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/EdibleCameraApp-generated-files.hmap -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/EdibleCameraApp-own-target-headers.hmap -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/EdibleCameraApp-all-target-headers.hmap -iquote /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/EdibleCameraApp-project-headers.hmap -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/DerivedSources/i386 -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/DerivedSources -F/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator -F/Users/mei/Desktop/BlueCheese/HaoCameraDemo -include /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/PrecompiledHeaders/EdibleCameraApp-Prefix-goplzcvqzkxymcerbmbblzvcmiei/EdibleCameraApp-Prefix.pch -MMD -MT dependencies -MF /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TextDetector.d --serialize-diagnostics /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TextDetector.dia -c /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TextDetector.mm -o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TextDetector.o36"4816CAE6-720C-41F4-8459-2490B7ED1758-
-b6DF9FE66-A784-4317-8C4D-68AB543F26C1
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection79"Compile /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TextDetector.mm255"CompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TextDetector.o HaoJsonDemo/TextDetector.mm normal i386 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler8c81b1c9d633b941^2c28a4cbd633b941^---0#0#1#-19%DVTDocumentLocation2@78"file:///Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TextDetector.mm0000000000000000^4526"CompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TextDetector.o HaoJsonDemo/TextDetector.mm normal i386 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/mei/Desktop/BlueCheese/HaoCameraDemo    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c++ -arch i386 -fmessage-length=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -std=gnu++11 -fobjc-arc -fmodules -fmodules-cache-path=/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/ModuleCache -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Werror=return-type -Wno-implicit-atomic-properties -Werror=deprecated-objc-isa-usage -Werror=objc-root-class -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector -Wno-deprecated-implementations -Wno-c++11-extensions -DGLIBCXXDEBUGPEDANTIC=1 -DGLIBCXX_DEBUG=1 -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk -fexceptions -fasm-blocks -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -Winvalid-offsetof -g -fvisibility-inlines-hidden -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch -mios-simulator-version-min=7.1 -iquote /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/EdibleCameraApp-generated-files.hmap -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/EdibleCameraApp-own-target-headers.hmap -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/EdibleCameraApp-all-target-headers.hmap -iquote /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/EdibleCameraApp-project-headers.hmap -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/DerivedSources/i386 -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/DerivedSources -F/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator -F/Users/mei/Desktop/BlueCheese/HaoCameraDemo -include /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/PrecompiledHeaders/EdibleCameraApp-Prefix-goplzcvqzkxymcerbmbblzvcmiei/EdibleCameraApp-Prefix.pch -MMD -MT dependencies -MF /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TextDetector.d --serialize-diagnostics /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TextDetector.dia -c /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TextDetector.mm -o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TextDetector.o36"AB7A999F-92ED-4828-8F40-D6EA82240E2F-
+b460D0C89-C3B1-4C69-9A34-BEEB2416D5EB
 
 CCompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/UIImage+OpenCV.o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/UIImage+OpenCV.mm normal i386 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler
 s422664739.849236
@@ -1333,8 +1369,8 @@ lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection81"Compile
 bE58F2F87-CA41-4B10-B849-7E3F3D5ED43D
 
 CCompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/ViewController.o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/ViewController.mm normal i386 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler
-s422664741.350120
-e422664741.792644
+s422823607.254581
+e422823608.325829
 r1
 xCompileC
 xDerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/ViewController.o
@@ -1350,8 +1386,9 @@ d/Users/mei/Desktop/BlueCheese/HaoCameraDemo/TesseractOCR.framework/Headers/Tess
 d/Users/mei/Desktop/BlueCheese/HaoCameraDemo/TesseractOCR.framework/Headers/Tesseract.h
 d/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/UIImage+OpenCV.h
 d/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/ImagePreProcessor.h
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection81"Compile /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/ViewController.mm259"CompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/ViewController.o HaoJsonDemo/ViewController.mm normal i386 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler1fb959255a31b941^f6ebca255a31b941^---0#0#1#-19%DVTDocumentLocation2@80"file:///Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/ViewController.mm0000000000000000^4538"CompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/ViewController.o HaoJsonDemo/ViewController.mm normal i386 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/mei/Desktop/BlueCheese/HaoCameraDemo    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c++ -arch i386 -fmessage-length=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -std=gnu++11 -fobjc-arc -fmodules -fmodules-cache-path=/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/ModuleCache -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Werror=return-type -Wno-implicit-atomic-properties -Werror=deprecated-objc-isa-usage -Werror=objc-root-class -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector -Wno-deprecated-implementations -Wno-c++11-extensions -DGLIBCXXDEBUGPEDANTIC=1 -DGLIBCXX_DEBUG=1 -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk -fexceptions -fasm-blocks -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -Winvalid-offsetof -g -fvisibility-inlines-hidden -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch -mios-simulator-version-min=7.1 -iquote /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/EdibleCameraApp-generated-files.hmap -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/EdibleCameraApp-own-target-headers.hmap -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/EdibleCameraApp-all-target-headers.hmap -iquote /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/EdibleCameraApp-project-headers.hmap -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/DerivedSources/i386 -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/DerivedSources -F/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator -F/Users/mei/Desktop/BlueCheese/HaoCameraDemo -include /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/PrecompiledHeaders/EdibleCameraApp-Prefix-goplzcvqzkxymcerbmbblzvcmiei/EdibleCameraApp-Prefix.pch -MMD -MT dependencies -MF /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/ViewController.d --serialize-diagnostics /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/ViewController.dia -c /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/ViewController.mm -o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/ViewController.o36"EE68BF63-3AE7-43ED-8820-EC64611CE985-
-bE58F2F87-CA41-4B10-B849-7E3F3D5ED43D
+d/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/TextDetector.h
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection81"Compile /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/ViewController.mm259"CompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/ViewController.o HaoJsonDemo/ViewController.mm normal i386 objective-c++ com.apple.compilers.llvm.clang.1_0.compilerfda141b7c633b941^d76a53b8c633b941^---0#0#1#-19%DVTDocumentLocation2@80"file:///Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/ViewController.mm0000000000000000^4538"CompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/ViewController.o HaoJsonDemo/ViewController.mm normal i386 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/mei/Desktop/BlueCheese/HaoCameraDemo    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c++ -arch i386 -fmessage-length=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -std=gnu++11 -fobjc-arc -fmodules -fmodules-cache-path=/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/ModuleCache -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Werror=return-type -Wno-implicit-atomic-properties -Werror=deprecated-objc-isa-usage -Werror=objc-root-class -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wundeclared-selector -Wno-deprecated-implementations -Wno-c++11-extensions -DGLIBCXXDEBUGPEDANTIC=1 -DGLIBCXX_DEBUG=1 -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk -fexceptions -fasm-blocks -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -Winvalid-offsetof -g -fvisibility-inlines-hidden -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch -mios-simulator-version-min=7.1 -iquote /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/EdibleCameraApp-generated-files.hmap -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/EdibleCameraApp-own-target-headers.hmap -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/EdibleCameraApp-all-target-headers.hmap -iquote /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/EdibleCameraApp-project-headers.hmap -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/DerivedSources/i386 -I/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/DerivedSources -F/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator -F/Users/mei/Desktop/BlueCheese/HaoCameraDemo -include /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/PrecompiledHeaders/EdibleCameraApp-Prefix-goplzcvqzkxymcerbmbblzvcmiei/EdibleCameraApp-Prefix.pch -MMD -MT dependencies -MF /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/ViewController.d --serialize-diagnostics /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/ViewController.dia -c /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/ViewController.mm -o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/ViewController.o36"DA56678D-F957-48BD-8979-2B383713F411-
+b4F7A5DC1-E5A6-44A5-ACDB-45CDF55B1021
 
 CCompileC DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/main.o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/main.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
 s422664741.356240
@@ -1370,16 +1407,16 @@ lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection70"Compile
 bE58F2F87-CA41-4B10-B849-7E3F3D5ED43D
 
 CCompileStoryboard /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/Base.lproj/Main.storyboard
-s422661498.834855
-e422661501.436519
+s422827724.320080
+e422827725.731393
 r1
 xCompileStoryboard
 x/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/Base.lproj/Main.storyboard
 o/* com.apple.ibtool.document.warnings */
-o/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/Base.lproj/Main.storyboard:vXZ-lx-hvc: warning: Scene is unreachable due to lack of entry points and does not have an identifier for runtime access via -instantiateViewControllerWithIdentifier:. [9]
 o/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/Base.lproj/Main.storyboard:TSc-iU-QFY: warning: Scene is unreachable due to lack of entry points and does not have an identifier for runtime access via -instantiateViewControllerWithIdentifier:. [9]
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection56"CompileStoryboard HaoJsonDemo/Base.lproj/Main.storyboard56"CompileStoryboard HaoJsonDemo/Base.lproj/Main.storyboard34d7d57a4d31b941^2bc06f7d4d31b941^-543"/* com.apple.ibtool.document.warnings *//Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/Base.lproj/Main.storyboard:vXZ-lx-hvc: warning: Scene is unreachable due to lack of entry points and does not have an identifier for runtime access via -instantiateViewControllerWithIdentifier:./Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/Base.lproj/Main.storyboard:TSc-iU-QFY: warning: Scene is unreachable due to lack of entry points and does not have an identifier for runtime access via -instantiateViewControllerWithIdentifier:.2(21%IDEActivityLogMessage2@146"Scene is unreachable due to lack of entry points and does not have an identifier for runtime access via -instantiateViewControllerWithIdentifier:.-422661501#18446744073709551615#0#-1#-23%DVTTextDocumentLocation3@89"file:///Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/Base.lproj/Main.storyboard0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#25"Unsupported Configuration--2@146"Scene is unreachable due to lack of entry points and does not have an identifier for runtime access via -instantiateViewControllerWithIdentifier:.-422661501#18446744073709551615#0#-1#-3@89"file:///Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/Base.lproj/Main.storyboard0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#25"Unsupported Configuration--0#0#1#-19%DVTDocumentLocation4@89"file:///Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/Base.lproj/Main.storyboard0000000000000000^898"CompileStoryboard HaoJsonDemo/Base.lproj/Main.storyboard    cd /Users/mei/Desktop/BlueCheese/HaoCameraDemo    export IBSC_MINIMUM_COMPATIBILITY_VERSION=7.1    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    export XCODE_DEVELOPER_USR_PATH=/Applications/Xcode.app/Contents/Developer/usr/bin/..    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/ibtool --errors --warnings --notices --minimum-deployment-target 7.1 --output-format human-readable-text --compile /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/Base.lproj/Main.storyboardc /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/Base.lproj/Main.storyboard36"F877696D-B2CB-40A4-B10F-928260BA0423-
-b68EB5C1D-C9C8-429F-815B-3855F9D9E0E0
+o/Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/Base.lproj/Main.storyboard:tfK-qr-Bb4: warning: Scene is unreachable due to lack of entry points and does not have an identifier for runtime access via -instantiateViewControllerWithIdentifier:. [9]
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection56"CompileStoryboard HaoJsonDemo/Base.lproj/Main.storyboard56"CompileStoryboard HaoJsonDemo/Base.lproj/Main.storyboard441552ccd633b941^df32bbcdd633b941^-543"/* com.apple.ibtool.document.warnings *//Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/Base.lproj/Main.storyboard:TSc-iU-QFY: warning: Scene is unreachable due to lack of entry points and does not have an identifier for runtime access via -instantiateViewControllerWithIdentifier:./Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/Base.lproj/Main.storyboard:tfK-qr-Bb4: warning: Scene is unreachable due to lack of entry points and does not have an identifier for runtime access via -instantiateViewControllerWithIdentifier:.2(21%IDEActivityLogMessage2@146"Scene is unreachable due to lack of entry points and does not have an identifier for runtime access via -instantiateViewControllerWithIdentifier:.-422827725#18446744073709551615#0#-1#-23%DVTTextDocumentLocation3@89"file:///Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/Base.lproj/Main.storyboard0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#25"Unsupported Configuration--2@146"Scene is unreachable due to lack of entry points and does not have an identifier for runtime access via -instantiateViewControllerWithIdentifier:.-422827725#18446744073709551615#0#-1#-3@89"file:///Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/Base.lproj/Main.storyboard0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#25"Unsupported Configuration--0#0#1#-19%DVTDocumentLocation4@89"file:///Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/Base.lproj/Main.storyboard0000000000000000^898"CompileStoryboard HaoJsonDemo/Base.lproj/Main.storyboard    cd /Users/mei/Desktop/BlueCheese/HaoCameraDemo    export IBSC_MINIMUM_COMPATIBILITY_VERSION=7.1    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    export XCODE_DEVELOPER_USR_PATH=/Applications/Xcode.app/Contents/Developer/usr/bin/..    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/ibtool --errors --warnings --notices --minimum-deployment-target 7.1 --output-format human-readable-text --compile /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/Base.lproj/Main.storyboardc /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/Base.lproj/Main.storyboard36"F26A3054-DCFB-4F37-95EB-A5A266EDC6C5-
+b460D0C89-C3B1-4C69-9A34-BEEB2416D5EB
 
 CCopyStringsFile /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/en.lproj/InfoPlist.strings HaoJsonDemo/en.lproj/InfoPlist.strings
 s422661498.834398
@@ -1481,15 +1518,35 @@ xDerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraAp
 lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection99"Copy DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/alpha.txt133"CpResource HaoJsonDemo/files/alpha.txt DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/alpha.txt31ebc5b59b33b941^d49cc8b59b33b941^---0#0#1#-19%DVTDocumentLocation2@145"file:///Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/alpha.txt00342c9ddcffdf42^693"CpResource HaoJsonDemo/files/alpha.txt DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/alpha.txt    cd /Users/mei/Desktop/BlueCheese/HaoCameraDemo    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/files/alpha.txt /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app36"4FF3EF52-B90E-442E-8F3B-12D3C6C1B23A-
 bA6961F71-4B06-4285-82BA-8989FA346B3A
 
+CCpResource HaoJsonDemo/files/r1.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/r1.jpg
+s422826054.873275
+e422826054.889628
+r1
+xCpResource
+xHaoJsonDemo/files/r1.jpg
+xDerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/r1.jpg
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection96"Copy DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/r1.jpg127"CpResource HaoJsonDemo/files/r1.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/r1.jpgdc9fdf46d033b941^0dc7e346d033b941^---0#0#1#-19%DVTDocumentLocation2@142"file:///Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/r1.jpg00342c9ddcffdf42^684"CpResource HaoJsonDemo/files/r1.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/r1.jpg    cd /Users/mei/Desktop/BlueCheese/HaoCameraDemo    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/files/r1.jpg /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app36"EE8A8F8C-25FE-4E4A-A6A5-D18A2A642754-
+bBCDE5088-7CEF-4A78-8B5B-00160A4E7123
+
+CCpResource HaoJsonDemo/files/r2.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/r2.jpg
+s422826054.872315
+e422826054.891605
+r1
+xCpResource
+xHaoJsonDemo/files/r2.jpg
+xDerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/r2.jpg
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection96"Copy DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/r2.jpg127"CpResource HaoJsonDemo/files/r2.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/r2.jpgff5ddf46d033b941^c93ee446d033b941^---0#0#1#-19%DVTDocumentLocation2@142"file:///Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/r2.jpg00342c9ddcffdf42^684"CpResource HaoJsonDemo/files/r2.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/r2.jpg    cd /Users/mei/Desktop/BlueCheese/HaoCameraDemo    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/files/r2.jpg /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app36"B54FDC6B-ECFF-49EF-84AD-86A4DFF4EC1E-
+bBCDE5088-7CEF-4A78-8B5B-00160A4E7123
+
 CCpResource HaoJsonDemo/files/stop.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpg
-s422820041.386331
-e422820041.404535
+s422823931.573402
+e422823931.575702
 r1
 xCpResource
 xHaoJsonDemo/files/stop.jpg
 xDerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpg
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection98"Copy DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpg131"CpResource HaoJsonDemo/files/stop.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpgcafd62c9b833b941^b09267c9b833b941^---0#0#1#-19%DVTDocumentLocation2@144"file:///Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpg0000000000000000^690"CpResource HaoJsonDemo/files/stop.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpg    cd /Users/mei/Desktop/BlueCheese/HaoCameraDemo    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/files/stop.jpg /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app36"C78E76F8-08E6-4F50-9BD2-9CDD145C87B1-
-b0A47A5BB-D598-4E71-8641-7E47C61AA533
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection98"Copy DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpg131"CpResource HaoJsonDemo/files/stop.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpg1edf92fbc733b941^9d6493fbc733b941^---0#0#1#-19%DVTDocumentLocation2@144"file:///Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpg0000000000000000^690"CpResource HaoJsonDemo/files/stop.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpg    cd /Users/mei/Desktop/BlueCheese/HaoCameraDemo    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/files/stop.jpg /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app36"3C10ADC2-1F3A-40DE-852E-671700A43C4F-
+bF6BA6E62-A79B-48E7-9154-53E1DD5C83D7
 
 CCpResource HaoJsonDemo/files/trained_classifierNM1.xml DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/trained_classifierNM1.xml
 s422812597.772817
@@ -1520,6 +1577,26 @@ xHaoJsonDemo/files/trained_classifier_erGrouping.xml
 xDerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/trained_classifier_erGrouping.xml
 lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection123"Copy DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/trained_classifier_erGrouping.xml181"CpResource HaoJsonDemo/files/trained_classifier_erGrouping.xml DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/trained_classifier_erGrouping.xml2713c7b59b33b941^b37ec7b59b33b941^---0#0#1#-19%DVTDocumentLocation2@169"file:///Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/trained_classifier_erGrouping.xml00342c9ddcffdf42^765"CpResource HaoJsonDemo/files/trained_classifier_erGrouping.xml DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/trained_classifier_erGrouping.xml    cd /Users/mei/Desktop/BlueCheese/HaoCameraDemo    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/files/trained_classifier_erGrouping.xml /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app36"B9447124-6495-4136-B862-1E9CB406CB85-
 bA6961F71-4B06-4285-82BA-8989FA346B3A
+
+CCpResource HaoJsonDemo/files/w1.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/w1.jpg
+s422826054.874341
+e422826054.889775
+r1
+xCpResource
+xHaoJsonDemo/files/w1.jpg
+xDerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/w1.jpg
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection96"Copy DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/w1.jpg127"CpResource HaoJsonDemo/files/w1.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/w1.jpg82e2df46d033b941^03cde346d033b941^---0#0#1#-19%DVTDocumentLocation2@142"file:///Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/w1.jpg00342c9ddcffdf42^684"CpResource HaoJsonDemo/files/w1.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/w1.jpg    cd /Users/mei/Desktop/BlueCheese/HaoCameraDemo    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/files/w1.jpg /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app36"7162DFF1-F13D-41C3-9D61-78C39A0A3678-
+bBCDE5088-7CEF-4A78-8B5B-00160A4E7123
+
+CCpResource HaoJsonDemo/files/w2.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/w2.jpg
+s422826054.871434
+e422826054.889648
+r1
+xCpResource
+xHaoJsonDemo/files/w2.jpg
+xDerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/w2.jpg
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection96"Copy DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/w2.jpg127"CpResource HaoJsonDemo/files/w2.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/w2.jpge42ddf46d033b941^fbcae346d033b941^---0#0#1#-19%DVTDocumentLocation2@142"file:///Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/w2.jpg00342c9ddcffdf42^684"CpResource HaoJsonDemo/files/w2.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/w2.jpg    cd /Users/mei/Desktop/BlueCheese/HaoCameraDemo    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/files/w2.jpg /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app36"E723FCE7-0A5C-48C2-B35D-E91DF8FA69C6-
+bBCDE5088-7CEF-4A78-8B5B-00160A4E7123
 
 CCpResource HaoJsonDemo/landscape_Camera.png DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/landscape_Camera.png
 s422661498.803531
@@ -1602,14 +1679,14 @@ lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection104"Copy D
 b68EB5C1D-C9C8-429F-815B-3855F9D9E0E0
 
 CCpResource HaoJsonDemo/stop.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpg
-s422819940.453640
-e422819940.455893
+s422826054.890913
+e422826054.906609
 r1
 xCpResource
 xHaoJsonDemo/stop.jpg
 xDerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpg
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection98"Copy DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpg125"CpResource HaoJsonDemo/stop.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpgca367464b833b941^74b67464b833b941^---0#0#1#-19%DVTDocumentLocation2@144"file:///Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpg0000000000000000^678"CpResource HaoJsonDemo/stop.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpg    cd /Users/mei/Desktop/BlueCheese/HaoCameraDemo    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/stop.jpg /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app36"CC07CBBE-5D23-4B94-B39E-53D69A7F228A-
-b69B80E11-DADD-4327-A2C5-BB1F5924B676
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection98"Copy DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpg125"CpResource HaoJsonDemo/stop.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpged2ae446d033b941^a418e846d033b941^---0#0#1#-19%DVTDocumentLocation2@144"file:///Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpg0000000000000000^678"CpResource HaoJsonDemo/stop.jpg DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/stop.jpg    cd /Users/mei/Desktop/BlueCheese/HaoCameraDemo    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/stop.jpg /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app36"827B1940-229D-46CD-B11D-DABB24069F36-
+bBCDE5088-7CEF-4A78-8B5B-00160A4E7123
 
 CCpResource HaoJsonDemo/tessdata DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/tessdata
 s422661498.816537
@@ -1647,18 +1724,18 @@ lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection98"Copy De
 b68EB5C1D-C9C8-429F-815B-3855F9D9E0E0
 
 CGenerateDSYMFile /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app.dSYM /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/EdibleCameraApp
-s422820041.405758
-e422820041.515538
+s422827725.732239
+e422827725.843964
 r1
 xGenerateDSYMFile
 x/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app.dSYM
 x/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/EdibleCameraApp
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection142"Generate /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app.dSYM207"GenerateDSYMFile DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app.dSYM DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/EdibleCameraApp6ff267c9b833b941^f4fa83c9b833b941^---0#0#1#-19%DVTDocumentLocation2@141"file:///Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app.dSYM/0000000000000000^836"GenerateDSYMFile DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app.dSYM DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/EdibleCameraApp    cd /Users/mei/Desktop/BlueCheese/HaoCameraDemo    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/dsymutil /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/EdibleCameraApp -o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app.dSYM36"8EF5A63D-4689-40C7-B8E1-C5397FAD80F5-
-b0A47A5BB-D598-4E71-8641-7E47C61AA533
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection142"Generate /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app.dSYM207"GenerateDSYMFile DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app.dSYM DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/EdibleCameraApp2f89bbcdd633b941^2104d8cdd633b941^---0#0#1#-19%DVTDocumentLocation2@141"file:///Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app.dSYM/0000000000000000^836"GenerateDSYMFile DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app.dSYM DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/EdibleCameraApp    cd /Users/mei/Desktop/BlueCheese/HaoCameraDemo    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/dsymutil /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/EdibleCameraApp -o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app.dSYM36"A39A14C5-9464-4ABC-8563-0A14B40C2E8E-
+b460D0C89-C3B1-4C69-9A34-BEEB2416D5EB
 
 CLd /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/EdibleCameraApp normal i386
-s422820040.792192
-e422820041.380928
+s422827723.643526
+e422827724.314823
 r1
 xLd
 x/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/EdibleCameraApp
@@ -1673,7 +1750,6 @@ d/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/I
 d/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/AppDelegate.o
 d/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TextDetector.o
 d/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/ViewController.o
-d/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/Function.o
 d/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/main.o
 d/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/ShadeView.o
 d/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/TDTestViewController.o
@@ -1702,8 +1778,6 @@ d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/D
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk/System/Library/Frameworks/QuartzCore.framework/QuartzCore
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk/System/Library/Frameworks/CoreText.framework/CoreText
-d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk/usr/lib/libc++abi.dylib
-d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk/System/Library/PrivateFrameworks/UIFoundation.framework/UIFoundation
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk/usr/lib/system/libsystem_override.dylib
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk/usr/lib/system/libcache_sim.dylib
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk/usr/lib/system/libcommonCrypto_sim.dylib
@@ -1726,7 +1800,9 @@ d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/D
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk/usr/lib/system/libsystem_sim_configuration.dylib
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk/usr/lib/system/libsystem_sim_asl.dylib
 d/usr/lib/libSystem.B.dylib
+d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk/usr/lib/libc++abi.dylib
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk/System/Library/Frameworks/AVFoundation.framework/libAVFAudio.dylib
+d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk/System/Library/PrivateFrameworks/UIFoundation.framework/UIFoundation
 d/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk/usr/lib/system/host/libdyld.dylib
 d/usr/lib/system/libcache.dylib
 d/usr/lib/system/libcommonCrypto.dylib
@@ -1753,8 +1829,8 @@ d/usr/lib/system/libsystem_pthread.dylib
 d/usr/lib/system/libsystem_sandbox.dylib
 d/usr/lib/system/libunc.dylib
 d/usr/lib/system/libunwind.dylib
-lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection149"Link /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/EdibleCameraApp115"Ld DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/EdibleCameraApp normal i38697e2cac8b833b941^6a8561c9b833b941^---0#0#1#--1773"Ld DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/EdibleCameraApp normal i386    cd /Users/mei/Desktop/BlueCheese/HaoCameraDemo    export IPHONEOS_DEPLOYMENT_TARGET=7.1    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -arch i386 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk -L/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator -F/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator -F/Users/mei/Desktop/BlueCheese/HaoCameraDemo -filelist /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/EdibleCameraApp.LinkFileList -Xlinker -objc_abi_version -Xlinker 2 -fobjc-arc -fobjc-link-runtime -Xlinker -no_implicit_dylibs -mios-simulator-version-min=7.1 -lstdc++.6.0.9 -framework opencv2 -framework TesseractOCR -framework CoreGraphics -framework UIKit -framework Foundation -Xlinker -dependency_info -Xlinker /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/EdibleCameraApp_dependency_info.dat -o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/EdibleCameraApp36"98279020-91EB-4361-AE46-90589CC08001-
-b0A47A5BB-D598-4E71-8641-7E47C61AA533
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection149"Link /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/EdibleCameraApp115"Ld DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/EdibleCameraApp normal i3861fd9a4cbd633b941^899a50ccd633b941^---0#0#1#--1773"Ld DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/EdibleCameraApp normal i386    cd /Users/mei/Desktop/BlueCheese/HaoCameraDemo    export IPHONEOS_DEPLOYMENT_TARGET=7.1    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -arch i386 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk -L/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator -F/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator -F/Users/mei/Desktop/BlueCheese/HaoCameraDemo -filelist /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/EdibleCameraApp.LinkFileList -Xlinker -objc_abi_version -Xlinker 2 -fobjc-arc -fobjc-link-runtime -Xlinker -no_implicit_dylibs -mios-simulator-version-min=7.1 -lstdc++.6.0.9 -framework opencv2 -framework TesseractOCR -framework CoreGraphics -framework UIKit -framework Foundation -Xlinker -dependency_info -Xlinker /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Intermediates/EdibleCameraApp.build/Debug-iphonesimulator/EdibleCameraApp.build/Objects-normal/i386/EdibleCameraApp_dependency_info.dat -o /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/EdibleCameraApp36"811862C5-6C94-4292-A033-F42A3D569EF5-
+b460D0C89-C3B1-4C69-9A34-BEEB2416D5EB
 
 CProcessInfoPlistFile /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app/Info.plist /Users/mei/Desktop/BlueCheese/HaoCameraDemo/HaoJsonDemo/EdibleCameraApp-Info.plist
 s422661501.437296
@@ -1965,5 +2041,11 @@ CProcessPCH++ /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCame
 r0
 
 CTouch /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app
-r0
+s422827725.844892
+e422827725.849333
+r1
+xTouch
+x/Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection134"Touch /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app90"Touch DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app9f5bd8cdd633b941^7a6ed9cdd633b941^---0#0#1#--488"Touch DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app    cd /Users/mei/Desktop/BlueCheese/HaoCameraDemo    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Users/mei/Desktop/BlueCheese/HaoCameraDemo/DerivedData/EdibleCameraApp/Build/Products/Debug-iphonesimulator/EdibleCameraApp.app36"370CF85B-6EA7-4E21-A361-E3E3426647FE-
+b460D0C89-C3B1-4C69-9A34-BEEB2416D5EB
 

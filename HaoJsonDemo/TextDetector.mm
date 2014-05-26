@@ -32,7 +32,7 @@ using namespace std;
     
     //Extract channels to be processed individually
     vector<Mat> channels;
-    computeNMChannels(orgMat, channels);
+    computeNMChannels(orgMat, channels, ERFILTER_NM_RGBLGrad);
     int cn = (int)channels.size();
     
     NSLog(@"channels = %d",cn);
@@ -47,8 +47,8 @@ using namespace std;
     // Create ERFilter objects with the 1st and 2nd stage default classifiers
     /*!RECONSIDER THE PARAMS!*/
     Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1([self filePathWithFileName:
-                                                                   @"trained_classifierNM1.xml"]),16,0.00015f,0.13f,0.2f,true,0.1f);
-    Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.5);
+                                                                   @"trained_classifierNM1.xml"]),4,0.0001f,0.01f,0.002f,true,0.01f);
+    Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.03);
     
     vector<vector<ERStat> > regions(channels.size());
     // Apply the default cascade classifier to each independent channel (could be done in parallel)
