@@ -103,7 +103,6 @@
         
         cv::Mat tempMat= [ipp toGrayMat:image];
         
-        //tempMat = [ipp removeBackgroud:tempMat];//change here to change filter
         tempMat = [ipp processImage:tempMat];//change here to change filter
         
         

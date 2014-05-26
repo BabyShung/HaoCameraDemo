@@ -63,12 +63,76 @@
     cv::GaussianBlur(inputImage, inputImage, size, 0.8);
 	cv::adaptiveThreshold(inputImage, inputImage, 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY, 25, 14);
 	cv::GaussianBlur(inputImage, inputImage, size, 0.8);
-
-    
-    
-    
+    inputImage = [self laplacian:inputImage];
     return inputImage;
 }
+
+
+
+
+-(cv::Mat)processImage: (cv::Mat)inputImage{
+    // this function check the input image's style : black+white or white+black
+    cv::Mat output;
+    int isBlackBack = [self checkBackground:inputImage];
+    if (isBlackBack == 1) {
+        output = [self laplacian:inputImage];
+        NSLog(@"IS black back ground\n");
+    }
+    else{
+        output = [self removeBackgroud:inputImage];
+        NSLog(@"IS White back ground\n");
+        
+    }
+    
+    return output;
+}
+
+
+-(int)checkBackground:(cv::Mat )input //Fang's
+{
+    int rows = input.rows;
+    int cols = input.cols;
+    
+    //count the sum of the pixl
+    int sum_pixl = 0;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            uchar pixl = input.at<uchar>(i,j);
+            int pixl_int = pixl - '0';
+            sum_pixl = sum_pixl + pixl_int;
+        }
+    }
+    //count the average of the pixel
+    int ave_pixl = sum_pixl/(rows*cols);
+    //count_white the nuber of pixl whose value is bigger than average
+    int count_white = 0;
+    //count_white the nuber of pixl whose value is smaller than average
+    int count_black = 0;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            
+            uchar pixl = input.at<uchar>(i,j);
+            int pixl_int = pixl - '0';
+            if (pixl_int>=ave_pixl) {
+                count_white= count_white+1;
+            }else{
+                count_black = count_black +1;
+            }
+            
+        }
+    }
+    //if more white then Black background（0） others （1）
+    if (count_black <= count_white) {
+        return 0;
+    } else {
+        return 1;
+    }
+    
+}
+
+
+
+
 
 
 //========================================= Fang
@@ -136,7 +200,7 @@
 
 //-----
 
-- (cv::Mat)processImage:(cv::Mat)src
+- (cv::Mat)processImage_ARPN:(cv::Mat)src
 {
     cv::Mat source = src;
     cv::Mat output = [self filterMedianSmoot:source];

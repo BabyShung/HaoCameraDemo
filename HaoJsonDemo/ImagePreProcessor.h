@@ -37,6 +37,11 @@ typedef struct{
 
 -(cv::Mat)removeBackgroud:(cv::Mat)inputImage;
 
+-(cv::Mat)processImage: (cv::Mat)inputImage;
+
+-(int)checkBackground:(cv::Mat)input;
+
+
 
 //Fang
 -(cv::Mat)canny:(cv::Mat)input;
@@ -64,6 +69,6 @@ typedef struct{
 -(cv::Mat) rotateImage:(cv::Mat) source :(double) angle;
 
 
-- (cv::Mat)processImage:(cv::Mat)src;
+- (cv::Mat)processImage_ARPN:(cv::Mat)src;
 
 @end
