@@ -10,6 +10,7 @@
 #import "opencv2/opencv.hpp"
 #import "UIImage+OpenCV.h"
 #import "ImagePreProcessor.h"
+#import "opencv2/imgproc/imgproc.hpp"
 
 @interface DebugViewController ()
 
@@ -96,24 +97,30 @@
         
         
         
-        //------------------------------------- Charlie add image pre processing
+        //======================= Charlie add image pre processing
         
-       
+        
         ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
         
-        cv::Mat tempMat= [ipp toGrayMat:image];
+        image = [ipp deBlur:image];
         
+        cv::Mat tempMat= [image CVGrayscaleMat];//convert image to MAT
+        
+        
+        //-------------------------
+        
+        tempMat = [ipp laplacian:tempMat];//change here to change filter
         //tempMat = [ipp removeBackgroud:tempMat];//change here to change filter
-        tempMat = [ipp processImage:tempMat];//change here to change filter
-        
-        
-        image =[ipp toGrayUIImage:tempMat];
-        
+        //tempMat = [ipp laplacian:tempMat];//change here to change filter
         
        
         
+        //-------------------------
         
-        //------------------------------------- / End of pre pro
+       
+        
+        image =[ipp toGrayUIImage:tempMat];//convert image back to UIImage
+        //=======================  / End of pre pro
         
         
         
