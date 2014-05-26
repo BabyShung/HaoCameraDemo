@@ -11,6 +11,7 @@
 #import "UIImage+OpenCV.h"
 #import "ImagePreProcessor.h"
 
+
 @interface DebugViewController ()
 
 @property (weak, nonatomic) UIImageView *imageView1;
@@ -103,6 +104,8 @@
         
        
         ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
+        
+        
         
         cv::Mat tempMat= [ipp toGrayMat:image];
         
