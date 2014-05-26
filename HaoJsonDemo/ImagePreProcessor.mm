@@ -68,7 +68,12 @@
     return inputImage;
 }
 
-
+-(cv::Mat)sharpen:(cv::Mat)inputImage{
+    cv::Mat output;
+    cv::GaussianBlur(inputImage, output, cv::Size(0, 0), 10);
+    cv::addWeighted(inputImage, 1.5, output, -0.5, 0, output);
+    return output;
+}
 
 
 -(cv::Mat)processImage: (cv::Mat)inputImage{
@@ -76,11 +81,16 @@
     cv::Mat output;
     int isBlackBack = [self checkBackground:inputImage];
     if (isBlackBack == 1) {
-        output = [self laplacian:inputImage];
+        
+        output = [self sharpen:inputImage];
+        output = [self laplacian:output];
         NSLog(@"IS black back ground\n");
     }
     else{
+        
+
         output = [self removeBackgroud:inputImage];
+        output = [self sharpen:output];
         NSLog(@"IS White back ground\n");
         
     }

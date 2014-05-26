@@ -90,7 +90,7 @@
        
         ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
         
-        image = [TextDetector detectTextRegions:image];
+        //image = [TextDetector detectTextRegions:image];
         
         cv::Mat tempMat= [ipp toGrayMat:image];
         
