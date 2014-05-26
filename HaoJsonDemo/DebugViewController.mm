@@ -15,8 +15,11 @@
 
 @property (weak, nonatomic) UIImageView *imageView1;
 @property (weak, nonatomic) UIImageView *imageView2;
-@property (weak, nonatomic) UILabel *regLabel1;
-@property (weak, nonatomic) UILabel *regLabel2;
+//@property (weak, nonatomic) UILabel *regLabel1;
+//@property (weak, nonatomic) UILabel *regLabel2;
+@property (weak, nonatomic) UITextView *regtv1;
+@property (weak, nonatomic) UITextView *regtv2;
+
 
 @end
 
@@ -91,7 +94,7 @@
         
         
         //original image, put in top imageview and get text in label
-        [self placeImageInView:self.imageView1 withImage:image withLabel:self.regLabel1];
+        [self placeImageInView:self.imageView1 withImage:image withTextView:self.regtv1];
         
         
         
@@ -117,7 +120,7 @@
         
         
         //precessed image, put in top imageview and get text in label
-        [self placeImageInView:self.imageView2 withImage:image withLabel:self.regLabel2];
+        [self placeImageInView:self.imageView2 withImage:image withTextView:self.regtv2];
         
         
     }else {// simple cam finished w/o image
@@ -144,14 +147,14 @@
 
 
 //helper for viewing
--(void)placeImageInView:(UIImageView *)imageView withImage:(UIImage *)image withLabel:(UILabel *)label{
+-(void)placeImageInView:(UIImageView *)imageView withImage:(UIImage *)image withTextView:(UITextView *)tv{
     imageView.image = image;
     imageView.frame = CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y,
                                  image.size.width, image.size.height);
     
     dispatch_async(dispatch_get_main_queue(), ^{
         //1.Use tesseract to recognize image
-        label.text = [self recognizeImageWithTesseract:image];
+        tv.text = [self recognizeImageWithTesseract:image];
         
     });
     
@@ -175,11 +178,17 @@
 
 -(void)initControls{
     
+    float topX = 40;
+    float topH = 120;
+    float topW = 320;
+    
+    float textViewHeight = 100;
+    
     //add debug views
-    self.imageView1 = [self createImageViewWithRect:CGRectMake(0, 0, 320, 150)];
-    self.imageView2 = [self createImageViewWithRect:CGRectMake(0, 284, 320, 150)];
-    self.regLabel1 = [self createLabelWithRect:CGRectMake(0, 150, 320, 60)];
-    self.regLabel2 = [self createLabelWithRect:CGRectMake(0, 434, 320, 60)];
+    self.imageView1 = [self createImageViewWithRect:CGRectMake(0, topX, topW, topH)];
+    self.imageView2 = [self createImageViewWithRect:CGRectMake(0, topX + topH + topH, topW, topH)];
+    self.regtv1 = [self createTextViewWithRect:CGRectMake(0, topX + topH, topW, textViewHeight)];
+    self.regtv2 = [self createTextViewWithRect:CGRectMake(0, topX + topH * 3, topW, textViewHeight)];
 }
 
 -(UIImageView *)createImageViewWithRect:(CGRect)rect{
@@ -201,6 +210,17 @@
     label.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
     [self.view addSubview:label];
     return label;
+}
+
+-(UITextView *)createTextViewWithRect:(CGRect)rect{
+    UITextView *tv= [[UITextView alloc]initWithFrame:rect];
+    tv.text = @"";
+    tv.backgroundColor = [UIColor clearColor];
+    //label.textAlignment = NSTextAlignmentCenter;
+    //label.center = self.view.center;
+    tv.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
+    [self.view addSubview:tv];
+    return tv;
 }
 
 
