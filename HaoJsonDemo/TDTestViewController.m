@@ -31,7 +31,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.originView.image = [UIImage imageNamed:@"STOP_sign.jpg"];
+    self.originView.image = [UIImage imageNamed:@"1.png"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,7 +40,8 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)DectBtnPressed:(id)sender {
-    [TextDetector detectTextRegions:self.originView.image];
+    self.resultView.image = [TextDetector detectTextRegions:self.originView.image];
+
 }
 
 /*
