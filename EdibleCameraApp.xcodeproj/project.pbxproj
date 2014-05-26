@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A014C021933C69000D06090 /* TextDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A014C001933C69000D06090 /* TextDetector.mm */; };
 		3AA1BD8A192FA1B8002729BC /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA1BD89192FA1B8002729BC /* opencv2.framework */; };
 		3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */; };
 		3AA1BD90192FA982002729BC /* ImagePreProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1BD8F192FA982002729BC /* ImagePreProcessor.mm */; };
@@ -66,6 +67,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A014C001933C69000D06090 /* TextDetector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextDetector.mm; sourceTree = "<group>"; };
+		3A014C011933C69000D06090 /* TextDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDetector.h; sourceTree = "<group>"; };
 		3AA1BD89192FA1B8002729BC /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		3AA1BD8B192FA282002729BC /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
 		3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
@@ -158,6 +161,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A014BFF1933C67000D06090 /* textDetection */ = {
+			isa = PBXGroup;
+			children = (
+				3A014C001933C69000D06090 /* TextDetector.mm */,
+				3A014C011933C69000D06090 /* TextDetector.h */,
+			);
+			name = textDetection;
+			sourceTree = "<group>";
+		};
 		B82353B8192BE2DF00D6BCAC /* Image */ = {
 			isa = PBXGroup;
 			children = (
@@ -267,6 +279,7 @@
 		B8FA464218F9E954007DA680 /* HaoJsonDemo */ = {
 			isa = PBXGroup;
 			children = (
+				3A014BFF1933C67000D06090 /* textDetection */,
 				B82353EF192CFC4C00D6BCAC /* tessdata */,
 				B8F29C4819311A4F008979A7 /* Frame */,
 				B8DABCFA192FC2A100FF545E /* ImageProcessing */,
@@ -438,6 +451,7 @@
 				B8F29C5719311A5C008979A7 /* EP_secondViewController.m in Sources */,
 				B8235406192D474D00D6BCAC /* ImageCropView.m in Sources */,
 				B8F29C6019311E77008979A7 /* CameraViewController.m in Sources */,
+				3A014C021933C69000D06090 /* TextDetector.mm in Sources */,
 				B8F29C6319314357008979A7 /* DebugViewController.mm in Sources */,
 				B8F29C5A19311A5C008979A7 /* EParentViewController.m in Sources */,
 				B8FA464D18F9E954007DA680 /* AppDelegate.m in Sources */,
