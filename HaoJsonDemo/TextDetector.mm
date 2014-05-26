@@ -9,15 +9,12 @@
 #import "TextDetector.h"
 #include <fstream>
 #include <vector>
-#import <opencv2/opencv.hpp>
+#include <opencv2/opencv.hpp>
 #include "UIImage+OpenCV.h"
 #include  <opencv2/imgproc.hpp>
 #include  <opencv2/objdetect.hpp>
 #include  <opencv2/highgui.hpp>
 
-#define CLASSIFIER1 "test.txt"
-#define CLASSIFIER2 ""
-#define GROUPING ""
 
 using namespace cv;
 using namespace std;
@@ -45,10 +42,14 @@ using namespace std;
      NSLog(@"empty mat %i", tmp.empty());*/
     
     // Create ERFilter objects with the 1st and 2nd stage default classifiers
-    /*!RECONSIDER THE PARAMS!*/
+    /*!RECONSIDER THE PARAMS!
     Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1([self filePathWithFileName:
-                                                                   @"trained_classifierNM1.xml"]),16,0.00015f,0.13f,0.2f,true,0.1f);
-    Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.5);
+                                                                   @"trained_classifierNM1.xml"]),4,0.00015f,0.13f,0.2f,true,0.1f);
+    Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.5);*/
+    Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1([self filePathWithFileName:
+                                                                    @"trained_classifierNM1.xml"]),4,0.0001f,0.01f,0.002f,true,0.01f);
+    Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.03);
+
     
     vector<vector<ERStat> > regions(channels.size());
     // Apply the default cascade classifier to each independent channel (could be done in parallel)
