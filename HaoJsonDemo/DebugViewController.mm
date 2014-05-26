@@ -90,15 +90,16 @@
        
         ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
         
-        //image = [TextDetector detectTextRegions:image];
+        //
         
-        cv::Mat tempMat= [ipp toGrayMat:image];
+//        cv::Mat tempMat= [image CVMat];
+//        
+//        tempMat = [ipp processImage:tempMat];//change here to change filter
+//        
+//        
+//        image =[ipp toGrayUIImage:tempMat];
         
-        tempMat = [ipp processImage:tempMat];//change here to change filter
-        
-        
-        image =[ipp toGrayUIImage:tempMat];
-        
+        image = [TextDetector detectTextRegions:image];
         
        
         
