@@ -60,6 +60,7 @@
     cv::Size size;
 	size.height = 3;
 	size.width = 3;
+    inputImage = [self laplacian:inputImage];
     cv::GaussianBlur(inputImage, inputImage, size, 0.8);
 	cv::adaptiveThreshold(inputImage, inputImage, 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY, 25, 14);
 	cv::GaussianBlur(inputImage, inputImage, size, 0.8);
