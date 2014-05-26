@@ -92,12 +92,11 @@
         
         //
         
-//        cv::Mat tempMat= [image CVMat];
-//        
-//        tempMat = [ipp processImage:tempMat];//change here to change filter
-//        
-//        
-//        image =[ipp toGrayUIImage:tempMat];
+     cv::Mat tempMat= [image CVMat];
+      
+        tempMat = [ipp processImage:tempMat];//change here to change filter
+        
+        image =[:tempMat];
         
         image = [TextDetector detectTextRegions:image];
         

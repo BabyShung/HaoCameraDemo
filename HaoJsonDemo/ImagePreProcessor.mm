@@ -19,6 +19,12 @@
     return matImage;
 }
 
+-(cv::Mat)to8UC4Mat:(UIImage *) inputImage{
+    
+    cv::Mat matImage = [inputImage CVMat];
+    return matImage;
+}
+
 -(UIImage *)toGrayUIImage:(cv::Mat) inputMat{
 
     UIImage *img = [[UIImage alloc] init];
