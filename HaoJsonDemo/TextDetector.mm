@@ -47,7 +47,7 @@ using namespace std;
                                                                    @"trained_classifierNM1.xml"]),4,0.00015f,0.13f,0.2f,true,0.1f);
     Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.5);*/
     Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1([self filePathWithFileName:
-                                                                    @"trained_classifierNM1.xml"]),4,0.0001f,0.01f,0.002f,true,0.01f);
+                                                                    @"trained_classifierNM1.xml"]),4,0.001f,0.1f,0.02f,true,0.01f);
     Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.03);
 
     

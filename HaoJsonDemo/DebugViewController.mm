@@ -96,7 +96,7 @@
       
         tempMat = [ipp processImage:tempMat];//change here to change filter
         
-        image =[:tempMat];
+        
         
         image = [TextDetector detectTextRegions:image];
         
