@@ -10,6 +10,7 @@
 #import "opencv2/opencv.hpp"
 #import "UIImage+OpenCV.h"
 #import "ImagePreProcessor.h"
+#import "TextDetector.h"
 
 
 @interface DebugViewController ()
@@ -30,23 +31,7 @@
 {
     [super viewDidLoad];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        UIImage *testCV = [UIImage imageNamed:@"placeit.png"];
-        
-        cv:: Mat tempMat = [testCV CVMat];
-        cv::Size size;
-        size.height = 3;
-        size.width = 3;
-        
-        cv::Canny(tempMat, tempMat, 0.8, 0.5);
-        testCV = [UIImage imageWithCVMat:tempMat];
-        
-        
-        
-        
-        
-    });
+    dispatch_async(dispatch_get_main_queue(), ^{});
     
     
     [self initControls];
@@ -105,7 +90,7 @@
        
         ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
         
-        
+        image = [TextDetector detectTextRegions:image];
         
         cv::Mat tempMat= [ipp toGrayMat:image];
         
