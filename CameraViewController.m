@@ -7,15 +7,13 @@
 //
 
 
-static CGFloat optionAvailableAlpha = 0.6;
-static CGFloat optionUnavailableAlpha = 0.2;
+#define ButtonAvailableAlpha 0.6
+#define ButtonUnavailableAlpha 0.2
 
+#define CROPVIEW_HEIGHT 378
 #define CROPFRAME_BOARDER_WIDTH 3
 #define CROPFRAME_FRAME_WIDTH 220
 #define CROPFRAME_FRAME_HEIGHT 80
-
-
-#define CROPVIEW_HEIGHT 378
 
 #define DEFAULT_MASK_ALPHA 0.50
 
@@ -41,12 +39,11 @@ static CGFloat optionUnavailableAlpha = 0.2;
     // Capture Toggle
     BOOL isCapturingImage;
     
-    
     //CMTime defaultVideoMaxFrameDuration;
     
 }
 
-// Used to cover animation flicker during rotation
+// Used to cover animation flicker during rotation   ???
 @property (strong, nonatomic) UIView * rotationCover;
 
 // Crop View
@@ -70,9 +67,6 @@ static CGFloat optionUnavailableAlpha = 0.2;
 // View Properties
 @property (strong, nonatomic) UIView * StreamView;//STREAM of the realtime photo data
 @property (strong, nonatomic) UIImageView * capturedImageView;//captured image view
-
-
-
 
 @end
 
@@ -119,14 +113,11 @@ static CGFloat optionUnavailableAlpha = 0.2;
     [self.view insertSubview:_capturedImageView aboveSubview:_StreamView];
     
     
-    
-    
-    
-    /******************
+    /*^^^^^^^^^^^^^^^^^
      
      Setup Camera
      
-     ***************/
+     ^^^^^^^^^^^^^^^^^*/
     
     
     /******************
@@ -204,7 +195,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
         _captureVideoPreviewLayer.connection.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
     }
     
-    
+    //later can change to let user define it
     _isCropMode = YES;
     
     
@@ -241,9 +232,6 @@ static CGFloat optionUnavailableAlpha = 0.2;
     }
     
     
-    
-    
-    
     // -- LOAD ROTATION COVERS BEGIN -- //
     /*
      Rotating causes a weird flicker, I'm in the process of looking for a better
@@ -269,13 +257,33 @@ static CGFloat optionUnavailableAlpha = 0.2;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    
+//    NSLog(@"view Will Appear");
+//    
+//    if([self.mySesh isRunning]){
+//        //[self.mySesh stopRunning];
+//    }else{
+//        NSLog(@"start again");
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            //1.Use tesseract to recognize image
+//            [self.mySesh startRunning];
+//            
+//        });
+//        
+//    }
 }
 
+-(void)viewDidDisappear:(BOOL)animated{
+//    NSLog(@"view did Disappear");
+//    if([self.mySesh isRunning]){
+//        NSLog(@"session stopped");
+//        [self.mySesh stopRunning];
+//        
+//    }
+}
 
 - (void) viewDidAppear:(BOOL)animated {
     
-    
+    //Hao: important to change tabbar index
     [self.delegate checkTabbarStatus:self.pageIndex];
     
     [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
@@ -344,7 +352,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
         
         btn.bounds = CGRectMake(0, 0, 40, 40);
         btn.backgroundColor = [UIColor colorWithWhite:1 alpha:.96];
-        btn.alpha = optionAvailableAlpha;
+        btn.alpha = ButtonAvailableAlpha;
         btn.hidden = YES;
         
         btn.layer.shouldRasterize = YES;
@@ -359,7 +367,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
     
     // If a device doesn't have multiple cameras, fade out button ...
     if ([AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo].count == 1) {
-        _switchCameraBtn.alpha = optionUnavailableAlpha;
+        _switchCameraBtn.alpha = ButtonUnavailableAlpha;
     }
     else {
         [_switchCameraBtn addTarget:self action:@selector(switchCameraBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -572,8 +580,6 @@ static CGFloat optionUnavailableAlpha = 0.2;
 }
 
 - (void) torchBtnPressed:(id)sender {
-    
-    
     if ([_myDevice isTorchAvailable]) {
         if (_myDevice.torchActive) {
             if([_myDevice lockForConfiguration:nil]) {
@@ -592,6 +598,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
 }
 
 - (void) backBtnPressed:(id)sender {
+ 
     if (_capturedImageView.image) {
         _capturedImageView.contentMode = UIViewContentModeScaleAspectFill;
         _capturedImageView.backgroundColor = [UIColor clearColor];
@@ -643,7 +650,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
 
 - (void) evaluateFlashBtn {
     if (_myDevice.isTorchAvailable) {   // Evaluate Flash Available?
-        _TorchBtn.alpha = optionAvailableAlpha;
+        _TorchBtn.alpha = ButtonAvailableAlpha;
         
         // Evaluate Flash Active?
         if (_myDevice.isTorchActive) {
@@ -654,7 +661,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
         }
     }
     else {
-        _TorchBtn.alpha = optionUnavailableAlpha;
+        _TorchBtn.alpha = ButtonUnavailableAlpha;
         [_TorchBtn setTintColor:[self darkGreyColor]];
     }
 }
@@ -708,9 +715,6 @@ static CGFloat optionUnavailableAlpha = 0.2;
     // Set Orientation
     BOOL isLandscape = UIInterfaceOrientationIsLandscape(self.interfaceOrientation) ? YES : NO;
     
-    NSLog(@"isLandscape: %d",isLandscape);
-    
-    
     // Set Size
     CGSize size = (isLandscape) ? CGSizeMake(screenHeight, screenWidth) : CGSizeMake(screenWidth, screenHeight);
     
@@ -741,9 +745,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
         // by drawing outside it, we remove the edges of the picture
         CGFloat offsetTop = (targetHeight - size.height) / 2;
         CGFloat offsetLeft = (screenHeight - size.width) / 2;
-        
-        
-        
+     
         CGRectMake(-offsetLeft, -offsetTop, screenHeight, targetHeight);
     }) : ({
         /**********************
@@ -778,7 +780,6 @@ static CGFloat optionUnavailableAlpha = 0.2;
     UIGraphicsEndImageContext();
     // END CONTEXT
     
-    
     // See if someone's waiting for resized image
     if (isSaveWaitingForResizedImage == YES) [self.camDelegate EdibleCamera:self didFinishWithImage:_capturedImageView.image];
     if (isRotateWaitingForResizedImage == YES) _capturedImageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -790,7 +791,6 @@ static CGFloat optionUnavailableAlpha = 0.2;
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
                                 duration:(NSTimeInterval)duration {
-    
     if (_capturedImageView.image) {
         _capturedImageView.backgroundColor = [UIColor blackColor];
         
@@ -843,6 +843,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
     // Need alpha 0.0 before dismissing otherwise sticks out on dismissal
     _rotationCover.alpha = 0.0;
     
+    //first dismiss VC..
     [self dismissViewControllerAnimated:YES completion:^{
         
         completion();
@@ -856,7 +857,7 @@ static CGFloat optionUnavailableAlpha = 0.2;
         isSaveWaitingForResizedImage = NO;
         isRotateWaitingForResizedImage = NO;
         
-        [_mySesh stopRunning];
+        [_mySesh stopRunning];//key point
         _mySesh = nil;
         
         _capturedImageView.image = nil;
@@ -870,10 +871,13 @@ static CGFloat optionUnavailableAlpha = 0.2;
         _rotationCover = nil;
         
         _stillImageOutput = nil;
+        
         _myDevice = nil;
         
         self.view = nil;
+        
         self.camDelegate = nil;
+        
         [self removeFromParentViewController];
         
     }];
@@ -925,7 +929,5 @@ static CGFloat optionUnavailableAlpha = 0.2;
 - (BOOL) hideCaptureButton {
     return _hideCaptureButton;
 }
-
-
 
 @end

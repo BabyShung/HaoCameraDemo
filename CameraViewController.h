@@ -36,9 +36,6 @@
  
  ***************/
 
-
-
-
 @interface CameraViewController : EParentViewController
 
 /******************
@@ -47,7 +44,7 @@
  
  ***************/
 
-//Must adhere to SimpleCamDelegate protocol
+//Must adhere to EdibleCameraDelegate protocol
 @property (retain, nonatomic) id <EdibleCameraDelegate> camDelegate;
 
 //Used if you'd like your pictures cropped to squareMode - defaults to NO (beta)
@@ -65,14 +62,13 @@
 //Don't show the preview phase of the photo acquisition
 @property (nonatomic) BOOL disablePhotoPreview;
 
-
 /******************
  
  Camera operations
  
  ***************/
 
-// Use this to close SimpleCam - Otherwise, the captureSession may not close properly and may result in memory leaks.
+// Use this to close Cam - Otherwise, the captureSession may not close properly and may result in memory leaks.
 - (void) closeWithCompletion:(void (^)(void))completion;
 
 //Use this method for programmatically acquire a photo

@@ -11,7 +11,6 @@
 #import "UIImage+OpenCV.h"
 #import "ImagePreProcessor.h"
 
-
 @interface DebugViewController ()
 
 @property (weak, nonatomic) UIImageView *imageView1;
@@ -19,16 +18,13 @@
 @property (weak, nonatomic) UILabel *regLabel1;
 @property (weak, nonatomic) UILabel *regLabel2;
 
-
 @end
 
 @implementation DebugViewController
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
@@ -43,10 +39,11 @@
         testCV = [UIImage imageWithCVMat:tempMat];
         
         
+        
+        
+        
     });
     
-    
-
     
     [self initControls];
     
@@ -80,7 +77,6 @@
     //NSLog(@"progress: %d", tesseract.progress);
     return NO;  // return YES, if you need to interrupt tesseract before it finishes
 }
-
 
 #pragma mark CAMERA DELEGATE
 
@@ -137,6 +133,12 @@
      the captureSession may not close properly and may result in memory leaks.
      
      *********************************/
+
+//******* PS: not needed since added pageViewController, need to think about AVCaptureSession problem about memory and resources
+//    [simpleCam closeWithCompletion:^{
+//        NSLog(@"SimpleCam is done closing ... ");
+//    }];
+    
     
     NSLog(@"****************** PHOTO TAKEN ********************");
 }
@@ -144,8 +146,6 @@
 
 //helper for viewing
 -(void)placeImageInView:(UIImageView *)imageView withImage:(UIImage *)image withLabel:(UILabel *)label{
-    
-    
     imageView.image = image;
     imageView.frame = CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y,
                                  image.size.width, image.size.height);
@@ -162,21 +162,18 @@
     });
 }
 
-
 //View did load in SimpleCam VC
 - (void) EdibleCameraDidLoadCameraIntoView:(CameraViewController *)simpleCam {
     NSLog(@"Camera loaded ... ");
 
 }
 
-
-
-
-/********
+/***********
  
  Layouts
  
- ******/
+ *********/
+
 -(void)initControls{
     
     //add debug views

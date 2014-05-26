@@ -19,7 +19,7 @@
 {
     [super viewDidLoad];
     
-    NSLog(@"did load..");
+    NSLog(@"Super did load..");
 }
 
 

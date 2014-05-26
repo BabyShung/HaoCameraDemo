@@ -10,15 +10,16 @@
 
 @class EParentViewController;
 
-/**************
+/***********************************************
  
- Protocol
+ Protocol, passing data back to FrameVC
  
- ************/
+ *********************************************/
 
 @protocol EParentVCDelegate
 
 @required
+
 - (void) checkTabbarStatus:(NSUInteger) index;
 
 - (void) moveToTab:(NSUInteger) index;
