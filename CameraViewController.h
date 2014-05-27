@@ -22,7 +22,7 @@
 
 @required
 //Called when the user is done with SimpleCam.  If image is nil, user backed out w/o image.
-- (void) EdibleCamera:(CameraViewController *)simpleCam didFinishWithImage:(UIImage *)image;
+- (void) EdibleCamera:(CameraViewController *)simpleCam didFinishWithImage:(UIImage *)image withRect:(CGRect)rect andCropSize:(CGSize)size;
 
 @optional
 //Called when the camera is successfully loaded into the view.

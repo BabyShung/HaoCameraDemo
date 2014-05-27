@@ -46,7 +46,7 @@
 //tesseract processing
 -(NSString *)recognizeImageWithTesseract:(UIImage *)img
 {
-    Tesseract *tesseract = [[Tesseract alloc] initWithLanguage:@"eng+ita"];//langague package
+    Tesseract *tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];//langague package
     tesseract.delegate = self;
     [tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz()&/" forKey:@"tessedit_char_whitelist"]; //limit search
     
@@ -69,7 +69,7 @@
 
 #pragma mark CAMERA DELEGATE
 
-- (void) EdibleCamera:(CameraViewController *)simpleCam didFinishWithImage:(UIImage *)image {
+- (void) EdibleCamera:(CameraViewController *)simpleCam didFinishWithImage:(UIImage *)image withRect:(CGRect)rect andCropSize:(CGSize)size{
     
     if (image) {
         /*****************************
@@ -77,13 +77,22 @@
          simple cam finished with image
          
          ****************************/
+
         
+        //PS: image variable is the original size image (2448*3264)
         
+        UIImage *onScreenImage = [self scaleImage:image withScale:2.0f withRect:rect andCropSize:size];
+        NSLog(@"on screen image(width):  %f",onScreenImage.size.width);
+        NSLog(@"on screen image(height):  %f",onScreenImage.size.height);
+
+        UIImage *originalImage = [UIImage imageWithCGImage:onScreenImage.CGImage];
+        NSLog(@"original image(width):  %f",originalImage.size.width);
+        NSLog(@"original image(height):  %f",originalImage.size.height);
+
         //original image, put in top imageview and get text in label
-        [self placeImageInView:self.imageView1 withImage:image withTextView:self.regtv1];
+        [self placeImageInView:self.imageView1 withImage:onScreenImage withTextView:self.regtv1];
         
-        
-        
+
         
         //------------------------------------- Charlie & Xinmei image pre processing field
         
@@ -91,12 +100,20 @@
         ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
         
         // Step 2. convert photo image to cv Mat, where Mat is in 8UC4 format
+<<<<<<< HEAD
         cv::Mat tempMat= [image CVMat];
+=======
+        cv::Mat tempMat= [originalImage CVMat];
+>>>>>>> FETCH_HEAD
         
         // Step 3. put Mat into pre processor- Charlie
         tempMat = [ipp processImage:tempMat];
         //tempMat = [ipp removeBackground2:tempMat];
+<<<<<<< HEAD
         image = [UIImage imageWithCVMat:tempMat];//convert to uiimage
+=======
+        onScreenImage = [UIImage imageWithCVMat:tempMat];//convert to uiimage
+>>>>>>> FETCH_HEAD
         
         // Step 4. put Mat into text Detector- Xinmei
         //image = [TextDetector detectTextRegions:image];
@@ -107,7 +124,7 @@
         
         
         //precessed image, put in top imageview and get text in label
-        [self placeImageInView:self.imageView2 withImage:image withTextView:self.regtv2];
+        [self placeImageInView:self.imageView2 withImage:onScreenImage withTextView:self.regtv2];
         
         
     }else {// simple cam finished w/o image
@@ -210,5 +227,19 @@
     return tv;
 }
 
+
+-(UIImage *) scaleImage:(UIImage *)image withScale:(CGFloat)scale withRect:(CGRect)rect andCropSize:(CGSize)size{
+
+    //Crop View image, size is just the one on screen, CGImage is the original one
+    // START CONTEXT
+    //UIGraphicsBeginImageContext(size);
+    UIImage *result;
+    UIGraphicsBeginImageContextWithOptions(size, YES, scale);//this size is just cropView size,2.0 is for retina resolution !!!!!! important
+    [image drawInRect:rect];
+    result = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    // END CONTEXT
+    return result;
+}
 
 @end

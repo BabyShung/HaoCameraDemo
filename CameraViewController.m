@@ -171,7 +171,7 @@
     
 	if (!input) {// Handle the error appropriately.
 		NSLog(@"SC: ERROR: trying to open camera: %@", error);
-        [self.camDelegate EdibleCamera:self didFinishWithImage:_capturedImageView.image];
+        //[self.camDelegate EdibleCamera:self didFinishWithImage:_capturedImageView.image andImageViewSize:_capturedImageView.image.size];
 	}
     
 	[_mySesh addInput:input];
@@ -509,7 +509,7 @@
          
          //captured image
          UIImage * capturedImage = [[UIImage alloc]initWithData:imageData scale:1];
-         
+
          if (_myDevice == [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo][0]) {
              //*** using REAR camera ***
              if (self.interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
@@ -535,10 +535,12 @@
              
          }
          
+
+         
          isCapturingImage = NO;
          _capturedImageView.image = capturedImage;
          imageData = nil;
-         
+
          // If we have disabled the photo preview directly fire the delegate callback, otherwise, show user a preview
          _disablePhotoPreview ? [self photoCaptured] : [self drawControls];
      }];
@@ -551,9 +553,7 @@
     if (isImageResized) {
         NSLog(@"****************** isImageResized ********************");
         
-        [self.camDelegate EdibleCamera:self didFinishWithImage:_capturedImageView.image];
-        
-        
+        //[self.camDelegate EdibleCamera:self didFinishWithImage:_capturedImageView.image andImageViewSize:_capturedImageView.image.size];
         
     }
     else {
@@ -567,6 +567,17 @@
     [self.delegate moveToTab:1];
     //click back btn
     [self backBtnPressed:nil];
+    
+    //turn torch off if it is on
+    if (_myDevice.torchActive) {
+        if([_myDevice lockForConfiguration:nil]) {
+            _myDevice.torchMode = AVCaptureTorchModeOff;
+            [_TorchBtn setTintColor:[self redColor]];
+            [_myDevice unlockForConfiguration];
+        }
+    }
+
+    
 }
 
 #pragma mark BUTTON EVENTS
@@ -599,7 +610,7 @@
 
 - (void) backBtnPressed:(id)sender {
  
-    if (_capturedImageView.image) {
+    if (_capturedImageView.image) {//already taken
         _capturedImageView.contentMode = UIViewContentModeScaleAspectFill;
         _capturedImageView.backgroundColor = [UIColor clearColor];
         _capturedImageView.image = nil;
@@ -613,7 +624,7 @@
         [self drawControls];
     }
     else {
-        [self.camDelegate EdibleCamera:self didFinishWithImage:_capturedImageView.image];
+        //[self.camDelegate EdibleCamera:self didFinishWithImage:_capturedImageView.image andImageViewSize:_capturedImageView.image.size];
     }
 }
 
@@ -673,7 +684,9 @@
     NSLog(@"tapped..");
     
     if (_capturedImageView.image == nil) {
+        
         CGPoint aPoint = [sender locationInView:_StreamView];
+        
         if (_myDevice != nil) {
             if([_myDevice isFocusPointOfInterestSupported] &&
                [_myDevice isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
@@ -699,7 +712,7 @@
                         [_myDevice setFocusMode:AVCaptureFocusModeAutoFocus];
                         [_myDevice setExposurePointOfInterest:CGPointMake(focusX, focusY)];
                         [_myDevice setExposureMode:AVCaptureExposureModeContinuousAutoExposure];
-                        //NSLog(@"SC: Done Focusing");
+                        NSLog(@"SC: Done Focusing");
                     }
                     [_myDevice unlockForConfiguration];
                 }
@@ -722,11 +735,6 @@
         
         //size = _CropView.bounds.size;
         size = _CropView.cropAreaInView.size;
-        
-        NSLog(@"X: %f",_CropView.cropAreaInView.origin.x);
-        NSLog(@"Y: %f",_CropView.cropAreaInView.origin.y);
-        NSLog(@"W: %f",_CropView.cropAreaInView.size.width);
-        NSLog(@"H: %f",_CropView.cropAreaInView.size.height);
     }
     
     // Set Draw Rect
@@ -770,19 +778,19 @@
         CGFloat offsetTop = _CropView.cropAreaInView.origin.y;
         CGFloat offsetLeft = _CropView.cropAreaInView.origin.x+(targetWidth-screenWidth)/2;
         
+        //this rect just fix exactly on iphone5 screen
         CGRectMake(-offsetLeft, -offsetTop, targetWidth, screenHeight);
+        
+        
     });
+
     
-    // START CONTEXT
-    UIGraphicsBeginImageContextWithOptions(size, YES, 2.0);
-    [_capturedImageView.image drawInRect:drawRect];
-    _capturedImageView.image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    // END CONTEXT
     
     // See if someone's waiting for resized image
-    if (isSaveWaitingForResizedImage == YES) [self.camDelegate EdibleCamera:self didFinishWithImage:_capturedImageView.image];
-    if (isRotateWaitingForResizedImage == YES) _capturedImageView.contentMode = UIViewContentModeScaleAspectFit;
+    if (isSaveWaitingForResizedImage == YES)
+        [self.camDelegate EdibleCamera:self didFinishWithImage:_capturedImageView.image withRect:drawRect andCropSize:size];
+    if (isRotateWaitingForResizedImage == YES)
+        _capturedImageView.contentMode = UIViewContentModeScaleAspectFit;
     
     isImageResized = YES;
 }
