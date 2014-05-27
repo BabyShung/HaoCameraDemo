@@ -108,20 +108,21 @@
         
 
         
-        //------------------------------------- Charlie add image pre processing
+        //------------------------------------- Charlie & Xinmei image pre processing field
         
-       
+        // Step 1. Initiallize image pre processor
         ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
         
-        cv::Mat tempMat= [ipp toGrayMat:onScreenImage];
+        // Step 2. convert photo image to cv Mat, where Mat is in 8UC4 format
+        cv::Mat tempMat= [originalImage CVMat];
         
-        tempMat = [ipp processImage:tempMat];//change here to change filter
+        // Step 3. put Mat into pre processor- Charlie
+        tempMat = [ipp processImage:tempMat];
+        //tempMat = [ipp removeBackground2:tempMat];
+        onScreenImage = [UIImage imageWithCVMat:tempMat];//convert to uiimage
         
-        
-        onScreenImage =[ipp toGrayUIImage:tempMat];
-        
-        
-       
+        // Step 4. put Mat into text Detector- Xinmei
+        //image = [TextDetector detectTextRegions:image];
         
         
         //------------------------------------- / End of pre pro
