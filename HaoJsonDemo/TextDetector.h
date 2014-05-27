@@ -10,4 +10,5 @@
 
 @interface TextDetector : NSObject
 +(UIImage *)detectTextRegions:(UIImage *)orgImg;
++(NSArray *) textRegionsOfUIImage:(UIImage *)image;
 @end

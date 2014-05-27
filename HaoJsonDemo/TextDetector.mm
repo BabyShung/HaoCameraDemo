@@ -73,16 +73,12 @@ using namespace std;
     
     cout<<"Group no = "<<groups.size();
     
-    for (int i=(int)groups.size()-1; i>=0; i--)
-    {
-        if (orgMat.type() == CV_8UC3)
-            rectangle(orgMat,groups.at(i).tl(),groups.at(i).br(),Scalar( 0, 255, 255 ), 3, 8 );
-    }
+    [self groupsDrawWithMat:orgMat andGroups:groups];
     
     UIImage *result = [UIImage imageWithCVMat:orgMat];
     
     
-    // memory clean-up
+    // Memory clean-up
     er_filter1.release();
     er_filter2.release();
     regions.clear();
@@ -92,6 +88,13 @@ using namespace std;
     }
     
     return result;
+}
+
++(NSArray *) textRegionsOfUIImage:(UIImage *)image{
+    
+    
+    NSMutableArray *textRegionsImages;
+    return textRegionsImages;
 }
 
 +(string) filePathWithFileName:(NSString *) filename{
@@ -105,5 +108,14 @@ using namespace std;
     return cfilepathstr;
     
 }
+
++(void) groupsDrawWithMat:(Mat &)src andGroups:(vector<cv::Rect> &)groups
+{
+    cout<<"Drawing groups...\n";
+    for (int i=(int)groups.size()-1; i>=0; i--){
+        rectangle(src,groups.at(i).tl(),groups.at(i).br(),Scalar( 0, 255, 255 ), 3, 8 );
+    }
+}
+
 
 @end

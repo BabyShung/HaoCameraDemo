@@ -31,7 +31,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.originView.image = [UIImage imageNamed:@"w2.jpg"];
+    self.originView.image = [UIImage imageNamed:@"w2-1:3.jpg"];
 }
 
 - (void)didReceiveMemoryWarning
