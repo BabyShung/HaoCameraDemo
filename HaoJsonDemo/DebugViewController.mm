@@ -10,6 +10,7 @@
 #import "opencv2/opencv.hpp"
 #import "UIImage+OpenCV.h"
 #import "ImagePreProcessor.h"
+#import "TextDetector.h"
 
 
 @interface DebugViewController ()
@@ -30,23 +31,7 @@
 {
     [super viewDidLoad];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        UIImage *testCV = [UIImage imageNamed:@"placeit.png"];
-        
-        cv:: Mat tempMat = [testCV CVMat];
-        cv::Size size;
-        size.height = 3;
-        size.width = 3;
-        
-        cv::Canny(tempMat, tempMat, 0.8, 0.5);
-        testCV = [UIImage imageWithCVMat:tempMat];
-        
-        
-        
-        
-        
-    });
+    dispatch_async(dispatch_get_main_queue(), ^{});
     
     
     [self initControls];
@@ -100,22 +85,21 @@
         
         
         
-        //------------------------------------- Charlie add image pre processing
+        //------------------------------------- Charlie & Xinmei image pre processing field
         
-       
+        // Step 1. Initiallize image pre processor
         ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
         
+        // Step 2. convert photo image to cv Mat, where Mat is in 8UC4 format
+        cv::Mat tempMat= [image CVMat];
         
+        // Step 3. put Mat into pre processor- Charlie
+        tempMat = [ipp processImage:tempMat];
+        //tempMat = [ipp removeBackground2:tempMat];
+        image = [UIImage imageWithCVMat:tempMat];//convert to uiimage
         
-        cv::Mat tempMat= [ipp toGrayMat:image];
-        
-        tempMat = [ipp processImage:tempMat];//change here to change filter
-        
-        
-        image =[ipp toGrayUIImage:tempMat];
-        
-        
-       
+        // Step 4. put Mat into text Detector- Xinmei
+        //image = [TextDetector detectTextRegions:image];
         
         
         //------------------------------------- / End of pre pro
