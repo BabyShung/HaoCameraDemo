@@ -91,31 +91,22 @@
          simple cam finished with image
          
          ****************************/
-        NSLog(@"X:  %f",rect.origin.x);
-        NSLog(@"Y:  %f",rect.origin.y);
-        NSLog(@"W:  %f",rect.size.width);
-        NSLog(@"H:  %f",rect.size.height);
-        
+
         
         //PS: image variable is the original size image (2448*3264)
         
         UIImage *onScreenImage = [self scaleImage:image withScale:2.0f withRect:rect andCropSize:size];
-        
-        
         NSLog(@"on screen image(width):  %f",onScreenImage.size.width);
         NSLog(@"on screen image(height):  %f",onScreenImage.size.height);
 
-        
         UIImage *originalImage = [UIImage imageWithCGImage:onScreenImage.CGImage];
         NSLog(@"original image(width):  %f",originalImage.size.width);
         NSLog(@"original image(height):  %f",originalImage.size.height);
 
-        
         //original image, put in top imageview and get text in label
         [self placeImageInView:self.imageView1 withImage:onScreenImage withTextView:self.regtv1];
         
-        
-        
+
         
         //------------------------------------- Charlie add image pre processing
         
