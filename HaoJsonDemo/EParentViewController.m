@@ -18,9 +18,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    NSLog(@"Super did load..");
 }
-
 
 @end
