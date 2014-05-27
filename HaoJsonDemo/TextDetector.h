@@ -7,8 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+//#import <opencv2/opencv.hpp>
+
+#ifdef __cplusplus
+extern "C" {
+bool compareLoc(const cv::Rect &a, const cv::Rect &b);
+}
+
+#endif
 
 @interface TextDetector : NSObject
 +(UIImage *)detectTextRegions:(UIImage *)orgImg;
++(NSArray *)UIImagesOfTextRegions:(UIImage *)orgImg withLocations:(NSArray *)locArray;
 
 @end

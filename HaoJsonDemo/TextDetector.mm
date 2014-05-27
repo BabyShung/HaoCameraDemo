@@ -15,9 +15,7 @@
 #include  <opencv2/objdetect.hpp>
 #include  <opencv2/highgui.hpp>
 
-#define CLASSIFIER1 "test.txt"
-#define CLASSIFIER2 ""
-#define GROUPING ""
+
 
 using namespace cv;
 using namespace std;
@@ -38,9 +36,16 @@ using namespace std;
     //Draw the groups on the Mat
     [self groupsDrawWithMat:orgMat andGroups:groups];
     [self textGroupsSortAndMerge:groups];
+    
     //Convert Mat to UIImage
     UIImage *result = [UIImage imageWithCVMat:orgMat];
-    
+
+    std::sort(groups.begin(), groups.end(), compareLoc);
+    cout<<"....Sorting End...."<<endl;
+    for (int i=(int)groups.size()-1; i>=0; i--){
+        cout<<"("<<groups.at(i).x<<", "<<groups.at(i).y<<")"<<endl;
+        
+    }
     // Memory clean-up
     if (!groups.empty())
     {
@@ -48,6 +53,65 @@ using namespace std;
     }
     
     return result;
+}
+
+
+//return UIImages of text Regions AND their Locations IN ORDER
++(NSArray *)UIImagesOfTextRegions:(UIImage *)orgImg withLocations:(NSMutableArray *)locations{
+    
+    NSMutableArray *imgArray = [[NSMutableArray alloc] init];
+    
+    if(!locations){
+        NSException *excpt = [[NSException alloc]initWithName:
+                              @"NilArray" reason:@"Array NOT init" userInfo:nil];
+        @throw excpt;
+    }
+    if (locations.count > 0){
+        [locations removeAllObjects];
+    }
+        
+    //Initialize original Mat for text detection
+    Mat orgMat = [orgImg CVMat8UC3];
+        
+    //Detect text groups
+    vector<cv::Rect> groups;
+    [self textRegionsOfC3Mat:orgMat withGroups:groups];
+        
+    //Sort and Merge text groups
+    if (!groups.empty()) {
+            
+        for (int i=(int)groups.size()-1; i>=0; i--){
+            cout<<"("<<groups.at(i).x<<", "<<groups.at(i).y<<")"<<endl;
+    
+        }
+            
+    }
+        
+    //Crop the text regions, convert to UIImage and save in array
+    int gsize = groups.size();
+    for (int i = 0; i < gsize ; i++){
+            
+        [imgArray addObject:[UIImage imageWithCVMat:orgMat(groups.at(i))]];
+            
+    }
+        
+    if (!groups.empty())
+    {
+        groups.clear();
+    }
+
+    
+    return imgArray;
+
+}
+
+bool compareLoc(const cv::Rect &a,const cv::Rect &b){
+    if (a.y > b.y) return true;
+    else if (a.y == b.y){
+        if(a.x < b.x) return true;
+        else return false;
+    }
+    else return false;
 }
 
 //Detect the text regions from a 8UC3 Mat
@@ -117,6 +181,8 @@ using namespace std;
         return Nil;
     }
 }
+
+
 
 +(string) filePathWithFileName:(NSString *) filename{
     NSString *rspath = [NSString stringWithString:[[NSBundle mainBundle] resourcePath]];
