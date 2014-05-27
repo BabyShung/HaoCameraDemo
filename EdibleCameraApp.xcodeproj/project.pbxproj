@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3A014C021933C69000D06090 /* TextDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A014C001933C69000D06090 /* TextDetector.mm */; };
-		3A014C041933C73900D06090 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A014C031933C73900D06090 /* opencv2.framework */; };
 		3A014C081933E14E00D06090 /* WordCorrector.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A014C071933E14E00D06090 /* WordCorrector.m */; };
+		3A6ED351193511BB00D2A5CC /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6ED350193511BB00D2A5CC /* opencv2.framework */; };
 		3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */; };
 		3AA1BD90192FA982002729BC /* ImagePreProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1BD8F192FA982002729BC /* ImagePreProcessor.mm */; };
 		B82353AE192BE2D800D6BCAC /* Attribution_PixelLove.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353A4192BE2D800D6BCAC /* Attribution_PixelLove.png */; };
@@ -70,9 +70,9 @@
 /* Begin PBXFileReference section */
 		3A014C001933C69000D06090 /* TextDetector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextDetector.mm; sourceTree = "<group>"; };
 		3A014C011933C69000D06090 /* TextDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDetector.h; sourceTree = "<group>"; };
-		3A014C031933C73900D06090 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = openCV3/opencv2.framework; sourceTree = "<group>"; };
 		3A014C061933E14E00D06090 /* WordCorrector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordCorrector.h; sourceTree = "<group>"; };
 		3A014C071933E14E00D06090 /* WordCorrector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordCorrector.m; sourceTree = "<group>"; };
+		3A6ED350193511BB00D2A5CC /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = openCV3/opencv2.framework; sourceTree = "<group>"; };
 		3AA1BD8B192FA282002729BC /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
 		3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
 		3AA1BD8E192FA982002729BC /* ImagePreProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreProcessor.h; sourceTree = "<group>"; };
@@ -142,7 +142,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A014C041933C73900D06090 /* opencv2.framework in Frameworks */,
+				3A6ED351193511BB00D2A5CC /* opencv2.framework in Frameworks */,
 				B82353EE192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib in Frameworks */,
 				B82353EC192CFB2800D6BCAC /* TesseractOCR.framework in Frameworks */,
 				B8FA463F18F9E954007DA680 /* CoreGraphics.framework in Frameworks */,
@@ -277,7 +277,7 @@
 		B8FA463B18F9E954007DA680 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3A014C031933C73900D06090 /* opencv2.framework */,
+				3A6ED350193511BB00D2A5CC /* opencv2.framework */,
 				B82353ED192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib */,
 				B82353EB192CFB2800D6BCAC /* TesseractOCR.framework */,
 				B8FA463C18F9E954007DA680 /* Foundation.framework */,

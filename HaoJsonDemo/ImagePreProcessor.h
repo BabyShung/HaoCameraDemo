@@ -30,9 +30,8 @@ typedef struct{
 -(cv::Mat)laplacian:(cv::Mat) inputImage;
 
 
--(IplImage *)CreateIplImageFromUIImage:(UIImage *)image;
 
--(UIImage *)UIImageFromIplImage:(IplImage *)image;
+
 
 -(UIImage *)toGrayUIImage:(cv::Mat) inputMat;
 

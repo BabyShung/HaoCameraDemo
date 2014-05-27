@@ -68,7 +68,8 @@
 	size.width = 3;
     inputImage = [self laplacian:inputImage];
     cv::GaussianBlur(inputImage, inputImage, size, 0.8);
-	cv::adaptiveThreshold(inputImage, inputImage, 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY, 25, 14);
+	//cv::adaptiveThreshold(inputImage, inputImage, 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY, 25, 14);
+    cv::threshold(inputImage, inputImage, 125,255, cv::THRESH_TRUNC);
 	cv::GaussianBlur(inputImage, inputImage, size, 0.8);
     inputImage = [self laplacian:inputImage];
     return inputImage;
@@ -81,23 +82,38 @@
     return output;
 }
 
+-(cv::Mat)erosion:(cv::Mat)inputImage{
+    
+    
+    int erosion_size = 1;
+
+    cv::Mat element = cv::getStructuringElement( cv::MORPH_CROSS,
+                                                cv::Size( 2*erosion_size + 1, 2*erosion_size+1 ),
+                                                cv::Point( erosion_size, erosion_size ) );
+    
+    /// Apply the erosion operation
+    cv::erode( inputImage, inputImage, element );
+    return inputImage;
+}
+
 
 -(cv::Mat)processImage: (cv::Mat)inputImage{
     // this function check the input image's style : black+white or white+black
     cv::Mat output;
-    int isBlackBack = [self checkBackground:inputImage];
+    int isBlackBack = 0; //default setting
+    isBlackBack = [self checkBackground:inputImage];
     if (isBlackBack == 1) {
         
         output = [self sharpen:inputImage];
         output = [self laplacian:output];
-        NSLog(@"IS black back ground\n");
+        NSLog(@"Menu catch: Black back ground\n");
     }
     else{
         
-
+        //output = [self sharpen:output];
         output = [self removeBackgroud:inputImage];
         output = [self sharpen:output];
-        NSLog(@"IS White back ground\n");
+        NSLog(@"Menu catch: White back ground\n");
         
     }
     
