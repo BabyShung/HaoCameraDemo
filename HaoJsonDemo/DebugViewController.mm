@@ -95,6 +95,7 @@
         
         // Step 3. put Mat into pre processor- Charlie
         tempMat = [ipp processImage:tempMat];
+        //tempMat = [ipp removeBackground2:tempMat];
         image = [UIImage imageWithCVMat:tempMat];//convert to uiimage
         
         // Step 4. put Mat into text Detector- Xinmei

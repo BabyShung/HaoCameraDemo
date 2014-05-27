@@ -61,15 +61,16 @@
 
 }
 
--(cv::Mat)removeBackgroud:(cv::Mat)inputImage{
+-(cv::Mat)removeBackground:(cv::Mat)inputImage{
     
     cv::Size size;
 	size.height = 3;
 	size.width = 3;
-    inputImage = [self laplacian:inputImage];
+    //inputImage = [self laplacian:inputImage];
+    cv::cvtColor(inputImage,inputImage,cv::COLOR_BGR2GRAY);
     cv::GaussianBlur(inputImage, inputImage, size, 0.8);
-	//cv::adaptiveThreshold(inputImage, inputImage, 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY, 25, 14);
-    cv::threshold(inputImage, inputImage, 125,255, cv::THRESH_TRUNC);
+	cv::adaptiveThreshold(inputImage, inputImage, 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY, 11, 2);
+    //cv::threshold(inputImage, inputImage, 125,255, cv::THRESH_TRUNC);
 	cv::GaussianBlur(inputImage, inputImage, size, 0.8);
     inputImage = [self laplacian:inputImage];
     return inputImage;
@@ -101,7 +102,7 @@
     // this function check the input image's style : black+white or white+black
     cv::Mat output;
     int isBlackBack = 0; //default setting
-    isBlackBack = [self checkBackground:inputImage];
+    //isBlackBack = [self checkBackground:inputImage];
     if (isBlackBack == 1) {
         
         output = [self sharpen:inputImage];
@@ -111,7 +112,7 @@
     else{
         
         //output = [self sharpen:output];
-        output = [self removeBackgroud:inputImage];
+        output = [self removeBackground:inputImage];
         output = [self sharpen:output];
         NSLog(@"Menu catch: White back ground\n");
         
@@ -162,6 +163,79 @@
     }
     
 }
+
+
+//-------below is remove back ground version 2  still have bugs
+
+-(cv::Mat)CalcBlockMeanVariance:(cv::Mat) Img : (float) blockSide
+
+// blockSide - the parameter (set greater for larger font on image)
+{
+    cv::Mat I;
+    
+    
+    Img.convertTo(I,CV_32FC1);
+    cv::Mat Res;
+    Res=cv::Mat::zeros(Img.rows/blockSide,Img.cols/blockSide,CV_32FC1);
+    cv::Mat inpaintmask;
+    cv::Mat patch;
+    cv::Mat smallImg;
+    
+    cv::Scalar m,s;
+    
+    blockSide =50;
+    
+    for(int i=0;i<Img.rows-blockSide;i+=blockSide)
+    {
+        for (int j=0;j<Img.cols-blockSide;j+=blockSide)
+        {
+            patch=I(cv::Range(i,i+blockSide+1),cv::Range(j,j+blockSide+1));
+            cv::meanStdDev(patch,m,s);
+            if(s[0]>0.01) // Thresholding parameter (set smaller for lower contrast image)
+            {
+                Res.at<float>(i/blockSide,j/blockSide)=m[0];
+            }else
+            {
+                Res.at<float>(i/blockSide,j/blockSide)=0;
+            }
+        }
+    }
+    
+    cv::resize(I,smallImg,Res.size());
+    
+    cv::threshold(Res,inpaintmask,0.02,1.0,cv::THRESH_BINARY);
+
+    cv::Mat inpainted;
+    smallImg.convertTo(smallImg,CV_8UC1,255);
+    
+    inpaintmask.convertTo(inpaintmask,CV_8UC1);
+    
+    cv::inpaint(smallImg, inpaintmask, inpainted, 5, cv::INPAINT_TELEA);
+    
+    cv::resize(inpainted,Res,Img.size());
+    Res.convertTo(Res,CV_8UC4,1.0/255.0);
+    return Res;
+}
+
+
+-(cv::Mat)removeBackground2:(cv::Mat) inputMat
+{
+    cv::Mat Img;
+    
+    cv::cvtColor(inputMat,Img,cv::COLOR_BGR2GRAY);;
+    cv::Mat res;
+    Img.convertTo(Img,CV_32FC1,1.0/255.0);
+    res = [self CalcBlockMeanVariance:Img:21];
+    //res=1.0-res;
+    //res=Img+res;
+    
+    
+    cv::threshold(res,res,0.85,1,cv::THRESH_BINARY);
+    
+    return res;
+}
+
+//-------/remove back ground v2
 
 
 

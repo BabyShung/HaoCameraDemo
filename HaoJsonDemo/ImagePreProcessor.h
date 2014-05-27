@@ -35,15 +35,15 @@ typedef struct{
 
 -(UIImage *)toGrayUIImage:(cv::Mat) inputMat;
 
--(cv::Mat)removeBackgroud:(cv::Mat)inputImage;
+-(cv::Mat)removeBackground:(cv::Mat)inputImage;
 
 -(cv::Mat)processImage: (cv::Mat)inputImage;
 
 -(int)checkBackground:(cv::Mat)input;
 
+-(cv::Mat)CalcBlockMeanVariance:(cv::Mat) Img : (cv::Mat) Res : (float) blockSide;
 
-
-
+-(cv::Mat)removeBackground2:(cv::Mat) inputMat;
 
 
 
