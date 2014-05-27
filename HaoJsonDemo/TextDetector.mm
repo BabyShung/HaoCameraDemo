@@ -23,12 +23,37 @@ using namespace cv;
 using namespace std;
 
 @implementation TextDetector
+
+//Return a UIImage with its text regions marked
 +(UIImage *)detectTextRegions:(UIImage *)orgImg{
     NSLog(@"DetectText Function called!");
     
     //Initialize original Mat for text detection
-    Mat orgMat = [orgImg CVMat];
-    cvtColor(orgMat, orgMat, COLOR_BGRA2BGR);
+    Mat orgMat = [orgImg CVMat8UC3];
+
+    //Detect text groups
+    vector<cv::Rect> groups;
+    [self textRegionsOfC3Mat:orgMat withGroups:groups];
+    
+    //Draw the groups on the Mat
+    [self groupsDrawWithMat:orgMat andGroups:groups];
+    [self textGroupsSortAndMerge:groups];
+    //Convert Mat to UIImage
+    UIImage *result = [UIImage imageWithCVMat:orgMat];
+    
+    // Memory clean-up
+    if (!groups.empty())
+    {
+        groups.clear();
+    }
+    
+    return result;
+}
+
+//Detect the text regions from a 8UC3 Mat
++(void) textRegionsOfC3Mat:(Mat)orgMat withGroups:(vector<cv::Rect> &)groups{
+    
+    NSLog(@"DetectTextRect Function called!");
     
     //Extract channels to be processed individually
     vector<Mat> channels;
@@ -46,14 +71,14 @@ using namespace std;
     
     // Create ERFilter objects with the 1st and 2nd stage default classifiers
     /*!RECONSIDER THE PARAMS!*/
-// default   Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1("trained_classifierNM1.xml"),16,0.00015f,0.13f,0.2f,true,0.1f);
-//    Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2("trained_classifierNM2.xml"),0.5);
-// current Best   Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1([self filePathWithFileName:
-//                                                                    @"trained_classifierNM1.xml"]),4,0.001f,0.1f,0.02f,true,0.01f);
-//    Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.03);
+    // default   Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1("trained_classifierNM1.xml"),16,0.00015f,0.13f,0.2f,true,0.1f);
+    //    Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2("trained_classifierNM2.xml"),0.5);
+    // current Best   Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1([self filePathWithFileName:
+    //                                                                    @"trained_classifierNM1.xml"]),4,0.001f,0.1f,0.02f,true,0.01f);
+    //    Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.03);
     
     Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1([self filePathWithFileName:
-                                                                   @"trained_classifierNM1.xml"]),4,0.001f,0.1f,0.02f,true,0.01f);
+                                                                    @"trained_classifierNM1.xml"]),4,0.001f,0.1f,0.02f,true,0.01f);
     Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.03);
     
     vector<vector<ERStat> > regions(channels.size());
@@ -67,34 +92,30 @@ using namespace std;
     }
     
     // Detect character groups
-    cout << "Grouping extracted ERs ... ";
-    vector<cv::Rect> groups;
+    cout << "Grouping extracted ERs ... "<< endl ;
     erGrouping(channels, regions, [self filePathWithFileName:@"trained_classifier_erGrouping.xml"], 0.5, groups);
     
-    cout<<"Group no = "<<groups.size();
+    cout<<"Group no = "<<groups.size()<< endl;
     
-    [self groupsDrawWithMat:orgMat andGroups:groups];
-    
-    UIImage *result = [UIImage imageWithCVMat:orgMat];
-    
-    
-    // Memory clean-up
     er_filter1.release();
     er_filter2.release();
     regions.clear();
-    if (!groups.empty())
-    {
-        groups.clear();
-    }
-    
-    return result;
 }
 
-+(NSArray *) textRegionsOfUIImage:(UIImage *)image{
-    
-    
-    NSMutableArray *textRegionsImages;
-    return textRegionsImages;
++(NSArray *) textGroupsSortAndMerge:(vector<cv::Rect> &)groups{
+    if (!groups.empty()) {
+        NSMutableArray *groupArray = [[NSMutableArray alloc]init];
+        for (int i=(int)groups.size()-1; i>=0; i--){
+            cout<<"("<<groups.at(i).x<<", "<<groups.at(i).y<<")"<<endl;
+            
+        }
+        return groupArray;
+
+    }
+    else{
+        cout<<"NO text groups available!"<<endl;
+        return Nil;
+    }
 }
 
 +(string) filePathWithFileName:(NSString *) filename{
@@ -111,7 +132,7 @@ using namespace std;
 
 +(void) groupsDrawWithMat:(Mat &)src andGroups:(vector<cv::Rect> &)groups
 {
-    cout<<"Drawing groups...\n";
+    cout<<"Drawing groups..."<< endl;
     for (int i=(int)groups.size()-1; i>=0; i--){
         rectangle(src,groups.at(i).tl(),groups.at(i).br(),Scalar( 0, 255, 255 ), 3, 8 );
     }

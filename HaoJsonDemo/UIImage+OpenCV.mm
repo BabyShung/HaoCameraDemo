@@ -13,6 +13,7 @@
 //
 
 #import "UIImage+OpenCV.h"
+#import "opencv2/imgproc.hpp"
 
 static void ProviderReleaseDataNOP(void *info, const void *data, size_t size)
 {
@@ -46,6 +47,14 @@ static void ProviderReleaseDataNOP(void *info, const void *data, size_t size)
     CGContextRelease(contextRef);
     
     return cvMat;
+}
+
+-(cv::Mat)CVMat8UC3
+{
+    cv::Mat c3mat = [self CVMat];
+    cvtColor(c3mat, c3mat, cv::COLOR_BGRA2BGR);
+    return c3mat;
+    
 }
 
 -(cv::Mat)CVGrayscaleMat
