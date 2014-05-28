@@ -13,23 +13,39 @@
 @implementation ImagePreProcessor
 
 
+
+-(cv::Mat)processImage: (cv::Mat)inputImage{
+    // this function check the input image's style : black+white or white+black
+    cv::Mat output;
+    int isBlackBack =0;
+    isBlackBack = [self checkBackground:inputImage];
+    if (isBlackBack == 0) {
+        output = [self sharpen:inputImage];
+        output = [self increaseContrast:output];
+        NSLog(@"IS black");
+    }
+    else{
+        cv::Size size;
+        size.height = 3;
+        size.width = 3;
+        
+        output = [self increaseContrast:inputImage];
+        cv::GaussianBlur(inputImage, inputImage, size, 0.8);
+        cv::threshold(inputImage, inputImage, 125,255, cv::THRESH_TRUNC);
+        cv::GaussianBlur(inputImage, output, size, 0.8);
+        output = [self removeBackground2:output];
+        
+        NSLog(@"IS White");
+        
+    }
+    
+    return output;
+}
+
 -(cv::Mat)toGrayMat:(UIImage *) inputImage{
     
     cv::Mat matImage = [inputImage CVGrayscaleMat];
     return matImage;
-}
-
--(cv::Mat)to8UC4Mat:(UIImage *) inputImage{
-    
-    cv::Mat matImage = [inputImage CVMat];
-    return matImage;
-}
-
--(UIImage *)toGrayUIImage:(cv::Mat) inputMat{
-
-    UIImage *img = [[UIImage alloc] init];
-    img = [UIImage imageWithCVMat:inputMat];
-    return img;
 }
 
 
@@ -38,7 +54,7 @@
     cv::Mat output;
     cv::adaptiveThreshold(inputImage, output, 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY, 25, 14);
     return output;
-
+    
 }
 
 -(cv::Mat)gaussianBlur:(cv::Mat)inputImage :(int)h :(int)w{
@@ -49,7 +65,7 @@
 	size.width = w;
     cv::GaussianBlur(inputImage, output, size, 0.8);
     return output;
-
+    
 }
 
 -(cv::Mat)laplacian:(cv::Mat)inputImage{
@@ -58,22 +74,7 @@
     cv::Mat kernel = (cv::Mat_<float>(3, 3) << 0, -1, 0, -1, 5, -1, 0, -1, 0); //Laplacian operator
     cv::filter2D(inputImage, output, output.depth(), kernel);
     return output;
-
-}
-
--(cv::Mat)removeBackground:(cv::Mat)inputImage{
     
-    cv::Size size;
-	size.height = 3;
-	size.width = 3;
-    //inputImage = [self laplacian:inputImage];
-    cv::cvtColor(inputImage,inputImage,cv::COLOR_BGR2GRAY);
-    cv::GaussianBlur(inputImage, inputImage, size, 0.8);
-	cv::adaptiveThreshold(inputImage, inputImage, 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY, 11, 2);
-    //cv::threshold(inputImage, inputImage, 125,255, cv::THRESH_TRUNC);
-	cv::GaussianBlur(inputImage, inputImage, size, 0.8);
-    inputImage = [self laplacian:inputImage];
-    return inputImage;
 }
 
 -(cv::Mat)sharpen:(cv::Mat)inputImage{
@@ -83,43 +84,23 @@
     return output;
 }
 
--(cv::Mat)erosion:(cv::Mat)inputImage{
-    
-    
-    int erosion_size = 1;
-
-    cv::Mat element = cv::getStructuringElement( cv::MORPH_CROSS,
-                                                cv::Size( 2*erosion_size + 1, 2*erosion_size+1 ),
-                                                cv::Point( erosion_size, erosion_size ) );
-    
-    /// Apply the erosion operation
-    cv::erode( inputImage, inputImage, element );
-    return inputImage;
-}
 
 
--(cv::Mat)processImage: (cv::Mat)inputImage{
-    // this function check the input image's style : black+white or white+black
+
+
+
+
+-(cv::Mat)increaseContrast:(cv::Mat)inputMat{
+    
     cv::Mat output;
-    int isBlackBack = 0; //default setting
-    isBlackBack = [self checkBackground:inputImage];
-    if (isBlackBack == 1) {
-        
-        output = [self sharpen:inputImage];
-        output = [self laplacian:output];
-        NSLog(@"Menu catch: Black back ground\n");
-    }
-    else{
-        
-        //output = [self sharpen:output];
-        output = [self removeBackground:inputImage];
-        output = [self removeBackground2:inputImage];
-        output = [self sharpen:output];
-        NSLog(@"Menu catch: White back ground\n");
-        
-    }
+    inputMat.convertTo(inputMat, CV_8UC3);
+    cv::cvtColor(inputMat, inputMat, cv::COLOR_BGR2GRAY);
     
+    cv::equalizeHist(inputMat, output);
+    
+    output.convertTo(output, CV_8UC4);
     return output;
+    
 }
 
 
@@ -127,6 +108,7 @@
 {
     int rows = input.rows;
     int cols = input.cols;
+    
     
     //count the sum of the pixl
     int sum_pixl = 0;
@@ -139,24 +121,27 @@
     }
     //count the average of the pixel
     int ave_pixl = sum_pixl/(rows*cols);
-    //count_white the nuber of pixl whose value is bigger than average
+    int pivot_pixl = ave_pixl * 3 / 4;
+    //count_white the nuber of pixl which value are bigger than average
     int count_white = 0;
-    //count_white the nuber of pixl whose value is smaller than average
+    //count_white the nuber of pixl which value is smaller than average
     int count_black = 0;
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
             
             uchar pixl = input.at<uchar>(i,j);
             int pixl_int = pixl - '0';
-            if (pixl_int>=ave_pixl) {
-                count_white= count_white+1;
+            if (pixl_int < pivot_pixl) {
+                count_white = count_white + 1;
             }else{
-                count_black = count_black +1;
+                count_black = count_black + 1;
             }
             
         }
     }
-    //if more white then Black background（0） others （1）
+    //if more white then （0） others 黑字（1）
+    NSLog(@"Mat count val: %d", count_black);
+    
     if (count_black <= count_white) {
         return 0;
     } else {
@@ -164,6 +149,7 @@
     }
     
 }
+
 
 
 //-------below is remove back ground version 2  stable version
@@ -224,20 +210,12 @@
     cv::Mat Img,res;
     cv::cvtColor(inputMat,Img,cv::COLOR_RGB2GRAY);
     
-    
-    
-    Img.convertTo(Img,CV_8UC4);
-    
-    
+    //Img.convertTo(Img,CV_8UC4);
     Img.convertTo(Img,CV_32FC1,1.0/255.0);
-    
-    
-    
     
     res = [self CalcBlockMeanVariance:Img:21];
     res=1.0-res;
     res=Img+res;
-    
     
     cv::threshold(res,res,0.85,1,cv::THRESH_BINARY);
     
@@ -247,19 +225,6 @@
 }
 
 //-------/remove back ground v2
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 @end

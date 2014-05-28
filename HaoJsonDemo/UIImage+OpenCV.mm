@@ -48,6 +48,13 @@ static void ProviderReleaseDataNOP(void *info, const void *data, size_t size)
     return cvMat;
 }
 
+-(cv::Mat)CVMat8UC3
+{
+    cv::Mat cvMat = [self CVMat];
+    cv::cvtColor(cvMat, cvMat, cv::COLOR_BGRA2BGR);
+    return cvMat;
+}
+
 -(cv::Mat)CVGrayscaleMat
 {
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();

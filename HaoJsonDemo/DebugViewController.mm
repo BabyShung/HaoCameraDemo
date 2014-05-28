@@ -112,7 +112,7 @@
 
         
         // Step 4. put Mat into text Detector- Xinmei
-        //image = [TextDetector detectTextRegions:image];
+        image = [TextDetector detectTextRegions:image];
         
         
         //------------------------------------- / End of pre pro

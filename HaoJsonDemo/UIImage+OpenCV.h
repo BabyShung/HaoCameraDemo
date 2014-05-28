@@ -21,5 +21,6 @@
 
 @property(nonatomic, readonly) cv::Mat CVMat;
 @property(nonatomic, readonly) cv::Mat CVGrayscaleMat;
+@property(nonatomic, readonly) cv::Mat CVMat8UC3;
 
 @end
