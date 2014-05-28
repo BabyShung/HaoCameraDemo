@@ -165,7 +165,7 @@
 }
 
 
-//-------below is remove back ground version 2  still have bugs
+//-------below is remove back ground version 2  stable version
 
 -(cv::Mat)CalcBlockMeanVariance:(cv::Mat) Img : (float) blockSide
 
@@ -183,7 +183,7 @@
     
     cv::Scalar m,s;
     
-    blockSide =50;
+    blockSide =21;
     
     for(int i=0;i<Img.rows-blockSide;i+=blockSide)
     {
@@ -204,7 +204,7 @@
     cv::resize(I,smallImg,Res.size());
     
     cv::threshold(Res,inpaintmask,0.02,1.0,cv::THRESH_BINARY);
-
+    
     cv::Mat inpainted;
     smallImg.convertTo(smallImg,CV_8UC1,255);
     
@@ -213,29 +213,42 @@
     cv::inpaint(smallImg, inpaintmask, inpainted, 5, cv::INPAINT_TELEA);
     
     cv::resize(inpainted,Res,Img.size());
-    Res.convertTo(Res,CV_8UC4,1.0/255.0);
+    Res.convertTo(Res,CV_32FC1,1.0/255.0);
     return Res;
 }
 
 
 -(cv::Mat)removeBackground2:(cv::Mat) inputMat
 {
-    cv::Mat Img;
+    cv::Mat Img,res;
+    cv::cvtColor(inputMat,Img,cv::COLOR_RGB2GRAY);
     
-    cv::cvtColor(inputMat,Img,cv::COLOR_BGR2GRAY);;
-    cv::Mat res;
+    
+    
+    Img.convertTo(Img,CV_8UC4);
+    
+    
     Img.convertTo(Img,CV_32FC1,1.0/255.0);
+    
+    
+    
+    
     res = [self CalcBlockMeanVariance:Img:21];
-    //res=1.0-res;
-    //res=Img+res;
+    res=1.0-res;
+    res=Img+res;
     
     
     cv::threshold(res,res,0.85,1,cv::THRESH_BINARY);
+    
+    res.convertTo(res, CV_8UC4,255);
     
     return res;
 }
 
 //-------/remove back ground v2
+
+
+
 
 
 
