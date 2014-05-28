@@ -100,19 +100,23 @@
         ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
         
         // Step 2. convert photo image to cv Mat, where Mat is in 8UC4 format
-
+<<<<<<< HEAD
+        cv::Mat tempMat= [image CVMat];
+=======
         cv::Mat tempMat= [originalImage CVMat];
-
+>>>>>>> FETCH_HEAD
         
         // Step 3. put Mat into pre processor- Charlie
         tempMat = [ipp processImage:tempMat];
         //tempMat = [ipp removeBackground2:tempMat];
-
+<<<<<<< HEAD
+        image = [UIImage imageWithCVMat:tempMat];//convert to uiimage
+=======
         onScreenImage = [UIImage imageWithCVMat:tempMat];//convert to uiimage
-
+>>>>>>> FETCH_HEAD
         
         // Step 4. put Mat into text Detector- Xinmei
-        onScreenImage = [TextDetector detectTextRegions:onScreenImage];
+        //image = [TextDetector detectTextRegions:image];
         
         
         //------------------------------------- / End of pre pro
