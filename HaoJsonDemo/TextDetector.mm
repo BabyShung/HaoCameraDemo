@@ -30,26 +30,27 @@ using namespace std;
     Mat orgMat = [orgImg CVMat8UC3];
 
     //Detect text groups
-    vector<cv::Rect> groups;
+    vector<cv::Rect> groups, finalgroups;
     [self textRegionsOfC3Mat:orgMat withGroups:groups];
+    if (!groups.empty()) {
     
-    //Draw the groups on the Mat
-    [self groupsDrawWithMat:orgMat andGroups:groups];
-    [self textGroupsSortAndMerge:groups];
+        //Sort and Merge groups
+        
+        [self sortAndMergeGroups:groups andResult:finalgroups];
+    
+        //Draw the groups on the Mat
+        [self groupsDrawWithMat:orgMat andGroups:finalgroups];
+    }
     
     //Convert Mat to UIImage
     UIImage *result = [UIImage imageWithCVMat:orgMat];
 
-    std::sort(groups.begin(), groups.end(), compareLoc);
-    cout<<"....Sorting End...."<<endl;
-    for (int i=(int)groups.size()-1; i>=0; i--){
-        cout<<"("<<groups.at(i).x<<", "<<groups.at(i).y<<")"<<endl;
-        
-    }
     // Memory clean-up
     if (!groups.empty())
     {
         groups.clear();
+        finalgroups.clear();
+        
     }
     
     return result;
@@ -79,12 +80,10 @@ using namespace std;
         
     //Sort and Merge text groups
     if (!groups.empty()) {
-            
-        for (int i=(int)groups.size()-1; i>=0; i--){
-            cout<<"("<<groups.at(i).x<<", "<<groups.at(i).y<<")"<<endl;
-    
-        }
-            
+        
+        cout<<"....Sorting goups...."<<endl;
+        std::sort(groups.begin(), groups.end(), compareLoc);
+        
     }
         
     //Crop the text regions, convert to UIImage and save in array
@@ -166,20 +165,34 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
     regions.clear();
 }
 
-+(NSArray *) textGroupsSortAndMerge:(vector<cv::Rect> &)groups{
+//Sort and Merge text groups
++(void) sortAndMergeGroups:(vector<cv::Rect> &)groups andResult:(vector<cv::Rect> &)finalgroups{
     if (!groups.empty()) {
-        NSMutableArray *groupArray = [[NSMutableArray alloc]init];
-        for (int i=(int)groups.size()-1; i>=0; i--){
+        
+        int len = groups.size();
+        cout<<"....Sorting groups...."<<endl;
+        std::sort(groups.begin(), groups.end(), compareLoc);
+        for (int i =0; i<len; i++) {
             cout<<"("<<groups.at(i).x<<", "<<groups.at(i).y<<")"<<endl;
-            
         }
-        return groupArray;
+        
+        cout<<"....Merging groups...."<<endl;
+        finalgroups.push_back(groups.at(0));
+        for (int i = 1; i < len ; i++){
+            //if the current rect is not inside the previous one, save it
+            if (!((finalgroups.back() & groups.at(i)) == groups.at(i))) {
+                finalgroups.push_back(groups.at(i));
+                
+            }
+        }
+        
+        len = finalgroups.size();
+        for (int i =0; i<len; i++) {
+            cout<<"("<<finalgroups.at(i).x<<", "<<finalgroups.at(i).y<<")"<<endl;
+        }
+        
+    }
 
-    }
-    else{
-        cout<<"NO text groups available!"<<endl;
-        return Nil;
-    }
 }
 
 
