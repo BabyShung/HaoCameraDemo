@@ -58,17 +58,13 @@ using namespace std;
 
 
 //return UIImages of text Regions AND their Locations IN ORDER
-+(NSArray *)UIImagesOfTextRegions:(UIImage *)orgImg withLocations:(NSMutableArray *)locations{
++(NSArray *)UIImagesOfTextRegions:(UIImage *)orgImg withLocations:(vector<cv::Rect> &) rects{
     
     NSMutableArray *imgArray = [[NSMutableArray alloc] init];
     
-    if(!locations){
-        NSException *excpt = [[NSException alloc]initWithName:
-                              @"NilArray" reason:@"Array NOT init" userInfo:nil];
-        @throw excpt;
-    }
-    if (locations.count > 0){
-        [locations removeAllObjects];
+
+    if (!rects.empty()){
+        rects.clear();
     }
         
     //Initialize original Mat for text detection
