@@ -102,7 +102,7 @@
     // this function check the input image's style : black+white or white+black
     cv::Mat output;
     int isBlackBack = 0; //default setting
-    //isBlackBack = [self checkBackground:inputImage];
+    isBlackBack = [self checkBackground:inputImage];
     if (isBlackBack == 1) {
         
         output = [self sharpen:inputImage];
@@ -113,6 +113,7 @@
         
         //output = [self sharpen:output];
         output = [self removeBackground:inputImage];
+        output = [self removeBackground2:inputImage];
         output = [self sharpen:output];
         NSLog(@"Menu catch: White back ground\n");
         
