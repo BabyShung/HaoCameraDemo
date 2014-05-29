@@ -45,9 +45,13 @@ using namespace std;
     /*!RECONSIDER THE PARAMS!
     Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1([self filePathWithFileName:
                                                                    @"trained_classifierNM1.xml"]),4,0.00015f,0.13f,0.2f,true,0.1f);
-    Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.5);*/
+    Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.5);
+     
+     Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1([self filePathWithFileName:
+     @"trained_classifierNM1.xml"]),4,0.001f,0.1f,0.02f,true,0.01f);
+     Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.03);*/
     Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1([self filePathWithFileName:
-                                                                    @"trained_classifierNM1.xml"]),4,0.001f,0.1f,0.02f,true,0.01f);
+                                                                    @"trained_classifierNM1.xml"]),4,0.0015f,0.13f,0.02f,true,0.01f);
     Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.03);
 
     
@@ -57,8 +61,11 @@ using namespace std;
     cout << "    (...) this may take a while (...)" << endl << endl;
     for (int c=0; c<(int)channels.size(); c++)
     {
+        cout<<"Filter 1 start"<<endl;
         er_filter1->run(channels[c], regions[c]);
+        cout<<"Filter 1 done"<<endl;
         er_filter2->run(channels[c], regions[c]);
+        cout<<"Filter 2 done"<<endl;
     }
     
     // Detect character groups
@@ -66,12 +73,14 @@ using namespace std;
     vector<cv::Rect> groups;
     erGrouping(channels, regions, [self filePathWithFileName:@"trained_classifier_erGrouping.xml"], 0.5, groups);
     
-    cout<<"Group no = "<<groups.size();
+    cout<<"Group no = "<<groups.size()<<endl;;
     
     for (int i=(int)groups.size()-1; i>=0; i--)
     {
         if (orgMat.type() == CV_8UC3)
             rectangle(orgMat,groups.at(i).tl(),groups.at(i).br(),Scalar( 0, 255, 255 ), 3, 8 );
+        else
+            cout<<"Drawing: wrong img type"<<endl;
     }
     
     UIImage *result = [UIImage imageWithCVMat:orgMat];
