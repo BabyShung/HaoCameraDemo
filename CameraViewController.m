@@ -22,6 +22,8 @@
 #import "ImageCropView.h"
 #import "CameraViewController.h"
 
+#import "CameraManager.h"
+
 @interface CameraViewController ()
 
 {
@@ -38,9 +40,6 @@
     
     // Capture Toggle
     BOOL isCapturingImage;
-    
-    //CMTime defaultVideoMaxFrameDuration;
-    
 }
 
 // Used to cover animation flicker during rotation   ???
@@ -61,7 +60,7 @@
 @property (strong, nonatomic) AVCaptureStillImageOutput *stillImageOutput;//for still image
 @property (strong, nonatomic) AVCaptureDevice * myDevice;
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer * captureVideoPreviewLayer;
-//@property (nonatomic, strong) AVCaptureDeviceFormat *defaultFormat;
+
 
 
 // View Properties
@@ -90,103 +89,9 @@
     if  (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
         self.view.frame = CGRectMake(0, 0, screenHeight, screenWidth);
     
-    /******************
-     stream image view
-     ***************/
-    if (_StreamView == nil)
-        _StreamView = [[UIView alloc]init];
-    _StreamView.alpha = 0;
-    _StreamView.frame = self.view.bounds;
+    [self loadViews];
     
-    [self.view addSubview:_StreamView];
-    
-    /********************
-     captured image view
-     ******************/
-    if (_capturedImageView == nil)
-        _capturedImageView = [[UIImageView alloc]init];
-    _capturedImageView.frame = _StreamView.frame; // just to even it out
-    _capturedImageView.backgroundColor = [UIColor clearColor];
-    _capturedImageView.userInteractionEnabled = YES;
-    _capturedImageView.contentMode = UIViewContentModeScaleAspectFill;
-    
-    [self.view insertSubview:_capturedImageView aboveSubview:_StreamView];
-    
-    
-    /*^^^^^^^^^^^^^^^^^
-     
-     Setup Camera
-     
-     ^^^^^^^^^^^^^^^^^*/
-    
-    
-    /******************
-     Session: Photo
-     ***************/
-    if (_mySesh == nil) _mySesh = [[AVCaptureSession alloc] init];
-	_mySesh.sessionPreset = AVCaptureSessionPresetPhoto;
-    
-    /******************
-     Preview layer
-     ***************/
-    _captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_mySesh];
-	_captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-	_captureVideoPreviewLayer.frame = _StreamView.layer.bounds; // parent of layer
-    
-	[_StreamView.layer addSublayer:_captureVideoPreviewLayer];
-	
-    /***************************************
-     Device: rear camera: 0, front camera: 1
-     *******************************************/
-    _myDevice = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo][0];
-    
-    /******************
-     Torch light
-     ***************/
-    if ([_myDevice isTorchActive] && _myDevice.torchActive && [_myDevice lockForConfiguration:nil]) {
-        //NSLog(@"SC: Turning Flash Off ...");
-        _myDevice.torchMode = AVCaptureTorchModeOff;
-        [_myDevice unlockForConfiguration];
-    }
-    
-    /*************************************
-     Format: save the default format
-     ************************************/
-    //self.defaultFormat = _myDevice.activeFormat;
-    //defaultVideoMaxFrameDuration = _myDevice.activeVideoMaxFrameDuration;
-    //    [_myDevice lockForConfiguration:nil];
-    //
-    //    _myDevice.activeVideoMinFrameDuration = CMTimeMake(1, (int32_t)60.0);
-    //    _myDevice.activeVideoMaxFrameDuration = CMTimeMake(1, (int32_t)60.0);
-    //    [_myDevice unlockForConfiguration];
-    
-    
-    
-    
-    /********************
-     Define device input
-     *******************/
-    NSError * error = nil;
-	AVCaptureDeviceInput * input = [AVCaptureDeviceInput deviceInputWithDevice:_myDevice error:&error];
-    
-	if (!input) {// Handle the error appropriately.
-		NSLog(@"SC: ERROR: trying to open camera: %@", error);
-        //[self.camDelegate EdibleCamera:self didFinishWithImage:_capturedImageView.image andImageViewSize:_capturedImageView.image.size];
-	}
-    
-	[_mySesh addInput:input];
-    
-    /**********************
-     Define device output
-     *********************/
-    _stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
-    
-    NSDictionary * outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys: AVVideoCodecJPEG, AVVideoCodecKey, nil];
-    [_stillImageOutput setOutputSettings:outputSettings];
-    [_mySesh addOutput:_stillImageOutput];
-    
-    
-	[_mySesh startRunning];//begin the stream
+    [self loadCamera];
     
     if (self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
         _captureVideoPreviewLayer.connection.videoOrientation = AVCaptureVideoOrientationLandscapeLeft;
@@ -256,30 +161,98 @@
     
 }
 
--(void)viewWillAppear:(BOOL)animated{
-//    NSLog(@"view Will Appear");
-//    
-//    if([self.mySesh isRunning]){
-//        //[self.mySesh stopRunning];
-//    }else{
-//        NSLog(@"start again");
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            //1.Use tesseract to recognize image
-//            [self.mySesh startRunning];
-//            
-//        });
-//        
-//    }
+-(void)loadViews{
+    /******************
+     stream image view
+     ***************/
+    if (_StreamView == nil)
+        _StreamView = [[UIView alloc]init];
+    _StreamView.alpha = 0;
+    _StreamView.frame = self.view.bounds;
+    
+    [self.view addSubview:_StreamView];
+    
+    /********************
+     captured image view
+     ******************/
+    if (_capturedImageView == nil)
+        _capturedImageView = [[UIImageView alloc]init];
+    _capturedImageView.frame = _StreamView.frame; // just to even it out
+    _capturedImageView.backgroundColor = [UIColor clearColor];
+    _capturedImageView.userInteractionEnabled = YES;
+    _capturedImageView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    [self.view insertSubview:_capturedImageView aboveSubview:_StreamView];
 }
 
--(void)viewDidDisappear:(BOOL)animated{
-//    NSLog(@"view did Disappear");
-//    if([self.mySesh isRunning]){
-//        NSLog(@"session stopped");
-//        [self.mySesh stopRunning];
-//        
-//    }
+-(void)loadCamera{
+    /*^^^^^^^^^^^^^^^^^
+     
+     Setup Camera
+     
+     ^^^^^^^^^^^^^^^^^*/
+    
+    
+    /******************
+     Session: Photo
+     ***************/
+    if (_mySesh == nil)
+        _mySesh = [[AVCaptureSession alloc] init];
+	_mySesh.sessionPreset = AVCaptureSessionPresetPhoto;
+    
+
+	
+    /***************************************
+     Device: rear camera: 0, front camera: 1
+     *******************************************/
+    _myDevice = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo][0];
+    
+    /******************
+     Torch light
+     ***************/
+    if ([_myDevice isTorchActive] && _myDevice.torchActive && [_myDevice lockForConfiguration:nil]) {
+        //NSLog(@"SC: Turning Flash Off ...");
+        _myDevice.torchMode = AVCaptureTorchModeOff;
+        [_myDevice unlockForConfiguration];
+    }
+    
+    /********************
+     Define device input
+     *******************/
+    NSError * error = nil;
+	AVCaptureDeviceInput * input = [AVCaptureDeviceInput deviceInputWithDevice:_myDevice error:&error];
+    
+	if (!input) {// Handle the error appropriately.
+		NSLog(@"SC: ERROR: trying to open camera: %@", error);
+        //[self.camDelegate EdibleCamera:self didFinishWithImage:_capturedImageView.image andImageViewSize:_capturedImageView.image.size];
+	}
+    
+	[_mySesh addInput:input];
+    
+    /**********************
+     Define device output
+     *********************/
+    _stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
+    
+    NSDictionary * outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys: AVVideoCodecJPEG, AVVideoCodecKey, nil];
+    [_stillImageOutput setOutputSettings:outputSettings];
+    [_mySesh addOutput:_stillImageOutput];
+    
+    
+    /******************
+     Preview layer
+     ***************/
+    _captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_mySesh];
+	_captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+	_captureVideoPreviewLayer.frame = _StreamView.layer.bounds; // parent of layer
+    
+	[_StreamView.layer addSublayer:_captureVideoPreviewLayer];
+    
+    
+	[_mySesh startRunning];//begin the stream
+
 }
+
 
 - (void) viewDidAppear:(BOOL)animated {
     
@@ -296,11 +269,6 @@
             }
         }
     }];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    NSLog(@"SC: DID RECIEVE MEMORY WARNING");
 }
 
 #pragma mark CAMERA CONTROLS

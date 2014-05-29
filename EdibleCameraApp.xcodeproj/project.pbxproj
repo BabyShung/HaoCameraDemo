@@ -7,11 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-
 		3A5654BC1936838C0085CC87 /* TextDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A5654BB1936838C0085CC87 /* TextDetector.mm */; };
 		3A5654BF193778AD0085CC87 /* WordCorrector.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5654BE193778AD0085CC87 /* WordCorrector.m */; };
-		3A6ED351193511BB00D2A5CC /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6ED350193511BB00D2A5CC /* opencv2.framework */; };
-
 		3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */; };
 		3AA1BD90192FA982002729BC /* ImagePreProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1BD8F192FA982002729BC /* ImagePreProcessor.mm */; };
 		ACA1724C19368BFB005E7D51 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACA1724B19368BFB005E7D51 /* opencv2.framework */; };
@@ -27,6 +24,7 @@
 		B8235404192D474D00D6BCAC /* ShadeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B82353FF192D474D00D6BCAC /* ShadeView.m */; };
 		B8235405192D474D00D6BCAC /* ControlPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8235401192D474D00D6BCAC /* ControlPointView.m */; };
 		B8235406192D474D00D6BCAC /* ImageCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8235403192D474D00D6BCAC /* ImageCropView.m */; };
+		B886B1BC1937CEB300DF68D3 /* CameraManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B886B1BB1937CEB300DF68D3 /* CameraManager.m */; };
 		B8F29C5519311A5C008979A7 /* FrameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C4A19311A5C008979A7 /* FrameViewController.m */; };
 		B8F29C5619311A5C008979A7 /* EP_firstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C4C19311A5C008979A7 /* EP_firstViewController.m */; };
 		B8F29C5719311A5C008979A7 /* EP_secondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C4E19311A5C008979A7 /* EP_secondViewController.m */; };
@@ -71,13 +69,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-
 		3A5654BA1936838C0085CC87 /* TextDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDetector.h; sourceTree = "<group>"; };
 		3A5654BB1936838C0085CC87 /* TextDetector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextDetector.mm; sourceTree = "<group>"; };
 		3A5654BD193778AD0085CC87 /* WordCorrector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordCorrector.h; sourceTree = "<group>"; };
 		3A5654BE193778AD0085CC87 /* WordCorrector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordCorrector.m; sourceTree = "<group>"; };
-		3A6ED350193511BB00D2A5CC /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = openCV3/opencv2.framework; sourceTree = "<group>"; };
-
 		3AA1BD8B192FA282002729BC /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
 		3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
 		3AA1BD8E192FA982002729BC /* ImagePreProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreProcessor.h; sourceTree = "<group>"; };
@@ -98,6 +93,8 @@
 		B8235401192D474D00D6BCAC /* ControlPointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlPointView.m; sourceTree = "<group>"; };
 		B8235402192D474D00D6BCAC /* ImageCropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCropView.h; sourceTree = "<group>"; };
 		B8235403192D474D00D6BCAC /* ImageCropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCropView.m; sourceTree = "<group>"; };
+		B886B1BA1937CEB300DF68D3 /* CameraManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraManager.h; sourceTree = "<group>"; };
+		B886B1BB1937CEB300DF68D3 /* CameraManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraManager.m; sourceTree = "<group>"; };
 		B8F29C4919311A5C008979A7 /* FrameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameViewController.h; sourceTree = "<group>"; };
 		B8F29C4A19311A5C008979A7 /* FrameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrameViewController.m; sourceTree = "<group>"; };
 		B8F29C4B19311A5C008979A7 /* EP_firstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EP_firstViewController.h; sourceTree = "<group>"; };
@@ -303,6 +300,8 @@
 				B8F29C4819311A4F008979A7 /* Frame */,
 				B8DABCFA192FC2A100FF545E /* ImageProcessing */,
 				B82353FD192D473F00D6BCAC /* imageCropView */,
+				B886B1BA1937CEB300DF68D3 /* CameraManager.h */,
+				B886B1BB1937CEB300DF68D3 /* CameraManager.m */,
 				B8F29C5E19311E77008979A7 /* CameraViewController.h */,
 				B8F29C5F19311E77008979A7 /* CameraViewController.m */,
 				B8FA464E18F9E954007DA680 /* Main.storyboard */,
@@ -468,6 +467,7 @@
 				3AA1BD90192FA982002729BC /* ImagePreProcessor.mm in Sources */,
 				3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */,
 				3A5654BC1936838C0085CC87 /* TextDetector.mm in Sources */,
+				B886B1BC1937CEB300DF68D3 /* CameraManager.m in Sources */,
 				B8F29C5719311A5C008979A7 /* EP_secondViewController.m in Sources */,
 				B8235406192D474D00D6BCAC /* ImageCropView.m in Sources */,
 				B8F29C6019311E77008979A7 /* CameraViewController.m in Sources */,
