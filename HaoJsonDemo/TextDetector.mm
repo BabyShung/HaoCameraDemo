@@ -28,14 +28,14 @@ using namespace std;
     
     //Initialize original Mat for text detection
     Mat orgMat = [orgImg CVMat8UC3];
-
+    cout<<"Original Mat size = "<<orgMat.size().width<<"x"<<orgMat.size().height<<endl;
+    
     //Detect text groups
     vector<cv::Rect> groups, finalgroups;
     [self textRegionsOfC3Mat:orgMat withGroups:groups];
     if (!groups.empty()) {
     
         //Sort and Merge groups
-        
         [self sortAndMergeGroups:groups andResult:finalgroups];
     
         //Draw the groups on the Mat
