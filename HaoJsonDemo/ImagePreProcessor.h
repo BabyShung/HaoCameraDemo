@@ -21,19 +21,11 @@ typedef struct{
 
 -(cv::Mat)toGrayMat:(UIImage *) inputImage;
 
--(cv::Mat)to8UC4Mat:(UIImage *) inputImage;
-
 -(cv::Mat)threadholdControl:(cv::Mat) inputImage;
 
 -(cv::Mat)gaussianBlur:(cv::Mat)inputImage :(int)h :(int)w; // size.height size.weight
 
 -(cv::Mat)laplacian:(cv::Mat) inputImage;
-
-
-
-
-
--(UIImage *)toGrayUIImage:(cv::Mat) inputMat;
 
 -(cv::Mat)removeBackground:(cv::Mat)inputImage;
 
@@ -41,7 +33,7 @@ typedef struct{
 
 -(int)checkBackground:(cv::Mat)input;
 
--(cv::Mat)CalcBlockMeanVariance:(cv::Mat) Img : (cv::Mat) Res : (float) blockSide;
+-(cv::Mat)CalcBlockMeanVariance:(cv::Mat) Img : (float) blockSide;
 
 -(cv::Mat)removeBackground2:(cv::Mat) inputMat;
 

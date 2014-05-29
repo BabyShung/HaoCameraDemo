@@ -11,6 +11,7 @@
 #import "UIImage+OpenCV.h"
 #import "ImagePreProcessor.h"
 #import "TextDetector.h"
+#import "WordCorrector.h"
 
 
 @interface DebugViewController ()
@@ -105,14 +106,14 @@
 
         
         // Step 3. put Mat into pre processor- Charlie
-        tempMat = [ipp processImage:tempMat];
+        //tempMat = [ipp processImage:tempMat];
         //tempMat = [ipp removeBackground2:tempMat];
 
-        onScreenImage = [UIImage imageWithCVMat:tempMat];//convert to uiimage
+        //onScreenImage = [UIImage imageWithCVMat:tempMat];//convert to uiimage
 
         
         // Step 4. put Mat into text Detector- Xinmei
-        //image = [TextDetector detectTextRegions:image];
+        onScreenImage = [TextDetector detectTextRegions:originalImage];
         
         
         //------------------------------------- / End of pre pro
@@ -155,6 +156,13 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         //1.Use tesseract to recognize image
         tv.text = [self recognizeImageWithTesseract:image];
+        
+        //-----------Fang add word correction function here
+        
+        WordCorrector *wc = [[WordCorrector alloc]init];
+        tv.text = [wc correctWord:tv.text];
+        NSLog(@"This is it: %@",tv.text);
+        //-----------/ End word correction
         
     });
     

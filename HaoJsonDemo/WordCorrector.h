@@ -10,6 +10,7 @@
 
 @interface WordCorrector : NSObject
 
--(NSString*)correct:(NSString*)inputText;
+
+-(NSString*)correctWord: (NSString*)input;
 
 @end
