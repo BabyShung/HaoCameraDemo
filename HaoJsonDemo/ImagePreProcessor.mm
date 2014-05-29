@@ -21,23 +21,28 @@
     isBlackBack = [self checkBackground:inputImage];
     if (isBlackBack == 0) {
         
-        //output = [self laplacian:inputImage];
+        output = [self laplacian:inputImage];
+        //cv::threshold(inputImage, inputImage, 110,255, cv::THRESH_TRUNC);
         output = [self increaseContrast:output];
+        //output = [self sharpen:output];
         
-        NSLog(@"IS black");
+        NSLog(@"Image Prepro: Menu is black");
     }
     else{
         cv::Size size;
         size.height = 3;
         size.width = 3;
         
-        output = [self increaseContrast:inputImage];
+        //output = [self increaseContrast:inputImage];
+        
         cv::GaussianBlur(inputImage, output, size, 0.8);
-        cv::threshold(inputImage, inputImage, 120,255, cv::THRESH_TRUNC);
+        cv::threshold(inputImage, inputImage, 180,255, cv::THRESH_TRUNC);
         cv::GaussianBlur(inputImage, output, size, 0.8);
+        
         output = [self removeBackground2:output];
         
-        NSLog(@"IS White");
+        
+        NSLog(@"Image Prepro: Menu is White");
         
     }
     cv::cvtColor(output, output, cv::COLOR_GRAY2BGR);
@@ -126,7 +131,7 @@
     }
     //count the average of the pixel
     int ave_pixl = sum_pixl/(rows*cols);
-    int pivot_pixl = ave_pixl * 3 / 4;
+    int pivot_pixl = ave_pixl * 1 / 2;
     //count_white the nuber of pixl which value are bigger than average
     int count_white = 0;
     //count_white the nuber of pixl which value is smaller than average
