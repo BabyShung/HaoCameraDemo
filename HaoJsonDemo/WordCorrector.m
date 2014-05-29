@@ -11,26 +11,26 @@
 @implementation WordCorrector: NSObject
 
 
--(NSString*)correct:(NSString*)inputText{
+
+-(NSString*)correctWord: (NSString*)input{
+    
     UITextChecker *checker = [[UITextChecker alloc] init];
-    NSString *testString = inputText;
+    NSString *testString = input;
     NSRange checkRange = NSMakeRange(0, testString.length);
-
     NSRange misspelledRange = [checker rangeOfMisspelledWordInString:testString
-                                                           range:checkRange
-                                                      startingAt:checkRange.location
-                                                            wrap:NO
-                                                        language:@"en_US"];
-
+                                                               range:checkRange
+                                                          startingAt:checkRange.location
+                                                                wrap:NO
+                                                            language:@"en_US"];
     NSArray *arrGuessed = [checker guessesForWordRange:misspelledRange inString:testString language:@"en_US"];
-
-
-
-    testString = [testString stringByReplacingCharactersInRange:misspelledRange
-                                                 withString:[arrGuessed objectAtIndex:0]];
-
-    NSLog(@"This is it: %@",testString);
+    if (misspelledRange.location != NSNotFound){
+        testString = [testString stringByReplacingCharactersInRange:misspelledRange
+                                                         withString:[arrGuessed objectAtIndex:0]];
+    }
+    //    for (int i=0; i<1; i++) {
+    //        NSLog(@"This is it: %@",arrGuessed[i]);
+    //    }
     return testString;
+    
 }
-
 @end

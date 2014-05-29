@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3A014C081933E14E00D06090 /* WordCorrector.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A014C071933E14E00D06090 /* WordCorrector.m */; };
 		3A5654BC1936838C0085CC87 /* TextDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A5654BB1936838C0085CC87 /* TextDetector.mm */; };
+		3A5654BF193778AD0085CC87 /* WordCorrector.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5654BE193778AD0085CC87 /* WordCorrector.m */; };
 		3A6ED351193511BB00D2A5CC /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6ED350193511BB00D2A5CC /* opencv2.framework */; };
 		3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */; };
 		3AA1BD90192FA982002729BC /* ImagePreProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1BD8F192FA982002729BC /* ImagePreProcessor.mm */; };
@@ -68,10 +68,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3A014C061933E14E00D06090 /* WordCorrector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordCorrector.h; sourceTree = "<group>"; };
-		3A014C071933E14E00D06090 /* WordCorrector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordCorrector.m; sourceTree = "<group>"; };
 		3A5654BA1936838C0085CC87 /* TextDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDetector.h; sourceTree = "<group>"; };
 		3A5654BB1936838C0085CC87 /* TextDetector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextDetector.mm; sourceTree = "<group>"; };
+		3A5654BD193778AD0085CC87 /* WordCorrector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordCorrector.h; sourceTree = "<group>"; };
+		3A5654BE193778AD0085CC87 /* WordCorrector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordCorrector.m; sourceTree = "<group>"; };
 		3A6ED350193511BB00D2A5CC /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = openCV3/opencv2.framework; sourceTree = "<group>"; };
 		3AA1BD8B192FA282002729BC /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
 		3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
@@ -176,8 +176,8 @@
 		3A014C051933E12700D06090 /* wordCorrect */ = {
 			isa = PBXGroup;
 			children = (
-				3A014C061933E14E00D06090 /* WordCorrector.h */,
-				3A014C071933E14E00D06090 /* WordCorrector.m */,
+				3A5654BD193778AD0085CC87 /* WordCorrector.h */,
+				3A5654BE193778AD0085CC87 /* WordCorrector.m */,
 			);
 			name = wordCorrect;
 			sourceTree = "<group>";
@@ -468,7 +468,7 @@
 				B8F29C6319314357008979A7 /* DebugViewController.mm in Sources */,
 				B8F29C5A19311A5C008979A7 /* EParentViewController.m in Sources */,
 				B8FA464D18F9E954007DA680 /* AppDelegate.m in Sources */,
-				3A014C081933E14E00D06090 /* WordCorrector.m in Sources */,
+				3A5654BF193778AD0085CC87 /* WordCorrector.m in Sources */,
 				B8F29C5619311A5C008979A7 /* EP_firstViewController.m in Sources */,
 				B8F29C5919311A5C008979A7 /* EP_forthViewController.m in Sources */,
 				B8F29C5819311A5C008979A7 /* EP_thirdViewController.m in Sources */,
