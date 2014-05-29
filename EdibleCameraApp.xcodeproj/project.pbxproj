@@ -7,14 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-
 		3A5654BC1936838C0085CC87 /* TextDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A5654BB1936838C0085CC87 /* TextDetector.mm */; };
 		3A5654BF193778AD0085CC87 /* WordCorrector.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5654BE193778AD0085CC87 /* WordCorrector.m */; };
-		3A6ED351193511BB00D2A5CC /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6ED350193511BB00D2A5CC /* opencv2.framework */; };
-
 		3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */; };
 		3AA1BD90192FA982002729BC /* ImagePreProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1BD8F192FA982002729BC /* ImagePreProcessor.mm */; };
-		ACA1724C19368BFB005E7D51 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACA1724B19368BFB005E7D51 /* opencv2.framework */; };
+		ACA1725D193796B5005E7D51 /* TestTDrViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA1725C193796B5005E7D51 /* TestTDrViewController.m */; };
+		ACA1725F1937A97B005E7D51 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACA1725E1937A97B005E7D51 /* opencv2.framework */; };
 		B82353AE192BE2D800D6BCAC /* Attribution_PixelLove.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353A4192BE2D800D6BCAC /* Attribution_PixelLove.png */; };
 		B82353B6192BE2D800D6BCAC /* shutter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353AC192BE2D800D6BCAC /* shutter@2x.png */; };
 		B82353BD192BE2F400D6BCAC /* CameraRotate.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353B9192BE2F400D6BCAC /* CameraRotate.png */; };
@@ -71,18 +69,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-
 		3A5654BA1936838C0085CC87 /* TextDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDetector.h; sourceTree = "<group>"; };
 		3A5654BB1936838C0085CC87 /* TextDetector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextDetector.mm; sourceTree = "<group>"; };
 		3A5654BD193778AD0085CC87 /* WordCorrector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordCorrector.h; sourceTree = "<group>"; };
 		3A5654BE193778AD0085CC87 /* WordCorrector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordCorrector.m; sourceTree = "<group>"; };
-		3A6ED350193511BB00D2A5CC /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = openCV3/opencv2.framework; sourceTree = "<group>"; };
-
 		3AA1BD8B192FA282002729BC /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
 		3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
 		3AA1BD8E192FA982002729BC /* ImagePreProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreProcessor.h; sourceTree = "<group>"; };
 		3AA1BD8F192FA982002729BC /* ImagePreProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImagePreProcessor.mm; sourceTree = "<group>"; };
-		ACA1724B19368BFB005E7D51 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		ACA1725B193796B5005E7D51 /* TestTDrViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTDrViewController.h; sourceTree = "<group>"; };
+		ACA1725C193796B5005E7D51 /* TestTDrViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTDrViewController.m; sourceTree = "<group>"; };
+		ACA1725E1937A97B005E7D51 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		B82353A4192BE2D800D6BCAC /* Attribution_PixelLove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Attribution_PixelLove.png; sourceTree = "<group>"; };
 		B82353AC192BE2D800D6BCAC /* shutter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shutter@2x.png"; sourceTree = "<group>"; };
 		B82353B9192BE2F400D6BCAC /* CameraRotate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CameraRotate.png; sourceTree = "<group>"; };
@@ -148,7 +145,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ACA1724C19368BFB005E7D51 /* opencv2.framework in Frameworks */,
+				ACA1725F1937A97B005E7D51 /* opencv2.framework in Frameworks */,
 				B82353EE192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib in Frameworks */,
 				B82353EC192CFB2800D6BCAC /* TesseractOCR.framework in Frameworks */,
 				B8FA463F18F9E954007DA680 /* CoreGraphics.framework in Frameworks */,
@@ -175,6 +172,8 @@
 			children = (
 				3A5654BA1936838C0085CC87 /* TextDetector.h */,
 				3A5654BB1936838C0085CC87 /* TextDetector.mm */,
+				ACA1725B193796B5005E7D51 /* TestTDrViewController.h */,
+				ACA1725C193796B5005E7D51 /* TestTDrViewController.m */,
 			);
 			name = textDetection;
 			sourceTree = "<group>";
@@ -283,7 +282,7 @@
 		B8FA463B18F9E954007DA680 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				ACA1724B19368BFB005E7D51 /* opencv2.framework */,
+				ACA1725E1937A97B005E7D51 /* opencv2.framework */,
 				B82353ED192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib */,
 				B82353EB192CFB2800D6BCAC /* TesseractOCR.framework */,
 				B8FA463C18F9E954007DA680 /* Foundation.framework */,
@@ -467,6 +466,7 @@
 				B8F29C5519311A5C008979A7 /* FrameViewController.m in Sources */,
 				3AA1BD90192FA982002729BC /* ImagePreProcessor.mm in Sources */,
 				3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */,
+				ACA1725D193796B5005E7D51 /* TestTDrViewController.m in Sources */,
 				3A5654BC1936838C0085CC87 /* TextDetector.mm in Sources */,
 				B8F29C5719311A5C008979A7 /* EP_secondViewController.m in Sources */,
 				B8235406192D474D00D6BCAC /* ImageCropView.m in Sources */,
