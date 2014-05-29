@@ -98,21 +98,32 @@
         //------------------------------------- Charlie & Xinmei image pre processing field
         
         // Step 1. Initiallize image pre processor
-        ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
-        
-        // Step 2. convert photo image to cv Mat, where Mat is in 8UC4 format
-
-        cv::Mat tempMat= [originalImage CVMat];
-
-        
-        // Step 3. put Mat into pre processor- Charlie
-        //tempMat = [ipp processImage:tempMat];
-        //tempMat = [ipp removeBackground2:tempMat];
+//        ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
+//        
+//        // Step 2. convert photo image to cv Mat, where Mat is in 8UC4 format
+//
+//        cv::Mat tempMat= [originalImage CVMat];
+//
+//        
+//        // Step 3. put Mat into pre processor- Charlie
+//        tempMat = [ipp processImage:tempMat];
+//        tempMat = [ipp removeBackground2:tempMat];
 
         //onScreenImage = [UIImage imageWithCVMat:tempMat];//convert to uiimage
 
         
         // Step 4. put Mat into text Detector- Xinmei
+//        NSMutableArray *locations = [[NSMutableArray alloc]init];
+//        NSArray *imgArray = [NSArray arrayWithArray:[TextDetector UIImagesOfTextRegions:originalImage withLocations:locations]];
+//        NSInteger  count =  imgArray.count;
+//        NSLog(@"Return Img array size = %lu", count);
+//        for (UIImage *tmpimg in imgArray){
+//            //dispatch_async(dispatch_get_main_queue(), ^{
+//            //2.save image to album
+//            UIImageWriteToSavedPhotosAlbum(tmpimg, nil, nil, nil);
+//            NSLog(@"=SAVE=");
+//            //});
+//        }
         onScreenImage = [TextDetector detectTextRegions:originalImage];
         
         
@@ -159,9 +170,9 @@
         
         //-----------Fang add word correction function here
         
-        WordCorrector *wc = [[WordCorrector alloc]init];
-        tv.text = [wc correctWord:tv.text];
-        NSLog(@"This is it: %@",tv.text);
+//        WordCorrector *wc = [[WordCorrector alloc]init];
+//        tv.text = [wc correctWord:tv.text];
+//        NSLog(@"This is it: %@",tv.text);
         //-----------/ End word correction
         
     });
