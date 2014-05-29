@@ -20,9 +20,13 @@
     int isBlackBack =0;
     isBlackBack = [self checkBackground:inputImage];
     if (isBlackBack == 0) {
-        output = [self sharpen:inputImage];
+        
+        output = [self laplacian:inputImage];
+        //cv::threshold(inputImage, inputImage, 110,255, cv::THRESH_TRUNC);
         output = [self increaseContrast:output];
-        NSLog(@"IS black");
+        //output = [self sharpen:output];
+        
+        NSLog(@"Image Prepro: Menu is black");
     }
     else{
         cv::Size size;
@@ -30,14 +34,18 @@
         size.width = 3;
         
         //output = [self increaseContrast:inputImage];
+        
         cv::GaussianBlur(inputImage, output, size, 0.8);
-        cv::threshold(inputImage, inputImage, 120,255, cv::THRESH_TRUNC);
+        cv::threshold(inputImage, inputImage, 180,255, cv::THRESH_TRUNC);
         cv::GaussianBlur(inputImage, output, size, 0.8);
+        
         output = [self removeBackground2:output];
         
-        NSLog(@"IS White");
+        
+        NSLog(@"Image Prepro: Menu is White");
         
     }
+    cv::cvtColor(output, output, cv::COLOR_GRAY2BGR);
     
     return output;
 }
@@ -93,7 +101,9 @@
 -(cv::Mat)increaseContrast:(cv::Mat)inputMat{
     
     cv::Mat output;
-    inputMat.convertTo(inputMat, CV_8UC3);
+    
+    inputMat.convertTo(inputMat, CV_8UC4);
+    
     cv::cvtColor(inputMat, inputMat, cv::COLOR_BGR2GRAY);
     
     cv::equalizeHist(inputMat, output);
@@ -121,7 +131,7 @@
     }
     //count the average of the pixel
     int ave_pixl = sum_pixl/(rows*cols);
-    int pivot_pixl = ave_pixl * 3 / 4;
+    int pivot_pixl = ave_pixl * 1 / 2;
     //count_white the nuber of pixl which value are bigger than average
     int count_white = 0;
     //count_white the nuber of pixl which value is smaller than average
@@ -208,9 +218,12 @@
 -(cv::Mat)removeBackground2:(cv::Mat) inputMat
 {
     cv::Mat Img,res;
+    
+    inputMat.convertTo(inputMat, CV_8UC4);
+    
     cv::cvtColor(inputMat,Img,cv::COLOR_RGB2GRAY);
     
-    //Img.convertTo(Img,CV_8UC4);
+    
     Img.convertTo(Img,CV_32FC1,1.0/255.0);
     
     res = [self CalcBlockMeanVariance:Img:21];

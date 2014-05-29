@@ -23,7 +23,7 @@
                                                                 wrap:NO
                                                             language:@"en_US"];
     NSArray *arrGuessed = [checker guessesForWordRange:misspelledRange inString:testString language:@"en_US"];
-    if (misspelledRange.location != NSNotFound){
+    if ((NSNull *)arrGuessed == [NSNull null]){
         testString = [testString stringByReplacingCharactersInRange:misspelledRange
                                                          withString:[arrGuessed objectAtIndex:0]];
     }
