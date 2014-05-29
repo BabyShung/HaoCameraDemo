@@ -24,7 +24,7 @@ using namespace std;
 
 //Return a UIImage with its text regions marked
 +(UIImage *)detectTextRegions:(UIImage *)orgImg{
-    NSLog(@"DetectText Function called!");
+    NSLog(@"****DetectText Function called!******");
     
     //Initialize original Mat for text detection
     Mat orgMat = [orgImg CVMat8UC3];
@@ -52,7 +52,7 @@ using namespace std;
         finalgroups.clear();
         
     }
-    
+    NSLog(@"****DetectText Function End!******");
     return result;
 }
 
