@@ -21,7 +21,7 @@
     isBlackBack = [self checkBackground:inputImage];
     if (isBlackBack == 0) {
         
-        output = [self laplacian:inputImage];
+        //output = [self laplacian:inputImage];
         output = [self increaseContrast:output];
         
         NSLog(@"IS black");
