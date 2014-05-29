@@ -104,12 +104,10 @@
 
         cv::Mat tempMat= [originalImage CVMat];
 
-        
         // Step 3. put Mat into pre processor- Charlie
         tempMat = [ipp processImage:tempMat];
-
+        
         onScreenImage = [UIImage imageWithCVMat:tempMat];//convert back to uiimage
-
         
         // Step 4. put Mat into text Detector- Xinmei
         onScreenImage = [TextDetector detectTextRegions:onScreenImage];
