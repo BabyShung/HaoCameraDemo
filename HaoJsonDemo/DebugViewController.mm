@@ -90,8 +90,10 @@
         NSLog(@"original image(width):  %f",originalImage.size.width);
         NSLog(@"original image(height):  %f",originalImage.size.height);
 
+        CGSize cropSize = CGSizeMake(onScreenImage.size.width, onScreenImage.size.height);
+        
         //original image, put in top imageview and get text in label
-        [self placeImageInView:self.imageView1 withImage:onScreenImage withTextView:self.regtv1];
+        [self placeImageInView:self.imageView1 withImage:onScreenImage withTextView:self.regtv1 andCGSize:cropSize];
         
 
         
@@ -132,7 +134,7 @@
         
         
         //precessed image, put in top imageview and get text in label
-        [self placeImageInView:self.imageView2 withImage:onScreenImage withTextView:self.regtv2];
+        [self placeImageInView:self.imageView2 withImage:onScreenImage withTextView:self.regtv2 andCGSize:cropSize];
         
         
     }else {// simple cam finished w/o image
@@ -159,10 +161,10 @@
 
 
 //helper for viewing
--(void)placeImageInView:(UIImageView *)imageView withImage:(UIImage *)image withTextView:(UITextView *)tv{
+-(void)placeImageInView:(UIImageView *)imageView withImage:(UIImage *)image withTextView:(UITextView *)tv andCGSize:(CGSize) size{
     imageView.image = image;
     imageView.frame = CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y,
-                                 image.size.width, image.size.height);
+                                 size.width, size.height);
     
     dispatch_async(dispatch_get_main_queue(), ^{
         //1.Use tesseract to recognize image
