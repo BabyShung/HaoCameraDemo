@@ -29,8 +29,8 @@
         size.height = 3;
         size.width = 3;
         
-        output = [self increaseContrast:inputImage];
-        cv::GaussianBlur(inputImage, inputImage, size, 0.8);
+        //output = [self increaseContrast:inputImage];
+        cv::GaussianBlur(inputImage, output, size, 0.8);
         cv::threshold(inputImage, inputImage, 120,255, cv::THRESH_TRUNC);
         cv::GaussianBlur(inputImage, output, size, 0.8);
         output = [self removeBackground2:output];
