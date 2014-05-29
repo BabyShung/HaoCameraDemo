@@ -29,7 +29,7 @@
         size.height = 3;
         size.width = 3;
         
-        //output = [self increaseContrast:inputImage];
+        output = [self increaseContrast:inputImage];
         cv::GaussianBlur(inputImage, output, size, 0.8);
         cv::threshold(inputImage, inputImage, 120,255, cv::THRESH_TRUNC);
         cv::GaussianBlur(inputImage, output, size, 0.8);
@@ -93,7 +93,9 @@
 -(cv::Mat)increaseContrast:(cv::Mat)inputMat{
     
     cv::Mat output;
-    inputMat.convertTo(inputMat, CV_8UC3);
+    
+    inputMat.convertTo(inputMat, CV_8UC4);
+    
     cv::cvtColor(inputMat, inputMat, cv::COLOR_BGR2GRAY);
     
     cv::equalizeHist(inputMat, output);
@@ -208,9 +210,12 @@
 -(cv::Mat)removeBackground2:(cv::Mat) inputMat
 {
     cv::Mat Img,res;
+    
+    inputMat.convertTo(inputMat, CV_8UC4);
+    
     cv::cvtColor(inputMat,Img,cv::COLOR_RGB2GRAY);
     
-    //Img.convertTo(Img,CV_8UC4);
+    
     Img.convertTo(Img,CV_32FC1,1.0/255.0);
     
     res = [self CalcBlockMeanVariance:Img:21];

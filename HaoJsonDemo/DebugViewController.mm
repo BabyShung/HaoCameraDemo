@@ -106,14 +106,13 @@
 
         
         // Step 3. put Mat into pre processor- Charlie
-        //tempMat = [ipp processImage:tempMat];
-        //tempMat = [ipp removeBackground2:tempMat];
+        tempMat = [ipp processImage:tempMat];
 
-        //onScreenImage = [UIImage imageWithCVMat:tempMat];//convert to uiimage
+        onScreenImage = [UIImage imageWithCVMat:tempMat];//convert back to uiimage
 
         
         // Step 4. put Mat into text Detector- Xinmei
-        onScreenImage = [TextDetector detectTextRegions:originalImage];
+        onScreenImage = [TextDetector detectTextRegions:onScreenImage];
         
         
         //------------------------------------- / End of pre pro
@@ -159,9 +158,9 @@
         
         //-----------Fang add word correction function here
         
-//        WordCorrector *wc = [[WordCorrector alloc]init];
-//        tv.text = [wc correctWord:tv.text];
-//        NSLog(@"This is it: %@",tv.text);
+        WordCorrector *wc = [[WordCorrector alloc]init];
+        tv.text = [wc correctWord:tv.text];
+        NSLog(@"This is it: %@",tv.text);
         //-----------/ End word correction
         
     });
