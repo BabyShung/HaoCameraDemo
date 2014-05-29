@@ -104,16 +104,13 @@
 
         cv::Mat tempMat= [originalImage CVMat];
 
-        
         // Step 3. put Mat into pre processor- Charlie
-        //tempMat = [ipp processImage:tempMat];
-        //tempMat = [ipp removeBackground2:tempMat];
-
-        //onScreenImage = [UIImage imageWithCVMat:tempMat];//convert to uiimage
-
+        tempMat = [ipp processImage:tempMat];
+        
+        onScreenImage = [UIImage imageWithCVMat:tempMat];//convert back to uiimage
         
         // Step 4. put Mat into text Detector- Xinmei
-        onScreenImage = [TextDetector detectTextRegions:originalImage];
+        onScreenImage = [TextDetector detectTextRegions:onScreenImage];
         
         
         //------------------------------------- / End of pre pro

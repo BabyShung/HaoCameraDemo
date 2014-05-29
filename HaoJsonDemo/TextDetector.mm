@@ -28,7 +28,8 @@ using namespace std;
     
     //Initialize original Mat for text detection
     Mat orgMat = [orgImg CVMat8UC3];
-
+    
+    
     //Detect text groups
     vector<cv::Rect> groups, finalgroups;
     [self textRegionsOfC3Mat:orgMat withGroups:groups];

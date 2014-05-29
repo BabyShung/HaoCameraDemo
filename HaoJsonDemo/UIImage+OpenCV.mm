@@ -93,6 +93,7 @@ static void ProviderReleaseDataNOP(void *info, const void *data, size_t size)
     if (cvMat.elemSize() == 1)
     {
         colorSpace = CGColorSpaceCreateDeviceGray();
+        NSLog(@"UIImage+OpenCV: Gray Mat to UIImage");
     }
     else
     {
