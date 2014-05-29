@@ -133,16 +133,7 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
      NSLog(@"empty mat %i", tmp.empty());*/
     
     // Create ERFilter objects with the 1st and 2nd stage default classifiers
-<<<<<<< HEAD
-    /*!RECONSIDER THE PARAMS!
-    Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1([self filePathWithFileName:
-                                                                   @"trained_classifierNM1.xml"]),4,0.00015f,0.13f,0.2f,true,0.1f);
-    Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.5);
-     
-     Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1([self filePathWithFileName:
-     @"trained_classifierNM1.xml"]),4,0.001f,0.1f,0.02f,true,0.01f);
-     Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.03);*/
-=======
+
     /*!RECONSIDER THE PARAMS!*/
     // default   Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1("trained_classifierNM1.xml"),16,0.00015f,0.13f,0.2f,true,0.1f);
     //    Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2("trained_classifierNM2.xml"),0.5);
@@ -150,7 +141,6 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
     //                                                                    @"trained_classifierNM1.xml"]),4,0.001f,0.1f,0.02f,true,0.01f);
     //    Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.03);
     
->>>>>>> Image-PreProcess
     Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1([self filePathWithFileName:
                                                                     @"trained_classifierNM1.xml"]),4,0.0015f,0.13f,0.02f,true,0.01f);
     Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.03);
@@ -172,21 +162,9 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
     cout << "Grouping extracted ERs ... "<< endl ;
     erGrouping(channels, regions, [self filePathWithFileName:@"trained_classifier_erGrouping.xml"], 0.5, groups);
     
-<<<<<<< HEAD
-    cout<<"Group no = "<<groups.size()<<endl;;
-    
-    for (int i=(int)groups.size()-1; i>=0; i--)
-    {
-        if (orgMat.type() == CV_8UC3)
-            rectangle(orgMat,groups.at(i).tl(),groups.at(i).br(),Scalar( 0, 255, 255 ), 3, 8 );
-        else
-            cout<<"Drawing: wrong img type"<<endl;
-    }
-    
-    UIImage *result = [UIImage imageWithCVMat:orgMat];
-=======
+
     cout<<"Group no = "<<groups.size()<< endl;
->>>>>>> Image-PreProcess
+
     
     er_filter1.release();
     er_filter2.release();
