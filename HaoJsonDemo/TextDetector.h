@@ -18,6 +18,6 @@ bool compareLoc(const cv::Rect &a, const cv::Rect &b);
 
 @interface TextDetector : NSObject
 +(UIImage *)detectTextRegions:(UIImage *)orgImg;
-+(NSArray *)UIImagesOfTextRegions:(UIImage *)orgImg withLocations:(NSMutableArray *)locations;
++(NSArray *)UIImagesOfTextRegions:(UIImage *)orgImg withLocations:(NSArray *)locArray;
 
 @end

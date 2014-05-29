@@ -97,17 +97,17 @@
         
         //------------------------------------- Charlie & Xinmei image pre processing field
         
-//        // Step 1. Initiallize image pre processor
-//        ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
-//        
-//        // Step 2. convert photo image to cv Mat, where Mat is in 8UC4 format
-//
-//        cv::Mat tempMat= [originalImage CVMat];
-//
-//        
-//        // Step 3. put Mat into pre processor- Charlie
-//        //tempMat = [ipp processImage:tempMat];
-//        //tempMat = [ipp removeBackground2:tempMat];
+        // Step 1. Initiallize image pre processor
+        ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
+        
+        // Step 2. convert photo image to cv Mat, where Mat is in 8UC4 format
+
+        cv::Mat tempMat= [originalImage CVMat];
+
+        
+        // Step 3. put Mat into pre processor- Charlie
+        //tempMat = [ipp processImage:tempMat];
+        //tempMat = [ipp removeBackground2:tempMat];
 
         //onScreenImage = [UIImage imageWithCVMat:tempMat];//convert to uiimage
 
