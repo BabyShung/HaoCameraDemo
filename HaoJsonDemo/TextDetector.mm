@@ -23,9 +23,8 @@ using namespace std;
 @implementation TextDetector
 
 //Return a UIImage with its text regions marked
-+(NSArray *)detectTextRegions:(UIImage *)orgImg{
++(UIImage *)detectTextRegions:(UIImage *)orgImg{
     NSLog(@"DetectText Function called!");
-    NSMutableArray *imgArray = [[NSMutableArray alloc] init];
     
     //Initialize original Mat for text detection
     Mat orgMat = [orgImg CVMat8UC3];
@@ -37,34 +36,25 @@ using namespace std;
     if (!groups.empty()) {
     
         //Sort and Merge groups
+        
         [self sortAndMergeGroups:groups andResult:finalgroups];
-        
-        
-        int gsize = finalgroups.size();
-        cout<<"Crop images..."<<endl;
-        
-        //Crop the text regions, convert to UIImage and save in array
-        for (int i = 0; i < gsize ; i++){
-            Mat tmpMat;
-            orgMat(finalgroups.at(i)).copyTo(tmpMat);
-            [imgArray addObject:[UIImage imageWithCVMat:tmpMat]];
-            
-            
-        }
-        
+    
         //Draw the groups on the Mat
         [self groupsDrawWithMat:orgMat andGroups:finalgroups];
-        //Convert Mat to UIImage
-        UIImage *resImg = [UIImage imageWithCVMat:orgMat];
-        [imgArray addObject:resImg];
-        
-        // Memory clean-up
+    }
+    
+    //Convert Mat to UIImage
+    UIImage *result = [UIImage imageWithCVMat:orgMat];
+
+    // Memory clean-up
+    if (!groups.empty())
+    {
         groups.clear();
         finalgroups.clear();
         
     }
     
-    return imgArray;
+    return result;
 }
 
 
@@ -97,7 +87,6 @@ using namespace std;
         
         int gsize = finalgroups.size();
         cout<<"Crop images..."<<endl;
-        
         for (int i = 0; i < gsize ; i++){
             
             //Crop the text regions, convert to UIImage and save in array
@@ -123,7 +112,7 @@ using namespace std;
 }
 
 bool compareLoc(const cv::Rect &a,const cv::Rect &b){
-    if (a.y < b.y) return true;
+    if (a.y > b.y) return true;
     else if (a.y == b.y){
         if(a.x < b.x) return true;
         else return false;
