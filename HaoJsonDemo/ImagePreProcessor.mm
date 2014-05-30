@@ -10,8 +10,6 @@
 #import "opencv2/opencv.hpp"
 #import "UIImage+OpenCV.h"
 
-
-
 @implementation ImagePreProcessor
 
 
@@ -21,9 +19,12 @@
     cv::Mat output;
     int isBlackBack =0;
     isBlackBack = [self checkBackground:inputImage];
-    if (isBlackBack == 0) {
+    if (isBlackBack == 1) {
         
-        cv::fastNlMeansDenoising(inputImage,output);
+        //output = [self laplacian:inputImage];
+        cv::fastNlMeansDenoisingColored(inputImage, output);
+        //output = [self increaseContrast:output];
+        //output = [self sharpen:output];
         
         NSLog(@"Image Prepro: Menu is black");
     }
@@ -32,18 +33,19 @@
         size.height = 3;
         size.width = 3;
         
-        cv::fastNlMeansDenoising(inputImage,inputImage);
-        output = [self increaseContrast:inputImage];
+        //output = [self increaseContrast:inputImage];
         
-        cv::GaussianBlur(output, output, size, 0.8);
-        cv::threshold(inputImage, inputImage, 200,255, cv::THRESH_TRUNC);
         cv::GaussianBlur(inputImage, output, size, 0.8);
+        cv::threshold(inputImage, inputImage, 180,255, cv::THRESH_TRUNC);
+        cv::GaussianBlur(inputImage, output, size, 0.8);
+        
         output = [self removeBackground2:output];
         cv::cvtColor(output, output, cv::COLOR_GRAY2BGR);
         
         NSLog(@"Image Prepro: Menu is White");
         
     }
+    
     
     return output;
 }
@@ -77,7 +79,7 @@
 -(cv::Mat)laplacian:(cv::Mat)inputImage{
     
     cv::Mat output;
-    cv::Mat kernel = (cv::Mat_<float>(3, 3) << 0, -1, 0, -1, 4, -1, 0, -1, 0); //Laplacian operator
+    cv::Mat kernel = (cv::Mat_<float>(3, 3) << 0, -1, 0, -1, 5, -1, 0, -1, 0); //Laplacian operator
     cv::filter2D(inputImage, output, output.depth(), kernel);
     return output;
     
@@ -100,13 +102,13 @@
     
     cv::Mat output;
     
-    inputMat.convertTo(inputMat, CV_8UC3);
+    inputMat.convertTo(inputMat, CV_8UC4);
     
     cv::cvtColor(inputMat, inputMat, cv::COLOR_BGR2GRAY);
     
     cv::equalizeHist(inputMat, output);
     
-    output.convertTo(output, CV_8UC3);
+    output.convertTo(output, CV_8UC4);
     return output;
     
 }
@@ -139,7 +141,7 @@
             
             uchar pixl = input.at<uchar>(i,j);
             int pixl_int = pixl - '0';
-            if (pixl_int < pivot_pixl) {
+            if (pixl_int > pivot_pixl) {
                 count_white = count_white + 1;
             }else{
                 count_black = count_black + 1;
@@ -178,6 +180,7 @@
     
     cv::Scalar m,s;
     
+    blockSide =21;
     
     for(int i=0;i<Img.rows-blockSide;i+=blockSide)
     {
@@ -223,11 +226,12 @@
     
     Img.convertTo(Img,CV_32FC1,1.0/255.0);
     
-    res = [self CalcBlockMeanVariance:Img:25];
+    res = [self CalcBlockMeanVariance:Img:21];
     res=1.0-res;
     res=Img+res;
     
-    cv::threshold(res,res,0.80,1,cv::THRESH_BINARY);
+    cv::threshold(res,res,0.85,1,cv::THRESH_BINARY);
+    
     res.convertTo(res, CV_8UC4,255);
     
     return res;
