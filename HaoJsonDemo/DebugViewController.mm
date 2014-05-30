@@ -118,6 +118,7 @@
         tempMat = [ipp processImage:tempMat];
         
         onScreenImage = [UIImage imageWithCVMat:tempMat];//convert back to uiimage
+<<<<<<< HEAD
 
         // Step 4. put Mat into text Detector- Xinmei
         //NSMutableArray *locations = [[NSMutableArray alloc] init];
@@ -133,6 +134,13 @@
         onScreenImage = [imgArray objectAtIndex:(imgArray.count-1)];
         NSLog(@"<<<<<<<<<<1.5 RESULT: \n%@", result);
         //self.regtv2.text = result;
+=======
+        
+        // Step 4. put Mat into text Detector- Xinmei
+        onScreenImage = [TextDetector detectTextRegions:onScreenImage];
+        
+        
+>>>>>>> test-pre-pro-speed
 
         //------------------------------------- / End of pre pro
         [self placeImageInView:self.imageView2 withImage:onScreenImage withTextView:self.regtv2 andCGSize:cropSize];
