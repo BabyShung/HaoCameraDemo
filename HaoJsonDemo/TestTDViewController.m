@@ -1,15 +1,15 @@
 //
-//  TestViewController.m
+//  TestTDViewController.m
 //  EdibleCameraApp
 //
-//  Created by MEI C on 5/30/14.
+//  Created by MEI C on 5/29/14.
 //  Copyright (c) 2014 Hao Zheng. All rights reserved.
 //
 
-#import "TestViewController.h"
+#import "TestTDViewController.h"
 #import "TextDetector.h"
 
-@interface TestViewController ()
+@interface TestTDViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *imgView1;
 @property (weak, nonatomic) IBOutlet UIImageView *imgView2;
 @property (weak, nonatomic) IBOutlet UIImageView *imgView3;
@@ -17,10 +17,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imgView5;
 @property (weak, nonatomic) IBOutlet UIImageView *imgView6;
 @property (weak, nonatomic) IBOutlet UIImageView *imgView7;
-
 @end
 
-@implementation TestViewController
+@implementation TestTDViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,7 +34,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     [UIImage imageNamed:@"w2-1:3.jpg"];
     NSMutableArray *locations = [[NSMutableArray alloc] init];
     NSArray *imgArray = [[NSArray alloc] initWithArray:[TextDetector UIImagesOfTextRegions:[UIImage imageNamed:@"w2-1:3.jpg"] withLocations:locations]];
@@ -50,6 +48,7 @@
         CGRect tmprect = [tmpVal CGRectValue];
         NSLog(@"(%f, %f)",tmprect.origin.x, tmprect.origin.y);
     }
+    
 }
 
 - (void)didReceiveMemoryWarning

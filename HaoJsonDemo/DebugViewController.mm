@@ -106,6 +106,24 @@
         
         //------------------------------------- Charlie & Xinmei image pre processing field
         
+<<<<<<< HEAD
+        // Step 1. Initiallize image pre processor
+        ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
+        
+        // Step 2. convert photo image to cv Mat, where Mat is in 8UC4 format
+
+        cv::Mat tempMat= [originalImage CVMat];
+
+        // Step 3. put Mat into pre processor- Charlie
+        tempMat = [ipp processImage:tempMat];
+        
+        onScreenImage = [UIImage imageWithCVMat:tempMat];//convert back to uiimage
+        
+        // Step 4. put Mat into text Detector- Xinmei
+        //onScreenImage = [TextDetector detectTextRegions:onScreenImage];
+        
+        
+=======
 //        // Step 1. Initiallize image pre processor
 //        ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
 //        
@@ -132,6 +150,7 @@
         onScreenImage = [imgArray objectAtIndex:(imgArray.count-1)];
         NSLog(@"<<<<<<<<<<1.5 RESULT: \n%@", result);
         //self.regtv2.text = result;
+>>>>>>> FETCH_HEAD
         //------------------------------------- / End of pre pro
         [self placeImageInView:self.imageView2 withImage:onScreenImage withTextView:self.regtv2 andCGSize:cropSize];
         
@@ -188,9 +207,9 @@
         
         //-----------Fang add word correction function here
         
-        WordCorrector *wc = [[WordCorrector alloc]init];
-        tv.text = [wc correctWord:tv.text];
-        NSLog(@"This is it: %@",tv.text);
+//        WordCorrector *wc = [[WordCorrector alloc]init];
+//        tv.text = [wc correctWord:tv.text];
+//        NSLog(@"This is it: %@",tv.text);
         //-----------/ End word correction
         
     });
