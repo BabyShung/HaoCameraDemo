@@ -18,27 +18,35 @@
 
 -(cv::Mat)processImage: (cv::Mat)inputImage{
     // this function check the input image's style : black+white or white+black
+    NSLog(@"PrePro: processImage called!");
     cv::Mat output;
     int isBlackBack =0;
     isBlackBack = [self checkBackground:inputImage];
     if (isBlackBack == 0) {
         
-        cv::fastNlMeansDenoising(inputImage,output);
+        cv::fastNlMeansDenoisingColored(inputImage,output);
         
         NSLog(@"Image Prepro: Menu is black");
     }
     else{
+        
+        
+        cv::fastNlMeansDenoisingColored(inputImage,inputImage);
+        
+        output = [self increaseContrast:inputImage];
+        
+        //remove back color
         cv::Size size;
         size.height = 3;
         size.width = 3;
         
-        cv::fastNlMeansDenoising(inputImage,inputImage);
-        output = [self increaseContrast:inputImage];
-        
         cv::GaussianBlur(output, output, size, 0.8);
-        cv::threshold(inputImage, inputImage, 200,255, cv::THRESH_TRUNC);
-        cv::GaussianBlur(inputImage, output, size, 0.8);
+        cv::threshold(output, output, 200,255, cv::THRESH_TRUNC);
+        cv::GaussianBlur(output, output, size, 0.8);
+        // End remove
+        
         output = [self removeBackground2:output];
+        
         cv::cvtColor(output, output, cv::COLOR_GRAY2BGR);
         
         NSLog(@"Image Prepro: Menu is White");
@@ -55,13 +63,7 @@
 }
 
 
--(cv::Mat)threadholdControl:(cv::Mat) inputImage{
-    
-    cv::Mat output;
-    cv::adaptiveThreshold(inputImage, output, 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY, 25, 14);
-    return output;
-    
-}
+
 
 -(cv::Mat)gaussianBlur:(cv::Mat)inputImage :(int)h :(int)w{
     
@@ -107,6 +109,7 @@
     cv::equalizeHist(inputMat, output);
     
     output.convertTo(output, CV_8UC3);
+    
     return output;
     
 }
@@ -129,7 +132,7 @@
     }
     //count the average of the pixel
     int ave_pixl = sum_pixl/(rows*cols);
-    int pivot_pixl = ave_pixl * 1 / 2;
+    int pivot_pixl = ave_pixl * 3 / 2;
     //count_white the nuber of pixl which value are bigger than average
     int count_white = 0;
     //count_white the nuber of pixl which value is smaller than average
@@ -139,7 +142,8 @@
             
             uchar pixl = input.at<uchar>(i,j);
             int pixl_int = pixl - '0';
-            if (pixl_int < pivot_pixl) {
+            
+            if (pixl_int > pivot_pixl) {
                 count_white = count_white + 1;
             }else{
                 count_black = count_black + 1;
@@ -148,7 +152,7 @@
         }
     }
     //if more white then （0） others 黑字（1）
-    NSLog(@"Mat count val: %d", count_black);
+    
     
     if (count_black <= count_white) {
         return 0;
@@ -158,7 +162,19 @@
     
 }
 
+-(cv::Mat)removeBackground:(cv::Mat)inputImage{
+    
+    cv::Size size;
+    size.height = 3;
+    size.width = 3;
 
+    cv::GaussianBlur(inputImage, inputImage, size, 0.8);
+    cv::threshold(inputImage, inputImage, 200,255, cv::THRESH_TRUNC);
+    cv::GaussianBlur(inputImage, inputImage, size, 0.8);
+    
+    return inputImage;
+
+}
 
 //-------below is remove back ground version 2  stable version
 
