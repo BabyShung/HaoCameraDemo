@@ -12,9 +12,10 @@
 
 #import "DebugViewController.h"
 
-//needed to be replaced later for other controllers
-@class EP_thirdViewController;
-@class EP_forthViewController;
+#import "EP_thirdViewController.h"
+#import "EP_forthViewController.h"
+
+
 
 //tabBar properties
 #define TARBAR_HEIGHT 50
@@ -59,6 +60,9 @@
     
     //2. Delegate: set up VC2(debug) camera delegate as VC1(camera)
     self.VC1.camDelegate = self.VC2;
+    
+    //3. Delegate: set up VC3 as the delegate of debugVC
+    self.VC2.debugDelegate = self.VC3;
     
     
     // Create page view controller

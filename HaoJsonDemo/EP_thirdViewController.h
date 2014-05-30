@@ -8,6 +8,10 @@
 
 #import "EParentViewController.h"
 
-@interface EP_thirdViewController : EParentViewController
+
+#import "DebugViewController.h"
+
+
+@interface EP_thirdViewController : EParentViewController <DebugVCDelegate>
 
 @end
