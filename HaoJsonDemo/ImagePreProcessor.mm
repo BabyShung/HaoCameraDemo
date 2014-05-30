@@ -22,7 +22,7 @@
     cv::Mat output;
     int isBlackBack =0;
     isBlackBack = [self checkBackground:inputImage];
-<<<<<<< HEAD
+
     if (isBlackBack == 1) {
         NSLog(@"Image Prepro: Menu is black");
         
@@ -39,16 +39,9 @@
         output = [self sharpen:inputImage];
         
         
-        
-=======
-    if (isBlackBack == 0) {
-        
-        cv::fastNlMeansDenoisingColored(inputImage,output);
->>>>>>> FETCH_HEAD
-        
     }
     else{
-<<<<<<< HEAD
+
         NSLog(@"Image Prepro: Menu is White");
         
         output = [self increaseContrast:inputImage]; //return 3 channels
@@ -56,23 +49,7 @@
         
         output = [self removeBackground:output]; //return 4 channels
         
-=======
-        
-        
-        cv::fastNlMeansDenoisingColored(inputImage,inputImage);
-        
-        output = [self increaseContrast:inputImage];
-        
-        //remove back color
-        cv::Size size;
-        size.height = 3;
-        size.width = 3;
-        
-        cv::GaussianBlur(output, output, size, 0.8);
-        cv::threshold(output, output, 200,255, cv::THRESH_TRUNC);
-        cv::GaussianBlur(output, output, size, 0.8);
-        // End remove
->>>>>>> FETCH_HEAD
+
         
         output = [self removeBackground2:output];
         
@@ -131,15 +108,11 @@
     
     cv::Mat output;
     
-<<<<<<< HEAD
-=======
-    inputMat.convertTo(inputMat, CV_8UC3);
->>>>>>> FETCH_HEAD
     
     
     std::vector<cv::Mat> channels;
     
-<<<<<<< HEAD
+
     cv::Mat img_hist_equalized;
     
     cv::cvtColor(inputMat, img_hist_equalized, cv::COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
@@ -153,11 +126,7 @@
     cv::cvtColor(img_hist_equalized, img_hist_equalized, cv::COLOR_YCrCb2BGR); //change the color image from YCrCb to BGR format (to display image properly);
     
     return img_hist_equalized;
-=======
-    output.convertTo(output, CV_8UC3);
-    
-    return output;
->>>>>>> FETCH_HEAD
+
     
 }
 
@@ -179,11 +148,9 @@
     }
     //count the average of the pixel
     int ave_pixl = sum_pixl/(rows*cols);
-<<<<<<< HEAD
+
     int pivot_pixl = ave_pixl * 1;
-=======
-    int pivot_pixl = ave_pixl * 3 / 2;
->>>>>>> FETCH_HEAD
+
     //count_white the nuber of pixl which value are bigger than average
     int count_white = 0;
     //count_white the nuber of pixl which value is smaller than average
@@ -218,21 +185,13 @@
     cv::Size size;
     size.height = 3;
     size.width = 3;
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> FETCH_HEAD
     cv::GaussianBlur(inputImage, inputImage, size, 0.8);
     cv::threshold(inputImage, inputImage, 200,255, cv::THRESH_TRUNC);
     cv::GaussianBlur(inputImage, inputImage, size, 0.8);
     
     return inputImage;
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> FETCH_HEAD
 }
 
 //-------below is remove back ground version 2  stable version
