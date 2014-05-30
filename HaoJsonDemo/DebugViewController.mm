@@ -99,18 +99,18 @@
         
         //------------------------------------- Charlie & Xinmei image pre processing field
         
-//        // Step 1. Initiallize image pre processor
-//        ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
-//        
-//        // Step 2. convert photo image to cv Mat, where Mat is in 8UC4 format
-//
-//        cv::Mat tempMat= [originalImage CVMat];
-//
-//        // Step 3. put Mat into pre processor- Charlie
-//        tempMat = [ipp processImage:tempMat];
-//        
-//        onScreenImage = [UIImage imageWithCVMat:tempMat];//convert back to uiimage
-//
+        // Step 1. Initiallize image pre processor
+        ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
+        
+        // Step 2. convert photo image to cv Mat, where Mat is in 8UC4 format
+
+        cv::Mat tempMat= [originalImage CVMat];
+
+        // Step 3. put Mat into pre processor- Charlie
+        tempMat = [ipp processImage:tempMat];
+        
+        onScreenImage = [UIImage imageWithCVMat:tempMat];//convert back to uiimage
+
         // Step 4. put Mat into text Detector- Xinmei
         //NSMutableArray *locations = [[NSMutableArray alloc] init];
         NSArray *imgArray = [[NSArray alloc]initWithArray:[TextDetector detectTextRegions:originalImage]];

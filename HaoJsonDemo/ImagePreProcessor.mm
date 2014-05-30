@@ -23,8 +23,8 @@
     isBlackBack = [self checkBackground:inputImage];
     if (isBlackBack == 0) {
         
-        cv::fastNlMeansDenoising(inputImage,output);
-        
+        cv::fastNlMeansDenoisingColored(inputImage,output);
+        cv::cvtColor(output, output, cv::COLOR_GRAY2BGR);
         NSLog(@"Image Prepro: Menu is black");
     }
     else{
@@ -32,7 +32,7 @@
         size.height = 3;
         size.width = 3;
         
-        cv::fastNlMeansDenoising(inputImage,inputImage);
+        cv::fastNlMeansDenoisingColored(inputImage,inputImage);
         output = [self increaseContrast:inputImage];
         
         cv::GaussianBlur(output, output, size, 0.8);
@@ -129,7 +129,7 @@
     }
     //count the average of the pixel
     int ave_pixl = sum_pixl/(rows*cols);
-    int pivot_pixl = ave_pixl * 1 / 2;
+    int pivot_pixl = ave_pixl * 2/ 3;
     //count_white the nuber of pixl which value are bigger than average
     int count_white = 0;
     //count_white the nuber of pixl which value is smaller than average
@@ -139,7 +139,7 @@
             
             uchar pixl = input.at<uchar>(i,j);
             int pixl_int = pixl - '0';
-            if (pixl_int < pivot_pixl) {
+            if (pixl_int > pivot_pixl) {
                 count_white = count_white + 1;
             }else{
                 count_black = count_black + 1;
