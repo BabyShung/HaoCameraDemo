@@ -140,21 +140,12 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
      NSLog(@"empty mat %i", tmp.empty());*/
     
     // Create ERFilter objects with the 1st and 2nd stage default classifiers
-<<<<<<< HEAD
-
-=======
->>>>>>> MeiOnTD
     /*!RECONSIDER THE PARAMS!*/
     // default   Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1("trained_classifierNM1.xml"),16,0.00015f,0.13f,0.2f,true,0.1f);
     //    Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2("trained_classifierNM2.xml"),0.5);
     // current Best   Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1([self filePathWithFileName:
     //                                                                    @"trained_classifierNM1.xml"]),4,0.001f,0.1f,0.02f,true,0.01f);
     //    Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.03);
-    
-<<<<<<< HEAD
-=======
-
->>>>>>> MeiOnTD
     Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1([self filePathWithFileName:
                                                                     @"trained_classifierNM1.xml"]),4,0.001f,0.1f,0.02f,true,0.01f);
     Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.03);
@@ -173,14 +164,8 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
     // Detect character groups
     cout << "Grouping extracted ERs ... "<< endl ;
     erGrouping(channels, regions, [self filePathWithFileName:@"trained_classifier_erGrouping.xml"], 0.5, groups);
-    
-<<<<<<< HEAD
 
     cout<<"Group no = "<<groups.size()<< endl;
-
-=======
-    cout<<"Group no = "<<groups.size()<< endl;
->>>>>>> MeiOnTD
     
     er_filter1.release();
     er_filter2.release();
