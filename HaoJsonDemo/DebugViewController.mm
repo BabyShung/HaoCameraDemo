@@ -104,7 +104,7 @@
         
         // Step 2. convert photo image to cv Mat, where Mat is in 8UC4 format
 
-        cv::Mat tempMat= [originalImage CVMat];
+        cv::Mat tempMat= [originalImage CVMat8UC3];
 
         // Step 3. put Mat into pre processor- Charlie
         tempMat = [ipp processImage:tempMat];

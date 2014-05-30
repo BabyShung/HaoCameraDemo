@@ -21,10 +21,8 @@
     isBlackBack = [self checkBackground:inputImage];
     if (isBlackBack == 0) {
         
-        output = [self laplacian:inputImage];
-        //cv::threshold(inputImage, inputImage, 110,255, cv::THRESH_TRUNC);
+        cv::fastNlMeansDenoising(inputImage,output);
         output = [self increaseContrast:output];
-        //output = [self sharpen:output];
         
         NSLog(@"Image Prepro: Menu is black");
     }
@@ -33,12 +31,12 @@
         size.height = 3;
         size.width = 3;
         
-        //output = [self increaseContrast:inputImage];
+        cv::fastNlMeansDenoising(inputImage,inputImage);
+        output = [self increaseContrast:inputImage];
         
+        cv::GaussianBlur(output, output, size, 0.8);
+        cv::threshold(inputImage, inputImage, 200,255, cv::THRESH_TRUNC);
         cv::GaussianBlur(inputImage, output, size, 0.8);
-        cv::threshold(inputImage, inputImage, 180,255, cv::THRESH_TRUNC);
-        cv::GaussianBlur(inputImage, output, size, 0.8);
-        
         output = [self removeBackground2:output];
         
         
@@ -46,7 +44,6 @@
         
     }
     cv::cvtColor(output, output, cv::COLOR_GRAY2BGR);
-    
     return output;
 }
 
@@ -79,7 +76,7 @@
 -(cv::Mat)laplacian:(cv::Mat)inputImage{
     
     cv::Mat output;
-    cv::Mat kernel = (cv::Mat_<float>(3, 3) << 0, -1, 0, -1, 5, -1, 0, -1, 0); //Laplacian operator
+    cv::Mat kernel = (cv::Mat_<float>(3, 3) << 0, -1, 0, -1, 4, -1, 0, -1, 0); //Laplacian operator
     cv::filter2D(inputImage, output, output.depth(), kernel);
     return output;
     
@@ -102,13 +99,13 @@
     
     cv::Mat output;
     
-    inputMat.convertTo(inputMat, CV_8UC4);
+    inputMat.convertTo(inputMat, CV_8UC3);
     
     cv::cvtColor(inputMat, inputMat, cv::COLOR_BGR2GRAY);
     
     cv::equalizeHist(inputMat, output);
     
-    output.convertTo(output, CV_8UC4);
+    output.convertTo(output, CV_8UC3);
     return output;
     
 }
@@ -180,7 +177,6 @@
     
     cv::Scalar m,s;
     
-    blockSide =21;
     
     for(int i=0;i<Img.rows-blockSide;i+=blockSide)
     {
@@ -226,12 +222,11 @@
     
     Img.convertTo(Img,CV_32FC1,1.0/255.0);
     
-    res = [self CalcBlockMeanVariance:Img:21];
+    res = [self CalcBlockMeanVariance:Img:25];
     res=1.0-res;
     res=Img+res;
     
-    cv::threshold(res,res,0.85,1,cv::THRESH_BINARY);
-    
+    cv::threshold(res,res,0.80,1,cv::THRESH_BINARY);
     res.convertTo(res, CV_8UC4,255);
     
     return res;
