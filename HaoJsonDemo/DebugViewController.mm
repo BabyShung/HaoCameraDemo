@@ -81,19 +81,26 @@
 
         
         //PS: image variable is the original size image (2448*3264)
-        
-        UIImage *onScreenImage = [self scaleImage:image withScale:2.0f withRect:rect andCropSize:size];
-        NSLog(@"on screen image(width):  %f",onScreenImage.size.width);
-        NSLog(@"on screen image(height):  %f",onScreenImage.size.height);
-
+        UIImage *onScreenImage = [self scaleImage:image withScale:1.5f withRect:rect andCropSize:size];
+//        NSLog(@"on screen image(width):  %f",onScreenImage.size.width);
+//        NSLog(@"on screen image(height):  %f",onScreenImage.size.height);
+//
         UIImage *originalImage = [UIImage imageWithCGImage:onScreenImage.CGImage];
-        NSLog(@"original image(width):  %f",originalImage.size.width);
-        NSLog(@"original image(height):  %f",originalImage.size.height);
+//        NSLog(@"original image(width):  %f",originalImage.size.width);
+//        NSLog(@"original image(height):  %f",originalImage.size.height);
 
         CGSize cropSize = CGSizeMake(onScreenImage.size.width, onScreenImage.size.height);
         
         //original image, put in top imageview and get text in label
-        [self placeImageInView:self.imageView1 withImage:onScreenImage withTextView:self.regtv1 andCGSize:cropSize];
+//        NSDate *methodStart = [NSDate date];
+        
+        
+        [self placeImageInView:self.imageView1 withImage:originalImage withTextView:self.regtv1 andCGSize:cropSize];
+        
+//        NSDate *methodFinish = [NSDate date];
+//        NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
+//        NSLog(@"<<<<<<<<<<1.5 Time = %f", executionTime);
+
         
 
         
@@ -113,27 +120,23 @@
 //
         // Step 4. put Mat into text Detector- Xinmei
         //NSMutableArray *locations = [[NSMutableArray alloc] init];
-        NSArray *imgArray = [[NSArray alloc]initWithArray:[TextDetector detectTextRegions:originalImage]];
-        //[[NSArray alloc] initWithArray:[TextDetector UIImagesOfTextRegions:originalImage withLocations:locations]];
-        NSLog(@"count = %d",imgArray.count);//[imgArray description];
-
-        
-        //NSString *result;
+        NSArray *imgArray = [[NSArray alloc]initWithArray:[TextDetector detectTextRegions:onScreenImage]];
+    
+        NSString *result = @"";
         for (int i = 0; i<imgArray.count-1; i++) {
             NSString *tmp = [self recognizeImageWithTesseract:[imgArray objectAtIndex:i]];
-            //result = [result stringByAppendingFormat:@"%d. %@\n",i, tmp];
-            NSLog(@"tmp %d: %@",i, tmp);
+            result = [result stringByAppendingFormat:@"%d. %@\n",i, tmp];
+//            NSLog(@"tmp %d: %@",i, tmp);
         }
-        
+//        
         onScreenImage = [imgArray objectAtIndex:(imgArray.count-1)];
-        //NSLog(@"RESULT: %@", result);
+        NSLog(@"<<<<<<<<<<1.5 RESULT: \n%@", result);
         //self.regtv2.text = result;
         //------------------------------------- / End of pre pro
-        
+        [self placeImageInView:self.imageView2 withImage:onScreenImage withTextView:self.regtv2 andCGSize:cropSize];
         
         
         //precessed image, put in top imageview and get text in label
-        [self placeImageInView:self.imageView2 withImage:onScreenImage withTextView:self.regtv2 andCGSize:cropSize];
         
         
     }else {// simple cam finished w/o image
@@ -164,6 +167,20 @@
     imageView.image = image;
     imageView.frame = CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y,
                                  size.width, size.height);
+//    NSMutableArray *locations = [[NSMutableArray alloc] init];
+//    
+//    NSArray *imgArray = [[NSArray alloc]initWithArray:[TextDetector detectTextRegions:image]];
+    
+    
+//    NSString *result = @"";
+//    for (int i = 0; i<imgArray.count-1; i++) {
+//        NSString *tmp = [self recognizeImageWithTesseract:[imgArray objectAtIndex:i]];
+//        result = [result stringByAppendingFormat:@"%d. %@\n",i, tmp];
+//        NSLog(@"tmp %d: %@",i, tmp);
+//    }
+//    NSLog(@"RESULT = %@", result);
+//    tv.text = result;
+//    imageView.image = [imgArray objectAtIndex:(imgArray.count-1)];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         //1.Use tesseract to recognize image
