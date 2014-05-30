@@ -158,9 +158,9 @@
         
         //-----------Fang add word correction function here
         
-//        WordCorrector *wc = [[WordCorrector alloc]init];
-//        tv.text = [wc correctWord:tv.text];
-//        NSLog(@"This is it: %@",tv.text);
+        WordCorrector *wc = [[WordCorrector alloc]init];
+        tv.text = [wc correctWord:tv.text];
+        NSLog(@"This is it: %@",tv.text);
         //-----------/ End word correction
         
     });
