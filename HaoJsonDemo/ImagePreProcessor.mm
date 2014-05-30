@@ -19,11 +19,11 @@
     cv::Mat output;
     int isBlackBack =0;
     isBlackBack = [self checkBackground:inputImage];
-    if (isBlackBack == 0) {
+    if (isBlackBack == 1) {
         
-        output = [self laplacian:inputImage];
-        //cv::threshold(inputImage, inputImage, 110,255, cv::THRESH_TRUNC);
-        output = [self increaseContrast:output];
+        //output = [self laplacian:inputImage];
+        cv::fastNlMeansDenoisingColored(inputImage, output);
+        //output = [self increaseContrast:output];
         //output = [self sharpen:output];
         
         NSLog(@"Image Prepro: Menu is black");
@@ -40,12 +40,12 @@
         cv::GaussianBlur(inputImage, output, size, 0.8);
         
         output = [self removeBackground2:output];
-        
+        cv::cvtColor(output, output, cv::COLOR_GRAY2BGR);
         
         NSLog(@"Image Prepro: Menu is White");
         
     }
-    cv::cvtColor(output, output, cv::COLOR_GRAY2BGR);
+    
     
     return output;
 }
@@ -141,7 +141,7 @@
             
             uchar pixl = input.at<uchar>(i,j);
             int pixl_int = pixl - '0';
-            if (pixl_int < pivot_pixl) {
+            if (pixl_int > pivot_pixl) {
                 count_white = count_white + 1;
             }else{
                 count_black = count_black + 1;

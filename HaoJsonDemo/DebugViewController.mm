@@ -112,7 +112,7 @@
         onScreenImage = [UIImage imageWithCVMat:tempMat];//convert back to uiimage
         
         // Step 4. put Mat into text Detector- Xinmei
-        onScreenImage = [TextDetector detectTextRegions:onScreenImage];
+        //onScreenImage = [TextDetector detectTextRegions:onScreenImage];
         
         
         //------------------------------------- / End of pre pro
