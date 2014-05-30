@@ -99,22 +99,35 @@
         
         //------------------------------------- Charlie & Xinmei image pre processing field
         
-        // Step 1. Initiallize image pre processor
-        ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
-        
-        // Step 2. convert photo image to cv Mat, where Mat is in 8UC4 format
-
-        cv::Mat tempMat= [originalImage CVMat];
-
-        // Step 3. put Mat into pre processor- Charlie
-        tempMat = [ipp processImage:tempMat];
-        
-        onScreenImage = [UIImage imageWithCVMat:tempMat];//convert back to uiimage
-        
+//        // Step 1. Initiallize image pre processor
+//        ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
+//        
+//        // Step 2. convert photo image to cv Mat, where Mat is in 8UC4 format
+//
+//        cv::Mat tempMat= [originalImage CVMat];
+//
+//        // Step 3. put Mat into pre processor- Charlie
+//        tempMat = [ipp processImage:tempMat];
+//        
+//        onScreenImage = [UIImage imageWithCVMat:tempMat];//convert back to uiimage
+//        
         // Step 4. put Mat into text Detector- Xinmei
-        onScreenImage = [TextDetector detectTextRegions:onScreenImage];
+        //NSMutableArray *locations = [[NSMutableArray alloc] init];
+        NSArray *imgArray = [[NSArray alloc]initWithArray:[TextDetector detectTextRegions:originalImage]];
+        //[[NSArray alloc] initWithArray:[TextDetector UIImagesOfTextRegions:originalImage withLocations:locations]];
+        NSLog(@"count = %d",imgArray.count);//[imgArray description];
+
         
+        //NSString *result;
+        for (int i = 0; i<imgArray.count-1; i++) {
+            NSString *tmp = [self recognizeImageWithTesseract:[imgArray objectAtIndex:i]];
+            //result = [result stringByAppendingFormat:@"%d. %@\n",i, tmp];
+            NSLog(@"tmp %d: %@",i, tmp);
+        }
         
+        onScreenImage = [imgArray objectAtIndex:(imgArray.count-1)];
+        //NSLog(@"RESULT: %@", result);
+        //self.regtv2.text = result;
         //------------------------------------- / End of pre pro
         
         
