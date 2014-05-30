@@ -111,23 +111,23 @@
         
         onScreenImage = [UIImage imageWithCVMat:tempMat];//convert back to uiimage
 
-        // Step 4. put Mat into text Detector- Xinmei
-        //NSMutableArray *locations = [[NSMutableArray alloc] init];
-        NSArray *imgArray = [[NSArray alloc]initWithArray:[TextDetector detectTextRegions:originalImage]];
-        //[[NSArray alloc] initWithArray:[TextDetector UIImagesOfTextRegions:originalImage withLocations:locations]];
-        NSLog(@"count = %d",imgArray.count);//[imgArray description];
-
-        
-        //NSString *result;
-        for (int i = 0; i<imgArray.count-1; i++) {
-            NSString *tmp = [self recognizeImageWithTesseract:[imgArray objectAtIndex:i]];
-            //result = [result stringByAppendingFormat:@"%d. %@\n",i, tmp];
-            NSLog(@"tmp %d: %@",i, tmp);
-        }
-        
-        onScreenImage = [imgArray objectAtIndex:(imgArray.count-1)];
-        //NSLog(@"RESULT: %@", result);
-        //self.regtv2.text = result;
+//        // Step 4. put Mat into text Detector- Xinmei
+//        //NSMutableArray *locations = [[NSMutableArray alloc] init];
+//        NSArray *imgArray = [[NSArray alloc]initWithArray:[TextDetector detectTextRegions:originalImage]];
+//        //[[NSArray alloc] initWithArray:[TextDetector UIImagesOfTextRegions:originalImage withLocations:locations]];
+//        NSLog(@"count = %d",imgArray.count);//[imgArray description];
+//
+//        
+//        //NSString *result;
+//        for (int i = 0; i<imgArray.count-1; i++) {
+//            NSString *tmp = [self recognizeImageWithTesseract:[imgArray objectAtIndex:i]];
+//            //result = [result stringByAppendingFormat:@"%d. %@\n",i, tmp];
+//            NSLog(@"tmp %d: %@",i, tmp);
+//        }
+//        
+//        onScreenImage = [imgArray objectAtIndex:(imgArray.count-1)];
+//        //NSLog(@"RESULT: %@", result);
+//        //self.regtv2.text = result;
         //------------------------------------- / End of pre pro
         
         
