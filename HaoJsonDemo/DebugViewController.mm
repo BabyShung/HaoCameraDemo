@@ -77,7 +77,7 @@
          
          simple cam finished with image
          
-         ****************************/
+         *****************************/
 
         
         //PS: image variable is the original size image (2448*3264)
