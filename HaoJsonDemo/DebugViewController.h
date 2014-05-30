@@ -11,7 +11,20 @@
 #import "CameraViewController.h"
 #import <TesseractOCR/TesseractOCR.h>
 
+@class DebugViewController;
+
+@protocol DebugVCDelegate
+
+@required
+
+- (void) getAllDetectedImages:(NSArray *) imageArray;
+
+
+@end
 
 @interface DebugViewController : EParentViewController <EdibleCameraDelegate,TesseractDelegate>
+
+
+@property (retain, nonatomic) id <DebugVCDelegate> debugDelegate;
 
 @end

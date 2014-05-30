@@ -12,7 +12,7 @@
 #import "ImagePreProcessor.h"
 #import "TextDetector.h"
 #import "WordCorrector.h"
-
+#import "LoadControls.h"
 
 @interface DebugViewController ()
 
@@ -23,10 +23,21 @@
 @property (weak, nonatomic) UITextView *regtv1;
 @property (weak, nonatomic) UITextView *regtv2;
 
+@property (strong,nonatomic) Tesseract *tesseract;
+
+@property (strong,nonatomic) NSArray *imgArray;
 
 @end
 
 @implementation DebugViewController
+
+
+-(NSArray*) imgArray{
+    if(!_imgArray){
+        _imgArray = [[NSArray alloc] init];
+    }
+    return  _imgArray;
+}
 
 - (void)viewDidLoad
 {
@@ -34,10 +45,18 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{});
     
+    [self loadTesseract];
     
     [self initControls];
     
 }
+
+-(void)loadTesseract{
+    _tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];//langague package
+    _tesseract.delegate = self;
+    [_tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz()&/" forKey:@"tessedit_char_whitelist"]; //limit search
+}
+
 
 -(void)viewDidAppear:(BOOL)animated{
     [self.delegate checkTabbarStatus:self.pageIndex];
@@ -47,19 +66,13 @@
 //tesseract processing
 -(NSString *)recognizeImageWithTesseract:(UIImage *)img
 {
-    Tesseract *tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];//langague package
-    tesseract.delegate = self;
-    [tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz()&/" forKey:@"tessedit_char_whitelist"]; //limit search
+    [_tesseract setImage:img]; //image to check
+    [_tesseract recognize];//processing
     
+    NSString *recognizedText = [_tesseract recognizedText];
     
-    [tesseract setImage:img]; //image to check
-    [tesseract recognize];//processing
-    
-    NSString *recognizedText = [tesseract recognizedText];
     NSLog(@"Recognized: %@", recognizedText);
-    
-    tesseract = nil; //deallocate and free all memory *****
-    
+ 
     return recognizedText;
 }
 
@@ -120,16 +133,19 @@
 //
         // Step 4. put Mat into text Detector- Xinmei
         //NSMutableArray *locations = [[NSMutableArray alloc] init];
-        NSArray *imgArray = [[NSArray alloc]initWithArray:[TextDetector detectTextRegions:onScreenImage]];
+        self.imgArray = [[NSArray alloc]initWithArray:[TextDetector detectTextRegions:originalImage]];
     
+        //pass array to debugDelegate (VC3)
+        [self.debugDelegate getAllDetectedImages:_imgArray];
+        
         NSString *result = @"";
-        for (int i = 0; i<imgArray.count-1; i++) {
-            NSString *tmp = [self recognizeImageWithTesseract:[imgArray objectAtIndex:i]];
+        for (int i = 0; i<_imgArray.count-1; i++) {
+            NSString *tmp = [self recognizeImageWithTesseract:[_imgArray objectAtIndex:i]];
             result = [result stringByAppendingFormat:@"%d. %@\n",i, tmp];
 //            NSLog(@"tmp %d: %@",i, tmp);
         }
 //        
-        onScreenImage = [imgArray objectAtIndex:(imgArray.count-1)];
+        onScreenImage = [_imgArray objectAtIndex:(_imgArray.count-1)];
         NSLog(@"<<<<<<<<<<1.5 RESULT: \n%@", result);
         //self.regtv2.text = result;
         //------------------------------------- / End of pre pro
@@ -182,18 +198,17 @@
 //    tv.text = result;
 //    imageView.image = [imgArray objectAtIndex:(imgArray.count-1)];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        //1.Use tesseract to recognize image
-        tv.text = [self recognizeImageWithTesseract:image];
-        
-        //-----------Fang add word correction function here
-        
-        WordCorrector *wc = [[WordCorrector alloc]init];
-        tv.text = [wc correctWord:tv.text];
-        NSLog(@"This is it: %@",tv.text);
-        //-----------/ End word correction
-        
-    });
+    
+    tv.text = [self recognizeImageWithTesseract:image];
+    
+    //-----------Fang add word correction function here
+    
+    WordCorrector *wc = [[WordCorrector alloc]init];
+    tv.text = [wc correctWord:tv.text];
+    NSLog(@"This is it: %@",tv.text);
+    //-----------/ End word correction
+    
+  
     
     dispatch_async(dispatch_get_main_queue(), ^{
         //2.save image to album
@@ -215,6 +230,8 @@
 
 -(void)initControls{
     
+    LoadControls *lc = [[LoadControls alloc]init];
+    
     float topX = 40;
     float topH = 120;
     float topW = 320;
@@ -222,44 +239,17 @@
     float textViewHeight = 100;
     
     //add debug views
-    self.imageView1 = [self createImageViewWithRect:CGRectMake(0, topX, topW, topH)];
-    self.imageView2 = [self createImageViewWithRect:CGRectMake(0, topX + topH + topH, topW, topH)];
-    self.regtv1 = [self createTextViewWithRect:CGRectMake(0, topX + topH, topW, textViewHeight)];
-    self.regtv2 = [self createTextViewWithRect:CGRectMake(0, topX + topH * 3, topW, textViewHeight)];
+    self.imageView1 = [lc createImageViewWithRect:CGRectMake(0, topX, topW, topH)];
+    self.imageView2 = [lc createImageViewWithRect:CGRectMake(0, topX + topH + topH, topW, topH)];
+    self.regtv1 = [lc createTextViewWithRect:CGRectMake(0, topX + topH, topW, textViewHeight)];
+    self.regtv2 = [lc createTextViewWithRect:CGRectMake(0, topX + topH * 3, topW, textViewHeight)];
+    
+    [self.view addSubview:self.imageView1];
+    [self.view addSubview:self.imageView2];
+    [self.view addSubview:self.regtv1];
+    [self.view addSubview:self.regtv2];
+    
 }
-
--(UIImageView *)createImageViewWithRect:(CGRect)rect{
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:rect];
-    //imageView.bounds = CGRectMake(0, 0, 320, 568);
-    //imageView.bounds = rect;
-    //imageView.center = self.view.center;
-    imageView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [self.view addSubview:imageView];
-    return imageView;
-}
-
--(UILabel *)createLabelWithRect:(CGRect)rect{
-    UILabel *label= [[UILabel alloc]initWithFrame:rect];
-    label.text = @"";
-    //label.textAlignment = NSTextAlignmentCenter;
-    //label.center = self.view.center;
-    label.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
-    [self.view addSubview:label];
-    return label;
-}
-
--(UITextView *)createTextViewWithRect:(CGRect)rect{
-    UITextView *tv= [[UITextView alloc]initWithFrame:rect];
-    tv.text = @"";
-    tv.backgroundColor = [UIColor clearColor];
-    //label.textAlignment = NSTextAlignmentCenter;
-    //label.center = self.view.center;
-    tv.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
-    [self.view addSubview:tv];
-    return tv;
-}
-
 
 -(UIImage *) scaleImage:(UIImage *)image withScale:(CGFloat)scale withRect:(CGRect)rect andCropSize:(CGSize)size{
 
