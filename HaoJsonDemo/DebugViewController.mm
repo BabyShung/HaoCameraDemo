@@ -110,7 +110,7 @@
 //        tempMat = [ipp processImage:tempMat];
 //        
 //        onScreenImage = [UIImage imageWithCVMat:tempMat];//convert back to uiimage
-//        
+//
         // Step 4. put Mat into text Detector- Xinmei
         //NSMutableArray *locations = [[NSMutableArray alloc] init];
         NSArray *imgArray = [[NSArray alloc]initWithArray:[TextDetector detectTextRegions:originalImage]];
@@ -171,9 +171,9 @@
         
         //-----------Fang add word correction function here
         
-//        WordCorrector *wc = [[WordCorrector alloc]init];
-//        tv.text = [wc correctWord:tv.text];
-//        NSLog(@"This is it: %@",tv.text);
+        WordCorrector *wc = [[WordCorrector alloc]init];
+        tv.text = [wc correctWord:tv.text];
+        NSLog(@"This is it: %@",tv.text);
         //-----------/ End word correction
         
     });
