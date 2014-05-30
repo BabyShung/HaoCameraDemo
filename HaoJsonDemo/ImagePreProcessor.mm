@@ -16,6 +16,13 @@
 
 -(cv::Mat)processImage: (cv::Mat)inputImage{
     // this function check the input image's style : black+white or white+black
+    
+    
+    NSDate *methodStart = [NSDate date];
+    
+   
+    
+    
     cv::Mat output;
     int isBlackBack =0;
     isBlackBack = [self checkBackground:inputImage];
@@ -23,8 +30,7 @@
         
         //output = [self laplacian:inputImage];
         cv::fastNlMeansDenoisingColored(inputImage, output);
-        //output = [self increaseContrast:output];
-        //output = [self sharpen:output];
+        output = [self sharpen:output];
         
         NSLog(@"Image Prepro: Menu is black");
     }
@@ -46,6 +52,13 @@
         
     }
     
+    
+    
+    NSDate *methodFinish = [NSDate date];
+    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
+    NSLog(@"executionTime = %f", executionTime);
+    
+
     
     return output;
 }
@@ -131,7 +144,7 @@
     }
     //count the average of the pixel
     int ave_pixl = sum_pixl/(rows*cols);
-    int pivot_pixl = ave_pixl * 1 / 2;
+    int pivot_pixl = ave_pixl * 2/3;
     //count_white the nuber of pixl which value are bigger than average
     int count_white = 0;
     //count_white the nuber of pixl which value is smaller than average
