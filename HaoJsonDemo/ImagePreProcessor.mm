@@ -10,6 +10,8 @@
 #import "opencv2/opencv.hpp"
 #import "UIImage+OpenCV.h"
 
+
+
 @implementation ImagePreProcessor
 
 
@@ -22,7 +24,6 @@
     if (isBlackBack == 0) {
         
         cv::fastNlMeansDenoising(inputImage,output);
-        output = [self increaseContrast:output];
         
         NSLog(@"Image Prepro: Menu is black");
     }
@@ -38,12 +39,12 @@
         cv::threshold(inputImage, inputImage, 200,255, cv::THRESH_TRUNC);
         cv::GaussianBlur(inputImage, output, size, 0.8);
         output = [self removeBackground2:output];
-        
+        cv::cvtColor(output, output, cv::COLOR_GRAY2BGR);
         
         NSLog(@"Image Prepro: Menu is White");
         
     }
-    cv::cvtColor(output, output, cv::COLOR_GRAY2BGR);
+    
     return output;
 }
 
