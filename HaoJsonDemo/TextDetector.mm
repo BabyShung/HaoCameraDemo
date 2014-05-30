@@ -76,28 +76,34 @@ using namespace std;
     Mat orgMat = [orgImg CVMat8UC3];
         
     //Detect text groups
-    vector<cv::Rect> groups;
+    vector<cv::Rect> groups, finalgroups;
     [self textRegionsOfC3Mat:orgMat withGroups:groups];
         
-    //Sort and Merge text groups
+
     if (!groups.empty()) {
         
-        cout<<"....Sorting goups...."<<endl;
-        std::sort(groups.begin(), groups.end(), compareLoc);
+        //Sort and Merge text groups
+        [self sortAndMergeGroups:groups andResult:finalgroups];
         
-    }
-        
-    //Crop the text regions, convert to UIImage and save in array
-    int gsize = groups.size();
-    for (int i = 0; i < gsize ; i++){
+        int gsize = finalgroups.size();
+        cout<<"Crop images..."<<endl;
+        for (int i = 0; i < gsize ; i++){
             
-        [imgArray addObject:[UIImage imageWithCVMat:orgMat(groups.at(i))]];
+            //Crop the text regions, convert to UIImage and save in array
+            Mat tmpMat;
+            orgMat(finalgroups.at(i)).copyTo(tmpMat);
+            [imgArray addObject:[UIImage imageWithCVMat:tmpMat]];
             
-    }
-        
-    if (!groups.empty())
-    {
+            //Save Rects in Mutable Array
+            CGRect tmpRect = CGRectMake(finalgroups.at(i).x, finalgroups.at(i).y, finalgroups.at(i).width, finalgroups.at(i).height);
+            [locations addObject:[NSValue valueWithCGRect:tmpRect]];
+            
+            
+        }
         groups.clear();
+        finalgroups.clear();
+        
+        
     }
 
     
@@ -134,7 +140,10 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
      NSLog(@"empty mat %i", tmp.empty());*/
     
     // Create ERFilter objects with the 1st and 2nd stage default classifiers
+<<<<<<< HEAD
 
+=======
+>>>>>>> MeiOnTD
     /*!RECONSIDER THE PARAMS!*/
     // default   Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1("trained_classifierNM1.xml"),16,0.00015f,0.13f,0.2f,true,0.1f);
     //    Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2("trained_classifierNM2.xml"),0.5);
@@ -142,8 +151,12 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
     //                                                                    @"trained_classifierNM1.xml"]),4,0.001f,0.1f,0.02f,true,0.01f);
     //    Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.03);
     
+<<<<<<< HEAD
+=======
+
+>>>>>>> MeiOnTD
     Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1([self filePathWithFileName:
-                                                                    @"trained_classifierNM1.xml"]),4,0.0015f,0.13f,0.02f,true,0.01f);
+                                                                    @"trained_classifierNM1.xml"]),4,0.001f,0.1f,0.02f,true,0.01f);
     Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.03);
     
     vector<vector<ERStat> > regions(channels.size());
@@ -152,20 +165,22 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
     cout << "    (...) this may take a while (...)" << endl << endl;
     for (int c=0; c<(int)channels.size(); c++)
     {
-        cout<<"Filter 1 start"<<endl;
         er_filter1->run(channels[c], regions[c]);
-        cout<<"Filter 1 done"<<endl;
         er_filter2->run(channels[c], regions[c]);
-        cout<<"Filter 2 done"<<endl;
+
     }
     
     // Detect character groups
     cout << "Grouping extracted ERs ... "<< endl ;
     erGrouping(channels, regions, [self filePathWithFileName:@"trained_classifier_erGrouping.xml"], 0.5, groups);
     
+<<<<<<< HEAD
 
     cout<<"Group no = "<<groups.size()<< endl;
 
+=======
+    cout<<"Group no = "<<groups.size()<< endl;
+>>>>>>> MeiOnTD
     
     er_filter1.release();
     er_filter2.release();
@@ -191,12 +206,13 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
                 finalgroups.push_back(groups.at(i));
                 
             }
+            //finalgroups.push_back(groups.at(i));
         }
         
-        len = finalgroups.size();
-        for (int i =0; i<len; i++) {
-            cout<<"("<<finalgroups.at(i).x<<", "<<finalgroups.at(i).y<<")"<<endl;
-        }
+//        len = finalgroups.size();
+//        for (int i =0; i<len; i++) {
+//            cout<<"("<<finalgroups.at(i).x<<", "<<finalgroups.at(i).y<<")"<<endl;
+//        }
         
     }
 
