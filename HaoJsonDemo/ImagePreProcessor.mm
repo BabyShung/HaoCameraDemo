@@ -2,7 +2,7 @@
 //  ImagePreProcessor.m
 //  TestGray
 //
-//  Created by CharlieGao on 5/22/14.
+//  Created by CharlieGao on 5/30/14.
 //  Copyright (c) 2014 Edible Innovations. All rights reserved.
 //
 
@@ -22,34 +22,39 @@
     cv::Mat output;
     int isBlackBack =0;
     isBlackBack = [self checkBackground:inputImage];
-    if (isBlackBack == 0) {
-        
-        cv::fastNlMeansDenoisingColored(inputImage,output);
-        
+    if (isBlackBack == 1) {
         NSLog(@"Image Prepro: Menu is black");
+        
+        
+        
+        cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
+        
+        
+        
+        NSLog(@"channels is: %d", inputImage.channels());
+        
+        inputImage = [self increaseContrast:inputImage]; //return 3 channels
+        
+        output = [self sharpen:inputImage];
+        
+        
+        
+        
     }
     else{
+        NSLog(@"Image Prepro: Menu is White");
+        
+        output = [self increaseContrast:inputImage]; //return 3 channels
         
         
-        cv::fastNlMeansDenoisingColored(inputImage,inputImage);
+        output = [self removeBackground:output]; //return 4 channels
         
-        output = [self increaseContrast:inputImage];
-        
-        //remove back color
-        cv::Size size;
-        size.height = 3;
-        size.width = 3;
-        
-        cv::GaussianBlur(output, output, size, 0.8);
-        cv::threshold(output, output, 200,255, cv::THRESH_TRUNC);
-        cv::GaussianBlur(output, output, size, 0.8);
-        // End remove
         
         output = [self removeBackground2:output];
         
         cv::cvtColor(output, output, cv::COLOR_GRAY2BGR);
         
-        NSLog(@"Image Prepro: Menu is White");
+        
         
     }
     
@@ -102,15 +107,23 @@
     
     cv::Mat output;
     
-    inputMat.convertTo(inputMat, CV_8UC3);
     
-    cv::cvtColor(inputMat, inputMat, cv::COLOR_BGR2GRAY);
     
-    cv::equalizeHist(inputMat, output);
+    std::vector<cv::Mat> channels;
     
-    output.convertTo(output, CV_8UC3);
+    cv::Mat img_hist_equalized;
     
-    return output;
+    cv::cvtColor(inputMat, img_hist_equalized, cv::COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
+    
+    cv::split(img_hist_equalized,channels); //split the image into channels
+    
+    cv::equalizeHist(channels[0], channels[0]); //equalize histogram on the 1st channel (Y)
+    
+    cv::merge(channels,img_hist_equalized); //merge 3 channels including the modified 1st channel into one image
+    
+    cv::cvtColor(img_hist_equalized, img_hist_equalized, cv::COLOR_YCrCb2BGR); //change the color image from YCrCb to BGR format (to display image properly);
+    
+    return img_hist_equalized;
     
 }
 
@@ -132,7 +145,7 @@
     }
     //count the average of the pixel
     int ave_pixl = sum_pixl/(rows*cols);
-    int pivot_pixl = ave_pixl * 3 / 2;
+    int pivot_pixl = ave_pixl * 1;
     //count_white the nuber of pixl which value are bigger than average
     int count_white = 0;
     //count_white the nuber of pixl which value is smaller than average
@@ -167,13 +180,13 @@
     cv::Size size;
     size.height = 3;
     size.width = 3;
-
+    
     cv::GaussianBlur(inputImage, inputImage, size, 0.8);
     cv::threshold(inputImage, inputImage, 200,255, cv::THRESH_TRUNC);
     cv::GaussianBlur(inputImage, inputImage, size, 0.8);
     
     return inputImage;
-
+    
 }
 
 //-------below is remove back ground version 2  stable version
@@ -232,9 +245,10 @@
 {
     cv::Mat Img,res;
     
-    inputMat.convertTo(inputMat, CV_8UC4);
     
-    cv::cvtColor(inputMat,Img,cv::COLOR_RGB2GRAY);
+    cv::cvtColor(inputMat, Img, cv::COLOR_BGRA2GRAY);
+    
+    Img.convertTo(Img, CV_8UC4);
     
     
     Img.convertTo(Img,CV_32FC1,1.0/255.0);
