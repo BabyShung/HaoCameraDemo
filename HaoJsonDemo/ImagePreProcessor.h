@@ -21,6 +21,8 @@ typedef struct{
 
 -(cv::Mat)toGrayMat:(UIImage *) inputImage;
 
+-(cv::Mat)threadholdControl:(cv::Mat) inputImage;
+
 -(cv::Mat)gaussianBlur:(cv::Mat)inputImage :(int)h :(int)w; // size.height size.weight
 
 -(cv::Mat)laplacian:(cv::Mat) inputImage;
