@@ -19,24 +19,30 @@
 -(cv::Mat)processImage: (cv::Mat)inputImage{
     // this function check the input image's style : black+white or white+black
     NSLog(@"PrePro: processImage called!");
+    
+    // Timer
+    NSDate *methodStart = [NSDate date];
+    
     cv::Mat output;
-    int isBlackBack =0;
-    isBlackBack = [self checkBackground:inputImage];
+    int isBlackBack =1;
+    //isBlackBack = [self checkBackground:inputImage]; // check image lightness
 
     if (isBlackBack == 1) {
-        NSLog(@"Image Prepro: Menu is black");
+        //NSLog(@"Image Prepro: Menu is black");
         
         
         
-        cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
+        //cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
         
+        //cv::threshold(inputImage, inputImage, 100,255, cv::THRESH_TRUNC);
+        //inputImage = [self increaseContrast:inputImage];
         
+        //NSLog(@"channels is: %d", inputImage.channels());
         
-        NSLog(@"channels is: %d", inputImage.channels());
+        //inputImage = [self removeBackground:inputImage];
         
-        inputImage = [self increaseContrast:inputImage]; //return 3 channels
+        //inputImage = [self removeBackground2:inputImage];
         
-        output = [self sharpen:inputImage];
         
         
     }
@@ -44,22 +50,38 @@
 
         NSLog(@"Image Prepro: Menu is White");
         
+        cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
+        
+        //output = [self removeBackground:output]; //return 3 channels
+        
+        //output = [self increaseContrast:output];
+        
+        //output = [self sharpen:output];
+        
+        cv::fastNlMeansDenoising(inputImage, inputImage);
+        
         output = [self increaseContrast:inputImage]; //return 3 channels
         
         
-        output = [self removeBackground:output]; //return 4 channels
+        //output = [self removeBackground2:output];
         
-
+        //output.convertTo(output, CV_8UC1,255);
         
-        output = [self removeBackground2:output];
+        //NSLog(@"chan is : %d", output.channels());
         
-        cv::cvtColor(output, output, cv::COLOR_GRAY2BGR);
+        //cv::cvtColor(output, output, cv::COLOR_GRAY2BGR);
+        
         
         
         
     }
     
-    return output;
+    // End Timer
+    NSDate *methodFinish = [NSDate date];
+    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
+    NSLog(@"Image PrePro executionTime = %f", executionTime);
+    
+    return inputImage;
 }
 
 -(cv::Mat)toGrayMat:(UIImage *) inputImage{

@@ -31,7 +31,7 @@
 		B8F29C5519311A5C008979A7 /* FrameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C4A19311A5C008979A7 /* FrameViewController.m */; };
 		B8F29C5619311A5C008979A7 /* EP_firstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C4C19311A5C008979A7 /* EP_firstViewController.m */; };
 		B8F29C5719311A5C008979A7 /* EP_secondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C4E19311A5C008979A7 /* EP_secondViewController.m */; };
-		B8F29C5819311A5C008979A7 /* EP_thirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C5019311A5C008979A7 /* EP_thirdViewController.m */; };
+		B8F29C5819311A5C008979A7 /* EP_thirdViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C5019311A5C008979A7 /* EP_thirdViewController.mm */; };
 		B8F29C5919311A5C008979A7 /* EP_forthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C5219311A5C008979A7 /* EP_forthViewController.m */; };
 		B8F29C5A19311A5C008979A7 /* EParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C5419311A5C008979A7 /* EParentViewController.m */; };
 		B8F29C6019311E77008979A7 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C5F19311E77008979A7 /* CameraViewController.m */; };
@@ -110,7 +110,7 @@
 		B8F29C4D19311A5C008979A7 /* EP_secondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EP_secondViewController.h; sourceTree = "<group>"; };
 		B8F29C4E19311A5C008979A7 /* EP_secondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EP_secondViewController.m; sourceTree = "<group>"; };
 		B8F29C4F19311A5C008979A7 /* EP_thirdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EP_thirdViewController.h; sourceTree = "<group>"; };
-		B8F29C5019311A5C008979A7 /* EP_thirdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EP_thirdViewController.m; sourceTree = "<group>"; };
+		B8F29C5019311A5C008979A7 /* EP_thirdViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EP_thirdViewController.mm; sourceTree = "<group>"; };
 		B8F29C5119311A5C008979A7 /* EP_forthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EP_forthViewController.h; sourceTree = "<group>"; };
 		B8F29C5219311A5C008979A7 /* EP_forthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EP_forthViewController.m; sourceTree = "<group>"; };
 		B8F29C5319311A5C008979A7 /* EParentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EParentViewController.h; sourceTree = "<group>"; };
@@ -276,7 +276,7 @@
 				B8F29C4D19311A5C008979A7 /* EP_secondViewController.h */,
 				B8F29C4E19311A5C008979A7 /* EP_secondViewController.m */,
 				B8F29C4F19311A5C008979A7 /* EP_thirdViewController.h */,
-				B8F29C5019311A5C008979A7 /* EP_thirdViewController.m */,
+				B8F29C5019311A5C008979A7 /* EP_thirdViewController.mm */,
 				B8F29C5119311A5C008979A7 /* EP_forthViewController.h */,
 				B8F29C5219311A5C008979A7 /* EP_forthViewController.m */,
 				B8F29C5319311A5C008979A7 /* EParentViewController.h */,
@@ -509,7 +509,7 @@
 				ACA1726B1939209A005E7D51 /* LoadControls.m in Sources */,
 				B8F29C5619311A5C008979A7 /* EP_firstViewController.m in Sources */,
 				B8F29C5919311A5C008979A7 /* EP_forthViewController.m in Sources */,
-				B8F29C5819311A5C008979A7 /* EP_thirdViewController.m in Sources */,
+				B8F29C5819311A5C008979A7 /* EP_thirdViewController.mm in Sources */,
 				B8FA464918F9E954007DA680 /* main.m in Sources */,
 				B8235404192D474D00D6BCAC /* ShadeView.m in Sources */,
 				B8235405192D474D00D6BCAC /* ControlPointView.m in Sources */,

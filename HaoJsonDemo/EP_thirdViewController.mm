@@ -8,16 +8,29 @@
 
 #import "EP_thirdViewController.h"
 #import "LoadControls.h"
-
+#import "ImagePreProcessor.h"
+#import "opencv2/opencv.hpp"
+#import "UIImage+OpenCV.h"
 
 @interface EP_thirdViewController ()
 
 @property (strong, nonatomic) NSArray* imgArray;
 
+@property (strong,nonatomic) ImagePreProcessor *ipp;
+
+@property (nonatomic) cv::Mat tempMat;
+
 
 @end
 
 @implementation EP_thirdViewController
+
+-(ImagePreProcessor*)ipp{
+    if(!_ipp){
+        _ipp = [[ImagePreProcessor alloc] init];
+    }
+    return  _ipp;
+}
 
 -(NSArray*) imgArray{
     if(!_imgArray){
@@ -61,10 +74,14 @@
         
         CGFloat x =10;
         CGFloat y = 30;
+        
         for(int i = 0 ; i<self.imgArray.count - 1;i++){
             
             UIImage *img = self.imgArray[i];
             UIImageView *tmpView= [lc createImageViewWithRect:CGRectMake(x, y, img.size.width/1.5, img.size.height/1.5)];
+            
+            
+            
             tmpView.image = img;
             [self.view addSubview:tmpView];
             y += img.size.height + 5;

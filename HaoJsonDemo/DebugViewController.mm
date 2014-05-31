@@ -25,12 +25,23 @@
 
 @property (strong,nonatomic) Tesseract *tesseract;
 
-@property (strong,nonatomic) NSArray *imgArray;
+@property (strong,nonatomic) NSMutableArray *imgArray;
+
+@property (strong,nonatomic) ImagePreProcessor *ipp;
+
+@property (nonatomic) cv::Mat tempMat;
 
 @end
 
 @implementation DebugViewController
 
+
+-(ImagePreProcessor*)ipp{
+    if(!_ipp){
+        _ipp = [[ImagePreProcessor alloc] init];
+    }
+    return  _ipp;
+}
 
 -(NSArray*) imgArray{
     if(!_imgArray){
@@ -119,10 +130,7 @@
         
         //------------------------------------- Charlie & Xinmei image pre processing field
         
-<<<<<<< HEAD
-=======
 
->>>>>>> FETCH_HEAD
 //        // Step 1. Initiallize image pre processor
 //        ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
 //        
@@ -134,17 +142,36 @@
 //        tempMat = [ipp processImage:tempMat];
 //        
 //        onScreenImage = [UIImage imageWithCVMat:tempMat];//convert back to uiimage
-<<<<<<< HEAD
-//
-=======
 
-
-
->>>>>>> FETCH_HEAD
         // Step 4. put Mat into text Detector- Xinmei
         //NSMutableArray *locations = [[NSMutableArray alloc] init];
-        self.imgArray = [[NSArray alloc]initWithArray:[TextDetector detectTextRegions:originalImage]];
+        self.imgArray = [TextDetector detectTextRegions:originalImage];
     
+        
+        for(int i = 0; i<(self.imgArray.count-1);i++){
+            
+            
+            NSLog(@"***** %@",_imgArray[i]);
+            // Charlie add image pre processing field
+            
+            // Step 1. Initiallize image pre processor
+            //ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
+            
+            // Step 2. convert photo image to cv Mat, where Mat is in 8UC4 format
+            
+            _tempMat= [self.imgArray[i] CVMat];
+            
+            // Step 3. put Mat into pre processor- Charlie
+            _tempMat = [self.ipp processImage:_tempMat];
+            
+            self.imgArray[i] = [UIImage imageWithCVMat:_tempMat];//convert back to uiimage
+            
+            NSLog(@"2***** %@",_imgArray[i]);
+            // End Pre Pro
+            
+        }
+        
+        
         //pass array to debugDelegate (VC3)
         [self.debugDelegate getAllDetectedImages:_imgArray];
         
@@ -208,20 +235,6 @@
 //    tv.text = result;
 //    imageView.image = [imgArray objectAtIndex:(imgArray.count-1)];
     
-<<<<<<< HEAD
-    dispatch_async(dispatch_get_main_queue(), ^{
-        //1.Use tesseract to recognize image
-        tv.text = [self recognizeImageWithTesseract:image];
-        
-        //-----------Fang add word correction function here
-        
-        WordCorrector *wc = [[WordCorrector alloc]init];
-        tv.text = [wc correctWord:tv.text];
-        NSLog(@"This is it: %@",tv.text);
-        //-----------/ End word correction
-        
-    });
-=======
     
     tv.text = [self recognizeImageWithTesseract:image];
     
@@ -233,7 +246,7 @@
     //-----------/ End word correction
     
   
->>>>>>> FETCH_HEAD
+
     
     dispatch_async(dispatch_get_main_queue(), ^{
         //2.save image to album

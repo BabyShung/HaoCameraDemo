@@ -23,7 +23,7 @@ using namespace std;
 @implementation TextDetector
 
 //Return a UIImage with its text regions marked
-+(NSArray *)detectTextRegions:(UIImage *)orgImg{
++(NSMutableArray *)detectTextRegions:(UIImage *)orgImg{
     NSLog(@"DetectText Function called!");
     NSMutableArray *imgArray = [[NSMutableArray alloc] init];
     
