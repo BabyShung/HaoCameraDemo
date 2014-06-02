@@ -21,9 +21,9 @@
     NSLog(@"PrePro: processImage called!");
     
     cv::Mat output;
-    int backGround =2;
-    backGround = [self checkBackground:inputImage];
-    if (backGround == 0) {
+    int backGroundChecker =2;
+    backGroundChecker = [self checkBackground:inputImage];
+    if (backGroundChecker == 0) {
         NSLog(@"Prepro: Dark");
         
         //cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
@@ -32,7 +32,7 @@
         
         inputImage = [self sharpen:inputImage];
     }
-    else if(backGround == 1){
+    else if(backGroundChecker == 1){
         NSLog(@"Prepro: Light");
         
         cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
@@ -47,7 +47,7 @@
         inputImage = [self sharpen:inputImage];
         
     }else{
-        NSLog(@"Prepro: good catch");
+        NSLog(@"Prepro: Good catch");
         inputImage = [self sharpen:inputImage];
     }
     
@@ -193,7 +193,7 @@
     size.width = 3;
     
     cv::GaussianBlur(inputImage, inputImage, size, 0.5);
-    cv::threshold(inputImage, inputImage, 190,255, cv::THRESH_TRUNC);
+    cv::threshold(inputImage, inputImage, 120,255, cv::THRESH_TRUNC);
     //cv::GaussianBlur(inputImage, inputImage, size, 0.8);
     
     return inputImage;
