@@ -136,10 +136,13 @@
 
         // Step 4. put Mat into text Detector- Xinmei
         //NSMutableArray *locations = [[NSMutableArray alloc] init];
+        NSDate *methodStart = [NSDate date];
+        
         self.imgArray = [[NSArray alloc]initWithArray:[TextDetector detectTextRegions:originalImage]];
     
         //pass array to debugDelegate (VC3)
         [self.debugDelegate getAllDetectedImages:_imgArray];
+        
         
         NSString *result = @"";
         for (int i = 0; i<_imgArray.count-1; i++) {
@@ -147,7 +150,11 @@
             result = [result stringByAppendingFormat:@"%d. %@\n",i, tmp];
 //            NSLog(@"tmp %d: %@",i, tmp);
         }
-//        
+        
+        NSDate *methodFinish = [NSDate date];
+        NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
+        NSLog(@"<<<<<<<<<<1.5 Time = %f", executionTime);
+        
         onScreenImage = [_imgArray objectAtIndex:(_imgArray.count-1)];
         NSLog(@"<<<<<<<<<<1.5 RESULT: \n%@", result);
         //self.regtv2.text = result;
