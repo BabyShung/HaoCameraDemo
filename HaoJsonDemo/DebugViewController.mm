@@ -45,7 +45,7 @@
 
 -(NSArray*) imgArray{
     if(!_imgArray){
-        _imgArray = [[NSArray alloc] init];
+        _imgArray = [[NSMutableArray alloc] init];
     }
     return  _imgArray;
 }
@@ -147,14 +147,14 @@
         //NSMutableArray *locations = [[NSMutableArray alloc] init];
         NSDate *methodStart = [NSDate date];
         
-        self.imgArray = [[NSArray alloc]initWithArray:[TextDetector detectTextRegions:originalImage]];
+        self.imgArray = [TextDetector detectTextRegions:originalImage];
 
     
         
         for(int i = 0; i<(self.imgArray.count-1);i++){
             
             
-            NSLog(@"***** %@",_imgArray[i]);
+            //NSLog(@"***** %@",_imgArray[i]);
             // Charlie add image pre processing field
             
             // Step 1. Initiallize image pre processor

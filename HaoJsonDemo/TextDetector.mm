@@ -119,11 +119,7 @@ using namespace std;
         }
         groups.clear();
         finalgroups.clear();
-        
-        
     }
-
-    
     return imgArray;
 
 }
@@ -184,13 +180,11 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b)
     }
     
     // Detect character groups
-    if (!groups.empty())
-    {
-        cout << "Grouping extracted ERs ... "<< endl ;
-        erGrouping(channels, regions, [self filePathWithFileName:@"trained_classifier_erGrouping.xml"], 0.5, groups);
-        
-        cout<<"Group no = "<<groups.size()<< endl;
-    }
+    cout << "Grouping extracted ERs ... "<< endl ;
+    erGrouping(channels, regions, [self filePathWithFileName:@"trained_classifier_erGrouping.xml"], 0.5, groups);
+    
+    cout<<"Group no = "<<groups.size()<< endl;
+
     er_filter1.release();
     er_filter2.release();
     regions.clear();
