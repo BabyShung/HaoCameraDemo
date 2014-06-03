@@ -18,6 +18,8 @@
 
 @property (weak, nonatomic) UIImageView *imageView1;
 @property (weak, nonatomic) UIImageView *imageView2;
+//@property (weak, nonatomic) UILabel *regLabel1;
+//@property (weak, nonatomic) UILabel *regLabel2;
 @property (weak, nonatomic) UITextView *regtv1;
 @property (weak, nonatomic) UITextView *regtv2;
 
@@ -41,7 +43,7 @@
     return  _ipp;
 }
 
--(NSMutableArray*) imgArray{
+-(NSArray*) imgArray{
     if(!_imgArray){
         _imgArray = [[NSMutableArray alloc] init];
     }
@@ -151,8 +153,7 @@
         
         for(int i = 0; i<(self.imgArray.count-1);i++){
             
-            
-            
+            //NSLog(@"***** %@",_imgArray[i]);
             // Charlie add image pre processing field
             
             // Step 1. Initiallize image pre processor
