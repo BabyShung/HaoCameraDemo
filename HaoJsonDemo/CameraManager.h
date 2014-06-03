@@ -12,21 +12,18 @@
 
 @interface CameraManager : NSObject
 
-
-
-
 -(void)switchCamera;
 
 - (void) startRunning;
 - (void) stopRunning;
-
 
 -(BOOL)turnOffTorch;
 -(BOOL) torchAvailable;
 -(BOOL) torchActive;
 -(BOOL)torchToggle;
 
-
 -(AVCaptureVideoPreviewLayer *)createPreviewLayer;
+- (UIImage *)capturePhoto:(UIInterfaceOrientation)orientation;
+
 
 @end

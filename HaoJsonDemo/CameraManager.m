@@ -24,14 +24,12 @@
 -(instancetype)init{
     self = [super init];
     if(self){
+        NSLog(@"setting up");
         [self setup];
     }
     return self;
     
 }
-
-
-
 
 
 #pragma mark - Camera action
@@ -41,17 +39,15 @@
 }
 
 
-- (void) startRunning
-{
+- (void) startRunning{
     [_mySesh startRunning];
 }
 
-- (void) stopRunning
-{
+- (void) stopRunning{
     [_mySesh stopRunning];
 }
 
-- (UIImage *)capturePhoto{
+- (UIImage *)capturePhoto:(UIInterfaceOrientation)interfaceOrientation{
     
     AVCaptureConnection *videoConnection = nil;
     for (AVCaptureConnection *connection in _stillImageOutput.connections)
@@ -78,10 +74,38 @@
          NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
          
          //captured image
-         _captureImage = [[UIImage alloc]initWithData:imageData scale:1];
+         UIImage * capturedImage = [[UIImage alloc]initWithData:imageData scale:1];
+         
+         if (_myDevice == [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo][0]) {
+             //*** using REAR camera ***
+             if (interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+                 CGImageRef cgRef = capturedImage.CGImage;
+                 capturedImage = [[UIImage alloc] initWithCGImage:cgRef scale:1.0 orientation:UIImageOrientationUp];
+             }
+             else if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
+                 CGImageRef cgRef = capturedImage.CGImage;
+                 capturedImage = [[UIImage alloc] initWithCGImage:cgRef scale:1.0 orientation:UIImageOrientationDown];
+             }
+         }
+         else if (_myDevice == [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo][1]) {
+             //*** using FRONT camera ***
+             
+             // flip to look the same as the camera
+             if (UIInterfaceOrientationIsPortrait(interfaceOrientation)) capturedImage = [UIImage imageWithCGImage:capturedImage.CGImage scale:capturedImage.scale orientation:UIImageOrientationLeftMirrored];
+             else {
+                 if (interfaceOrientation == UIInterfaceOrientationLandscapeRight)
+                     capturedImage = [UIImage imageWithCGImage:capturedImage.CGImage scale:capturedImage.scale orientation:UIImageOrientationDownMirrored];
+                 else if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft)
+                     capturedImage = [UIImage imageWithCGImage:capturedImage.CGImage scale:capturedImage.scale orientation:UIImageOrientationUpMirrored];
+             }
+             
+         }
+         
+         _captureImage = capturedImage;
+         
      }];
-    return _captureImage;
     
+    return _captureImage;
 }
 
 -(void)switchCamera{
@@ -157,22 +181,13 @@
 
 
 -(void)setup{
-    
-    /*^^^^^^^^^^^^^^^^^
-     
-     Setup Camera
-     
-     ^^^^^^^^^^^^^^^^^*/
-    
-    
     /******************
      Session: Photo
      ***************/
     if (_mySesh == nil)
         _mySesh = [[AVCaptureSession alloc] init];
 	_mySesh.sessionPreset = AVCaptureSessionPresetPhoto;
- 
-	
+    
     /***************************************
      Device: rear camera: 0, front camera: 1
      *******************************************/
@@ -197,7 +212,6 @@
 		NSLog(@"SC: ERROR: trying to open camera: %@", error);
         //[self.camDelegate EdibleCamera:self didFinishWithImage:_capturedImageView.image andImageViewSize:_capturedImageView.image.size];
 	}
-    
 	[_mySesh addInput:input];
     
     /**********************
@@ -208,8 +222,6 @@
     NSDictionary * outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys: AVVideoCodecJPEG, AVVideoCodecKey, nil];
     [_stillImageOutput setOutputSettings:outputSettings];
     [_mySesh addOutput:_stillImageOutput];
-    
-    
     
 }
 
