@@ -25,12 +25,23 @@
 
 @property (strong,nonatomic) Tesseract *tesseract;
 
-@property (strong,nonatomic) NSArray *imgArray;
+@property (strong,nonatomic) NSMutableArray *imgArray;
+
+@property (strong,nonatomic) ImagePreProcessor *ipp;
+
+@property (nonatomic) cv::Mat tempMat;
 
 @end
 
 @implementation DebugViewController
 
+
+-(ImagePreProcessor*)ipp{
+    if(!_ipp){
+        _ipp = [[ImagePreProcessor alloc] init];
+    }
+    return  _ipp;
+}
 
 -(NSArray*) imgArray{
     if(!_imgArray){
@@ -132,14 +143,38 @@
 //        
 //        onScreenImage = [UIImage imageWithCVMat:tempMat];//convert back to uiimage
 
-
-
         // Step 4. put Mat into text Detector- Xinmei
         //NSMutableArray *locations = [[NSMutableArray alloc] init];
         NSDate *methodStart = [NSDate date];
         
         self.imgArray = [[NSArray alloc]initWithArray:[TextDetector detectTextRegions:originalImage]];
+
     
+        
+        for(int i = 0; i<(self.imgArray.count-1);i++){
+            
+            
+            NSLog(@"***** %@",_imgArray[i]);
+            // Charlie add image pre processing field
+            
+            // Step 1. Initiallize image pre processor
+            //ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
+            
+            // Step 2. convert photo image to cv Mat, where Mat is in 8UC4 format
+            
+            _tempMat= [self.imgArray[i] CVMat];
+            
+            // Step 3. put Mat into pre processor- Charlie
+            _tempMat = [self.ipp processImage:_tempMat];
+            
+            self.imgArray[i] = [UIImage imageWithCVMat:_tempMat];//convert back to uiimage
+            
+            NSLog(@"2***** %@",_imgArray[i]);
+            // End Pre Pro
+            
+        }
+        
+        
         //pass array to debugDelegate (VC3)
         [self.debugDelegate getAllDetectedImages:_imgArray];
         
@@ -158,8 +193,6 @@
         onScreenImage = [_imgArray objectAtIndex:(_imgArray.count-1)];
         NSLog(@"<<<<<<<<<<1.5 RESULT: \n%@", result);
         //self.regtv2.text = result;
-
-
         //------------------------------------- / End of pre pro
         [self placeImageInView:self.imageView2 withImage:onScreenImage withTextView:self.regtv2 andCGSize:cropSize];
         
@@ -221,6 +254,7 @@
     //-----------/ End word correction
     
   
+
     
     dispatch_async(dispatch_get_main_queue(), ^{
         //2.save image to album

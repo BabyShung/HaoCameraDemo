@@ -1,21 +1,12 @@
 //
 //  ImagePreProcessor.h
-//  TestGray
+//  
 //
-//  Created by CharlieGao on 5/22/14.
+//  Created by CharlieGao on 06/01/14.
 //  Copyright (c) 2014 Edible Innovations. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-
-
-typedef struct{
-    int contador;
-    double media;
-} cuadrante;
-
-
-
 
 @interface ImagePreProcessor : UIImage
 
@@ -25,18 +16,20 @@ typedef struct{
 
 -(cv::Mat)laplacian:(cv::Mat) inputImage;
 
--(cv::Mat)removeBackground:(cv::Mat)inputImage;
+
 
 -(cv::Mat)processImage: (cv::Mat)inputImage;
 
--(int)checkBackground:(cv::Mat)input;
+-(cv::Mat)sharpen:(cv::Mat)inputImage;
 
--(cv::Mat)CalcBlockMeanVariance:(cv::Mat) Img : (float) blockSide;
+-(cv::Mat)increaseContrast:(cv::Mat)inputMat;
+
+
+-(cv::Mat)removeBackgroundBlack:(cv::Mat) inputMat;
+
+-(cv::Mat)removeBackgroundWhite:(cv::Mat) inputMat;
 
 -(cv::Mat)removeBackground2:(cv::Mat) inputMat;
 
-
-
-
-
+-(cv::Mat)CalcBlockMeanVariance:(cv::Mat) Img : (float) blockSide;
 @end

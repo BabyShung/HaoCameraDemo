@@ -1,8 +1,8 @@
 //
-//  ImagePreProcessor.m
-//  TestGray
+//  ImagePreProcessor.mm
 //
-//  Created by CharlieGao on 5/22/14.
+//
+//  Created by CharlieGao on 06/01/14.
 //  Copyright (c) 2014 Edible Innovations. All rights reserved.
 //
 
@@ -17,43 +17,41 @@
 
 
 -(cv::Mat)processImage: (cv::Mat)inputImage{
-    // this function check the input image's style : black+white or white+black
+    
     NSLog(@"PrePro: processImage called!");
+    
     cv::Mat output;
-    int isBlackBack =0;
-    isBlackBack = [self checkBackground:inputImage];
-    if (isBlackBack == 0) {
+    int backGround =2;
+    backGround = [self checkBackground:inputImage];
+    if (backGround == 0) {
+        NSLog(@"Prepro: Dark");
         
-        cv::fastNlMeansDenoisingColored(inputImage,output);
+        //cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
         
-        NSLog(@"Image Prepro: Menu is black");
+        inputImage = [self removeBackgroundBlack:inputImage];
+        
+        inputImage = [self sharpen:inputImage];
     }
-    else{
+    else if(backGround == 1){
+        NSLog(@"Prepro: Light");
         
+        cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
+        inputImage = [self removeBackground2:inputImage];
         
-        cv::fastNlMeansDenoisingColored(inputImage,inputImage);
+        inputImage = [self increaseContrast:inputImage];
         
-        output = [self increaseContrast:inputImage];
+        inputImage = [self removeBackgroundWhite:inputImage];
         
-        //remove back color
-        cv::Size size;
-        size.height = 3;
-        size.width = 3;
+        inputImage = [self increaseContrast:inputImage];
         
-        cv::GaussianBlur(output, output, size, 0.8);
-        cv::threshold(output, output, 200,255, cv::THRESH_TRUNC);
-        cv::GaussianBlur(output, output, size, 0.8);
-        // End remove
+        inputImage = [self sharpen:inputImage];
         
-        output = [self removeBackground2:output];
-        
-        cv::cvtColor(output, output, cv::COLOR_GRAY2BGR);
-        
-        NSLog(@"Image Prepro: Menu is White");
-        
+    }else{
+        NSLog(@"Prepro: good catch");
+        inputImage = [self sharpen:inputImage];
     }
     
-    return output;
+    return inputImage;
 }
 
 -(cv::Mat)toGrayMat:(UIImage *) inputImage{
@@ -92,34 +90,33 @@
     return output;
 }
 
-
-
-
-
-
-
 -(cv::Mat)increaseContrast:(cv::Mat)inputMat{
     
     cv::Mat output;
     
-    inputMat.convertTo(inputMat, CV_8UC3);
+    std::vector<cv::Mat> channels;
     
-    cv::cvtColor(inputMat, inputMat, cv::COLOR_BGR2GRAY);
+    cv::Mat img_hist_equalized;
     
-    cv::equalizeHist(inputMat, output);
+    cv::cvtColor(inputMat, img_hist_equalized, cv::COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
     
-    output.convertTo(output, CV_8UC3);
+    cv::split(img_hist_equalized,channels); //split the image into channels
     
-    return output;
+    cv::equalizeHist(channels[0], channels[0]); //equalize histogram on the 1st channel (Y)
+    
+    cv::merge(channels,img_hist_equalized); //merge 3 channels including the modified 1st channel into one image
+    
+    cv::cvtColor(img_hist_equalized, img_hist_equalized, cv::COLOR_YCrCb2BGR); //change the color image from YCrCb to BGR format (to display image properly);
+    
+    return img_hist_equalized;
     
 }
 
 
--(int)checkBackground:(cv::Mat )input //Fang's
+-(int)checkBackground:(cv::Mat )input
 {
     int rows = input.rows;
     int cols = input.cols;
-    
     
     //count the sum of the pixl
     int sum_pixl = 0;
@@ -132,48 +129,75 @@
     }
     //count the average of the pixel
     int ave_pixl = sum_pixl/(rows*cols);
-    int pivot_pixl = ave_pixl * 3 / 2;
+    
+    int pivot_pixl_small = ave_pixl * 1/3;
+    int pivot_pixl_medium = ave_pixl* 1;
+    int pivot_pixl_large = ave_pixl * 3/2;
+    
     //count_white the nuber of pixl which value are bigger than average
-    int count_white = 0;
-    //count_white the nuber of pixl which value is smaller than average
-    int count_black = 0;
+    int count_small = 0;
+    int count_medium = 0;
+    int count_large = 0;
+    
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
             
             uchar pixl = input.at<uchar>(i,j);
             int pixl_int = pixl - '0';
             
-            if (pixl_int > pivot_pixl) {
-                count_white = count_white + 1;
-            }else{
-                count_black = count_black + 1;
+            if (pixl_int < pivot_pixl_small) {
+                count_small ++ ;
+            }
+            else if(pixl_int > pivot_pixl_small && pixl_int < pivot_pixl_medium){
+                count_medium ++ ;
+            }
+            else if(pixl_int > pivot_pixl_large){
+                count_large ++ ;
             }
             
         }
     }
-    //if more white then （0） others 黑字（1）
     
-    
-    if (count_black <= count_white) {
-        return 0;
-    } else {
-        return 1;
+    if (count_small <= count_large) {
+        return 0;// too dark
     }
-    
+    else if(count_large > count_small + count_medium) {
+        return 1;// too light
+    }
+    else{
+        return 2;// medium
+    }
 }
 
--(cv::Mat)removeBackground:(cv::Mat)inputImage{
+
+
+
+-(cv::Mat)removeBackgroundBlack:(cv::Mat)inputImage{
     
     cv::Size size;
     size.height = 3;
     size.width = 3;
-
-    cv::GaussianBlur(inputImage, inputImage, size, 0.8);
-    cv::threshold(inputImage, inputImage, 200,255, cv::THRESH_TRUNC);
-    cv::GaussianBlur(inputImage, inputImage, size, 0.8);
+    
+    cv::GaussianBlur(inputImage, inputImage, size, 0.5);
+    cv::threshold(inputImage, inputImage, 220,255, cv::THRESH_TRUNC);
+    //cv::GaussianBlur(inputImage, inputImage, size, 0.8);
     
     return inputImage;
+    
+}
 
+-(cv::Mat)removeBackgroundWhite:(cv::Mat)inputImage{
+    
+    cv::Size size;
+    size.height = 3;
+    size.width = 3;
+    
+    cv::GaussianBlur(inputImage, inputImage, size, 0.5);
+    cv::threshold(inputImage, inputImage, 190,255, cv::THRESH_TRUNC);
+    //cv::GaussianBlur(inputImage, inputImage, size, 0.8);
+    
+    return inputImage;
+    
 }
 
 //-------below is remove back ground version 2  stable version
@@ -232,20 +256,21 @@
 {
     cv::Mat Img,res;
     
-    inputMat.convertTo(inputMat, CV_8UC4);
     
-    cv::cvtColor(inputMat,Img,cv::COLOR_RGB2GRAY);
+    cv::cvtColor(inputMat, Img, cv::COLOR_BGRA2GRAY);
+    
+    Img.convertTo(Img, CV_8UC4);
     
     
     Img.convertTo(Img,CV_32FC1,1.0/255.0);
     
-    res = [self CalcBlockMeanVariance:Img:25];
+    res = [self CalcBlockMeanVariance:Img:21];
     res=1.0-res;
     res=Img+res;
     
     cv::threshold(res,res,0.80,1,cv::THRESH_BINARY);
     res.convertTo(res, CV_8UC4,255);
-    
+    cv::cvtColor(res, res, cv::COLOR_GRAY2BGR);
     return res;
 }
 
