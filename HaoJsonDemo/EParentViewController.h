@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class EParentViewController;
-
+@class CameraViewController;
 /***********************************************
  
  Protocol, passing data back to FrameVC
@@ -23,6 +23,11 @@
 - (void) checkTabbarStatus:(NSUInteger) index;
 
 - (void) moveToTab:(NSUInteger) index;
+
+@optional
+
+//debug
+- (void) setCamDelegate:(CameraViewController *)camVC;
 
 @end
 

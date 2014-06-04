@@ -59,7 +59,7 @@
     }
     
     //2. Delegate: set up VC2(debug) camera delegate as VC1(camera)
-    self.VC1.camDelegate = self.VC2;
+    //self.VC1.camView.camDelegate = self.VC2;
     
     //3. Delegate: set up VC3 as the delegate of debugVC
     self.VC2.debugDelegate = self.VC3;
@@ -93,6 +93,12 @@
  EParentVC delegate methods, coming from other tabbar view controllers
  
  **********************************************************************/
+
+//for debugging
+-(void)setCamDelegate:(CameraViewController *)camVC{
+    camVC.camView.camDelegate = self.VC2;
+}
+
 
 //check whether need to show or hide tabbar
 -(void)checkTabbarStatus:(NSUInteger)index{

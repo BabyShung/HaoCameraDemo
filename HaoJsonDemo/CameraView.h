@@ -1,22 +1,22 @@
 //
-//  haoViewController.h
+//  CameraView.h
 //  EdibleCameraApp
 //
-//  Created by Hao Zheng on 5/24/14.
+//  Created by Hao Zheng on 6/4/14.
 //  Copyright (c) 2014 Hao Zheng. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import <AVFoundation/AVFoundation.h>
-#import "EParentViewController.h"
 
-@class CameraViewController;
+#import "CameraViewController.h"
 
 /**************
  
  Protocol
  
  ************/
+
+@class CameraViewController;
 
 @protocol EdibleCameraDelegate
 
@@ -30,13 +30,8 @@
 
 @end
 
-/****************
- 
- View controller
- 
- ***************/
+@interface CameraView : UIView
 
-@interface CameraViewController : EParentViewController 
 
 /******************
  
@@ -62,6 +57,12 @@
 //Don't show the preview phase of the photo acquisition
 @property (nonatomic) BOOL disablePhotoPreview;
 
+
+@property (strong, nonatomic) UIView * rotationCover;
+
+@property (strong, nonatomic) UIView * StreamView;//bottom view
+
+@property (strong, nonatomic) CameraViewController *appliedVC;
 /******************
  
  Camera operations
@@ -73,6 +74,8 @@
 
 //Use this method for programmatically acquire a photo
 - (void) capturePhoto;
+
+- (instancetype)initWithFrame:(CGRect)frame andOrientation:(UIInterfaceOrientation)iot andAppliedVC:(CameraViewController *)VC;
 
 
 @end

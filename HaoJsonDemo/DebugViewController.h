@@ -8,7 +8,7 @@
 
 #import "EParentViewController.h"
 #import <UIKit/UIKit.h>
-#import "CameraViewController.h"
+#import "CameraView.h"
 #import <TesseractOCR/TesseractOCR.h>
 
 @class DebugViewController;
