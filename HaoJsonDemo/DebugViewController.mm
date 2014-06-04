@@ -155,6 +155,8 @@
         NSDate *ppStart = [NSDate date];
         if ([_imgArray count] > 0)
         {
+    
+        
             
             for(int i = 0; i<(self.imgArray.count-1);i++){
                 

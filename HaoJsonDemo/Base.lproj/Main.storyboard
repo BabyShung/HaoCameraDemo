@@ -77,7 +77,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k5Z-LJ-ddW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="319" y="893"/>
+            <point key="canvasLocation" x="500" y="-475"/>
         </scene>
         <!--Camera View Controller-->
         <scene sceneID="qdF-Aw-Ngg">
