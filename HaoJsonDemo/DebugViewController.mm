@@ -145,60 +145,66 @@
 
         // Step 4. put Mat into text Detector- Xinmei
         //NSMutableArray *locations = [[NSMutableArray alloc] init];
-        NSDate *methodStart = [NSDate date];
+        NSDate *tdStart = [NSDate date];
         
         self.imgArray = [TextDetector detectTextRegions:originalImage];
+        NSDate *tdFinish = [NSDate date];
+        NSTimeInterval tdTime = [tdFinish timeIntervalSinceDate:tdStart];
+        NSLog(@"<<<<<<<<<<1.5 tdTime = %f", tdTime);
 
-    
-        
-        for(int i = 0; i<(self.imgArray.count-1);i++){
+        NSDate *ppStart = [NSDate date];
+        if ([_imgArray count] > 0)
+        {
+            
+            for(int i = 0; i<(self.imgArray.count-1);i++){
+                
+                
+                //NSLog(@"***** %@",_imgArray[i]);
+                // Charlie add image pre processing field
+                
+                // Step 1. Initiallize image pre processor
+                //ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
+                
+                // Step 2. convert photo image to cv Mat, where Mat is in 8UC4 format
+                
+                _tempMat= [self.imgArray[i] CVMat];
+                
+                // Step 3. put Mat into pre processor- Charlie
+                _tempMat = [self.ipp processImage:_tempMat];
+                
+                self.imgArray[i] = [UIImage imageWithCVMat:_tempMat];//convert back to uiimage
+                
+                NSLog(@"2***** %@",_imgArray[i]);
+                // End Pre Pro
+                
+            }
+            NSDate *ppFinish = [NSDate date];
+            NSTimeInterval ppTime = [ppFinish timeIntervalSinceDate:ppStart];
+            NSLog(@"<<<<<<<<<<1.5 ppTime = %f", ppTime);
+            
+            //pass array to debugDelegate (VC3)
+            [self.debugDelegate getAllDetectedImages:_imgArray];
+            
+            NSDate *trStart = [NSDate date];
+            NSString *result = @"";
+            for (int i = 0; i<_imgArray.count-1; i++) {
+                NSString *tmp = [self recognizeImageWithTesseract:[_imgArray objectAtIndex:i]];
+                result = [result stringByAppendingFormat:@"%d. %@\n",i, tmp];
+                //            NSLog(@"tmp %d: %@",i, tmp);
+            }
+            NSDate *trFinish = [NSDate date];
+            NSTimeInterval trTime = [trFinish timeIntervalSinceDate:trStart];
+            NSLog(@"<<<<<<<<<<1.5 tesseractTime = %f", trTime);
+            
+            onScreenImage = [_imgArray objectAtIndex:(_imgArray.count-1)];
+            NSLog(@"<<<<<<<<<<1.5 RESULT: \n%@", result);
+            //self.regtv2.text = result;
+            //------------------------------------- / End of pre pro
+            [self placeImageInView:self.imageView2 withImage:onScreenImage withTextView:self.regtv2 andCGSize:cropSize];
             
             
-            //NSLog(@"***** %@",_imgArray[i]);
-            // Charlie add image pre processing field
-            
-            // Step 1. Initiallize image pre processor
-            //ImagePreProcessor *ipp = [[ImagePreProcessor alloc] init];
-            
-            // Step 2. convert photo image to cv Mat, where Mat is in 8UC4 format
-            
-            _tempMat= [self.imgArray[i] CVMat];
-            
-            // Step 3. put Mat into pre processor- Charlie
-            _tempMat = [self.ipp processImage:_tempMat];
-            
-            self.imgArray[i] = [UIImage imageWithCVMat:_tempMat];//convert back to uiimage
-            
-            NSLog(@"2***** %@",_imgArray[i]);
-            // End Pre Pro
-            
+            //precessed image, put in top imageview and get text in label
         }
-        
-        
-        //pass array to debugDelegate (VC3)
-        [self.debugDelegate getAllDetectedImages:_imgArray];
-        
-        
-        NSString *result = @"";
-        for (int i = 0; i<_imgArray.count-1; i++) {
-            NSString *tmp = [self recognizeImageWithTesseract:[_imgArray objectAtIndex:i]];
-            result = [result stringByAppendingFormat:@"%d. %@\n",i, tmp];
-//            NSLog(@"tmp %d: %@",i, tmp);
-        }
-        
-        NSDate *methodFinish = [NSDate date];
-        NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
-        NSLog(@"<<<<<<<<<<1.5 Time = %f", executionTime);
-        
-        onScreenImage = [_imgArray objectAtIndex:(_imgArray.count-1)];
-        NSLog(@"<<<<<<<<<<1.5 RESULT: \n%@", result);
-        //self.regtv2.text = result;
-        //------------------------------------- / End of pre pro
-        [self placeImageInView:self.imageView2 withImage:onScreenImage withTextView:self.regtv2 andCGSize:cropSize];
-        
-        
-        //precessed image, put in top imageview and get text in label
-        
         
     }else {// simple cam finished w/o image
         self.imageView1.image = nil;

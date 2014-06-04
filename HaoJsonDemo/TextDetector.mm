@@ -164,8 +164,8 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b)
                                                                         @"trained_classifierNM1.xml"]),4,0.001f,0.1f,0.02f,true,0.01f);
         Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.03);*/
     Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1([self filePathWithFileName:
-                                                                    @"trained_classifierNM1.xml"]),4,0.001f,0.1f,0.02f,true,0.01f);
-    Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.03);
+                                                                    @"trained_classifierNM1.xml"]),16,0.001f,0.2f,0.02f,true,0.01f);
+    Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2([self filePathWithFileName:@"trained_classifierNM2.xml"]),0.3);
     
     vector<vector<ERStat> > regions(channels.size());
     
