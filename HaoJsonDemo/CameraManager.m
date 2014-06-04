@@ -5,8 +5,12 @@
 //  Created by Hao Zheng on 5/29/14.
 //  Copyright (c) 2014 Hao Zheng. All rights reserved.
 //
+#define ButtonAvailableAlpha 0.6
+#define ButtonUnavailableAlpha 0.2
 
 #import "CameraManager.h"
+
+#import "ED_Color.h"
 
 @interface CameraManager ()
 
@@ -14,6 +18,7 @@
 @property (strong, nonatomic) AVCaptureSession * mySesh;
 @property (strong, nonatomic) AVCaptureStillImageOutput *stillImageOutput;//for still image
 @property (strong, nonatomic) AVCaptureDevice * myDevice;
+
 
 @property (strong,nonatomic) UIImage *captureImage;
 
@@ -38,7 +43,6 @@
     return [[AVCaptureVideoPreviewLayer alloc] initWithSession:_mySesh];
 }
 
-
 - (void) startRunning{
     [_mySesh startRunning];
 }
@@ -47,7 +51,10 @@
     [_mySesh stopRunning];
 }
 
-- (UIImage *)capturePhoto:(UIInterfaceOrientation)interfaceOrientation{
+/********************
+ Capture
+ *******************/
+- (void)capturePhoto:(UIInterfaceOrientation)interfaceOrientation{
     
     AVCaptureConnection *videoConnection = nil;
     for (AVCaptureConnection *connection in _stillImageOutput.connections)
@@ -100,14 +107,14 @@
              }
              
          }
-         
-         _captureImage = capturedImage;
-         
+         //call delegate
+         [self.imageDelegate imageDidCaptured:capturedImage];
      }];
-    
-    return _captureImage;
 }
 
+/********************
+ switch camera
+ *******************/
 -(void)switchCamera{
     if (_myDevice == [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo][0]) {
         // rear active, switch to front
@@ -131,6 +138,46 @@
         }
         [_mySesh addInput:newInput];
         [_mySesh commitConfiguration];
+    }
+}
+
+/********************
+ Torch
+ *******************/
+- (void) evaluateTorchBtn:(UIButton *)btn {
+    if (_myDevice.isTorchAvailable) {   // Evaluate Flash Available?
+        btn.alpha = ButtonAvailableAlpha;
+        
+        // Evaluate Flash Active?
+        if (_myDevice.isTorchActive) {
+            [btn setTintColor:[ED_Color greenColor]];
+        }
+        else {
+            [btn setTintColor:[ED_Color redColor]];
+        }
+    }
+    else {
+        btn.alpha = ButtonUnavailableAlpha;
+        [btn setTintColor:[ED_Color darkGreyColor]];
+    }
+}
+
+
+- (void) torchBtnPressed:(UIButton *)btn {
+    if ([_myDevice isTorchAvailable]) {
+        if (_myDevice.torchActive) {
+            if([_myDevice lockForConfiguration:nil]) {
+                _myDevice.torchMode = AVCaptureTorchModeOff;
+                [btn setTintColor:[ED_Color redColor]];
+            }
+        }
+        else {
+            if([_myDevice lockForConfiguration:nil]) {
+                _myDevice.torchMode = AVCaptureTorchModeOn;
+                [btn setTintColor:[ED_Color greenColor]];
+            }
+        }
+        [_myDevice unlockForConfiguration];
     }
 }
 
@@ -166,19 +213,58 @@
     return NO;
 }
 
--(BOOL)turnOffTorch{
+-(void)turnOffTorch:(UIButton *)btn{
     //turn torch off if it is on
     if (_myDevice.torchActive) {
         if([_myDevice lockForConfiguration:nil]) {
             _myDevice.torchMode = AVCaptureTorchModeOff;
+            [btn setTintColor:[ED_Color redColor]];
             [_myDevice unlockForConfiguration];
-            
-            return  YES;
         }
     }
-    return false;
 }
 
+
+-(void)focus:(CGPoint)aPoint andFocusView:(UIView *)view{
+    if (_myDevice != nil) {
+        if([_myDevice isFocusPointOfInterestSupported] &&
+           [_myDevice isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
+            
+            // we subtract the point from the width to inverse the focal point
+            // focus points of interest represents a CGPoint where
+            // {0,0} corresponds to the top left of the picture area, and
+            // {1,1} corresponds to the bottom right in landscape mode with the home button on the right—
+            // THIS APPLIES EVEN IF THE DEVICE IS IN PORTRAIT MODE
+            // (from docs)
+            // this is all a touch wonky
+            double pX = aPoint.x / view.bounds.size.width;
+            double pY = aPoint.y / view.bounds.size.height;
+            double focusX = pY;
+            // x is equal to y but y is equal to inverse x ?
+            double focusY = 1 - pX;
+            
+            //NSLog(@"SC: about to focus at x: %f, y: %f", focusX, focusY);
+            if([_myDevice isFocusPointOfInterestSupported] && [_myDevice isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
+                
+                if([_myDevice lockForConfiguration:nil]) {
+                    [_myDevice setFocusPointOfInterest:CGPointMake(focusX, focusY)];
+                    [_myDevice setFocusMode:AVCaptureFocusModeAutoFocus];
+                    [_myDevice setExposurePointOfInterest:CGPointMake(focusX, focusY)];
+                    [_myDevice setExposureMode:AVCaptureExposureModeContinuousAutoExposure];
+                    NSLog(@"SC: Done Focusing");
+                }
+                [_myDevice unlockForConfiguration];
+            }
+        }
+    }
+
+}
+
+-(void)clearResource{
+    _stillImageOutput = nil;
+    _mySesh = nil;
+    _myDevice = nil;
+}
 
 -(void)setup{
     /******************
@@ -224,8 +310,6 @@
     [_mySesh addOutput:_stillImageOutput];
     
 }
-
-
 
 
 @end

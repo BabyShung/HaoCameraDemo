@@ -36,7 +36,7 @@
  
  ***************/
 
-@interface CameraViewController : EParentViewController
+@interface CameraViewController : EParentViewController 
 
 /******************
  

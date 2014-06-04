@@ -21,11 +21,11 @@
 #import "ShadeView.h"
 #import "ImageCropView.h"
 #import "CameraViewController.h"
+#import "ED_Color.h"
 
 #import "CameraManager.h"
 
-@interface CameraViewController ()
-
+@interface CameraViewController () <CameraManageCDelegate>
 {
     // Measurements
     CGFloat screenWidth;
@@ -52,28 +52,28 @@
 @property (strong, nonatomic) UIButton * backBtn;
 @property (strong, nonatomic) UIButton * captureBtn;
 @property (strong, nonatomic) UIButton * TorchBtn;
-@property (strong, nonatomic) UIButton * switchCameraBtn;
 @property (strong, nonatomic) UIButton * saveBtn;
 
-// AVFoundation Properties
-@property (strong, nonatomic) AVCaptureSession * mySesh;
-@property (strong, nonatomic) AVCaptureStillImageOutput *stillImageOutput;//for still image
-@property (strong, nonatomic) AVCaptureDevice * myDevice;
+//previewLayer
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer * captureVideoPreviewLayer;
-
-
 
 // View Properties
 @property (strong, nonatomic) UIView * StreamView;//STREAM of the realtime photo data
 @property (strong, nonatomic) UIImageView * capturedImageView;//captured image view
 
+@property (strong, nonatomic) CameraManager *camManager;
+
 @end
 
 @implementation CameraViewController
 
-
 @synthesize hideAllControls = _hideAllControls, hideBackButton = _hideBackButton, hideCaptureButton = _hideCaptureButton;
 
+//delegate method from CameraManager
+-(void)imageDidCaptured:(UIImage *)image{
+    _capturedImageView.image = image;
+    _disablePhotoPreview? [self photoCaptured] : [self drawControls];
+}
 
 - (void)viewDidLoad {
     
@@ -89,8 +89,10 @@
     if  (UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
         self.view.frame = CGRectMake(0, 0, screenHeight, screenWidth);
     
+    //init views
     [self loadViews];
     
+    //init camera
     [self loadCamera];
     
     if (self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
@@ -103,38 +105,7 @@
     //later can change to let user define it
     _isCropMode = YES;
     
-    
-    /**********************
-     Check crop mode
-     *********************/
-    if (_isCropMode) {
-        NSLog(@"SC: isCropMode");
-        _CropView  = [[ImageCropView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, CROPVIEW_HEIGHT)];
-        
-        [self.view addSubview:_CropView];
-        
-        //Hao: since cropview is not whole screen, we need to add a face shade view
-        ShadeView *shadeView = [[ShadeView alloc] initWithFrame:CGRectMake(0, CROPVIEW_HEIGHT, screenWidth, screenHeight - CROPVIEW_HEIGHT)];
-        
-        shadeView.shadeAlpha = DEFAULT_MASK_ALPHA;
-        
-        [self.view addSubview:shadeView];
-        
-        /****************
-         Tap for focus
-         ***************/
-        UITapGestureRecognizer * focusTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapSent:)];
-        focusTap.numberOfTapsRequired = 1;
-        [_CropView addGestureRecognizer:focusTap];
-        
-    }else{
-        /****************
-         Tap for focus
-         ***************/
-        UITapGestureRecognizer * focusTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapSent:)];
-        focusTap.numberOfTapsRequired = 1;
-        [_capturedImageView addGestureRecognizer:focusTap];
-    }
+    [self checkCropMode];
     
     
     // -- LOAD ROTATION COVERS BEGIN -- //
@@ -154,105 +125,11 @@
     // -- LOAD ROTATION COVERS END -- //
     
     
-    
     // -- PREPARE OUR CONTROLS -- //
     [self loadControls];
     
     
 }
-
--(void)loadViews{
-    /******************
-     stream image view
-     ***************/
-    if (_StreamView == nil)
-        _StreamView = [[UIView alloc]init];
-    _StreamView.alpha = 0;
-    _StreamView.frame = self.view.bounds;
-    
-    [self.view addSubview:_StreamView];
-    
-    /********************
-     captured image view
-     ******************/
-    if (_capturedImageView == nil)
-        _capturedImageView = [[UIImageView alloc]init];
-    _capturedImageView.frame = _StreamView.frame; // just to even it out
-    _capturedImageView.backgroundColor = [UIColor clearColor];
-    _capturedImageView.userInteractionEnabled = YES;
-    _capturedImageView.contentMode = UIViewContentModeScaleAspectFill;
-    
-    [self.view insertSubview:_capturedImageView aboveSubview:_StreamView];
-}
-
--(void)loadCamera{
-    /*^^^^^^^^^^^^^^^^^
-     
-     Setup Camera
-     
-     ^^^^^^^^^^^^^^^^^*/
-    
-    
-    /******************
-     Session: Photo
-     ***************/
-    if (_mySesh == nil)
-        _mySesh = [[AVCaptureSession alloc] init];
-	_mySesh.sessionPreset = AVCaptureSessionPresetPhoto;
-    
-
-	
-    /***************************************
-     Device: rear camera: 0, front camera: 1
-     *******************************************/
-    _myDevice = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo][0];
-    
-    /******************
-     Torch light
-     ***************/
-    if ([_myDevice isTorchActive] && _myDevice.torchActive && [_myDevice lockForConfiguration:nil]) {
-        //NSLog(@"SC: Turning Flash Off ...");
-        _myDevice.torchMode = AVCaptureTorchModeOff;
-        [_myDevice unlockForConfiguration];
-    }
-    
-    /********************
-     Define device input
-     *******************/
-    NSError * error = nil;
-	AVCaptureDeviceInput * input = [AVCaptureDeviceInput deviceInputWithDevice:_myDevice error:&error];
-    
-	if (!input) {// Handle the error appropriately.
-		NSLog(@"SC: ERROR: trying to open camera: %@", error);
-        //[self.camDelegate EdibleCamera:self didFinishWithImage:_capturedImageView.image andImageViewSize:_capturedImageView.image.size];
-	}
-    
-	[_mySesh addInput:input];
-    
-    /**********************
-     Define device output
-     *********************/
-    _stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
-    
-    NSDictionary * outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys: AVVideoCodecJPEG, AVVideoCodecKey, nil];
-    [_stillImageOutput setOutputSettings:outputSettings];
-    [_mySesh addOutput:_stillImageOutput];
-    
-    
-    /******************
-     Preview layer
-     ***************/
-    _captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_mySesh];
-	_captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-	_captureVideoPreviewLayer.frame = _StreamView.layer.bounds; // parent of layer
-    
-	[_StreamView.layer addSublayer:_captureVideoPreviewLayer];
-    
-    
-	[_mySesh startRunning];//begin the stream
-
-}
-
 
 - (void) viewDidAppear:(BOOL)animated {
     
@@ -273,78 +150,6 @@
 
 #pragma mark CAMERA CONTROLS
 
-- (void) loadControls {
-    
-    // -- LOAD BUTTON IMAGES BEGIN -- //
-    UIImage * previousImg = [UIImage imageNamed:@"Previous.png"];
-    UIImage * downloadImg = [UIImage imageNamed:@"Download.png"];
-    UIImage * lighteningImg = [UIImage imageNamed:@"Lightening.png"];
-    UIImage * cameraRotateImg = [UIImage imageNamed:@"CameraRotate.png"];
-    // -- LOAD BUTTON IMAGES END -- //
-    
-    // -- LOAD BUTTONS BEGIN -- //
-    _backBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_backBtn addTarget:self action:@selector(backBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [_backBtn setImage:previousImg forState:UIControlStateNormal];
-    [_backBtn setTintColor:[self redColor]];
-    [_backBtn setImageEdgeInsets:UIEdgeInsetsMake(9, 10, 9, 13)];
-    
-    _TorchBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_TorchBtn addTarget:self action:@selector(torchBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [_TorchBtn setImage:lighteningImg forState:UIControlStateNormal];
-    [_TorchBtn setTintColor:[self redColor]];
-    [_TorchBtn setImageEdgeInsets:UIEdgeInsetsMake(6, 9, 6, 9)];
-    
-    _switchCameraBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_switchCameraBtn setImage:cameraRotateImg forState:UIControlStateNormal];
-    [_switchCameraBtn setTintColor:[self blueColor]];
-    [_switchCameraBtn setImageEdgeInsets:UIEdgeInsetsMake(9.5, 7, 9.5, 7)];
-    
-    _saveBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_saveBtn addTarget:self action:@selector(saveBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [_saveBtn setImage:downloadImg forState:UIControlStateNormal];
-    [_saveBtn setTintColor:[self blueColor]];
-    [_saveBtn setImageEdgeInsets:UIEdgeInsetsMake(7, 10.5, 7, 10.5)];
-    
-    _captureBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [_captureBtn setTitle:@"C\nA\nP\nT\nU\nR\nE" forState:UIControlStateNormal];
-    [_captureBtn setTitleColor:[self darkGreyColor] forState:UIControlStateNormal];
-    _captureBtn.titleLabel.font = [UIFont systemFontOfSize:12.5];
-    _captureBtn.titleLabel.numberOfLines = 0;
-    _captureBtn.titleLabel.minimumScaleFactor = .5;
-    // -- LOAD BUTTONS END -- //
-    
-    // Stylize buttons
-    for (UIButton * btn in @[_backBtn, _captureBtn, _TorchBtn, _switchCameraBtn, _saveBtn])  {
-        
-        btn.bounds = CGRectMake(0, 0, 40, 40);
-        btn.backgroundColor = [UIColor colorWithWhite:1 alpha:.96];
-        btn.alpha = ButtonAvailableAlpha;
-        btn.hidden = YES;
-        
-        btn.layer.shouldRasterize = YES;
-        btn.layer.rasterizationScale = [UIScreen mainScreen].scale;
-        btn.layer.cornerRadius = 4;
-        
-        btn.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        btn.layer.borderWidth = 0.5;
-        
-        [self.view addSubview:btn];
-    }
-    
-    // If a device doesn't have multiple cameras, fade out button ...
-    if ([AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo].count == 1) {
-        _switchCameraBtn.alpha = ButtonUnavailableAlpha;
-    }
-    else {
-        [_switchCameraBtn addTarget:self action:@selector(switchCameraBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    
-    // Draw camera controls
-    [self drawControls];
-}
-
 - (void) drawControls {
     
     if (self.hideAllControls) {
@@ -363,7 +168,6 @@
     static CGFloat landscapeFontSize = 12.5;
     
     [UIView animateWithDuration:.35 delay:0 options:UIViewAnimationOptionCurveEaseOut  animations:^{
-        
         
         /************************************************************************
          
@@ -386,7 +190,7 @@
             _TorchBtn.center = CGPointMake(_captureBtn.center.x + (_captureBtn.bounds.size.width / 2) + offsetBetweenButtons + (_TorchBtn.bounds.size.width / 2), centerY);
             
             // offset from flashBtn is '20'
-            _switchCameraBtn.center = CGPointMake(_TorchBtn.center.x + (_TorchBtn.bounds.size.width / 2) + offsetBetweenButtons + (_switchCameraBtn.bounds.size.width / 2), centerY);
+            _saveBtn.center = CGPointMake(_TorchBtn.center.x + (_TorchBtn.bounds.size.width / 2) + offsetBetweenButtons + (_saveBtn.bounds.size.width / 2), centerY);
             
         }
         else {
@@ -405,12 +209,9 @@
             _TorchBtn.center = CGPointMake(centerX, _captureBtn.center.y + (_captureBtn.bounds.size.height / 2) + offsetBetweenButtons + (_TorchBtn.bounds.size.height / 2));
             
             // offset from flashBtn is '20'
-            _switchCameraBtn.center = CGPointMake(centerX, _TorchBtn.center.y + (_TorchBtn.bounds.size.height / 2) + offsetBetweenButtons + (_switchCameraBtn.bounds.size.height / 2));
+            _saveBtn.center = CGPointMake(centerX, _TorchBtn.center.y + (_TorchBtn.bounds.size.height / 2) + offsetBetweenButtons + (_saveBtn.bounds.size.height / 2));
         }
-        
-        // just so it's ready when we need it to be.
-        _saveBtn.frame = _switchCameraBtn.frame;
-        
+
         /*
          Show the proper controls for picture preview and picture stream
          */
@@ -418,7 +219,7 @@
         // If camera preview -- show preview controls / hide capture controls
         if (_capturedImageView.image) {
             // Hide
-            for (UIButton * btn in @[_captureBtn, _TorchBtn, _switchCameraBtn]) btn.hidden = YES;
+            for (UIButton * btn in @[_captureBtn, _TorchBtn]) btn.hidden = YES;
             // Show
             _saveBtn.hidden = NO;
             
@@ -429,7 +230,7 @@
         // ELSE camera stream -- show capture controls / hide preview controls
         else {
             // Show
-            for (UIButton * btn in @[_TorchBtn, _switchCameraBtn]) btn.hidden = NO;
+            for (UIButton * btn in @[_TorchBtn]) btn.hidden = NO;
             // Hide
             _saveBtn.hidden = YES;
             
@@ -449,103 +250,32 @@
  
  ***************/
 - (void) capturePhoto {
-    
-    isCapturingImage = YES;
-    AVCaptureConnection *videoConnection = nil;
-    for (AVCaptureConnection *connection in _stillImageOutput.connections)
-    {
-        for (AVCaptureInputPort *port in [connection inputPorts])
-        {
-            if ([[port mediaType] isEqual:AVMediaTypeVideo] )
-            {
-                videoConnection = connection;
-                break;
-            }
-        }
-        if (videoConnection) { break; }
-    }
-    
-    /********************
-     
-     Capture processing
-     
-     *******************/
-    [_stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error)
-     {
-         
-         NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
-         
-         //captured image
-         UIImage * capturedImage = [[UIImage alloc]initWithData:imageData scale:1];
-
-         if (_myDevice == [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo][0]) {
-             //*** using REAR camera ***
-             if (self.interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
-                 CGImageRef cgRef = capturedImage.CGImage;
-                 capturedImage = [[UIImage alloc] initWithCGImage:cgRef scale:1.0 orientation:UIImageOrientationUp];
-             }
-             else if (self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
-                 CGImageRef cgRef = capturedImage.CGImage;
-                 capturedImage = [[UIImage alloc] initWithCGImage:cgRef scale:1.0 orientation:UIImageOrientationDown];
-             }
-         }
-         else if (_myDevice == [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo][1]) {
-             //*** using FRONT camera ***
-             
-             // flip to look the same as the camera
-             if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) capturedImage = [UIImage imageWithCGImage:capturedImage.CGImage scale:capturedImage.scale orientation:UIImageOrientationLeftMirrored];
-             else {
-                 if (self.interfaceOrientation == UIInterfaceOrientationLandscapeRight)
-                     capturedImage = [UIImage imageWithCGImage:capturedImage.CGImage scale:capturedImage.scale orientation:UIImageOrientationDownMirrored];
-                 else if (self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft)
-                     capturedImage = [UIImage imageWithCGImage:capturedImage.CGImage scale:capturedImage.scale orientation:UIImageOrientationUpMirrored];
-             }
-             
-         }
-         
-
-         
-         isCapturingImage = NO;
-         _capturedImageView.image = capturedImage;
-         imageData = nil;
-
-         // If we have disabled the photo preview directly fire the delegate callback, otherwise, show user a preview
-         _disablePhotoPreview ? [self photoCaptured] : [self drawControls];
-     }];
+    [_camManager capturePhoto:self.interfaceOrientation];
 }
 
 - (void) photoCaptured {
     NSLog(@"****************** photoCaptured ********************");
-
     
     if (isImageResized) {
         NSLog(@"****************** isImageResized ********************");
         
         //[self.camDelegate EdibleCamera:self didFinishWithImage:_capturedImageView.image andImageViewSize:_capturedImageView.image.size];
-        
     }
     else {
         isSaveWaitingForResizedImage = YES;
         [self resizeImage];
     }
     
-    //-----debug
+    //-----For debug
     
     //move tab to 1
     [self.delegate moveToTab:1];
+    
     //click back btn
     [self backBtnPressed:nil];
     
     //turn torch off if it is on
-    if (_myDevice.torchActive) {
-        if([_myDevice lockForConfiguration:nil]) {
-            _myDevice.torchMode = AVCaptureTorchModeOff;
-            [_TorchBtn setTintColor:[self redColor]];
-            [_myDevice unlockForConfiguration];
-        }
-    }
-
-    
+    [_camManager turnOffTorch:_TorchBtn];
 }
 
 #pragma mark BUTTON EVENTS
@@ -559,25 +289,11 @@
 }
 
 - (void) torchBtnPressed:(id)sender {
-    if ([_myDevice isTorchAvailable]) {
-        if (_myDevice.torchActive) {
-            if([_myDevice lockForConfiguration:nil]) {
-                _myDevice.torchMode = AVCaptureTorchModeOff;
-                [_TorchBtn setTintColor:[self redColor]];
-            }
-        }
-        else {
-            if([_myDevice lockForConfiguration:nil]) {
-                _myDevice.torchMode = AVCaptureTorchModeOn;
-                [_TorchBtn setTintColor:[self greenColor]];
-            }
-        }
-        [_myDevice unlockForConfiguration];
-    }
+    [_camManager torchBtnPressed:_TorchBtn];
 }
 
 - (void) backBtnPressed:(id)sender {
- 
+    
     if (_capturedImageView.image) {//already taken
         _capturedImageView.contentMode = UIViewContentModeScaleAspectFill;
         _capturedImageView.backgroundColor = [UIColor clearColor];
@@ -596,53 +312,8 @@
     }
 }
 
-- (void) switchCameraBtnPressed:(id)sender {
-    if (isCapturingImage != YES) {
-        if (_myDevice == [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo][0]) {
-            // rear active, switch to front
-            _myDevice = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo][1];
-            
-            [_mySesh beginConfiguration];
-            AVCaptureDeviceInput * newInput = [AVCaptureDeviceInput deviceInputWithDevice:_myDevice error:nil];
-            for (AVCaptureInput * oldInput in _mySesh.inputs) {
-                [_mySesh removeInput:oldInput];
-            }
-            [_mySesh addInput:newInput];
-            [_mySesh commitConfiguration];
-        }
-        else if (_myDevice == [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo][1]) {
-            // front active, switch to rear
-            _myDevice = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo][0];
-            [_mySesh beginConfiguration];
-            AVCaptureDeviceInput * newInput = [AVCaptureDeviceInput deviceInputWithDevice:_myDevice error:nil];
-            for (AVCaptureInput * oldInput in _mySesh.inputs) {
-                [_mySesh removeInput:oldInput];
-            }
-            [_mySesh addInput:newInput];
-            [_mySesh commitConfiguration];
-        }
-        
-        // Need to reset flash btn
-        [self evaluateFlashBtn];
-    }
-}
-
 - (void) evaluateFlashBtn {
-    if (_myDevice.isTorchAvailable) {   // Evaluate Flash Available?
-        _TorchBtn.alpha = ButtonAvailableAlpha;
-        
-        // Evaluate Flash Active?
-        if (_myDevice.isTorchActive) {
-            [_TorchBtn setTintColor:[self greenColor]];
-        }
-        else {
-            [_TorchBtn setTintColor:[self redColor]];
-        }
-    }
-    else {
-        _TorchBtn.alpha = ButtonUnavailableAlpha;
-        [_TorchBtn setTintColor:[self darkGreyColor]];
-    }
+    [_camManager evaluateTorchBtn:_TorchBtn];
 }
 
 #pragma mark TAP TO FOCUS
@@ -654,38 +325,8 @@
     if (_capturedImageView.image == nil) {
         
         CGPoint aPoint = [sender locationInView:_StreamView];
+        [_camManager focus:aPoint andFocusView:_StreamView];
         
-        if (_myDevice != nil) {
-            if([_myDevice isFocusPointOfInterestSupported] &&
-               [_myDevice isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
-                
-                // we subtract the point from the width to inverse the focal point
-                // focus points of interest represents a CGPoint where
-                // {0,0} corresponds to the top left of the picture area, and
-                // {1,1} corresponds to the bottom right in landscape mode with the home button on the right—
-                // THIS APPLIES EVEN IF THE DEVICE IS IN PORTRAIT MODE
-                // (from docs)
-                // this is all a touch wonky
-                double pX = aPoint.x / _StreamView.bounds.size.width;
-                double pY = aPoint.y / _StreamView.bounds.size.height;
-                double focusX = pY;
-                // x is equal to y but y is equal to inverse x ?
-                double focusY = 1 - pX;
-                
-                //NSLog(@"SC: about to focus at x: %f, y: %f", focusX, focusY);
-                if([_myDevice isFocusPointOfInterestSupported] && [_myDevice isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
-                    
-                    if([_myDevice lockForConfiguration:nil]) {
-                        [_myDevice setFocusPointOfInterest:CGPointMake(focusX, focusY)];
-                        [_myDevice setFocusMode:AVCaptureFocusModeAutoFocus];
-                        [_myDevice setExposurePointOfInterest:CGPointMake(focusX, focusY)];
-                        [_myDevice setExposureMode:AVCaptureExposureModeContinuousAutoExposure];
-                        NSLog(@"SC: Done Focusing");
-                    }
-                    [_myDevice unlockForConfiguration];
-                }
-            }
-        }
     }
 }
 
@@ -721,7 +362,7 @@
         // by drawing outside it, we remove the edges of the picture
         CGFloat offsetTop = (targetHeight - size.height) / 2;
         CGFloat offsetLeft = (screenHeight - size.width) / 2;
-     
+        
         CGRectMake(-offsetLeft, -offsetTop, screenHeight, targetHeight);
     }) : ({
         /**********************
@@ -751,8 +392,6 @@
         
         
     });
-
-    
     
     // See if someone's waiting for resized image
     if (isSaveWaitingForResizedImage == YES)
@@ -797,7 +436,6 @@
     }
     
     
-    
     [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         for (UIView * v in @[_capturedImageView, _StreamView, self.view]) {
             v.frame = targetRect;
@@ -833,8 +471,8 @@
         isSaveWaitingForResizedImage = NO;
         isRotateWaitingForResizedImage = NO;
         
-        [_mySesh stopRunning];//key point
-        _mySesh = nil;
+        [_camManager stopRunning];//key point
+        
         
         _capturedImageView.image = nil;
         [_capturedImageView removeFromSuperview];
@@ -846,9 +484,7 @@
         [_rotationCover removeFromSuperview];
         _rotationCover = nil;
         
-        _stillImageOutput = nil;
-        
-        _myDevice = nil;
+        [_camManager clearResource];
         
         self.view = nil;
         
@@ -859,20 +495,149 @@
     }];
 }
 
-#pragma mark COLORS
 
-- (UIColor *) darkGreyColor {
-    return [UIColor colorWithRed:0.226082 green:0.244034 blue:0.297891 alpha:1];
+/******************
+ 
+ All the loadings
+ 
+ ***************/
+-(void)loadViews{
+    /******************
+     stream image view
+     ***************/
+    if (_StreamView == nil)
+        _StreamView = [[UIView alloc]init];
+    _StreamView.alpha = 0;
+    _StreamView.frame = self.view.bounds;
+    
+    [self.view addSubview:_StreamView];
+    
+    /********************
+     captured image view
+     ******************/
+    if (_capturedImageView == nil)
+        _capturedImageView = [[UIImageView alloc]init];
+    _capturedImageView.frame = _StreamView.frame; // just to even it out
+    _capturedImageView.backgroundColor = [UIColor clearColor];
+    _capturedImageView.userInteractionEnabled = YES;
+    _capturedImageView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    [self.view insertSubview:_capturedImageView aboveSubview:_StreamView];
 }
-- (UIColor *) redColor {
-    return [UIColor colorWithRed:1 green:0 blue:0.105670 alpha:.6];
+
+-(void)loadCamera{
+    
+    _camManager = [[CameraManager alloc]init];
+    
+    _camManager.imageDelegate = self;
+    
+    /**************************************************
+     Preview layer: has to be added in applying VC
+     ***********************************************/
+    
+    _captureVideoPreviewLayer = [_camManager createPreviewLayer];
+	_captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+	_captureVideoPreviewLayer.frame = _StreamView.layer.bounds; // parent of layer
+    
+	[_StreamView.layer addSublayer:_captureVideoPreviewLayer];
+    
+	[_camManager startRunning];//begin the stream
+    
 }
-- (UIColor *) greenColor {
-    return [UIColor colorWithRed:0.128085 green:.749103 blue:0.004684 alpha:0.6];
+
+-(void)checkCropMode{
+    /**********************
+     Check crop mode
+     *********************/
+    if (_isCropMode) {
+        NSLog(@"SC: isCropMode");
+        _CropView  = [[ImageCropView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, CROPVIEW_HEIGHT)];
+        
+        [self.view addSubview:_CropView];
+        
+        //Hao: since cropview is not whole screen, we need to add a face shade view
+        ShadeView *shadeView = [[ShadeView alloc] initWithFrame:CGRectMake(0, CROPVIEW_HEIGHT, screenWidth, screenHeight - CROPVIEW_HEIGHT)];
+        
+        shadeView.shadeAlpha = DEFAULT_MASK_ALPHA;
+        
+        [self.view addSubview:shadeView];
+        
+        /****************
+         Tap for focus
+         ***************/
+        UITapGestureRecognizer * focusTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapSent:)];
+        focusTap.numberOfTapsRequired = 1;
+        [_CropView addGestureRecognizer:focusTap];
+        
+    }else{
+        /****************
+         Tap for focus
+         ***************/
+        UITapGestureRecognizer * focusTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapSent:)];
+        focusTap.numberOfTapsRequired = 1;
+        [_capturedImageView addGestureRecognizer:focusTap];
+    }
 }
-- (UIColor *) blueColor {
-    return [UIColor colorWithRed:0 green:.478431 blue:1 alpha:1];
+
+- (void) loadControls {
+    
+    // -- LOAD BUTTON IMAGES BEGIN -- //
+    UIImage * previousImg = [UIImage imageNamed:@"Previous.png"];
+    UIImage * downloadImg = [UIImage imageNamed:@"Download.png"];
+    UIImage * lighteningImg = [UIImage imageNamed:@"Lightening.png"];
+    // -- LOAD BUTTON IMAGES END -- //
+    
+    // -- LOAD BUTTONS BEGIN -- //
+    _backBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [_backBtn addTarget:self action:@selector(backBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_backBtn setImage:previousImg forState:UIControlStateNormal];
+    [_backBtn setTintColor:[ED_Color redColor]];
+    [_backBtn setImageEdgeInsets:UIEdgeInsetsMake(9, 10, 9, 13)];
+    
+    _TorchBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [_TorchBtn addTarget:self action:@selector(torchBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_TorchBtn setImage:lighteningImg forState:UIControlStateNormal];
+    [_TorchBtn setTintColor:[ED_Color redColor]];
+    [_TorchBtn setImageEdgeInsets:UIEdgeInsetsMake(6, 9, 6, 9)];
+    
+    _saveBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [_saveBtn addTarget:self action:@selector(saveBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_saveBtn setImage:downloadImg forState:UIControlStateNormal];
+    [_saveBtn setTintColor:[ED_Color blueColor]];
+    [_saveBtn setImageEdgeInsets:UIEdgeInsetsMake(7, 10.5, 7, 10.5)];
+    
+    _captureBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_captureBtn setTitle:@"C\nA\nP\nT\nU\nR\nE" forState:UIControlStateNormal];
+    [_captureBtn setTitleColor:[ED_Color darkGreyColor] forState:UIControlStateNormal];
+    _captureBtn.titleLabel.font = [UIFont systemFontOfSize:12.5];
+    _captureBtn.titleLabel.numberOfLines = 0;
+    _captureBtn.titleLabel.minimumScaleFactor = .5;
+    // -- LOAD BUTTONS END -- //
+    
+    // Stylize buttons
+    for (UIButton * btn in @[_backBtn, _captureBtn, _TorchBtn, _saveBtn])  {
+        
+        btn.bounds = CGRectMake(0, 0, 40, 40);
+        btn.backgroundColor = [UIColor colorWithWhite:1 alpha:.96];
+        btn.alpha = ButtonAvailableAlpha;
+        btn.hidden = YES;
+        
+        btn.layer.shouldRasterize = YES;
+        btn.layer.rasterizationScale = [UIScreen mainScreen].scale;
+        btn.layer.cornerRadius = 4;
+        
+        btn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        btn.layer.borderWidth = 0.5;
+        
+        [self.view addSubview:btn];
+    }
+
+    
+    // Draw camera controls
+    [self drawControls];
 }
+
 
 #pragma mark STATUS BAR
 

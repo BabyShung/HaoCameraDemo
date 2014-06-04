@@ -9,21 +9,35 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 
+@protocol CameraManageCDelegate
+
+@required
+- (void) imageDidCaptured:(UIImage *) image;
+@end
+
 
 @interface CameraManager : NSObject
+
+@property (retain, nonatomic) id <CameraManageCDelegate> imageDelegate;
+
 
 -(void)switchCamera;
 
 - (void) startRunning;
 - (void) stopRunning;
 
--(BOOL)turnOffTorch;
+-(void)turnOffTorch:(UIButton *)btn;
 -(BOOL) torchAvailable;
 -(BOOL) torchActive;
 -(BOOL)torchToggle;
+- (void) evaluateTorchBtn:(UIButton *)btn;
+- (void) torchBtnPressed:(UIButton *)btn;
 
 -(AVCaptureVideoPreviewLayer *)createPreviewLayer;
-- (UIImage *)capturePhoto:(UIInterfaceOrientation)orientation;
+- (void)capturePhoto:(UIInterfaceOrientation)orientation;
 
+-(void)focus:(CGPoint)aPoint andFocusView:(UIView *)view;
+
+-(void)clearResource;
 
 @end

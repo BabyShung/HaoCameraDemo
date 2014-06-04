@@ -27,6 +27,7 @@
 		B8235405192D474D00D6BCAC /* ControlPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8235401192D474D00D6BCAC /* ControlPointView.m */; };
 		B8235406192D474D00D6BCAC /* ImageCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8235403192D474D00D6BCAC /* ImageCropView.m */; };
 		B886B1BC1937CEB300DF68D3 /* CameraManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B886B1BB1937CEB300DF68D3 /* CameraManager.m */; };
+		B8D6953C193E71C200E504FA /* ED_Color.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D6953B193E71C200E504FA /* ED_Color.m */; };
 		B8F29C5519311A5C008979A7 /* FrameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C4A19311A5C008979A7 /* FrameViewController.m */; };
 		B8F29C5619311A5C008979A7 /* EP_firstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C4C19311A5C008979A7 /* EP_firstViewController.m */; };
 		B8F29C5719311A5C008979A7 /* EP_secondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C4E19311A5C008979A7 /* EP_secondViewController.m */; };
@@ -100,6 +101,8 @@
 		B8235403192D474D00D6BCAC /* ImageCropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCropView.m; sourceTree = "<group>"; };
 		B886B1BA1937CEB300DF68D3 /* CameraManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraManager.h; sourceTree = "<group>"; };
 		B886B1BB1937CEB300DF68D3 /* CameraManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraManager.m; sourceTree = "<group>"; };
+		B8D6953A193E71C200E504FA /* ED_Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ED_Color.h; sourceTree = "<group>"; };
+		B8D6953B193E71C200E504FA /* ED_Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ED_Color.m; sourceTree = "<group>"; };
 		B8F29C4919311A5C008979A7 /* FrameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameViewController.h; sourceTree = "<group>"; };
 		B8F29C4A19311A5C008979A7 /* FrameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrameViewController.m; sourceTree = "<group>"; };
 		B8F29C4B19311A5C008979A7 /* EP_firstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EP_firstViewController.h; sourceTree = "<group>"; };
@@ -198,13 +201,15 @@
 			name = testfiles;
 			sourceTree = "<group>";
 		};
-		ACA1726C193920A6005E7D51 /* Controls */ = {
+		ACA1726C193920A6005E7D51 /* UI components */ = {
 			isa = PBXGroup;
 			children = (
 				ACA172691939209A005E7D51 /* LoadControls.h */,
 				ACA1726A1939209A005E7D51 /* LoadControls.m */,
+				B8D6953A193E71C200E504FA /* ED_Color.h */,
+				B8D6953B193E71C200E504FA /* ED_Color.m */,
 			);
-			name = Controls;
+			name = "UI components";
 			sourceTree = "<group>";
 		};
 		B82353B8192BE2DF00D6BCAC /* Image */ = {
@@ -248,6 +253,15 @@
 				B8235403192D474D00D6BCAC /* ImageCropView.m */,
 			);
 			name = imageCropView;
+			sourceTree = "<group>";
+		};
+		B8D6953D193EBB9B00E504FA /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				B886B1BA1937CEB300DF68D3 /* CameraManager.h */,
+				B886B1BB1937CEB300DF68D3 /* CameraManager.m */,
+			);
+			name = Camera;
 			sourceTree = "<group>";
 		};
 		B8DABCFA192FC2A100FF545E /* ImageProcessing */ = {
@@ -316,7 +330,8 @@
 		B8FA464218F9E954007DA680 /* HaoJsonDemo */ = {
 			isa = PBXGroup;
 			children = (
-				ACA1726C193920A6005E7D51 /* Controls */,
+				B8D6953D193EBB9B00E504FA /* Camera */,
+				ACA1726C193920A6005E7D51 /* UI components */,
 				ACA172631937C8D7005E7D51 /* testfiles */,
 				3A014C051933E12700D06090 /* wordCorrect */,
 				3A014BFF1933C67000D06090 /* textDetection */,
@@ -324,8 +339,6 @@
 				B8F29C4819311A4F008979A7 /* Frame */,
 				B8DABCFA192FC2A100FF545E /* ImageProcessing */,
 				B82353FD192D473F00D6BCAC /* imageCropView */,
-				B886B1BA1937CEB300DF68D3 /* CameraManager.h */,
-				B886B1BB1937CEB300DF68D3 /* CameraManager.m */,
 				B8F29C5E19311E77008979A7 /* CameraViewController.h */,
 				B8F29C5F19311E77008979A7 /* CameraViewController.m */,
 				B8FA464E18F9E954007DA680 /* Main.storyboard */,
@@ -500,6 +513,7 @@
 				B8F29C5A19311A5C008979A7 /* EParentViewController.m in Sources */,
 				B8FA464D18F9E954007DA680 /* AppDelegate.m in Sources */,
 				3A5654BF193778AD0085CC87 /* WordCorrector.m in Sources */,
+				B8D6953C193E71C200E504FA /* ED_Color.m in Sources */,
 				ACA1726B1939209A005E7D51 /* LoadControls.m in Sources */,
 				B8F29C5619311A5C008979A7 /* EP_firstViewController.m in Sources */,
 				B8F29C5919311A5C008979A7 /* EP_forthViewController.m in Sources */,
