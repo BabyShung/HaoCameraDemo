@@ -21,6 +21,6 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [self.delegate checkTabbarStatus:self.pageIndex];
+    [self.delegate checkTabbarStatus:self];
 }
 @end

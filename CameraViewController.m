@@ -28,7 +28,7 @@
 - (void) viewDidAppear:(BOOL)animated {
     
     //Hao: important to change tabbar index
-    [self.delegate checkTabbarStatus:self.pageIndex];
+    [self.delegate checkTabbarStatus:self];
     
     [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.camView.StreamView.alpha = 1;

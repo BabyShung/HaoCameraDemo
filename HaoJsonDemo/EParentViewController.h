@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class EParentViewController;
 @class CameraViewController;
 /***********************************************
  
@@ -20,8 +19,9 @@
 
 @required
 
-- (void) checkTabbarStatus:(NSUInteger) index;
+- (void) checkTabbarStatus:(UIViewController *) vc;
 
+//for debug
 - (void) moveToTab:(NSUInteger) index;
 
 @optional
@@ -36,6 +36,5 @@
 
 @property (retain, nonatomic) id <EParentVCDelegate> delegate;
 
-@property (nonatomic) NSUInteger pageIndex;
 
 @end

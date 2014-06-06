@@ -32,6 +32,7 @@
 
 //array to store VCs
 @property (strong, nonatomic) NSMutableArray *menu;
+@property (strong, nonatomic) NSDictionary *dict;
 
 //current presenting VC index (for later use)
 @property ( nonatomic) NSUInteger currentPresentingIndex;
@@ -51,17 +52,17 @@
     self.VC4 = [self.storyboard instantiateViewControllerWithIdentifier:@"vc4"];
     self.menu = [NSMutableArray arrayWithObjects:self.VC1, self.VC2,self.VC3,self.VC4, nil];
     
+    self.dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:0], [self.VC1 class], [NSNumber numberWithInt:1], [self.VC2 class], [NSNumber numberWithInt:2], [self.VC3 class], [NSNumber numberWithInt:3], [self.VC4 class], nil];
+    
+
+    
     //1. Delegate: set up "passing page index" delegate
     for(int i = 0;i<[self.menu count];i++){
         EParentViewController *tmp = self.menu[i];
-        tmp.pageIndex = i;
         tmp.delegate = self;
     }
     
-    //2. Delegate: set up VC2(debug) camera delegate as VC1(camera)
-    //self.VC1.camView.camDelegate = self.VC2;
-    
-    //3. Delegate: set up VC3 as the delegate of debugVC
+    //2. Delegate: set up VC3 as the delegate of debugVC
     self.VC2.debugDelegate = self.VC3;
     
     
@@ -101,7 +102,8 @@
 
 
 //check whether need to show or hide tabbar
--(void)checkTabbarStatus:(NSUInteger)index{
+-(void)checkTabbarStatus:(UIViewController *) vc{
+    NSUInteger index = [self getVCIndex:vc];
     if(index == 0){
         [self hideTabbarView];
     }else{
@@ -109,10 +111,13 @@
     }
 }
 
--(void)moveToTab:(NSUInteger)index{
-    
+-(void)moveToTab:(NSUInteger) index{
     NSLog(@"moveToTab:  %d",index);
-    [self checkTabbarStatus:index];
+    if(index == 0){
+        [self hideTabbarView];
+    }else{
+        [self showTabbarView];
+    }
     [self.pageViewController setViewControllers:@[self.menu[index]] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:nil];
 }
 
@@ -134,6 +139,10 @@
     }
 }
 
+-(NSUInteger)getVCIndex:(UIViewController *) vc{
+    return[[self.dict objectForKey:[vc class]] integerValue];
+}
+
 //tab button click
 - (IBAction)clickBtn:(UIButton *)sender {
     [self moveToTab:sender.tag];
@@ -143,7 +152,7 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
-    NSUInteger index = ((EParentViewController*) viewController).pageIndex;
+    NSUInteger index = [self getVCIndex:viewController];
     
     if ((index == 0) || (index == NSNotFound)) {
         return nil;
@@ -155,7 +164,7 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
-    NSUInteger index = ((EParentViewController*) viewController).pageIndex;
+    NSUInteger index = [self getVCIndex:viewController];
     
     if (index == NSNotFound) {
         return nil;
@@ -166,25 +175,6 @@
         return nil;
     }
     return self.menu[index];
-}
-
-
-//- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
-//{
-//    return [self.pageTitles count];
-//}
-
-//- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
-//{
-//    return 0;
-//}
-
-
-
-//remove nsnotification observer
--(void)dealloc{
-    NSLog(@"dealloc...");
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"toggleTabbar" object:nil];
 }
 
 

@@ -60,7 +60,6 @@
 
 
 -(void)viewWillAppear:(BOOL)animated{
-    NSLog(@"view will appear");
     
 //    LoadControls *lc = [[LoadControls alloc]init];
 //    UIImageView *iv = [lc createImageViewWithRect:CGRectMake(10, 10, 100, 100)];
@@ -93,7 +92,7 @@
 
 
 -(void)viewDidAppear:(BOOL)animated{
-    [self.delegate checkTabbarStatus:self.pageIndex];
+    [self.delegate checkTabbarStatus:self];
 
 }
 
