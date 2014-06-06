@@ -19,11 +19,12 @@
 -(cv::Mat)processImage: (cv::Mat)inputImage{
     
     NSLog(@"PrePro: processImage called!");
+    NSDate *methodStart = [NSDate date];//timer
     
     cv::Mat output;
-    int backGroundChecker =2;
-    backGroundChecker = [self checkBackground:inputImage];
-    if (backGroundChecker == 0) {
+    int backGround =2;
+    backGround = [self checkBackground:inputImage];
+    if (backGround == 0) {
         NSLog(@"Prepro: Dark");
         
         //cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
@@ -32,7 +33,7 @@
         
         inputImage = [self sharpen:inputImage];
     }
-    else if(backGroundChecker == 1){
+    else if(backGround == 1){
         NSLog(@"Prepro: Light");
         
         cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
@@ -47,9 +48,15 @@
         inputImage = [self sharpen:inputImage];
         
     }else{
-        NSLog(@"Prepro: Good catch");
+        NSLog(@"Prepro: good catch");
         inputImage = [self sharpen:inputImage];
     }
+    
+    //timer
+    NSDate *methodFinish = [NSDate date];
+    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
+    NSLog(@"Pre Pro executionTime = %f", executionTime);
+    
     
     return inputImage;
 }
@@ -132,7 +139,7 @@
     
     int pivot_pixl_small = ave_pixl * 1/3;
     int pivot_pixl_medium = ave_pixl* 1;
-    int pivot_pixl_large = ave_pixl * 3/2;
+    int pivot_pixl_large = ave_pixl * 1.5;
     
     //count_white the nuber of pixl which value are bigger than average
     int count_small = 0;
@@ -145,29 +152,35 @@
             uchar pixl = input.at<uchar>(i,j);
             int pixl_int = pixl - '0';
             
-            if (pixl_int < pivot_pixl_small) {
+            if (pixl_int <= pivot_pixl_small) {
                 count_small ++ ;
             }
-            else if(pixl_int > pivot_pixl_small && pixl_int < pivot_pixl_medium){
+            else if(pixl_int > pivot_pixl_medium - (pivot_pixl_medium - pivot_pixl_small )/3  &&
+                    pixl_int < pivot_pixl_medium + (pivot_pixl_large - pivot_pixl_medium)/3){
                 count_medium ++ ;
             }
-            else if(pixl_int > pivot_pixl_large){
+            else if(pixl_int >= pivot_pixl_large){
                 count_large ++ ;
             }
             
         }
     }
     
-    if (count_small <= count_large) {
+    if (count_small >= count_large * 2 + count_medium) {
         return 0;// too dark
     }
-    else if(count_large > count_small + count_medium) {
+    else if(count_large >= count_small * 2 + count_medium) {
+        NSLog(@"large: %d", count_large);
+        NSLog(@"small: %d", count_medium);
         return 1;// too light
     }
-    else{
+    else if (count_medium > count_small && count_medium < count_large){
         return 2;// medium
-    }
+    }else
+        return 3;
 }
+
+
 
 
 
