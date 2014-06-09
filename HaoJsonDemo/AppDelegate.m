@@ -7,12 +7,41 @@
 //
 
 #import "AppDelegate.h"
+#import "SQLConnector.h"
+#import "ShareData.h"
+#import "DBOperation.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"])
+    {
+        // app already launched before
+    }
+    else
+    {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedOnce"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        // This is the first launch ever
+        NSLog(@"First time launch");
+        
+        //Prepare database
+/*                                                                         */
+/*                  This will stuck user in opening the app                */
+/* A better solution is jumping to a view that show "installing dictionay" */
+/*                                                                         */
+        SQLConnector *connector = [SQLConnector sharedInstance];
+        DBOperation *operation = [[DBOperation alloc] init];
+        ShareData *sharedata = [ShareData shareData];
+        [connector createEditableCopyOf:[sharedata keywordFileName]];
+        [connector createEditableCopyOf:[sharedata langFileName:English]];
+        [operation createLangTable:English];
+        [operation createKeywordTable];
+        
+    }
     return YES;
 }
 							
