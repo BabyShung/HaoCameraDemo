@@ -26,6 +26,12 @@
 		B8235404192D474D00D6BCAC /* ShadeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B82353FF192D474D00D6BCAC /* ShadeView.m */; };
 		B8235405192D474D00D6BCAC /* ControlPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8235401192D474D00D6BCAC /* ControlPointView.m */; };
 		B8235406192D474D00D6BCAC /* ImageCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8235403192D474D00D6BCAC /* ImageCropView.m */; };
+		B825DD81194264F1004C7DCE /* TransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B825DD7E194264F1004C7DCE /* TransitionController.m */; };
+		B825DD82194264F1004C7DCE /* TransitionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B825DD80194264F1004C7DCE /* TransitionLayout.m */; };
+		B825DD8D194264FF004C7DCE /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B825DD8A194264FF004C7DCE /* MainViewController.m */; };
+		B825DD8E194264FF004C7DCE /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B825DD8C194264FF004C7DCE /* DetailViewController.m */; };
+		B825DD931943AFF0004C7DCE /* CVSmallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B825DD901943AFF0004C7DCE /* CVSmallLayout.m */; };
+		B825DD941943AFF0004C7DCE /* CVLargeLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B825DD921943AFF0004C7DCE /* CVLargeLayout.m */; };
 		B886B1BC1937CEB300DF68D3 /* CameraManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B886B1BB1937CEB300DF68D3 /* CameraManager.m */; };
 		B8D6953C193E71C200E504FA /* ED_Color.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D6953B193E71C200E504FA /* ED_Color.m */; };
 		B8D69540193F963200E504FA /* CameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D6953F193F963200E504FA /* CameraView.m */; };
@@ -35,7 +41,6 @@
 		B8F29C5819311A5C008979A7 /* EP_thirdViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C5019311A5C008979A7 /* EP_thirdViewController.mm */; };
 		B8F29C5919311A5C008979A7 /* EP_forthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C5219311A5C008979A7 /* EP_forthViewController.m */; };
 		B8F29C5A19311A5C008979A7 /* EParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C5419311A5C008979A7 /* EParentViewController.m */; };
-		B8F29C6019311E77008979A7 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C5F19311E77008979A7 /* CameraViewController.m */; };
 		B8F29C6319314357008979A7 /* DebugViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C6219314357008979A7 /* DebugViewController.mm */; };
 		B8F29C681932DC55008979A7 /* Camera_01.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F29C641932DC55008979A7 /* Camera_01.png */; };
 		B8F29C691932DC55008979A7 /* Camera_01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F29C651932DC55008979A7 /* Camera_01@2x.png */; };
@@ -100,6 +105,18 @@
 		B8235401192D474D00D6BCAC /* ControlPointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlPointView.m; sourceTree = "<group>"; };
 		B8235402192D474D00D6BCAC /* ImageCropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCropView.h; sourceTree = "<group>"; };
 		B8235403192D474D00D6BCAC /* ImageCropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCropView.m; sourceTree = "<group>"; };
+		B825DD7D194264F1004C7DCE /* TransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionController.h; sourceTree = "<group>"; };
+		B825DD7E194264F1004C7DCE /* TransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionController.m; sourceTree = "<group>"; };
+		B825DD7F194264F1004C7DCE /* TransitionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionLayout.h; sourceTree = "<group>"; };
+		B825DD80194264F1004C7DCE /* TransitionLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionLayout.m; sourceTree = "<group>"; };
+		B825DD89194264FF004C7DCE /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		B825DD8A194264FF004C7DCE /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		B825DD8B194264FF004C7DCE /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		B825DD8C194264FF004C7DCE /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		B825DD8F1943AFF0004C7DCE /* CVSmallLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVSmallLayout.h; sourceTree = "<group>"; };
+		B825DD901943AFF0004C7DCE /* CVSmallLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVSmallLayout.m; sourceTree = "<group>"; };
+		B825DD911943AFF0004C7DCE /* CVLargeLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVLargeLayout.h; sourceTree = "<group>"; };
+		B825DD921943AFF0004C7DCE /* CVLargeLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVLargeLayout.m; sourceTree = "<group>"; };
 		B886B1BA1937CEB300DF68D3 /* CameraManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraManager.h; sourceTree = "<group>"; };
 		B886B1BB1937CEB300DF68D3 /* CameraManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraManager.m; sourceTree = "<group>"; };
 		B8D6953A193E71C200E504FA /* ED_Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ED_Color.h; sourceTree = "<group>"; };
@@ -118,8 +135,6 @@
 		B8F29C5219311A5C008979A7 /* EP_forthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EP_forthViewController.m; sourceTree = "<group>"; };
 		B8F29C5319311A5C008979A7 /* EParentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EParentViewController.h; sourceTree = "<group>"; };
 		B8F29C5419311A5C008979A7 /* EParentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EParentViewController.m; sourceTree = "<group>"; };
-		B8F29C5E19311E77008979A7 /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraViewController.h; path = ../CameraViewController.h; sourceTree = "<group>"; };
-		B8F29C5F19311E77008979A7 /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CameraViewController.m; path = ../CameraViewController.m; sourceTree = "<group>"; };
 		B8F29C6119314357008979A7 /* DebugViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugViewController.h; sourceTree = "<group>"; };
 		B8F29C6219314357008979A7 /* DebugViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DebugViewController.mm; sourceTree = "<group>"; };
 		B8F29C641932DC55008979A7 /* Camera_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Camera_01.png; sourceTree = "<group>"; };
@@ -258,6 +273,39 @@
 			name = imageCropView;
 			sourceTree = "<group>";
 		};
+		B825DD7A194264D7004C7DCE /* Transition */ = {
+			isa = PBXGroup;
+			children = (
+				B825DD8B194264FF004C7DCE /* DetailViewController.h */,
+				B825DD8C194264FF004C7DCE /* DetailViewController.m */,
+				B825DD7C194264E5004C7DCE /* Trans */,
+				B825DD7B194264DE004C7DCE /* Layouts */,
+			);
+			name = Transition;
+			sourceTree = "<group>";
+		};
+		B825DD7B194264DE004C7DCE /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				B825DD8F1943AFF0004C7DCE /* CVSmallLayout.h */,
+				B825DD901943AFF0004C7DCE /* CVSmallLayout.m */,
+				B825DD911943AFF0004C7DCE /* CVLargeLayout.h */,
+				B825DD921943AFF0004C7DCE /* CVLargeLayout.m */,
+			);
+			name = Layouts;
+			sourceTree = "<group>";
+		};
+		B825DD7C194264E5004C7DCE /* Trans */ = {
+			isa = PBXGroup;
+			children = (
+				B825DD7D194264F1004C7DCE /* TransitionController.h */,
+				B825DD7E194264F1004C7DCE /* TransitionController.m */,
+				B825DD7F194264F1004C7DCE /* TransitionLayout.h */,
+				B825DD80194264F1004C7DCE /* TransitionLayout.m */,
+			);
+			name = Trans;
+			sourceTree = "<group>";
+		};
 		B8D6953D193EBB9B00E504FA /* Camera */ = {
 			isa = PBXGroup;
 			children = (
@@ -335,6 +383,7 @@
 		B8FA464218F9E954007DA680 /* HaoJsonDemo */ = {
 			isa = PBXGroup;
 			children = (
+				B825DD7A194264D7004C7DCE /* Transition */,
 				B8D6953D193EBB9B00E504FA /* Camera */,
 				ACA1726C193920A6005E7D51 /* UI components */,
 				ACA172631937C8D7005E7D51 /* testfiles */,
@@ -344,8 +393,8 @@
 				B8F29C4819311A4F008979A7 /* Frame */,
 				B8DABCFA192FC2A100FF545E /* ImageProcessing */,
 				B82353FD192D473F00D6BCAC /* imageCropView */,
-				B8F29C5E19311E77008979A7 /* CameraViewController.h */,
-				B8F29C5F19311E77008979A7 /* CameraViewController.m */,
+				B825DD89194264FF004C7DCE /* MainViewController.h */,
+				B825DD8A194264FF004C7DCE /* MainViewController.m */,
 				B8FA464E18F9E954007DA680 /* Main.storyboard */,
 				B8F29C6119314357008979A7 /* DebugViewController.h */,
 				B8F29C6219314357008979A7 /* DebugViewController.mm */,
@@ -508,24 +557,29 @@
 			files = (
 				B8F29C5519311A5C008979A7 /* FrameViewController.m in Sources */,
 				3AA1BD90192FA982002729BC /* ImagePreProcessor.mm in Sources */,
+				B825DD941943AFF0004C7DCE /* CVLargeLayout.m in Sources */,
 				B8D69540193F963200E504FA /* CameraView.m in Sources */,
+				B825DD8E194264FF004C7DCE /* DetailViewController.m in Sources */,
 				3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */,
 				3A5654BC1936838C0085CC87 /* TextDetector.mm in Sources */,
 				B886B1BC1937CEB300DF68D3 /* CameraManager.m in Sources */,
 				B8F29C5719311A5C008979A7 /* EP_secondViewController.m in Sources */,
 				B8235406192D474D00D6BCAC /* ImageCropView.m in Sources */,
-				B8F29C6019311E77008979A7 /* CameraViewController.m in Sources */,
 				B8F29C6319314357008979A7 /* DebugViewController.mm in Sources */,
 				B8F29C5A19311A5C008979A7 /* EParentViewController.m in Sources */,
 				B8FA464D18F9E954007DA680 /* AppDelegate.m in Sources */,
+				B825DD82194264F1004C7DCE /* TransitionLayout.m in Sources */,
 				3A5654BF193778AD0085CC87 /* WordCorrector.m in Sources */,
 				B8D6953C193E71C200E504FA /* ED_Color.m in Sources */,
+				B825DD8D194264FF004C7DCE /* MainViewController.m in Sources */,
+				B825DD81194264F1004C7DCE /* TransitionController.m in Sources */,
 				ACA1726B1939209A005E7D51 /* LoadControls.m in Sources */,
 				B8F29C5619311A5C008979A7 /* EP_firstViewController.m in Sources */,
 				B8F29C5919311A5C008979A7 /* EP_forthViewController.m in Sources */,
 				B8F29C5819311A5C008979A7 /* EP_thirdViewController.mm in Sources */,
 				B8FA464918F9E954007DA680 /* main.m in Sources */,
 				B8235404192D474D00D6BCAC /* ShadeView.m in Sources */,
+				B825DD931943AFF0004C7DCE /* CVSmallLayout.m in Sources */,
 				B8235405192D474D00D6BCAC /* ControlPointView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

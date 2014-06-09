@@ -71,7 +71,7 @@
 
 @synthesize hideAllControls = _hideAllControls, hideBackButton = _hideBackButton, hideCaptureButton = _hideCaptureButton;
 
-- (instancetype)initWithFrame:(CGRect)frame andOrientation:(UIInterfaceOrientation)iot andAppliedVC:(CameraViewController *)VC
+- (instancetype)initWithFrame:(CGRect)frame andOrientation:(UIInterfaceOrientation)iot andAppliedVC:(MainViewController *)VC
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -265,7 +265,7 @@
     //-----For debug
     
     //move tab to 1
-    [self.appliedVC.delegate moveToTab:1];
+    [self.appliedVC.Maindelegate moveToTabFromMainVC:1];
     
     //click back btn
     [self backBtnPressed:nil];
@@ -637,9 +637,9 @@
 
 #pragma mark STATUS BAR
 
-- (BOOL)prefersStatusBarHidden {
-    return YES;
-}
+//- (BOOL)prefersStatusBarHidden {
+//    return YES;
+//}
 
 #pragma mark GETTERS | SETTERS
 
