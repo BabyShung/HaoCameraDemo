@@ -180,12 +180,13 @@
                 // End Pre Pro
                 
             }
-            NSDate *ppFinish = [NSDate date];
-            NSTimeInterval ppTime = [ppFinish timeIntervalSinceDate:ppStart];
-            NSLog(@"<<<<<<<<<<1.5 ppTime = %f", ppTime);
+
             
             //pass array to debugDelegate (VC3)
             [self.debugDelegate getAllDetectedImages:_imgArray];
+            NSDate *ppFinish = [NSDate date];
+            NSTimeInterval ppTime = [ppFinish timeIntervalSinceDate:ppStart];
+            NSLog(@"<<<<<<<<<<1.5 ppTime = %f", ppTime);
             
             NSDate *trStart = [NSDate date];
             NSString *result = @"";
