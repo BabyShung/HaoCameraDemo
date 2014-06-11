@@ -41,6 +41,11 @@
 		B825DD931943AFF0004C7DCE /* CVSmallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B825DD901943AFF0004C7DCE /* CVSmallLayout.m */; };
 		B825DD941943AFF0004C7DCE /* CVLargeLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B825DD921943AFF0004C7DCE /* CVLargeLayout.m */; };
 		B886B1BC1937CEB300DF68D3 /* CameraManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B886B1BB1937CEB300DF68D3 /* CameraManager.m */; };
+		B8D09A771948BCCF006C070D /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D09A721948BCCF006C070D /* Review.m */; };
+		B8D09A781948BCCF006C070D /* GeneralUser.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D09A741948BCCF006C070D /* GeneralUser.m */; };
+		B8D09A791948BCCF006C070D /* LocalUser.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D09A761948BCCF006C070D /* LocalUser.m */; };
+		B8D09A7C1948BCD7006C070D /* AsyncRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D09A7B1948BCD7006C070D /* AsyncRequest.m */; };
+		B8D09A7F1948BCE1006C070D /* NetworkTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D09A7E1948BCE1006C070D /* NetworkTestViewController.m */; };
 		B8D6953C193E71C200E504FA /* ED_Color.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D6953B193E71C200E504FA /* ED_Color.m */; };
 		B8D69540193F963200E504FA /* CameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D6953F193F963200E504FA /* CameraView.m */; };
 		B8F29C5519311A5C008979A7 /* FrameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C4A19311A5C008979A7 /* FrameViewController.m */; };
@@ -139,6 +144,16 @@
 		B825DD921943AFF0004C7DCE /* CVLargeLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVLargeLayout.m; sourceTree = "<group>"; };
 		B886B1BA1937CEB300DF68D3 /* CameraManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraManager.h; sourceTree = "<group>"; };
 		B886B1BB1937CEB300DF68D3 /* CameraManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraManager.m; sourceTree = "<group>"; };
+		B8D09A711948BCCF006C070D /* Review.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Review.h; sourceTree = "<group>"; };
+		B8D09A721948BCCF006C070D /* Review.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Review.m; sourceTree = "<group>"; };
+		B8D09A731948BCCF006C070D /* GeneralUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralUser.h; sourceTree = "<group>"; };
+		B8D09A741948BCCF006C070D /* GeneralUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralUser.m; sourceTree = "<group>"; };
+		B8D09A751948BCCF006C070D /* LocalUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalUser.h; sourceTree = "<group>"; };
+		B8D09A761948BCCF006C070D /* LocalUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalUser.m; sourceTree = "<group>"; };
+		B8D09A7A1948BCD7006C070D /* AsyncRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncRequest.h; sourceTree = "<group>"; };
+		B8D09A7B1948BCD7006C070D /* AsyncRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncRequest.m; sourceTree = "<group>"; };
+		B8D09A7D1948BCE1006C070D /* NetworkTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkTestViewController.h; sourceTree = "<group>"; };
+		B8D09A7E1948BCE1006C070D /* NetworkTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkTestViewController.m; sourceTree = "<group>"; };
 		B8D6953A193E71C200E504FA /* ED_Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ED_Color.h; sourceTree = "<group>"; };
 		B8D6953B193E71C200E504FA /* ED_Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ED_Color.m; sourceTree = "<group>"; };
 		B8D6953E193F963200E504FA /* CameraView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraView.h; sourceTree = "<group>"; };
@@ -345,6 +360,30 @@
 			name = Trans;
 			sourceTree = "<group>";
 		};
+		B84ADC0D19474B76005059A5 /* AsyncRequest */ = {
+			isa = PBXGroup;
+			children = (
+				B8D09A7A1948BCD7006C070D /* AsyncRequest.h */,
+				B8D09A7B1948BCD7006C070D /* AsyncRequest.m */,
+				B8D09A7D1948BCE1006C070D /* NetworkTestViewController.h */,
+				B8D09A7E1948BCE1006C070D /* NetworkTestViewController.m */,
+			);
+			name = AsyncRequest;
+			sourceTree = "<group>";
+		};
+		B8D09A701948BCBA006C070D /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				B8D09A711948BCCF006C070D /* Review.h */,
+				B8D09A721948BCCF006C070D /* Review.m */,
+				B8D09A731948BCCF006C070D /* GeneralUser.h */,
+				B8D09A741948BCCF006C070D /* GeneralUser.m */,
+				B8D09A751948BCCF006C070D /* LocalUser.h */,
+				B8D09A761948BCCF006C070D /* LocalUser.m */,
+			);
+			name = Objects;
+			sourceTree = "<group>";
+		};
 		B8D6953D193EBB9B00E504FA /* Camera */ = {
 			isa = PBXGroup;
 			children = (
@@ -423,6 +462,8 @@
 		B8FA464218F9E954007DA680 /* HaoJsonDemo */ = {
 			isa = PBXGroup;
 			children = (
+				B8D09A701948BCBA006C070D /* Objects */,
+				B84ADC0D19474B76005059A5 /* AsyncRequest */,
 				B825DD7A194264D7004C7DCE /* Transition */,
 				AC8A356819461D3E00FC5465 /* LocalDB */,
 				B8D6953D193EBB9B00E504FA /* Camera */,
@@ -602,18 +643,20 @@
 				B8F29C5519311A5C008979A7 /* FrameViewController.m in Sources */,
 				3AA1BD90192FA982002729BC /* ImagePreProcessor.mm in Sources */,
 				B825DD941943AFF0004C7DCE /* CVLargeLayout.m in Sources */,
+				B8D09A791948BCCF006C070D /* LocalUser.m in Sources */,
 				B8D69540193F963200E504FA /* CameraView.m in Sources */,
 				B825DD8E194264FF004C7DCE /* DetailViewController.m in Sources */,
+				B8D09A781948BCCF006C070D /* GeneralUser.m in Sources */,
 				3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */,
 				3A5654BC1936838C0085CC87 /* TextDetector.mm in Sources */,
 				B886B1BC1937CEB300DF68D3 /* CameraManager.m in Sources */,
 				B8F29C5719311A5C008979A7 /* EP_secondViewController.m in Sources */,
 				B8235406192D474D00D6BCAC /* ImageCropView.m in Sources */,
-				B8F29C6019311E77008979A7 /* CameraViewController.m in Sources */,
 				AC8A357A19461E2100FC5465 /* SQLConnector.m in Sources */,
 				AC8A357719461E2100FC5465 /* DBOperation.m in Sources */,
 				B8F29C6319314357008979A7 /* DebugViewController.mm in Sources */,
 				B8F29C5A19311A5C008979A7 /* EParentViewController.m in Sources */,
+				B8D09A7F1948BCE1006C070D /* NetworkTestViewController.m in Sources */,
 				B8FA464D18F9E954007DA680 /* AppDelegate.m in Sources */,
 				B825DD82194264F1004C7DCE /* TransitionLayout.m in Sources */,
 				3A5654BF193778AD0085CC87 /* WordCorrector.m in Sources */,
@@ -628,6 +671,8 @@
 				B8FA464918F9E954007DA680 /* main.m in Sources */,
 				B8235404192D474D00D6BCAC /* ShadeView.m in Sources */,
 				B825DD931943AFF0004C7DCE /* CVSmallLayout.m in Sources */,
+				B8D09A7C1948BCD7006C070D /* AsyncRequest.m in Sources */,
+				B8D09A771948BCCF006C070D /* Review.m in Sources */,
 				B8235405192D474D00D6BCAC /* ControlPointView.m in Sources */,
 				AC8A357819461E2100FC5465 /* Dictionary.m in Sources */,
 			);

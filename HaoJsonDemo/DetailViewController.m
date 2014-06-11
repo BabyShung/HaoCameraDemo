@@ -59,8 +59,6 @@
         
         [self.collectionView setBackgroundColor:[UIColor clearColor]];
         
-        NSLog(@"what the hell!!!");
-        
     }
     return self;
 }
