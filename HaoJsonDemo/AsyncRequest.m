@@ -8,6 +8,9 @@
 
 #import "AsyncRequest.h"
 
+//Test url
+//http://edibleserver-env.elasticbeanstalk.com/food?title=Bacon&lang=CN
+//http://edibleserver-env.elasticbeanstalk.com/review?title=bacon&start=0&offset=5&order=LIKE_NUM DESC
 
 
 #define FOODURL @"http://edibleserver-env.elasticbeanstalk.com/food?"

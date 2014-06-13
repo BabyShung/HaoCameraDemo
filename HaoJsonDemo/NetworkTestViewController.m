@@ -32,23 +32,26 @@
 
     
     AsyncRequest *async = [[AsyncRequest alloc]init];
+    
     //1.
-    //[async getFoodInfo:@"Boston baked beans with pork and beans" andLanguage:@"CN" andSELF:self];
+    [async getFoodInfo:@"Boston baked beans with pork and beans" andLanguage:@"CN" andSELF:self];
+    
     //2.
     //[async getReviews:@"Bacon" andStart:0 andOffset:5 andSELF:self];
+    
     //3.
     
-    GeneralUser *guser = [[GeneralUser alloc]init];
-    guser.Uid = @"edible_admin";
-    guser.Uname = @"Anonymity";
-    
-    Review *review = [[Review alloc]init];
-    review.title = @"Pork and beans";
-    review.rate = 5;
-    review.comment = @"Nice food!";
-    review.byUser = guser;
-    
-    [async postReview:review andSELF:self];
+//    GeneralUser *guser = [[GeneralUser alloc]init];
+//    guser.Uid = @"edible_admin";
+//    guser.Uname = @"Anonymity";
+//    
+//    Review *review = [[Review alloc]init];
+//    review.title = @"Pork and beans";
+//    review.rate = 5;
+//    review.comment = @"Nice food!";
+//    review.byUser = guser;
+//    
+//    [async postReview:review andSELF:self];
     
     
     //4. pass >0 like, pass <0 dislike, pass 0 not change
@@ -80,15 +83,15 @@
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{    //async
 
     //1.get food info
-//    NSDictionary *returnJSONtoNSdict = [NSJSONSerialization JSONObjectWithData:_webdata options:0 error:nil];
-//    NSMutableArray *results = [returnJSONtoNSdict objectForKey:@"results"];
-//
-//    for(NSDictionary *dict in results){
-//        NSString *title = [dict objectForKey:@"title"];
-//        NSString *description = [dict objectForKey:@"description"];
-//        NSLog(@"title --- -- -   %@",title);
-//        NSLog(@"description --- -- -   %@",description);
-//    }
+    NSDictionary *returnJSONtoNSdict = [NSJSONSerialization JSONObjectWithData:_webdata options:0 error:nil];
+    NSMutableArray *results = [returnJSONtoNSdict objectForKey:@"results"];
+
+    for(NSDictionary *dict in results){
+        NSString *title = [dict objectForKey:@"title"];
+        NSString *description = [dict objectForKey:@"description"];
+        NSLog(@"title --- -- -   %@",title);
+        NSLog(@"description --- -- -   %@",description);
+    }
     
     
     
@@ -105,9 +108,11 @@
 //    NSString *uid = [user objectForKey:@"uid"];
 //    NSLog(@"uid --- -- -   %@",uid);
     
+    
+    
     //3.post review
-    NSString *tmp = [[NSString alloc] initWithData:_webdata encoding:NSUTF8StringEncoding];
-    NSLog(@"?? %@",tmp);
+//    NSString *tmp = [[NSString alloc] initWithData:_webdata encoding:NSUTF8StringEncoding];
+//    NSLog(@"?? %@",tmp);
 
 
 
