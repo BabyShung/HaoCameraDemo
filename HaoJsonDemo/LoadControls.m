@@ -12,28 +12,26 @@
 
 @implementation LoadControls
 
-
-
--(UIImageView *)createImageViewWithRect:(CGRect)rect{
++(UIImageView *)createImageViewWithRect:(CGRect)rect{
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:rect];
-    //imageView.bounds = CGRectMake(0, 0, 320, 568);
-    //imageView.bounds = rect;
-    //imageView.center = self.view.center;
+    imageView.backgroundColor = [UIColor clearColor];
     imageView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     return imageView;
 }
 
--(UILabel *)createLabelWithRect:(CGRect)rect{
++(UILabel *)createLabelWithRect:(CGRect)rect andTextAlignment:(NSTextAlignment)ta andFont:(UIFont*)font andTextColor:(UIColor*)color{
     UILabel *label= [[UILabel alloc]initWithFrame:rect];
     label.text = @"";
-    //label.textAlignment = NSTextAlignmentCenter;
-    //label.center = self.view.center;
+    label.textAlignment = ta;
+    label.font = font;
+    label.textColor = color;
+    label.backgroundColor = [UIColor clearColor];
     label.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
     return label;
 }
 
--(UITextView *)createTextViewWithRect:(CGRect)rect{
++(UITextView *)createTextViewWithRect:(CGRect)rect{
     UITextView *tv= [[UITextView alloc]initWithFrame:rect];
     tv.text = @"";
     tv.backgroundColor = [UIColor clearColor];

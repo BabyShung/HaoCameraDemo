@@ -16,12 +16,12 @@
 
 @interface DebugViewController ()
 
-@property (weak, nonatomic) UIImageView *imageView1;
-@property (weak, nonatomic) UIImageView *imageView2;
+@property (strong, nonatomic) UIImageView *imageView1;
+@property (strong, nonatomic) UIImageView *imageView2;
 //@property (weak, nonatomic) UILabel *regLabel1;
 //@property (weak, nonatomic) UILabel *regLabel2;
-@property (weak, nonatomic) UITextView *regtv1;
-@property (weak, nonatomic) UITextView *regtv2;
+@property (strong, nonatomic) UITextView *regtv1;
+@property (strong, nonatomic) UITextView *regtv2;
 
 @property (strong,nonatomic) Tesseract *tesseract;
 
@@ -234,6 +234,9 @@
 
 //helper for viewing
 -(void)placeImageInView:(UIImageView *)imageView withImage:(UIImage *)image withTextView:(UITextView *)tv andCGSize:(CGSize) size{
+    
+    NSLog(@".............********** %@",imageView);
+    NSLog(@".............********** %@",image);
     imageView.image = image;
     imageView.frame = CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y,
                                  size.width, size.height);
@@ -285,7 +288,6 @@
 
 -(void)initControls{
     
-    LoadControls *lc = [[LoadControls alloc]init];
     
     float topX = 40;
     float topH = 120;
@@ -294,10 +296,13 @@
     float textViewHeight = 100;
     
     //add debug views
-    self.imageView1 = [lc createImageViewWithRect:CGRectMake(0, topX, topW, topH)];
-    self.imageView2 = [lc createImageViewWithRect:CGRectMake(0, topX + topH + topH, topW, topH)];
-    self.regtv1 = [lc createTextViewWithRect:CGRectMake(0, topX + topH, topW, textViewHeight)];
-    self.regtv2 = [lc createTextViewWithRect:CGRectMake(0, topX + topH * 3, topW, textViewHeight)];
+    self.imageView1 = [LoadControls createImageViewWithRect:CGRectMake(0, topX, topW, topH)];
+    self.imageView2 = [LoadControls createImageViewWithRect:CGRectMake(0, topX + topH + topH, topW, topH)];
+    
+    NSLog(@"LC.............********** %@",self.imageView1);
+    NSLog(@"LC.............********** %@",self.imageView2);
+    self.regtv1 = [LoadControls createTextViewWithRect:CGRectMake(0, topX + topH, topW, textViewHeight)];
+    self.regtv2 = [LoadControls createTextViewWithRect:CGRectMake(0, topX + topH * 3, topW, textViewHeight)];
     
     [self.view addSubview:self.imageView1];
     [self.view addSubview:self.imageView2];

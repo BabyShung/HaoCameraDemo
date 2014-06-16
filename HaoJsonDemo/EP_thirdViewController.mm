@@ -69,7 +69,6 @@
     
     if(self.imgArray.count != 0){
         
-        LoadControls *lc = [[LoadControls alloc]init];
         
         CGFloat x =10;
         CGFloat y = 30;
@@ -77,7 +76,7 @@
         for(int i = 0 ; i<self.imgArray.count - 1;i++){
             
             UIImage *img = self.imgArray[i];
-            UIImageView *tmpView= [lc createImageViewWithRect:CGRectMake(x, y, img.size.width/1.5, img.size.height/1.5)];
+            UIImageView *tmpView= [LoadControls createImageViewWithRect:CGRectMake(x, y, img.size.width/1.5, img.size.height/1.5)];
             
             
             
