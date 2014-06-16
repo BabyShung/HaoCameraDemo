@@ -94,7 +94,7 @@
 
 #pragma mark CAMERA DELEGATE
 
-- (void) EdibleCamera:(CameraViewController *)simpleCam didFinishWithImage:(UIImage *)image withRect:(CGRect)rect andCropSize:(CGSize)size{
+- (void) EdibleCamera:(MainViewController *)simpleCam didFinishWithImage:(UIImage *)image withRect:(CGRect)rect andCropSize:(CGSize)size{
     
     if (image) {
         /*****************************
@@ -272,7 +272,7 @@
 }
 
 //View did load in SimpleCam VC
-- (void) EdibleCameraDidLoadCameraIntoView:(CameraViewController *)simpleCam {
+- (void) EdibleCameraDidLoadCameraIntoView:(MainViewController *)simpleCam {
     NSLog(@"Camera loaded ... ");
 
 }
