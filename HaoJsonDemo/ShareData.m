@@ -37,8 +37,8 @@
 -(instancetype) init
 {
     if (self = [super init]) {
-        self.dbFileNames = @[@"output.txt", @"chinese.txt", @"english.txt"];
-        self.dbLangTableNames = @[@"Chinese", @"English"];
+        self.dbFileNames = @[@"foodlist_a-z_sql_KW.txt", @"foodlist_a-z_chinese_sql_CN.txt"];
+        self.dbLangTableNames = @[@"Chinese"];
         self.filterwordsFileName = @"filterwords.txt";
     }
     return self;

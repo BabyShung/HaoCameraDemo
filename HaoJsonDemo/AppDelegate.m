@@ -30,15 +30,19 @@
         
         //Prepare database
 /*                                                                         */
-/*                  This will stuck user in opening the app                */
-/* A better solution is jumping to a view that show "installing dictionay" */
+/*    Initial Local DB Set Up, Must Be Done Before First Time Searching    */
 /*                                                                         */
+/*                  This will stuck user in opening the app                */
+/*    A better solution is showing view that show "installing dictionay"   */
+/*                                                                         */
+
         SQLConnector *connector = [SQLConnector sharedInstance];
         DBOperation *operation = [[DBOperation alloc] init];
         ShareData *sharedata = [ShareData shareData];
         [connector createEditableCopyOf:[sharedata keywordFileName]];
-        [connector createEditableCopyOf:[sharedata langFileName:English]];
-        [operation createLangTable:English];
+        [connector createEditableCopyOf:[sharedata langFileName:Chinese]];
+        [connector createEditableCopyOf:[sharedata filterWordsFileName]];
+        [operation createLangTable:Chinese];
         [operation createKeywordTable];
         
     }
