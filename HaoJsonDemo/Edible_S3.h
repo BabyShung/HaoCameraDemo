@@ -10,7 +10,6 @@
 
 @interface Edible_S3 : NSObject
 
-
 //read image from S3
 -(UIImage *)getImageFromS3:(NSString *)imageName;
 
