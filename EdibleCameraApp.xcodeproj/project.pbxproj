@@ -11,13 +11,13 @@
 		3A5654BF193778AD0085CC87 /* WordCorrector.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5654BE193778AD0085CC87 /* WordCorrector.m */; };
 		3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */; };
 		3AA1BD90192FA982002729BC /* ImagePreProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1BD8F192FA982002729BC /* ImagePreProcessor.mm */; };
-		AC1E773D194F462600532F65 /* filterwords.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC1E773A194F462600532F65 /* filterwords.txt */; };
-		AC1E773E194F462600532F65 /* foodlist_a-z_sql_CN.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC1E773B194F462600532F65 /* foodlist_a-z_sql_CN.txt */; };
-		AC1E773F194F462600532F65 /* foodlist_a-z_sql_KW.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC1E773C194F462600532F65 /* foodlist_a-z_sql_KW.txt */; };
-		AC1E7748194F465000532F65 /* DBOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1E7741194F465000532F65 /* DBOperation.m */; };
-		AC1E7749194F465000532F65 /* Dictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1E7743194F465000532F65 /* Dictionary.m */; };
-		AC1E774A194F465000532F65 /* ShareData.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1E7745194F465000532F65 /* ShareData.m */; };
-		AC1E774B194F465000532F65 /* SQLConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1E7747194F465000532F65 /* SQLConnector.m */; };
+		AC8A356C19461E0400FC5465 /* english.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC8A356919461E0400FC5465 /* english.txt */; };
+		AC8A356D19461E0400FC5465 /* filterwords.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC8A356A19461E0400FC5465 /* filterwords.txt */; };
+		AC8A356E19461E0400FC5465 /* output.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC8A356B19461E0400FC5465 /* output.txt */; };
+		AC8A357719461E2100FC5465 /* DBOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8A357019461E2100FC5465 /* DBOperation.m */; };
+		AC8A357819461E2100FC5465 /* Dictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8A357219461E2100FC5465 /* Dictionary.m */; };
+		AC8A357919461E2100FC5465 /* ShareData.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8A357419461E2100FC5465 /* ShareData.m */; };
+		AC8A357A19461E2100FC5465 /* SQLConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8A357619461E2100FC5465 /* SQLConnector.m */; };
 		AC8A357C1946202400FC5465 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AC8A357B1946202300FC5465 /* libsqlite3.0.dylib */; };
 		ACA1724C19368BFB005E7D51 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACA1724B19368BFB005E7D51 /* opencv2.framework */; };
 		ACA172651937C8F5005E7D51 /* w2-1:3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ACA172641937C8F5005E7D51 /* w2-1:3.jpg */; };
@@ -89,17 +89,17 @@
 		3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
 		3AA1BD8E192FA982002729BC /* ImagePreProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreProcessor.h; sourceTree = "<group>"; };
 		3AA1BD8F192FA982002729BC /* ImagePreProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImagePreProcessor.mm; sourceTree = "<group>"; };
-		AC1E773A194F462600532F65 /* filterwords.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = filterwords.txt; sourceTree = "<group>"; };
-		AC1E773B194F462600532F65 /* foodlist_a-z_sql_CN.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "foodlist_a-z_sql_CN.txt"; sourceTree = "<group>"; };
-		AC1E773C194F462600532F65 /* foodlist_a-z_sql_KW.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "foodlist_a-z_sql_KW.txt"; sourceTree = "<group>"; };
-		AC1E7740194F465000532F65 /* DBOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBOperation.h; sourceTree = "<group>"; };
-		AC1E7741194F465000532F65 /* DBOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBOperation.m; sourceTree = "<group>"; };
-		AC1E7742194F465000532F65 /* Dictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dictionary.h; sourceTree = "<group>"; };
-		AC1E7743194F465000532F65 /* Dictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dictionary.m; sourceTree = "<group>"; };
-		AC1E7744194F465000532F65 /* ShareData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareData.h; sourceTree = "<group>"; };
-		AC1E7745194F465000532F65 /* ShareData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareData.m; sourceTree = "<group>"; };
-		AC1E7746194F465000532F65 /* SQLConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLConnector.h; sourceTree = "<group>"; };
-		AC1E7747194F465000532F65 /* SQLConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLConnector.m; sourceTree = "<group>"; };
+		AC8A356919461E0400FC5465 /* english.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = english.txt; sourceTree = "<group>"; };
+		AC8A356A19461E0400FC5465 /* filterwords.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = filterwords.txt; sourceTree = "<group>"; };
+		AC8A356B19461E0400FC5465 /* output.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = output.txt; sourceTree = "<group>"; };
+		AC8A356F19461E2100FC5465 /* DBOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBOperation.h; sourceTree = "<group>"; };
+		AC8A357019461E2100FC5465 /* DBOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBOperation.m; sourceTree = "<group>"; };
+		AC8A357119461E2100FC5465 /* Dictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dictionary.h; sourceTree = "<group>"; };
+		AC8A357219461E2100FC5465 /* Dictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dictionary.m; sourceTree = "<group>"; };
+		AC8A357319461E2100FC5465 /* ShareData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareData.h; sourceTree = "<group>"; };
+		AC8A357419461E2100FC5465 /* ShareData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareData.m; sourceTree = "<group>"; };
+		AC8A357519461E2100FC5465 /* SQLConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLConnector.h; sourceTree = "<group>"; };
+		AC8A357619461E2100FC5465 /* SQLConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLConnector.m; sourceTree = "<group>"; };
 		AC8A357B1946202300FC5465 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		ACA1724B19368BFB005E7D51 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		ACA172641937C8F5005E7D51 /* w2-1:3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "w2-1:3.jpg"; sourceTree = "<group>"; };
@@ -217,20 +217,20 @@
 			name = wordCorrect;
 			sourceTree = "<group>";
 		};
-		AC1E7739194F461700532F65 /* LocalDB */ = {
+		AC8A356819461D3E00FC5465 /* LocalDB */ = {
 			isa = PBXGroup;
 			children = (
-				AC1E7740194F465000532F65 /* DBOperation.h */,
-				AC1E7741194F465000532F65 /* DBOperation.m */,
-				AC1E7742194F465000532F65 /* Dictionary.h */,
-				AC1E7743194F465000532F65 /* Dictionary.m */,
-				AC1E7744194F465000532F65 /* ShareData.h */,
-				AC1E7745194F465000532F65 /* ShareData.m */,
-				AC1E7746194F465000532F65 /* SQLConnector.h */,
-				AC1E7747194F465000532F65 /* SQLConnector.m */,
-				AC1E773A194F462600532F65 /* filterwords.txt */,
-				AC1E773B194F462600532F65 /* foodlist_a-z_sql_CN.txt */,
-				AC1E773C194F462600532F65 /* foodlist_a-z_sql_KW.txt */,
+				AC8A357519461E2100FC5465 /* SQLConnector.h */,
+				AC8A357619461E2100FC5465 /* SQLConnector.m */,
+				AC8A357319461E2100FC5465 /* ShareData.h */,
+				AC8A357419461E2100FC5465 /* ShareData.m */,
+				AC8A356F19461E2100FC5465 /* DBOperation.h */,
+				AC8A357019461E2100FC5465 /* DBOperation.m */,
+				AC8A357119461E2100FC5465 /* Dictionary.h */,
+				AC8A357219461E2100FC5465 /* Dictionary.m */,
+				AC8A356919461E0400FC5465 /* english.txt */,
+				AC8A356A19461E0400FC5465 /* filterwords.txt */,
+				AC8A356B19461E0400FC5465 /* output.txt */,
 			);
 			name = LocalDB;
 			sourceTree = "<group>";
@@ -375,7 +375,7 @@
 		B8FA464218F9E954007DA680 /* HaoJsonDemo */ = {
 			isa = PBXGroup;
 			children = (
-				AC1E7739194F461700532F65 /* LocalDB */,
+				AC8A356819461D3E00FC5465 /* LocalDB */,
 				B8D6953D193EBB9B00E504FA /* Camera */,
 				ACA1726C193920A6005E7D51 /* UI components */,
 				ACA172631937C8D7005E7D51 /* testfiles */,
@@ -508,8 +508,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC1E773F194F462600532F65 /* foodlist_a-z_sql_KW.txt in Resources */,
 				B8F29C761932DD20008979A7 /* Discover_01.png in Resources */,
+				AC8A356E19461E0400FC5465 /* output.txt in Resources */,
+				AC8A356D19461E0400FC5465 /* filterwords.txt in Resources */,
 				B8F29C691932DC55008979A7 /* Camera_01@2x.png in Resources */,
 				B8F29C731932DCF5008979A7 /* Me_01@2x.png in Resources */,
 				B82353AE192BE2D800D6BCAC /* Attribution_PixelLove.png in Resources */,
@@ -523,13 +524,12 @@
 				B8F29C6A1932DC55008979A7 /* Search_01.png in Resources */,
 				B8F29C771932DD20008979A7 /* Discover_01@2x.png in Resources */,
 				B82353BF192BE2F400D6BCAC /* Lightening.png in Resources */,
-				AC1E773D194F462600532F65 /* filterwords.txt in Resources */,
 				B82353F0192CFC4C00D6BCAC /* tessdata in Resources */,
+				AC8A356C19461E0400FC5465 /* english.txt in Resources */,
 				B8F29C721932DCF5008979A7 /* Me_01.png in Resources */,
 				B8F29C711932DCF5008979A7 /* Dine_01@2x.png in Resources */,
 				B82353BE192BE2F400D6BCAC /* Download.png in Resources */,
 				B8FA464718F9E954007DA680 /* InfoPlist.strings in Resources */,
-				AC1E773E194F462600532F65 /* foodlist_a-z_sql_CN.txt in Resources */,
 				B8FA465018F9E954007DA680 /* Main.storyboard in Resources */,
 				B82353C0192BE2F400D6BCAC /* Previous.png in Resources */,
 			);
@@ -559,8 +559,8 @@
 				B8F29C5719311A5C008979A7 /* EP_secondViewController.m in Sources */,
 				B8235406192D474D00D6BCAC /* ImageCropView.m in Sources */,
 				B8F29C6019311E77008979A7 /* CameraViewController.m in Sources */,
-				AC1E774B194F465000532F65 /* SQLConnector.m in Sources */,
-				AC1E7748194F465000532F65 /* DBOperation.m in Sources */,
+				AC8A357A19461E2100FC5465 /* SQLConnector.m in Sources */,
+				AC8A357719461E2100FC5465 /* DBOperation.m in Sources */,
 				B8F29C6319314357008979A7 /* DebugViewController.mm in Sources */,
 				B8F29C5A19311A5C008979A7 /* EParentViewController.m in Sources */,
 				B8FA464D18F9E954007DA680 /* AppDelegate.m in Sources */,
@@ -570,11 +570,11 @@
 				B8F29C5619311A5C008979A7 /* EP_firstViewController.m in Sources */,
 				B8F29C5919311A5C008979A7 /* EP_forthViewController.m in Sources */,
 				B8F29C5819311A5C008979A7 /* EP_thirdViewController.mm in Sources */,
-				AC1E774A194F465000532F65 /* ShareData.m in Sources */,
+				AC8A357919461E2100FC5465 /* ShareData.m in Sources */,
 				B8FA464918F9E954007DA680 /* main.m in Sources */,
 				B8235404192D474D00D6BCAC /* ShadeView.m in Sources */,
 				B8235405192D474D00D6BCAC /* ControlPointView.m in Sources */,
-				AC1E7749194F465000532F65 /* Dictionary.m in Sources */,
+				AC8A357819461E2100FC5465 /* Dictionary.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
