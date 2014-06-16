@@ -375,7 +375,11 @@
 		B8FA464218F9E954007DA680 /* HaoJsonDemo */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				AC1E7739194F461700532F65 /* LocalDB */,
+=======
+				AC8A356819461D3E00FC5465 /* LocalDB */,
+>>>>>>> FETCH_HEAD
 				B8D6953D193EBB9B00E504FA /* Camera */,
 				ACA1726C193920A6005E7D51 /* UI components */,
 				ACA172631937C8D7005E7D51 /* testfiles */,
@@ -559,8 +563,13 @@
 				B8F29C5719311A5C008979A7 /* EP_secondViewController.m in Sources */,
 				B8235406192D474D00D6BCAC /* ImageCropView.m in Sources */,
 				B8F29C6019311E77008979A7 /* CameraViewController.m in Sources */,
+<<<<<<< HEAD
 				AC1E774B194F465000532F65 /* SQLConnector.m in Sources */,
 				AC1E7748194F465000532F65 /* DBOperation.m in Sources */,
+=======
+				AC8A357A19461E2100FC5465 /* SQLConnector.m in Sources */,
+				AC8A357719461E2100FC5465 /* DBOperation.m in Sources */,
+>>>>>>> FETCH_HEAD
 				B8F29C6319314357008979A7 /* DebugViewController.mm in Sources */,
 				B8F29C5A19311A5C008979A7 /* EParentViewController.m in Sources */,
 				B8FA464D18F9E954007DA680 /* AppDelegate.m in Sources */,
