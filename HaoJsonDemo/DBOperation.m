@@ -132,8 +132,7 @@
 -(NSArray *) getItemsInFileByFilePath:(NSString *) path{
     
     NSString *content=[NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    NSArray *kwArray = [content componentsSeparatedByCharactersInSet:
-                        [NSCharacterSet newlineCharacterSet]];
+    NSArray *kwArray = [content componentsSeparatedByString:@"\r\n"];
     NSLog(@"# of keywords = %d", kwArray.count);
     
     return kwArray;

@@ -81,24 +81,24 @@
     NSInteger numOfWords = words.count;
     
     //Get filter words as a string
-    NSError *err;
-    ShareData *sharedata = [ShareData shareData];
-    NSString *filter=[NSString stringWithContentsOfFile:[sharedata writableFilterWordsFilePath] encoding:NSUTF8StringEncoding error:&err];
-    if (!err) {
-        [self throwDictExceptionCausedBy:@"Fail to read filter words"];
-    }
-       
+//    NSError *err;
+//    ShareData *sharedata = [ShareData shareData];
+//    NSString *filter=[NSString stringWithContentsOfFile:[sharedata writableFilterWordsFilePath] encoding:NSUTF8StringEncoding error:&err];
+//    if (!err) {
+//        [self throwDictExceptionCausedBy:@"Fail to read filter words"];
+//    }
+//       
     
     //Exclude filter words from string
-    for (int i = 0; i<numOfWords; i++) {
-        NSString *word = words[i];
-        if ([filter rangeOfString:[word lowercaseString]].location != NSNotFound) {
-            [words removeObjectAtIndex:i];
-            i--;
-            numOfWords--;
-        }
-    }
-    
+//    for (int i = 0; i<numOfWords; i++) {
+//        NSString *word = words[i];
+//        if ([filter rangeOfString:[word lowercaseString]].location != NSNotFound) {
+//            [words removeObjectAtIndex:i];
+//            i--;
+//            numOfWords--;
+//        }
+//    }
+//    
     //Generate all combination of remain words
     for (int i=0; i<numOfWords-1; i++) {
         NSString *tmpString = words[i];
