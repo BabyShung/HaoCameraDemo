@@ -10,9 +10,10 @@
 #import "AsyncRequest.h"
 #import "Review.h"
 #import "GeneralUser.h"
-
+#import "Edible_S3.h"
 @interface NetworkTestViewController () <NSURLConnectionDataDelegate>
 
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong,nonatomic) NSMutableData *webdata;
 
 @end
@@ -24,6 +25,13 @@
     [super viewDidLoad];
 	
     _webdata = [[NSMutableData alloc]init];
+    
+}
+- (IBAction)getImage:(id)sender {
+    
+    Edible_S3 *s3 = [[Edible_S3 alloc]init];
+    //fetch an image from the S3 server
+    self.imageView.image = [s3 getImageFromS3:@"test_photo.png"];
     
 }
 

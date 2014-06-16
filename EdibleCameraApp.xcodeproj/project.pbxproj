@@ -41,6 +41,9 @@
 		B825DD931943AFF0004C7DCE /* CVSmallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B825DD901943AFF0004C7DCE /* CVSmallLayout.m */; };
 		B825DD941943AFF0004C7DCE /* CVLargeLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B825DD921943AFF0004C7DCE /* CVLargeLayout.m */; };
 		B886B1BC1937CEB300DF68D3 /* CameraManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B886B1BB1937CEB300DF68D3 /* CameraManager.m */; };
+		B8C21B2B194F43EB0012B616 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C21B29194F43EB0012B616 /* AWSRuntime.framework */; };
+		B8C21B2C194F43EB0012B616 /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C21B2A194F43EB0012B616 /* AWSS3.framework */; };
+		B8C21B2F194F43FC0012B616 /* Edible_S3.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C21B2E194F43FC0012B616 /* Edible_S3.m */; };
 		B8D09A771948BCCF006C070D /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D09A721948BCCF006C070D /* Review.m */; };
 		B8D09A781948BCCF006C070D /* GeneralUser.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D09A741948BCCF006C070D /* GeneralUser.m */; };
 		B8D09A791948BCCF006C070D /* LocalUser.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D09A761948BCCF006C070D /* LocalUser.m */; };
@@ -144,6 +147,10 @@
 		B825DD921943AFF0004C7DCE /* CVLargeLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVLargeLayout.m; sourceTree = "<group>"; };
 		B886B1BA1937CEB300DF68D3 /* CameraManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraManager.h; sourceTree = "<group>"; };
 		B886B1BB1937CEB300DF68D3 /* CameraManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraManager.m; sourceTree = "<group>"; };
+		B8C21B29194F43EB0012B616 /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSRuntime.framework; sourceTree = "<group>"; };
+		B8C21B2A194F43EB0012B616 /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSS3.framework; sourceTree = "<group>"; };
+		B8C21B2D194F43FC0012B616 /* Edible_S3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Edible_S3.h; sourceTree = "<group>"; };
+		B8C21B2E194F43FC0012B616 /* Edible_S3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Edible_S3.m; sourceTree = "<group>"; };
 		B8D09A711948BCCF006C070D /* Review.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Review.h; sourceTree = "<group>"; };
 		B8D09A721948BCCF006C070D /* Review.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Review.m; sourceTree = "<group>"; };
 		B8D09A731948BCCF006C070D /* GeneralUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralUser.h; sourceTree = "<group>"; };
@@ -208,11 +215,13 @@
 			files = (
 				AC8A357C1946202400FC5465 /* libsqlite3.0.dylib in Frameworks */,
 				ACA1724C19368BFB005E7D51 /* opencv2.framework in Frameworks */,
+				B8C21B2C194F43EB0012B616 /* AWSS3.framework in Frameworks */,
 				B82353EE192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib in Frameworks */,
 				B82353EC192CFB2800D6BCAC /* TesseractOCR.framework in Frameworks */,
 				B8FA463F18F9E954007DA680 /* CoreGraphics.framework in Frameworks */,
 				B8FA464118F9E954007DA680 /* UIKit.framework in Frameworks */,
 				B8FA463D18F9E954007DA680 /* Foundation.framework in Frameworks */,
+				B8C21B2B194F43EB0012B616 /* AWSRuntime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,15 +369,17 @@
 			name = Trans;
 			sourceTree = "<group>";
 		};
-		B84ADC0D19474B76005059A5 /* AsyncRequest */ = {
+		B84ADC0D19474B76005059A5 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				B8C21B2D194F43FC0012B616 /* Edible_S3.h */,
+				B8C21B2E194F43FC0012B616 /* Edible_S3.m */,
 				B8D09A7A1948BCD7006C070D /* AsyncRequest.h */,
 				B8D09A7B1948BCD7006C070D /* AsyncRequest.m */,
 				B8D09A7D1948BCE1006C070D /* NetworkTestViewController.h */,
 				B8D09A7E1948BCE1006C070D /* NetworkTestViewController.m */,
 			);
-			name = AsyncRequest;
+			name = Network;
 			sourceTree = "<group>";
 		};
 		B8D09A701948BCBA006C070D /* Objects */ = {
@@ -447,6 +458,8 @@
 		B8FA463B18F9E954007DA680 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B8C21B29194F43EB0012B616 /* AWSRuntime.framework */,
+				B8C21B2A194F43EB0012B616 /* AWSS3.framework */,
 				AC8A357B1946202300FC5465 /* libsqlite3.0.dylib */,
 				ACA1724B19368BFB005E7D51 /* opencv2.framework */,
 				B82353ED192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib */,
@@ -463,7 +476,7 @@
 			isa = PBXGroup;
 			children = (
 				B8D09A701948BCBA006C070D /* Objects */,
-				B84ADC0D19474B76005059A5 /* AsyncRequest */,
+				B84ADC0D19474B76005059A5 /* Network */,
 				B825DD7A194264D7004C7DCE /* Transition */,
 				AC8A356819461D3E00FC5465 /* LocalDB */,
 				B8D6953D193EBB9B00E504FA /* Camera */,
@@ -652,6 +665,7 @@
 				B886B1BC1937CEB300DF68D3 /* CameraManager.m in Sources */,
 				B8F29C5719311A5C008979A7 /* EP_secondViewController.m in Sources */,
 				B8235406192D474D00D6BCAC /* ImageCropView.m in Sources */,
+				B8C21B2F194F43FC0012B616 /* Edible_S3.m in Sources */,
 				AC8A357A19461E2100FC5465 /* SQLConnector.m in Sources */,
 				AC8A357719461E2100FC5465 /* DBOperation.m in Sources */,
 				B8F29C6319314357008979A7 /* DebugViewController.mm in Sources */,
