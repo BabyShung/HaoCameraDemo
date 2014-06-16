@@ -8,25 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
-#import "CameraViewController.h"
 
+#import "MainViewController.h"
 /**************
  
  Protocol
  
  ************/
 
-@class CameraViewController;
+@class MainViewController;
 
 @protocol EdibleCameraDelegate
 
 @required
 //Called when the user is done with SimpleCam.  If image is nil, user backed out w/o image.
-- (void) EdibleCamera:(CameraViewController *)simpleCam didFinishWithImage:(UIImage *)image withRect:(CGRect)rect andCropSize:(CGSize)size;
+- (void) EdibleCamera:(MainViewController *)simpleCam didFinishWithImage:(UIImage *)image withRect:(CGRect)rect andCropSize:(CGSize)size;
 
 @optional
 //Called when the camera is successfully loaded into the view.
-- (void) EdibleCameraDidLoadCameraIntoView:(CameraViewController *)simpleCam;
+- (void) EdibleCameraDidLoadCameraIntoView:(MainViewController *)simpleCam;
 
 @end
 
@@ -62,7 +62,7 @@
 
 @property (strong, nonatomic) UIView * StreamView;//bottom view
 
-@property (strong, nonatomic) CameraViewController *appliedVC;
+@property (strong, nonatomic) MainViewController *appliedVC;
 /******************
  
  Camera operations
@@ -75,7 +75,7 @@
 //Use this method for programmatically acquire a photo
 - (void) capturePhoto;
 
-- (instancetype)initWithFrame:(CGRect)frame andOrientation:(UIInterfaceOrientation)iot andAppliedVC:(CameraViewController *)VC;
+- (instancetype)initWithFrame:(CGRect)frame andOrientation:(UIInterfaceOrientation)iot andAppliedVC:(MainViewController *)VC;
 
 
 @end
