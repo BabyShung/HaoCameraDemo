@@ -10,7 +10,7 @@
 
 @interface GeneralUser : NSObject
 
-@property (nonatomic, retain) NSString *Uid; //email
+@property (nonatomic, assign) int Uid;
 @property (nonatomic, retain) NSString *Uname;
 
 

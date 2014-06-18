@@ -15,6 +15,7 @@
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *comment;
 @property (nonatomic, assign) NSUInteger rate;
+@property (nonatomic, assign) NSTimeInterval time;
 @property (nonatomic, retain) GeneralUser *byUser;
 
 @end

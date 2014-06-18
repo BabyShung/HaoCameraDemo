@@ -13,7 +13,7 @@
 
 - (NSString *)description   //toString description
 {
-	NSString *desc  = [NSString stringWithFormat:@"title: %@, comment: %@, rate: %d, user_id: %@, user_name: %@", self.title, self.comment,self.rate,self.byUser.Uid,self.byUser.Uname];
+	NSString *desc  = [NSString stringWithFormat:@"title: %@, comment: %@, rate: %d, user_id: %d, user_name: %@", self.title, self.comment,self.rate,self.byUser.Uid,self.byUser.Uname];
 	return desc;
 }
 

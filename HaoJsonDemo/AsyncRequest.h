@@ -13,11 +13,11 @@
 
 -(void)getFoodInfo:(NSString*)foodname andLanguage:(NSString *)language andSELF:(id)selfy;
 
--(void)getReviews:(NSString*)foodname andStart:(NSUInteger)start andOffset:(NSUInteger)offset andSELF:(id)selfy;
+-(void)getReviews:(NSString*)foodname andUid:(int)uid andStart:(NSUInteger)start andOffset:(NSUInteger)offset andSELF:(id)selfy;
 
--(void)postReview:(Review *)review andSELF:(id)selfy;
+-(void)doReview:(Review *)review andAction:(NSString*)action andSELF:(id)selfy;
 
--(void)likeOrDislike:(NSString *)post_uid andTitle:(NSString *)post_title andLikeByUid:(NSString*)like_uid andLike:(NSInteger)like andSELF:(id)selfy;
+-(void)likeOrDislike_rid:(int)rid andLike:(int)like andSELF:(id)selfy;
 
 
 @end

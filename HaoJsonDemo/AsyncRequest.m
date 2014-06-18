@@ -13,18 +13,19 @@
 //http://edibleserver-env.elasticbeanstalk.com/review?title=bacon&start=0&offset=5&order=LIKE_NUM DESC
 
 
-#define FOODURL @"http://edibleserver-env.elasticbeanstalk.com/food?"
-#define REVIEWURL @"http://edibleserver-env.elasticbeanstalk.com/review?"
+#define FOODURL @"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/food?"
 
-#define POSTREVIEW @"http://edibleserver-env.elasticbeanstalk.com/postreview"
-#define LIKEREVIEW @"http://edibleserver-env.elasticbeanstalk.com/likereview"
+#define REVIEWURL @"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/review?"
+
+#define DOREVIEW @"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/review"
+
 @implementation AsyncRequest 
 
--(void)getReviews:(NSString*)foodname andStart:(NSUInteger)start andOffset:(NSUInteger)offset andSELF:(id)selfy{
+-(void)getReviews:(NSString*)foodname andUid:(int)uid andStart:(NSUInteger)start andOffset:(NSUInteger)offset andSELF:(id)selfy{
     
     NSMutableString *paraString = [NSMutableString stringWithString:@"title="];
     [paraString appendString:foodname];
-    [paraString appendString:[NSString stringWithFormat:@"&start=%d&offset=%d",start,offset]];
+    [paraString appendString:[NSString stringWithFormat:@"&uid=%d&start=%d&offset=%d",uid,start,offset]];
     NSMutableString *reviewString =  [NSMutableString stringWithString:REVIEWURL];
     
     [reviewString appendString:paraString];
@@ -59,15 +60,17 @@
  post review
  
  ******************/
--(void)postReview:(Review *)review andSELF:(id)selfy{
+-(void)doReview:(Review *)review andAction:(NSString*)action andSELF:(id)selfy{
 
-    NSDictionary * userDict = [NSDictionary dictionaryWithObjectsAndKeys:review.byUser.Uid, @"uid",review.byUser.Uname, @"uname", nil];
+    NSNumber *uidNumber = [NSNumber numberWithInt:review.byUser.Uid];
+    NSNumber *rateNumber = [NSNumber numberWithInt:review.rate];
+    NSNumber *timeNumber = [NSNumber numberWithDouble:review.time];
 
-    NSString *rate = [NSString stringWithFormat:@"%lu", (unsigned long)review.rate];
+    NSLog(@"nsnumber %@",timeNumber);
     
-    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:review.title, @"title",review.comment, @"comments", rate, @"rate", userDict, @"user", nil];
+    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:review.title, @"title",review.comment, @"comments", rateNumber, @"rate", uidNumber, @"uid",timeNumber, @"time", action,@"action", nil];
 
-    NSURL *url = [NSURL URLWithString:POSTREVIEW];
+    NSURL *url = [NSURL URLWithString:DOREVIEW];
     
     [self performAsyncTask:selfy andDictionary:dict andURL:url];
 }
@@ -77,15 +80,17 @@
  like or dislike
  
  ******************/
--(void)likeOrDislike:(NSString *)post_uid andTitle:(NSString *)post_title andLikeByUid:(NSString*)like_uid andLike:(NSInteger)like andSELF:(id)selfy{
+-(void)likeOrDislike_rid:(int)rid andLike:(int)like andSELF:(id)selfy{
     
-    NSLog(@"like int: %d",like);
+    NSNumber *ridNumber = [NSNumber numberWithInt:rid];
+    NSNumber *likeNumber = [NSNumber numberWithInt:like];
+    
+    
 
-    NSString *like_string = [NSString stringWithFormat:@"%d",like];
     
-    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:post_uid, @"uid",post_title, @"title", like_uid, @"likedby", like_string, @"like", nil];
+    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:ridNumber, @"rid",likeNumber, @"like_num",@"like",@"action", nil];
     
-    NSURL *url = [NSURL URLWithString:LIKEREVIEW];
+    NSURL *url = [NSURL URLWithString:DOREVIEW];
     
     [self performAsyncTask:selfy andDictionary:dict andURL:url];
 }

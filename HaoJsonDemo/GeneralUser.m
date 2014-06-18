@@ -12,7 +12,7 @@
 
 - (NSString *)description   //toString description
 {
-	NSString *desc  = [NSString stringWithFormat:@"Uid: %@, Uname: %@", self.Uid, self.Uname];
+	NSString *desc  = [NSString stringWithFormat:@"Uid: %d, Uname: %@", self.Uid, self.Uname];
 	return desc;
 }
 

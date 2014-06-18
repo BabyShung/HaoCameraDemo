@@ -37,33 +37,32 @@
 
 - (IBAction)getRequest:(id)sender {
     
-
-    
     AsyncRequest *async = [[AsyncRequest alloc]init];
     
     //1.
-    [async getFoodInfo:@"Boston baked beans with pork and beans" andLanguage:@"CN" andSELF:self];
+    //[async getFoodInfo:@"bacon" andLanguage:@"CN" andSELF:self];
     
     //2.
-    //[async getReviews:@"Bacon" andStart:0 andOffset:5 andSELF:self];
+    //[async getReviews:@"calico bean" andUid:1 andStart:0 andOffset:5 andSELF:self];
     
     //3.
     
 //    GeneralUser *guser = [[GeneralUser alloc]init];
-//    guser.Uid = @"edible_admin";
+//    guser.Uid = 1;
 //    guser.Uname = @"Anonymity";
 //    
 //    Review *review = [[Review alloc]init];
-//    review.title = @"Pork and beans";
+//    review.title = @"calico bean";
 //    review.rate = 5;
-//    review.comment = @"Nice food!";
+//    review.comment = @"Nice food!!!";
 //    review.byUser = guser;
+//    review.time = [[NSDate date] timeIntervalSince1970]*1000.0;
 //    
-//    [async postReview:review andSELF:self];
+//    [async doReview:review andAction:@"update" andSELF:self];//action: update, post
     
     
     //4. pass >0 like, pass <0 dislike, pass 0 not change
-    //[async likeOrDislike:@"edible_admin" andTitle:@"Bacon" andLikeByUid:@"edible_admin2" andLike:1 andSELF:self];
+    [async likeOrDislike_rid:5 andLike:20 andSELF:self];
     
 }
 
@@ -91,22 +90,35 @@
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{    //async
 
     //1.get food info
-    NSDictionary *returnJSONtoNSdict = [NSJSONSerialization JSONObjectWithData:_webdata options:0 error:nil];
-    NSMutableArray *results = [returnJSONtoNSdict objectForKey:@"results"];
-
-    for(NSDictionary *dict in results){
-        NSString *title = [dict objectForKey:@"title"];
-        NSString *description = [dict objectForKey:@"description"];
-        NSLog(@"title --- -- -   %@",title);
-        NSLog(@"description --- -- -   %@",description);
-    }
+//    NSDictionary *returnJSONtoNSdict = [NSJSONSerialization JSONObjectWithData:_webdata options:0 error:nil];
+//    
+//    int status = [[returnJSONtoNSdict objectForKey:@"status"] intValue];
+//    NSLog(@"status --- -- -   %d",status);
+//    
+//    if(status){
+//        NSMutableArray *results = [returnJSONtoNSdict objectForKey:@"results"];
+//        
+//        for(NSDictionary *dict in results){
+//            NSString *title = [dict objectForKey:@"title"];
+//            NSString *description = [dict objectForKey:@"description"];
+//            NSLog(@"title --- -- -   %@",title);
+//            NSLog(@"description --- -- -   %@",description);
+//        }
+//    }else{
+//        NSLog(@"failed");
+//    }
+    
+    
     
     
     
     
     //2.get reviews
 //    NSDictionary *returnJSONtoNSdict = [NSJSONSerialization JSONObjectWithData:_webdata options:0 error:nil];
-//    NSMutableArray *results = [returnJSONtoNSdict objectForKey:@"results"];
+//    int status = [[returnJSONtoNSdict objectForKey:@"status"] intValue];
+//    NSLog(@"status! --- -- -   %d",status);
+//    
+//    NSMutableArray *results = [returnJSONtoNSdict objectForKey:@"result"];
 //    NSLog(@"count~~: %d",results.count);
 //    
 //    NSString *title = [[results objectAtIndex:0] objectForKey:@"title"];
@@ -119,14 +131,19 @@
     
     
     //3.post review
+    
+//    NSDictionary *returnJSONtoNSdict = [NSJSONSerialization JSONObjectWithData:_webdata options:0 error:nil];
+//    
 //    NSString *tmp = [[NSString alloc] initWithData:_webdata encoding:NSUTF8StringEncoding];
-//    NSLog(@"?? %@",tmp);
+//    NSLog(@"Output: %@",tmp);
+//    int status = [[returnJSONtoNSdict objectForKey:@"status"] intValue];
+//    NSLog(@"status! --- -- -   %d",status);
 
-
+    
 
     //4.like review
-    //NSString *tmp = [[NSString alloc] initWithData:_webdata encoding:NSUTF8StringEncoding];
-    //NSLog(@"!?? %@",tmp);
+    NSString *tmp = [[NSString alloc] initWithData:_webdata encoding:NSUTF8StringEncoding];
+    NSLog(@"!?? %@",tmp);
 }
 
 
