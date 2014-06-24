@@ -9,12 +9,11 @@
 #import "CardsViewController.h"
 #import "CardsCollectionCell.h"
 
-#import "Carrier.h"
-
+#import "ED_Color.h"
 #import "FBShimmering.h"
 #import "FBShimmeringView.h"
 #import "RQShineLabel.h"
-
+#import "LoadControls.h"
 #import "MKTransitionCoordinator.h"
 
 
@@ -33,20 +32,23 @@ static NSArray *colors;
 
 @property (nonatomic, strong) MKTransitionCoordinator *menuInteractor;
 
-
 @property (nonatomic, weak) IBOutlet UICollectionView *bottomCollectionView;
 
-
-@property (strong,nonatomic) NSArray *carriers;
+@property (strong,nonatomic) NSArray *settings;
 
 @property (strong,nonatomic) UILabel *titleLabel;
 @property (strong,nonatomic) FBShimmeringView *shimmeringView;
 @property (strong, nonatomic) RQShineLabel *descriptionLabel;
 
+@property (strong, nonatomic) UIButton * previousPageBtn;
+
 @end
 
 @implementation CardsViewController
 - (void) doInits {
+    
+    
+    
     
     colors = @[[UIColor colorWithRed:(0/255.0) green:(181/255.0) blue:(239/255.0) alpha:1],
                [UIColor colorWithRed:(150/255.0) green:(222/255.0) blue:(35/255.0) alpha:1],
@@ -55,17 +57,8 @@ static NSArray *colors;
                [UIColor colorWithRed:(253/255.0) green:(91/255.0) blue:(159/255.0) alpha:1],
                [UIColor colorWithRed:(233/255.0) green:(0/255.0) blue:(11/255.0) alpha:1]];
     
-    Carrier *c1 = [[Carrier alloc]initWithPlan:@"aa" andPolicyNo:@[@"bb"] andPhoneNo:@"cc" andWeb:@"dd"];
-    Carrier *c2 = [[Carrier alloc]initWithPlan:@"md" andPolicyNo:@[@"vv"] andPhoneNo:@"888.466.8673" andWeb:@"www.metlife.com"];
-    Carrier *c3 = [[Carrier alloc]initWithPlan:@"vv" andPolicyNo:@[@"cc"] andPhoneNo:@"dd" andWeb:@"www.vsp.com"];
-    Carrier *c4 = [[Carrier alloc]initWithPlan:@"ll" andPolicyNo:@[@"vv",@"cc"] andPhoneNo:@"800.423.2765" andWeb:@"www.dfs.com"];
-    Carrier *c5 = [[Carrier alloc]initWithPlan:@"jh" andPolicyNo:@[@"ee"] andPhoneNo:@"800.395.1113" andWeb:@"sdfsdf"];
-    Carrier *c6 = [[Carrier alloc]initWithPlan:@"fs" andPolicyNo:@[] andPhoneNo:@"925.956.0505" andWeb:@"sdf"];
+    self.settings = [NSArray arrayWithObjects:@"Search",@"Feedback",@"About",@"Logout", nil];
     
-    self.carriers = [NSArray arrayWithObjects:c1,c2,c3,c4,c5,c6, nil];
-    
-  
-
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -75,31 +68,35 @@ static NSArray *colors;
     return self;
 }
 
+- (void) previousPagePressed:(id)sender {
+    [self.settingDelegate slideToPreviousPage];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+   
+    
+    
+    _previousPageBtn = [LoadControls createCameraButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20)];
+     [_previousPageBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_previousPageBtn];
+    
     
     
     self.menuInteractor = [[MKTransitionCoordinator alloc] initWithParentViewController:self];
     self.menuInteractor.delegate = self;
     
     
+    //self.navigationController.view.clipsToBounds = NO;
     
-    self.navigationController.navigationBarHidden = YES;
+    //self.navigationController.navigationBarHidden = YES;
     
     [self.bottomCollectionView registerClass:[CardsCollectionCell class] forCellWithReuseIdentifier:[collectionCellIdentity copy]];
-    
-    
     
     self.bottomCollectionView.clipsToBounds = NO;
     
     //first show
-    Carrier *current = (Carrier*)[self.carriers firstObject];
-    self.currentCellHeader.text = [NSString stringWithFormat:@"%@", current.plan];
-    self.policyLabel.text = current.policyNumber.count==0?@"":current.policyNumber[0];
-    self.phoneLabel.text = current.phoneNumber;
-    self.webLabel.text = current.website;
-    
-    
+
     
     CGRect titleRect = CGRectMake(LeftMargin, TopMargin, self.view.bounds.size.width, 30);
     self.shimmeringView = [[FBShimmeringView alloc] initWithFrame:titleRect];
@@ -119,23 +116,18 @@ static NSArray *colors;
     
     
     
-    self.descriptionLabel = ({
-        RQShineLabel *label = [[RQShineLabel alloc] initWithFrame:CGRectMake(LeftMargin+32, CGRectGetHeight(self.titleLabel.frame)+ 64, 100, 300)];
-        label.numberOfLines = 0;
-        label.text = @"Plan\n\n\n\nPolicy No.\n\n\n\nPhone No.\n\n\n\nWebsite";
-        label.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:13.0];
-        label.backgroundColor = [UIColor clearColor];
-        [label sizeToFit];
-        //label.center = self.view.center;
-        label.textColor = [UIColor whiteColor];
-        label;
-    });
-    [self.view addSubview:self.descriptionLabel];
-
-    
-    
-    
-
+//    self.descriptionLabel = ({
+//        RQShineLabel *label = [[RQShineLabel alloc] initWithFrame:CGRectMake(LeftMargin+32, CGRectGetHeight(self.titleLabel.frame)+ 64, 100, 300)];
+//        label.numberOfLines = 0;
+//        label.text = @"Plan\n\n\n\nPolicy No.\n\n\n\nPhone No.\n\n\n\nWebsite";
+//        label.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:13.0];
+//        label.backgroundColor = [UIColor clearColor];
+//        [label sizeToFit];
+//        //label.center = self.view.center;
+//        label.textColor = [UIColor whiteColor];
+//        label;
+//    });
+//    [self.view addSubview:self.descriptionLabel];
     
 }
 
@@ -157,15 +149,13 @@ static NSArray *colors;
 #pragma mark - UIScrollViewDelegate Methods
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView == self.bottomCollectionView) {
-        NSIndexPath *centerCellIndex = [self.bottomCollectionView indexPathForItemAtPoint:CGPointMake(CGRectGetMidX(self.bottomCollectionView.bounds) , CGRectGetMidY(self.bottomCollectionView.bounds))];
-        
-        
-        Carrier *current = (Carrier*)[self.carriers objectAtIndex:centerCellIndex.row];
-        self.currentCellHeader.text = [NSString stringWithFormat:@"%@", current.plan];
-        self.policyLabel.text = current.policyNumber.count==0?@"":current.policyNumber[0];
-        self.phoneLabel.text = current.phoneNumber;
-        self.webLabel.text = current.website;
-        
+//        NSIndexPath *centerCellIndex = [self.bottomCollectionView indexPathForItemAtPoint:CGPointMake(CGRectGetMidX(self.bottomCollectionView.bounds) , CGRectGetMidY(self.bottomCollectionView.bounds))];
+//        
+//        Carrier *current = (Carrier*)[self.carriers objectAtIndex:centerCellIndex.row];
+//        self.currentCellHeader.text = [NSString stringWithFormat:@"%@", current.plan];
+//        self.policyLabel.text = current.policyNumber.count==0?@"":current.policyNumber[0];
+//        self.phoneLabel.text = current.phoneNumber;
+//        self.webLabel.text = current.website;
         
     }
 }
@@ -177,7 +167,7 @@ static NSArray *colors;
 
 - (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return [self.carriers count];
+    return [self.settings count];
 
 }
 
@@ -186,8 +176,8 @@ static NSArray *colors;
         CardsCollectionCell *cell = (CardsCollectionCell *)[collectionView dequeueReusableCellWithReuseIdentifier:[collectionCellIdentity copy] forIndexPath:indexPath];
         //cell.imageView = ((DECellData*)self.bottomCVDataSource[indexPath.item]).cellImageView;
     
-        cell.titleLabel.text = ((Carrier*)[self.carriers objectAtIndex:indexPath.row]).plan;
-        cell.backgroundColor = colors[indexPath.row%self.carriers.count];
+        cell.titleLabel.text = [self.settings objectAtIndex:indexPath.row];
+        cell.backgroundColor = colors[indexPath.row%self.settings.count];
     
 
         
@@ -197,16 +187,25 @@ static NSArray *colors;
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSLog(@"did sssss");
+    NSUInteger index = indexPath.row;
     
-    [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Register"] animated:YES];
+    if(index == 0){
+        [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Search"] animated:YES];
+    }else if(index == 1){
+        [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Register"] animated:YES];
+    }else if (index == 2){
+        [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Register"] animated:YES];
+    }else if (index == 3){
+        //[self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Register"] animated:YES];
+    }
+    
+    
     
 }
 
 
 - (IBAction)clickAndScroll:(id)sender {
     
-    NSLog(@"xxx");
     
     [self.bottomCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     
@@ -217,10 +216,6 @@ static NSArray *colors;
     //In this example we don't care where the user is pushing from
     NSLog(@"delegate get called");
     return [self.storyboard instantiateViewControllerWithIdentifier:@"Register"];
-}
-
--(BOOL)prefersStatusBarHidden{
-    return YES;
 }
 
 @end

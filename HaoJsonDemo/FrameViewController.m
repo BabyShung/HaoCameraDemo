@@ -8,7 +8,6 @@
 
 #import "FrameViewController.h"
 
-
 #import "DebugViewController.h"
 
 #import "EP_thirdViewController.h"
@@ -18,7 +17,7 @@
 #import "MainViewController.h"
 
 
-@interface FrameViewController () <MainVCDelegate>
+@interface FrameViewController () <MainVCDelegate,SettingDelegate>
 
 // four tabbar view controllers
 @property (nonatomic,strong) UINavigationController *VC1;
@@ -30,6 +29,9 @@
 @property (strong, nonatomic) NSMutableArray *menu;
 @property (strong, nonatomic) NSDictionary *dict;
 
+@property (nonatomic) BOOL statusBarHidden;
+
+
 @end
 
 @implementation FrameViewController
@@ -39,16 +41,19 @@
     [super viewDidLoad];
     
     
+    _statusBarHidden = YES;
+    
     //declare all the viewControllers
     
     UINavigationController *mainNVC = [self.storyboard instantiateViewControllerWithIdentifier:@"mainNVC"];
     MainViewController *mvcInDict = (MainViewController * )mainNVC.topViewController;
-    //set delegate for DEBUG
+    //set delegate for DEBUG and slide
     mvcInDict.Maindelegate = self;
     
     
     UINavigationController *settingNVC = [self.storyboard instantiateViewControllerWithIdentifier:@"settingNVC"];
-    
+    CardsViewController *cvc = (CardsViewController *)settingNVC.topViewController;
+    cvc.settingDelegate = self;
     
     self.VC1 = mainNVC;
     self.VC2 = settingNVC;
@@ -56,8 +61,6 @@
     self.VC4 = [self.storyboard instantiateViewControllerWithIdentifier:@"debug2"];
     //2. Delegate: set up VC4 as the delegate of debugVC
     self.VC3.debugDelegate = self.VC4;
-    
-    
     
     self.menu = [NSMutableArray arrayWithObjects:self.VC1, self.VC2,self.VC3,self.VC4, nil];
     
@@ -68,12 +71,8 @@
                  [NSNumber numberWithInt:2], self.VC3.restorationIdentifier,
                  [NSNumber numberWithInt:3], self.VC4.restorationIdentifier, nil];
  
-
-
-    
     [self setupPageViewController];
 
-    
 }
 
 
@@ -101,6 +100,13 @@
  EParentVC delegate methods, coming from other tabbar view controllers
  
  **********************************************************************/
+-(void)slideToPreviousPage{
+    [self.pageViewController setViewControllers:@[self.menu[0]] direction:UIPageViewControllerNavigationDirectionReverse animated:YES completion:nil];
+}
+
+-(void)slideToNextPage{
+    [self.pageViewController setViewControllers:@[self.menu[1]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+}
 
 - (void) setCamDelegateFromMain:(MainViewController *)camVC{
     NSLog(@"yo2?");
@@ -108,7 +114,13 @@
 }
 
 -(NSUInteger)getVCIndex:(UIViewController *) vc{
-    return[[self.dict objectForKey:vc.restorationIdentifier] integerValue];
+    NSUInteger index = [[self.dict objectForKey:vc.restorationIdentifier] integerValue];
+    if(index == 0){
+        [self showStatusBar:NO];
+    }else{
+        [self showStatusBar:YES];
+    }
+    return index;
 }
 
 
@@ -141,5 +153,20 @@
     return self.menu[index];
 }
 
+
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return _statusBarHidden;
+}
+
+- (void)showStatusBar:(BOOL)show {
+    [UIView animateWithDuration:0.5 animations:^{
+        _statusBarHidden = !show;
+        [self setNeedsStatusBarAppearanceUpdate];
+    }];
+}
 
 @end

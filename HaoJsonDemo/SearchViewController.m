@@ -28,6 +28,7 @@ static NSString * const CellIdentifier = @"Cell";
     
 
     
+    
     self.data = @[ @"Hey there!",@"Hey there!",@"Hey there!",@"Hey there!",@"Hey there!",@"Hey there!",@"Hey there!",@"Hey there!",@"Hey there!",@"Hey there!",@"Hey there!",@"Hey there!",@"Hey there!", @"This is a custom UISearchBar.", @"And it's really easy to use...", @"Sweet!" ];
     self.searchData = self.data;
     
@@ -101,14 +102,6 @@ static NSString * const CellIdentifier = @"Cell";
     if([self.searchBar isFirstResponder]){
          [self.searchBar resignFirstResponder];
     }
-    
-   
-}
-
-
-
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
 }
 
 #pragma mark - SSSearchBarDelegate

@@ -15,4 +15,5 @@
 + (UIColor *) greenColor;
 + (UIColor *) blueColor;
 
++ (UIColor *) edibleBlueColor;
 @end

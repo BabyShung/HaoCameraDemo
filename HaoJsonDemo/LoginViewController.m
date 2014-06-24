@@ -71,8 +71,8 @@
     FrameViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"Frame"];
     
     [UIView transitionWithView:windooo
-                      duration:1.2
-                       options:UIViewAnimationOptionTransitionCrossDissolve
+                      duration:0.3
+                       options:UIViewAnimationOptionCurveEaseOut
                     animations:^{ windooo.rootViewController = fvc; }
                     completion:nil];
     

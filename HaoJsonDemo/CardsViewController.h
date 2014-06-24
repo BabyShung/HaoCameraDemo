@@ -7,6 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+
+
+@protocol SettingDelegate
+@required
+
+//slide VC in PageViewController
+- (void) slideToPreviousPage;
+
+@end
+
 @interface CardsViewController : UIViewController
+
+@property (retain, nonatomic) id <SettingDelegate> settingDelegate;
 
 @end

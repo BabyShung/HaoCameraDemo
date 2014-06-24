@@ -25,4 +25,8 @@
     return [UIColor colorWithRed:0 green:.478431 blue:1 alpha:1];
 }
 
++ (UIColor *) edibleBlueColor {
+    return [UIColor colorWithRed:(46/255.0) green:(181/255.0) blue:(231/255.0) alpha:1];
+}
+
 @end

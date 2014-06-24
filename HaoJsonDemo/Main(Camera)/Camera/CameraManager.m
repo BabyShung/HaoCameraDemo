@@ -277,7 +277,12 @@
     /***************************************
      Device: rear camera: 0, front camera: 1
      *******************************************/
+    
+    if([[AVCaptureDevice devices] count] == 0)//if no device, return
+        return;
+    
     _myDevice = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo][0];
+    
     
     /******************
      Torch light

@@ -20,6 +20,10 @@
 @required
 //debug
 - (void) setCamDelegateFromMain:(MainViewController *)camVC;
+
+//slide VC in PageViewController
+- (void) slideToNextPage;
+
 @end
 
 

@@ -35,7 +35,7 @@ static NSString *CellIdentifier = @"Cell";
     //init controls
     [self loadControls];
     
-    self.collectionView.hidden = YES;
+    //self.collectionView.hidden = YES;
     self.collectionView.backgroundColor = [UIColor clearColor];
     
     //registering dequueue cell
@@ -146,7 +146,6 @@ static NSString *CellIdentifier = @"Cell";
     UIViewController *topVC = [self.navigationController topViewController];
     NSLog(@"%@",topVC);
     if([topVC class] == [MainViewController class]){
-        NSLog(@"bang!!!!!!!");
         SecondViewController *secondVC = [[SecondViewController alloc] initWithCollectionViewLayout:[[largeLayout alloc] init]];
         secondVC.useLayoutToLayoutNavigationTransitions = YES;
         [self.navigationController pushViewController:secondVC animated:YES];

@@ -8,7 +8,7 @@
 
 #import "LoadControls.h"
 
-
+#define ButtonAvailableAlpha 0.6
 
 @implementation LoadControls
 
@@ -40,6 +40,37 @@
     tv.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
     return tv;
 }
+
++(UIButton *)createCameraButton_Image:(NSString *)imageName andTintColor:(UIColor *) color andImageInset:(UIEdgeInsets) edgeInset andCenter:(CGPoint)center{
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+
+    button.bounds = CGRectMake(0, 0, 40, 40);
+    button.backgroundColor = [UIColor colorWithWhite:1 alpha:.90];
+    button.alpha = ButtonAvailableAlpha;
+    
+    if(imageName!=nil){
+        [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+        [button setTintColor:color];
+        [button setImageEdgeInsets:edgeInset];
+        
+    }
+    
+    if(!CGPointEqualToPoint(center,CGPointZero)){
+        button.center = center;
+    }
+
+
+    
+    button.layer.shouldRasterize = YES;
+    button.layer.rasterizationScale = [UIScreen mainScreen].scale;
+    button.layer.cornerRadius = 4;
+    
+    button.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    button.layer.borderWidth = 0.5;
+    return button;
+}
+
 
 
 @end

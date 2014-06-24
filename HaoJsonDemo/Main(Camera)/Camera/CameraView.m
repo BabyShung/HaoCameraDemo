@@ -6,10 +6,9 @@
 //  Copyright (c) 2014 Hao Zheng. All rights reserved.
 //
 
-#define ButtonAvailableAlpha 0.6
-#define ButtonUnavailableAlpha 0.2
 
-#define CROPVIEW_HEIGHT 378
+
+#define CROPVIEW_HEIGHT 350
 #define CROPFRAME_BOARDER_WIDTH 3
 #define CROPFRAME_FRAME_WIDTH 220
 #define CROPFRAME_FRAME_HEIGHT 80
@@ -21,10 +20,9 @@
 #import "ShadeView.h"
 #import "ImageCropView.h"
 #import "ED_Color.h"
-
+#import "LoadControls.h"
 
 @interface CameraView () <CameraManageCDelegate>
-
 {
     // Measurements
     CGFloat screenWidth;
@@ -41,8 +39,6 @@
     BOOL isCapturingImage;
 }
 
-
-
 // Crop View
 @property (strong, nonatomic) ImageCropView * CropView;
 
@@ -51,6 +47,9 @@
 @property (strong, nonatomic) UIButton * captureBtn;
 @property (strong, nonatomic) UIButton * TorchBtn;
 @property (strong, nonatomic) UIButton * saveBtn;
+@property (strong, nonatomic) UIButton * nextPageBtn;
+
+@property (strong, nonatomic) UIView * separatorLine;
 
 //previewLayer
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer * captureVideoPreviewLayer;
@@ -63,8 +62,6 @@
 
 @property (nonatomic) UIInterfaceOrientation iot;
 
-
-
 @end
 
 @implementation CameraView
@@ -75,12 +72,9 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        
         //important
         self.iot = iot;
         self.appliedVC = VC;
-        
-        
         [self setup];
     }
     return self;
@@ -147,23 +141,20 @@
 #pragma mark CAMERA CONTROLS
 
 - (void) drawControls {
-    
     if (self.hideAllControls) {
-        
         // In case they want to hide after they've been displayed
         // for (UIButton * btn in @[_backBtn, _captureBtn, _flashBtn, _switchCameraBtn, _saveBtn]) {
         // btn.hidden = YES;
         // }
         return;
     }
-    
     static int offsetFromSide = 10;
     static int offsetBetweenButtons = 20;
     
-    static CGFloat portraitFontSize = 16.0;
+    //static CGFloat portraitFontSize = 16.0;
     static CGFloat landscapeFontSize = 12.5;
     
-    [UIView animateWithDuration:.35 delay:0 options:UIViewAnimationOptionCurveEaseOut  animations:^{
+    [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut  animations:^{
         
         /************************************************************************
          
@@ -175,19 +166,15 @@
             CGFloat centerY = screenHeight - 8 - 20; // 8 is offset from bottom (portrait), 20 is half btn height
             
             _backBtn.center = CGPointMake(offsetFromSide + (_backBtn.bounds.size.width / 2), centerY);
+            _TorchBtn.center = _backBtn.center;
             
-            // offset from backbtn is '20'
-            [_captureBtn setTitle:@"CAPTURE" forState:UIControlStateNormal];
-            _captureBtn.titleLabel.font = [UIFont systemFontOfSize:portraitFontSize];
-            _captureBtn.bounds = CGRectMake(0, 0, 120, 40);
-            _captureBtn.center = CGPointMake(_backBtn.center.x + (_backBtn.bounds.size.width / 2) + offsetBetweenButtons + (_captureBtn.bounds.size.width / 2), centerY);
+            _captureBtn.bounds = CGRectMake(0, 0, 80, 60);
+            _captureBtn.center = CGPointMake(screenWidth/2, centerY - 10);
             
-            // offset from capturebtn is '20'
-            _TorchBtn.center = CGPointMake(_captureBtn.center.x + (_captureBtn.bounds.size.width / 2) + offsetBetweenButtons + (_TorchBtn.bounds.size.width / 2), centerY);
-            
-            // offset from flashBtn is '20'
+            // offset from backBTN is '20'
             _saveBtn.center = CGPointMake(_TorchBtn.center.x + (_TorchBtn.bounds.size.width / 2) + offsetBetweenButtons + (_saveBtn.bounds.size.width / 2), centerY);
             
+            _nextPageBtn.center = CGPointMake(screenWidth - offsetFromSide - (_saveBtn.bounds.size.width / 2), centerY);
         }
         else {
             CGFloat centerX = screenHeight - 8 - 20; // 8 is offset from side(landscape), 20 is half btn height
@@ -206,11 +193,12 @@
             
             // offset from flashBtn is '20'
             _saveBtn.center = CGPointMake(centerX, _TorchBtn.center.y + (_TorchBtn.bounds.size.height / 2) + offsetBetweenButtons + (_saveBtn.bounds.size.height / 2));
+            
+
+            // offset from flashBtn is '20'
+            _nextPageBtn.center = CGPointMake(centerX, _TorchBtn.center.y + (_TorchBtn.bounds.size.height / 2) + offsetBetweenButtons + (_nextPageBtn.bounds.size.height / 2));
         }
-        
-        /*
-         Show the proper controls for picture preview and picture stream
-         */
+  
         
         // If camera preview -- show preview controls / hide capture controls
         if (_capturedImageView.image) {
@@ -219,9 +207,10 @@
             // Show
             _saveBtn.hidden = NO;
             
-            
             // Force User Preference
             _backBtn.hidden = _hideBackButton;
+            
+            _backBtn.hidden = NO;
         }
         // ELSE camera stream -- show capture controls / hide preview controls
         else {
@@ -233,6 +222,8 @@
             // Force User Preference
             _captureBtn.hidden = _hideCaptureButton;
             _backBtn.hidden = _hideBackButton;
+            
+            _backBtn.hidden = YES;
         }
         
         [self evaluateFlashBtn];
@@ -308,6 +299,11 @@
     }
 }
 
+- (void) nextPagePressed:(id)sender {
+    [self.appliedVC.Maindelegate slideToNextPage];
+}
+
+
 - (void) evaluateFlashBtn {
     [_camManager evaluateTorchBtn:_TorchBtn];
 }
@@ -315,11 +311,7 @@
 #pragma mark TAP TO FOCUS
 
 - (void) tapSent:(UITapGestureRecognizer *)sender {
-    
-    NSLog(@"tapped..");
-    
     if (_capturedImageView.image == nil) {
-        
         CGPoint aPoint = [sender locationInView:_StreamView];
         [_camManager focus:aPoint andFocusView:_StreamView];
         
@@ -350,12 +342,8 @@
          
          **********************/
         
-        // targetHeight is the height our image would need to be at the current screenwidth if we maintained the image ratio.
         CGFloat targetHeight = screenHeight * 0.75; // 3:4 ratio
         
-        // we have to draw around the context of the screen
-        // our final image will be the image that is left in the frame of the context
-        // by drawing outside it, we remove the edges of the picture
         CGFloat offsetTop = (targetHeight - size.height) / 2;
         CGFloat offsetLeft = (screenHeight - size.width) / 2;
         
@@ -367,15 +355,7 @@
          
          **********************/
         
-        // targetWidth is the width our image would need to be at the current screenheight if we maintained the image ratio.
         CGFloat targetWidth = screenHeight * 0.75; // 3:4 ratio
-        
-        // we have to draw around the context of the screen
-        // our final image will be the image that is left in the frame of the context
-        // by drawing outside it, we remove the edges of the picture
-        
-        //CGFloat offsetTop = (screenHeight - size.height) / 2;
-        //CGFloat offsetLeft = (targetWidth - size.width) / 2;
         
         /**********
          Hao fixed
@@ -385,7 +365,6 @@
         
         //this rect just fix exactly on iphone5 screen
         CGRectMake(-offsetLeft, -offsetTop, targetWidth, screenHeight);
-        
         
     });
     
@@ -431,7 +410,6 @@
         _captureVideoPreviewLayer.connection.videoOrientation = AVCaptureVideoOrientationPortrait;
     }
     
-    
     [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         for (UIView * v in @[_capturedImageView, _StreamView, self]) {
             v.frame = targetRect;
@@ -443,7 +421,6 @@
     } completion:^(BOOL finished) {
         [self drawControls];
     }];
-    
 }
 
 #pragma mark CLOSE
@@ -577,59 +554,37 @@
 
 - (void) loadControls {
     
-    // -- LOAD BUTTON IMAGES BEGIN -- //
-    UIImage * previousImg = [UIImage imageNamed:@"Previous.png"];
-    UIImage * downloadImg = [UIImage imageNamed:@"Download.png"];
-    UIImage * lighteningImg = [UIImage imageNamed:@"Lightening.png"];
-    // -- LOAD BUTTON IMAGES END -- //
-    
     // -- LOAD BUTTONS BEGIN -- //
-    _backBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_backBtn addTarget:self action:@selector(backBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [_backBtn setImage:previousImg forState:UIControlStateNormal];
-    [_backBtn setTintColor:[ED_Color redColor]];
-    [_backBtn setImageEdgeInsets:UIEdgeInsetsMake(9, 10, 9, 13)];
     
-    _TorchBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    _backBtn = [LoadControls createCameraButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointZero];
+        [_backBtn addTarget:self action:@selector(backBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    _TorchBtn = [LoadControls createCameraButton_Image:@"Lightening.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(6, 9, 6, 9) andCenter:CGPointZero];
     [_TorchBtn addTarget:self action:@selector(torchBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [_TorchBtn setImage:lighteningImg forState:UIControlStateNormal];
-    [_TorchBtn setTintColor:[ED_Color redColor]];
-    [_TorchBtn setImageEdgeInsets:UIEdgeInsetsMake(6, 9, 6, 9)];
     
-    _saveBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    _saveBtn = [LoadControls createCameraButton_Image:@"Download.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 10.5, 7, 10.5) andCenter:CGPointZero];
     [_saveBtn addTarget:self action:@selector(saveBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [_saveBtn setImage:downloadImg forState:UIControlStateNormal];
-    [_saveBtn setTintColor:[ED_Color blueColor]];
-    [_saveBtn setImageEdgeInsets:UIEdgeInsetsMake(7, 10.5, 7, 10.5)];
     
-    _captureBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    _nextPageBtn = [LoadControls createCameraButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 13, 9, 10) andCenter:CGPointZero];
+    [_nextPageBtn addTarget:self action:@selector(nextPagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    _captureBtn = [LoadControls createCameraButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsZero andCenter:CGPointZero];
     [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [_captureBtn setTitle:@"C\nA\nP\nT\nU\nR\nE" forState:UIControlStateNormal];
     [_captureBtn setTitleColor:[ED_Color darkGreyColor] forState:UIControlStateNormal];
     _captureBtn.titleLabel.font = [UIFont systemFontOfSize:12.5];
     _captureBtn.titleLabel.numberOfLines = 0;
     _captureBtn.titleLabel.minimumScaleFactor = .5;
     // -- LOAD BUTTONS END -- //
     
-    // Stylize buttons
-    for (UIButton * btn in @[_backBtn, _captureBtn, _TorchBtn, _saveBtn])  {
-        
-        btn.bounds = CGRectMake(0, 0, 40, 40);
-        btn.backgroundColor = [UIColor colorWithWhite:1 alpha:.96];
-        btn.alpha = ButtonAvailableAlpha;
-        btn.hidden = YES;
-        
-        btn.layer.shouldRasterize = YES;
-        btn.layer.rasterizationScale = [UIScreen mainScreen].scale;
-        btn.layer.cornerRadius = 4;
-        
-        btn.layer.borderColor = [UIColor lightGrayColor].CGColor;
-        btn.layer.borderWidth = 0.5;
-        
+    //separator line
+    _separatorLine = [[UIView alloc] initWithFrame:CGRectMake(10, 350, 300, 1)];
+    _separatorLine.backgroundColor = [UIColor whiteColor];
+    [self addSubview:_separatorLine];
+    
+    for (UIButton * btn in @[_backBtn, _captureBtn, _TorchBtn, _nextPageBtn, _saveBtn])  {
         [self addSubview:btn];
     }
-    
-    
+
     // Draw camera controls
     [self drawControls];
 }
@@ -637,9 +592,9 @@
 
 #pragma mark STATUS BAR
 
-//- (BOOL)prefersStatusBarHidden {
-//    return YES;
-//}
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
 
 #pragma mark GETTERS | SETTERS
 
@@ -666,7 +621,5 @@
 - (BOOL) hideCaptureButton {
     return _hideCaptureButton;
 }
-
-
 
 @end
