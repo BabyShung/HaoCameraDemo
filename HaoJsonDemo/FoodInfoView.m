@@ -40,7 +40,23 @@ const CGFloat LargeTextFontSize = 20.f;
 const CGFloat TagFontSize = 18.f;
 const CGFloat SmallTitleFontSize = 15.f;
 const CGFloat SmallTextFontSize = 40.f;
-
+///*-----*/
+////const CGFloat kCommentCellHeight = .088f;
+//
+//const CGFloat CLeftMargin = .047f;
+//const CGFloat TitleTopMargin = .018f;
+//const CGFloat GAP = .011;
+//const CGFloat MiddleGAP = .035f;
+//
+//const CGFloat ShimmmerViewHeight = .053f;
+//const CGFloat SeparatorViewHeight = 1.f;//FIXED
+//const CGFloat BelowShimmmerGap = .018f;
+//const CGFloat TranslateLabelHeight = .123f;
+//const CGFloat BelowTranslateGap = .035f;
+//const CGFloat DescriptionLabelHeight = .07f;
+//const CGFloat BelowDescriptionLabelGap = .035f;
+///*const CGFloat TagViewHeight = .07f;
+//const CGFloat PhotoCollectionViewHeight = .47f;*/
 
 @interface FoodInfoView () <UICollectionViewDataSource,UICollectionViewDelegate,TagViewDelegate,UITableViewDataSource, UITableViewDelegate>
 {
@@ -84,6 +100,9 @@ const CGFloat SmallTextFontSize = 40.f;
 }
 
 -(void)loadControls{
+    CGFloat height = CGRectGetHeight(self.bounds);
+    CGFloat width = CGRectGetWidth(self.bounds);
+    
     self.scrollview=[[UIScrollView alloc]initWithFrame:self.bounds];
     self.scrollview.showsVerticalScrollIndicator=YES;
     self.scrollview.scrollEnabled=YES;
@@ -110,9 +129,9 @@ const CGFloat SmallTextFontSize = 40.f;
     _shimmeringView.contentView = self.titleLabel;
     
     
-    UIView *separator = [[UIView alloc] initWithFrame:CGRectMake(CLeftMargin, CGRectGetMaxY(self.titleLabel.frame) + BelowShimmmerGap, CGRectGetWidth(self.scrollview.frame)-2*CLeftMargin, SeparatorViewHeight)];
-    separator.backgroundColor = [UIColor blackColor];
-    [self.scrollview addSubview:separator];
+    self.separator = [[UIView alloc] initWithFrame:CGRectMake(CLeftMargin, CGRectGetMaxY(self.titleLabel.frame) + BelowShimmmerGap, CGRectGetWidth(self.scrollview.frame)-2*CLeftMargin, SeparatorViewHeight)];
+    self.separator.backgroundColor = [UIColor blackColor];
+    [self.scrollview addSubview:self.separator];
     
     self.translateLabel = [[UILabel alloc] initWithFrame:CGRectMake(CLeftMargin, TitleTopMargin + CGRectGetHeight(self.titleLabel.frame)  , self.scrollview.bounds.size.width, TranslateLabelHeight)];
     self.translateLabel.text = @"蓝芝士";
@@ -170,9 +189,12 @@ const CGFloat SmallTextFontSize = 40.f;
     //add table view
     //----------------------------comment
     _commentsViewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) )];
+
+    //_commentsViewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + 6.f,320, 568 )];
     //[_commentsViewContainer addGradientMaskWithStartPoint:CGPointMake(0.5, 0.0) endPoint:CGPointMake(0.5, 0.03)];
     //************** pay attention to tableview *****************
-    _commentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) ) style:UITableViewStylePlain];
+    //_commentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) ) style:UITableViewStylePlain];
+    _commentsTableView = [[UITableView alloc] initWithFrame:_commentsViewContainer.frame style:UITableViewStylePlain];
     _commentsTableView.scrollEnabled = NO;
     
     _commentsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -340,33 +362,51 @@ const CGFloat SmallTextFontSize = 40.f;
 
 
 -(void)updateUIForFrame:(CGRect)rect{
+    CGFloat width = CGRectGetWidth(rect);
+    CGFloat height = CGRectGetHeight(rect);
+    [self setFrame:rect];
+    [self.scrollview setFrame:self.bounds];
+    [self.scrollview setContentSize:CGSizeMake(CGRectGetWidth(rect),ScrollViewContentSizeHeight)];
+//    NSLog(@"FOOD view (%f, %f) size: %f,%f", self.scrollview.frame.origin.x,self.scrollview.frame.origin.y,self.scrollview.contentSize.height, self.scrollview.contentSize.width);
+    self.shimmeringView.frame = CGRectMake(CLeftMargin, TitleTopMargin, self.frame.size.width, ShimmmerViewHeight);
+    self.titleLabel.frame = self.shimmeringView.bounds;
+    self.separator.frame = CGRectMake(CLeftMargin, CGRectGetMaxY(self.titleLabel.frame) + BelowShimmmerGap, CGRectGetWidth(self.frame)-2*CLeftMargin, SeparatorViewHeight);
+    self.translateLabel.frame = CGRectMake(CLeftMargin, TitleTopMargin + CGRectGetHeight(self.titleLabel.frame)  , self.bounds.size.width, TranslateLabelHeight);    
+    self.descriptionLabel.frame = CGRectMake(CLeftMargin, CGRectGetHeight(self.titleLabel.frame)+ CGRectGetMaxY(self.titleLabel.frame) + MiddleGAP, CGRectGetWidth(self.scrollview.frame) - CLeftMargin*2, TranslateLabelHeight);
+    self.tagview.frame = CGRectMake(0, BelowDescriptionLabelGap+CGRectGetMaxY(self.descriptionLabel.frame) , CGRectGetWidth(self.bounds), TagViewHeight);
+    self.photoCollectionView.frame = CGRectMake(0, CGRectGetMaxY(self.tagview.frame) + GAP, CGRectGetWidth(self.bounds), PhotoCollectionViewHeight);
+    self.commentsViewContainer.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) );
+    self.commentsTableView.frame = self.commentsViewContainer.bounds;
     
-    //[self setFrame:rect];
-    [self.scrollview setFrame:rect];
-    [self.scrollview setContentSize:rect.size];
-    NSLog(@"FOOD view (%f, %f) size: %f,%f", self.scrollview.frame.origin.x,self.scrollview.frame.origin.y,self.scrollview.contentSize.height, self.scrollview.contentSize.width);
     //self.scrollview.backgroundColor = [UIColor blueColor];
+
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
 
 }
 //-(void)layoutSubviews{
 //    [self.scrollview setContentSize:self.frame.size];
 //    NSLog(@"FOOD view (%f, %f) size: %f,%f", self.frame.origin.x,self.frame.origin.y,self.scrollview.contentSize.height, self.scrollview.contentSize.width);
 //}
+
+
 -(void)setUpForLargeLayout{
     self.userInteractionEnabled = YES;
-    self.scrollview.scrollEnabled = YES;
+//    self.scrollview.scrollEnabled = YES;
     self.descriptionLabel.hidden = NO;
     self.tagview.hidden = NO;
     self.photoCollectionView.hidden = NO;
-    self.commentsTableView.hidden = NO;
+    self.commentsViewContainer.hidden = NO;
 }
 
 -(void)setUpForSmallLayout{
     self.userInteractionEnabled = NO;
-    self.scrollview.scrollEnabled = NO;
+//    self.scrollview.scrollEnabled = NO;
     self.descriptionLabel.hidden = YES;
     self.tagview.hidden = YES;
     self.photoCollectionView.hidden = YES;
-    self.commentsTableView.hidden = YES;
+    self.commentsViewContainer.hidden = YES;
 }
 @end

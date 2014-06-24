@@ -15,4 +15,6 @@
 //This function must be called before large layout cells appear
 -(void)setVCForFoodInfoView:(UIViewController *)vc;
 
+-(void)setUpForLargeLayout;
+-(void)setUpForSmallLayout;
 @end

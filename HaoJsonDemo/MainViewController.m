@@ -145,14 +145,17 @@ static NSString *CellIdentifier = @"Cell";
     NSLog(@"begin3");
     UIViewController *topVC = [self.navigationController topViewController];
     NSLog(@"%@",topVC);
-    if([topVC class] == [MainViewController class]){
-        SecondViewController *secondVC = [[SecondViewController alloc] initWithCollectionViewLayout:[[largeLayout alloc] init]];
-        secondVC.useLayoutToLayoutNavigationTransitions = YES;
-        [self.navigationController pushViewController:secondVC animated:YES];
-    }
-    else{
+    if ([topVC class] != [MainViewController class]) {
         [self.navigationController popViewControllerAnimated:YES];
     }
+//    if([topVC class] == [MainViewController class]){
+//        SecondViewController *secondVC = [[SecondViewController alloc] initWithCollectionViewLayout:[[largeLayout alloc] init]];
+//        secondVC.useLayoutToLayoutNavigationTransitions = YES;
+//        [self.navigationController pushViewController:secondVC animated:YES];
+//    }
+//    else{
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }
     
 }
 

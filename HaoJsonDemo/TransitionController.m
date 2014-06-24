@@ -10,6 +10,7 @@
 #import "TransitionLayout.h"
 #import "largeLayout.h"
 #import "EDCollectionCell.h"
+#import "SecondViewController.h"
 
 @interface TransitionController () 
 
@@ -25,6 +26,7 @@
 
 @property (nonatomic) CGPoint lastPoint;
 
+//@property (nonatomic) EDCollectionCell *currentCell;
 @end
 
 @implementation TransitionController
@@ -43,12 +45,11 @@
         [collectionView addGestureRecognizer:panGestureRecognizer];
         
         self.collectionView = collectionView;
+        
+        
+        
     }
     return self;
-}
-
--(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
-    return YES;
 }
 
 
@@ -87,6 +88,26 @@
 //multi gestures
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
+    return YES;
+}
+
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+//    CGPoint location = [gestureRecognizer locationInView:self.collectionView];
+//    NSIndexPath *indexpath = [self.collectionView indexPathForItemAtPoint:[gestureRecognizer locationInView:self.collectionView]];
+    //CGPoint offset = cell.foodInfoView.scrollview.contentOffset;
+    // NSLog(@"location(%f, %f),cell %d, offset(%f, %f)",location.x,location.y,indexpath.row,offset.x,offset.y);
+    
+//    self.currentCell = (EDCollectionCell *)[self.collectionView cellForItemAtIndexPath:[self.collectionView indexPathForItemAtPoint:[gestureRecognizer locationInView:self.collectionView]]];
+//
+//    if (self.currentCell.foodInfoView.scrollview.contentOffset.y >.0f) {
+//        return NO;
+//    }
+//    else{
+//        NSLog(@"pop start");
+//
+//        return YES;
+//    }
     return YES;
 }
 
@@ -154,6 +175,9 @@
         self.hasActiveInteraction = NO;
     }
     else if(self.transitionLayout.transitionProgress <0.1){
+        NSLog(@"pop canceled");
+
+        //[self enableCollectionView];
         [self.collectionView cancelInteractiveTransition];
         [self.context cancelInteractiveTransition];
     }
@@ -190,11 +214,14 @@
             break;
         case UIGestureRecognizerStateBegan:
             if (sender.numberOfTouches == 1) {
-                if (!self.hasActiveInteraction && fabsf(velocity.y/velocity.x)>1){
+                 EDCollectionCell *cell = (EDCollectionCell *)[self.collectionView cellForItemAtIndexPath:[self.collectionView indexPathForItemAtPoint:point]];
+
+                if (!self.hasActiveInteraction && fabsf(velocity.y/velocity.x)>1.5 && !(cell.foodInfoView.scrollview.contentOffset.y>.0f)){
                     
                     self.initialPinchPoint = point;
                     self.hasActiveInteraction = YES; // the transition is in active motion
                     [self.collectionView selectItemAtIndexPath:[self.collectionView indexPathForItemAtPoint:point] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+                    //[self disableCollectionView];
                     [self.delegate interactionBeganAtPoint:point];
                 }
             }
@@ -204,16 +231,25 @@
                 CGFloat distance = sqrt(translate.x*translate.x + translate.y*translate.y);
                 CGFloat offsetX = translate.x;
                 CGFloat offsetY = translate.y - distance;
-                CGFloat ratio =(point.y - self.initialPinchPoint.y)/fabs(screenH/2- self.initialPinchPoint.y);
+                CGFloat ratio =(point.y - self.initialPinchPoint.y)/(screenH-self.initialPinchPoint.y);
                 
                 UIOffset offsetToUse = UIOffsetMake(offsetX, offsetY);
-                CGFloat progress = MAX(MIN(ratio, 1.0), 0.0);
+                CGFloat progress = MAX(MIN(ratio*1.5, 1.0), 0.0);
                 
                 [self updateWithProgress:progress andOffset:offsetToUse];
             }
             
     }
 }
-
+-(void)enableCollectionView{
+    for (EDCollectionCell *cell in self.collectionView.visibleCells) {
+        [cell setUpForLargeLayout];
+    }
+}
+-(void)disableCollectionView{
+    for (EDCollectionCell *cell in self.collectionView.visibleCells) {
+        [cell setUpForSmallLayout];
+    }
+}
 
 @end

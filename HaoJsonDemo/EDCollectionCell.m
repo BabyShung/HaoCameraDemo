@@ -8,6 +8,8 @@
 
 #import "EDCollectionCell.h"
 #import "LoadControls.h"
+#import "largeLayout.h"
+#import "smallLayout.h"
 
 @interface EDCollectionCell()
 
@@ -37,28 +39,62 @@
 
 }
 
--(void)didTransitionFromLayout:(UICollectionViewLayout *)oldLayout toLayout:(UICollectionViewLayout *)newLayout{
-    if (self.frame.size.height == CGRectGetHeight([[UIScreen mainScreen] bounds])){
-        NSLog(@"Small ->  Large done");
-        NSLog(@"(%f, %f), H:%f , W:%f",self.frame.origin.x,self.frame.origin.y,self.frame.size.height,self.frame.size.width);
-        
-        [self.foodInfoView setUpForLargeLayout];
-        [self.foodInfoView updateUIForFrame:self.bounds];
-    }
-    else{
-        NSLog(@"Large -> Small done");
-        NSLog(@"(%f, %f), H:%f , W:%f",self.frame.origin.x,self.frame.origin.y,self.frame.size.height,self.frame.size.width);
-        [self.foodInfoView setUpForSmallLayout];
-        [self.foodInfoView updateUIForFrame:self.bounds];
-    }
-}
+/**********MEI************/
+/*                       */
+/*   Utility Functions   */
+/*                       */
+/**********MEI************/
 
-
--(void)setVCForFoodInfoView:(UIViewController *)vc{
+-(void)setVCForFoodInfoView:(UIViewController *)vc
+{
     [self.foodInfoView setVC:vc];
 }
 
+-(void)setUpForLargeLayout
+{
+    [self.foodInfoView setUpForLargeLayout];
+}
+
+-(void)setUpForSmallLayout
+{
+    [self.foodInfoView setUpForSmallLayout];
+}
+
+/**********MEI************/
+/*                       */
+/*  Delegate Functions   */
+/*                       */
+/**********MEI************/
+
+
+-(void)willTransitionFromLayout:(UICollectionViewLayout *)oldLayout
+                       toLayout:(UICollectionViewLayout *)newLayout
+{
+    if ([newLayout class] == [smallLayout class]){
+        NSLog(@" Will do large -> small");
+
+        [self.foodInfoView setUpForSmallLayout];
+    }
+    else{
+        NSLog(@" Will do small -> large");
+
+        [self.foodInfoView setUpForLargeLayout];
+    }
+    
+}
+
+-(void)didTransitionFromLayout:(UICollectionViewLayout *)oldLayout
+                      toLayout:(UICollectionViewLayout *)newLayout{
+    [self.foodInfoView updateUIForFrame:self.contentView.frame];
+}
 -(void)layoutSubviews{
+    [self.foodInfoView updateUIForFrame:self.contentView.frame];
+    if (CGRectGetHeight(self.contentView.frame)< CGRectGetHeight([[UIScreen mainScreen] bounds])) {
+        self.foodInfoView.scrollview.scrollEnabled = NO;
+    }
+    else{
+        self.foodInfoView.scrollview.scrollEnabled = YES;
+    }
     //NSLog(@"Cell layout subviews");
     
     //[self.foodInfoView setFrame:self.bounds];

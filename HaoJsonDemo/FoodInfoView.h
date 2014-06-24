@@ -16,11 +16,13 @@
 
 
 
-@interface FoodInfoView : UIView<UIGestureRecognizerDelegate>
+@interface FoodInfoView : UIView
 
 @property (nonatomic, strong) TagView *tagview;
 
 @property (strong,nonatomic) UILabel *titleLabel;
+
+@property (strong,nonatomic)UIView *separator;
 @property (strong,nonatomic) UILabel *translateLabel;
 @property (strong,nonatomic) FBShimmeringView *shimmeringView;
 
@@ -34,6 +36,9 @@
 @property (strong,nonatomic) UIView *commentsViewContainer;
 @property (strong,nonatomic) UITableView *commentsTableView;
 @property (strong,nonatomic) NSMutableArray *comments;
+
+@property (nonatomic) BOOL canScrollDown;
+
 
 - (id)initWithFrame:(CGRect)frame andVC:(UIViewController *)vc;
 

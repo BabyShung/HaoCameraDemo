@@ -15,6 +15,10 @@
 		AC1E7764194F583100532F65 /* filterwords.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC1E7761194F583100532F65 /* filterwords.txt */; };
 		AC1E7765194F583100532F65 /* foodlist_a-z_sql_CN.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC1E7762194F583100532F65 /* foodlist_a-z_sql_CN.txt */; };
 		AC1E7766194F583100532F65 /* foodlist_a-z_sql_KW.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC1E7763194F583100532F65 /* foodlist_a-z_sql_KW.txt */; };
+		AC7491F8195A2C4F00D3CBBA /* TransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7491F7195A2C4F00D3CBBA /* TransitionController.m */; };
+		AC7491FB195A2C7500D3CBBA /* EDCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7491FA195A2C7500D3CBBA /* EDCollectionCell.m */; };
+		AC7491FE195A2CA200D3CBBA /* FoodInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7491FD195A2CA200D3CBBA /* FoodInfoView.m */; };
+		AC749201195A2D4300D3CBBA /* TransitionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC749200195A2D4300D3CBBA /* TransitionLayout.m */; };
 		AC8A357719461E2100FC5465 /* DBOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8A357019461E2100FC5465 /* DBOperation.m */; };
 		AC8A357819461E2100FC5465 /* Dictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8A357219461E2100FC5465 /* Dictionary.m */; };
 		AC8A357A19461E2100FC5465 /* SQLConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8A357619461E2100FC5465 /* SQLConnector.m */; };
@@ -52,10 +56,6 @@
 		B8B60FF219591E60005268D5 /* EDImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FEC19591E60005268D5 /* EDImageCell.m */; };
 		B8B60FF319591E60005268D5 /* EDImageFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FEE19591E60005268D5 /* EDImageFlowLayout.m */; };
 		B8B60FF419591E60005268D5 /* UIImageView+M13AsynchronousImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FF019591E60005268D5 /* UIImageView+M13AsynchronousImageView.m */; };
-		B8B6101219591FB1005268D5 /* TransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6100F19591FB1005268D5 /* TransitionController.m */; };
-		B8B6101319591FB1005268D5 /* TransitionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6101119591FB1005268D5 /* TransitionLayout.m */; };
-		B8B6101619591FF2005268D5 /* EDCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6101519591FF2005268D5 /* EDCollectionCell.m */; };
-		B8B6101D19592280005268D5 /* FoodInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6101C19592280005268D5 /* FoodInfoView.m */; };
 		B8B61023195922B5005268D5 /* FBShimmeringLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B61020195922B5005268D5 /* FBShimmeringLayer.m */; };
 		B8B61024195922B5005268D5 /* FBShimmeringView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B61022195922B5005268D5 /* FBShimmeringView.m */; };
 		B8B6102919592313005268D5 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6102619592313005268D5 /* CommentCell.m */; };
@@ -151,6 +151,14 @@
 		AC1E7761194F583100532F65 /* filterwords.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = filterwords.txt; sourceTree = "<group>"; };
 		AC1E7762194F583100532F65 /* foodlist_a-z_sql_CN.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "foodlist_a-z_sql_CN.txt"; sourceTree = "<group>"; };
 		AC1E7763194F583100532F65 /* foodlist_a-z_sql_KW.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "foodlist_a-z_sql_KW.txt"; sourceTree = "<group>"; };
+		AC7491F6195A2C4F00D3CBBA /* TransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionController.h; sourceTree = "<group>"; };
+		AC7491F7195A2C4F00D3CBBA /* TransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionController.m; sourceTree = "<group>"; };
+		AC7491F9195A2C7500D3CBBA /* EDCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDCollectionCell.h; sourceTree = "<group>"; };
+		AC7491FA195A2C7500D3CBBA /* EDCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDCollectionCell.m; sourceTree = "<group>"; };
+		AC7491FC195A2CA200D3CBBA /* FoodInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodInfoView.h; sourceTree = "<group>"; };
+		AC7491FD195A2CA200D3CBBA /* FoodInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodInfoView.m; sourceTree = "<group>"; };
+		AC7491FF195A2D4300D3CBBA /* TransitionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionLayout.h; sourceTree = "<group>"; };
+		AC749200195A2D4300D3CBBA /* TransitionLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionLayout.m; sourceTree = "<group>"; };
 		AC8A356F19461E2100FC5465 /* DBOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBOperation.h; sourceTree = "<group>"; };
 		AC8A357019461E2100FC5465 /* DBOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBOperation.m; sourceTree = "<group>"; };
 		AC8A357119461E2100FC5465 /* Dictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dictionary.h; sourceTree = "<group>"; };
@@ -202,14 +210,6 @@
 		B8B60FEE19591E60005268D5 /* EDImageFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDImageFlowLayout.m; sourceTree = "<group>"; };
 		B8B60FEF19591E60005268D5 /* UIImageView+M13AsynchronousImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+M13AsynchronousImageView.h"; sourceTree = "<group>"; };
 		B8B60FF019591E60005268D5 /* UIImageView+M13AsynchronousImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+M13AsynchronousImageView.m"; sourceTree = "<group>"; };
-		B8B6100E19591FB1005268D5 /* TransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionController.h; sourceTree = "<group>"; };
-		B8B6100F19591FB1005268D5 /* TransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionController.m; sourceTree = "<group>"; };
-		B8B6101019591FB1005268D5 /* TransitionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionLayout.h; sourceTree = "<group>"; };
-		B8B6101119591FB1005268D5 /* TransitionLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionLayout.m; sourceTree = "<group>"; };
-		B8B6101419591FF2005268D5 /* EDCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDCollectionCell.h; sourceTree = "<group>"; };
-		B8B6101519591FF2005268D5 /* EDCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDCollectionCell.m; sourceTree = "<group>"; };
-		B8B6101B19592280005268D5 /* FoodInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FoodInfoView.h; path = FoodInfoView/FoodInfoView.h; sourceTree = "<group>"; };
-		B8B6101C19592280005268D5 /* FoodInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FoodInfoView.m; path = FoodInfoView/FoodInfoView.m; sourceTree = "<group>"; };
 		B8B6101E195922B5005268D5 /* FBShimmering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBShimmering.h; path = FoodInfoView/ShimmerView/FBShimmering.h; sourceTree = "<group>"; };
 		B8B6101F195922B5005268D5 /* FBShimmeringLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBShimmeringLayer.h; path = FoodInfoView/ShimmerView/FBShimmeringLayer.h; sourceTree = "<group>"; };
 		B8B61020195922B5005268D5 /* FBShimmeringLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBShimmeringLayer.m; path = FoodInfoView/ShimmerView/FBShimmeringLayer.m; sourceTree = "<group>"; };
@@ -510,8 +510,8 @@
 		B8B60FBC19591DDA005268D5 /* FoodInfoView */ = {
 			isa = PBXGroup;
 			children = (
-				B8B6101B19592280005268D5 /* FoodInfoView.h */,
-				B8B6101C19592280005268D5 /* FoodInfoView.m */,
+				AC7491FC195A2CA200D3CBBA /* FoodInfoView.h */,
+				AC7491FD195A2CA200D3CBBA /* FoodInfoView.m */,
 				B8B60FE919591E50005268D5 /* PhotoCollectionView */,
 				B8B60F9F19591416005268D5 /* ShimmerView */,
 				B8B60FE519591E35005268D5 /* ShineLabel */,
@@ -620,8 +620,8 @@
 		B8B6101819592055005268D5 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				B8B6101419591FF2005268D5 /* EDCollectionCell.h */,
-				B8B6101519591FF2005268D5 /* EDCollectionCell.m */,
+				AC7491F9195A2C7500D3CBBA /* EDCollectionCell.h */,
+				AC7491FA195A2C7500D3CBBA /* EDCollectionCell.m */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -638,10 +638,10 @@
 		B8B6101A1959214C005268D5 /* Transition */ = {
 			isa = PBXGroup;
 			children = (
-				B8B6100E19591FB1005268D5 /* TransitionController.h */,
-				B8B6100F19591FB1005268D5 /* TransitionController.m */,
-				B8B6101019591FB1005268D5 /* TransitionLayout.h */,
-				B8B6101119591FB1005268D5 /* TransitionLayout.m */,
+				AC7491FF195A2D4300D3CBBA /* TransitionLayout.h */,
+				AC749200195A2D4300D3CBBA /* TransitionLayout.m */,
+				AC7491F6195A2C4F00D3CBBA /* TransitionController.h */,
+				AC7491F7195A2C4F00D3CBBA /* TransitionController.m */,
 			);
 			name = Transition;
 			sourceTree = "<group>";
@@ -1017,6 +1017,7 @@
 				B8B6105719592528005268D5 /* NetworkTestViewController.m in Sources */,
 				B8B60FE319591E2E005268D5 /* TagView.m in Sources */,
 				B8B6104719592493005268D5 /* ImageCropView.m in Sources */,
+				AC749201195A2D4300D3CBBA /* TransitionLayout.m in Sources */,
 				B8B61088195927C4005268D5 /* SearchViewController.m in Sources */,
 				B8D09A781948BCCF006C070D /* GeneralUser.m in Sources */,
 				3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */,
@@ -1025,9 +1026,9 @@
 				B8B6103C19592369005268D5 /* UIImage+JTSImageEffects.m in Sources */,
 				B8B6106C195926C0005268D5 /* RegisterViewController.m in Sources */,
 				B8B60FB5195914FB005268D5 /* debugView.m in Sources */,
+				AC7491F8195A2C4F00D3CBBA /* TransitionController.m in Sources */,
 				B8B6108F195927D2005268D5 /* SSSearchBar.m in Sources */,
 				B8B6102919592313005268D5 /* CommentCell.m in Sources */,
-				B8B6101219591FB1005268D5 /* TransitionController.m in Sources */,
 				B8B6102A19592313005268D5 /* UIFont+SecretFont.m in Sources */,
 				B8B61083195927A2005268D5 /* CardFlowLayout.m in Sources */,
 				B8B60FF419591E60005268D5 /* UIImageView+M13AsynchronousImageView.m in Sources */,
@@ -1039,6 +1040,7 @@
 				B8B61082195927A2005268D5 /* CardsCollectionCell.m in Sources */,
 				B8F29C6319314357008979A7 /* DebugViewController.mm in Sources */,
 				B8B61070195926D1005268D5 /* MKTransitionCoordinator.m in Sources */,
+				AC7491FB195A2C7500D3CBBA /* EDCollectionCell.m in Sources */,
 				B8B6103719592369005268D5 /* JTSAnimatedGIFUtility.m in Sources */,
 				B8B61077195926E0005268D5 /* NSString+FontAwesome.m in Sources */,
 				B8B6104D195924F2005268D5 /* CameraManager.m in Sources */,
@@ -1049,8 +1051,6 @@
 				B8FA464D18F9E954007DA680 /* AppDelegate.m in Sources */,
 				B8B61092195927EB005268D5 /* Food.m in Sources */,
 				AC1E7760194F580800532F65 /* ShareData.m in Sources */,
-				B8B6101619591FF2005268D5 /* EDCollectionCell.m in Sources */,
-				B8B6101D19592280005268D5 /* FoodInfoView.m in Sources */,
 				3A5654BF193778AD0085CC87 /* WordCorrector.m in Sources */,
 				B8B6104619592493005268D5 /* ControlPointView.m in Sources */,
 				B8D6953C193E71C200E504FA /* ED_Color.m in Sources */,
@@ -1061,6 +1061,7 @@
 				B8B6103F1959243A005268D5 /* RQShineLabel.m in Sources */,
 				B8B6103819592369005268D5 /* JTSImageInfo.m in Sources */,
 				B8B6103919592369005268D5 /* JTSImageViewController.m in Sources */,
+				AC7491FE195A2CA200D3CBBA /* FoodInfoView.m in Sources */,
 				B8FA464918F9E954007DA680 /* main.m in Sources */,
 				B8B61023195922B5005268D5 /* FBShimmeringLayer.m in Sources */,
 				B8B60FAB195914DF005268D5 /* smallLayout.m in Sources */,
@@ -1068,7 +1069,6 @@
 				B8B6103A19592369005268D5 /* JTSSimpleImageDownloader.m in Sources */,
 				B8D09A771948BCCF006C070D /* Review.m in Sources */,
 				AC8A357819461E2100FC5465 /* Dictionary.m in Sources */,
-				B8B6101319591FB1005268D5 /* TransitionLayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
