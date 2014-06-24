@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Appcoda. All rights reserved.
 //
 
-#import "EParentViewController.h"
 
-@interface EP_forthViewController : EParentViewController
+@interface EP_forthViewController : UIViewController
 
 @end

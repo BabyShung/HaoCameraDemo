@@ -34,13 +34,17 @@
 		B8235404192D474D00D6BCAC /* ShadeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B82353FF192D474D00D6BCAC /* ShadeView.m */; };
 		B8235405192D474D00D6BCAC /* ControlPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8235401192D474D00D6BCAC /* ControlPointView.m */; };
 		B8235406192D474D00D6BCAC /* ImageCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8235403192D474D00D6BCAC /* ImageCropView.m */; };
-		B825DD81194264F1004C7DCE /* TransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B825DD7E194264F1004C7DCE /* TransitionController.m */; };
-		B825DD82194264F1004C7DCE /* TransitionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B825DD80194264F1004C7DCE /* TransitionLayout.m */; };
 		B825DD8D194264FF004C7DCE /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B825DD8A194264FF004C7DCE /* MainViewController.m */; };
-		B825DD8E194264FF004C7DCE /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B825DD8C194264FF004C7DCE /* DetailViewController.m */; };
-		B825DD931943AFF0004C7DCE /* CVSmallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B825DD901943AFF0004C7DCE /* CVSmallLayout.m */; };
-		B825DD941943AFF0004C7DCE /* CVLargeLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B825DD921943AFF0004C7DCE /* CVLargeLayout.m */; };
 		B886B1BC1937CEB300DF68D3 /* CameraManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B886B1BB1937CEB300DF68D3 /* CameraManager.m */; };
+		B8B60FA51959142B005268D5 /* FBShimmeringView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FA21959142B005268D5 /* FBShimmeringView.m */; };
+		B8B60FA61959142B005268D5 /* FBShimmeringLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FA41959142B005268D5 /* FBShimmeringLayer.m */; };
+		B8B60FAB195914DF005268D5 /* smallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FA8195914DF005268D5 /* smallLayout.m */; };
+		B8B60FAC195914DF005268D5 /* largeLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FAA195914DF005268D5 /* largeLayout.m */; };
+		B8B60FB1195914F1005268D5 /* TransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FAE195914F1005268D5 /* TransitionController.m */; };
+		B8B60FB2195914F1005268D5 /* TransitionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FB0195914F1005268D5 /* TransitionLayout.m */; };
+		B8B60FB5195914FB005268D5 /* debugView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FB4195914FB005268D5 /* debugView.m */; };
+		B8B60FB819591506005268D5 /* EDCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FB719591506005268D5 /* EDCollectionCell.m */; };
+		B8B60FBB19591605005268D5 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FBA19591605005268D5 /* SecondViewController.m */; };
 		B8C21B2B194F43EB0012B616 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C21B29194F43EB0012B616 /* AWSRuntime.framework */; };
 		B8C21B2C194F43EB0012B616 /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C21B2A194F43EB0012B616 /* AWSS3.framework */; };
 		B8C21B2F194F43FC0012B616 /* Edible_S3.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C21B2E194F43FC0012B616 /* Edible_S3.m */; };
@@ -56,7 +60,6 @@
 		B8F29C5719311A5C008979A7 /* EP_secondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C4E19311A5C008979A7 /* EP_secondViewController.m */; };
 		B8F29C5819311A5C008979A7 /* EP_thirdViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C5019311A5C008979A7 /* EP_thirdViewController.mm */; };
 		B8F29C5919311A5C008979A7 /* EP_forthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C5219311A5C008979A7 /* EP_forthViewController.m */; };
-		B8F29C5A19311A5C008979A7 /* EParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C5419311A5C008979A7 /* EParentViewController.m */; };
 		B8F29C6319314357008979A7 /* DebugViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C6219314357008979A7 /* DebugViewController.mm */; };
 		B8F29C681932DC55008979A7 /* Camera_01.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F29C641932DC55008979A7 /* Camera_01.png */; };
 		B8F29C691932DC55008979A7 /* Camera_01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F29C651932DC55008979A7 /* Camera_01@2x.png */; };
@@ -133,20 +136,29 @@
 		B8235401192D474D00D6BCAC /* ControlPointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlPointView.m; sourceTree = "<group>"; };
 		B8235402192D474D00D6BCAC /* ImageCropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCropView.h; sourceTree = "<group>"; };
 		B8235403192D474D00D6BCAC /* ImageCropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCropView.m; sourceTree = "<group>"; };
-		B825DD7D194264F1004C7DCE /* TransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionController.h; sourceTree = "<group>"; };
-		B825DD7E194264F1004C7DCE /* TransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionController.m; sourceTree = "<group>"; };
-		B825DD7F194264F1004C7DCE /* TransitionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionLayout.h; sourceTree = "<group>"; };
-		B825DD80194264F1004C7DCE /* TransitionLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionLayout.m; sourceTree = "<group>"; };
 		B825DD89194264FF004C7DCE /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		B825DD8A194264FF004C7DCE /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		B825DD8B194264FF004C7DCE /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		B825DD8C194264FF004C7DCE /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		B825DD8F1943AFF0004C7DCE /* CVSmallLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVSmallLayout.h; sourceTree = "<group>"; };
-		B825DD901943AFF0004C7DCE /* CVSmallLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVSmallLayout.m; sourceTree = "<group>"; };
-		B825DD911943AFF0004C7DCE /* CVLargeLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVLargeLayout.h; sourceTree = "<group>"; };
-		B825DD921943AFF0004C7DCE /* CVLargeLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVLargeLayout.m; sourceTree = "<group>"; };
 		B886B1BA1937CEB300DF68D3 /* CameraManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraManager.h; sourceTree = "<group>"; };
 		B886B1BB1937CEB300DF68D3 /* CameraManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraManager.m; sourceTree = "<group>"; };
+		B8B60FA01959142B005268D5 /* FBShimmering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmering.h; sourceTree = "<group>"; };
+		B8B60FA11959142B005268D5 /* FBShimmeringView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmeringView.h; sourceTree = "<group>"; };
+		B8B60FA21959142B005268D5 /* FBShimmeringView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringView.m; sourceTree = "<group>"; };
+		B8B60FA31959142B005268D5 /* FBShimmeringLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmeringLayer.h; sourceTree = "<group>"; };
+		B8B60FA41959142B005268D5 /* FBShimmeringLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringLayer.m; sourceTree = "<group>"; };
+		B8B60FA7195914DF005268D5 /* smallLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smallLayout.h; sourceTree = "<group>"; };
+		B8B60FA8195914DF005268D5 /* smallLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smallLayout.m; sourceTree = "<group>"; };
+		B8B60FA9195914DF005268D5 /* largeLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = largeLayout.h; sourceTree = "<group>"; };
+		B8B60FAA195914DF005268D5 /* largeLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = largeLayout.m; sourceTree = "<group>"; };
+		B8B60FAD195914F1005268D5 /* TransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionController.h; sourceTree = "<group>"; };
+		B8B60FAE195914F1005268D5 /* TransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionController.m; sourceTree = "<group>"; };
+		B8B60FAF195914F1005268D5 /* TransitionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionLayout.h; sourceTree = "<group>"; };
+		B8B60FB0195914F1005268D5 /* TransitionLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionLayout.m; sourceTree = "<group>"; };
+		B8B60FB3195914FB005268D5 /* debugView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debugView.h; sourceTree = "<group>"; };
+		B8B60FB4195914FB005268D5 /* debugView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = debugView.m; sourceTree = "<group>"; };
+		B8B60FB619591506005268D5 /* EDCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDCollectionCell.h; sourceTree = "<group>"; };
+		B8B60FB719591506005268D5 /* EDCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDCollectionCell.m; sourceTree = "<group>"; };
+		B8B60FB919591605005268D5 /* SecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
+		B8B60FBA19591605005268D5 /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		B8C21B29194F43EB0012B616 /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSRuntime.framework; sourceTree = "<group>"; };
 		B8C21B2A194F43EB0012B616 /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSS3.framework; sourceTree = "<group>"; };
 		B8C21B2D194F43FC0012B616 /* Edible_S3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Edible_S3.h; sourceTree = "<group>"; };
@@ -175,8 +187,6 @@
 		B8F29C5019311A5C008979A7 /* EP_thirdViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EP_thirdViewController.mm; sourceTree = "<group>"; };
 		B8F29C5119311A5C008979A7 /* EP_forthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EP_forthViewController.h; sourceTree = "<group>"; };
 		B8F29C5219311A5C008979A7 /* EP_forthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EP_forthViewController.m; sourceTree = "<group>"; };
-		B8F29C5319311A5C008979A7 /* EParentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EParentViewController.h; sourceTree = "<group>"; };
-		B8F29C5419311A5C008979A7 /* EParentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EParentViewController.m; sourceTree = "<group>"; };
 		B8F29C6119314357008979A7 /* DebugViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugViewController.h; sourceTree = "<group>"; };
 		B8F29C6219314357008979A7 /* DebugViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DebugViewController.mm; sourceTree = "<group>"; };
 		B8F29C641932DC55008979A7 /* Camera_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Camera_01.png; sourceTree = "<group>"; };
@@ -339,8 +349,6 @@
 		B825DD7A194264D7004C7DCE /* Transition */ = {
 			isa = PBXGroup;
 			children = (
-				B825DD8B194264FF004C7DCE /* DetailViewController.h */,
-				B825DD8C194264FF004C7DCE /* DetailViewController.m */,
 				B825DD7C194264E5004C7DCE /* Trans */,
 				B825DD7B194264DE004C7DCE /* Layouts */,
 			);
@@ -350,10 +358,10 @@
 		B825DD7B194264DE004C7DCE /* Layouts */ = {
 			isa = PBXGroup;
 			children = (
-				B825DD8F1943AFF0004C7DCE /* CVSmallLayout.h */,
-				B825DD901943AFF0004C7DCE /* CVSmallLayout.m */,
-				B825DD911943AFF0004C7DCE /* CVLargeLayout.h */,
-				B825DD921943AFF0004C7DCE /* CVLargeLayout.m */,
+				B8B60FA7195914DF005268D5 /* smallLayout.h */,
+				B8B60FA8195914DF005268D5 /* smallLayout.m */,
+				B8B60FA9195914DF005268D5 /* largeLayout.h */,
+				B8B60FAA195914DF005268D5 /* largeLayout.m */,
 			);
 			name = Layouts;
 			sourceTree = "<group>";
@@ -361,10 +369,10 @@
 		B825DD7C194264E5004C7DCE /* Trans */ = {
 			isa = PBXGroup;
 			children = (
-				B825DD7D194264F1004C7DCE /* TransitionController.h */,
-				B825DD7E194264F1004C7DCE /* TransitionController.m */,
-				B825DD7F194264F1004C7DCE /* TransitionLayout.h */,
-				B825DD80194264F1004C7DCE /* TransitionLayout.m */,
+				B8B60FAD195914F1005268D5 /* TransitionController.h */,
+				B8B60FAE195914F1005268D5 /* TransitionController.m */,
+				B8B60FAF195914F1005268D5 /* TransitionLayout.h */,
+				B8B60FB0195914F1005268D5 /* TransitionLayout.m */,
 			);
 			name = Trans;
 			sourceTree = "<group>";
@@ -380,6 +388,33 @@
 				B8D09A7E1948BCE1006C070D /* NetworkTestViewController.m */,
 			);
 			name = Network;
+			sourceTree = "<group>";
+		};
+		B8B60F9E195913FF005268D5 /* Main(Camera) */ = {
+			isa = PBXGroup;
+			children = (
+				B8B60FB919591605005268D5 /* SecondViewController.h */,
+				B8B60FBA19591605005268D5 /* SecondViewController.m */,
+				B8B60FB619591506005268D5 /* EDCollectionCell.h */,
+				B8B60FB719591506005268D5 /* EDCollectionCell.m */,
+				B8B60FB3195914FB005268D5 /* debugView.h */,
+				B8B60FB4195914FB005268D5 /* debugView.m */,
+				B825DD7A194264D7004C7DCE /* Transition */,
+				B8B60F9F19591416005268D5 /* ShimmerView */,
+			);
+			name = "Main(Camera)";
+			sourceTree = "<group>";
+		};
+		B8B60F9F19591416005268D5 /* ShimmerView */ = {
+			isa = PBXGroup;
+			children = (
+				B8B60FA01959142B005268D5 /* FBShimmering.h */,
+				B8B60FA11959142B005268D5 /* FBShimmeringView.h */,
+				B8B60FA21959142B005268D5 /* FBShimmeringView.m */,
+				B8B60FA31959142B005268D5 /* FBShimmeringLayer.h */,
+				B8B60FA41959142B005268D5 /* FBShimmeringLayer.m */,
+			);
+			name = ShimmerView;
 			sourceTree = "<group>";
 		};
 		B8D09A701948BCBA006C070D /* Objects */ = {
@@ -430,8 +465,6 @@
 				B8F29C5019311A5C008979A7 /* EP_thirdViewController.mm */,
 				B8F29C5119311A5C008979A7 /* EP_forthViewController.h */,
 				B8F29C5219311A5C008979A7 /* EP_forthViewController.m */,
-				B8F29C5319311A5C008979A7 /* EParentViewController.h */,
-				B8F29C5419311A5C008979A7 /* EParentViewController.m */,
 			);
 			name = Frame;
 			sourceTree = "<group>";
@@ -475,9 +508,14 @@
 		B8FA464218F9E954007DA680 /* HaoJsonDemo */ = {
 			isa = PBXGroup;
 			children = (
+				B825DD89194264FF004C7DCE /* MainViewController.h */,
+				B825DD8A194264FF004C7DCE /* MainViewController.m */,
+				B8FA464E18F9E954007DA680 /* Main.storyboard */,
+				B8F29C6119314357008979A7 /* DebugViewController.h */,
+				B8F29C6219314357008979A7 /* DebugViewController.mm */,
+				B8B60F9E195913FF005268D5 /* Main(Camera) */,
 				B8D09A701948BCBA006C070D /* Objects */,
 				B84ADC0D19474B76005059A5 /* Network */,
-				B825DD7A194264D7004C7DCE /* Transition */,
 				AC8A356819461D3E00FC5465 /* LocalDB */,
 				B8D6953D193EBB9B00E504FA /* Camera */,
 				ACA1726C193920A6005E7D51 /* UI components */,
@@ -488,11 +526,6 @@
 				B8F29C4819311A4F008979A7 /* Frame */,
 				B8DABCFA192FC2A100FF545E /* ImageProcessing */,
 				B82353FD192D473F00D6BCAC /* imageCropView */,
-				B825DD89194264FF004C7DCE /* MainViewController.h */,
-				B825DD8A194264FF004C7DCE /* MainViewController.m */,
-				B8FA464E18F9E954007DA680 /* Main.storyboard */,
-				B8F29C6119314357008979A7 /* DebugViewController.h */,
-				B8F29C6219314357008979A7 /* DebugViewController.mm */,
 				B8FA465418F9E954007DA680 /* Images.xcassets */,
 				B82353C4192BE46C00D6BCAC /* ICON */,
 				B82353B8192BE2DF00D6BCAC /* Image */,
@@ -653,38 +686,41 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8B60FB1195914F1005268D5 /* TransitionController.m in Sources */,
 				B8F29C5519311A5C008979A7 /* FrameViewController.m in Sources */,
+				B8B60FB2195914F1005268D5 /* TransitionLayout.m in Sources */,
+				B8B60FBB19591605005268D5 /* SecondViewController.m in Sources */,
 				3AA1BD90192FA982002729BC /* ImagePreProcessor.mm in Sources */,
-				B825DD941943AFF0004C7DCE /* CVLargeLayout.m in Sources */,
 				B8D09A791948BCCF006C070D /* LocalUser.m in Sources */,
 				B8D69540193F963200E504FA /* CameraView.m in Sources */,
-				B825DD8E194264FF004C7DCE /* DetailViewController.m in Sources */,
+				B8B60FA61959142B005268D5 /* FBShimmeringLayer.m in Sources */,
 				B8D09A781948BCCF006C070D /* GeneralUser.m in Sources */,
 				3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */,
 				3A5654BC1936838C0085CC87 /* TextDetector.mm in Sources */,
 				B886B1BC1937CEB300DF68D3 /* CameraManager.m in Sources */,
 				B8F29C5719311A5C008979A7 /* EP_secondViewController.m in Sources */,
+				B8B60FB5195914FB005268D5 /* debugView.m in Sources */,
 				B8235406192D474D00D6BCAC /* ImageCropView.m in Sources */,
 				B8C21B2F194F43FC0012B616 /* Edible_S3.m in Sources */,
 				AC8A357A19461E2100FC5465 /* SQLConnector.m in Sources */,
 				AC8A357719461E2100FC5465 /* DBOperation.m in Sources */,
+				B8B60FB819591506005268D5 /* EDCollectionCell.m in Sources */,
+				B8B60FAC195914DF005268D5 /* largeLayout.m in Sources */,
 				B8F29C6319314357008979A7 /* DebugViewController.mm in Sources */,
-				B8F29C5A19311A5C008979A7 /* EParentViewController.m in Sources */,
 				B8D09A7F1948BCE1006C070D /* NetworkTestViewController.m in Sources */,
 				B8FA464D18F9E954007DA680 /* AppDelegate.m in Sources */,
 				AC1E7760194F580800532F65 /* ShareData.m in Sources */,
-				B825DD82194264F1004C7DCE /* TransitionLayout.m in Sources */,
 				3A5654BF193778AD0085CC87 /* WordCorrector.m in Sources */,
 				B8D6953C193E71C200E504FA /* ED_Color.m in Sources */,
 				B825DD8D194264FF004C7DCE /* MainViewController.m in Sources */,
-				B825DD81194264F1004C7DCE /* TransitionController.m in Sources */,
 				ACA1726B1939209A005E7D51 /* LoadControls.m in Sources */,
+				B8B60FA51959142B005268D5 /* FBShimmeringView.m in Sources */,
 				B8F29C5619311A5C008979A7 /* EP_firstViewController.m in Sources */,
 				B8F29C5919311A5C008979A7 /* EP_forthViewController.m in Sources */,
 				B8F29C5819311A5C008979A7 /* EP_thirdViewController.mm in Sources */,
 				B8FA464918F9E954007DA680 /* main.m in Sources */,
 				B8235404192D474D00D6BCAC /* ShadeView.m in Sources */,
-				B825DD931943AFF0004C7DCE /* CVSmallLayout.m in Sources */,
+				B8B60FAB195914DF005268D5 /* smallLayout.m in Sources */,
 				B8D09A7C1948BCD7006C070D /* AsyncRequest.m in Sources */,
 				B8D09A771948BCCF006C070D /* Review.m in Sources */,
 				B8235405192D474D00D6BCAC /* ControlPointView.m in Sources */,

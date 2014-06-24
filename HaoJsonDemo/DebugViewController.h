@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Hao Zheng. All rights reserved.
 //
 
-#import "EParentViewController.h"
 #import <UIKit/UIKit.h>
 #import "CameraView.h"
 #import <TesseractOCR/TesseractOCR.h>
@@ -22,7 +21,7 @@
 
 @end
 
-@interface DebugViewController : EParentViewController <EdibleCameraDelegate,TesseractDelegate>
+@interface DebugViewController : UIViewController <EdibleCameraDelegate,TesseractDelegate>
 
 
 @property (retain, nonatomic) id <DebugVCDelegate> debugDelegate;

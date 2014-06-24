@@ -6,12 +6,10 @@
 //  Copyright (c) 2014 Appcoda. All rights reserved.
 //
 
-#import "EParentViewController.h"
-
 
 #import "DebugViewController.h"
 
 
-@interface EP_thirdViewController : EParentViewController <DebugVCDelegate>
+@interface EP_thirdViewController : UIViewController <DebugVCDelegate>
 
 @end

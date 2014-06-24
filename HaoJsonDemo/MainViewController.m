@@ -6,44 +6,56 @@
 //  Copyright (c) 2014 Hao Zheng. All rights reserved.
 
 #import "MainViewController.h"
-#import "CVLargeLayout.h"
+#import "largeLayout.h"
+#import "TransitionController.h"
+#import "debugView.h"
+#import "EDCollectionCell.h"
 
-@interface MainViewController ()
+#import "TransitionLayout.h"
+
+#import "SecondViewController.h"
+
+static NSString *CellIdentifier = @"Cell";
+
+@interface MainViewController () <TransitionControllerDelegate>
+
+@property (nonatomic,strong) debugView *debugV;
+@property (nonatomic, assign) NSInteger cellCount;
+
+@property (strong,nonatomic) TransitionController *transitionController;
 
 @end
 
 @implementation MainViewController
 
-//did select
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    UIViewController *vc = [self nextViewControllerAtPoint:CGPointZero];
-    [self.navigationController pushViewController:vc animated:YES];
-}
 
-//overwrite??
-- (UICollectionViewController *)nextViewControllerAtPoint:(CGPoint)point
-{
-    // We could have multiple section stacks and find the right one,
-    CVLargeLayout *largeLayout = [[CVLargeLayout alloc] init];
-    
-    DetailViewController *nextCollectionVC = [[DetailViewController alloc] initWithCollectionViewLayout:largeLayout];
 
-    
-    nextCollectionVC.useLayoutToLayoutNavigationTransitions = YES;
-    
-    return nextCollectionVC;
-}
 
 - (void)viewDidLoad{
     
-    NSLog(@"--------------- Small layout View did load ---------------");
-    
-    [super viewDidLoad];
 
     //init controls
     [self loadControls];
     
     self.collectionView.hidden = YES;
+    self.collectionView.backgroundColor = [UIColor clearColor];
+    
+    //registering dequueue cell
+    [self.collectionView registerClass:[EDCollectionCell class] forCellWithReuseIdentifier:CellIdentifier];
+    
+    
+    self.cellCount = 10;
+    //self.debugV = [[debugView alloc] initWithFrame:CGRectMake(0, 0, 320, 200) andReferenceCV:self];
+    //[self.view insertSubview:self.debugV aboveSubview:self.collectionView];
+    
+    NSLog(@"view did load");
+    self.transitionController = [[TransitionController alloc] initWithCollectionView:self.collectionView];
+    
+    self.transitionController.delegate = self;
+    
+    
+    self.navigationController.delegate = self.transitionController;
+    self.navigationController.navigationBarHidden = YES;
 
 }
 
@@ -102,5 +114,80 @@
 //    NSLog(@"isHidden: %d",self.collectionView.isHidden);
 }
 
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.cellCount;
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    EDCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    cell.backgroundColor = [UIColor purpleColor];
+    
+    return cell;
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+    
+    NSLog(@"select IN first");
+    
+    SecondViewController *viewController = [[SecondViewController alloc] initWithCollectionViewLayout:[[largeLayout alloc] init]];
+    
+    viewController.useLayoutToLayoutNavigationTransitions = YES;
+    
+    [self.navigationController pushViewController:viewController animated:YES];
+    
+}
+
+
+//delegate method, after calling startInteractiveTransition, will call this
+- (UICollectionViewTransitionLayout *)collectionView:(UICollectionView *)collectionView
+                        transitionLayoutForOldLayout:(UICollectionViewLayout *)fromLayout newLayout:(UICollectionViewLayout *)toLayout
+{
+    NSLog(@"begin1 !?");
+    TransitionLayout *transitionLayout = [[TransitionLayout alloc] initWithCurrentLayout:fromLayout nextLayout:toLayout];
+    
+    return transitionLayout;
+}
+
+
+-(void)addItem
+{
+    [self.collectionView performBatchUpdates:^{
+        self.cellCount = self.cellCount + 1;
+        
+        [self.collectionView insertItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
+        
+    } completion:nil];
+}
+
+
+//transitionVC delegate
+- (void)interactionBeganAtPoint:(CGPoint)point
+{
+    NSLog(@"begin3");
+    
+    UIViewController *topVC = [self.navigationController topViewController];
+    NSLog(@"%@",topVC);
+    if([topVC class] == [MainViewController class]){
+        NSLog(@"bang!!!!!!!");
+        SecondViewController *secondVC = [[SecondViewController alloc] initWithCollectionViewLayout:[[largeLayout alloc] init]];
+        
+        secondVC.useLayoutToLayoutNavigationTransitions = YES;
+        
+        [self.navigationController pushViewController:secondVC animated:YES];
+    }
+    else{
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
+}
+
+
+
+-(BOOL)prefersStatusBarHidden{
+    return YES;
+}
 
 @end

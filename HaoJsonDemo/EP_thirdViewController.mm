@@ -90,10 +90,6 @@
 }
 
 
--(void)viewDidAppear:(BOOL)animated{
-    [self.delegate checkTabbarStatus:self];
-
-}
 
 
 @end

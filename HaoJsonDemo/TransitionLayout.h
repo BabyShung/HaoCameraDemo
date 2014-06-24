@@ -11,7 +11,9 @@
 @interface TransitionLayout : UICollectionViewTransitionLayout
 
 @property (nonatomic) UIOffset offset;
+
 @property (nonatomic) CGFloat progress;
+
 @property (nonatomic) CGSize itemSize;
 
 @end

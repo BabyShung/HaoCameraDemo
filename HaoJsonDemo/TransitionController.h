@@ -15,15 +15,19 @@
 @end
 
 
-@interface TransitionController : NSObject  <UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning, UIGestureRecognizerDelegate>
+@interface TransitionController : NSObject  <UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning, UIGestureRecognizerDelegate,UINavigationControllerDelegate>
 
-@property (nonatomic) id <TransitionControllerDelegate> tranDelegate;
+@property (nonatomic) id <TransitionControllerDelegate> delegate;
 
 @property (nonatomic) BOOL hasActiveInteraction;
+
+@property (nonatomic) UINavigationController *nvc;
 
 @property (nonatomic) UINavigationControllerOperation navigationOperation;
 
 @property (nonatomic) UICollectionView *collectionView;
+
+
 
 - (instancetype)initWithCollectionView:(UICollectionView*)collectionView;
 

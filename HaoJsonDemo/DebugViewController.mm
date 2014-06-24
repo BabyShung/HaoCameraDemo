@@ -69,9 +69,6 @@
 }
 
 
--(void)viewDidAppear:(BOOL)animated{
-    [self.delegate checkTabbarStatus:self];
-}
 
 #pragma mark Tesseract
 //tesseract processing

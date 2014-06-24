@@ -5,7 +5,6 @@
 //  Created by Hao Zheng on 5/24/14.
 //  Copyright (c) 2014 Hao Zheng. All rights reserved.
 
-#import "DetailViewController.h"
 #import "CameraView.h"
 
 /***********************************************
@@ -32,10 +31,12 @@
 
 @end
 
-@interface MainViewController : DetailViewController
+@interface MainViewController : UICollectionViewController
 
 @property (nonatomic,strong) CameraView* camView;
 
 @property (retain, nonatomic) id <MainVCDelegate> Maindelegate;
+
+-(void)addItem;
 
 @end

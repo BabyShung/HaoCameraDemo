@@ -8,8 +8,10 @@
 
 #import "TransitionController.h"
 #import "TransitionLayout.h"
+#import "largeLayout.h"
+#import "EDCollectionCell.h"
 
-@interface TransitionController ()
+@interface TransitionController () <UIGestureRecognizerDelegate>
 
 @property (nonatomic) TransitionLayout* transitionLayout;
 
@@ -21,6 +23,8 @@
 
 @property (nonatomic) CGFloat initialScale;
 
+@property (nonatomic) CGPoint lastPoint;
+
 @end
 
 @implementation TransitionController
@@ -30,34 +34,76 @@
     self = [super init];
     if (self != nil)
     {
-        
-
-        // setup our pinch gesture:
-        //  pinch in closes photos down into a stack,
-        //  pinch out expands the photos into a grid
-        
-        //tap
-//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-//        //add gesture to cells
-//        [collectionView addGestureRecognizer:tap];
-        
-        //pinch
-        UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
-        //add gesture to cells
-        [collectionView addGestureRecognizer:pinchGesture];
-        
         //pan
         UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(oneFingerGesture:)];
         panGestureRecognizer.delegate = self;
         panGestureRecognizer.minimumNumberOfTouches = 1;
         panGestureRecognizer.maximumNumberOfTouches = 1;
+        
         [collectionView addGestureRecognizer:panGestureRecognizer];
         
-        //store the vc
         self.collectionView = collectionView;
+        
+        
+        
     }
     return self;
 }
+
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer;
+{
+    NSLog(@"touch begin!!!!");
+    CGPoint location = [gestureRecognizer locationInView:self.context.containerView];
+    
+    CALayer *presentationLayer = self.collectionView.layer.presentationLayer;
+    
+    if ([presentationLayer hitTest:location])
+    {
+        NSLog(@"----------");
+        return YES;
+    }else{
+        return NO;
+    }
+}
+
+
+
+/********************
+ 
+ navigation delegate
+ 
+ *******************/
+
+- (id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
+                          interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController
+{
+    NSLog(@"begin5");
+    if (animationController==self) {
+        return self;
+    }
+    return nil;
+}
+
+
+- (id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                   animationControllerForOperation:(UINavigationControllerOperation)operation
+                                                fromViewController:(UIViewController *)fromVC
+                                                  toViewController:(UIViewController *)toVC
+{
+    if (![fromVC isKindOfClass:[UICollectionViewController class]] || ![toVC isKindOfClass:[UICollectionViewController class]])
+    {
+        return nil;
+    }
+    if (!self.hasActiveInteraction)
+    {
+        return nil;
+    }
+    NSLog(@"begin4");
+    self.navigationOperation = operation;
+    return self;
+}
+
 
 #pragma mark - UIGestureRecognizerDelegate
 
@@ -67,10 +113,8 @@
     return YES;
 }
 
-
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext
 {
-    
 }
 
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext
@@ -87,9 +131,9 @@
  ****************************************************************************/
 - (void)startInteractiveTransition:(id <UIViewControllerContextTransitioning>)transitionContext
 {
-    NSLog(@"multiple calls?");
-    
+    NSLog(@"x");
     self.context = transitionContext;
+    UIView *containerView = [transitionContext containerView];
     
     UICollectionViewController *fromCollectionVC =
     (UICollectionViewController *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
@@ -97,13 +141,11 @@
     UICollectionViewController *toCollectionVC =
     (UICollectionViewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
-    UIView *containerView = [transitionContext containerView];
+
     [containerView addSubview:[toCollectionVC view]];
-    
+
     self.transitionLayout = (TransitionLayout *)[fromCollectionVC.collectionView startInteractiveTransitionToCollectionViewLayout:toCollectionVC.collectionViewLayout completion:^(BOOL didFinish, BOOL didComplete) {
-        
         [self.context completeTransition:didComplete];
-        
         self.transitionLayout = nil;
         self.context = nil;
         self.hasActiveInteraction = NO;
@@ -116,20 +158,6 @@
         ((progress != self.transitionLayout.transitionProgress) || !UIOffsetEqualToOffset(offset, self.transitionLayout.offset)))
     {
         [self.transitionLayout setOffset:offset];
-        
-        [self.transitionLayout setTransitionProgress:progress];
-        
-        [self.transitionLayout invalidateLayout];
-        
-        [self.context updateInteractiveTransition:progress];
-    }
-}
-
-//not using------
-- (void)updateWithProgress:(CGFloat)progress
-{
-    if (self.context != nil && ((progress != self.transitionLayout.transitionProgress)))
-    {
         [self.transitionLayout setTransitionProgress:progress];
         [self.transitionLayout invalidateLayout];
         [self.context updateInteractiveTransition:progress];
@@ -148,134 +176,97 @@
     {
         self.hasActiveInteraction = NO;
     }
-    // allow for the transition to finish when it's progress has started as a threshold of 10%,
-    // if you want to require the pinch gesture with a wider threshold, change it it a value closer to 1.0
-    //
-    else if ((self.transitionLayout.transitionProgress > 0.1) && success)
-    {
-        [self.collectionView finishInteractiveTransition];
-        [self.context finishInteractiveTransition];
-    }
-    else
-    {
+    else if(self.transitionLayout.transitionProgress <0.1){
         [self.collectionView cancelInteractiveTransition];
         [self.context cancelInteractiveTransition];
     }
+    else if (success){
+        
+        [self.collectionView finishInteractiveTransition];
+        [self.context finishInteractiveTransition];
+    }
 }
+
 
 /*****************************
  
- Pinch gesture recognizer
+ Pan gesture recognizer
+ interctive transition triggered in this order:
+ oneFingerGesture.interactionBeganAtPoint()->AppDelegate.interactionBeganAtPoint()
+ ->PaperCellVC.nextViewControllerAtPoint(); 
+ Animated Push->TransitionController.interactiveTransitionStart()
  
  *****************************/
-- (void)handlePinch:(UIPinchGestureRecognizer *)sender
+- (void)oneFingerGesture:(UIPanGestureRecognizer *)sender
 {
-    // End the transition interaction if the user stops or finishes the pinch gesture
+    CGFloat screenH = CGRectGetHeight([[UIScreen mainScreen] bounds]);
+    CGPoint point = [sender locationInView:sender.view];
+    CGPoint velocity = [sender velocityInView:sender.view];
+    CGPoint translate = [sender translationInView:sender.view];
+    
+
     if (sender.state == UIGestureRecognizerStateEnded)
     {
         [self endInteractionWithSuccess:YES];
+
     }
     else if (sender.state == UIGestureRecognizerStateCancelled)
     {
         [self endInteractionWithSuccess:NO];
     }
-    else if (sender.numberOfTouches == 2)
+    else if (sender.numberOfTouches == 1)
     {
-        
-        
-        
-        // here we expect two finger touch
-        CGPoint point;      // the main touch point, middle point!
-        CGPoint point1;     // location of touch #1
-        CGPoint point2;     // location of touch #2
-        CGFloat distance;   // computed distance between both touches
-        
-        // return the locations of each gesture’s touches in the local coordinate system of a given view
-        point1 = [sender locationOfTouch:0 inView:sender.view];
-        point2 = [sender locationOfTouch:1 inView:sender.view];
-        
-        distance = sqrt((point1.x - point2.x) * (point1.x - point2.x) + (point1.y - point2.y) * (point1.y - point2.y));
-        
-        // get the main touch point
-        point = [sender locationInView:sender.view];
-        
-        
-        //NSLog(@"point: %f, %f",point.x,point.y);
-        //NSLog(@"point1: %f, %f",point1.x,point1.y);
-        //NSLog(@"point2: %f, %f",point2.x,point2.y);
-        
-        if (sender.state == UIGestureRecognizerStateBegan){
-            
-            // start the pinch in our out
-            
-            if (!self.hasActiveInteraction){
+
+            if (sender.state == UIGestureRecognizerStateBegan){
                 
-                self.initialPinchDistance = distance;
-                self.initialPinchPoint = point;
-                self.hasActiveInteraction = YES;    // the transition is in active motion
-                [self.tranDelegate interactionBeganAtPoint:point];
-            }
-        }
-        
-        if (self.hasActiveInteraction){
-            
-            if (sender.state == UIGestureRecognizerStateChanged)
-            {
-                // update the progress of the transtition as the user continues to pinch
-                CGFloat delta = distance - self.initialPinchDistance;
-                
-                CGFloat offsetX = point.x - self.initialPinchPoint.x;
-                
-                //CGFloat offsetY = point.y - self.initialPinchPoint.y;
-                
-                CGFloat offsetY = (point.y - self.initialPinchPoint.y) + delta/M_PI;
-                
-                UIOffset offsetToUse = UIOffsetMake(offsetX, offsetY);
-                
-                CGFloat distanceDelta = distance - self.initialPinchDistance;
-                
-                if (self.navigationOperation == UINavigationControllerOperationPop){
-                    distanceDelta = -distanceDelta;
+                if (!self.hasActiveInteraction && fabsf(velocity.y/velocity.x)>1){
+
+                    self.initialPinchPoint = point;
+                    self.hasActiveInteraction = YES; // the transition is in active motion
+                    [self.collectionView selectItemAtIndexPath:[self.collectionView indexPathForItemAtPoint:point] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+                    NSLog(@"start panning");
+                    [self.delegate interactionBeganAtPoint:point];
                 }
-                //CGFloat dimension = sqrt(self.collectionView.bounds.size.width * self.collectionView.bounds.size.width + self.collectionView.bounds.size.height * self.collectionView.bounds.size.height);
-                
-                //CGFloat progress = MAX(MIN((distanceDelta / dimension), 1.0), 0.0);
-                
-                CGFloat progress = MAX(MIN(((distanceDelta + sender.velocity * M_PI) / 250), 1.0), 0.0);
-                
-                // tell our UICollectionViewTransitionLayout subclass (transitionLayout)
-                // the progress state of the pinch gesture
-
-                [self updateWithProgress:progress andOffset:offsetToUse];
             }
-        }
+            
+            if (self.hasActiveInteraction){
+                
+                if (sender.state == UIGestureRecognizerStateChanged)
+                {
+                    
+                    UIOffset offsetToUse;
+                    CGFloat ratio,offsetX,offsetY;
+
+                    CGFloat distance = sqrt(translate.x*translate.x + translate.y*translate.y);
+                    
+                    offsetX = translate.x;
+                    offsetY = translate.y;
+                    
+                    if (self.navigationOperation == UINavigationControllerOperationPop)//DOWN
+                    {
+                        ratio =(point.y - self.initialPinchPoint.y)/self.initialPinchPoint.y;
+                        offsetY-=distance;
+                        
+                    }
+                    else//UP
+                    {
+
+                        offsetX *= M_PI;
+                        offsetY += distance;
+                        
+                        ratio =(self.initialPinchPoint.y-point.y)/(screenH-self.initialPinchPoint.y);
+                    }
+                    
+                    offsetToUse = UIOffsetMake(offsetX, offsetY);
+                    CGFloat progress = MAX(MIN((ratio*0.5), 1.0), 0.0);
+                    [self updateWithProgress:progress andOffset:offsetToUse];
+                }
+            }
     }
-}
-
-/*****************************
- 
- Pan gesture recognizer
- 
- *****************************/
-- (void)oneFingerGesture:(UIPanGestureRecognizer *)sender
-{
-    CGPoint point = [sender locationInView:sender.view];
-    NSLog(@"point.x %f", point.x);
-    NSLog(@"point.y %f", point.y);
     
     
-    CGPoint velocity = [sender velocityInView:sender.view];
-//    if(velocity.y > 0){
-//        NSLog(@"gesture went Down");
-//    }else{
-//        NSLog(@"gesture went up");
-//    }
+
 }
 
-- (void)handleTap:(UITapGestureRecognizer *)sender
-{
-    CGPoint point = [sender locationInView:sender.view];
-    NSLog(@"tap point.x %f", point.x);
-    NSLog(@"tap point.y %f", point.y);
-}
+
 @end

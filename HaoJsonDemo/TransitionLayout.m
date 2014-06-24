@@ -20,18 +20,21 @@ static NSString *kOffsetV = @"offsetV";
     
     // return the most recently set values for each key
     CGFloat offsetH = [self valueForAnimatedKey:kOffsetH];
+    
     CGFloat offsetV = [self valueForAnimatedKey:kOffsetV];
+    
     _offset = UIOffsetMake(offsetH, offsetV);
 }
 
-// called by the HATransitionController class while updating its transition progress, animating
+// called by the TransitionController class while updating its transition progress, animating
 // the collection view items in an out of stack mode.
-//
 - (void)setOffset:(UIOffset)offset
 {
-    // store the floating-point values with out meaningful keys for our transition layout object
+    // store the floating-point values with our meaningful keys for our transition layout object
     [self updateValue:offset.horizontal forAnimatedKey:kOffsetH];
+    
     [self updateValue:offset.vertical forAnimatedKey:kOffsetV];
+
     _offset = offset;
 }
 
@@ -40,24 +43,22 @@ static NSString *kOffsetV = @"offsetV";
 {
     NSArray *attributes = [super layoutAttributesForElementsInRect:rect];
     
+    
     for (UICollectionViewLayoutAttributes *currentAttribute in attributes)
     {
+        
         CGPoint currentCenter = currentAttribute.center;
-        CGPoint updatedCenter = CGPointMake(currentCenter.x, currentCenter.y + self.offset.vertical);
-        currentAttribute.center = updatedCenter;
+        CGFloat updateX =currentCenter.x + self.offset.horizontal;
+        
+        //Limit user's motion
+        CGFloat updateY = MIN(MAX([[UIScreen mainScreen] bounds].size.height/2, currentCenter.y + self.offset.vertical), [[UIScreen mainScreen] bounds].size.height-190/2) ;
+        currentAttribute.center = CGPointMake(updateX, updateY);
+
     }
     return attributes;
 }
 
-- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    // returns the layout attributes for the item at the specified index path
-    UICollectionViewLayoutAttributes *attributes = [super layoutAttributesForItemAtIndexPath:indexPath];
-    CGPoint currentCenter = attributes.center;
-    CGPoint updatedCenter = CGPointMake(currentCenter.x + self.offset.horizontal, currentCenter.y + self.offset.vertical);
-    attributes.center = updatedCenter;
-    return attributes;
-}
+
 
 
 @end
