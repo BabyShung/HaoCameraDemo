@@ -20,11 +20,6 @@
 
 @required
 
-- (void) checkTabbarStatus:(UIViewController *) vc;
-
-//for debug
-- (void) moveToTabFromMainVC:(NSUInteger) index;
-
 
 //debug
 - (void) setCamDelegateFromMain:(MainViewController *)camVC;

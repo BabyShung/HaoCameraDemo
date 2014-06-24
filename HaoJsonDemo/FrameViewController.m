@@ -17,7 +17,7 @@
 #import "MainViewController.h"
 
 
-@interface FrameViewController () <MainVCDelegate >
+@interface FrameViewController () <MainVCDelegate>
 
 // four tabbar view controllers
 @property (nonatomic,strong) UINavigationController *VC1;
@@ -60,6 +60,9 @@
                  [NSNumber numberWithInt:3], [self.VC4 class], nil];
  
 
+    //set delegate for debug
+    mvcInDict.Maindelegate = self;
+    
     
     //2. Delegate: set up VC3 as the delegate of debugVC
     self.VC2.debugDelegate = self.VC3;
@@ -96,6 +99,7 @@
  **********************************************************************/
 
 - (void) setCamDelegateFromMain:(MainViewController *)camVC{
+    NSLog(@"yo2?");
     camVC.camView.camDelegate = self.VC2;
 }
 

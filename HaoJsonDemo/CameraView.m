@@ -265,7 +265,7 @@
     //-----For debug
     
     //move tab to 1
-    [self.appliedVC.Maindelegate moveToTabFromMainVC:1];
+    //[self.appliedVC.Maindelegate moveToTabFromMainVC:1];
     
     //click back btn
     [self backBtnPressed:nil];

@@ -56,8 +56,6 @@
 		B8D6953C193E71C200E504FA /* ED_Color.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D6953B193E71C200E504FA /* ED_Color.m */; };
 		B8D69540193F963200E504FA /* CameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D6953F193F963200E504FA /* CameraView.m */; };
 		B8F29C5519311A5C008979A7 /* FrameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C4A19311A5C008979A7 /* FrameViewController.m */; };
-		B8F29C5619311A5C008979A7 /* EP_firstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C4C19311A5C008979A7 /* EP_firstViewController.m */; };
-		B8F29C5719311A5C008979A7 /* EP_secondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C4E19311A5C008979A7 /* EP_secondViewController.m */; };
 		B8F29C5819311A5C008979A7 /* EP_thirdViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C5019311A5C008979A7 /* EP_thirdViewController.mm */; };
 		B8F29C5919311A5C008979A7 /* EP_forthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C5219311A5C008979A7 /* EP_forthViewController.m */; };
 		B8F29C6319314357008979A7 /* DebugViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C6219314357008979A7 /* DebugViewController.mm */; };
@@ -179,10 +177,6 @@
 		B8D6953F193F963200E504FA /* CameraView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraView.m; sourceTree = "<group>"; };
 		B8F29C4919311A5C008979A7 /* FrameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameViewController.h; sourceTree = "<group>"; };
 		B8F29C4A19311A5C008979A7 /* FrameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrameViewController.m; sourceTree = "<group>"; };
-		B8F29C4B19311A5C008979A7 /* EP_firstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EP_firstViewController.h; sourceTree = "<group>"; };
-		B8F29C4C19311A5C008979A7 /* EP_firstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EP_firstViewController.m; sourceTree = "<group>"; };
-		B8F29C4D19311A5C008979A7 /* EP_secondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EP_secondViewController.h; sourceTree = "<group>"; };
-		B8F29C4E19311A5C008979A7 /* EP_secondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EP_secondViewController.m; sourceTree = "<group>"; };
 		B8F29C4F19311A5C008979A7 /* EP_thirdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EP_thirdViewController.h; sourceTree = "<group>"; };
 		B8F29C5019311A5C008979A7 /* EP_thirdViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EP_thirdViewController.mm; sourceTree = "<group>"; };
 		B8F29C5119311A5C008979A7 /* EP_forthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EP_forthViewController.h; sourceTree = "<group>"; };
@@ -457,10 +451,6 @@
 			children = (
 				B8F29C4919311A5C008979A7 /* FrameViewController.h */,
 				B8F29C4A19311A5C008979A7 /* FrameViewController.m */,
-				B8F29C4B19311A5C008979A7 /* EP_firstViewController.h */,
-				B8F29C4C19311A5C008979A7 /* EP_firstViewController.m */,
-				B8F29C4D19311A5C008979A7 /* EP_secondViewController.h */,
-				B8F29C4E19311A5C008979A7 /* EP_secondViewController.m */,
 				B8F29C4F19311A5C008979A7 /* EP_thirdViewController.h */,
 				B8F29C5019311A5C008979A7 /* EP_thirdViewController.mm */,
 				B8F29C5119311A5C008979A7 /* EP_forthViewController.h */,
@@ -698,7 +688,6 @@
 				3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */,
 				3A5654BC1936838C0085CC87 /* TextDetector.mm in Sources */,
 				B886B1BC1937CEB300DF68D3 /* CameraManager.m in Sources */,
-				B8F29C5719311A5C008979A7 /* EP_secondViewController.m in Sources */,
 				B8B60FB5195914FB005268D5 /* debugView.m in Sources */,
 				B8235406192D474D00D6BCAC /* ImageCropView.m in Sources */,
 				B8C21B2F194F43FC0012B616 /* Edible_S3.m in Sources */,
@@ -715,7 +704,6 @@
 				B825DD8D194264FF004C7DCE /* MainViewController.m in Sources */,
 				ACA1726B1939209A005E7D51 /* LoadControls.m in Sources */,
 				B8B60FA51959142B005268D5 /* FBShimmeringView.m in Sources */,
-				B8F29C5619311A5C008979A7 /* EP_firstViewController.m in Sources */,
 				B8F29C5919311A5C008979A7 /* EP_forthViewController.m in Sources */,
 				B8F29C5819311A5C008979A7 /* EP_thirdViewController.mm in Sources */,
 				B8FA464918F9E954007DA680 /* main.m in Sources */,

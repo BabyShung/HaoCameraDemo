@@ -29,8 +29,6 @@ static NSString *CellIdentifier = @"Cell";
 @implementation MainViewController
 
 
-
-
 - (void)viewDidLoad{
     
 
@@ -53,42 +51,24 @@ static NSString *CellIdentifier = @"Cell";
     
     self.transitionController.delegate = self;
     
-    
     self.navigationController.delegate = self.transitionController;
     self.navigationController.navigationBarHidden = YES;
 
 }
 
 -(void)loadControls{
-//    NSLog(@"self.view---------------------");
-//    NSLog(@"X: %f", self.view.bounds.origin.x);
-//    NSLog(@"Y: %f", self.view.bounds.origin.y);
-//    NSLog(@"width: %f", self.view.bounds.size.width);
-//    NSLog(@"height: %f", self.view.bounds.size.height);
     
     self.camView = [[CameraView alloc] initWithFrame:CGRectMake(0, 0, 320, 568) andOrientation:self.interfaceOrientation andAppliedVC:self];//nil is not using tabbar frame delegate
 
     [self.view insertSubview:self.camView belowSubview:self.collectionView];
-//    NSLog(@"self.camView---------------------");
-//    NSLog(@"X: %f", self.camView.bounds.origin.x);
-//    NSLog(@"Y: %f", self.camView.bounds.origin.y);
-//    NSLog(@"width: %f", self.camView.bounds.size.width);
-//    NSLog(@"height: %f", self.camView.bounds.size.height);
 
 }
 
 - (void) viewDidAppear:(BOOL)animated {
-    
-    NSLog(@"width: %f", self.collectionView.bounds.size.width);
-    NSLog(@"height: %f", self.collectionView.bounds.size.height);
-    
-    //Hao: important to change tabbar index
-    [self.Maindelegate checkTabbarStatus:self];
-    
-    
+
+    NSLog(@"yo1?");
     //set camView delegate to be DEBUG_VC
     [self.Maindelegate setCamDelegateFromMain:self];
-    
     
     
     [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
@@ -101,8 +81,6 @@ static NSString *CellIdentifier = @"Cell";
             }
         }
     }];
-    
-    
     
     
 //    [UICollectionView transitionWithView:self.collectionView
@@ -122,7 +100,7 @@ static NSString *CellIdentifier = @"Cell";
     
     EDCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    cell.backgroundColor = [UIColor purpleColor];
+    cell.backgroundColor = [UIColor whiteColor];
     
     return cell;
 }
@@ -147,7 +125,6 @@ static NSString *CellIdentifier = @"Cell";
 {
     NSLog(@"begin1 !?");
     TransitionLayout *transitionLayout = [[TransitionLayout alloc] initWithCurrentLayout:fromLayout nextLayout:toLayout];
-    
     return transitionLayout;
 }
 
@@ -156,7 +133,6 @@ static NSString *CellIdentifier = @"Cell";
 {
     [self.collectionView performBatchUpdates:^{
         self.cellCount = self.cellCount + 1;
-        
         [self.collectionView insertItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
         
     } completion:nil];
@@ -167,15 +143,12 @@ static NSString *CellIdentifier = @"Cell";
 - (void)interactionBeganAtPoint:(CGPoint)point
 {
     NSLog(@"begin3");
-    
     UIViewController *topVC = [self.navigationController topViewController];
     NSLog(@"%@",topVC);
     if([topVC class] == [MainViewController class]){
         NSLog(@"bang!!!!!!!");
         SecondViewController *secondVC = [[SecondViewController alloc] initWithCollectionViewLayout:[[largeLayout alloc] init]];
-        
         secondVC.useLayoutToLayoutNavigationTransitions = YES;
-        
         [self.navigationController pushViewController:secondVC animated:YES];
     }
     else{
@@ -183,7 +156,6 @@ static NSString *CellIdentifier = @"Cell";
     }
     
 }
-
 
 
 -(BOOL)prefersStatusBarHidden{
