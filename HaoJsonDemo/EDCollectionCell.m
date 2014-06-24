@@ -7,7 +7,11 @@
 //
 
 #import "EDCollectionCell.h"
+#import "LoadControls.h"
 
+@interface EDCollectionCell()
+
+@end
 
 @implementation EDCollectionCell
 
@@ -15,33 +19,50 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        NSLog(@"CELL INIT");
         [self setup];
     }
     return self;
 }
 
 -(void)setup{
+    self.foodInfoView = [[FoodInfoView alloc] initWithFrame:self.bounds];
+    [self.foodInfoView setUpForSmallLayout];
+    [self.foodInfoView configureNetworkComponents];
+    [self.contentView addSubview:self.foodInfoView];
+    
+    //[self.foodInfoView configureNetworkComponents];
+    //self.foodInfoView.hidden = YES;
+    
 
-    
-    CGRect titleRect = CGRectMake(self.contentView.bounds.origin.x, self.contentView.bounds.origin.y, self.contentView.bounds.size.width, 30);
-    
-    
-    //key part, add to contentview
-    self.shimmeringView = [[FBShimmeringView alloc] initWithFrame:titleRect];
-    self.shimmeringView.shimmering = NO;   //start shimmering
-    self.shimmeringView.shimmeringBeginFadeDuration = 0.3;
-    self.shimmeringView.shimmeringOpacity = 0.3;
-    [self.contentView addSubview:self.shimmeringView];
-    
-    self.titleLabel = [[UILabel alloc] initWithFrame:_shimmeringView.bounds];
-    self.titleLabel.text = @"Shimmer";
-    self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:30.0];
-    self.titleLabel.textColor = [UIColor blackColor];
-    self.titleLabel.textAlignment = NSTextAlignmentCenter;
-    self.titleLabel.backgroundColor = [UIColor clearColor];
-    _shimmeringView.contentView = self.titleLabel;
 }
 
+-(void)didTransitionFromLayout:(UICollectionViewLayout *)oldLayout toLayout:(UICollectionViewLayout *)newLayout{
+    if (self.frame.size.height == CGRectGetHeight([[UIScreen mainScreen] bounds])){
+        NSLog(@"Small ->  Large done");
+        NSLog(@"(%f, %f), H:%f , W:%f",self.frame.origin.x,self.frame.origin.y,self.frame.size.height,self.frame.size.width);
+        
+        [self.foodInfoView setUpForLargeLayout];
+        [self.foodInfoView updateUIForFrame:self.bounds];
+    }
+    else{
+        NSLog(@"Large -> Small done");
+        NSLog(@"(%f, %f), H:%f , W:%f",self.frame.origin.x,self.frame.origin.y,self.frame.size.height,self.frame.size.width);
+        [self.foodInfoView setUpForSmallLayout];
+        [self.foodInfoView updateUIForFrame:self.bounds];
+    }
+}
+
+
+-(void)setVCForFoodInfoView:(UIViewController *)vc{
+    [self.foodInfoView setVC:vc];
+}
+
+-(void)layoutSubviews{
+    //NSLog(@"Cell layout subviews");
+    
+    //[self.foodInfoView setFrame:self.bounds];
+}
 
 
 @end

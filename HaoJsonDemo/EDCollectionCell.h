@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FBShimmering.h"
-#import "FBShimmeringView.h"
+#import "FoodInfoView.h"
 @interface EDCollectionCell : UICollectionViewCell
 
-@property (strong,nonatomic) FBShimmeringView *shimmeringView;
+@property (strong,nonatomic) FoodInfoView *foodInfoView;
 
-@property (strong,nonatomic) UILabel *titleLabel;
+//This function must be called before large layout cells appear
+-(void)setVCForFoodInfoView:(UIViewController *)vc;
 
 @end

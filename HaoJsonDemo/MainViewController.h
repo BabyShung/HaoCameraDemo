@@ -17,14 +17,12 @@
 
 
 @protocol MainVCDelegate
-
 @required
-
-
 //debug
 - (void) setCamDelegateFromMain:(MainViewController *)camVC;
-
 @end
+
+
 
 @interface MainViewController : UICollectionViewController
 

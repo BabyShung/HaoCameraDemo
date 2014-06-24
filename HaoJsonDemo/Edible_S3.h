@@ -14,4 +14,6 @@
 //read image from S3
 -(UIImage *)getImageFromS3:(NSString *)imageName;
 
+-(void)getImageFromS3Async:(NSString *)imageName andSelfy:(id)selfy;
+
 @end

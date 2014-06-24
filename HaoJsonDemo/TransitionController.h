@@ -27,8 +27,6 @@
 
 @property (nonatomic) UICollectionView *collectionView;
 
-
-
 - (instancetype)initWithCollectionView:(UICollectionView*)collectionView;
 
 @end

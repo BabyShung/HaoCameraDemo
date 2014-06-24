@@ -15,6 +15,10 @@
 #define BUCKET_NAME @"test-edible"
 
 
+@interface Edible_S3 () <AmazonServiceRequestDelegate>
+
+@end
+
 @implementation Edible_S3
 
 -(UIImage *)getImageFromS3:(NSString *)imageName{
@@ -24,6 +28,8 @@
         AmazonS3Client *_s3Client = [[AmazonS3Client alloc]initWithAccessKey:ACCESS_KEY withSecretKey:SECRET_KEY];
         
         S3GetObjectRequest *getObjectRequest = [[S3GetObjectRequest alloc]initWithKey:imageName withBucket:BUCKET_NAME];
+        
+        
         
         S3GetObjectResponse *response = [_s3Client getObject:getObjectRequest];
         
@@ -51,6 +57,28 @@
     }
     
 }
+
+-(void)getImageFromS3Async:(NSString *)imageName andSelfy:(id)selfy{
+    
+    
+    AmazonS3Client *_s3Client = [[AmazonS3Client alloc]initWithAccessKey:ACCESS_KEY withSecretKey:SECRET_KEY];
+    // create our request
+    S3GetObjectRequest *getObjectRequest = [[S3GetObjectRequest alloc] initWithKey:imageName
+                                 withBucket:BUCKET_NAME];
+    
+    getObjectRequest.delegate = selfy;
+    
+    // start asynchronous request
+    [_s3Client getObject:getObjectRequest];
+    
+}
+
+
+
+
+
+
+
 
 
 @end

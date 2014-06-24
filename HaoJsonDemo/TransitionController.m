@@ -11,7 +11,7 @@
 #import "largeLayout.h"
 #import "EDCollectionCell.h"
 
-@interface TransitionController () <UIGestureRecognizerDelegate>
+@interface TransitionController () 
 
 @property (nonatomic) TransitionLayout* transitionLayout;
 
@@ -43,37 +43,16 @@
         [collectionView addGestureRecognizer:panGestureRecognizer];
         
         self.collectionView = collectionView;
-        
-        
-        
     }
     return self;
 }
 
-
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer;
-{
-    NSLog(@"touch begin!!!!");
-    CGPoint location = [gestureRecognizer locationInView:self.context.containerView];
-    
-    CALayer *presentationLayer = self.collectionView.layer.presentationLayer;
-    
-    if ([presentationLayer hitTest:location])
-    {
-        NSLog(@"----------");
-        return YES;
-    }else{
-        return NO;
-    }
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+    CGPoint location = [gestureRecognizer locationInView:[self.context containerView]];
+    NSLog(@"location(%f, %f)",location.x,location.y);
+    return YES;
 }
 
-
-
-/********************
- 
- navigation delegate
- 
- *******************/
 
 - (id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
                           interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController
@@ -204,68 +183,38 @@
     CGPoint velocity = [sender velocityInView:sender.view];
     CGPoint translate = [sender translationInView:sender.view];
     
-
-    if (sender.state == UIGestureRecognizerStateEnded)
-    {
-        [self endInteractionWithSuccess:YES];
-
-    }
-    else if (sender.state == UIGestureRecognizerStateCancelled)
-    {
-        [self endInteractionWithSuccess:NO];
-    }
-    else if (sender.numberOfTouches == 1)
-    {
-
-            if (sender.state == UIGestureRecognizerStateBegan){
-                
+    switch (sender.state) {
+        default:
+            [self endInteractionWithSuccess:NO];
+            break;
+        case UIGestureRecognizerStateEnded:
+            [self endInteractionWithSuccess:YES];
+            break;
+        case UIGestureRecognizerStateBegan:
+            if (sender.numberOfTouches == 1) {
                 if (!self.hasActiveInteraction && fabsf(velocity.y/velocity.x)>1){
-
+                    
                     self.initialPinchPoint = point;
                     self.hasActiveInteraction = YES; // the transition is in active motion
                     [self.collectionView selectItemAtIndexPath:[self.collectionView indexPathForItemAtPoint:point] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
-                    NSLog(@"start panning");
                     [self.delegate interactionBeganAtPoint:point];
                 }
             }
-            
+            break;
+        case UIGestureRecognizerStateChanged:
             if (self.hasActiveInteraction){
+                CGFloat distance = sqrt(translate.x*translate.x + translate.y*translate.y);
+                CGFloat offsetX = translate.x;
+                CGFloat offsetY = translate.y - distance;
+                CGFloat ratio =(point.y - self.initialPinchPoint.y)/fabs(screenH/2- self.initialPinchPoint.y);
                 
-                if (sender.state == UIGestureRecognizerStateChanged)
-                {
-                    
-                    UIOffset offsetToUse;
-                    CGFloat ratio,offsetX,offsetY;
-
-                    CGFloat distance = sqrt(translate.x*translate.x + translate.y*translate.y);
-                    
-                    offsetX = translate.x;
-                    offsetY = translate.y;
-                    
-                    if (self.navigationOperation == UINavigationControllerOperationPop)//DOWN
-                    {
-                        ratio =(point.y - self.initialPinchPoint.y)/self.initialPinchPoint.y;
-                        offsetY-=distance;
-                        
-                    }
-                    else//UP
-                    {
-
-                        offsetX *= M_PI;
-                        offsetY += distance;
-                        
-                        ratio =(self.initialPinchPoint.y-point.y)/(screenH-self.initialPinchPoint.y);
-                    }
-                    
-                    offsetToUse = UIOffsetMake(offsetX, offsetY);
-                    CGFloat progress = MAX(MIN((ratio*0.5), 1.0), 0.0);
-                    [self updateWithProgress:progress andOffset:offsetToUse];
-                }
+                UIOffset offsetToUse = UIOffsetMake(offsetX, offsetY);
+                CGFloat progress = MAX(MIN(ratio, 1.0), 0.0);
+                
+                [self updateWithProgress:progress andOffset:offsetToUse];
             }
+            
     }
-    
-    
-
 }
 
 
