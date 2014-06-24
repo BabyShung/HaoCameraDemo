@@ -75,6 +75,24 @@
 		B8B6105519592528005268D5 /* AsyncRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6105019592528005268D5 /* AsyncRequest.m */; };
 		B8B6105719592528005268D5 /* NetworkTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6105419592528005268D5 /* NetworkTestViewController.m */; };
 		B8B6105A195925F2005268D5 /* Edible_S3.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B61059195925F2005268D5 /* Edible_S3.m */; };
+		B8B6106119592696005268D5 /* blackBG.JPG in Resources */ = {isa = PBXBuildFile; fileRef = B8B6105C19592696005268D5 /* blackBG.JPG */; };
+		B8B6106219592696005268D5 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = B8B6105D19592696005268D5 /* lock.png */; };
+		B8B6106319592696005268D5 /* lock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8B6105E19592696005268D5 /* lock@2x.png */; };
+		B8B6106419592696005268D5 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = B8B6105F19592696005268D5 /* user.png */; };
+		B8B6106519592696005268D5 /* user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8B6106019592696005268D5 /* user@2x.png */; };
+		B8B6106B195926C0005268D5 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B61068195926C0005268D5 /* LoginViewController.m */; };
+		B8B6106C195926C0005268D5 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6106A195926C0005268D5 /* RegisterViewController.m */; };
+		B8B61070195926D1005268D5 /* MKTransitionCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6106F195926D1005268D5 /* MKTransitionCoordinator.m */; };
+		B8B61076195926E0005268D5 /* UIButton+Bootstrap.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B61073195926E0005268D5 /* UIButton+Bootstrap.m */; };
+		B8B61077195926E0005268D5 /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B61075195926E0005268D5 /* NSString+FontAwesome.m */; };
+		B8B61081195927A2005268D5 /* Carrier.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6107A195927A2005268D5 /* Carrier.m */; };
+		B8B61082195927A2005268D5 /* CardsCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6107C195927A2005268D5 /* CardsCollectionCell.m */; };
+		B8B61083195927A2005268D5 /* CardFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6107E195927A2005268D5 /* CardFlowLayout.m */; };
+		B8B61084195927A2005268D5 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B61080195927A2005268D5 /* CardsViewController.m */; };
+		B8B61088195927C4005268D5 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B61087195927C4005268D5 /* SearchViewController.m */; };
+		B8B6108E195927D2005268D5 /* DAKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6108B195927D2005268D5 /* DAKeyboardControl.m */; };
+		B8B6108F195927D2005268D5 /* SSSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6108D195927D2005268D5 /* SSSearchBar.m */; };
+		B8B61092195927EB005268D5 /* Food.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B61091195927EB005268D5 /* Food.m */; };
 		B8C21B2B194F43EB0012B616 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C21B29194F43EB0012B616 /* AWSRuntime.framework */; };
 		B8C21B2C194F43EB0012B616 /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C21B2A194F43EB0012B616 /* AWSS3.framework */; };
 		B8D09A771948BCCF006C070D /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D09A721948BCCF006C070D /* Review.m */; };
@@ -83,7 +101,6 @@
 		B8D6953C193E71C200E504FA /* ED_Color.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D6953B193E71C200E504FA /* ED_Color.m */; };
 		B8F29C5519311A5C008979A7 /* FrameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C4A19311A5C008979A7 /* FrameViewController.m */; };
 		B8F29C5819311A5C008979A7 /* EP_thirdViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C5019311A5C008979A7 /* EP_thirdViewController.mm */; };
-		B8F29C5919311A5C008979A7 /* EP_forthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C5219311A5C008979A7 /* EP_forthViewController.m */; };
 		B8F29C6319314357008979A7 /* DebugViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C6219314357008979A7 /* DebugViewController.mm */; };
 		B8F29C681932DC55008979A7 /* Camera_01.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F29C641932DC55008979A7 /* Camera_01.png */; };
 		B8F29C691932DC55008979A7 /* Camera_01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F29C651932DC55008979A7 /* Camera_01@2x.png */; };
@@ -231,6 +248,37 @@
 		B8B6105419592528005268D5 /* NetworkTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetworkTestViewController.m; path = Network/NetworkTestViewController.m; sourceTree = "<group>"; };
 		B8B61058195925F2005268D5 /* Edible_S3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Edible_S3.h; sourceTree = "<group>"; };
 		B8B61059195925F2005268D5 /* Edible_S3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Edible_S3.m; sourceTree = "<group>"; };
+		B8B6105C19592696005268D5 /* blackBG.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = blackBG.JPG; sourceTree = "<group>"; };
+		B8B6105D19592696005268D5 /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock.png; sourceTree = "<group>"; };
+		B8B6105E19592696005268D5 /* lock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock@2x.png"; sourceTree = "<group>"; };
+		B8B6105F19592696005268D5 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
+		B8B6106019592696005268D5 /* user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user@2x.png"; sourceTree = "<group>"; };
+		B8B61067195926C0005268D5 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		B8B61068195926C0005268D5 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		B8B61069195926C0005268D5 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		B8B6106A195926C0005268D5 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		B8B6106E195926D1005268D5 /* MKTransitionCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKTransitionCoordinator.h; sourceTree = "<group>"; };
+		B8B6106F195926D1005268D5 /* MKTransitionCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKTransitionCoordinator.m; sourceTree = "<group>"; };
+		B8B61072195926E0005268D5 /* UIButton+Bootstrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Bootstrap.h"; sourceTree = "<group>"; };
+		B8B61073195926E0005268D5 /* UIButton+Bootstrap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Bootstrap.m"; sourceTree = "<group>"; };
+		B8B61074195926E0005268D5 /* NSString+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FontAwesome.h"; sourceTree = "<group>"; };
+		B8B61075195926E0005268D5 /* NSString+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FontAwesome.m"; sourceTree = "<group>"; };
+		B8B61079195927A2005268D5 /* Carrier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Carrier.h; sourceTree = "<group>"; };
+		B8B6107A195927A2005268D5 /* Carrier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Carrier.m; sourceTree = "<group>"; };
+		B8B6107B195927A2005268D5 /* CardsCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardsCollectionCell.h; sourceTree = "<group>"; };
+		B8B6107C195927A2005268D5 /* CardsCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardsCollectionCell.m; sourceTree = "<group>"; };
+		B8B6107D195927A2005268D5 /* CardFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardFlowLayout.h; sourceTree = "<group>"; };
+		B8B6107E195927A2005268D5 /* CardFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardFlowLayout.m; sourceTree = "<group>"; };
+		B8B6107F195927A2005268D5 /* CardsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
+		B8B61080195927A2005268D5 /* CardsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
+		B8B61086195927C4005268D5 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		B8B61087195927C4005268D5 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		B8B6108A195927D2005268D5 /* DAKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAKeyboardControl.h; sourceTree = "<group>"; };
+		B8B6108B195927D2005268D5 /* DAKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAKeyboardControl.m; sourceTree = "<group>"; };
+		B8B6108C195927D2005268D5 /* SSSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSSearchBar.h; sourceTree = "<group>"; };
+		B8B6108D195927D2005268D5 /* SSSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSSearchBar.m; sourceTree = "<group>"; };
+		B8B61090195927EB005268D5 /* Food.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Food.h; sourceTree = "<group>"; };
+		B8B61091195927EB005268D5 /* Food.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Food.m; sourceTree = "<group>"; };
 		B8C21B29194F43EB0012B616 /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSRuntime.framework; sourceTree = "<group>"; };
 		B8C21B2A194F43EB0012B616 /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSS3.framework; sourceTree = "<group>"; };
 		B8D09A711948BCCF006C070D /* Review.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Review.h; sourceTree = "<group>"; };
@@ -245,8 +293,6 @@
 		B8F29C4A19311A5C008979A7 /* FrameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrameViewController.m; sourceTree = "<group>"; };
 		B8F29C4F19311A5C008979A7 /* EP_thirdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EP_thirdViewController.h; sourceTree = "<group>"; };
 		B8F29C5019311A5C008979A7 /* EP_thirdViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EP_thirdViewController.mm; sourceTree = "<group>"; };
-		B8F29C5119311A5C008979A7 /* EP_forthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EP_forthViewController.h; sourceTree = "<group>"; };
-		B8F29C5219311A5C008979A7 /* EP_forthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EP_forthViewController.m; sourceTree = "<group>"; };
 		B8F29C6119314357008979A7 /* DebugViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugViewController.h; sourceTree = "<group>"; };
 		B8F29C6219314357008979A7 /* DebugViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DebugViewController.mm; sourceTree = "<group>"; };
 		B8F29C641932DC55008979A7 /* Camera_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Camera_01.png; sourceTree = "<group>"; };
@@ -355,6 +401,7 @@
 		ACA1726C193920A6005E7D51 /* UI components */ = {
 			isa = PBXGroup;
 			children = (
+				B8B61071195926D8005268D5 /* Button */,
 				ACA172691939209A005E7D51 /* LoadControls.h */,
 				ACA1726A1939209A005E7D51 /* LoadControls.m */,
 				B8D6953A193E71C200E504FA /* ED_Color.h */,
@@ -366,6 +413,7 @@
 		B82353B8192BE2DF00D6BCAC /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				B8B6105B1959268B005268D5 /* LoginRegister */,
 				B82353C4192BE46C00D6BCAC /* ICON */,
 				ACA172631937C8D7005E7D51 /* testfiles */,
 				B82353A4192BE2D800D6BCAC /* Attribution_PixelLove.png */,
@@ -595,9 +643,92 @@
 			name = Transition;
 			sourceTree = "<group>";
 		};
+		B8B6105B1959268B005268D5 /* LoginRegister */ = {
+			isa = PBXGroup;
+			children = (
+				B8B6105C19592696005268D5 /* blackBG.JPG */,
+				B8B6105D19592696005268D5 /* lock.png */,
+				B8B6105E19592696005268D5 /* lock@2x.png */,
+				B8B6105F19592696005268D5 /* user.png */,
+				B8B6106019592696005268D5 /* user@2x.png */,
+			);
+			name = LoginRegister;
+			sourceTree = "<group>";
+		};
+		B8B61066195926B7005268D5 /* LoginRegister */ = {
+			isa = PBXGroup;
+			children = (
+				B8B6106D195926C8005268D5 /* TransitionLR */,
+				B8B61067195926C0005268D5 /* LoginViewController.h */,
+				B8B61068195926C0005268D5 /* LoginViewController.m */,
+				B8B61069195926C0005268D5 /* RegisterViewController.h */,
+				B8B6106A195926C0005268D5 /* RegisterViewController.m */,
+			);
+			name = LoginRegister;
+			sourceTree = "<group>";
+		};
+		B8B6106D195926C8005268D5 /* TransitionLR */ = {
+			isa = PBXGroup;
+			children = (
+				B8B6106E195926D1005268D5 /* MKTransitionCoordinator.h */,
+				B8B6106F195926D1005268D5 /* MKTransitionCoordinator.m */,
+			);
+			name = TransitionLR;
+			sourceTree = "<group>";
+		};
+		B8B61071195926D8005268D5 /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				B8B61072195926E0005268D5 /* UIButton+Bootstrap.h */,
+				B8B61073195926E0005268D5 /* UIButton+Bootstrap.m */,
+				B8B61074195926E0005268D5 /* NSString+FontAwesome.h */,
+				B8B61075195926E0005268D5 /* NSString+FontAwesome.m */,
+			);
+			name = Button;
+			sourceTree = "<group>";
+		};
+		B8B610781959278D005268D5 /* Cards(Setting) */ = {
+			isa = PBXGroup;
+			children = (
+				B8B61085195927B2005268D5 /* SearchPage */,
+				B8B61079195927A2005268D5 /* Carrier.h */,
+				B8B6107A195927A2005268D5 /* Carrier.m */,
+				B8B6107B195927A2005268D5 /* CardsCollectionCell.h */,
+				B8B6107C195927A2005268D5 /* CardsCollectionCell.m */,
+				B8B6107D195927A2005268D5 /* CardFlowLayout.h */,
+				B8B6107E195927A2005268D5 /* CardFlowLayout.m */,
+				B8B6107F195927A2005268D5 /* CardsViewController.h */,
+				B8B61080195927A2005268D5 /* CardsViewController.m */,
+			);
+			name = "Cards(Setting)";
+			sourceTree = "<group>";
+		};
+		B8B61085195927B2005268D5 /* SearchPage */ = {
+			isa = PBXGroup;
+			children = (
+				B8B61089195927CA005268D5 /* SearchBar */,
+				B8B61086195927C4005268D5 /* SearchViewController.h */,
+				B8B61087195927C4005268D5 /* SearchViewController.m */,
+			);
+			name = SearchPage;
+			sourceTree = "<group>";
+		};
+		B8B61089195927CA005268D5 /* SearchBar */ = {
+			isa = PBXGroup;
+			children = (
+				B8B6108A195927D2005268D5 /* DAKeyboardControl.h */,
+				B8B6108B195927D2005268D5 /* DAKeyboardControl.m */,
+				B8B6108C195927D2005268D5 /* SSSearchBar.h */,
+				B8B6108D195927D2005268D5 /* SSSearchBar.m */,
+			);
+			name = SearchBar;
+			sourceTree = "<group>";
+		};
 		B8D09A701948BCBA006C070D /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				B8B61090195927EB005268D5 /* Food.h */,
+				B8B61091195927EB005268D5 /* Food.m */,
 				B8D09A711948BCCF006C070D /* Review.h */,
 				B8D09A721948BCCF006C070D /* Review.m */,
 				B8D09A731948BCCF006C070D /* GeneralUser.h */,
@@ -638,8 +769,6 @@
 				B8F29C4A19311A5C008979A7 /* FrameViewController.m */,
 				B8F29C4F19311A5C008979A7 /* EP_thirdViewController.h */,
 				B8F29C5019311A5C008979A7 /* EP_thirdViewController.mm */,
-				B8F29C5119311A5C008979A7 /* EP_forthViewController.h */,
-				B8F29C5219311A5C008979A7 /* EP_forthViewController.m */,
 			);
 			name = Frame;
 			sourceTree = "<group>";
@@ -686,6 +815,8 @@
 				B8FA464E18F9E954007DA680 /* Main.storyboard */,
 				B8F29C4819311A4F008979A7 /* Frame */,
 				B8B60F9E195913FF005268D5 /* Main(Camera) */,
+				B8B610781959278D005268D5 /* Cards(Setting) */,
+				B8B61066195926B7005268D5 /* LoginRegister */,
 				B8D09A701948BCBA006C070D /* Objects */,
 				B84ADC0D19474B76005059A5 /* Network */,
 				AC8A356819461D3E00FC5465 /* LocalDB */,
@@ -813,6 +944,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC1E7766194F583100532F65 /* foodlist_a-z_sql_KW.txt in Resources */,
+				B8B6106519592696005268D5 /* user@2x.png in Resources */,
+				B8B6106319592696005268D5 /* lock@2x.png in Resources */,
 				B8F29C761932DD20008979A7 /* Discover_01.png in Resources */,
 				B8F29C691932DC55008979A7 /* Camera_01@2x.png in Resources */,
 				B8F29C731932DCF5008979A7 /* Me_01@2x.png in Resources */,
@@ -824,6 +957,7 @@
 				B82353B6192BE2D800D6BCAC /* shutter@2x.png in Resources */,
 				B8F29C701932DCF5008979A7 /* Dine_01.png in Resources */,
 				B8B60FDA19591E07005268D5 /* moreButton.png in Resources */,
+				B8B6106219592696005268D5 /* lock.png in Resources */,
 				B8B60FD319591E07005268D5 /* like_greyIcon.png in Resources */,
 				B8B60FE419591E2E005268D5 /* btn_tag_delete.png in Resources */,
 				B8FA465518F9E954007DA680 /* Images.xcassets in Resources */,
@@ -836,6 +970,7 @@
 				B82353F0192CFC4C00D6BCAC /* tessdata in Resources */,
 				B8F29C721932DCF5008979A7 /* Me_01.png in Resources */,
 				B8B60FD519591E07005268D5 /* likeButton_selected.png in Resources */,
+				B8B6106419592696005268D5 /* user.png in Resources */,
 				B8F29C711932DCF5008979A7 /* Dine_01@2x.png in Resources */,
 				B8B60FD719591E07005268D5 /* likeButtonToolbar_selected.png in Resources */,
 				B82353BE192BE2F400D6BCAC /* Download.png in Resources */,
@@ -844,6 +979,7 @@
 				AC1E7765194F583100532F65 /* foodlist_a-z_sql_CN.txt in Resources */,
 				B8B60FD819591E07005268D5 /* likeButtonToolbar_unselected.png in Resources */,
 				B8B60FF119591E60005268D5 /* fullURLs.txt in Resources */,
+				B8B6106119592696005268D5 /* blackBG.JPG in Resources */,
 				B8B60FD219591E07005268D5 /* commentButton.png in Resources */,
 				B8FA465018F9E954007DA680 /* Main.storyboard in Resources */,
 				B8B60FD419591E07005268D5 /* likeButton_highlighted.png in Resources */,
@@ -870,32 +1006,44 @@
 				B8B60FBB19591605005268D5 /* SecondViewController.m in Sources */,
 				B8B6104E195924F2005268D5 /* CameraView.m in Sources */,
 				3AA1BD90192FA982002729BC /* ImagePreProcessor.mm in Sources */,
+				B8B61084195927A2005268D5 /* CardsViewController.m in Sources */,
 				B8B6103B19592369005268D5 /* UIApplication+JTSImageViewController.m in Sources */,
 				B8D09A791948BCCF006C070D /* LocalUser.m in Sources */,
 				B8B6105719592528005268D5 /* NetworkTestViewController.m in Sources */,
 				B8B60FE319591E2E005268D5 /* TagView.m in Sources */,
 				B8B6104719592493005268D5 /* ImageCropView.m in Sources */,
+				B8B61088195927C4005268D5 /* SearchViewController.m in Sources */,
 				B8D09A781948BCCF006C070D /* GeneralUser.m in Sources */,
 				3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */,
 				3A5654BC1936838C0085CC87 /* TextDetector.mm in Sources */,
+				B8B61076195926E0005268D5 /* UIButton+Bootstrap.m in Sources */,
 				B8B6103C19592369005268D5 /* UIImage+JTSImageEffects.m in Sources */,
+				B8B6106C195926C0005268D5 /* RegisterViewController.m in Sources */,
 				B8B60FB5195914FB005268D5 /* debugView.m in Sources */,
+				B8B6108F195927D2005268D5 /* SSSearchBar.m in Sources */,
 				B8B6102919592313005268D5 /* CommentCell.m in Sources */,
 				B8B6101219591FB1005268D5 /* TransitionController.m in Sources */,
 				B8B6102A19592313005268D5 /* UIFont+SecretFont.m in Sources */,
+				B8B61083195927A2005268D5 /* CardFlowLayout.m in Sources */,
 				B8B60FF419591E60005268D5 /* UIImageView+M13AsynchronousImageView.m in Sources */,
 				B8B6105A195925F2005268D5 /* Edible_S3.m in Sources */,
 				AC8A357A19461E2100FC5465 /* SQLConnector.m in Sources */,
 				AC8A357719461E2100FC5465 /* DBOperation.m in Sources */,
 				B8B60FAC195914DF005268D5 /* largeLayout.m in Sources */,
 				B8B60FF319591E60005268D5 /* EDImageFlowLayout.m in Sources */,
+				B8B61082195927A2005268D5 /* CardsCollectionCell.m in Sources */,
 				B8F29C6319314357008979A7 /* DebugViewController.mm in Sources */,
+				B8B61070195926D1005268D5 /* MKTransitionCoordinator.m in Sources */,
 				B8B6103719592369005268D5 /* JTSAnimatedGIFUtility.m in Sources */,
+				B8B61077195926E0005268D5 /* NSString+FontAwesome.m in Sources */,
 				B8B6104D195924F2005268D5 /* CameraManager.m in Sources */,
 				B8B6105519592528005268D5 /* AsyncRequest.m in Sources */,
 				B8B61024195922B5005268D5 /* FBShimmeringView.m in Sources */,
+				B8B6106B195926C0005268D5 /* LoginViewController.m in Sources */,
 				B8B60FF219591E60005268D5 /* EDImageCell.m in Sources */,
 				B8FA464D18F9E954007DA680 /* AppDelegate.m in Sources */,
+				B8B61081195927A2005268D5 /* Carrier.m in Sources */,
+				B8B61092195927EB005268D5 /* Food.m in Sources */,
 				AC1E7760194F580800532F65 /* ShareData.m in Sources */,
 				B8B6101619591FF2005268D5 /* EDCollectionCell.m in Sources */,
 				B8B6101D19592280005268D5 /* FoodInfoView.m in Sources */,
@@ -904,7 +1052,6 @@
 				B8D6953C193E71C200E504FA /* ED_Color.m in Sources */,
 				B825DD8D194264FF004C7DCE /* MainViewController.m in Sources */,
 				ACA1726B1939209A005E7D51 /* LoadControls.m in Sources */,
-				B8F29C5919311A5C008979A7 /* EP_forthViewController.m in Sources */,
 				B8F29C5819311A5C008979A7 /* EP_thirdViewController.mm in Sources */,
 				B8B6104819592493005268D5 /* ShadeView.m in Sources */,
 				B8B6103F1959243A005268D5 /* RQShineLabel.m in Sources */,
@@ -913,6 +1060,7 @@
 				B8FA464918F9E954007DA680 /* main.m in Sources */,
 				B8B61023195922B5005268D5 /* FBShimmeringLayer.m in Sources */,
 				B8B60FAB195914DF005268D5 /* smallLayout.m in Sources */,
+				B8B6108E195927D2005268D5 /* DAKeyboardControl.m in Sources */,
 				B8B6103A19592369005268D5 /* JTSSimpleImageDownloader.m in Sources */,
 				B8D09A771948BCCF006C070D /* Review.m in Sources */,
 				AC8A357819461E2100FC5465 /* Dictionary.m in Sources */,

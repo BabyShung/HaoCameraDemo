@@ -12,7 +12,8 @@
 #import "DebugViewController.h"
 
 #import "EP_thirdViewController.h"
-#import "EP_forthViewController.h"
+
+#import "CardsViewController.h"
 
 #import "MainViewController.h"
 
@@ -21,9 +22,9 @@
 
 // four tabbar view controllers
 @property (nonatomic,strong) UINavigationController *VC1;
-@property (nonatomic,strong) DebugViewController *VC2;
-@property (nonatomic,strong) EP_thirdViewController *VC3;
-@property (nonatomic,strong) EP_forthViewController *VC4;
+@property (nonatomic,strong) UINavigationController *VC2;
+@property (nonatomic,strong) DebugViewController *VC3;
+@property (nonatomic,strong) EP_thirdViewController *VC4;
 
 //array to store VCs
 @property (strong, nonatomic) NSMutableArray *menu;
@@ -41,31 +42,34 @@
     //declare all the viewControllers
     
     UINavigationController *mainNVC = [self.storyboard instantiateViewControllerWithIdentifier:@"mainNVC"];
-    
-    
     MainViewController *mvcInDict = (MainViewController * )mainNVC.topViewController;
+    //set delegate for DEBUG
+    mvcInDict.Maindelegate = self;
+    
+    
+    UINavigationController *settingNVC = [self.storyboard instantiateViewControllerWithIdentifier:@"settingNVC"];
     
     
     self.VC1 = mainNVC;
-    self.VC2 = [self.storyboard instantiateViewControllerWithIdentifier:@"debug"];
-    self.VC3 = [self.storyboard instantiateViewControllerWithIdentifier:@"vc3"];
-    self.VC4 = [self.storyboard instantiateViewControllerWithIdentifier:@"vc4"];
+    self.VC2 = settingNVC;
+    self.VC3 = [self.storyboard instantiateViewControllerWithIdentifier:@"debug"];
+    self.VC4 = [self.storyboard instantiateViewControllerWithIdentifier:@"debug2"];
+    //2. Delegate: set up VC4 as the delegate of debugVC
+    self.VC3.debugDelegate = self.VC4;
+    
+    
+    
     self.menu = [NSMutableArray arrayWithObjects:self.VC1, self.VC2,self.VC3,self.VC4, nil];
     
     //a dictionary that knows which index giving a class name of VC
     self.dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                 [NSNumber numberWithInt:0], [mvcInDict class],
-                 [NSNumber numberWithInt:1], [self.VC2 class],
-                 [NSNumber numberWithInt:2], [self.VC3 class],
-                 [NSNumber numberWithInt:3], [self.VC4 class], nil];
+                 [NSNumber numberWithInt:0], mainNVC.restorationIdentifier,
+                 [NSNumber numberWithInt:1], settingNVC.restorationIdentifier,
+                 [NSNumber numberWithInt:2], self.VC3.restorationIdentifier,
+                 [NSNumber numberWithInt:3], self.VC4.restorationIdentifier, nil];
  
 
-    //set delegate for debug
-    mvcInDict.Maindelegate = self;
-    
-    
-    //2. Delegate: set up VC3 as the delegate of debugVC
-    self.VC2.debugDelegate = self.VC3;
+
     
     [self setupPageViewController];
 
@@ -100,11 +104,11 @@
 
 - (void) setCamDelegateFromMain:(MainViewController *)camVC{
     NSLog(@"yo2?");
-    camVC.camView.camDelegate = self.VC2;
+    camVC.camView.camDelegate = self.VC3;
 }
 
 -(NSUInteger)getVCIndex:(UIViewController *) vc{
-    return[[self.dict objectForKey:[vc class]] integerValue];
+    return[[self.dict objectForKey:vc.restorationIdentifier] integerValue];
 }
 
 
