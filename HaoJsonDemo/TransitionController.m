@@ -48,8 +48,6 @@
 }
 
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
-    CGPoint location = [gestureRecognizer locationInView:[self.context containerView]];
-    NSLog(@"location(%f, %f)",location.x,location.y);
     return YES;
 }
 
