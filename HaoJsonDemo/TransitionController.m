@@ -216,7 +216,7 @@
             if (sender.numberOfTouches == 1) {
                  EDCollectionCell *cell = (EDCollectionCell *)[self.collectionView cellForItemAtIndexPath:[self.collectionView indexPathForItemAtPoint:point]];
 
-                if (!self.hasActiveInteraction && fabsf(velocity.y/velocity.x)>1.5 && !(cell.foodInfoView.scrollview.contentOffset.y>.0f)){
+                if (!self.hasActiveInteraction && fabsf(velocity.y/velocity.x)>2 && !(cell.foodInfoView.scrollview.contentOffset.y>.0f)){
                     
                     self.initialPinchPoint = point;
                     self.hasActiveInteraction = YES; // the transition is in active motion

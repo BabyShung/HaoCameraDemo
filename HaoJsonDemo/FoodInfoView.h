@@ -46,7 +46,7 @@
 
 -(void)setVC:(UIViewController *)vc;
 
--(void)updateUIForFrame:(CGRect)frame;
+-(void)updateUIForBounds:(CGRect)frame;
 
 -(void)setUpForLargeLayout;
 
