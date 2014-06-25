@@ -11,6 +11,7 @@
 #import "UIImage+OpenCV.h"
 #import "ImagePreProcessor.h"
 #import "TextDetector.h"
+#import "WordCorrector.h"
 
 
 @interface DebugViewController ()
@@ -142,6 +143,14 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         //1.Use tesseract to recognize image
         tv.text = [self recognizeImageWithTesseract:image];
+
+        
+        
+        WordCorrector *wc=[[WordCorrector alloc]init];
+        tv.text =[wc WordGuess:tv.text];
+        NSLog(@"This is it2: %@",tv.text);
+        
+        
         
     });
     
