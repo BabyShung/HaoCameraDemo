@@ -9,7 +9,7 @@
 #import "CardFlowLayout.h"
 
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
-#define ITEM_WIDTH 140  
+#define ITEM_WIDTH 160
 #define ITEM_HEIGHT 180
 #define EDGE_INSET ITEM_WIDTH/2
 #define ROTATION_CENTER_VERTICAL_OFFSET 300
@@ -19,6 +19,7 @@
 @implementation CardFlowLayout
 
 - (void)prepareLayout {
+    
     
     CGFloat collectionViewHeight = self.collectionView.bounds.size.height;
     self.itemSize = CGSizeMake(ITEM_WIDTH, ITEM_HEIGHT);

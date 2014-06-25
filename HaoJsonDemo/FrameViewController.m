@@ -30,7 +30,7 @@
 @property (strong, nonatomic) NSDictionary *dict;
 
 @property (nonatomic) BOOL statusBarHidden;
-
+@property (nonatomic) BOOL debugMode;
 
 @end
 
@@ -42,6 +42,8 @@
     
     
     _statusBarHidden = YES;
+    
+    //_debugMode = YES;
     
     //declare all the viewControllers
     
@@ -57,6 +59,8 @@
     
     self.VC1 = mainNVC;
     self.VC2 = settingNVC;
+    
+    if(_debugMode){
     self.VC3 = [self.storyboard instantiateViewControllerWithIdentifier:@"debug"];
     self.VC4 = [self.storyboard instantiateViewControllerWithIdentifier:@"debug2"];
     //2. Delegate: set up VC4 as the delegate of debugVC
@@ -70,6 +74,16 @@
                  [NSNumber numberWithInt:1], settingNVC.restorationIdentifier,
                  [NSNumber numberWithInt:2], self.VC3.restorationIdentifier,
                  [NSNumber numberWithInt:3], self.VC4.restorationIdentifier, nil];
+        
+    }else{
+        self.menu = [NSMutableArray arrayWithObjects:self.VC1, self.VC2, nil];
+        
+        //a dictionary that knows which index giving a class name of VC
+        self.dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                     [NSNumber numberWithInt:0], mainNVC.restorationIdentifier,
+                     [NSNumber numberWithInt:1], settingNVC.restorationIdentifier,
+                     nil];
+    }
  
     [self setupPageViewController];
 
@@ -81,6 +95,8 @@
     // Create page view controller
     self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageVC"];
     self.pageViewController.dataSource = self;
+    
+   
     
     //actually init (called viewDidLoad for all VCs and show self.VC1 to be the first
     for(int i = [self.menu count] - 1; i>=0;i--){

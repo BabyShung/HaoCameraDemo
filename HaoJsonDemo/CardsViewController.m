@@ -15,6 +15,9 @@
 #import "RQShineLabel.h"
 #import "LoadControls.h"
 #import "MKTransitionCoordinator.h"
+#import "IQFeedbackView.h"
+
+#import "BlurActionSheet.h"
 
 
 const NSString *collectionCellIdentity = @"Cell";
@@ -41,6 +44,8 @@ static NSArray *colors;
 @property (strong, nonatomic) RQShineLabel *descriptionLabel;
 
 @property (strong, nonatomic) UIButton * previousPageBtn;
+
+@property (nonatomic) int assumedIndex;
 
 @end
 
@@ -75,6 +80,9 @@ static NSArray *colors;
 - (void)viewDidLoad {
     [super viewDidLoad];
    
+    //UICollectionViewFlowLayout *layout = (id) self.bottomCollectionView.collectionViewLayout;
+    //layout.itemSize = self.bottomCollectionView.frame.size;
+    
     
     
     _previousPageBtn = [LoadControls createCameraButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20)];
@@ -84,6 +92,7 @@ static NSArray *colors;
     
     
     self.menuInteractor = [[MKTransitionCoordinator alloc] initWithParentViewController:self];
+    self.menuInteractor.disableLeftEdgePan = YES;
     self.menuInteractor.delegate = self;
     
     
@@ -134,7 +143,7 @@ static NSArray *colors;
 -(void)viewDidAppear:(BOOL)animated{
     
     //let shine label shine
-    [self.descriptionLabel shine];
+    //[self.descriptionLabel shine];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.shimmeringView.shimmering = NO;
@@ -149,8 +158,15 @@ static NSArray *colors;
 #pragma mark - UIScrollViewDelegate Methods
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView == self.bottomCollectionView) {
-//        NSIndexPath *centerCellIndex = [self.bottomCollectionView indexPathForItemAtPoint:CGPointMake(CGRectGetMidX(self.bottomCollectionView.bounds) , CGRectGetMidY(self.bottomCollectionView.bounds))];
-//        
+        NSIndexPath *centerCellIndex = [self.bottomCollectionView indexPathForItemAtPoint:CGPointMake(CGRectGetMidX(self.bottomCollectionView.bounds) , CGRectGetMidY(self.bottomCollectionView.bounds))];
+        
+        if(centerCellIndex.row != _assumedIndex){
+            _assumedIndex = centerCellIndex.row;
+            
+            NSLog(@"did scroll to index: %d",centerCellIndex.row);
+        }
+        
+        
 //        Carrier *current = (Carrier*)[self.carriers objectAtIndex:centerCellIndex.row];
 //        self.currentCellHeader.text = [NSString stringWithFormat:@"%@", current.plan];
 //        self.policyLabel.text = current.policyNumber.count==0?@"":current.policyNumber[0];
@@ -192,24 +208,58 @@ static NSArray *colors;
     if(index == 0){
         [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Search"] animated:YES];
     }else if(index == 1){
-        [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Register"] animated:YES];
+        IQFeedbackView *feedback = [[IQFeedbackView alloc] initWithTitle:@"Feedback" message:nil image:nil cancelButtonTitle:@"Cancel" doneButtonTitle:@"Send"];
+        [feedback setCanAddImage:NO];
+        [feedback setCanEditText:YES];
+        
+        [feedback showInViewController:self completionHandler:^(BOOL isCancel, NSString *message, UIImage *image) {
+            [feedback dismiss];
+        }];
     }else if (index == 2){
         [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Register"] animated:YES];
     }else if (index == 3){
-        //[self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Register"] animated:YES];
+        [self willLogout];
     }
-    
-    
     
 }
 
+
+-(void)willLogout{
+    //show a confirm dialog
+    BlurActionSheet *lrf =  [[BlurActionSheet alloc] initWithDelegate_cancelButtonTitle:@"Cancel"];
+    
+    lrf.blurRadius = 50.f;
+    
+    [lrf addButtonWithTitle:@"Log Out" actionBlock:^{
+        
+        /************************
+         
+         log out release things
+         
+         ************************/
+       
+        NSLog(@"click log out");
+    }];
+    
+    [lrf show];
+    
+}
+
+
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [self clickAndScroll:nil];
+}
 
 - (IBAction)clickAndScroll:(id)sender {
     
-    
-    [self.bottomCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-    
+    [self CardSlide:YES];
 }
+
+-(void)CardSlide:(BOOL)left{
+    [self.bottomCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:(left?0:1) inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+}
+
 
 #pragma mark - MKTransitionCoordinatorDelegate Methods
 - (UIViewController*) toViewControllerForInteractivePushFromPoint:(CGPoint)locationInWindow {

@@ -31,6 +31,7 @@
         
         _parentViewController.navigationController.delegate = self;
         
+        
         //Add Gesture Recognizer, RIGHT
         UIScreenEdgePanGestureRecognizer *gestureRecognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(userDidPanPush:)];
         gestureRecognizer.edges = UIRectEdgeRight;
@@ -57,11 +58,12 @@
             }
             UIViewController *viewController = [self.delegate toViewControllerForInteractivePushFromPoint:location];
             
-            
-            //add LEFT edge gesture
-            UIScreenEdgePanGestureRecognizer *gestureRecognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(userDidPanPop:)];
-            gestureRecognizer.edges = UIRectEdgeLeft;
-            [viewController.view addGestureRecognizer:gestureRecognizer];
+            if(!_disableLeftEdgePan){
+                //add LEFT edge gesture
+                UIScreenEdgePanGestureRecognizer *gestureRecognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(userDidPanPop:)];
+                gestureRecognizer.edges = UIRectEdgeLeft;
+                [viewController.view addGestureRecognizer:gestureRecognizer];
+            }
             
             [self.parentViewController.navigationController pushViewController:viewController animated:YES];
         }
@@ -154,12 +156,13 @@
         UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
         
         
-        //Hao:  add LEFT edge gesture
-        UIScreenEdgePanGestureRecognizer *gestureRecognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(userDidPanPop:)];
-        gestureRecognizer.edges = UIRectEdgeLeft;
-        [toViewController.view addGestureRecognizer:gestureRecognizer];
-        
-        
+        if(!_disableLeftEdgePan){
+            //Hao:  add LEFT edge gesture
+            UIScreenEdgePanGestureRecognizer *gestureRecognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(userDidPanPop:)];
+            gestureRecognizer.edges = UIRectEdgeLeft;
+            [toViewController.view addGestureRecognizer:gestureRecognizer];
+            
+        }
         
         CGRect endFrame = [[transitionContext containerView] bounds];
 

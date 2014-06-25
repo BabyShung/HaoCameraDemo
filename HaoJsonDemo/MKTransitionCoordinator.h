@@ -24,4 +24,6 @@
 
 - (id)initWithParentViewController:(UIViewController *)viewController;
 
+@property (nonatomic) BOOL disableLeftEdgePan;
+
 @end

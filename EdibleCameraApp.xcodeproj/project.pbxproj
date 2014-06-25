@@ -94,6 +94,11 @@
 		B8B61092195927EB005268D5 /* Food.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B61091195927EB005268D5 /* Food.m */; };
 		B8B610941959CFBC005268D5 /* CameraNext.png in Resources */ = {isa = PBXBuildFile; fileRef = B8B610931959CFBC005268D5 /* CameraNext.png */; };
 		B8B610A0195A0BE0005268D5 /* NavBarSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6109F195A0BE0005268D5 /* NavBarSetting.m */; };
+		B8B61145195A63DA005268D5 /* addImage.png in Resources */ = {isa = PBXBuildFile; fileRef = B8B6113E195A63DA005268D5 /* addImage.png */; };
+		B8B61146195A63DA005268D5 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B61140195A63DA005268D5 /* UIImage+ImageEffects.m */; };
+		B8B61147195A63DA005268D5 /* IQFeedbackView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B61142195A63DA005268D5 /* IQFeedbackView.m */; };
+		B8B61148195A63DA005268D5 /* DALinedTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B61144195A63DA005268D5 /* DALinedTextView.m */; };
+		B8B6114E195A6B90005268D5 /* BlurActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6114D195A6B90005268D5 /* BlurActionSheet.m */; };
 		B8C21B2B194F43EB0012B616 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C21B29194F43EB0012B616 /* AWSRuntime.framework */; };
 		B8C21B2C194F43EB0012B616 /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C21B2A194F43EB0012B616 /* AWSS3.framework */; };
 		B8D09A771948BCCF006C070D /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D09A721948BCCF006C070D /* Review.m */; };
@@ -281,6 +286,15 @@
 		B8B610931959CFBC005268D5 /* CameraNext.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CameraNext.png; sourceTree = "<group>"; };
 		B8B6109E195A0BE0005268D5 /* NavBarSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavBarSetting.h; sourceTree = "<group>"; };
 		B8B6109F195A0BE0005268D5 /* NavBarSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavBarSetting.m; sourceTree = "<group>"; };
+		B8B6113E195A63DA005268D5 /* addImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addImage.png; sourceTree = "<group>"; };
+		B8B6113F195A63DA005268D5 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		B8B61140195A63DA005268D5 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		B8B61141195A63DA005268D5 /* IQFeedbackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQFeedbackView.h; sourceTree = "<group>"; };
+		B8B61142195A63DA005268D5 /* IQFeedbackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQFeedbackView.m; sourceTree = "<group>"; };
+		B8B61143195A63DA005268D5 /* DALinedTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DALinedTextView.h; sourceTree = "<group>"; };
+		B8B61144195A63DA005268D5 /* DALinedTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DALinedTextView.m; sourceTree = "<group>"; };
+		B8B6114C195A6B90005268D5 /* BlurActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlurActionSheet.h; sourceTree = "<group>"; };
+		B8B6114D195A6B90005268D5 /* BlurActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlurActionSheet.m; sourceTree = "<group>"; };
 		B8C21B29194F43EB0012B616 /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSRuntime.framework; sourceTree = "<group>"; };
 		B8C21B2A194F43EB0012B616 /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSS3.framework; sourceTree = "<group>"; };
 		B8D09A711948BCCF006C070D /* Review.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Review.h; sourceTree = "<group>"; };
@@ -403,6 +417,8 @@
 		ACA1726C193920A6005E7D51 /* UI components */ = {
 			isa = PBXGroup;
 			children = (
+				B8B6113F195A63DA005268D5 /* UIImage+ImageEffects.h */,
+				B8B61140195A63DA005268D5 /* UIImage+ImageEffects.m */,
 				B8B61071195926D8005268D5 /* Button */,
 				ACA172691939209A005E7D51 /* LoadControls.h */,
 				ACA1726A1939209A005E7D51 /* LoadControls.m */,
@@ -695,6 +711,9 @@
 		B8B610781959278D005268D5 /* Cards(Setting) */ = {
 			isa = PBXGroup;
 			children = (
+				B8B6114C195A6B90005268D5 /* BlurActionSheet.h */,
+				B8B6114D195A6B90005268D5 /* BlurActionSheet.m */,
+				B8B6113D195A63CA005268D5 /* Feedback */,
 				B8B61085195927B2005268D5 /* SearchPage */,
 				B8B6107B195927A2005268D5 /* CardsCollectionCell.h */,
 				B8B6107C195927A2005268D5 /* CardsCollectionCell.m */,
@@ -725,6 +744,18 @@
 				B8B6108D195927D2005268D5 /* SSSearchBar.m */,
 			);
 			name = SearchBar;
+			sourceTree = "<group>";
+		};
+		B8B6113D195A63CA005268D5 /* Feedback */ = {
+			isa = PBXGroup;
+			children = (
+				B8B6113E195A63DA005268D5 /* addImage.png */,
+				B8B61141195A63DA005268D5 /* IQFeedbackView.h */,
+				B8B61142195A63DA005268D5 /* IQFeedbackView.m */,
+				B8B61143195A63DA005268D5 /* DALinedTextView.h */,
+				B8B61144195A63DA005268D5 /* DALinedTextView.m */,
+			);
+			name = Feedback;
 			sourceTree = "<group>";
 		};
 		B8D09A701948BCBA006C070D /* Objects */ = {
@@ -968,6 +999,7 @@
 				B8F29C6A1932DC55008979A7 /* Search_01.png in Resources */,
 				B8F29C771932DD20008979A7 /* Discover_01@2x.png in Resources */,
 				B8B60FDB19591E07005268D5 /* secret.png in Resources */,
+				B8B61145195A63DA005268D5 /* addImage.png in Resources */,
 				B82353BF192BE2F400D6BCAC /* Lightening.png in Resources */,
 				B8B610941959CFBC005268D5 /* CameraNext.png in Resources */,
 				AC1E7764194F583100532F65 /* filterwords.txt in Resources */,
@@ -1006,6 +1038,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8B61146195A63DA005268D5 /* UIImage+ImageEffects.m in Sources */,
 				B8F29C5519311A5C008979A7 /* FrameViewController.m in Sources */,
 				B8B60FBB19591605005268D5 /* SecondViewController.m in Sources */,
 				B8B610A0195A0BE0005268D5 /* NavBarSetting.m in Sources */,
@@ -1022,6 +1055,7 @@
 				B8D09A781948BCCF006C070D /* GeneralUser.m in Sources */,
 				3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */,
 				3A5654BC1936838C0085CC87 /* TextDetector.mm in Sources */,
+				B8B6114E195A6B90005268D5 /* BlurActionSheet.m in Sources */,
 				B8B61076195926E0005268D5 /* UIButton+Bootstrap.m in Sources */,
 				B8B6103C19592369005268D5 /* UIImage+JTSImageEffects.m in Sources */,
 				B8B6106C195926C0005268D5 /* RegisterViewController.m in Sources */,
@@ -1035,6 +1069,7 @@
 				B8B6105A195925F2005268D5 /* Edible_S3.m in Sources */,
 				AC8A357A19461E2100FC5465 /* SQLConnector.m in Sources */,
 				AC8A357719461E2100FC5465 /* DBOperation.m in Sources */,
+				B8B61148195A63DA005268D5 /* DALinedTextView.m in Sources */,
 				B8B60FAC195914DF005268D5 /* largeLayout.m in Sources */,
 				B8B60FF319591E60005268D5 /* EDImageFlowLayout.m in Sources */,
 				B8B61082195927A2005268D5 /* CardsCollectionCell.m in Sources */,
@@ -1055,6 +1090,7 @@
 				B8B6104619592493005268D5 /* ControlPointView.m in Sources */,
 				B8D6953C193E71C200E504FA /* ED_Color.m in Sources */,
 				B825DD8D194264FF004C7DCE /* MainViewController.m in Sources */,
+				B8B61147195A63DA005268D5 /* IQFeedbackView.m in Sources */,
 				ACA1726B1939209A005E7D51 /* LoadControls.m in Sources */,
 				B8F29C5819311A5C008979A7 /* EP_thirdViewController.mm in Sources */,
 				B8B6104819592493005268D5 /* ShadeView.m in Sources */,
