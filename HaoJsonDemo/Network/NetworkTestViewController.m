@@ -39,8 +39,10 @@
     
     AsyncRequest *async = [[AsyncRequest alloc]init];
     
+    [async performGETAsyncTask:self andURLString:@"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/Other?name=我"];
+    
     //1.
-    //[async getFoodInfo:@"bacon" andLanguage:@"CN" andSELF:self];
+    //[async getFoodInfo:@"blue cheese" andLanguage:@"CN" andSELF:self];
     
     //2.
     //[async getReviews:@"calico bean" andUid:1 andStart:0 andOffset:5 andSELF:self];
@@ -62,7 +64,7 @@
     
     
     //4. pass >0 like, pass <0 dislike, pass 0 not change
-    [async likeOrDislike_rid:5 andLike:20 andSELF:self];
+    //[async likeOrDislike_rid:5 andLike:20 andSELF:self];
     
 }
 

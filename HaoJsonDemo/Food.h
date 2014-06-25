@@ -7,15 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Comment.h"
+
 
 @interface Food : NSObject
 
 
 @property (nonatomic, retain) NSString *title;
-@property (nonatomic, retain) NSString *foodName;
-@property (nonatomic, retain) NSString *tags;
+@property (nonatomic, retain) NSString *transTitle;
 @property (nonatomic, retain) NSString *description;
-@property (nonatomic, retain) NSString *language;
+@property (nonatomic, retain) NSArray *tagNames;
+@property (nonatomic, strong) NSArray *photoNames;
+@property (nonatomic, retain) Comment *comments;
+
 
 @property (nonatomic, assign) NSUInteger uid;
 

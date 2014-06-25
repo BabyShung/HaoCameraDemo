@@ -38,8 +38,8 @@
     //self.logoView.layer.cornerRadius = 80.0f;
 
     
-    self.userView.layer.cornerRadius = 8;
-    self.pwdView.layer.cornerRadius = 8;
+    self.userView.layer.cornerRadius = 5;
+    self.pwdView.layer.cornerRadius = 5;
     
     [self.userTextField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
     [self.pwdTextField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];

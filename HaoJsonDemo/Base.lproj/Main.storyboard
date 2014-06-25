@@ -147,7 +147,7 @@
         <!--Navigation Controller-->
         <scene sceneID="cOe-RO-Clf">
             <objects>
-                <navigationController storyboardIdentifier="mainNVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FTD-iV-KUA" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="mainNVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="FTD-iV-KUA" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="xAm-Ki-2Eq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -209,7 +209,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w8F-3W-MtH" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="36" y="-1161"/>
+            <point key="canvasLocation" x="112" y="-1149"/>
         </scene>
         <!--Cards View Controller-->
         <scene sceneID="AKN-mE-uqy">
@@ -327,7 +327,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="blackBG.JPG" translatesAutoresizingMaskIntoConstraints="NO" id="6Nu-6h-1Ry">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="login_03.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="6Nu-6h-1Ry">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -363,7 +363,7 @@
                                     <action selector="register:" destination="HHj-Jz-yl9" eventType="touchUpInside" id="Gd7-Xf-IPa"/>
                                 </connections>
                             </button>
-                            <view alpha="0.60000002384185791" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qqL-t7-CPy" userLabel="pwdView">
+                            <view alpha="0.80000000000000004" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qqL-t7-CPy" userLabel="pwdView">
                                 <rect key="frame" x="20" y="251" width="280" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -381,7 +381,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.1463500707" green="0.163991686" blue="0.16764987240000001" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <view alpha="0.60000002384185791" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PXb-dS-OGI" userLabel="userView">
+                            <view alpha="0.80000000000000004" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PXb-dS-OGI" userLabel="userView">
                                 <rect key="frame" x="20" y="193" width="280" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -400,12 +400,16 @@
                                 <color key="backgroundColor" red="0.1463500707" green="0.163991686" blue="0.16764987240000001" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Blue Cheese" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hjc-8M-qgO">
-                                <rect key="frame" x="0.0" y="74" width="320" height="52"/>
+                                <rect key="frame" x="0.0" y="122" width="320" height="52"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="27"/>
+                                <fontDescription key="fontDescription" name="STHeitiTC-Medium" family="Heiti TC" pointSize="27"/>
                                 <color key="textColor" red="0.18823531269999999" green="0.70588237050000002" blue="0.9215686917" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bluechesseLogo.png" translatesAutoresizingMaskIntoConstraints="NO" id="5Yp-TS-z3v">
+                                <rect key="frame" x="85" y="0.0" width="150" height="150"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -415,7 +419,7 @@
                         <outlet property="pwdTextField" destination="xlg-F4-GJ2" id="wR3-ky-qs7"/>
                         <outlet property="pwdView" destination="qqL-t7-CPy" id="kvX-Iu-mHl"/>
                         <outlet property="userTextField" destination="sK0-As-kSb" id="hFQ-oY-l4O"/>
-                        <outlet property="userView" destination="sK0-As-kSb" id="Iv7-a3-Fx9"/>
+                        <outlet property="userView" destination="PXb-dS-OGI" id="JHd-TY-3BI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GtG-tA-NJw" sceneMemberID="firstResponder"/>
@@ -434,7 +438,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="blackBG.JPG" translatesAutoresizingMaskIntoConstraints="NO" id="15i-LB-Y0z">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="register_03.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="15i-LB-Y0z">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
@@ -451,7 +455,7 @@
                                     <action selector="register:" destination="HHj-Jz-yl9" eventType="touchUpInside" id="m6l-4d-Yfr"/>
                                 </connections>
                             </button>
-                            <view alpha="0.60000002384185791" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wJ6-Lc-UxI" userLabel="emailView">
+                            <view alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wJ6-Lc-UxI" userLabel="emailView">
                                 <rect key="frame" x="20" y="68" width="280" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -465,7 +469,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.1463500707" green="0.163991686" blue="0.16764987240000001" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <view alpha="0.60000002384185791" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6zP-I5-u8s" userLabel="userView">
+                            <view alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6zP-I5-u8s" userLabel="userView">
                                 <rect key="frame" x="20" y="126" width="280" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -479,7 +483,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.1463500707" green="0.163991686" blue="0.16764987240000001" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <view alpha="0.60000002384185791" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yMK-yo-KYD" userLabel="pwdView">
+                            <view alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yMK-yo-KYD" userLabel="pwdView">
                                 <rect key="frame" x="20" y="184" width="280" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -506,10 +510,12 @@
                     </view>
                     <connections>
                         <outlet property="emailTextField" destination="VcW-rA-udG" id="bIN-vC-yrd"/>
+                        <outlet property="emailView" destination="wJ6-Lc-UxI" id="jy4-Gf-aRh"/>
                         <outlet property="pwdTextField" destination="ogZ-ar-is4" id="6Mb-zE-VGh"/>
-                        <outlet property="reflectedBG" destination="15i-LB-Y0z" id="aMN-KW-cza"/>
+                        <outlet property="pwdView" destination="yMK-yo-KYD" id="kgo-hq-moe"/>
                         <outlet property="signupBtn" destination="6ic-ru-quV" id="s51-Kk-AR5"/>
                         <outlet property="userTextField" destination="ZEa-vA-scu" id="cxe-xe-y1T"/>
+                        <outlet property="userView" destination="6zP-I5-u8s" id="bfC-cC-HHY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4jW-0O-zhX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -561,7 +567,10 @@
     </scenes>
     <resources>
         <image name="blackBG.JPG" width="542" height="960"/>
+        <image name="bluechesseLogo.png" width="300" height="300"/>
         <image name="lock.png" width="85" height="70"/>
+        <image name="login_03.jpg" width="640" height="1136"/>
+        <image name="register_03.jpg" width="640" height="1136"/>
         <image name="user.png" width="85" height="70"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

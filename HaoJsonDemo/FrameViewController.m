@@ -61,19 +61,20 @@
     self.VC2 = settingNVC;
     
     if(_debugMode){
-    self.VC3 = [self.storyboard instantiateViewControllerWithIdentifier:@"debug"];
-    self.VC4 = [self.storyboard instantiateViewControllerWithIdentifier:@"debug2"];
-    //2. Delegate: set up VC4 as the delegate of debugVC
-    self.VC3.debugDelegate = self.VC4;
-    
-    self.menu = [NSMutableArray arrayWithObjects:self.VC1, self.VC2,self.VC3,self.VC4, nil];
-    
-    //a dictionary that knows which index giving a class name of VC
-    self.dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                 [NSNumber numberWithInt:0], mainNVC.restorationIdentifier,
-                 [NSNumber numberWithInt:1], settingNVC.restorationIdentifier,
-                 [NSNumber numberWithInt:2], self.VC3.restorationIdentifier,
-                 [NSNumber numberWithInt:3], self.VC4.restorationIdentifier, nil];
+        self.VC3 = [self.storyboard instantiateViewControllerWithIdentifier:@"debug"];
+        self.VC4 = [self.storyboard instantiateViewControllerWithIdentifier:@"debug2"];
+        
+        //2. Delegate: set up VC4 as the delegate of debugVC
+        self.VC3.debugDelegate = self.VC4;
+        
+        self.menu = [NSMutableArray arrayWithObjects:self.VC1, self.VC2,self.VC3,self.VC4, nil];
+        
+        //a dictionary that knows which index giving a class name of VC
+        self.dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                     [NSNumber numberWithInt:0], mainNVC.restorationIdentifier,
+                     [NSNumber numberWithInt:1], settingNVC.restorationIdentifier,
+                     [NSNumber numberWithInt:2], self.VC3.restorationIdentifier,
+                     [NSNumber numberWithInt:3], self.VC4.restorationIdentifier, nil];
         
     }else{
         self.menu = [NSMutableArray arrayWithObjects:self.VC1, self.VC2, nil];
@@ -124,9 +125,17 @@
     [self.pageViewController setViewControllers:@[self.menu[1]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 }
 
+//for debug
+-(void)slideToDebugPage{
+    [self.pageViewController setViewControllers:@[self.menu[2]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+}
+
 - (void) setCamDelegateFromMain:(MainViewController *)camVC{
     NSLog(@"yo2?");
-    camVC.camView.camDelegate = self.VC3;
+    if(_debugMode)
+        camVC.camView.camDelegate = self.VC3;
+    
+    camVC.camView.camDelegate = (id<EdibleCameraDelegate>) camVC;
 }
 
 -(NSUInteger)getVCIndex:(UIViewController *) vc{

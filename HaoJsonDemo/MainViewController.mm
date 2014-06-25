@@ -15,14 +15,39 @@
 
 #import "SecondViewController.h"
 
+
+#import "opencv2/opencv.hpp"
+#import "UIImage+OpenCV.h"
+#import "ImagePreProcessor.h"
+#import "TextDetector.h"
+#import "WordCorrector.h"
+#import "LoadControls.h"
+
+
 static NSString *CellIdentifier = @"Cell";
 
-@interface MainViewController () <TransitionControllerDelegate>
+@interface MainViewController () <TransitionControllerDelegate,EdibleCameraDelegate>
+{
+    CGFloat ScreenWidth;
+    CGFloat ScreenHeight;
+}
+
+
+@property (strong,nonatomic) Tesseract *tesseract;
+
+@property (strong,nonatomic) NSMutableArray *imgArray;
+
+@property (strong,nonatomic) ImagePreProcessor *ipp;
+
+@property (nonatomic) cv::Mat tempMat;
+
 
 @property (nonatomic,strong) debugView *debugV;
 @property (nonatomic, assign) NSInteger cellCount;
 
 @property (strong,nonatomic) TransitionController *transitionController;
+
+
 
 @end
 
@@ -30,6 +55,13 @@ static NSString *CellIdentifier = @"Cell";
 
 
 - (void)viewDidLoad{
+    
+    
+    [self loadTesseract];
+    
+    
+    ScreenWidth = CGRectGetWidth([[UIScreen mainScreen] bounds]);
+    ScreenHeight = CGRectGetHeight([[UIScreen mainScreen] bounds]);
     
 
     //init controls
@@ -41,24 +73,20 @@ static NSString *CellIdentifier = @"Cell";
     //registering dequueue cell
     [self.collectionView registerClass:[EDCollectionCell class] forCellWithReuseIdentifier:CellIdentifier];
     
-    
     self.cellCount = 10;
     //self.debugV = [[debugView alloc] initWithFrame:CGRectMake(0, 0, 320, 200) andReferenceCV:self];
     //[self.view insertSubview:self.debugV aboveSubview:self.collectionView];
     
     NSLog(@"view did load");
     self.transitionController = [[TransitionController alloc] initWithCollectionView:self.collectionView];
-    
     self.transitionController.delegate = self;
-    
     self.navigationController.delegate = self.transitionController;
-    self.navigationController.navigationBarHidden = YES;
 
 }
 
 -(void)loadControls{
     
-    self.camView = [[CameraView alloc] initWithFrame:CGRectMake(0, 0, 320, 568) andOrientation:self.interfaceOrientation andAppliedVC:self];//nil is not using tabbar frame delegate
+    self.camView = [[CameraView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) andOrientation:self.interfaceOrientation andAppliedVC:self];//nil is not using tabbar frame delegate
 
     [self.view insertSubview:self.camView belowSubview:self.collectionView];
 
@@ -81,15 +109,6 @@ static NSString *CellIdentifier = @"Cell";
             }
         }
     }];
-    
-    
-//    [UICollectionView transitionWithView:self.collectionView
-//                                duration:1
-//                                 options:UIViewAnimationOptionTransitionCrossDissolve
-//                              animations:NULL
-//                              completion:NULL];
-//    self.collectionView.hidden = YES;
-//    NSLog(@"isHidden: %d",self.collectionView.isHidden);
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -123,7 +142,6 @@ static NSString *CellIdentifier = @"Cell";
 - (UICollectionViewTransitionLayout *)collectionView:(UICollectionView *)collectionView
                         transitionLayoutForOldLayout:(UICollectionViewLayout *)fromLayout newLayout:(UICollectionViewLayout *)toLayout
 {
-    NSLog(@"begin1 !?");
     TransitionLayout *transitionLayout = [[TransitionLayout alloc] initWithCurrentLayout:fromLayout nextLayout:toLayout];
     return transitionLayout;
 }
@@ -142,26 +160,95 @@ static NSString *CellIdentifier = @"Cell";
 //transitionVC delegate
 - (void)interactionBeganAtPoint:(CGPoint)point
 {
-    NSLog(@"begin3");
     UIViewController *topVC = [self.navigationController topViewController];
-    NSLog(@"%@",topVC);
     if ([topVC class] != [MainViewController class]) {
         [self.navigationController popViewControllerAnimated:YES];
     }
-//    if([topVC class] == [MainViewController class]){
-//        SecondViewController *secondVC = [[SecondViewController alloc] initWithCollectionViewLayout:[[largeLayout alloc] init]];
-//        secondVC.useLayoutToLayoutNavigationTransitions = YES;
-//        [self.navigationController pushViewController:secondVC animated:YES];
-//    }
-//    else{
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }
+}
+
+-(void)loadTesseract{
+    _tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];//langague package
+    _tesseract.delegate = self;
+    [_tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz()&/" forKey:@"tessedit_char_whitelist"]; //limit search
+}
+
+
+
+#pragma mark Tesseract
+//tesseract processing
+-(NSString *)recognizeImageWithTesseract:(UIImage *)img
+{
+    [_tesseract setImage:img]; //image to check
+    [_tesseract recognize];//processing
+    NSString *recognizedText = [_tesseract recognizedText];
+    NSLog(@"Tesseract Recognized: %@", recognizedText);
+    return recognizedText;
+}
+
+- (BOOL)shouldCancelImageRecognitionForTesseract:(Tesseract*)tesseract {
+    return NO;  // return YES, if you need to interrupt tesseract before it finishes
+}
+
+#pragma mark CAMERA DELEGATE
+
+- (void) EdibleCamera:(MainViewController *)simpleCam didFinishWithImage:(UIImage *)image withRect:(CGRect)rect andCropSize:(CGSize)size{
+    
+    if (image) {
+        
+        //PS: image variable is the original size image (2448*3264)
+        UIImage *onScreenImage = [LoadControls scaleImage:image withScale:1.5f withRect:rect andCropSize:size];
+        UIImage *originalImage = [UIImage imageWithCGImage:onScreenImage.CGImage];
+        
+        self.imgArray = [TextDetector detectTextRegions:originalImage];
+
+        if ([_imgArray count] > 0)
+        {
+            for(int i = 0; i<(self.imgArray.count-1);i++){
+
+                _tempMat= [self.imgArray[i] CVMat];
+                
+                // Step 3. put Mat into pre processor- Charlie
+                _tempMat = [self.ipp processImage:_tempMat];
+                
+                self.imgArray[i] = [UIImage imageWithCVMat:_tempMat];//convert back to uiimage
+                
+            }
+            
+            NSString *result = @"";
+            for (int i = 0; i<_imgArray.count-1; i++) {
+                NSString *tmp = [self recognizeImageWithTesseract:[_imgArray objectAtIndex:i]];
+                result = [result stringByAppendingFormat:@"%d. %@\n",i, tmp];
+                //            NSLog(@"tmp %d: %@",i, tmp);
+            }
+
+            
+            onScreenImage = [_imgArray objectAtIndex:(_imgArray.count-1)];
+            NSLog(@"<<<<<<<<<<1.5 RESULT: \n%@", result);
+
+        }
+        
+    }
+    
+    NSLog(@"******************!! !! PHOTO TAKEN  !! !!********************");
+}
+
+//View did load in SimpleCam VC
+- (void) EdibleCameraDidLoadCameraIntoView:(MainViewController *)simpleCam {
+    NSLog(@"Camera loaded ... ");
     
 }
 
-
--(BOOL)prefersStatusBarHidden{
-    return YES;
+-(ImagePreProcessor*)ipp{
+    if(!_ipp){
+        _ipp = [[ImagePreProcessor alloc] init];
+    }
+    return  _ipp;
 }
 
+-(NSArray*) imgArray{
+    if(!_imgArray){
+        _imgArray = [[NSMutableArray alloc] init];
+    }
+    return  _imgArray;
+}
 @end

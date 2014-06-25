@@ -10,6 +10,10 @@
 
 @interface LoadControls : NSObject
 
+//scale image
++(UIImage *) scaleImage:(UIImage *)image withScale:(CGFloat)scale withRect:(CGRect)rect andCropSize:(CGSize)size;
+
+
 +(UIImageView *)createImageViewWithRect:(CGRect)rect;
 +(UILabel *)createLabelWithRect:(CGRect)rect andTextAlignment:(NSTextAlignment)ta andFont:(UIFont*)font andTextColor:(UIColor*)color;
 +(UITextView *)createTextViewWithRect:(CGRect)rect;

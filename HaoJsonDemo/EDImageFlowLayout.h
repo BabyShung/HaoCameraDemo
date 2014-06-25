@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Hao Zheng. All rights reserved.
 //
 
-@import UIKit;
 
 @interface EDImageFlowLayout : UICollectionViewFlowLayout
 

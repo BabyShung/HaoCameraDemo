@@ -22,11 +22,15 @@
 {
     [super viewDidLoad];
     
-    self.reflectedBG.transform = CGAffineTransformMakeScale(-1.0, 1.0);
+    
     
     [self.emailTextField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
     [self.userTextField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
     [self.pwdTextField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
+    self.userView.layer.cornerRadius = 5;
+    self.pwdView.layer.cornerRadius = 5;
+    self.emailView.layer.cornerRadius = 5;
+    
     
     [self.signupBtn successStyle];
 }

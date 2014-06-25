@@ -10,4 +10,10 @@
 
 @implementation Food
 
+-(NSString *)description{
+    NSString *desc  = [NSString stringWithFormat:@"Title: %@, transTitle: %@", self.title, self.transTitle];
+	return desc;
+}
+
+
 @end

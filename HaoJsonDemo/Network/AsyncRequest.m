@@ -13,6 +13,8 @@
 //http://edibleserver-env.elasticbeanstalk.com/review?title=bacon&start=0&offset=5&order=LIKE_NUM DESC
 
 
+#define OTHER @"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/Other?name=我"
+
 #define FOODURL @"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/food?"
 
 #define REVIEWURL @"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/review?"

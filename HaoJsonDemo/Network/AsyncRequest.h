@@ -20,4 +20,7 @@
 -(void)likeOrDislike_rid:(int)rid andLike:(int)like andSELF:(id)selfy;
 
 
+
+-(void)performGETAsyncTask:(id)selfy andURLString:(NSString *)urlString;
+
 @end

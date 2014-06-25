@@ -5,6 +5,8 @@
 //  Created by Hao Zheng on 5/24/14.
 //  Copyright (c) 2014 Hao Zheng. All rights reserved.
 
+
+#import <TesseractOCR/TesseractOCR.h>
 #import "CameraView.h"
 
 /***********************************************
@@ -24,11 +26,14 @@
 //slide VC in PageViewController
 - (void) slideToNextPage;
 
+//for debug
+@optional
+- (void) slideToDebugPage;
+
 @end
 
 
-
-@interface MainViewController : UICollectionViewController
+@interface MainViewController : UICollectionViewController  <TesseractDelegate>
 
 @property (nonatomic,strong) CameraView* camView;
 
