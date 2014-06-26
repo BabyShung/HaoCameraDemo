@@ -60,7 +60,7 @@ static NSString *CellIdentifier = @"Cell";
     ScreenHeight = CGRectGetHeight([[UIScreen mainScreen] bounds]);
     
     //number of cell
-    self.cellCount = 10;
+    self.cellCount = 0;
     
     //setup tesseract
     [self loadTesseract];
@@ -78,8 +78,8 @@ static NSString *CellIdentifier = @"Cell";
     [self.collectionView registerClass:[EDCollectionCell class] forCellWithReuseIdentifier:CellIdentifier];
     
     
-    //self.debugV = [[debugView alloc] initWithFrame:CGRectMake(0, 0, 320, 200) andReferenceCV:self];
-    //[self.view insertSubview:self.debugV aboveSubview:self.collectionView];
+    self.debugV = [[debugView alloc] initWithFrame:CGRectMake(0, 0, 320, 200) andReferenceCV:self];
+    [self.view insertSubview:self.debugV aboveSubview:self.collectionView];
     
     self.transitionController = [[TransitionController alloc] initWithCollectionView:self.collectionView];
     self.transitionController.delegate = self;
@@ -162,6 +162,7 @@ static NSString *CellIdentifier = @"Cell";
     [self.collectionView performBatchUpdates:^{
         self.cellCount = self.cellCount + 1;
         [self.collectionView insertItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
+        //[self.collectionView insertItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:self.cellCount-1 inSection:0]]];
         
     } completion:nil];
 }
