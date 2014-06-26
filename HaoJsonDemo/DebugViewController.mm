@@ -5,7 +5,7 @@
 //  Created by Hao Zheng on 5/24/14.
 //  Copyright (c) 2014 Hao Zheng. All rights reserved.
 //
-
+#import "Tesseract.h"
 #import "DebugViewController.h"
 #import "opencv2/opencv.hpp"
 #import "UIImage+OpenCV.h"
@@ -63,8 +63,7 @@
 }
 
 -(void)loadTesseract{
-    _tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];//langague package
-    _tesseract.delegate = self;
+    _tesseract = [[Tesseract alloc] initWithDataPath:@"tessdata" language:@"eng"];//langague package
     [_tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz()&/" forKey:@"tessedit_char_whitelist"]; //limit search
 }
 
@@ -82,11 +81,6 @@
     NSLog(@"Recognized: %@", recognizedText);
  
     return recognizedText;
-}
-
-- (BOOL)shouldCancelImageRecognitionForTesseract:(Tesseract*)tesseract {
-    //NSLog(@"progress: %d", tesseract.progress);
-    return NO;  // return YES, if you need to interrupt tesseract before it finishes
 }
 
 #pragma mark CAMERA DELEGATE
