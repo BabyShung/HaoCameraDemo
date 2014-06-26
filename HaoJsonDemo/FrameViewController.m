@@ -47,7 +47,7 @@
     //_statusBarHidden = YES;
     //[self setNeedsStatusBarAppearanceUpdate];
     
-    _debugMode = YES;
+    //_debugMode = YES;
     
     //declare all the viewControllers
     

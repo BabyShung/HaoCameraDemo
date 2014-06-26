@@ -23,7 +23,6 @@
 #import "WordCorrector.h"
 #import "LoadControls.h"
 #import "AppDelegate.h"
-#import "Tesseract.h"
 
 static NSString *CellIdentifier = @"Cell";
 
@@ -72,15 +71,15 @@ static NSString *CellIdentifier = @"Cell";
 
     /*REQUIRED FOR DEBUGGING ANIMATION*/
 
-    self.collectionView.hidden = YES;
+    //self.collectionView.hidden = YES;
     self.collectionView.backgroundColor = [UIColor clearColor];
     
     //registering dequueue cell
     [self.collectionView registerClass:[EDCollectionCell class] forCellWithReuseIdentifier:CellIdentifier];
     
     
-    //self.debugV = [[debugView alloc] initWithFrame:CGRectMake(0, 0, 320, 200) andReferenceCV:self];
-    //[self.view insertSubview:self.debugV aboveSubview:self.collectionView];
+    self.debugV = [[debugView alloc] initWithFrame:CGRectMake(0, 0, 320, 200) andReferenceCV:self];
+    [self.view insertSubview:self.debugV aboveSubview:self.collectionView];
     
     self.transitionController = [[TransitionController alloc] initWithCollectionView:self.collectionView];
     self.transitionController.delegate = self;
@@ -179,7 +178,8 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 -(void)loadTesseract{
-    _tesseract = [[Tesseract alloc] initWithDataPath:@"tessdata" language:@"eng"];//langague package
+    _tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];//langague package
+    _tesseract.delegate = self;
     [_tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz()&/" forKey:@"tessedit_char_whitelist"]; //limit search
 }
 
@@ -192,6 +192,10 @@ static NSString *CellIdentifier = @"Cell";
     NSString *recognizedText = [_tesseract recognizedText];
     NSLog(@"Tesseract Recognized: %@", recognizedText);
     return recognizedText;
+}
+
+- (BOOL)shouldCancelImageRecognitionForTesseract:(Tesseract*)tesseract {
+    return NO;  // return YES, if you need to interrupt tesseract before it finishes
 }
 
 #pragma mark CAMERA DELEGATE

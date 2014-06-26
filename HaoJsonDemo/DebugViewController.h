@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CameraView.h"
-//#import <TesseractOCR/TesseractOCR.h>
+#import <TesseractOCR/TesseractOCR.h>
 
 @class DebugViewController;
 
@@ -21,7 +21,7 @@
 
 @end
 
-@interface DebugViewController : UIViewController <EdibleCameraDelegate>
+@interface DebugViewController : UIViewController <EdibleCameraDelegate,TesseractDelegate>
 
 
 @property (retain, nonatomic) id <DebugVCDelegate> debugDelegate;
