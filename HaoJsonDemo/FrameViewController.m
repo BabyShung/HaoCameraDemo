@@ -41,7 +41,9 @@
     [super viewDidLoad];
     
     
+    
     _statusBarHidden = YES;
+    [self setNeedsStatusBarAppearanceUpdate];
     
     //_debugMode = YES;
     
@@ -179,19 +181,19 @@
 }
 
 
--(UIStatusBarStyle)preferredStatusBarStyle{
-    return UIStatusBarStyleLightContent;
-}
+
 
 - (BOOL)prefersStatusBarHidden {
     return _statusBarHidden;
 }
 
 - (void)showStatusBar:(BOOL)show {
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
         _statusBarHidden = !show;
         [self setNeedsStatusBarAppearanceUpdate];
     }];
 }
-
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
 @end

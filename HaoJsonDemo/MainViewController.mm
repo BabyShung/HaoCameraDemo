@@ -67,7 +67,7 @@ static NSString *CellIdentifier = @"Cell";
     //init controls
     [self loadControls];
     
-    self.collectionView.hidden = YES;
+    //self.collectionView.hidden = YES;
     self.collectionView.backgroundColor = [UIColor clearColor];
     
     //registering dequueue cell
@@ -94,6 +94,10 @@ static NSString *CellIdentifier = @"Cell";
 
 - (void) viewDidAppear:(BOOL)animated {
 
+    
+
+    
+    
     NSLog(@"yo1?");
     //set camView delegate to be DEBUG_VC
     [self.Maindelegate setCamDelegateFromMain:self];

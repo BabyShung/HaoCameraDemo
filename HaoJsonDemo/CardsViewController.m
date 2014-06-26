@@ -142,18 +142,17 @@ static NSArray *colors;
 
 -(void)viewDidAppear:(BOOL)animated{
     
+
+    
     //let shine label shine
     //[self.descriptionLabel shine];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.shimmeringView.shimmering = NO;
-    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        self.shimmeringView.shimmering = NO;
+//    });
 }
 
 
--(UIStatusBarStyle)preferredStatusBarStyle{
-    return UIStatusBarStyleLightContent;
-}
 
 #pragma mark - UIScrollViewDelegate Methods
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -267,5 +266,6 @@ static NSArray *colors;
     NSLog(@"delegate get called");
     return [self.storyboard instantiateViewControllerWithIdentifier:@"Register"];
 }
+
 
 @end
