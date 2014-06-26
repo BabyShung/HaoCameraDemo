@@ -47,13 +47,12 @@ static NSArray *colors;
 
 @property (nonatomic) int assumedIndex;
 
+@property (nonatomic) BOOL shouldSlideBack;
+
 @end
 
 @implementation CardsViewController
 - (void) doInits {
-    
-    
-    
     
     colors = @[[UIColor colorWithRed:(0/255.0) green:(181/255.0) blue:(239/255.0) alpha:1],
                [UIColor colorWithRed:(150/255.0) green:(222/255.0) blue:(35/255.0) alpha:1],
@@ -79,11 +78,7 @@ static NSArray *colors;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
-    //UICollectionViewFlowLayout *layout = (id) self.bottomCollectionView.collectionViewLayout;
-    //layout.itemSize = self.bottomCollectionView.frame.size;
-    
-    
+
     
     _previousPageBtn = [LoadControls createCameraButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20)];
      [_previousPageBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -95,10 +90,6 @@ static NSArray *colors;
     self.menuInteractor.disableLeftEdgePan = YES;
     self.menuInteractor.delegate = self;
     
-    
-    //self.navigationController.view.clipsToBounds = NO;
-    
-    //self.navigationController.navigationBarHidden = YES;
     
     [self.bottomCollectionView registerClass:[CardsCollectionCell class] forCellWithReuseIdentifier:[collectionCellIdentity copy]];
     
@@ -202,6 +193,8 @@ static NSArray *colors;
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
+    _shouldSlideBack = YES;
+    
     NSUInteger index = indexPath.row;
     
     if(index == 0){
@@ -256,7 +249,7 @@ static NSArray *colors;
 }
 
 -(void)CardSlide:(BOOL)left{
-    [self.bottomCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:(left?0:1) inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    [self.bottomCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:(left?0:[self.settings count]-1) inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
 }
 
 

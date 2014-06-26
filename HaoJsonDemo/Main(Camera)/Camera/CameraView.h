@@ -63,6 +63,9 @@
 @property (strong, nonatomic) UIView * StreamView;//bottom view
 
 @property (strong, nonatomic) MainViewController *appliedVC;
+
+@property (strong, nonatomic) UIImageView * capturedImageView;//captured image view
+
 /******************
  
  Camera operations

@@ -21,6 +21,7 @@
 #import "ImageCropView.h"
 #import "ED_Color.h"
 #import "LoadControls.h"
+#import "AppDelegate.h"
 
 @interface CameraView () <CameraManageCDelegate>
 {
@@ -56,7 +57,7 @@
 
 // View Properties
 
-@property (strong, nonatomic) UIImageView * capturedImageView;//captured image view
+
 
 @property (strong, nonatomic) CameraManager *camManager;
 
@@ -76,16 +77,26 @@
         self.iot = iot;
         self.appliedVC = VC;
         [self setup];
+        //save reference of camView so that when enter BG will close, etc
+        AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        appDlg.CameraView = self;
+        
     }
     return self;
 }
 
 - (void)resumeCamera{
     [_camManager startRunning];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.capturedImageView.backgroundColor = [UIColor clearColor];
+    }];
 }
 
 - (void)pauseCamera{
     [_camManager stopRunning];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.capturedImageView.backgroundColor = [UIColor blackColor];
+    }];
 }
 
 -(BOOL)CameraIsOn{

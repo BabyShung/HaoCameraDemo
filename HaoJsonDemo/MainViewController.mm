@@ -88,16 +88,8 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 -(void)loadControls{
-    
-    self.camView = [[CameraView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) andOrientation:self.interfaceOrientation andAppliedVC:self];//nil is not using tabbar frame delegate
-
+    self.camView = [[CameraView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) andOrientation:self.interfaceOrientation andAppliedVC:self];
     [self.view insertSubview:self.camView belowSubview:self.collectionView];
-    
-    //save reference of camView so that when enter BG will close, etc
-    AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    appDlg.CameraView = self.camView;
-
-
 }
 
 
@@ -140,13 +132,17 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     //deselect !!??
     //[collectionView deselectItemAtIndexPath:indexPath animated:YES];
     
     
-    [_camView pauseCamera];
     
     SecondViewController *viewController = [[SecondViewController alloc] initWithCollectionViewLayout:[[largeLayout alloc] init]];
+    //used for pausing camera
+    viewController.camView = self.camView;
+    
+    
     viewController.useLayoutToLayoutNavigationTransitions = YES;
     [self.navigationController pushViewController:viewController animated:YES];
 }

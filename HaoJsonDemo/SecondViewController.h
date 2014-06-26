@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CameraView.h"
 
 @interface SecondViewController : UICollectionViewController
+
+@property (strong,nonatomic) CameraView *camView;
 
 @end

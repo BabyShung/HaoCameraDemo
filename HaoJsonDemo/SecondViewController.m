@@ -19,14 +19,27 @@
 {
     [super viewDidLoad];
     
-    NSLog(@"c number: %d",[self.collectionView numberOfItemsInSection:0]);
+    //NSLog(@"c number: %d",[self.collectionView numberOfItemsInSection:0]);
+    
     
 }
 
-
--(BOOL)prefersStatusBarHidden{
-    return YES;
+-(void)viewDidAppear:(BOOL)animated{
+    if(self.camView){
+        [self.camView pauseCamera];
+    }
 }
+
+-(void)viewDidDisappear:(BOOL)animated{
+    NSLog(@"view did disappear");
+    if(self.camView){
+        [self.camView resumeCamera];
+    }
+}
+
+//-(BOOL)prefersStatusBarHidden{
+//    return YES;
+//}
 
 - (UICollectionViewTransitionLayout *)collectionView:(UICollectionView *)collectionView
                         transitionLayoutForOldLayout:(UICollectionViewLayout *)fromLayout newLayout:(UICollectionViewLayout *)toLayout
