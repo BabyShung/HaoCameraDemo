@@ -83,21 +83,19 @@
     
 }
 
--(void)didTransitionFromLayout:(UICollectionViewLayout *)oldLayout
-                      toLayout:(UICollectionViewLayout *)newLayout{
-    [self.foodInfoView updateUIForFrame:self.contentView.frame];
-}
--(void)layoutSubviews{
-    [self.foodInfoView updateUIForFrame:self.contentView.frame];
+-(void)layoutSubviews
+{
+    
+    [self.foodInfoView setFrame:self.bounds];
+    
     if (CGRectGetHeight(self.contentView.frame)< CGRectGetHeight([[UIScreen mainScreen] bounds])) {
         self.foodInfoView.scrollview.scrollEnabled = NO;
     }
     else{
         self.foodInfoView.scrollview.scrollEnabled = YES;
     }
-    //NSLog(@"Cell layout subviews");
+    NSLog(@"Cell layout subviews");
     
-    //[self.foodInfoView setFrame:self.bounds];
 }
 
 

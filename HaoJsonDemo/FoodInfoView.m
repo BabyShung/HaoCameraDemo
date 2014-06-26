@@ -23,7 +23,7 @@ const CGFloat TitleTopMargin = 10.0f;
 const CGFloat GAP = 6.0f;
 const CGFloat MiddleGAP = 20.0f;
 
-const CGFloat ShimmmerViewHeight = 30.f;
+const CGFloat ShimmmerViewHeight = 40.f;
 const CGFloat SeparatorViewHeight = 1.f;
 const CGFloat BelowShimmmerGap = 10.f;
 const CGFloat TranslateLabelHeight = 70.f;
@@ -39,7 +39,13 @@ const CGFloat LargeTitleFontSize = 25.f;
 const CGFloat LargeTextFontSize = 20.f;
 const CGFloat TagFontSize = 18.f;
 const CGFloat SmallTitleFontSize = 15.f;
-const CGFloat SmallTextFontSize = 40.f;
+const CGFloat SmallTextFontSize = 10.f;
+
+/*The rate at which TagView, TableView and PhotoView reduce alpha
+  The Larger, the faster
+  MAX = Screen Height; MIN = 0*/
+const CGFloat ViewAlphaRecreaseRate = 450.f;
+
 ///*-----*/
 ////const CGFloat kCommentCellHeight = .088f;
 //
@@ -109,42 +115,44 @@ const CGFloat SmallTextFontSize = 40.f;
     self.scrollview.userInteractionEnabled=YES;
     [self addSubview:self.scrollview];
     //should add up all
-    self.scrollview.contentSize = CGSizeMake(self.bounds.size.width,ScrollViewContentSizeHeight);
+    self.scrollview.contentSize = CGSizeMake(width,ScrollViewContentSizeHeight);
     
     
-    CGRect titleRect = CGRectMake(CLeftMargin, TitleTopMargin, self.scrollview.bounds.size.width, ShimmmerViewHeight);
+    CGRect titleRect = CGRectMake(CLeftMargin, TitleTopMargin, width-CLeftMargin, ShimmmerViewHeight);
     self.shimmeringView = [[FBShimmeringView alloc] initWithFrame:titleRect];
-    self.shimmeringView.shimmering = YES;   //start shimmering
+    self.shimmeringView.shimmering = NO;   //start shimmering
     self.shimmeringView.shimmeringBeginFadeDuration = 0.3;
     self.shimmeringView.shimmeringOpacity = 0.3;
     self.shimmeringView.backgroundColor = [UIColor clearColor];
     [self.scrollview addSubview:self.shimmeringView];
     
-    self.titleLabel = [[UILabel alloc] initWithFrame:_shimmeringView.bounds];
-    self.titleLabel.text = @"Blue Cheese";
+    self.titleLabel = [[UILabel alloc] initWithFrame:_shimmeringView.frame];
+    self.titleLabel.numberOfLines = 0;
+    //self.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.titleLabel.text = @"Blue Cheese blue cheese";
     self.titleLabel.font = [UIFont fontWithName:PlainTextFontName size:LargeTitleFontSize];
     self.titleLabel.textColor = [UIColor blackColor];
-    //self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.backgroundColor = [UIColor clearColor];
     _shimmeringView.contentView = self.titleLabel;
     
     
-    self.separator = [[UIView alloc] initWithFrame:CGRectMake(CLeftMargin, CGRectGetMaxY(self.titleLabel.frame) + BelowShimmmerGap, CGRectGetWidth(self.scrollview.frame)-2*CLeftMargin, SeparatorViewHeight)];
+    self.separator = [[UIView alloc] initWithFrame:CGRectMake(CLeftMargin, CGRectGetMaxY(self.titleLabel.frame) + BelowShimmmerGap, width-2*CLeftMargin, SeparatorViewHeight)];
     self.separator.backgroundColor = [UIColor blackColor];
     [self.scrollview addSubview:self.separator];
     
-    self.translateLabel = [[UILabel alloc] initWithFrame:CGRectMake(CLeftMargin, TitleTopMargin + CGRectGetHeight(self.titleLabel.frame)  , self.scrollview.bounds.size.width, TranslateLabelHeight)];
+    self.translateLabel = [[UILabel alloc] initWithFrame:CGRectMake(CLeftMargin, TitleTopMargin + CGRectGetHeight(self.titleLabel.frame)  , width, TranslateLabelHeight)];
+    self.translateLabel.numberOfLines = 0;
+    //self.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.translateLabel.text = @"蓝芝士";
     self.translateLabel.font = [UIFont fontWithName:PlainTextFontName size:LargeTextFontSize];
     self.translateLabel.textColor = [UIColor blackColor];
     //self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.translateLabel.backgroundColor = [UIColor clearColor];
     [self.scrollview addSubview:self.translateLabel];
-    //_shimmeringView.contentView = self.translateLabel;
     
-/*--------------------------------------------------------------------------------------------*/
+/*-------------------Following Views Will Be Hidden In Small Layout----------------------------*/
     
-    self.descriptionLabel = [[RQShineLabel alloc] initWithFrame:CGRectMake(CLeftMargin, CGRectGetHeight(self.titleLabel.frame)+ CGRectGetMaxY(self.titleLabel.frame) + MiddleGAP, CGRectGetWidth(self.scrollview.frame) - CLeftMargin*2, TranslateLabelHeight)];
+    self.descriptionLabel = [[RQShineLabel alloc] initWithFrame:CGRectMake(CLeftMargin, CGRectGetHeight(self.titleLabel.frame)+ CGRectGetMaxY(self.titleLabel.frame) + MiddleGAP, width - CLeftMargin*2, TranslateLabelHeight)];
     self.descriptionLabel.numberOfLines = 0;
     self.descriptionLabel.text = @"";
     self.descriptionLabel.font = [UIFont fontWithName:PlainTextFontName size:LargeTextFontSize];
@@ -156,7 +164,7 @@ const CGFloat SmallTextFontSize = 40.f;
     [self.scrollview addSubview:self.descriptionLabel];
     
     
-    _tagview = [[TagView alloc]initWithFrame:CGRectMake(0, BelowDescriptionLabelGap+CGRectGetMaxY(self.descriptionLabel.frame) , CGRectGetWidth(self.bounds), TagViewHeight)];
+    _tagview = [[TagView alloc]initWithFrame:CGRectMake(0, BelowDescriptionLabelGap+CGRectGetMaxY(self.descriptionLabel.frame), width, TagViewHeight)];
     _tagview.allowToUseSingleSpace = YES;
     _tagview.delegate = self;
     [_tagview setFont:[UIFont fontWithName:TagTextFontName size:TagFontSize]];
@@ -167,7 +175,7 @@ const CGFloat SmallTextFontSize = 40.f;
     //collectionView + layout
     EDImageFlowLayout *small = [[EDImageFlowLayout alloc]init];
     
-    self.photoCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.tagview.frame) + GAP, CGRectGetWidth(self.bounds), PhotoCollectionViewHeight) collectionViewLayout:small];
+    self.photoCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.tagview.frame) + GAP, width, PhotoCollectionViewHeight) collectionViewLayout:small];
     [self.photoCollectionView registerClass:[EDImageCell class] forCellWithReuseIdentifier:CellIdentifier];
     self.photoCollectionView.backgroundColor = [UIColor clearColor];
     
@@ -188,7 +196,7 @@ const CGFloat SmallTextFontSize = 40.f;
     
     //add table view
     //----------------------------comment
-    _commentsViewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) )];
+    _commentsViewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, width, height)];
 
     //_commentsViewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + 6.f,320, 568 )];
     //[_commentsViewContainer addGradientMaskWithStartPoint:CGPointMake(0.5, 0.0) endPoint:CGPointMake(0.5, 0.03)];
@@ -340,9 +348,9 @@ const CGFloat SmallTextFontSize = 40.f;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"Cell %d", indexPath.row]];
+    CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"Cell %d", (int)indexPath.row]];
     if (!cell) {
-        cell = [[CommentCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"Cell %d", indexPath.row]];
+        cell = [[CommentCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"Cell %d", (int)indexPath.row]];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.commentLabel.frame = (CGRect) {.origin = cell.commentLabel.frame.origin, .size = {CGRectGetMinX(cell.likeButton.frame) - CGRectGetMaxY(cell.iconView.frame) - kCommentPaddingFromLeft - kCommentPaddingFromRight,[self tableView:tableView heightForRowAtIndexPath:indexPath] - kCommentCellHeight}};
@@ -360,36 +368,98 @@ const CGFloat SmallTextFontSize = 40.f;
     return cell;
 }
 
+/*************** MEi **************/
+/*                                */
+/*           For Animation        */
+/*                                */
+/*************** MEi **************/
 
--(void)updateUIForFrame:(CGRect)rect{
+//Update Layout when cell's frame changes
+-(void)updateUIForBounds:(CGRect)rect{
+    
     CGFloat width = CGRectGetWidth(rect);
     CGFloat height = CGRectGetHeight(rect);
+    
+    /*Resize scrollview so that it still can scroll*/
+    
     [self setFrame:rect];
     [self.scrollview setFrame:self.bounds];
-    [self.scrollview setContentSize:CGSizeMake(CGRectGetWidth(rect),ScrollViewContentSizeHeight)];
-//    NSLog(@"FOOD view (%f, %f) size: %f,%f", self.scrollview.frame.origin.x,self.scrollview.frame.origin.y,self.scrollview.contentSize.height, self.scrollview.contentSize.width);
-    self.shimmeringView.frame = CGRectMake(CLeftMargin, TitleTopMargin, self.frame.size.width, ShimmmerViewHeight);
+    [self.scrollview setContentSize:CGSizeMake(width,ScrollViewContentSizeHeight)];
+    
+    /*Resize views in scroll view*/
+    
+    CGFloat sizeMultiplier = (height-190)/( CGRectGetHeight([[UIScreen mainScreen] bounds])-190);
+    self.shimmeringView.frame = CGRectMake(CLeftMargin, TitleTopMargin, width-CLeftMargin, ShimmmerViewHeight);
     self.titleLabel.frame = self.shimmeringView.bounds;
-    self.separator.frame = CGRectMake(CLeftMargin, CGRectGetMaxY(self.titleLabel.frame) + BelowShimmmerGap, CGRectGetWidth(self.frame)-2*CLeftMargin, SeparatorViewHeight);
-    self.translateLabel.frame = CGRectMake(CLeftMargin, TitleTopMargin + CGRectGetHeight(self.titleLabel.frame)  , self.bounds.size.width, TranslateLabelHeight);    
-    self.descriptionLabel.frame = CGRectMake(CLeftMargin, CGRectGetHeight(self.titleLabel.frame)+ CGRectGetMaxY(self.titleLabel.frame) + MiddleGAP, CGRectGetWidth(self.scrollview.frame) - CLeftMargin*2, TranslateLabelHeight);
-    self.tagview.frame = CGRectMake(0, BelowDescriptionLabelGap+CGRectGetMaxY(self.descriptionLabel.frame) , CGRectGetWidth(self.bounds), TagViewHeight);
-    self.photoCollectionView.frame = CGRectMake(0, CGRectGetMaxY(self.tagview.frame) + GAP, CGRectGetWidth(self.bounds), PhotoCollectionViewHeight);
-    self.commentsViewContainer.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) );
+    [self.titleLabel setFont:[UIFont fontWithName:PlainTextFontName size:SmallTitleFontSize+(LargeTitleFontSize-SmallTitleFontSize)*sizeMultiplier]];
+    //NSLog(@"`````````Title lable width %f",self.titleLabel.bounds.size.width);
+    
+    self.separator.frame = CGRectMake(CLeftMargin, CGRectGetMaxY(self.titleLabel.frame) + BelowShimmmerGap, width-2*CLeftMargin, SeparatorViewHeight);
+    
+    self.translateLabel.frame = CGRectMake(CLeftMargin, TitleTopMargin + CGRectGetHeight(self.titleLabel.frame)  , width, TranslateLabelHeight);
+    
+    self.descriptionLabel.frame = CGRectMake(CLeftMargin, CGRectGetHeight(self.titleLabel.frame)+ CGRectGetMaxY(self.titleLabel.frame) + MiddleGAP, width - CLeftMargin*2, TranslateLabelHeight);
+    
+    self.tagview.frame = CGRectMake(0, BelowDescriptionLabelGap+CGRectGetMaxY(self.descriptionLabel.frame) , width, TagViewHeight);
+    
+    self.photoCollectionView.frame = CGRectMake(0, CGRectGetMaxY(self.tagview.frame) + GAP, width, PhotoCollectionViewHeight);
+    
+    self.commentsViewContainer.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, width, height );
     self.commentsTableView.frame = self.commentsViewContainer.bounds;
     
-    //self.scrollview.backgroundColor = [UIColor blueColor];
-
+    /*Change alpha values for 4 special views*/
+    
+    CGFloat newAlpha= (CGRectGetHeight(self.frame)-ViewAlphaRecreaseRate)/(CGRectGetHeight([[UIScreen mainScreen] bounds])-ViewAlphaRecreaseRate);
+    self.descriptionLabel.alpha = newAlpha;
+    self.tagview.alpha = newAlpha;
+    self.commentsViewContainer.alpha = newAlpha;
+    self.photoCollectionView.alpha = newAlpha;
+    //NSLog(@"FOOD INFO VIEW layout subview");
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
+
+-(void)layoutSubviews{
+
+    CGFloat width = CGRectGetWidth(self.frame);
+    CGFloat height = CGRectGetHeight(self.frame);
+    
+    /*Resize scrollview so that it still can scroll*/
+    
+    //[self setFrame:rect];
+    [self.scrollview setFrame:self.bounds];
+    [self.scrollview setContentSize:CGSizeMake(width,ScrollViewContentSizeHeight)];
+    
+    /*Resize views in scroll view*/
+    
+    CGFloat sizeMultiplier = (height-190)/( CGRectGetHeight([[UIScreen mainScreen] bounds])-190);
+    self.shimmeringView.frame = CGRectMake(CLeftMargin, TitleTopMargin, width-CLeftMargin, ShimmmerViewHeight);
+    self.titleLabel.frame = self.shimmeringView.bounds;
+    [self.titleLabel setFont:[UIFont fontWithName:PlainTextFontName size:SmallTitleFontSize+(LargeTitleFontSize-SmallTitleFontSize)*sizeMultiplier]];
+    //NSLog(@"`````````Title lable width %f",self.titleLabel.bounds.size.width);
+    
+    self.separator.frame = CGRectMake(CLeftMargin, CGRectGetMaxY(self.titleLabel.frame) + BelowShimmmerGap, width-2*CLeftMargin, SeparatorViewHeight);
+    
+    self.translateLabel.frame = CGRectMake(CLeftMargin, TitleTopMargin + CGRectGetHeight(self.titleLabel.frame)  , width, TranslateLabelHeight);
+    
+    self.descriptionLabel.frame = CGRectMake(CLeftMargin, CGRectGetHeight(self.titleLabel.frame)+ CGRectGetMaxY(self.titleLabel.frame) + MiddleGAP, width - CLeftMargin*2, TranslateLabelHeight);
+    
+    self.tagview.frame = CGRectMake(0, BelowDescriptionLabelGap+CGRectGetMaxY(self.descriptionLabel.frame) , width, TagViewHeight);
+    
+    self.photoCollectionView.frame = CGRectMake(0, CGRectGetMaxY(self.tagview.frame) + GAP, width, PhotoCollectionViewHeight);
+    
+    self.commentsViewContainer.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, width, height );
+    self.commentsTableView.frame = self.commentsViewContainer.bounds;
+    
+    /*Change alpha values for 4 special views*/
+    
+    CGFloat newAlpha= (CGRectGetHeight(self.frame)-ViewAlphaRecreaseRate)/(CGRectGetHeight([[UIScreen mainScreen] bounds])-ViewAlphaRecreaseRate);
+    self.descriptionLabel.alpha = newAlpha;
+    self.tagview.alpha = newAlpha;
+    self.commentsViewContainer.alpha = newAlpha;
+    self.photoCollectionView.alpha = newAlpha;
+    NSLog(@"FOOD INFO VIEW layout subview");
 
 }
-//-(void)layoutSubviews{
-//    [self.scrollview setContentSize:self.frame.size];
-//    NSLog(@"FOOD view (%f, %f) size: %f,%f", self.frame.origin.x,self.frame.origin.y,self.scrollview.contentSize.height, self.scrollview.contentSize.width);
-//}
 
 
 -(void)setUpForLargeLayout{
