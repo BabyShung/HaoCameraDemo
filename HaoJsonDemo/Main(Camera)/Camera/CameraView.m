@@ -80,6 +80,23 @@
     return self;
 }
 
+- (void)resumeCamera{
+    [_camManager startRunning];
+}
+
+- (void)pauseCamera{
+    [_camManager stopRunning];
+}
+
+-(BOOL)CameraIsOn{
+    return [_camManager isSessionRunning];
+}
+
+-(void)checkCameraAndOperate{
+    [_camManager isSessionRunning]?[_camManager stopRunning]:[_camManager startRunning];
+}
+
+
 -(void)setup{
     
     self.clipsToBounds = NO;

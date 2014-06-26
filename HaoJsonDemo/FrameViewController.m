@@ -19,14 +19,16 @@
 
 @interface FrameViewController () <MainVCDelegate,SettingDelegate>
 
-// four tabbar view controllers
+// App view controllers
 @property (nonatomic,strong) UINavigationController *VC1;
 @property (nonatomic,strong) UINavigationController *VC2;
+
+// App debug VC
 @property (nonatomic,strong) DebugViewController *VC3;
 @property (nonatomic,strong) EP_thirdViewController *VC4;
 
 //array to store VCs
-@property (strong, nonatomic) NSMutableArray *menu;
+@property (strong, nonatomic) NSArray *menu;
 @property (strong, nonatomic) NSDictionary *dict;
 
 @property (nonatomic) BOOL statusBarHidden;
@@ -69,7 +71,7 @@
         //2. Delegate: set up VC4 as the delegate of debugVC
         self.VC3.debugDelegate = self.VC4;
         
-        self.menu = [NSMutableArray arrayWithObjects:self.VC1, self.VC2,self.VC3,self.VC4, nil];
+        self.menu = [NSArray arrayWithObjects:self.VC1, self.VC2,self.VC3,self.VC4, nil];
         
         //a dictionary that knows which index giving a class name of VC
         self.dict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -79,7 +81,7 @@
                      [NSNumber numberWithInt:3], self.VC4.restorationIdentifier, nil];
         
     }else{
-        self.menu = [NSMutableArray arrayWithObjects:self.VC1, self.VC2, nil];
+        self.menu = [NSArray arrayWithObjects:self.VC1, self.VC2, nil];
         
         //a dictionary that knows which index giving a class name of VC
         self.dict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -99,15 +101,13 @@
     self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageVC"];
     self.pageViewController.dataSource = self;
     
-   
-    
     //actually init (called viewDidLoad for all VCs and show self.VC1 to be the first
     for(int i = [self.menu count] - 1; i>=0;i--){
         [self.pageViewController setViewControllers:@[self.menu[i]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     }
     
     // Change the size of page view controller
-    self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    self.pageViewController.view.frame = CGRectMake(0, 0, CGRectGetWidth([[UIScreen mainScreen] bounds]), CGRectGetHeight([[UIScreen mainScreen] bounds]));
     
     [self addChildViewController:_pageViewController];
     [self.view addSubview:_pageViewController.view];
@@ -133,11 +133,10 @@
 }
 
 - (void) setCamDelegateFromMain:(MainViewController *)camVC{
-    NSLog(@"yo2?");
     if(_debugMode)
         camVC.camView.camDelegate = self.VC3;
-    
-    camVC.camView.camDelegate = (id<EdibleCameraDelegate>) camVC;
+    else
+        camVC.camView.camDelegate = (id<EdibleCameraDelegate>) camVC;
 }
 
 -(NSUInteger)getVCIndex:(UIViewController *) vc{
@@ -181,7 +180,7 @@
 }
 
 
-
+//status bar
 
 - (BOOL)prefersStatusBarHidden {
     return _statusBarHidden;

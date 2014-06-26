@@ -77,5 +77,12 @@
 
 - (instancetype)initWithFrame:(CGRect)frame andOrientation:(UIInterfaceOrientation)iot andAppliedVC:(MainViewController *)VC;
 
+- (void)resumeCamera;
+
+- (void)pauseCamera;
+
+-(BOOL)CameraIsOn;
+
+-(void)checkCameraAndOperate;
 
 @end

@@ -27,6 +27,7 @@
 //session
 - (void) startRunning;
 - (void) stopRunning;
+-(BOOL)isSessionRunning;
 
 //torch
 -(void)turnOffTorch:(UIButton *)btn;
@@ -46,5 +47,6 @@
 
 //clean up, be careful
 -(void)clearResource;
+
 
 @end

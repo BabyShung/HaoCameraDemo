@@ -22,7 +22,7 @@
 #import "TextDetector.h"
 #import "WordCorrector.h"
 #import "LoadControls.h"
-
+#import "AppDelegate.h"
 
 static NSString *CellIdentifier = @"Cell";
 
@@ -56,14 +56,15 @@ static NSString *CellIdentifier = @"Cell";
 
 - (void)viewDidLoad{
     
-    
-    [self loadTesseract];
-    
-    
     ScreenWidth = CGRectGetWidth([[UIScreen mainScreen] bounds]);
     ScreenHeight = CGRectGetHeight([[UIScreen mainScreen] bounds]);
     
-
+    //number of cell
+    self.cellCount = 10;
+    
+    //setup tesseract
+    [self loadTesseract];
+    
     //init controls
     [self loadControls];
     
@@ -76,11 +77,10 @@ static NSString *CellIdentifier = @"Cell";
     //registering dequueue cell
     [self.collectionView registerClass:[EDCollectionCell class] forCellWithReuseIdentifier:CellIdentifier];
     
-    self.cellCount = 10;
+    
     //self.debugV = [[debugView alloc] initWithFrame:CGRectMake(0, 0, 320, 200) andReferenceCV:self];
     //[self.view insertSubview:self.debugV aboveSubview:self.collectionView];
     
-    NSLog(@"view did load");
     self.transitionController = [[TransitionController alloc] initWithCollectionView:self.collectionView];
     self.transitionController.delegate = self;
     self.navigationController.delegate = self.transitionController;
@@ -92,16 +92,18 @@ static NSString *CellIdentifier = @"Cell";
     self.camView = [[CameraView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) andOrientation:self.interfaceOrientation andAppliedVC:self];//nil is not using tabbar frame delegate
 
     [self.view insertSubview:self.camView belowSubview:self.collectionView];
+    
+    //save reference of camView so that when enter BG will close, etc
+    AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDlg.CameraView = self.camView;
+
 
 }
+
 
 - (void) viewDidAppear:(BOOL)animated {
 
     
-
-    
-    
-    NSLog(@"yo1?");
     //set camView delegate to be DEBUG_VC
     [self.Maindelegate setCamDelegateFromMain:self];
     
@@ -118,6 +120,12 @@ static NSString *CellIdentifier = @"Cell";
     }];
 }
 
+
+/*******************************
+ 
+ collection view delegate
+ 
+ *****************************/
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.cellCount;
 }
@@ -132,16 +140,15 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+    //deselect !!??
+    //[collectionView deselectItemAtIndexPath:indexPath animated:YES];
     
-    NSLog(@"select IN first");
+    
+    [_camView pauseCamera];
     
     SecondViewController *viewController = [[SecondViewController alloc] initWithCollectionViewLayout:[[largeLayout alloc] init]];
-    
     viewController.useLayoutToLayoutNavigationTransitions = YES;
-    
     [self.navigationController pushViewController:viewController animated:YES];
-    
 }
 
 
@@ -179,9 +186,7 @@ static NSString *CellIdentifier = @"Cell";
     [_tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz()&/" forKey:@"tessedit_char_whitelist"]; //limit search
 }
 
-
-
-#pragma mark Tesseract
+#pragma mark --------- Tesseract
 //tesseract processing
 -(NSString *)recognizeImageWithTesseract:(UIImage *)img
 {

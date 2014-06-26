@@ -43,12 +43,22 @@
     return [[AVCaptureVideoPreviewLayer alloc] initWithSession:_mySesh];
 }
 
+-(BOOL)isSessionRunning{
+    return [_mySesh isRunning];
+}
+
 - (void) startRunning{
-    [_mySesh startRunning];
+    if(![_mySesh isRunning]){
+        NSLog(@"Start running **");
+        [_mySesh startRunning];
+    }
 }
 
 - (void) stopRunning{
-    [_mySesh stopRunning];
+    if([_mySesh isRunning]){
+        NSLog(@"Stop running **");
+        [_mySesh stopRunning];
+    }
 }
 
 /********************
