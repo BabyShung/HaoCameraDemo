@@ -75,6 +75,7 @@
     
     if(!CGPointEqualToPoint(center,CGPointZero)){
         button.center = center;
+        NSLog(@"goes here1");
     }
 
 
