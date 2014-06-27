@@ -71,7 +71,7 @@ static NSString *CellIdentifier = @"Cell";
 
     /*REQUIRED FOR DEBUGGING ANIMATION*/
 
-    //self.collectionView.hidden = YES;
+    self.collectionView.hidden = YES;
     self.collectionView.backgroundColor = [UIColor clearColor];
     
     //registering dequueue cell
