@@ -60,7 +60,7 @@ static NSString *CellIdentifier = @"Cell";
     ScreenHeight = CGRectGetHeight([[UIScreen mainScreen] bounds]);
     
     //number of cell
-    self.cellCount = 0;
+    self.cellCount = 10;
     
     //setup tesseract
     [self loadTesseract];

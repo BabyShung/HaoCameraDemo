@@ -16,6 +16,13 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong,nonatomic) NSMutableData *webdata;
 
+
+@property (weak, nonatomic) IBOutlet UITextField *textField;
+
+
+@property (strong,nonatomic) AsyncRequest *async;
+
+
 @end
 
 @implementation NetworkTestViewController
@@ -25,6 +32,8 @@
     [super viewDidLoad];
 	
     _webdata = [[NSMutableData alloc]init];
+    
+    self.async = [[AsyncRequest alloc]init];
     
 }
 - (IBAction)getImage:(id)sender {
@@ -37,9 +46,8 @@
 
 - (IBAction)getRequest:(id)sender {
     
-    AsyncRequest *async = [[AsyncRequest alloc]init];
-    
-    [async performGETAsyncTask:self andURLString:@"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/Other?name=我"];
+        
+    //[async performGETAsyncTask:self andURLString:@"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/Other?name=我"];
     
     //1.
     //[async getFoodInfo:@"blue cheese" andLanguage:@"CN" andSELF:self];
@@ -149,6 +157,33 @@
 }
 
 
+- (IBAction)getFoodInfo:(id)sender {
+    [self.async getFoodInfo:@"blue cheese" andLanguage:@"CN" andSELF:self];
+}
 
+- (IBAction)getReview:(id)sender {
+    [self.async getReviews:@"calico bean" andUid:1 andStart:0 andOffset:5 andSELF:self];
+}
+
+- (IBAction)postReview:(id)sender {
+    
+    GeneralUser *guser = [[GeneralUser alloc]init];
+    guser.Uid = 1;
+    guser.Uname = @"Anonymity";
+    
+    Review *review = [[Review alloc]init];
+    review.title = @"blue cheese";
+    review.rate = 5;
+    review.comment = @"Nice food!!!";
+    review.byUser = guser;
+    review.time = [[NSDate date] timeIntervalSince1970]*1000.0;
+    
+    [self.async doReview:review andAction:@"add" andSELF:self];//action: update, post
+
+    
+}
+
+- (IBAction)updateReview:(id)sender {
+}
 
 @end
