@@ -7,7 +7,7 @@
 //
 
 #import "Food.h"
-#import ""
+//#import ""
 
 const NSString *title = @"Title";
 const NSString *translation = @"Translation";

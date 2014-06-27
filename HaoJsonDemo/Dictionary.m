@@ -7,7 +7,9 @@
 //
 
 #import "Dictionary.h"
+#import "ShareData.h"
 #import "DBOperation.h"
+#import "Food.h"
 
 @interface Dictionary()
 @property (nonatomic,readwrite) TargetLang lang;
@@ -23,6 +25,11 @@
     return self;
     
 }
+-(instancetype) initDictInDefaultLang{
+    self = [self initDictInLang:[[ShareData shareData] defaultTargetLang]];
+    return self;
+}
+
 -(DBOperation *)operation
 {
     if (!_operation) {
@@ -31,7 +38,34 @@
     return _operation;
 }
 
+-(NSArray *) localSearchOCRString:(NSString *)inputStr
+{
+    NSLog(@"--------local search starts-----");
+    NSMutableArray *keywords,*foods;
+    
+    NSArray *translates = [self lookupOCRString:inputStr foundKeywords:keywords];
+    NSLog(@"keywords %d, translates %d",(int)keywords.count,(int)translates.count);
+    
+    if (keywords.count!=0) {
+        for (int i =0;i<keywords.count;i++) {
+            Food *food =[[Food alloc]initWithTitle:keywords[i] andTranslations:translates[i]];
+            [foods addObject:food];
+        }
+        NSLog(@"return foods %d",(int)foods.count);
+        return foods;
+    }
+    else{
+        return nil;
+    }
+    
+}
 
+-(void) serverSearchOCRString:(NSString *)inputStr andCompletion:(void (^)(BOOL, NSError *))block
+{
+    
+}
+
+//Local search an ocr string
 -(NSArray *) lookupOCRString:(NSString *)inputStr foundKeywords:(NSMutableArray *)keywords
 {
     if (!keywords) {

@@ -1432,12 +1432,8 @@
 				B8C8F274195CB019009F8F6E /* README.md in Resources */,
 				B8B60FD619591E07005268D5 /* likeButton_unselected.png in Resources */,
 				AC1E7765194F583100532F65 /* foodlist_a-z_sql_CN.txt in Resources */,
-<<<<<<< HEAD
-				AC74931F195CB62B00D3CBBA /* trained_classifierNM1.xml in Resources */,
-=======
 				B8C8F26F195CB019009F8F6E /* LICENSE in Resources */,
 				B8C8F279195CC1CF009F8F6E /* trained_classifierNM1.xml in Resources */,
->>>>>>> FETCH_HEAD
 				B8B60FD819591E07005268D5 /* likeButtonToolbar_unselected.png in Resources */,
 				B8B60FF119591E60005268D5 /* fullURLs.txt in Resources */,
 				B8B6106119592696005268D5 /* blackBG.JPG in Resources */,

@@ -19,6 +19,7 @@
 #import "TextDetector.h"
 #import "WordCorrector.h"
 #import "Dictionary.h"
+#import "Food.h"
 
 #import "LoadControls.h"
 #import "AppDelegate.h"
@@ -226,10 +227,9 @@ static NSString *CellIdentifier = @"Cell";
             NSMutableArray *resultStrings;
             NSString *result = @"";
             
-            for (int i = 0; i<_imgArray.count-1; i++) {
+            for (int i = 0; i<_imgArray.count-1; i++)
+            {
                 NSString *tmp = [self recognizeImageWithTesseract:[_imgArray objectAtIndex:i]];
-                
-                
                 result = [result stringByAppendingFormat:@"%d. %@\n",i, tmp];
                 [resultStrings addObject:tmp];
                 //            NSLog(@"tmp %d: %@",i, tmp);
@@ -239,6 +239,19 @@ static NSString *CellIdentifier = @"Cell";
             NSLog(@"<<<<<<<<<<1.5 RESULT: \n%@", result);
             
                 /*     Analyze OCR Results locally      */
+            NSArray *localFoods;
+            Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
+            //for (NSString *inputStr in resultStrings)
+            //{
+                localFoods = [dict localSearchOCRString:@"yeast bread with Worcestershire sauce and yogurt"];
+                NSLog(@"main view return foods %d",(int)localFoods.count);
+            for (Food *localFood in localFoods) {
+                NSLog(@"Food : %@ -> %@ ",localFood.title,localFood.transTitle);
+            }
+            
+            //}
+            NSLog(@"main view return foods %d",(int)localFoods.count);
+            
             
             
         }
