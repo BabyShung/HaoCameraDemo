@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Hao Zheng. All rights reserved.
 
 
-#import <TesseractOCR/TesseractOCR.h>
+#import "Tesseract.h"
 #import "CameraView.h"
 
 /***********************************************
@@ -33,7 +33,7 @@
 @end
 
 
-@interface MainViewController : UICollectionViewController  <TesseractDelegate>
+@interface MainViewController : UICollectionViewController
 
 @property (nonatomic,strong) CameraView* camView;
 

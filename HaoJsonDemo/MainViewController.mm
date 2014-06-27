@@ -106,7 +106,6 @@ static NSString *CellIdentifier = @"Cell";
     
     [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.camView.StreamView.alpha = 1;
-        self.camView.rotationCover.alpha = 1;
     } completion:^(BOOL finished) {
         if (finished) {
             if ([(NSObject *)self.camView.camDelegate respondsToSelector:@selector(EdibleCameraDidLoadCameraIntoView:)]) {
@@ -181,9 +180,8 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 -(void)loadTesseract{
-    _tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];//langague package
-    _tesseract.delegate = self;
-    [_tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz()&/" forKey:@"tessedit_char_whitelist"]; //limit search
+    self.tesseract = [[Tesseract alloc] initWithDataPath:@"tessdata" language:@"eng"];
+    [self.tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" forKey:@"tessedit_char_whitelist"];
 }
 
 #pragma mark --------- Tesseract
@@ -195,10 +193,6 @@ static NSString *CellIdentifier = @"Cell";
     NSString *recognizedText = [_tesseract recognizedText];
     NSLog(@"Tesseract Recognized: %@", recognizedText);
     return recognizedText;
-}
-
-- (BOOL)shouldCancelImageRecognitionForTesseract:(Tesseract*)tesseract {
-    return NO;  // return YES, if you need to interrupt tesseract before it finishes
 }
 
 #pragma mark CAMERA DELEGATE
