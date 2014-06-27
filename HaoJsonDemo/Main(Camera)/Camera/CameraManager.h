@@ -48,6 +48,5 @@
 //clean up, be careful
 -(void)clearResource;
 
--(void)setScaleFactor:(CGFloat)scaleFactor;
 
 @end

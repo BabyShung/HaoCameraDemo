@@ -31,7 +31,7 @@
 @property (strong, nonatomic) NSArray *menu;
 @property (strong, nonatomic) NSDictionary *dict;
 
-//@property (nonatomic) BOOL statusBarHidden;
+@property (nonatomic) BOOL statusBarHidden;
 @property (nonatomic) BOOL debugMode;
 
 @end
@@ -44,8 +44,8 @@
     
     
     
-    //_statusBarHidden = YES;
-    //[self setNeedsStatusBarAppearanceUpdate];
+    _statusBarHidden = YES;
+    [self setNeedsStatusBarAppearanceUpdate];
     
     //_debugMode = YES;
     
@@ -141,11 +141,11 @@
 
 -(NSUInteger)getVCIndex:(UIViewController *) vc{
     NSUInteger index = [[self.dict objectForKey:vc.restorationIdentifier] integerValue];
-//    if(index == 0){
-//        [self showStatusBar:NO];
-//    }else{
-//        [self showStatusBar:YES];
-//    }
+    if(index == 0){
+        [self showStatusBar:NO];
+    }else{
+        [self showStatusBar:YES];
+    }
     return index;
 }
 
@@ -183,16 +183,16 @@
 //status bar
 
 - (BOOL)prefersStatusBarHidden {
-    return YES;
+    return _statusBarHidden;
 }
-//
-//- (void)showStatusBar:(BOOL)show {
-//    [UIView animateWithDuration:0.3 animations:^{
-//        _statusBarHidden = !show;
-//        [self setNeedsStatusBarAppearanceUpdate];
-//    }];
-//}
-//-(UIStatusBarStyle)preferredStatusBarStyle{
-//    return UIStatusBarStyleLightContent;
-//}
+
+- (void)showStatusBar:(BOOL)show {
+    [UIView animateWithDuration:0.3 animations:^{
+        _statusBarHidden = !show;
+        [self setNeedsStatusBarAppearanceUpdate];
+    }];
+}
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
 @end

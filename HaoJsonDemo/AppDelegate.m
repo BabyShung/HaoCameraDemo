@@ -43,10 +43,12 @@
 /*                    Default Dictionary = Chinese                         */
 /*                                                                         */
         //Prepare database
-//        SQLConnector *connector = [SQLConnector sharedInstance];
-//        ShareData *sharedata = [ShareData shareData];
-//        [connector createEditableCopyOf:[sharedata filterWordsFileName]];
+        SQLConnector *connector = [SQLConnector sharedInstance];
         DBOperation *operation = [[DBOperation alloc] init];
+        ShareData *sharedata = [ShareData shareData];
+        [connector createEditableCopyOf:[sharedata keywordFileName]];
+        [connector createEditableCopyOf:[sharedata langFileName:Chinese]];
+        [connector createEditableCopyOf:[sharedata filterWordsFileName]];
         [operation createLangTable:Chinese];
         [operation createKeywordTable];
     }
