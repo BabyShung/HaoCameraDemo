@@ -60,7 +60,7 @@
         
     //add border
     cv::Scalar value = cv::Scalar(255, 255, 255);//color
-    copyMakeBorder( inputImage, inputImage, 10, 10, 10, 10, cv::BORDER_CONSTANT, value);//add border
+    //copyMakeBorder( inputImage, inputImage, 10, 10, 10, 10, cv::BORDER_CONSTANT, value);//add border
     
     return inputImage;
 }

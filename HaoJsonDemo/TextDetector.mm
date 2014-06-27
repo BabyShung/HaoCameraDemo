@@ -49,7 +49,12 @@ using namespace std;
         for (int i = 0; i < gsize ; i++)
         {
             Mat tmpMat;
-            orgMat(finalgroups.at(i)).copyTo(tmpMat);
+            
+            
+            cv::Size s= cv::Size(2,2);
+            
+            orgMat(finalgroups.at(i)+s).copyTo(tmpMat);
+           
             [imgArray addObject:[UIImage imageWithCVMat:tmpMat]];
             
             
@@ -114,6 +119,7 @@ using namespace std;
             [imgArray addObject:[UIImage imageWithCVMat:tmpMat]];
             
             //Save Rects in Mutable Array
+            
             CGRect tmpRect = CGRectMake(finalgroups.at(i).x, finalgroups.at(i).y, finalgroups.at(i).width, finalgroups.at(i).height);
             [locations addObject:[NSValue valueWithCGRect:tmpRect]];
         }
@@ -244,7 +250,15 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b)
     cout<<"Drawing groups..."<< endl;
     for (int i=(int)groups.size()-1; i>=0; i--)
     {
-        rectangle(src,groups.at(i).tl(),groups.at(i).br(),Scalar( 0, 255, 255 ), 3, 8 );
+        cv::Point t = groups.at(i).tl();
+        t.x = t.x - 10;
+        t.y = t.y - 10;
+    
+        cv::Point b = groups.at(i).br();
+        b.x = b.x + 10;
+        b.y = b.y +10;
+        
+        rectangle(src,t,b,Scalar( 0, 255, 255 ), 2, 8 );
     }
 }
 
