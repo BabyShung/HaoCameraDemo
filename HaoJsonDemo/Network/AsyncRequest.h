@@ -14,7 +14,7 @@
 
 -(void)getFoodInfo:(NSString*)foodname andLanguage:(NSString *)language andSELF:(id)selfy;
 
--(void)getReviews_fid:(NSUInteger)fid ByUid:(NSUInteger)uid andStart:(NSUInteger)start andOffset:(NSUInteger)offset andSELF:(id)selfy;
+-(void)getReviews_fid:(NSUInteger)fid andSELF:(id)selfy;
 
 -(void)doComment:(Comment *)comment toFood:(Food *)food withAction:(NSString*)action andSELF:(id)selfy;
 

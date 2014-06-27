@@ -25,16 +25,13 @@
     return self;
     
 }
-<<<<<<< HEAD
+
 -(instancetype) initDictInDefaultLang{
     self = [self initDictInLang:[[ShareData shareData] defaultTargetLang]];
     return self;
 }
 
 -(DBOperation *)operation
-=======
--(DBOperation *)opration
->>>>>>> FETCH_HEAD
 {
     if (!_opration) {
         _opration = [[DBOperation alloc] init];

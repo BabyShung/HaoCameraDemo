@@ -25,10 +25,12 @@
 
 @implementation AsyncRequest 
 
--(void)getReviews_fid:(NSUInteger)fid ByUid:(NSUInteger)uid andStart:(NSUInteger)start andOffset:(NSUInteger)offset andSELF:(id)selfy{
+-(void)getReviews_fid:(NSUInteger)fid andSELF:(id)selfy{
+    
+    User *user = [User sharedInstance];
     
     NSMutableString *paraString = [NSMutableString string];
-    [paraString appendString:[NSString stringWithFormat:@"fid=%d&uid=%d&start=%d&offset=%d",fid,uid,start,offset]];
+    [paraString appendString:[NSString stringWithFormat:@"fid=%d&uid=%d&start=0&offset=5",fid,user.Uid]];
     NSMutableString *reviewString =  [NSMutableString stringWithString:REVIEWURL];
     
     [reviewString appendString:paraString];

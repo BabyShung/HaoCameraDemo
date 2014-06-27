@@ -21,12 +21,10 @@
 #import "ImagePreProcessor.h"
 #import "TextDetector.h"
 #import "WordCorrector.h"
-<<<<<<< HEAD
+
 #import "Dictionary.h"
 #import "Food.h"
 
-=======
->>>>>>> FETCH_HEAD
 #import "LoadControls.h"
 #import "AppDelegate.h"
 
@@ -77,7 +75,7 @@ static NSString *CellIdentifier = @"Cell";
 
     /*REQUIRED FOR DEBUGGING ANIMATION*/
 
-    //self.collectionView.hidden = YES;
+    self.collectionView.hidden = YES;
     self.collectionView.backgroundColor = [UIColor clearColor];
     
     //registering dequueue cell
@@ -229,13 +227,9 @@ static NSString *CellIdentifier = @"Cell";
             }
             
             NSString *result = @"";
-<<<<<<< HEAD
-            
-            for (int i = 0; i<_imgArray.count-1; i++)
-            {
-=======
+
             for (int i = 0; i<_imgArray.count-1; i++) {
->>>>>>> FETCH_HEAD
+
                 NSString *tmp = [self recognizeImageWithTesseract:[_imgArray objectAtIndex:i]];
                 result = [result stringByAppendingFormat:@"%d. %@\n",i, tmp];
                 //            NSLog(@"tmp %d: %@",i, tmp);
@@ -244,7 +238,7 @@ static NSString *CellIdentifier = @"Cell";
             
             onScreenImage = [_imgArray objectAtIndex:(_imgArray.count-1)];
             NSLog(@"<<<<<<<<<<1.5 RESULT: \n%@", result);
-<<<<<<< HEAD
+
             
                 /*     Analyze OCR Results locally      */
             NSArray *localFoods;
@@ -260,11 +254,7 @@ static NSString *CellIdentifier = @"Cell";
             //}
             NSLog(@"main view return foods %d",(int)localFoods.count);
             
-            
-            
-=======
 
->>>>>>> FETCH_HEAD
         }
         
     }
