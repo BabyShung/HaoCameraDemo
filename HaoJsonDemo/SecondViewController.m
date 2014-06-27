@@ -25,9 +25,12 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
+    //NSLog(@"view did appear, %d selected",[[self.collectionView indexPathsForSelectedItems] count]);
+
     if(self.camView){
         [self.camView pauseCamera];
     }
+    
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
@@ -35,6 +38,7 @@
     if(self.camView){
         [self.camView resumeCamera];
     }
+    
 }
 
 //-(BOOL)prefersStatusBarHidden{

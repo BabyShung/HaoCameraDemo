@@ -16,7 +16,11 @@
 
 
 -(instancetype) initDictInLang:(TargetLang) lang;
+//Local search
 -(NSArray *) lookupOCRString:(NSString *)inputStr foundKeywords:(NSMutableArray *)keywords;
+
+//Server
+//-(NSArray *) sear
 
 //Dictionary update function
 //  1. download file from server;

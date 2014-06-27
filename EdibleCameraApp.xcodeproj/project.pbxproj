@@ -19,6 +19,9 @@
 		AC7491FB195A2C7500D3CBBA /* EDCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7491FA195A2C7500D3CBBA /* EDCollectionCell.m */; };
 		AC7491FE195A2CA200D3CBBA /* FoodInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7491FD195A2CA200D3CBBA /* FoodInfoView.m */; };
 		AC749201195A2D4300D3CBBA /* TransitionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC749200195A2D4300D3CBBA /* TransitionLayout.m */; };
+		AC74931E195CB62B00D3CBBA /* trained_classifier_erGrouping.xml in Resources */ = {isa = PBXBuildFile; fileRef = AC74931B195CB62B00D3CBBA /* trained_classifier_erGrouping.xml */; };
+		AC74931F195CB62B00D3CBBA /* trained_classifierNM1.xml in Resources */ = {isa = PBXBuildFile; fileRef = AC74931C195CB62B00D3CBBA /* trained_classifierNM1.xml */; };
+		AC749320195CB62B00D3CBBA /* trained_classifierNM2.xml in Resources */ = {isa = PBXBuildFile; fileRef = AC74931D195CB62B00D3CBBA /* trained_classifierNM2.xml */; };
 		AC8A357719461E2100FC5465 /* DBOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8A357019461E2100FC5465 /* DBOperation.m */; };
 		AC8A357819461E2100FC5465 /* Dictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8A357219461E2100FC5465 /* Dictionary.m */; };
 		AC8A357A19461E2100FC5465 /* SQLConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8A357619461E2100FC5465 /* SQLConnector.m */; };
@@ -172,6 +175,9 @@
 		AC7491FD195A2CA200D3CBBA /* FoodInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodInfoView.m; sourceTree = "<group>"; };
 		AC7491FF195A2D4300D3CBBA /* TransitionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionLayout.h; sourceTree = "<group>"; };
 		AC749200195A2D4300D3CBBA /* TransitionLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionLayout.m; sourceTree = "<group>"; };
+		AC74931B195CB62B00D3CBBA /* trained_classifier_erGrouping.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = trained_classifier_erGrouping.xml; sourceTree = "<group>"; };
+		AC74931C195CB62B00D3CBBA /* trained_classifierNM1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = trained_classifierNM1.xml; sourceTree = "<group>"; };
+		AC74931D195CB62B00D3CBBA /* trained_classifierNM2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = trained_classifierNM2.xml; sourceTree = "<group>"; };
 		AC8A356F19461E2100FC5465 /* DBOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBOperation.h; sourceTree = "<group>"; };
 		AC8A357019461E2100FC5465 /* DBOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBOperation.m; sourceTree = "<group>"; };
 		AC8A357119461E2100FC5465 /* Dictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dictionary.h; sourceTree = "<group>"; };
@@ -392,6 +398,9 @@
 			children = (
 				3A5654BA1936838C0085CC87 /* TextDetector.h */,
 				3A5654BB1936838C0085CC87 /* TextDetector.mm */,
+				AC74931B195CB62B00D3CBBA /* trained_classifier_erGrouping.xml */,
+				AC74931C195CB62B00D3CBBA /* trained_classifierNM1.xml */,
+				AC74931D195CB62B00D3CBBA /* trained_classifierNM2.xml */,
 			);
 			name = textDetection;
 			sourceTree = "<group>";
@@ -417,8 +426,6 @@
 				AC1E775F194F580800532F65 /* ShareData.m */,
 				AC8A356F19461E2100FC5465 /* DBOperation.h */,
 				AC8A357019461E2100FC5465 /* DBOperation.m */,
-				AC8A357119461E2100FC5465 /* Dictionary.h */,
-				AC8A357219461E2100FC5465 /* Dictionary.m */,
 			);
 			name = LocalDB;
 			sourceTree = "<group>";
@@ -795,6 +802,8 @@
 				B8D09A741948BCCF006C070D /* GeneralUser.m */,
 				B8D09A751948BCCF006C070D /* LocalUser.h */,
 				B8D09A761948BCCF006C070D /* LocalUser.m */,
+				AC8A357119461E2100FC5465 /* Dictionary.h */,
+				AC8A357219461E2100FC5465 /* Dictionary.m */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -1029,6 +1038,7 @@
 				B8F29C771932DD20008979A7 /* Discover_01@2x.png in Resources */,
 				B8B60FDB19591E07005268D5 /* secret.png in Resources */,
 				B8B61145195A63DA005268D5 /* addImage.png in Resources */,
+				AC74931E195CB62B00D3CBBA /* trained_classifier_erGrouping.xml in Resources */,
 				B8C8EF68195B7551009F8F6E /* register_01.jpg in Resources */,
 				B82353BF192BE2F400D6BCAC /* Lightening.png in Resources */,
 				B8B610941959CFBC005268D5 /* CameraNext.png in Resources */,
@@ -1037,6 +1047,7 @@
 				B8F29C721932DCF5008979A7 /* Me_01.png in Resources */,
 				B8B60FD519591E07005268D5 /* likeButton_selected.png in Resources */,
 				B8B6106419592696005268D5 /* user.png in Resources */,
+				AC749320195CB62B00D3CBBA /* trained_classifierNM2.xml in Resources */,
 				B8F29C711932DCF5008979A7 /* Dine_01@2x.png in Resources */,
 				B8B60FD719591E07005268D5 /* likeButtonToolbar_selected.png in Resources */,
 				B8C8EF69195B7551009F8F6E /* register_02.jpg in Resources */,
@@ -1045,6 +1056,7 @@
 				B8C8EF6A195B7551009F8F6E /* register_03.jpg in Resources */,
 				B8B60FD619591E07005268D5 /* likeButton_unselected.png in Resources */,
 				AC1E7765194F583100532F65 /* foodlist_a-z_sql_CN.txt in Resources */,
+				AC74931F195CB62B00D3CBBA /* trained_classifierNM1.xml in Resources */,
 				B8B60FD819591E07005268D5 /* likeButtonToolbar_unselected.png in Resources */,
 				B8B60FF119591E60005268D5 /* fullURLs.txt in Resources */,
 				B8B6106119592696005268D5 /* blackBG.JPG in Resources */,

@@ -10,17 +10,16 @@
 #import "TransitionController.h"
 #import "debugView.h"
 #import "EDCollectionCell.h"
-
 #import "TransitionLayout.h"
-
 #import "SecondViewController.h"
-
 
 #import "opencv2/opencv.hpp"
 #import "UIImage+OpenCV.h"
 #import "ImagePreProcessor.h"
 #import "TextDetector.h"
 #import "WordCorrector.h"
+#import "Dictionary.h"
+
 #import "LoadControls.h"
 #import "AppDelegate.h"
 
@@ -203,36 +202,50 @@ static NSString *CellIdentifier = @"Cell";
     
     if (image) {
         
+            /*    Shrink image  -- Hao  */
+        
         //PS: image variable is the original size image (2448*3264)
         UIImage *onScreenImage = [LoadControls scaleImage:image withScale:1.5f withRect:rect andCropSize:size];
         UIImage *originalImage = [UIImage imageWithCGImage:onScreenImage.CGImage];
+        
+            /*    Detect text regions in the image  -- Mei      */
         
         self.imgArray = [TextDetector detectTextRegions:originalImage];
 
         if ([_imgArray count] > 0)
         {
+                /*      Process detected regions  -- Charlie    */
+            
             for(int i = 0; i<(self.imgArray.count-1);i++){
 
                 _tempMat= [self.imgArray[i] CVMat];
                 
-                // Step 3. put Mat into pre processor- Charlie
                 _tempMat = [self.ipp processImage:_tempMat];
                 
                 self.imgArray[i] = [UIImage imageWithCVMat:_tempMat];//convert back to uiimage
                 
             }
             
+                /*      Tesserract OCR -- Hao       */
+            
+            NSMutableArray *resultStrings;
             NSString *result = @"";
+            
             for (int i = 0; i<_imgArray.count-1; i++) {
                 NSString *tmp = [self recognizeImageWithTesseract:[_imgArray objectAtIndex:i]];
+                
+                
                 result = [result stringByAppendingFormat:@"%d. %@\n",i, tmp];
+                [resultStrings addObject:tmp];
                 //            NSLog(@"tmp %d: %@",i, tmp);
             }
 
-            
             onScreenImage = [_imgArray objectAtIndex:(_imgArray.count-1)];
             NSLog(@"<<<<<<<<<<1.5 RESULT: \n%@", result);
-
+            
+                /*     Analyze OCR Results locally      */
+            
+            
         }
         
     }
