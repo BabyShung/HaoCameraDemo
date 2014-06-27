@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Hao Zheng. All rights reserved.
 //
 
+#define SCALE_FACTOR 1.5f
+
 #define CROPVIEW_HEIGHT 350
 #define CROPFRAME_BOARDER_WIDTH 3
 #define CROPFRAME_FRAME_WIDTH 220
@@ -390,6 +392,14 @@
     _captureVideoPreviewLayer = [_camManager createPreviewLayer];
 	_captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
 	_captureVideoPreviewLayer.frame = _StreamView.layer.bounds; // parent of layer
+    
+    [CATransaction begin];
+    [CATransaction setAnimationDuration:.025];
+    [_captureVideoPreviewLayer setAffineTransform:CGAffineTransformMakeScale(SCALE_FACTOR, SCALE_FACTOR)];
+    [CATransaction commit];
+    
+    [_camManager setScaleFactor:SCALE_FACTOR];
+    
     
 	[_StreamView.layer addSublayer:_captureVideoPreviewLayer];
     
