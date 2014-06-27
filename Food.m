@@ -43,6 +43,9 @@ const NSString *comments = @"Comments";
 -(void) fetchCommentsCompletion:(void (^)(NSError *err, BOOL sucess))block
 {
     
+    //
+    
+    
 }
 
 -(void) throwFoodExceptionCausedBy:(NSString *)reason{
