@@ -43,7 +43,7 @@
     
     _statusBarHidden = YES;
     
-    //_debugMode = YES;
+    _debugMode = YES;
     
     //declare all the viewControllers
     
