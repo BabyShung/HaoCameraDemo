@@ -58,8 +58,6 @@
 @property (nonatomic) BOOL disablePhotoPreview;
 
 
-@property (strong, nonatomic) UIView * rotationCover;
-
 @property (strong, nonatomic) UIView * StreamView;//bottom view
 
 @property (strong, nonatomic) MainViewController *appliedVC;
