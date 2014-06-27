@@ -8,9 +8,11 @@
 
 #import "NetworkTestViewController.h"
 #import "AsyncRequest.h"
-#import "Review.h"
-#import "GeneralUser.h"
+#import "Comment.h"
+#import "User.h"
 #import "Edible_S3.h"
+#import "Food.h"
+
 @interface NetworkTestViewController () <NSURLConnectionDataDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -162,28 +164,48 @@
 }
 
 - (IBAction)getReview:(id)sender {
-    [self.async getReviews:@"calico bean" andUid:1 andStart:0 andOffset:5 andSELF:self];
+    
+    [self.async getReviews_fid:1 ByUid:1 andStart:0 andOffset:5 andSELF:self];
+    //[self.async getReviews:@"blue cheese" andUid:1 andStart:0 andOffset:5 andSELF:self];
 }
 
 - (IBAction)postReview:(id)sender {
     
-    GeneralUser *guser = [[GeneralUser alloc]init];
-    guser.Uid = 1;
-    guser.Uname = @"Anonymity";
+    //user,late will move to login
+    [User sharedInstanceWithUid:1 andUname:@"Anonymity" andUpwd:@"123" andUtype:1 andUselfie:nil];
     
-    Review *review = [[Review alloc]init];
-    review.title = @"blue cheese";
-    review.rate = 5;
-    review.comment = @"Nice food!!!";
-    review.byUser = guser;
-    review.time = [[NSDate date] timeIntervalSince1970]*1000.0;
+    //food
+    Food *food = [[Food alloc] init];
+    food.fid = 1;
     
-    [self.async doReview:review andAction:@"add" andSELF:self];//action: update, post
+    //comment
+    Comment *review = [[Comment alloc]initWithCommentID:0 andFood:food andRate:3 andComment:@"User Hao commented!!!!"];
+
+
+
+    [self.async doComment:review toFood:food withAction:@"add" andSELF:self];//action: update, post
 
     
 }
 
 - (IBAction)updateReview:(id)sender {
+    
+    //user,late will move to login
+    [User sharedInstanceWithUid:1 andUname:@"Anonymity" andUpwd:@"123" andUtype:1 andUselfie:nil];
+    
+    //food
+    Food *food = [[Food alloc] init];
+    food.fid = 1;
+    
+    //comment
+    Comment *review = [[Comment alloc]initWithCommentID:8 andFood:food andRate:3 andComment:@"User Hao commented!!!!"];
+    
+    [self.async doComment:review toFood:food withAction:@"update" andSELF:self];//action: update, post
 }
 
+- (IBAction)like:(id)sender {
+    
+    [self.async likeOrDislike_rid:9 andLike:20 andSELF:self];
+    
+}
 @end
