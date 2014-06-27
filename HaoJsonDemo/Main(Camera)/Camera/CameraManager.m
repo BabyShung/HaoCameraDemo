@@ -19,7 +19,6 @@
 @property (strong, nonatomic) AVCaptureStillImageOutput *stillImageOutput;//for still image
 @property (strong, nonatomic) AVCaptureDevice * myDevice;
 
-@property (nonatomic) CGFloat scaleFactor;
 
 @property (strong,nonatomic) UIImage *captureImage;
 
@@ -31,10 +30,7 @@
     self = [super init];
     if(self){
         NSLog(@"setting up");
-        
         [self setup];
-        
-        _scaleFactor = 1.0f;
     }
     return self;
     
@@ -65,19 +61,12 @@
     }
 }
 
--(void)setScaleFactor:(CGFloat)scaleFactor{
-    _scaleFactor = scaleFactor;
-}
-
 /********************
  Capture
  *******************/
 - (void)capturePhoto:(UIInterfaceOrientation)interfaceOrientation{
     
     AVCaptureConnection *videoConnection = nil;
-    
-    
-    
     for (AVCaptureConnection *connection in _stillImageOutput.connections)
     {
         for (AVCaptureInputPort *port in [connection inputPorts])
@@ -90,8 +79,6 @@
         }
         if (videoConnection) { break; }
     }
-    
-    [videoConnection setVideoScaleAndCropFactor:_scaleFactor];
     
     /********************
      

@@ -16,6 +16,7 @@
 
 -(instancetype) initDictInDefaultLang;
 -(instancetype) initDictInLang:(TargetLang) lang;
+<<<<<<< HEAD
 
 //Search locally, return foods
 -(NSArray *) localSearchOCRString:(NSString *)inputStr;
@@ -25,6 +26,10 @@
 //Send search request to server
 -(void) serverSearchOCRString:(NSString *)inputStr andCompletion:(void (^)(BOOL success, NSError *err))block;
 
+=======
+-(NSArray *) lookupOCRString:(NSString *)inputStr foundKeywords:(NSMutableArray *)keywords;
+
+>>>>>>> FETCH_HEAD
 //Dictionary update function
 //  1. download file from server;
 //  2. create table.

@@ -63,8 +63,9 @@
 }
 
 -(void)loadTesseract{
-    self.tesseract = [[Tesseract alloc] initWithDataPath:@"tessdata" language:@"eng"];
-    [self.tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" forKey:@"tessedit_char_whitelist"];
+    _tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];//langague package
+    _tesseract.delegate = self;
+    [_tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz()&/" forKey:@"tessedit_char_whitelist"]; //limit search
 }
 
 
@@ -83,6 +84,10 @@
     return recognizedText;
 }
 
+- (BOOL)shouldCancelImageRecognitionForTesseract:(Tesseract*)tesseract {
+    //NSLog(@"progress: %d", tesseract.progress);
+    return NO;  // return YES, if you need to interrupt tesseract before it finishes
+}
 
 #pragma mark CAMERA DELEGATE
 

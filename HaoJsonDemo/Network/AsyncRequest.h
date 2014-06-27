@@ -7,15 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Review.h"
+#import "Comment.h"
+#import "Food.h"
 @interface AsyncRequest : NSObject 
 
 
 -(void)getFoodInfo:(NSString*)foodname andLanguage:(NSString *)language andSELF:(id)selfy;
 
--(void)getReviews:(NSString*)foodname andUid:(int)uid andStart:(NSUInteger)start andOffset:(NSUInteger)offset andSELF:(id)selfy;
+-(void)getReviews_fid:(NSUInteger)fid ByUid:(NSUInteger)uid andStart:(NSUInteger)start andOffset:(NSUInteger)offset andSELF:(id)selfy;
 
--(void)doReview:(Review *)review andAction:(NSString*)action andSELF:(id)selfy;
+-(void)doComment:(Comment *)comment toFood:(Food *)food withAction:(NSString*)action andSELF:(id)selfy;
 
 -(void)likeOrDislike_rid:(int)rid andLike:(int)like andSELF:(id)selfy;
 

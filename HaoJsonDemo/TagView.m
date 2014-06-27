@@ -31,6 +31,7 @@
 #pragma mark - Life Cycle
 - (id)initWithFrame:(CGRect)frame
 {
+    NSLog(@"~~~~~init ~~~~");
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
@@ -49,6 +50,9 @@
     
     [self reArrangeSubViews];
 }
+
+
+
 
 #pragma mark - Interfaces
 - (void)clear
@@ -352,7 +356,7 @@
     tagBtn.layer.cornerRadius = TAG_RADIUS;//btnFrame.size.height * 0.5f;
     tagBtn.frame = CGRectIntegral(btnFrame);
     
-    //NSLog(@"btn frame [%@] = %@", tag, NSStringFromCGRect(tagBtn.frame));
+    NSLog(@"btn frame [%@] = %@", tag, NSStringFromCGRect(tagBtn.frame));
     
     return tagBtn;
 }

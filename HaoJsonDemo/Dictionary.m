@@ -13,7 +13,7 @@
 
 @interface Dictionary()
 @property (nonatomic,readwrite) TargetLang lang;
-@property (strong,nonatomic) DBOperation *operation;
+@property (strong,nonatomic) DBOperation *opration;
 @end
 
 @implementation Dictionary
@@ -25,17 +25,21 @@
     return self;
     
 }
+<<<<<<< HEAD
 -(instancetype) initDictInDefaultLang{
     self = [self initDictInLang:[[ShareData shareData] defaultTargetLang]];
     return self;
 }
 
 -(DBOperation *)operation
+=======
+-(DBOperation *)opration
+>>>>>>> FETCH_HEAD
 {
-    if (!_operation) {
-        _operation = [[DBOperation alloc] init];
+    if (!_opration) {
+        _opration = [[DBOperation alloc] init];
     }
-    return _operation;
+    return _opration;
 }
 
 -(NSArray *) localSearchOCRString:(NSString *)inputStr
@@ -76,7 +80,7 @@
     }
     
     NSArray *words = [self splitAndFilterWordsFromString:inputStr];
-    NSMutableArray *translations= [self.operation searchWords:words getKeywords:keywords inLangTable:self.lang];
+    NSMutableArray *translations= [self.opration searchWords:words getKeywords:keywords inLangTable:self.lang];
     
     //Exclude keywords which are substrings of other keywords
     NSInteger count = keywords.count;
@@ -115,25 +119,24 @@
     NSInteger numOfWords = words.count;
     
     //Get filter words as a string
-    
-    /*NSError *err;
-    ShareData *sharedata = [ShareData shareData];
-    NSString *filter=[NSString stringWithContentsOfFile:[sharedata writableFilterWordsFilePath] encoding:NSUTF8StringEncoding error:&err];
-    if (!err) {
-        [self throwDictExceptionCausedBy:@"Fail to read filter words"];
-    }*/
-       
+//    NSError *err;
+//    ShareData *sharedata = [ShareData shareData];
+//    NSString *filter=[NSString stringWithContentsOfFile:[sharedata writableFilterWordsFilePath] encoding:NSUTF8StringEncoding error:&err];
+//    if (!err) {
+//        [self throwDictExceptionCausedBy:@"Fail to read filter words"];
+//    }
+//       
     
     //Exclude filter words from string
-    /*for (int i = 0; i<numOfWords; i++) {
-        NSString *word = words[i];
-        if ([filter rangeOfString:[word lowercaseString]].location != NSNotFound) {
-            [words removeObjectAtIndex:i];
-            i--;
-            numOfWords--;
-        }
-    }*/
-    
+//    for (int i = 0; i<numOfWords; i++) {
+//        NSString *word = words[i];
+//        if ([filter rangeOfString:[word lowercaseString]].location != NSNotFound) {
+//            [words removeObjectAtIndex:i];
+//            i--;
+//            numOfWords--;
+//        }
+//    }
+//    
     //Generate all combination of remain words
     for (int i=0; i<numOfWords-1; i++) {
         NSString *tmpString = words[i];

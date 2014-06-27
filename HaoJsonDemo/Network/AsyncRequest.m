@@ -7,6 +7,8 @@
 //
 
 #import "AsyncRequest.h"
+#import "User.h"
+
 
 //Test url
 //http://edibleserver-env.elasticbeanstalk.com/food?title=Bacon&lang=CN
@@ -23,18 +25,15 @@
 
 @implementation AsyncRequest 
 
--(void)getReviews:(NSString*)foodname andUid:(int)uid andStart:(NSUInteger)start andOffset:(NSUInteger)offset andSELF:(id)selfy{
+-(void)getReviews_fid:(NSUInteger)fid ByUid:(NSUInteger)uid andStart:(NSUInteger)start andOffset:(NSUInteger)offset andSELF:(id)selfy{
     
-    NSMutableString *paraString = [NSMutableString stringWithString:@"title="];
-    [paraString appendString:foodname];
-    [paraString appendString:[NSString stringWithFormat:@"&uid=%d&start=%d&offset=%d",uid,start,offset]];
+    NSMutableString *paraString = [NSMutableString string];
+    [paraString appendString:[NSString stringWithFormat:@"fid=%d&uid=%d&start=%d&offset=%d",fid,uid,start,offset]];
     NSMutableString *reviewString =  [NSMutableString stringWithString:REVIEWURL];
     
     [reviewString appendString:paraString];
     
-    
     [self performGETAsyncTask:selfy andURLString:[NSString stringWithString:reviewString]];
-    
 }
 
 
@@ -62,15 +61,34 @@
  post review
  
  ******************/
--(void)doReview:(Review *)review andAction:(NSString*)action andSELF:(id)selfy{
+-(void)doComment:(Comment *)comment toFood:(Food *)food withAction:(NSString*)action andSELF:(id)selfy{
 
-    NSNumber *uidNumber = [NSNumber numberWithInt:review.byUser.Uid];
-    NSNumber *rateNumber = [NSNumber numberWithInt:review.rate];
-    NSNumber *timeNumber = [NSNumber numberWithDouble:review.time];
-
-    NSLog(@"nsnumber %@",timeNumber);
+    User *user = [User sharedInstance];
     
-    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:review.title, @"title",review.comment, @"comments", rateNumber, @"rate", uidNumber, @"uid",timeNumber, @"time", action,@"action", nil];
+    NSNumber *uidNumber = [NSNumber numberWithInt:user.Uid];
+    NSNumber *rateNumber = [NSNumber numberWithInt:comment.rate];
+    
+    NSDictionary * dict;
+    
+    //doing a post action
+    if([action isEqualToString:@"add"]){
+        
+        NSNumber *fidNumber = [NSNumber numberWithInt:food.fid];
+        //NSNumber *timeNumber = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]*1000.0];
+        //NSLog(@"nsnumber %@",timeNumber);
+        
+        dict = [NSDictionary dictionaryWithObjectsAndKeys:fidNumber, @"fid",comment.comment, @"comments", rateNumber, @"rate", uidNumber, @"uid",action,@"action", nil];
+        
+        
+    }else{//doing an update action
+        
+        NSNumber *cidNumber = [NSNumber numberWithInt:comment.cid];
+        
+        
+        dict = [NSDictionary dictionaryWithObjectsAndKeys:cidNumber, @"rid",comment.comment, @"comments", rateNumber, @"rate", uidNumber, @"uid", action,@"action", nil];
+        
+    }
+
 
     NSURL *url = [NSURL URLWithString:DOREVIEW];
     
@@ -90,7 +108,7 @@
     
 
     
-    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:ridNumber, @"rid",likeNumber, @"like_num",@"like",@"action", nil];
+    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:ridNumber, @"rid",likeNumber, @"like",@"like",@"action", nil];
     
     NSURL *url = [NSURL URLWithString:DOREVIEW];
     

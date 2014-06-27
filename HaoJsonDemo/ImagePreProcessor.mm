@@ -1,15 +1,14 @@
 //
-//  ImagePreProcessor.mm
+//  ImagePreProcessor.m
+//  TestGray
 //
-//
-//  Created by CharlieGao on 06/01/14.
+//  Created by CharlieGao on 6/27/14.
 //  Copyright (c) 2014 Edible Innovations. All rights reserved.
 //
 
 #import "ImagePreProcessor.h"
 #import "opencv2/opencv.hpp"
 #import "UIImage+OpenCV.h"
-
 
 
 @implementation ImagePreProcessor
@@ -21,35 +20,46 @@
     NSLog(@"PrePro: processImage called!");
     
     cv::Mat output;
-    int backGround =2;
+    int backGround =0;
     backGround = [self checkBackground:inputImage];
     if (backGround == 0) {
-        NSLog(@"Prepro: Dark");
+        NSLog(@"Prepro: Black backgroud");
         
-        //cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
+        inputImage = [self increaseContrast:inputImage];
+        
+        inputImage = [self erode:inputImage];
+        inputImage = [self dilate:inputImage];
         
         inputImage = [self removeBackgroundBlack:inputImage];
         
-        inputImage = [self sharpen:inputImage];
+        
+        
     }
     else if(backGround == 1){
-        NSLog(@"Prepro: Light");
+        NSLog(@"Prepro: Dark");
         
         cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
-        inputImage = [self removeBackground2:inputImage];
+        inputImage = [self adaptiveThreshold:inputImage];
+        inputImage = [self erode:inputImage];
+        inputImage = [self dilate:inputImage];
         
-        inputImage = [self increaseContrast:inputImage];
-        
-        inputImage = [self removeBackgroundWhite:inputImage];
-        
-        inputImage = [self increaseContrast:inputImage];
-        
-        inputImage = [self sharpen:inputImage];
-        
-    }else{
-        NSLog(@"Prepro: good catch");
-        inputImage = [self sharpen:inputImage];
     }
+    else if(backGround == 2 ){
+        NSLog(@"Prepro: White words");
+        
+        
+        //inputImage = [self increaseContrast:inputImage];
+        inputImage = [self adaptiveThresholdLight:inputImage];
+        //        inputImage = [self increaseContrast:inputImage];
+        inputImage = [self erode:inputImage];
+        inputImage = [self dilate:inputImage];
+        
+    }
+    else{
+        NSLog(@"Prepro: good catch");
+    }
+    
+    copyMakeBorder( inputImage, inputImage, 10, 10, 10, 10, cv::BORDER_REPLICATE, 0 );//add border
     
     return inputImage;
 }
@@ -60,6 +70,49 @@
     return matImage;
 }
 
+
+
+
+-(cv::Mat)erode:(cv::Mat)img{
+    
+    int erosion_elem = 2;
+    int erosion_size = 1;
+    cv::Mat erosion_dst;
+    int erosion_type;
+    if( erosion_elem == 0 ){ erosion_type = cv::MORPH_RECT; }
+    else if( erosion_elem == 1 ){ erosion_type = cv::MORPH_CROSS; }
+    else if( erosion_elem == 2) { erosion_type = cv::MORPH_ELLIPSE; }
+    
+    cv::Mat element = getStructuringElement( erosion_type,
+                                            cv::Size( 2*erosion_size + 1, 2*erosion_size+1 ),
+                                            cv::Point( erosion_size, erosion_size ) );
+    /// Apply the erosion operation
+    erode( img, erosion_dst, element );
+    return erosion_dst;
+    
+}
+
+
+-(cv::Mat)dilate:(cv::Mat)img{
+    
+    cv::Mat dilation_dst;
+    int dilation_type;
+    int dilation_elem = 0;
+    int dilation_size = 1;
+    
+    if( dilation_elem == 0 ){ dilation_type = cv::MORPH_RECT; }
+    else if( dilation_elem == 1 ){ dilation_type = cv::MORPH_CROSS; }
+    else if( dilation_elem == 2) { dilation_type = cv::MORPH_ELLIPSE; }
+    
+    cv::Mat element = getStructuringElement( dilation_type,
+                                            cv::Size( 2*dilation_size + 1, 2*dilation_size+1 ),
+                                            cv::Point( dilation_size, dilation_size ) );
+    /// Apply the dilation operation
+    dilate( img, dilation_dst, element );
+    
+    return dilation_dst;
+    
+}
 
 
 
@@ -90,9 +143,13 @@
     return output;
 }
 
+
+
 -(cv::Mat)increaseContrast:(cv::Mat)inputMat{
+    //input mat is in BGR format
+    //ouput mat is in BGR format
+    //the function converts BGR into YCrCb format, and then takes care of the first channel of it.
     
-    cv::Mat output;
     
     std::vector<cv::Mat> channels;
     
@@ -106,15 +163,108 @@
     
     cv::merge(channels,img_hist_equalized); //merge 3 channels including the modified 1st channel into one image
     
-    cv::cvtColor(img_hist_equalized, img_hist_equalized, cv::COLOR_YCrCb2BGR); //change the color image from YCrCb to BGR format (to display image properly);
+    cv::cvtColor(img_hist_equalized, img_hist_equalized, cv::COLOR_BGR2YCrCb); //change the color image from YCrCb to BGR format
     
     return img_hist_equalized;
     
 }
 
 
+-(cv::Mat)adaptiveThreshold:(cv::Mat)inputMat{
+    //input mat is in BGR format
+    //ouput mat is in BGR format
+    //the function converts BGR into YCrCb format, and then takes care of the first channel of it.
+    //the first channel of YCrCb is for grayscale representation, feeding into adaptiveThrenshold function whose input is sigle channel
+    
+    
+    std::vector<cv::Mat> channels;
+    
+    cv::Mat img_threshold;
+    
+    cv::cvtColor(inputMat, img_threshold, cv::COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
+    
+    cv::split(img_threshold,channels); //split the image into channels
+    
+    //add simple threshold removing little
+    
+    cv::Size size;
+    size.height = 3;
+    size.width = 3;
+    
+    cv::GaussianBlur(channels[0], channels[0], size, 0.5);
+    cv::threshold(channels[0], channels[0], 0,255, cv::THRESH_TRUNC | cv::THRESH_OTSU);
+    
+    //simple end here
+    
+    cv::adaptiveThreshold(channels[0], channels[0], 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY,11, 2);
+    
+    cv::merge(channels,img_threshold); //merge 3 channels including the modified 1st channel into one image
+    
+    cv::cvtColor(img_threshold, img_threshold, cv::COLOR_BGR2YCrCb); //change the color image from YCrCb to BGR format
+    
+    return img_threshold;
+    
+}
+
+
+-(cv::Mat)adaptiveThresholdLight:(cv::Mat)inputMat{
+    //currently same as adaptiveThreshold()
+    //input mat is in BGR format
+    //ouput mat is in BGR format
+    //the function converts BGR into YCrCb format, and then takes care of the first channel of it.
+    //the first channel of YCrCb is for grayscale representation, feeding into adaptiveThrenshold function whose input is sigle channel
+    
+    std::vector<cv::Mat> channels;
+    
+    cv::Mat img_threshold;
+    
+    cv::cvtColor(inputMat, img_threshold, cv::COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
+    
+    cv::split(img_threshold,channels); //split the image into channels
+    
+    //add simple threshold removing little
+    
+    cv::Size size;
+    size.height = 3;
+    size.width = 3;
+    
+    cv::GaussianBlur(channels[0], channels[0], size, 0.5);
+    cv::threshold(channels[0], channels[0], 0,255, cv::THRESH_TRUNC | cv::THRESH_OTSU);
+    cv::GaussianBlur(channels[0], channels[0], size, 0.5);
+    //simple end here
+    
+    cv::adaptiveThreshold(channels[0], channels[0], 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY,11, 2);
+    
+    cv::merge(channels,img_threshold); //merge 3 channels including the modified 1st channel into one image
+    
+    cv::cvtColor(img_threshold, img_threshold, cv::COLOR_BGR2YCrCb); //change the color image from YCrCb to BGR format
+    
+    return img_threshold;
+    
+}
+
+
+-(cv::Mat) fillContour: (cv::Mat)image {
+    
+    
+    
+    return image;
+}
+
+
+
 -(int)checkBackground:(cv::Mat )input
 {
+    
+    
+    std::vector<cv::Mat> channels;
+    
+    cv::cvtColor(input, input, cv::COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
+    
+    cv::split(input,channels); //split the image into channels
+    
+    input = channels[0]; //keep gray image
+    
     int rows = input.rows;
     int cols = input.cols;
     
@@ -130,14 +280,21 @@
     //count the average of the pixel
     int ave_pixl = sum_pixl/(rows*cols);
     
-    int pivot_pixl_small = ave_pixl * 1/3;
+    int pivot_pixl_xsmall = ave_pixl * 1/3;
+    int pivot_pixl_small = ave_pixl * 2/3;
+    
     int pivot_pixl_medium = ave_pixl* 1;
-    int pivot_pixl_large = ave_pixl * 3/2;
+    
+    int pivot_pixl_large = ave_pixl * 4/3;
+    int pivot_pixl_xlarge = ave_pixl * 5/3;
     
     //count_white the nuber of pixl which value are bigger than average
+    int count_xsmall = 0;
     int count_small = 0;
     int count_medium = 0;
     int count_large = 0;
+    int count_xlarge = 0;
+    
     
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
@@ -145,23 +302,35 @@
             uchar pixl = input.at<uchar>(i,j);
             int pixl_int = pixl - '0';
             
-            if (pixl_int < pivot_pixl_small) {
+            if (pixl_int <= pivot_pixl_xsmall) {
+                count_xsmall ++ ;
+            }
+            else if(pixl_int > pivot_pixl_xsmall && pixl_int < pivot_pixl_small){
                 count_small ++ ;
             }
             else if(pixl_int > pivot_pixl_small && pixl_int < pivot_pixl_medium){
                 count_medium ++ ;
             }
-            else if(pixl_int > pivot_pixl_large){
-                count_large ++ ;
+            else if(pixl_int > pivot_pixl_medium && pixl_int < pivot_pixl_large){
+                count_medium ++;
             }
+            else if(pixl_int > pivot_pixl_large && pixl_int < pivot_pixl_xlarge){
+                count_large ++;
+            }
+            else if(pixl_int > pivot_pixl_xlarge) {
+                count_xlarge ++;
+            }
+            
             
         }
     }
     
-    if (count_small <= count_large) {
+    if (count_xsmall >= count_large + count_xlarge + count_medium) {
         return 0;// too dark
     }
-    else if(count_large > count_small + count_medium) {
+    else if(count_xlarge >= count_xsmall + count_small + count_medium) {
+        NSLog(@"large: %d", count_large);
+        NSLog(@"small: %d", count_medium);
         return 1;// too light
     }
     else{
@@ -179,7 +348,7 @@
     size.width = 3;
     
     cv::GaussianBlur(inputImage, inputImage, size, 0.5);
-    cv::threshold(inputImage, inputImage, 220,255, cv::THRESH_TRUNC);
+    cv::threshold(inputImage, inputImage, 125,255, cv::THRESH_BINARY_INV);
     //cv::GaussianBlur(inputImage, inputImage, size, 0.8);
     
     return inputImage;
@@ -193,8 +362,8 @@
     size.width = 3;
     
     cv::GaussianBlur(inputImage, inputImage, size, 0.5);
-    cv::threshold(inputImage, inputImage, 190,255, cv::THRESH_TRUNC);
-    //cv::GaussianBlur(inputImage, inputImage, size, 0.8);
+    cv::threshold(inputImage, inputImage, 220,255, cv::THRESH_TRUNC);
+    cv::GaussianBlur(inputImage, inputImage, size, 0.8);
     
     return inputImage;
     
@@ -202,8 +371,29 @@
 
 //-------below is remove back ground version 2  stable version
 
--(cv::Mat)CalcBlockMeanVariance:(cv::Mat) Img : (float) blockSide
 
+
+-(cv::Mat)removeBackground2:(cv::Mat) inputMat
+{
+    cv::Mat Img,res;
+    
+    cv::cvtColor(inputMat, Img, cv::COLOR_BGRA2GRAY);
+    Img.convertTo(Img, CV_8UC4);
+    Img.convertTo(Img,CV_32FC1,1.0/255.0);
+    
+    res = [self CalcBlockMeanVariance:Img:21];
+    res=1.0-res;
+    res=Img+res;
+    
+    cv::threshold(res,res,0.80,1,cv::THRESH_BINARY );
+    
+    
+    res.convertTo(res, CV_8UC4,255);
+    cv::cvtColor(res, res, cv::COLOR_GRAY2BGR);
+    return res;
+}
+
+-(cv::Mat)CalcBlockMeanVariance:(cv::Mat) Img : (float) blockSide
 // blockSide - the parameter (set greater for larger font on image)
 {
     cv::Mat I;
@@ -252,27 +442,7 @@
 }
 
 
--(cv::Mat)removeBackground2:(cv::Mat) inputMat
-{
-    cv::Mat Img,res;
-    
-    
-    cv::cvtColor(inputMat, Img, cv::COLOR_BGRA2GRAY);
-    
-    Img.convertTo(Img, CV_8UC4);
-    
-    
-    Img.convertTo(Img,CV_32FC1,1.0/255.0);
-    
-    res = [self CalcBlockMeanVariance:Img:21];
-    res=1.0-res;
-    res=Img+res;
-    
-    cv::threshold(res,res,0.80,1,cv::THRESH_BINARY);
-    res.convertTo(res, CV_8UC4,255);
-    cv::cvtColor(res, res, cv::COLOR_GRAY2BGR);
-    return res;
-}
+
 
 //-------/remove back ground v2
 

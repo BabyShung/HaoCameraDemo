@@ -10,17 +10,23 @@
 #import "TransitionController.h"
 #import "debugView.h"
 #import "EDCollectionCell.h"
+
 #import "TransitionLayout.h"
+
 #import "SecondViewController.h"
+
 
 #import "opencv2/opencv.hpp"
 #import "UIImage+OpenCV.h"
 #import "ImagePreProcessor.h"
 #import "TextDetector.h"
 #import "WordCorrector.h"
+<<<<<<< HEAD
 #import "Dictionary.h"
 #import "Food.h"
 
+=======
+>>>>>>> FETCH_HEAD
 #import "LoadControls.h"
 #import "AppDelegate.h"
 
@@ -60,7 +66,7 @@ static NSString *CellIdentifier = @"Cell";
     ScreenHeight = CGRectGetHeight([[UIScreen mainScreen] bounds]);
     
     //number of cell
-    self.cellCount = 0;
+    self.cellCount = 10;
     
     //setup tesseract
     [self loadTesseract];
@@ -71,7 +77,7 @@ static NSString *CellIdentifier = @"Cell";
 
     /*REQUIRED FOR DEBUGGING ANIMATION*/
 
-    self.collectionView.hidden = YES;
+    //self.collectionView.hidden = YES;
     self.collectionView.backgroundColor = [UIColor clearColor];
     
     //registering dequueue cell
@@ -102,6 +108,7 @@ static NSString *CellIdentifier = @"Cell";
     
     [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.camView.StreamView.alpha = 1;
+        self.camView.rotationCover.alpha = 1;
     } completion:^(BOOL finished) {
         if (finished) {
             if ([(NSObject *)self.camView.camDelegate respondsToSelector:@selector(EdibleCameraDidLoadCameraIntoView:)]) {
@@ -161,7 +168,6 @@ static NSString *CellIdentifier = @"Cell";
     [self.collectionView performBatchUpdates:^{
         self.cellCount = self.cellCount + 1;
         [self.collectionView insertItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
-        //[self.collectionView insertItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:self.cellCount-1 inSection:0]]];
         
     } completion:nil];
 }
@@ -177,8 +183,9 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 -(void)loadTesseract{
-    self.tesseract = [[Tesseract alloc] initWithDataPath:@"tessdata" language:@"eng"];
-    [self.tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" forKey:@"tessedit_char_whitelist"];
+    _tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];//langague package
+    _tesseract.delegate = self;
+    [_tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz()&/" forKey:@"tessedit_char_whitelist"]; //limit search
 }
 
 #pragma mark --------- Tesseract
@@ -192,51 +199,52 @@ static NSString *CellIdentifier = @"Cell";
     return recognizedText;
 }
 
+- (BOOL)shouldCancelImageRecognitionForTesseract:(Tesseract*)tesseract {
+    return NO;  // return YES, if you need to interrupt tesseract before it finishes
+}
+
 #pragma mark CAMERA DELEGATE
 
 - (void) EdibleCamera:(MainViewController *)simpleCam didFinishWithImage:(UIImage *)image withRect:(CGRect)rect andCropSize:(CGSize)size{
     
     if (image) {
         
-            /*    Shrink image  -- Hao  */
-        
         //PS: image variable is the original size image (2448*3264)
         UIImage *onScreenImage = [LoadControls scaleImage:image withScale:1.5f withRect:rect andCropSize:size];
         UIImage *originalImage = [UIImage imageWithCGImage:onScreenImage.CGImage];
-        
-            /*    Detect text regions in the image  -- Mei      */
         
         self.imgArray = [TextDetector detectTextRegions:originalImage];
 
         if ([_imgArray count] > 0)
         {
-                /*      Process detected regions  -- Charlie    */
-            
             for(int i = 0; i<(self.imgArray.count-1);i++){
 
                 _tempMat= [self.imgArray[i] CVMat];
                 
+                // Step 3. put Mat into pre processor- Charlie
                 _tempMat = [self.ipp processImage:_tempMat];
                 
                 self.imgArray[i] = [UIImage imageWithCVMat:_tempMat];//convert back to uiimage
                 
             }
             
-                /*      Tesserract OCR -- Hao       */
-            
-            NSMutableArray *resultStrings;
             NSString *result = @"";
+<<<<<<< HEAD
             
             for (int i = 0; i<_imgArray.count-1; i++)
             {
+=======
+            for (int i = 0; i<_imgArray.count-1; i++) {
+>>>>>>> FETCH_HEAD
                 NSString *tmp = [self recognizeImageWithTesseract:[_imgArray objectAtIndex:i]];
                 result = [result stringByAppendingFormat:@"%d. %@\n",i, tmp];
-                [resultStrings addObject:tmp];
                 //            NSLog(@"tmp %d: %@",i, tmp);
             }
 
+            
             onScreenImage = [_imgArray objectAtIndex:(_imgArray.count-1)];
             NSLog(@"<<<<<<<<<<1.5 RESULT: \n%@", result);
+<<<<<<< HEAD
             
                 /*     Analyze OCR Results locally      */
             NSArray *localFoods;
@@ -254,6 +262,9 @@ static NSString *CellIdentifier = @"Cell";
             
             
             
+=======
+
+>>>>>>> FETCH_HEAD
         }
         
     }
