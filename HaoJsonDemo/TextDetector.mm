@@ -50,10 +50,16 @@ using namespace std;
         {
             Mat tmpMat;
             
+            cv::Point p = finalgroups.at(i).tl();
+            cv::Point p2 = finalgroups.at(i).br();
             
-            cv::Size s= cv::Size(2,2);
+            int width = p2.x - p.x + 2;
+            int hight = p2.y - p.y + 2;
             
-            orgMat(finalgroups.at(i)+s).copyTo(tmpMat);
+           
+            cv::Rect rect = cv::Rect(p.x-2,p.y-2,width,hight);
+            
+            orgMat(rect).copyTo(tmpMat);
            
             [imgArray addObject:[UIImage imageWithCVMat:tmpMat]];
             
