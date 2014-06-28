@@ -21,12 +21,9 @@
 #import "ImagePreProcessor.h"
 #import "TextDetector.h"
 #import "WordCorrector.h"
-<<<<<<< HEAD
 #import "Dictionary.h"
 #import "Food.h"
 
-=======
->>>>>>> FETCH_HEAD
 #import "LoadControls.h"
 #import "AppDelegate.h"
 
@@ -49,6 +46,9 @@ static NSString *CellIdentifier = @"Cell";
 
 
 @property (nonatomic,strong) debugView *debugV;
+
+@property (strong,nonatomic) NSMutableArray *foodArray;
+
 @property (nonatomic, assign) NSInteger cellCount;
 
 @property (strong,nonatomic) TransitionController *transitionController;
@@ -59,6 +59,13 @@ static NSString *CellIdentifier = @"Cell";
 
 @implementation MainViewController
 
+-(NSMutableArray *)foodArray{
+    if (!_foodArray) {
+        _foodArray = [[NSMutableArray alloc]init];
+        
+    }
+    return _foodArray;
+}
 
 - (void)viewDidLoad{
     
@@ -77,7 +84,7 @@ static NSString *CellIdentifier = @"Cell";
 
     /*REQUIRED FOR DEBUGGING ANIMATION*/
 
-    //self.collectionView.hidden = YES;
+    self.collectionView.hidden = YES;
     self.collectionView.backgroundColor = [UIColor clearColor];
     
     //registering dequueue cell
@@ -125,7 +132,7 @@ static NSString *CellIdentifier = @"Cell";
  
  *****************************/
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.cellCount;
+    return self.foodArray.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -133,6 +140,7 @@ static NSString *CellIdentifier = @"Cell";
     EDCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
     cell.backgroundColor = [UIColor whiteColor];
+    
     
     return cell;
 }
@@ -162,7 +170,7 @@ static NSString *CellIdentifier = @"Cell";
     return transitionLayout;
 }
 
-
+/*----------- ------------*/
 -(void)addItem
 {
     [self.collectionView performBatchUpdates:^{
@@ -170,6 +178,25 @@ static NSString *CellIdentifier = @"Cell";
         [self.collectionView insertItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
         
     } completion:nil];
+}
+
+-(void)addFoodItems:(NSArray *) newFoodItems
+{
+    if (newFoodItems.count>0) {
+        
+        
+        NSInteger startIndex = self.foodArray.count;
+        
+        NSMutableArray *newIndexPaths = [[NSMutableArray alloc]init];
+        for (int i =0; i<newFoodItems.count; i++){
+            [newIndexPaths addObject:[NSIndexPath indexPathForItem:(startIndex+i) inSection:0]];
+        }
+        [self.collectionView performBatchUpdates:^{
+            [self.foodArray addObjectsFromArray:newFoodItems];
+            [self.collectionView insertItemsAtIndexPaths:newIndexPaths];
+            
+        } completion:nil];
+    }
 }
 
 
@@ -206,8 +233,17 @@ static NSString *CellIdentifier = @"Cell";
 #pragma mark CAMERA DELEGATE
 
 - (void) EdibleCamera:(MainViewController *)simpleCam didFinishWithImage:(UIImage *)image withRect:(CGRect)rect andCropSize:(CGSize)size{
+    self.collectionView.hidden = NO;
+    NSArray *localFoods;
+    Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
+    //for (NSString *inputStr in resultStrings)
+    //{
+    localFoods = [dict localSearchOCRString:@"yeast bread with Worcestershire sauce and yogurt"];
+    NSLog(@"Local Foods: %d",(int)localFoods.count);
+    [self addFoodItems:localFoods];
     
     if (image) {
+        
         
         //PS: image variable is the original size image (2448*3264)
         UIImage *onScreenImage = [LoadControls scaleImage:image withScale:1.5f withRect:rect andCropSize:size];
@@ -229,13 +265,8 @@ static NSString *CellIdentifier = @"Cell";
             }
             
             NSString *result = @"";
-<<<<<<< HEAD
-            
-            for (int i = 0; i<_imgArray.count-1; i++)
-            {
-=======
+
             for (int i = 0; i<_imgArray.count-1; i++) {
->>>>>>> FETCH_HEAD
                 NSString *tmp = [self recognizeImageWithTesseract:[_imgArray objectAtIndex:i]];
                 result = [result stringByAppendingFormat:@"%d. %@\n",i, tmp];
                 //            NSLog(@"tmp %d: %@",i, tmp);
@@ -244,27 +275,11 @@ static NSString *CellIdentifier = @"Cell";
             
             onScreenImage = [_imgArray objectAtIndex:(_imgArray.count-1)];
             NSLog(@"<<<<<<<<<<1.5 RESULT: \n%@", result);
-<<<<<<< HEAD
             
                 /*     Analyze OCR Results locally      */
-            NSArray *localFoods;
-            Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
-            //for (NSString *inputStr in resultStrings)
-            //{
-                localFoods = [dict localSearchOCRString:@"yeast bread with Worcestershire sauce and yogurt"];
-                NSLog(@"main view return foods %d",(int)localFoods.count);
-            for (Food *localFood in localFoods) {
-                NSLog(@"Food : %@ -> %@ ",localFood.title,localFood.transTitle);
-            }
-            
-            //}
-            NSLog(@"main view return foods %d",(int)localFoods.count);
-            
-            
-            
-=======
 
->>>>>>> FETCH_HEAD
+
+            
         }
         
     }

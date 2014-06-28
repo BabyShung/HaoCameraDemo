@@ -45,6 +45,10 @@
 /*                       */
 /**********MEI************/
 
+-(void) setCellWithFood:(Food *)food{
+    [self.foodInfoView setWithFood:food];
+}
+
 -(void)setVCForFoodInfoView:(UIViewController *)vc
 {
     [self.foodInfoView setVC:vc];

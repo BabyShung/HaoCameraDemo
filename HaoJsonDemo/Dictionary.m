@@ -13,7 +13,7 @@
 
 @interface Dictionary()
 @property (nonatomic,readwrite) TargetLang lang;
-@property (strong,nonatomic) DBOperation *opration;
+@property (strong,nonatomic) DBOperation *operation;
 @end
 
 @implementation Dictionary
@@ -25,37 +25,34 @@
     return self;
     
 }
-<<<<<<< HEAD
+
 -(instancetype) initDictInDefaultLang{
-    self = [self initDictInLang:[[ShareData shareData] defaultTargetLang]];
+    self = [super init];
+    self.lang = [[ShareData shareData] defaultTargetLang];
     return self;
 }
 
 -(DBOperation *)operation
-=======
--(DBOperation *)opration
->>>>>>> FETCH_HEAD
 {
-    if (!_opration) {
-        _opration = [[DBOperation alloc] init];
+    if (!_operation) {
+        _operation = [[DBOperation alloc] init];
     }
-    return _opration;
+    return _operation;
 }
 
 -(NSArray *) localSearchOCRString:(NSString *)inputStr
 {
-    NSLog(@"--------local search starts-----");
     NSMutableArray *keywords,*foods;
+    keywords = [[NSMutableArray alloc]init];
+    foods = [[NSMutableArray alloc]init];
     
     NSArray *translates = [self lookupOCRString:inputStr foundKeywords:keywords];
-    NSLog(@"keywords %d, translates %d",(int)keywords.count,(int)translates.count);
     
     if (keywords.count!=0) {
         for (int i =0;i<keywords.count;i++) {
             Food *food =[[Food alloc]initWithTitle:keywords[i] andTranslations:translates[i]];
             [foods addObject:food];
         }
-        NSLog(@"return foods %d",(int)foods.count);
         return foods;
     }
     else{
@@ -80,7 +77,7 @@
     }
     
     NSArray *words = [self splitAndFilterWordsFromString:inputStr];
-    NSMutableArray *translations= [self.opration searchWords:words getKeywords:keywords inLangTable:self.lang];
+    NSMutableArray *translations= [self.operation searchWords:words getKeywords:keywords inLangTable:self.lang];
     
     //Exclude keywords which are substrings of other keywords
     NSInteger count = keywords.count;
@@ -105,7 +102,6 @@
             i--;
         }
     }
-    
     return translations;
 
 }
