@@ -20,7 +20,9 @@
 
 -(void)likeOrDislike_rid:(int)rid andLike:(int)like andSELF:(id)selfy;
 
+-(void)signup_withEmail:(NSString*)email andName:(NSString*)name andPwd:(NSString *)pwd andSELF:(id)selfy;
 
+-(void)login_withEmail:(NSString*)email andPwd:(NSString *)pwd andSELF:(id)selfy;
 
 -(void)performGETAsyncTask:(id)selfy andURLString:(NSString *)urlString;
 

@@ -180,7 +180,7 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 -(void)loadTesseract{
-    self.tesseract = [[Tesseract alloc] initWithDataPath:@"tessdata" language:@"eng"];
+    self.tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];
     [self.tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" forKey:@"tessedit_char_whitelist"];
 }
 

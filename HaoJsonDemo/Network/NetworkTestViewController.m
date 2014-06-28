@@ -227,4 +227,16 @@
     }];
     
 }
+
+
+- (IBAction)login:(id)sender {
+    
+    [self.async login_withEmail:@"hao@123.com" andPwd:@"123" andSELF:self];
+}
+
+- (IBAction)signup:(id)sender {
+    
+    [self.async signup_withEmail:@"hao@123.com" andName:@"hao" andPwd:@"123" andSELF:self];
+}
+
 @end

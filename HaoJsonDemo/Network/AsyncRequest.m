@@ -23,6 +23,8 @@
 
 #define DOREVIEW @"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/review"
 
+#define USERURL @"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/user"
+
 @implementation AsyncRequest 
 
 -(void)getReviews_fid:(NSUInteger)fid andSELF:(id)selfy{
@@ -117,6 +119,27 @@
     [self performAsyncTask:selfy andDictionary:dict andURL:url];
 }
 
+-(void)signup_withEmail:(NSString*)email andName:(NSString*)name andPwd:(NSString *)pwd andSELF:(id)selfy{
+    
+    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:email, @"email",name, @"name",pwd,@"pwd",@"register",@"action", nil];
+    
+    NSURL *url = [NSURL URLWithString:USERURL];
+    //post
+    [self performAsyncTask:selfy andDictionary:dict andURL:url];
+    
+}
+
+
+-(void)login_withEmail:(NSString*)email andPwd:(NSString *)pwd andSELF:(id)selfy{
+    
+    //use md5 here
+    
+    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:email, @"email",pwd,@"pwd",@"login",@"action", nil];
+    
+    NSURL *url = [NSURL URLWithString:USERURL];
+    //post
+    [self performAsyncTask:selfy andDictionary:dict andURL:url];
+}
 
 /************************
  
