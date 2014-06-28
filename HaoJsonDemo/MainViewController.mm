@@ -139,7 +139,7 @@ static NSString *CellIdentifier = @"Cell";
     
     EDCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
         cell.backgroundColor = [UIColor whiteColor];
-    [cell.foodInfoView configureNetworkComponentswithCellNo:indexPath.row];
+    //[cell.foodInfoView configureNetworkComponentswithCellNo:indexPath.row];
 
 //    Food *food = [self.foodArray objectAtIndex:indexPath.row];
 //    food

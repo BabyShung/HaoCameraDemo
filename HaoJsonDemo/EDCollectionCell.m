@@ -80,7 +80,6 @@
     }
     else{
         NSLog(@" Will do small -> large");
-        [self.foodInfoView.descriptionLabel shine];
 
         [self.foodInfoView setUpForLargeLayout];
     }
@@ -96,6 +95,7 @@
         self.foodInfoView.scrollview.scrollEnabled = NO;
     }
     else{
+        [self.foodInfoView shineDescription];
         self.foodInfoView.scrollview.scrollEnabled = YES;
     }
     NSLog(@"Cell layout subviews");

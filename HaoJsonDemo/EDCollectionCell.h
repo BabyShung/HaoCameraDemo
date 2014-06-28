@@ -21,6 +21,7 @@
 -(void)setVCForFoodInfoView:(UIViewController *)vc;
 
 -(void)setUpForLargeLayout;
+
 -(void)setUpForSmallLayout;
 
 

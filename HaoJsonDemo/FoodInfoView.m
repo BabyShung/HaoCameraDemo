@@ -66,12 +66,12 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
 
 @interface FoodInfoView () <UICollectionViewDataSource,UICollectionViewDelegate,TagViewDelegate,UITableViewDataSource, UITableViewDelegate>
 {
-    NSMutableArray *externalFileURLs;
+    //NSMutableArray *externalFileURLs;
 }
 /*current cv must be set up when view appear*/
 @property (strong,nonatomic) UIViewController *currentVC;
 
-@property (strong,nonatomic) NSArray *imgNameArray;
+@property (strong,nonatomic) NSMutableArray *imgNameArray;
 
 @property (strong,nonatomic) NSString *loaderName;
 @end
@@ -106,6 +106,7 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
 }
 
 -(void)setVC:(UIViewController *)vc{
+    self.currentVC = nil;
     self.currentVC = vc;
 }
 
@@ -191,16 +192,16 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     [self.scrollview addSubview:self.photoCollectionView];
     
     //init all the image paras
-    externalFileURLs = [NSMutableArray array];
-    
-    NSString *namesString = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"fullURLs" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
-    NSArray *fileNamesArray = [namesString componentsSeparatedByString:@"\n"];
-    
-    for (int i = 0; i < fileNamesArray.count; i++) {
-        NSString *urlString = fileNamesArray[i];
-        NSURL *url = [NSURL URLWithString:urlString];
-        [externalFileURLs addObject:url];
-    }
+//    externalFileURLs = [NSMutableArray array];
+//    
+//    NSString *namesString = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"fullURLs" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
+//    NSArray *fileNamesArray = [namesString componentsSeparatedByString:@"\n"];
+//    
+//    for (int i = 0; i < fileNamesArray.count; i++) {
+//        NSString *urlString = fileNamesArray[i];
+//        NSURL *url = [NSURL URLWithString:urlString];
+//        [externalFileURLs addObject:url];
+//    }
     
     //add table view
     //----------------------------comment
@@ -239,7 +240,7 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     self.descriptionLabel.text = @"蓝芝士是一种听上去很好吃但是味道很恶心的芝士。";
     
     [self.descriptionLabel sizeToFit];
-    [self.descriptionLabel shine];
+//    [self.descriptionLabel shine];
     
     
     NSLog(@"visible %d",self.descriptionLabel.isVisible);
@@ -266,7 +267,7 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     //[cell.imageView cancelLoadingAllImages];
     
     //Load the new image //externalFileURLs[indexPath.row]
-    [cell.imageView loadImageFromURLAtAmazonAsync:externalFileURLs[indexPath.row] withLoaderName:self.loaderName completion:^(BOOL success, M13AsynchronousImageLoaderImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
+    [cell.imageView loadImageFromURLAtAmazonAsync:self.imgNameArray[indexPath.row] withLoaderName:self.loaderName completion:^(BOOL success, M13AsynchronousImageLoaderImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
         //This is where you would refresh the cell if need be. If a cell of basic style, just call "setNeedsRelayout" on the cell.
         
         cell.activityView.hidden = YES;
@@ -279,30 +280,31 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-//    EDImageCell *cell = (EDImageCell *)[collectionView cellForItemAtIndexPath:indexPath];
-//    
-//    // Create image info
-//    JTSImageInfo *imageInfo = [[JTSImageInfo alloc] init];
-//    
-//    imageInfo.image = cell.imageView.image;
-//    
-//    imageInfo.referenceRect = cell.imageView.frame;
-//    
-//    imageInfo.referenceView = cell.imageView.superview;
-//    
-//    // Setup view controller
-//    JTSImageViewController *imageViewer = [[JTSImageViewController alloc]
-//                                           initWithImageInfo:imageInfo
-//                                           mode:JTSImageViewControllerMode_Image
-//                                           backgroundStyle:JTSImageViewControllerBackgroundStyle_ScaledDimmedBlurred];
-//    
-//    // Present the view controller.
-//    [imageViewer showFromViewController:self.currentVC transition:JTSImageViewControllerTransition_FromOriginalPosition];
+    EDImageCell *cell = (EDImageCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    
+    // Create image info
+    JTSImageInfo *imageInfo = [[JTSImageInfo alloc] init];
+    
+    imageInfo.image = cell.imageView.image;
+    
+    imageInfo.referenceRect = cell.imageView.frame;
+    
+    imageInfo.referenceView = cell.imageView.superview;
+    
+    // Setup view controller
+    JTSImageViewController *imageViewer = [[JTSImageViewController alloc]
+                                           initWithImageInfo:imageInfo
+                                           mode:JTSImageViewControllerMode_Image
+                                           backgroundStyle:JTSImageViewControllerBackgroundStyle_ScaledDimmedBlurred];
+    
+    // Present the view controller.
+    [imageViewer showFromViewController:self.currentVC transition:JTSImageViewControllerTransition_FromOriginalPosition];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return externalFileURLs.count;
+    return self.imgNameArray.count;
+    //return externalFileURLs.count;
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -492,8 +494,18 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
 -(void)setWithFood:(Food *)food{
     self.titleLabel.text = food.title;
     self.translateLabel.text = food.transTitle;
+    if (food.isCompleted) {
+        self.descriptionLabel.text = food.food_description;
+        
+    }
     self.descriptionLabel.text = food.food_description;
     //self.imgNameArray = []
     
+}
+
+-(void)shineDescription{
+    if (self.descriptionLabel.text.length>0) {
+        [self.descriptionLabel shine];
+    }
 }
 @end

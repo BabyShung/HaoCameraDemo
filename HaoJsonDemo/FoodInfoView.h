@@ -53,4 +53,6 @@
 -(void)setUpForSmallLayout;
 
 -(void)setWithFood:(Food *)food;
+
+-(void)shineDescription;
 @end

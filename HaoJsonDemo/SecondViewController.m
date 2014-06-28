@@ -8,6 +8,8 @@
 
 #import "SecondViewController.h"
 #import "TransitionLayout.h"
+#import "EDCollectionCell.h"
+
 @interface SecondViewController ()
 
 @end
@@ -22,6 +24,12 @@
     //NSLog(@"c number: %d",[self.collectionView numberOfItemsInSection:0]);
     
     
+}
+-(void)viewWillAppear:(BOOL)animated{
+    NSLog(@"second view will appear");
+    for(EDCollectionCell *cell in self.collectionView.visibleCells){
+        [cell setVCForFoodInfoView:self];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -49,7 +57,6 @@
     
     return transitionLayout;
 }
-
 
 -(void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"you got it!");

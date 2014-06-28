@@ -20,6 +20,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 
 @interface Food()
 
+@property (nonatomic,readwrite,getter = isCompleted) BOOL complete;
 
 @property (nonatomic,strong) AsyncRequest *async;
 @property (strong,nonatomic) NSMutableData *webdata;
@@ -33,7 +34,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 -(instancetype)initWithTitle:(NSString *)title andTranslations:(NSString *)translate
 {
     self = [super init];
-    
+    self.complete = NO;
     self.title = title;
     self.transTitle = translate;
     self.food_description = nil;
@@ -44,11 +45,6 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
     _comments = [NSMutableArray array];
     return self;
 }
-//-(BOOL)complete{
-////    if (descri) {
-////        <#statements#>
-////    }
-//}
 
 
 
@@ -151,6 +147,8 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
                 NSDictionary *photoObj = photoNameArr[i];
                 [self.photoNames addObject: [photoObj objectForKey:@"url"]];
             }
+            
+            self.complete = YES;
             
             NSLog(@"fid: %d",self.fid);
             NSLog(@"description: %@",self.food_description);

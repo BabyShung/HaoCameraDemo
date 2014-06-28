@@ -172,7 +172,7 @@
 #pragma mark - Internals
 - (void)initControls
 {
-    _scrollView = [[UIScrollView alloc] initWithFrame:self.superview.bounds];
+    _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
     //_scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
     _scrollView.backgroundColor = [UIColor clearColor];
     _scrollView.scrollsToTop = NO;
