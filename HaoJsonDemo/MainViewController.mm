@@ -21,6 +21,10 @@
 #import "ImagePreProcessor.h"
 #import "TextDetector.h"
 #import "WordCorrector.h"
+
+#import "Dictionary.h"
+#import "Food.h"
+
 #import "LoadControls.h"
 #import "AppDelegate.h"
 
@@ -71,7 +75,7 @@ static NSString *CellIdentifier = @"Cell";
 
     /*REQUIRED FOR DEBUGGING ANIMATION*/
 
-    //self.collectionView.hidden = YES;
+    self.collectionView.hidden = YES;
     self.collectionView.backgroundColor = [UIColor clearColor];
     
     //registering dequueue cell
@@ -102,7 +106,6 @@ static NSString *CellIdentifier = @"Cell";
     
     [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.camView.StreamView.alpha = 1;
-        self.camView.rotationCover.alpha = 1;
     } completion:^(BOOL finished) {
         if (finished) {
             if ([(NSObject *)self.camView.camDelegate respondsToSelector:@selector(EdibleCameraDidLoadCameraIntoView:)]) {
@@ -177,9 +180,8 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 -(void)loadTesseract{
-    _tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];//langague package
-    _tesseract.delegate = self;
-    [_tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz()&/" forKey:@"tessedit_char_whitelist"]; //limit search
+    self.tesseract = [[Tesseract alloc] initWithDataPath:@"tessdata" language:@"eng"];
+    [self.tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" forKey:@"tessedit_char_whitelist"];
 }
 
 #pragma mark --------- Tesseract
@@ -191,10 +193,6 @@ static NSString *CellIdentifier = @"Cell";
     NSString *recognizedText = [_tesseract recognizedText];
     NSLog(@"Tesseract Recognized: %@", recognizedText);
     return recognizedText;
-}
-
-- (BOOL)shouldCancelImageRecognitionForTesseract:(Tesseract*)tesseract {
-    return NO;  // return YES, if you need to interrupt tesseract before it finishes
 }
 
 #pragma mark CAMERA DELEGATE
@@ -223,7 +221,9 @@ static NSString *CellIdentifier = @"Cell";
             }
             
             NSString *result = @"";
+
             for (int i = 0; i<_imgArray.count-1; i++) {
+
                 NSString *tmp = [self recognizeImageWithTesseract:[_imgArray objectAtIndex:i]];
                 result = [result stringByAppendingFormat:@"%d. %@\n",i, tmp];
                 //            NSLog(@"tmp %d: %@",i, tmp);
@@ -232,6 +232,22 @@ static NSString *CellIdentifier = @"Cell";
             
             onScreenImage = [_imgArray objectAtIndex:(_imgArray.count-1)];
             NSLog(@"<<<<<<<<<<1.5 RESULT: \n%@", result);
+
+            
+                /*     Analyze OCR Results locally      */
+            NSArray *localFoods;
+            Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
+            //for (NSString *inputStr in resultStrings)
+            //{
+                localFoods = [dict localSearchOCRString:@"yeast bread with Worcestershire sauce and yogurt"];
+                NSLog(@"main view return foods %d",(int)localFoods.count);
+            for (Food *localFood in localFoods) {
+                NSLog(@"Food : %@ -> %@ ",localFood.title,localFood.transTitle);
+            }
+            
+            //}
+            NSLog(@"main view return foods %d",(int)localFoods.count);
+            
 
         }
         

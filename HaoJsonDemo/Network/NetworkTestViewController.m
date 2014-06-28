@@ -8,13 +8,22 @@
 
 #import "NetworkTestViewController.h"
 #import "AsyncRequest.h"
-#import "Review.h"
-#import "GeneralUser.h"
+#import "Comment.h"
+#import "User.h"
 #import "Edible_S3.h"
+#import "Food.h"
+
 @interface NetworkTestViewController () <NSURLConnectionDataDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong,nonatomic) NSMutableData *webdata;
+
+
+@property (weak, nonatomic) IBOutlet UITextField *textField;
+
+
+@property (strong,nonatomic) AsyncRequest *async;
+
 
 @end
 
@@ -25,6 +34,8 @@
     [super viewDidLoad];
 	
     _webdata = [[NSMutableData alloc]init];
+    
+    self.async = [[AsyncRequest alloc]init];
     
 }
 - (IBAction)getImage:(id)sender {
@@ -37,9 +48,8 @@
 
 - (IBAction)getRequest:(id)sender {
     
-    AsyncRequest *async = [[AsyncRequest alloc]init];
-    
-    [async performGETAsyncTask:self andURLString:@"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/Other?name=我"];
+        
+    //[async performGETAsyncTask:self andURLString:@"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/Other?name=我"];
     
     //1.
     //[async getFoodInfo:@"blue cheese" andLanguage:@"CN" andSELF:self];
@@ -149,6 +159,72 @@
 }
 
 
+- (IBAction)getFoodInfo:(id)sender {
+    [self.async getFoodInfo:@"blue cheese" andLanguage:@"CN" andSELF:self];
+}
+
+- (IBAction)getReview:(id)sender {
+    
+    [self.async getReviews_fid:1 andSELF:self];
+}
+
+- (IBAction)postReview:(id)sender {
+    
+    //user,late will move to login
+    [User sharedInstanceWithUid:1 andUname:@"Anonymity" andUpwd:@"123" andUtype:1 andUselfie:nil];
+    
+    //food
+    Food *food = [[Food alloc] init];
+    food.fid = 1;
+    
+    //comment
+    Comment *review = [[Comment alloc]initWithCommentID:0 andFood:food andRate:3 andComment:@"User Hao commented!!!!"];
 
 
+    [self.async doComment:review toFood:food withAction:@"add" andSELF:self];//action: update, post
+
+    
+}
+
+- (IBAction)updateReview:(id)sender {
+    
+    //user,late will move to login
+    [User sharedInstanceWithUid:1 andUname:@"Anonymity" andUpwd:@"123" andUtype:1 andUselfie:nil];
+    
+    //food
+    Food *food = [[Food alloc] init];
+    food.fid = 1;
+    
+    //comment
+    Comment *review = [[Comment alloc]initWithCommentID:8 andFood:food andRate:3 andComment:@"User Hao commented!!!!"];
+    
+    [self.async doComment:review toFood:food withAction:@"update" andSELF:self];//action: update, post
+}
+
+- (IBAction)like:(id)sender {
+    
+    [self.async likeOrDislike_rid:9 andLike:20 andSELF:self];
+    
+}
+- (IBAction)testBlock:(id)sender {
+    
+    Food *food = [[Food alloc]initWithTitle:@"blue cheese" andTranslations:@"蓝芝士"];
+    food.fid = 1;//for fetch comment
+    
+    [food fetchAsyncInfoCompletion:^(NSError *err, BOOL success){
+    
+        NSLog(@"%d",success);
+        NSLog(@"fetch food info block!");
+        
+    }];
+    
+    
+    
+    
+    [food fetchCommentsCompletion:^(NSError *err, BOOL success){
+        NSLog(@"%d",success);
+        NSLog(@"fetch comment block!");
+    }];
+    
+}
 @end

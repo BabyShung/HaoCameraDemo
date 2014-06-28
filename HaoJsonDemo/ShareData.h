@@ -22,7 +22,11 @@ typedef NS_ENUM(NSInteger, TargetLang){
 };
 
 @interface ShareData : NSObject
-+(instancetype)shareData;
++(ShareData *)shareData;
++(ShareData *)shareDataSetUp;
+
+
+@property (nonatomic,readonly) TargetLang defaultTargetLang;
 
 //File names
 -(NSString *) keywordFileName;
@@ -42,4 +46,7 @@ typedef NS_ENUM(NSInteger, TargetLang){
 -(NSString *) writableLangFilePath:(TargetLang) lang;
 -(NSString *) writableFilterWordsFilePath;
 -(NSString *) writablePathByFileName:(NSString *) filename;
+
+//User Settings
+-(void) setDefaultTargetLangTo:(TargetLang )lang;
 @end
