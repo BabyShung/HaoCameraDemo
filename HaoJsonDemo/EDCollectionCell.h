@@ -8,13 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "FoodInfoView.h"
+#import "Food.h"
+
 @interface EDCollectionCell : UICollectionViewCell
 
 @property (strong,nonatomic) FoodInfoView *foodInfoView;
+
+//Setup the cell with the food object
+-(void) setCellWithFood:(Food *)food;
 
 //This function must be called before large layout cells appear
 -(void)setVCForFoodInfoView:(UIViewController *)vc;
 
 -(void)setUpForLargeLayout;
 -(void)setUpForSmallLayout;
+
+
 @end

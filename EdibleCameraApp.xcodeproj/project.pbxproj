@@ -16,16 +16,17 @@
 		AC1E7765194F583100532F65 /* foodlist_a-z_sql_CN.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC1E7762194F583100532F65 /* foodlist_a-z_sql_CN.txt */; };
 		AC1E7766194F583100532F65 /* foodlist_a-z_sql_KW.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC1E7763194F583100532F65 /* foodlist_a-z_sql_KW.txt */; };
 		AC7491F8195A2C4F00D3CBBA /* TransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7491F7195A2C4F00D3CBBA /* TransitionController.m */; };
-		AC7491FB195A2C7500D3CBBA /* EDCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7491FA195A2C7500D3CBBA /* EDCollectionCell.m */; };
-		AC7491FE195A2CA200D3CBBA /* FoodInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7491FD195A2CA200D3CBBA /* FoodInfoView.m */; };
 		AC749201195A2D4300D3CBBA /* TransitionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC749200195A2D4300D3CBBA /* TransitionLayout.m */; };
-		AC8A357719461E2100FC5465 /* DBOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8A357019461E2100FC5465 /* DBOperation.m */; };
-		AC8A357819461E2100FC5465 /* Dictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8A357219461E2100FC5465 /* Dictionary.m */; };
 		AC8A357A19461E2100FC5465 /* SQLConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8A357619461E2100FC5465 /* SQLConnector.m */; };
 		AC8A357C1946202400FC5465 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AC8A357B1946202300FC5465 /* libsqlite3.0.dylib */; };
 		ACA1724C19368BFB005E7D51 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACA1724B19368BFB005E7D51 /* opencv2.framework */; };
 		ACA172651937C8F5005E7D51 /* w2-1:3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ACA172641937C8F5005E7D51 /* w2-1:3.jpg */; };
 		ACA1726B1939209A005E7D51 /* LoadControls.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA1726A1939209A005E7D51 /* LoadControls.m */; };
+		ACDD6D4F195F4AB800AD51A7 /* MainViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = ACDD6D4E195F4AB800AD51A7 /* MainViewController.mm */; };
+		ACDD6D52195F4AE800AD51A7 /* Dictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDD6D51195F4AE800AD51A7 /* Dictionary.m */; };
+		ACDD6D55195F4B2000AD51A7 /* EDCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDD6D54195F4B2000AD51A7 /* EDCollectionCell.m */; };
+		ACDD6D58195F4BAD00AD51A7 /* DBOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDD6D57195F4BAD00AD51A7 /* DBOperation.m */; };
+		ACDD6D5B195F4C3100AD51A7 /* FoodInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDD6D5A195F4C3100AD51A7 /* FoodInfoView.m */; };
 		B82353AE192BE2D800D6BCAC /* Attribution_PixelLove.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353A4192BE2D800D6BCAC /* Attribution_PixelLove.png */; };
 		B82353B6192BE2D800D6BCAC /* shutter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353AC192BE2D800D6BCAC /* shutter@2x.png */; };
 		B82353BD192BE2F400D6BCAC /* CameraRotate.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353B9192BE2F400D6BCAC /* CameraRotate.png */; };
@@ -34,7 +35,6 @@
 		B82353C0192BE2F400D6BCAC /* CameraPrevious.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353BC192BE2F400D6BCAC /* CameraPrevious.png */; };
 		B82353EE192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B82353ED192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib */; };
 		B82353F0192CFC4C00D6BCAC /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = B82353EF192CFC4C00D6BCAC /* tessdata */; };
-		B825DD8D194264FF004C7DCE /* MainViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B825DD8A194264FF004C7DCE /* MainViewController.mm */; };
 		B8B60FAB195914DF005268D5 /* smallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FA8195914DF005268D5 /* smallLayout.m */; };
 		B8B60FAC195914DF005268D5 /* largeLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FAA195914DF005268D5 /* largeLayout.m */; };
 		B8B60FB5195914FB005268D5 /* debugView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FB4195914FB005268D5 /* debugView.m */; };
@@ -167,16 +167,8 @@
 		AC1E7763194F583100532F65 /* foodlist_a-z_sql_KW.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "foodlist_a-z_sql_KW.txt"; sourceTree = "<group>"; };
 		AC7491F6195A2C4F00D3CBBA /* TransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionController.h; sourceTree = "<group>"; };
 		AC7491F7195A2C4F00D3CBBA /* TransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionController.m; sourceTree = "<group>"; };
-		AC7491F9195A2C7500D3CBBA /* EDCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDCollectionCell.h; sourceTree = "<group>"; };
-		AC7491FA195A2C7500D3CBBA /* EDCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDCollectionCell.m; sourceTree = "<group>"; };
-		AC7491FC195A2CA200D3CBBA /* FoodInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodInfoView.h; sourceTree = "<group>"; };
-		AC7491FD195A2CA200D3CBBA /* FoodInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodInfoView.m; sourceTree = "<group>"; };
 		AC7491FF195A2D4300D3CBBA /* TransitionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionLayout.h; sourceTree = "<group>"; };
 		AC749200195A2D4300D3CBBA /* TransitionLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionLayout.m; sourceTree = "<group>"; };
-		AC8A356F19461E2100FC5465 /* DBOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBOperation.h; sourceTree = "<group>"; };
-		AC8A357019461E2100FC5465 /* DBOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBOperation.m; sourceTree = "<group>"; };
-		AC8A357119461E2100FC5465 /* Dictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dictionary.h; sourceTree = "<group>"; };
-		AC8A357219461E2100FC5465 /* Dictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dictionary.m; sourceTree = "<group>"; };
 		AC8A357319461E2100FC5465 /* ShareData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareData.h; sourceTree = "<group>"; };
 		AC8A357519461E2100FC5465 /* SQLConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLConnector.h; sourceTree = "<group>"; };
 		AC8A357619461E2100FC5465 /* SQLConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLConnector.m; sourceTree = "<group>"; };
@@ -185,6 +177,16 @@
 		ACA172641937C8F5005E7D51 /* w2-1:3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "w2-1:3.jpg"; sourceTree = "<group>"; };
 		ACA172691939209A005E7D51 /* LoadControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadControls.h; sourceTree = "<group>"; };
 		ACA1726A1939209A005E7D51 /* LoadControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadControls.m; sourceTree = "<group>"; };
+		ACDD6D4D195F4AB800AD51A7 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		ACDD6D4E195F4AB800AD51A7 /* MainViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MainViewController.mm; sourceTree = "<group>"; };
+		ACDD6D50195F4AE800AD51A7 /* Dictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dictionary.h; sourceTree = "<group>"; };
+		ACDD6D51195F4AE800AD51A7 /* Dictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dictionary.m; sourceTree = "<group>"; };
+		ACDD6D53195F4B2000AD51A7 /* EDCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDCollectionCell.h; sourceTree = "<group>"; };
+		ACDD6D54195F4B2000AD51A7 /* EDCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDCollectionCell.m; sourceTree = "<group>"; };
+		ACDD6D56195F4BAD00AD51A7 /* DBOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBOperation.h; sourceTree = "<group>"; };
+		ACDD6D57195F4BAD00AD51A7 /* DBOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBOperation.m; sourceTree = "<group>"; };
+		ACDD6D59195F4C3100AD51A7 /* FoodInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodInfoView.h; sourceTree = "<group>"; };
+		ACDD6D5A195F4C3100AD51A7 /* FoodInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodInfoView.m; sourceTree = "<group>"; };
 		B82353A4192BE2D800D6BCAC /* Attribution_PixelLove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Attribution_PixelLove.png; sourceTree = "<group>"; };
 		B82353AC192BE2D800D6BCAC /* shutter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shutter@2x.png"; sourceTree = "<group>"; };
 		B82353B9192BE2F400D6BCAC /* CameraRotate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CameraRotate.png; sourceTree = "<group>"; };
@@ -193,8 +195,6 @@
 		B82353BC192BE2F400D6BCAC /* CameraPrevious.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CameraPrevious.png; sourceTree = "<group>"; };
 		B82353ED192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
 		B82353EF192CFC4C00D6BCAC /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
-		B825DD89194264FF004C7DCE /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		B825DD8A194264FF004C7DCE /* MainViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MainViewController.mm; sourceTree = "<group>"; };
 		B8B60FA7195914DF005268D5 /* smallLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smallLayout.h; sourceTree = "<group>"; };
 		B8B60FA8195914DF005268D5 /* smallLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smallLayout.m; sourceTree = "<group>"; };
 		B8B60FA9195914DF005268D5 /* largeLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = largeLayout.h; sourceTree = "<group>"; };
@@ -418,10 +418,8 @@
 				AC8A357619461E2100FC5465 /* SQLConnector.m */,
 				AC8A357319461E2100FC5465 /* ShareData.h */,
 				AC1E775F194F580800532F65 /* ShareData.m */,
-				AC8A356F19461E2100FC5465 /* DBOperation.h */,
-				AC8A357019461E2100FC5465 /* DBOperation.m */,
-				AC8A357119461E2100FC5465 /* Dictionary.h */,
-				AC8A357219461E2100FC5465 /* Dictionary.m */,
+				ACDD6D56195F4BAD00AD51A7 /* DBOperation.h */,
+				ACDD6D57195F4BAD00AD51A7 /* DBOperation.m */,
 			);
 			name = LocalDB;
 			sourceTree = "<group>";
@@ -529,8 +527,8 @@
 		B8B60F9E195913FF005268D5 /* Main(Camera) */ = {
 			isa = PBXGroup;
 			children = (
-				B825DD89194264FF004C7DCE /* MainViewController.h */,
-				B825DD8A194264FF004C7DCE /* MainViewController.mm */,
+				ACDD6D4D195F4AB800AD51A7 /* MainViewController.h */,
+				ACDD6D4E195F4AB800AD51A7 /* MainViewController.mm */,
 				B8D6953D193EBB9B00E504FA /* Camera */,
 				B8B6101719592030005268D5 /* ResultCollection */,
 				B8B60FBC19591DDA005268D5 /* FoodInfoView */,
@@ -553,8 +551,8 @@
 		B8B60FBC19591DDA005268D5 /* FoodInfoView */ = {
 			isa = PBXGroup;
 			children = (
-				AC7491FC195A2CA200D3CBBA /* FoodInfoView.h */,
-				AC7491FD195A2CA200D3CBBA /* FoodInfoView.m */,
+				ACDD6D59195F4C3100AD51A7 /* FoodInfoView.h */,
+				ACDD6D5A195F4C3100AD51A7 /* FoodInfoView.m */,
 				B8B60FE919591E50005268D5 /* PhotoCollectionView */,
 				B8B60F9F19591416005268D5 /* ShimmerView */,
 				B8B60FE519591E35005268D5 /* ShineLabel */,
@@ -663,8 +661,8 @@
 		B8B6101819592055005268D5 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				AC7491F9195A2C7500D3CBBA /* EDCollectionCell.h */,
-				AC7491FA195A2C7500D3CBBA /* EDCollectionCell.m */,
+				ACDD6D53195F4B2000AD51A7 /* EDCollectionCell.h */,
+				ACDD6D54195F4B2000AD51A7 /* EDCollectionCell.m */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -794,6 +792,8 @@
 				B8C8F283195DEC85009F8F6E /* Comment.m */,
 				B8D09A751948BCCF006C070D /* User.h */,
 				B8D09A761948BCCF006C070D /* User.m */,
+				ACDD6D50195F4AE800AD51A7 /* Dictionary.h */,
+				ACDD6D51195F4AE800AD51A7 /* Dictionary.m */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -1079,9 +1079,11 @@
 				B8B610A0195A0BE0005268D5 /* NavBarSetting.m in Sources */,
 				B8B6104E195924F2005268D5 /* CameraView.m in Sources */,
 				3AA1BD90192FA982002729BC /* ImagePreProcessor.mm in Sources */,
+				ACDD6D55195F4B2000AD51A7 /* EDCollectionCell.m in Sources */,
 				B8B61084195927A2005268D5 /* CardsViewController.m in Sources */,
 				B8B6103B19592369005268D5 /* UIApplication+JTSImageViewController.m in Sources */,
 				B8D09A791948BCCF006C070D /* User.m in Sources */,
+				ACDD6D52195F4AE800AD51A7 /* Dictionary.m in Sources */,
 				B8B6105719592528005268D5 /* NetworkTestViewController.m in Sources */,
 				B8B60FE319591E2E005268D5 /* TagView.m in Sources */,
 				B8B6104719592493005268D5 /* ImageCropView.m in Sources */,
@@ -1102,18 +1104,18 @@
 				B8B61083195927A2005268D5 /* CardFlowLayout.m in Sources */,
 				B8B60FF419591E60005268D5 /* UIImageView+M13AsynchronousImageView.m in Sources */,
 				B8B6105A195925F2005268D5 /* Edible_S3.m in Sources */,
+				ACDD6D58195F4BAD00AD51A7 /* DBOperation.m in Sources */,
 				AC8A357A19461E2100FC5465 /* SQLConnector.m in Sources */,
-				AC8A357719461E2100FC5465 /* DBOperation.m in Sources */,
 				B8B61148195A63DA005268D5 /* DALinedTextView.m in Sources */,
 				B8B60FAC195914DF005268D5 /* largeLayout.m in Sources */,
 				B8B60FF319591E60005268D5 /* EDImageFlowLayout.m in Sources */,
 				B8B61082195927A2005268D5 /* CardsCollectionCell.m in Sources */,
 				B8F29C6319314357008979A7 /* DebugViewController.mm in Sources */,
 				B8B61070195926D1005268D5 /* MKTransitionCoordinator.m in Sources */,
-				AC7491FB195A2C7500D3CBBA /* EDCollectionCell.m in Sources */,
 				B8B6103719592369005268D5 /* JTSAnimatedGIFUtility.m in Sources */,
 				B8B61077195926E0005268D5 /* NSString+FontAwesome.m in Sources */,
 				B8B6104D195924F2005268D5 /* CameraManager.m in Sources */,
+				ACDD6D5B195F4C3100AD51A7 /* FoodInfoView.m in Sources */,
 				B8B6105519592528005268D5 /* AsyncRequest.m in Sources */,
 				B8B61024195922B5005268D5 /* FBShimmeringView.m in Sources */,
 				B8B6106B195926C0005268D5 /* LoginViewController.m in Sources */,
@@ -1123,22 +1125,20 @@
 				3A5654BF193778AD0085CC87 /* WordCorrector.m in Sources */,
 				B8B6104619592493005268D5 /* ControlPointView.m in Sources */,
 				B8D6953C193E71C200E504FA /* ED_Color.m in Sources */,
-				B825DD8D194264FF004C7DCE /* MainViewController.mm in Sources */,
 				B8B61147195A63DA005268D5 /* IQFeedbackView.m in Sources */,
 				ACA1726B1939209A005E7D51 /* LoadControls.m in Sources */,
 				B8F29C5819311A5C008979A7 /* EP_thirdViewController.mm in Sources */,
 				B8B6104819592493005268D5 /* ShadeView.m in Sources */,
 				B8B6103F1959243A005268D5 /* RQShineLabel.m in Sources */,
+				ACDD6D4F195F4AB800AD51A7 /* MainViewController.mm in Sources */,
 				B8B6103819592369005268D5 /* JTSImageInfo.m in Sources */,
 				B8C8F287195DED0B009F8F6E /* Food.m in Sources */,
 				B8B6103919592369005268D5 /* JTSImageViewController.m in Sources */,
-				AC7491FE195A2CA200D3CBBA /* FoodInfoView.m in Sources */,
 				B8FA464918F9E954007DA680 /* main.m in Sources */,
 				B8B61023195922B5005268D5 /* FBShimmeringLayer.m in Sources */,
 				B8B60FAB195914DF005268D5 /* smallLayout.m in Sources */,
 				B8B6108E195927D2005268D5 /* DAKeyboardControl.m in Sources */,
 				B8B6103A19592369005268D5 /* JTSSimpleImageDownloader.m in Sources */,
-				AC8A357819461E2100FC5465 /* Dictionary.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -33,7 +33,7 @@
 @end
 
 
-@interface MainViewController : UICollectionViewController
+@interface MainViewController : UICollectionViewController  <TesseractDelegate>
 
 @property (nonatomic,strong) CameraView* camView;
 

@@ -39,6 +39,7 @@
     
     //Get keywords from keyword file
     ShareData *sharedata = [ShareData shareData];
+    [self.connector createEditableCopyOf:[sharedata keywordFileName]];
     NSArray *kwArray = [self getItemsInFileByFilePath:[sharedata writableKeywordFilePath]];
     
     [self.connector openDB];
@@ -69,11 +70,13 @@
     
     ShareData *sharedata = [ShareData shareData];
     NSString *langTableName = [sharedata langTableName:lang];
-    
-    [self.connector openDB];
+    [self.connector createEditableCopyOf:[sharedata langFileName:lang]];
     
     //Get words from Language file
     NSArray *wArray = [self getItemsInFileByFilePath:[sharedata writableLangFilePath:lang]];
+    
+    [self.connector openDB];
+
     //Create keyword table, drop if it exists;
     [self execute:[NSString stringWithFormat:@"DROP TABLE IF EXISTS %@;",langTableName]];
     [self execute:[NSString stringWithFormat:@"CREATE TABLE %@ (wid INTEGER PRIMARY KEY, wstr TEXT);",langTableName]];

@@ -15,6 +15,7 @@
 @property (strong,nonatomic) NSMutableArray *results;
 
 -(instancetype) initDictInDefaultLang;
+
 -(instancetype) initDictInLang:(TargetLang) lang;
 
 //Search locally, return foods

@@ -71,10 +71,11 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
 /*current cv must be set up when view appear*/
 @property (strong,nonatomic) UIViewController *currentVC;
 
-
+@property (strong,nonatomic) NSMutableArray *imgNameArray;
 @end
 
 @implementation FoodInfoView
+
 
 - (id)initWithFrame:(CGRect)frame andVC:(UIViewController *)vc
 {
@@ -82,7 +83,7 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     if (self) {
         
         self.currentVC = vc;
-        
+        self.imgNameArray = [[NSMutableArray alloc]init];
         //init all UI controls
         [self loadControls];
         
@@ -94,6 +95,7 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     self = [super initWithFrame:frame];
     if (self) {
         self.currentVC = nil;
+        self.imgNameArray = [[NSMutableArray alloc]init];
         //init all UI controls
         [self loadControls];
         
@@ -478,5 +480,12 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     self.tagview.hidden = YES;
     self.photoCollectionView.hidden = YES;
     self.commentsViewContainer.hidden = YES;
+}
+
+-(void)setWithFood:(Food *)food{
+    self.titleLabel.text = food.title;
+    self.translateLabel.text = food.transTitle;
+    self.descriptionLabel.text = food.description;
+    
 }
 @end
