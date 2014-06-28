@@ -1,7 +1,7 @@
 //
 //  MainViewController.h
 //  EdibleCameraApp
-//
+///Users/mei/Desktop/HaoCameraDemo/HaoJsonDemo/MainViewController.h
 //  Created by Hao Zheng on 5/24/14.
 //  Copyright (c) 2014 Hao Zheng. All rights reserved.
 
