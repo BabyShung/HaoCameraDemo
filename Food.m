@@ -29,12 +29,14 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 
 @implementation Food
 
+//Local search use this to init Food
 -(instancetype)initWithTitle:(NSString *)title andTranslations:(NSString *)translate
 {
     self = [super init];
     
     self.title = title;
     self.transTitle = translate;
+    self.food_description = nil;
     _webdata = [[NSMutableData alloc]init];
     _async = [[AsyncRequest alloc]initWithDelegate:self];
     _photoNames = [NSMutableArray array];
@@ -42,6 +44,11 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
     _comments = [NSMutableArray array];
     return self;
 }
+//-(BOOL)complete{
+////    if (descri) {
+////        <#statements#>
+////    }
+//}
 
 
 

@@ -143,11 +143,11 @@
 
 -(NSUInteger)getVCIndex:(UIViewController *) vc{
     NSUInteger index = [[self.dict objectForKey:vc.restorationIdentifier] integerValue];
-    if(index == 0){
-        [self showStatusBar:NO];
-    }else{
-        [self showStatusBar:YES];
-    }
+//    if(index == 0){
+//        [self showStatusBar:NO];
+//    }else{
+//        [self showStatusBar:YES];
+//    }
     return index;
 }
 
@@ -185,16 +185,17 @@
 //status bar
 
 - (BOOL)prefersStatusBarHidden {
-    return _statusBarHidden;
+    return YES;
+    //return _statusBarHidden;
 }
 
-- (void)showStatusBar:(BOOL)show {
-    [UIView animateWithDuration:0.3 animations:^{
-        _statusBarHidden = !show;
-        [self setNeedsStatusBarAppearanceUpdate];
-    }];
-}
--(UIStatusBarStyle)preferredStatusBarStyle{
-    return UIStatusBarStyleLightContent;
-}
+//- (void)showStatusBar:(BOOL)show {
+//    [UIView animateWithDuration:0.3 animations:^{
+//        _statusBarHidden = !show;
+//        [self setNeedsStatusBarAppearanceUpdate];
+//    }];
+//}
+//-(UIStatusBarStyle)preferredStatusBarStyle{
+//    return UIStatusBarStyleLightContent;
+//}
 @end

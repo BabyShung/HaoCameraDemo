@@ -402,7 +402,7 @@
     self = [super init];
     if (self) {
         _imageCache = [M13AsynchronousImageLoader defaultImageCache];
-        _maximumNumberOfConcurrentLoads = 5;
+        _maximumNumberOfConcurrentLoads = 50;
         _loadingTimeout = 30.0;
         _connectionQueue = [NSMutableArray array];
         _activeConnections = [NSMutableArray array];
@@ -561,9 +561,9 @@
 
 @implementation UIImageView (M13AsynchronousImageView)
 
-- (void)loadImageFromURLAtAmazonAsync:(NSURL *)url completion:(M13AsynchronousImageLoaderCompletionBlock)completion
+- (void)loadImageFromURLAtAmazonAsync:(NSURL *)url withLoaderName:(NSString *)name completion:(M13AsynchronousImageLoaderCompletionBlock)completion
 {
-    [[M13AsynchronousImageLoader defaultLoader] loadImageAtURLAtAmazon:url target:self completion:^(BOOL success, M13AsynchronousImageLoaderImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
+    [[M13AsynchronousImageLoader loaderWithName:name] loadImageAtURLAtAmazon:url target:self completion:^(BOOL success, M13AsynchronousImageLoaderImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
         //Set the image if loaded
         if (success) {
             

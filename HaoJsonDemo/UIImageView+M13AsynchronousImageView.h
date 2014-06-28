@@ -102,7 +102,7 @@ typedef void (^M13AsynchronousImageLoaderCompletionBlock)(BOOL success, M13Async
 
 @interface UIImageView (M13AsynchronousImageView)
 
-- (void)loadImageFromURLAtAmazonAsync:(NSURL *)url completion:(M13AsynchronousImageLoaderCompletionBlock)completion;
+- (void)loadImageFromURLAtAmazonAsync:(NSURL *)url withLoaderName:(NSString *)name completion:(M13AsynchronousImageLoaderCompletionBlock)completion;
 
 //Cancels loading all the images set to load for the image view.
 - (void)cancelLoadingAllImages;

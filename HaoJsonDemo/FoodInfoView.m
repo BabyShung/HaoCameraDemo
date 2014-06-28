@@ -71,7 +71,9 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
 /*current cv must be set up when view appear*/
 @property (strong,nonatomic) UIViewController *currentVC;
 
-@property (strong,nonatomic) NSMutableArray *imgNameArray;
+@property (strong,nonatomic) NSArray *imgNameArray;
+
+@property (strong,nonatomic) NSString *loaderName;
 @end
 
 @implementation FoodInfoView
@@ -83,7 +85,7 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     if (self) {
         
         self.currentVC = vc;
-        self.imgNameArray = [[NSMutableArray alloc]init];
+        self.imgNameArray = [NSMutableArray array];
         //init all UI controls
         [self loadControls];
         
@@ -95,7 +97,7 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     self = [super initWithFrame:frame];
     if (self) {
         self.currentVC = nil;
-        self.imgNameArray = [[NSMutableArray alloc]init];
+        self.imgNameArray = nil;
         //init all UI controls
         [self loadControls];
         
@@ -120,8 +122,9 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     self.scrollview.contentSize = CGSizeMake(width,ScrollViewContentSizeHeight);
     
     
-    CGRect titleRect = CGRectMake(CLeftMargin, TitleTopMargin, width-CLeftMargin, ShimmmerViewHeight);
-    self.shimmeringView = [[FBShimmeringView alloc] initWithFrame:titleRect];
+//    CGRect titleRect = CGRectMake(CLeftMargin, TitleTopMargin, width-CLeftMargin, ShimmmerViewHeight);
+//    self.shimmeringView = [[FBShimmeringView alloc] initWithFrame:titleRect];
+    self.shimmeringView = [[FBShimmeringView alloc] init];
     self.shimmeringView.shimmering = NO;   //start shimmering
     self.shimmeringView.shimmeringBeginFadeDuration = 0.3;
     self.shimmeringView.shimmeringOpacity = 0.3;
@@ -130,7 +133,6 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     
     self.titleLabel = [[UILabel alloc] initWithFrame:_shimmeringView.frame];
     self.titleLabel.numberOfLines = 0;
-    //self.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.titleLabel.text = @"Blue Cheese blue cheese";
     self.titleLabel.font = [UIFont fontWithName:PlainTextFontName size:LargeTitleFontSize];
     self.titleLabel.textColor = [UIColor blackColor];
@@ -138,11 +140,13 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     _shimmeringView.contentView = self.titleLabel;
     
     
-    self.separator = [[UIView alloc] initWithFrame:CGRectMake(CLeftMargin, CGRectGetMaxY(self.titleLabel.frame) + BelowShimmmerGap, width-2*CLeftMargin, SeparatorViewHeight)];
+    //self.separator = [[UIView alloc] initWithFrame:CGRectMake(CLeftMargin, CGRectGetMaxY(self.titleLabel.frame) + BelowShimmmerGap, width-2*CLeftMargin, SeparatorViewHeight)];
+    self.separator = [[UIView alloc] init];
     self.separator.backgroundColor = [UIColor blackColor];
     [self.scrollview addSubview:self.separator];
     
-    self.translateLabel = [[UILabel alloc] initWithFrame:CGRectMake(CLeftMargin, TitleTopMargin + CGRectGetHeight(self.titleLabel.frame)  , width, TranslateLabelHeight)];
+    //self.translateLabel = [[UILabel alloc] initWithFrame:CGRectMake(CLeftMargin, TitleTopMargin + CGRectGetHeight(self.titleLabel.frame)  , width, TranslateLabelHeight)];
+    self.translateLabel = [[UILabel alloc] init];
     self.translateLabel.numberOfLines = 0;
     //self.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.translateLabel.text = @"蓝芝士";
@@ -154,7 +158,8 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     
 /*-------------------Following Views Will Be Hidden In Small Layout----------------------------*/
     
-    self.descriptionLabel = [[RQShineLabel alloc] initWithFrame:CGRectMake(CLeftMargin, CGRectGetHeight(self.titleLabel.frame)+ CGRectGetMaxY(self.titleLabel.frame) + MiddleGAP, width - CLeftMargin*2, TranslateLabelHeight)];
+    //self.descriptionLabel = [[RQShineLabel alloc] initWithFrame:CGRectMake(CLeftMargin, CGRectGetHeight(self.titleLabel.frame)+ CGRectGetMaxY(self.titleLabel.frame) + MiddleGAP, width - CLeftMargin*2, TranslateLabelHeight)];
+    self.descriptionLabel = [[RQShineLabel alloc] init];
     self.descriptionLabel.numberOfLines = 0;
     self.descriptionLabel.text = @"";
     self.descriptionLabel.font = [UIFont fontWithName:PlainTextFontName size:LargeTextFontSize];
@@ -165,8 +170,8 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     
     [self.scrollview addSubview:self.descriptionLabel];
     
-    
     _tagview = [[TagView alloc]initWithFrame:CGRectMake(0, BelowDescriptionLabelGap+CGRectGetMaxY(self.descriptionLabel.frame), width, TagViewHeight)];
+    //_tagview = [[TagView alloc]init];
     _tagview.allowToUseSingleSpace = YES;
     _tagview.delegate = self;
     [_tagview setFont:[UIFont fontWithName:TagTextFontName size:TagFontSize]];
@@ -178,6 +183,7 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     EDImageFlowLayout *small = [[EDImageFlowLayout alloc]init];
     
     self.photoCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.tagview.frame) + GAP, width, PhotoCollectionViewHeight) collectionViewLayout:small];
+
     [self.photoCollectionView registerClass:[EDImageCell class] forCellWithReuseIdentifier:CellIdentifier];
     self.photoCollectionView.backgroundColor = [UIColor clearColor];
     
@@ -219,10 +225,11 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
 }
 
 /*!!!!! Fist time display !!!!!*/
--(void)configureNetworkComponents{
+-(void)configureNetworkComponentswithCellNo:(NSInteger)no{
     NSLog(@"test```");
-//    self.photoCollectionView.delegate = self;
-//    self.photoCollectionView.dataSource = self;
+    self.loaderName = [NSString stringWithFormat:@"%d",(int)no];
+    self.photoCollectionView.delegate = self;
+    self.photoCollectionView.dataSource = self;
     _commentsTableView.delegate = self;
     _commentsTableView.dataSource = self;
     [_commentsTableView reloadData];
@@ -256,10 +263,10 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     //cell.imageView.image = loadingImage;
     
     //Cancel any other previous downloads for the image view.
-    [cell.imageView cancelLoadingAllImages];
+    //[cell.imageView cancelLoadingAllImages];
     
-    //Load the new image
-    [cell.imageView loadImageFromURLAtAmazonAsync:externalFileURLs[indexPath.row] completion:^(BOOL success, M13AsynchronousImageLoaderImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
+    //Load the new image //externalFileURLs[indexPath.row]
+    [cell.imageView loadImageFromURLAtAmazonAsync:externalFileURLs[indexPath.row] withLoaderName:self.loaderName completion:^(BOOL success, M13AsynchronousImageLoaderImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
         //This is where you would refresh the cell if need be. If a cell of basic style, just call "setNeedsRelayout" on the cell.
         
         cell.activityView.hidden = YES;
@@ -272,25 +279,25 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    EDImageCell *cell = (EDImageCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    
-    // Create image info
-    JTSImageInfo *imageInfo = [[JTSImageInfo alloc] init];
-    
-    imageInfo.image = cell.imageView.image;
-    
-    imageInfo.referenceRect = cell.imageView.frame;
-    
-    imageInfo.referenceView = cell.imageView.superview;
-    
-    // Setup view controller
-    JTSImageViewController *imageViewer = [[JTSImageViewController alloc]
-                                           initWithImageInfo:imageInfo
-                                           mode:JTSImageViewControllerMode_Image
-                                           backgroundStyle:JTSImageViewControllerBackgroundStyle_ScaledDimmedBlurred];
-    
-    // Present the view controller.
-    [imageViewer showFromViewController:self.currentVC transition:JTSImageViewControllerTransition_FromOriginalPosition];
+//    EDImageCell *cell = (EDImageCell *)[collectionView cellForItemAtIndexPath:indexPath];
+//    
+//    // Create image info
+//    JTSImageInfo *imageInfo = [[JTSImageInfo alloc] init];
+//    
+//    imageInfo.image = cell.imageView.image;
+//    
+//    imageInfo.referenceRect = cell.imageView.frame;
+//    
+//    imageInfo.referenceView = cell.imageView.superview;
+//    
+//    // Setup view controller
+//    JTSImageViewController *imageViewer = [[JTSImageViewController alloc]
+//                                           initWithImageInfo:imageInfo
+//                                           mode:JTSImageViewControllerMode_Image
+//                                           backgroundStyle:JTSImageViewControllerBackgroundStyle_ScaledDimmedBlurred];
+//    
+//    // Present the view controller.
+//    [imageViewer showFromViewController:self.currentVC transition:JTSImageViewControllerTransition_FromOriginalPosition];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -485,7 +492,8 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
 -(void)setWithFood:(Food *)food{
     self.titleLabel.text = food.title;
     self.translateLabel.text = food.transTitle;
-    self.descriptionLabel.text = food.description;
+    self.descriptionLabel.text = food.food_description;
+    //self.imgNameArray = []
     
 }
 @end

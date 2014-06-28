@@ -84,7 +84,7 @@ static NSString *CellIdentifier = @"Cell";
 
     /*REQUIRED FOR DEBUGGING ANIMATION*/
 
-    self.collectionView.hidden = YES;
+    //self.collectionView.hidden = YES;
     self.collectionView.backgroundColor = [UIColor clearColor];
     
     //registering dequueue cell
@@ -131,15 +131,28 @@ static NSString *CellIdentifier = @"Cell";
  
  *****************************/
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.foodArray.count;
+    return _cellCount;
+    //return self.foodArray.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     EDCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    cell.backgroundColor = [UIColor whiteColor];
-    
+        cell.backgroundColor = [UIColor whiteColor];
+    [cell.foodInfoView configureNetworkComponentswithCellNo:indexPath.row];
+
+//    Food *food = [self.foodArray objectAtIndex:indexPath.row];
+//    food
+//    if (food.description) {
+//        [cell setCellWithFood:food];
+//    }
+//    else{
+//        [food fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
+//            if (success) {
+//                [cell setCellWithFood:food];
+//            }
+//        }];
+////    }
     
     return cell;
 }
@@ -149,6 +162,9 @@ static NSString *CellIdentifier = @"Cell";
     //deselect !!??
     //[collectionView deselectItemAtIndexPath:indexPath animated:YES];
     
+//    [food fetchCommentsCompletion:^(NSError *err, BOOL success) {
+//    <#code#>
+//}];
     
     
     SecondViewController *viewController = [[SecondViewController alloc] initWithCollectionViewLayout:[[largeLayout alloc] init]];

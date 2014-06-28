@@ -11,6 +11,8 @@
 
 @interface Food : NSObject <NSURLConnectionDataDelegate>
 
+@property (nonatomic) BOOL complete;
+
 @property (nonatomic) NSUInteger fid;
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *transTitle;

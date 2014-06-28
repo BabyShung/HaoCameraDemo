@@ -30,11 +30,9 @@
 -(void)setup{
     self.foodInfoView = [[FoodInfoView alloc] initWithFrame:self.bounds];
     [self.foodInfoView setUpForSmallLayout];
-    [self.foodInfoView configureNetworkComponents];
+    //[self.foodInfoView configureNetworkComponentswithCellNo:self.];
     [self.contentView addSubview:self.foodInfoView];
     
-    //[self.foodInfoView configureNetworkComponents];
-    //self.foodInfoView.hidden = YES;
     
 
 }
@@ -47,6 +45,7 @@
 
 -(void) setCellWithFood:(Food *)food{
     [self.foodInfoView setWithFood:food];
+
 }
 
 -(void)setVCForFoodInfoView:(UIViewController *)vc
@@ -81,6 +80,7 @@
     }
     else{
         NSLog(@" Will do small -> large");
+        [self.foodInfoView.descriptionLabel shine];
 
         [self.foodInfoView setUpForLargeLayout];
     }

@@ -31,8 +31,22 @@
 #pragma mark - Life Cycle
 - (id)initWithFrame:(CGRect)frame
 {
-    NSLog(@"~~~~~init ~~~~");
+    //NSLog(@"~~~~~init ~~~~");
     self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+        [self initProperties];
+        [self initControls];
+        
+        [self reArrangeSubViews];
+    }
+    return self;
+}
+
+/*---- Add by Mei---------*/
+-(id)init
+{
+    self = [super init];
     if (self) {
         // Initialization code
         [self initProperties];
@@ -158,7 +172,8 @@
 #pragma mark - Internals
 - (void)initControls
 {
-    _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
+    _scrollView = [[UIScrollView alloc] initWithFrame:self.superview.bounds];
+    //_scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
     _scrollView.backgroundColor = [UIColor clearColor];
     _scrollView.scrollsToTop = NO;
     _scrollView.showsVerticalScrollIndicator = NO;
