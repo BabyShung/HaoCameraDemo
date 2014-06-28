@@ -14,9 +14,9 @@
 @property (nonatomic) NSUInteger fid;
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *transTitle;
-@property (nonatomic, retain) NSString *description;
-@property (nonatomic, retain) NSArray *tagNames;
-@property (nonatomic, strong) NSArray *photoNames;
+@property (nonatomic, retain) NSString *food_description;
+@property (nonatomic, retain) NSMutableArray *tagNames;
+@property (nonatomic, strong) NSMutableArray *photoNames;
 @property (nonatomic, retain) NSMutableArray *comments;
 
 //For local search results
@@ -25,6 +25,11 @@
 //For Server search results
 //-(instancetype) initWithDictionary:(NSDictionary *) dict;
 
--(void) fetchCommentsCompletion:(void (^)(NSError *err, BOOL sucess))block;
+
+//fetch async food info
+-(void) fetchAsyncInfoCompletion:(void (^)(NSError *err, BOOL success))block;
+
+//fetch async comment
+-(void) fetchCommentsCompletion:(void (^)(NSError *err, BOOL success))block;
 
 @end

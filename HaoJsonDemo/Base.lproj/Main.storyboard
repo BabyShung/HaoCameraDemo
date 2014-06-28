@@ -250,6 +250,17 @@
                                     <action selector="like:" destination="shp-Wy-hYf" eventType="touchUpInside" id="aMp-rh-SPn"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Avu-IC-ikn">
+                                <rect key="frame" x="36" y="501" width="88" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.90095150469999996" green="0.2026505364" blue="0.2089901793" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="testBlock">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="testBlock:" destination="shp-Wy-hYf" eventType="touchUpInside" id="Aa5-DQ-pV0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>

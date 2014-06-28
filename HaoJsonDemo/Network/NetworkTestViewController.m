@@ -165,8 +165,7 @@
 
 - (IBAction)getReview:(id)sender {
     
-    [self.async getReviews_fid:1 ByUid:1 andStart:0 andOffset:5 andSELF:self];
-    //[self.async getReviews:@"blue cheese" andUid:1 andStart:0 andOffset:5 andSELF:self];
+    [self.async getReviews_fid:1 andSELF:self];
 }
 
 - (IBAction)postReview:(id)sender {
@@ -180,7 +179,6 @@
     
     //comment
     Comment *review = [[Comment alloc]initWithCommentID:0 andFood:food andRate:3 andComment:@"User Hao commented!!!!"];
-
 
 
     [self.async doComment:review toFood:food withAction:@"add" andSELF:self];//action: update, post
@@ -206,6 +204,27 @@
 - (IBAction)like:(id)sender {
     
     [self.async likeOrDislike_rid:9 andLike:20 andSELF:self];
+    
+}
+- (IBAction)testBlock:(id)sender {
+    
+    Food *food = [[Food alloc]initWithTitle:@"blue cheese" andTranslations:@"蓝芝士"];
+    food.fid = 1;//for fetch comment
+    
+    [food fetchAsyncInfoCompletion:^(NSError *err, BOOL success){
+    
+        NSLog(@"%d",success);
+        NSLog(@"fetch food info block!");
+        
+    }];
+    
+    
+    
+    
+    [food fetchCommentsCompletion:^(NSError *err, BOOL success){
+        NSLog(@"%d",success);
+        NSLog(@"fetch comment block!");
+    }];
     
 }
 @end
