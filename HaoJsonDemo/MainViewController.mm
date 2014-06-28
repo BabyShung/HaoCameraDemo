@@ -262,10 +262,7 @@ static NSString *CellIdentifier = @"Cell";
             NSString *result = @"";
 
             for (int i = 0; i<_imgArray.count-1; i++) {
-<<<<<<< HEAD
-=======
 
->>>>>>> FETCH_HEAD
                 NSString *tmp = [self recognizeImageWithTesseract:[_imgArray objectAtIndex:i]];
                 result = [result stringByAppendingFormat:@"%d. %@\n",i, tmp];
                 //            NSLog(@"tmp %d: %@",i, tmp);
