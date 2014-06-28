@@ -48,12 +48,7 @@
     //[self setNeedsStatusBarAppearanceUpdate];
 
     
-<<<<<<< HEAD
-    _statusBarHidden = YES;
-    [self setNeedsStatusBarAppearanceUpdate];
-    
-=======
->>>>>>> FETCH_HEAD
+
     _debugMode = YES;
     
     //declare all the viewControllers
