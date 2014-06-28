@@ -43,13 +43,11 @@
     [super viewDidLoad];
     
     
-
-    //_statusBarHidden = YES;
-    //[self setNeedsStatusBarAppearanceUpdate];
-
     
-
-    _debugMode = YES;
+    _statusBarHidden = YES;
+    [self setNeedsStatusBarAppearanceUpdate];
+    
+    //_debugMode = YES;
     
     //declare all the viewControllers
     

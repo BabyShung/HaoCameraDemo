@@ -22,12 +22,6 @@
 //    [nbsetting setNavBarTheme];
     
     
-    /*Init Sharedata SINGLETON (INIT ONLY ONCE)*/
-    
-    [ShareData shareDataSetUp];
-    
-    /*Read User default to set target lang*/
-    
     // Override point for customization after application launch.
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"])
@@ -49,15 +43,14 @@
 /*                    Default Dictionary = Chinese                         */
 /*                                                                         */
         //Prepare database
+        SQLConnector *connector = [SQLConnector sharedInstance];
         DBOperation *operation = [[DBOperation alloc] init];
+        ShareData *sharedata = [ShareData shareData];
+        [connector createEditableCopyOf:[sharedata keywordFileName]];
+        [connector createEditableCopyOf:[sharedata langFileName:Chinese]];
+        [connector createEditableCopyOf:[sharedata filterWordsFileName]];
         [operation createLangTable:Chinese];
         [operation createKeywordTable];
-//        SQLConnector *connector = [SQLConnector sharedInstance];
-//        ShareData *sharedata = [ShareData shareData];
-//        [connector createEditableCopyOf:[sharedata keywordFileName]];
-//        [connector createEditableCopyOf:[sharedata langFileName:Chinese]];
-//        [connector createEditableCopyOf:[sharedata filterWordsFileName]];
-
     }
     return YES;
 }

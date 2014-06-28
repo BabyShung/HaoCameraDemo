@@ -20,60 +20,58 @@
     NSLog(@"PrePro: processImage called!");
     
     cv::Mat output;
-    int backGround = 0;
+    int backGround =0;
     backGround = [self checkBackground:inputImage];
-    
     if (backGround == 0) {
-        NSLog(@"Prepro: background = 0");
+        NSLog(@"Prepro: Black backgroud");
+        
         inputImage = [self increaseContrast:inputImage];
         
-        inputImage = [self removeBackgroundBlack:inputImage];
         inputImage = [self erode:inputImage];
         inputImage = [self dilate:inputImage];
         
+        inputImage = [self removeBackgroundBlack:inputImage];
+        
+        
+        
     }
     else if(backGround == 1){
-        NSLog(@"Prepro: background = 1");
-        cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
+        NSLog(@"Prepro: Dark");
         
+        cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
         inputImage = [self adaptiveThreshold:inputImage];
         inputImage = [self erode:inputImage];
         inputImage = [self dilate:inputImage];
         
     }
     else if(backGround == 2 ){
-        NSLog(@"Prepro: background = 2");
-        cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
+        NSLog(@"Prepro: White words");
+        
         
         //inputImage = [self increaseContrast:inputImage];
-        inputImage = [self adaptiveThreshold:inputImage];
+        inputImage = [self adaptiveThresholdLight:inputImage];
+        //        inputImage = [self increaseContrast:inputImage];
         inputImage = [self erode:inputImage];
         inputImage = [self dilate:inputImage];
-       inputImage = [self removeBackgroundWhite:inputImage];
         
     }
     else{
-        NSLog(@"Prepro: background = 3");
+        NSLog(@"Prepro: good catch");
     }
     
-    
-        
-    //add border
-    cv::Scalar value = cv::Scalar(255, 255, 255);//color
-    copyMakeBorder( inputImage, inputImage, 10, 10, 10, 10, cv::BORDER_CONSTANT, value);//add border
+    copyMakeBorder( inputImage, inputImage, 10, 10, 10, 10, cv::BORDER_REPLICATE, 0 );//add border
     
     return inputImage;
 }
-
-
-
-//------------Basic method
 
 -(cv::Mat)toGrayMat:(UIImage *) inputImage{
     
     cv::Mat matImage = [inputImage CVGrayscaleMat];
     return matImage;
 }
+
+
+
 
 -(cv::Mat)erode:(cv::Mat)img{
     
@@ -99,7 +97,7 @@
     
     cv::Mat dilation_dst;
     int dilation_type;
-    int dilation_elem = 1;
+    int dilation_elem = 0;
     int dilation_size = 1;
     
     if( dilation_elem == 0 ){ dilation_type = cv::MORPH_RECT; }
@@ -165,15 +163,12 @@
     
     cv::merge(channels,img_hist_equalized); //merge 3 channels including the modified 1st channel into one image
     
-    cv::cvtColor(img_hist_equalized, img_hist_equalized, cv::COLOR_YCrCb2BGR); //change the color image from YCrCb to BGR format
+    cv::cvtColor(img_hist_equalized, img_hist_equalized, cv::COLOR_BGR2YCrCb); //change the color image from YCrCb to BGR format
     
     return img_hist_equalized;
     
 }
-//------------/Basic method
 
-
-//------Threshold method
 
 -(cv::Mat)adaptiveThreshold:(cv::Mat)inputMat{
     //input mat is in BGR format
@@ -186,7 +181,7 @@
     
     cv::Mat img_threshold;
     
-    cv::cvtColor(inputMat, img_threshold, cv::COLOR_YCrCb2BGR); //change the color image from BGR to YCrCb format
+    cv::cvtColor(inputMat, img_threshold, cv::COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
     
     cv::split(img_threshold,channels); //split the image into channels
     
@@ -205,7 +200,7 @@
     
     cv::merge(channels,img_threshold); //merge 3 channels including the modified 1st channel into one image
     
-    cv::cvtColor(img_threshold, img_threshold, cv::COLOR_YCrCb2BGR); //change the color image from YCrCb to BGR format
+    cv::cvtColor(img_threshold, img_threshold, cv::COLOR_BGR2YCrCb); //change the color image from YCrCb to BGR format
     
     return img_threshold;
     
@@ -223,7 +218,7 @@
     
     cv::Mat img_threshold;
     
-    cv::cvtColor(inputMat, img_threshold, cv::COLOR_YCrCb2BGR); //change the color image from BGR to YCrCb format
+    cv::cvtColor(inputMat, img_threshold, cv::COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
     
     cv::split(img_threshold,channels); //split the image into channels
     
@@ -242,13 +237,20 @@
     
     cv::merge(channels,img_threshold); //merge 3 channels including the modified 1st channel into one image
     
-    cv::cvtColor(img_threshold, img_threshold, cv::COLOR_YCrCb2BGR); //change the color image from YCrCb to BGR format
+    cv::cvtColor(img_threshold, img_threshold, cv::COLOR_BGR2YCrCb); //change the color image from YCrCb to BGR format
     
     return img_threshold;
     
 }
 
-//------/Threshold method
+
+-(cv::Mat) fillContour: (cv::Mat)image {
+    
+    
+    
+    return image;
+}
+
 
 
 -(int)checkBackground:(cv::Mat )input
@@ -337,7 +339,7 @@
 }
 
 
-//-------/Remove Back ground version1
+
 
 -(cv::Mat)removeBackgroundBlack:(cv::Mat)inputImage{
     
@@ -366,22 +368,6 @@
     return inputImage;
     
 }
-
--(cv::Mat)removeBackground:(cv::Mat)inputImage{
-    
-    cv::Size size;
-    size.height = 3;
-    size.width = 3;
-    
-    cv::GaussianBlur(inputImage, inputImage, size, 0.5);
-    cv::threshold(inputImage, inputImage, 0,255, cv::THRESH_TRUNC);
-    cv::GaussianBlur(inputImage, inputImage, size, 0.8);
-    
-    return inputImage;
-    
-}
-
-//-------/Remove Back ground version1
 
 //-------below is remove back ground version 2  stable version
 

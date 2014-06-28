@@ -12,7 +12,7 @@
 #import "FBShimmeringView.h"
 #import "EDImageFlowLayout.h"
 #import "RQShineLabel.h"
-#import "Food.h"
+
 
 
 
@@ -51,6 +51,4 @@
 -(void)setUpForLargeLayout;
 
 -(void)setUpForSmallLayout;
-
--(void)setWithFood:(Food *)food;
 @end

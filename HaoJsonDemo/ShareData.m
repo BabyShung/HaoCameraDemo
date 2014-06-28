@@ -9,38 +9,39 @@
 #import "ShareData.h"
 
 @interface ShareData()
-
+{
+    NSArray *langFileNames;
+    NSArray *dbLangTableNames;
+}
 @property (strong, retain) NSArray *dbFileNames;
 @property (strong, retain) NSArray *dbLangTableNames;
 @property (strong, retain) NSString *filterwordsFileName;
-@property (nonatomic,readwrite) TargetLang defaultTargetLang;
 @end
 
 @implementation ShareData
 
-static ShareData *_shareData = nil;
+@synthesize dbFileNames;
+@synthesize dbLangTableNames;
+@synthesize filterwordsFileName;
 
 
-
-+(ShareData *)shareData{
-    
-    return _shareData;
++(instancetype)shareData{
+    static ShareData *sharedata = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedata = [[self alloc] init];
+    });
+    return sharedata;
 }
 
-+(ShareData *) shareDataSetUp
+-(instancetype) init
 {
-    static dispatch_once_t oncePredicate;
-    
-    dispatch_once(&oncePredicate, ^{
-        _shareData = [[ShareData alloc] init];
-        _shareData.dbFileNames = @[@"foodlist_a-z_sql_KW.txt", @"foodlist_a-z_sql_CN.txt"];
-        _shareData.dbLangTableNames = @[@"Chinese"];
-        _shareData.filterwordsFileName = @"filterwords.txt";
-        _shareData.defaultTargetLang =Chinese;
-        
-    });
-    return _shareData;
-    
+    if (self = [super init]) {
+        self.dbFileNames = @[@"foodlist_a-z_sql_KW.txt", @"foodlist_a-z_sql_CN.txt"];
+        self.dbLangTableNames = @[@"Chinese"];
+        self.filterwordsFileName = @"filterwords.txt";
+    }
+    return self;
 }
 
 //File names
@@ -110,11 +111,5 @@ static ShareData *_shareData = nil;
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:filename];
     return path;
-}
-
-//User Settings
--(void) setDefaultTargetLangTo:(TargetLang )lang
-{
-    self.defaultTargetLang = lang;
 }
 @end

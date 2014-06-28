@@ -21,10 +21,6 @@
 #import "ImagePreProcessor.h"
 #import "TextDetector.h"
 #import "WordCorrector.h"
-
-#import "Dictionary.h"
-#import "Food.h"
-
 #import "LoadControls.h"
 #import "AppDelegate.h"
 
@@ -47,9 +43,6 @@ static NSString *CellIdentifier = @"Cell";
 
 
 @property (nonatomic,strong) debugView *debugV;
-
-@property (strong,nonatomic) NSMutableArray *foodArray;
-
 @property (nonatomic, assign) NSInteger cellCount;
 
 @property (strong,nonatomic) TransitionController *transitionController;
@@ -60,13 +53,6 @@ static NSString *CellIdentifier = @"Cell";
 
 @implementation MainViewController
 
--(NSMutableArray *)foodArray{
-    if (!_foodArray) {
-        _foodArray = [[NSMutableArray alloc]init];
-        
-    }
-    return _foodArray;
-}
 
 - (void)viewDidLoad{
     
@@ -85,7 +71,7 @@ static NSString *CellIdentifier = @"Cell";
 
     /*REQUIRED FOR DEBUGGING ANIMATION*/
 
-    self.collectionView.hidden = YES;
+    //self.collectionView.hidden = YES;
     self.collectionView.backgroundColor = [UIColor clearColor];
     
     //registering dequueue cell
@@ -116,6 +102,7 @@ static NSString *CellIdentifier = @"Cell";
     
     [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.camView.StreamView.alpha = 1;
+        self.camView.rotationCover.alpha = 1;
     } completion:^(BOOL finished) {
         if (finished) {
             if ([(NSObject *)self.camView.camDelegate respondsToSelector:@selector(EdibleCameraDidLoadCameraIntoView:)]) {
@@ -132,7 +119,7 @@ static NSString *CellIdentifier = @"Cell";
  
  *****************************/
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.foodArray.count;
+    return self.cellCount;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -140,7 +127,6 @@ static NSString *CellIdentifier = @"Cell";
     EDCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
     cell.backgroundColor = [UIColor whiteColor];
-    
     
     return cell;
 }
@@ -170,7 +156,7 @@ static NSString *CellIdentifier = @"Cell";
     return transitionLayout;
 }
 
-/*----------- ------------*/
+
 -(void)addItem
 {
     [self.collectionView performBatchUpdates:^{
@@ -178,25 +164,6 @@ static NSString *CellIdentifier = @"Cell";
         [self.collectionView insertItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
         
     } completion:nil];
-}
-
--(void)addFoodItems:(NSArray *) newFoodItems
-{
-    if (newFoodItems.count>0) {
-        
-        
-        NSInteger startIndex = self.foodArray.count;
-        
-        NSMutableArray *newIndexPaths = [[NSMutableArray alloc]init];
-        for (int i =0; i<newFoodItems.count; i++){
-            [newIndexPaths addObject:[NSIndexPath indexPathForItem:(startIndex+i) inSection:0]];
-        }
-        [self.collectionView performBatchUpdates:^{
-            [self.foodArray addObjectsFromArray:newFoodItems];
-            [self.collectionView insertItemsAtIndexPaths:newIndexPaths];
-            
-        } completion:nil];
-    }
 }
 
 
@@ -210,8 +177,9 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 -(void)loadTesseract{
-    self.tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];
-    [self.tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" forKey:@"tessedit_char_whitelist"];
+    _tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];//langague package
+    _tesseract.delegate = self;
+    [_tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz()&/" forKey:@"tessedit_char_whitelist"]; //limit search
 }
 
 #pragma mark --------- Tesseract
@@ -225,20 +193,15 @@ static NSString *CellIdentifier = @"Cell";
     return recognizedText;
 }
 
+- (BOOL)shouldCancelImageRecognitionForTesseract:(Tesseract*)tesseract {
+    return NO;  // return YES, if you need to interrupt tesseract before it finishes
+}
+
 #pragma mark CAMERA DELEGATE
 
 - (void) EdibleCamera:(MainViewController *)simpleCam didFinishWithImage:(UIImage *)image withRect:(CGRect)rect andCropSize:(CGSize)size{
-    self.collectionView.hidden = NO;
-    NSArray *localFoods;
-    Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
-    //for (NSString *inputStr in resultStrings)
-    //{
-    localFoods = [dict localSearchOCRString:@"yeast bread with Worcestershire sauce and yogurt"];
-    NSLog(@"Local Foods: %d",(int)localFoods.count);
-    [self addFoodItems:localFoods];
     
     if (image) {
-        
         
         //PS: image variable is the original size image (2448*3264)
         UIImage *onScreenImage = [LoadControls scaleImage:image withScale:1.5f withRect:rect andCropSize:size];
@@ -260,9 +223,7 @@ static NSString *CellIdentifier = @"Cell";
             }
             
             NSString *result = @"";
-
             for (int i = 0; i<_imgArray.count-1; i++) {
-
                 NSString *tmp = [self recognizeImageWithTesseract:[_imgArray objectAtIndex:i]];
                 result = [result stringByAppendingFormat:@"%d. %@\n",i, tmp];
                 //            NSLog(@"tmp %d: %@",i, tmp);
@@ -271,20 +232,6 @@ static NSString *CellIdentifier = @"Cell";
             
             onScreenImage = [_imgArray objectAtIndex:(_imgArray.count-1)];
             NSLog(@"<<<<<<<<<<1.5 RESULT: \n%@", result);
-
-                /*     Analyze OCR Results locally      */
-            NSArray *localFoods;
-            Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
-            //for (NSString *inputStr in resultStrings)
-            //{
-                localFoods = [dict localSearchOCRString:@"yeast bread with Worcestershire sauce and yogurt"];
-                NSLog(@"main view return foods %d",(int)localFoods.count);
-            for (Food *localFood in localFoods) {
-                NSLog(@"Food : %@ -> %@ ",localFood.title,localFood.transTitle);
-            }
-            
-            //}
-            NSLog(@"main view return foods %d",(int)localFoods.count);
 
         }
         

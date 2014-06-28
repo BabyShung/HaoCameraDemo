@@ -7,8 +7,6 @@
 //
 
 #import "AsyncRequest.h"
-#import "User.h"
-
 
 //Test url
 //http://edibleserver-env.elasticbeanstalk.com/food?title=Bacon&lang=CN
@@ -23,21 +21,20 @@
 
 #define DOREVIEW @"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/review"
 
-#define USERURL @"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/user"
-
 @implementation AsyncRequest 
 
--(void)getReviews_fid:(NSUInteger)fid andSELF:(id)selfy{
+-(void)getReviews:(NSString*)foodname andUid:(int)uid andStart:(NSUInteger)start andOffset:(NSUInteger)offset andSELF:(id)selfy{
     
-    User *user = [User sharedInstance];
-    
-    NSMutableString *paraString = [NSMutableString string];
-    [paraString appendString:[NSString stringWithFormat:@"fid=%d&uid=%d&start=0&offset=5",fid,user.Uid]];
+    NSMutableString *paraString = [NSMutableString stringWithString:@"title="];
+    [paraString appendString:foodname];
+    [paraString appendString:[NSString stringWithFormat:@"&uid=%d&start=%d&offset=%d",uid,start,offset]];
     NSMutableString *reviewString =  [NSMutableString stringWithString:REVIEWURL];
     
     [reviewString appendString:paraString];
     
+    
     [self performGETAsyncTask:selfy andURLString:[NSString stringWithString:reviewString]];
+    
 }
 
 
@@ -65,34 +62,15 @@
  post review
  
  ******************/
--(void)doComment:(Comment *)comment toFood:(Food *)food withAction:(NSString*)action andSELF:(id)selfy{
+-(void)doReview:(Review *)review andAction:(NSString*)action andSELF:(id)selfy{
 
-    User *user = [User sharedInstance];
-    
-    NSNumber *uidNumber = [NSNumber numberWithInt:user.Uid];
-    NSNumber *rateNumber = [NSNumber numberWithInt:comment.rate];
-    
-    NSDictionary * dict;
-    
-    //doing a post action
-    if([action isEqualToString:@"add"]){
-        
-        NSNumber *fidNumber = [NSNumber numberWithInt:food.fid];
-        //NSNumber *timeNumber = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]*1000.0];
-        //NSLog(@"nsnumber %@",timeNumber);
-        
-        dict = [NSDictionary dictionaryWithObjectsAndKeys:fidNumber, @"fid",comment.comment, @"comments", rateNumber, @"rate", uidNumber, @"uid",action,@"action", nil];
-        
-        
-    }else{//doing an update action
-        
-        NSNumber *cidNumber = [NSNumber numberWithInt:comment.cid];
-        
-        
-        dict = [NSDictionary dictionaryWithObjectsAndKeys:cidNumber, @"rid",comment.comment, @"comments", rateNumber, @"rate", uidNumber, @"uid", action,@"action", nil];
-        
-    }
+    NSNumber *uidNumber = [NSNumber numberWithInt:review.byUser.Uid];
+    NSNumber *rateNumber = [NSNumber numberWithInt:review.rate];
+    NSNumber *timeNumber = [NSNumber numberWithDouble:review.time];
 
+    NSLog(@"nsnumber %@",timeNumber);
+    
+    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:review.title, @"title",review.comment, @"comments", rateNumber, @"rate", uidNumber, @"uid",timeNumber, @"time", action,@"action", nil];
 
     NSURL *url = [NSURL URLWithString:DOREVIEW];
     
@@ -112,34 +90,13 @@
     
 
     
-    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:ridNumber, @"rid",likeNumber, @"like",@"like",@"action", nil];
+    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:ridNumber, @"rid",likeNumber, @"like_num",@"like",@"action", nil];
     
     NSURL *url = [NSURL URLWithString:DOREVIEW];
     
     [self performAsyncTask:selfy andDictionary:dict andURL:url];
 }
 
--(void)signup_withEmail:(NSString*)email andName:(NSString*)name andPwd:(NSString *)pwd andSELF:(id)selfy{
-    
-    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:email, @"email",name, @"name",pwd,@"pwd",@"register",@"action", nil];
-    
-    NSURL *url = [NSURL URLWithString:USERURL];
-    //post
-    [self performAsyncTask:selfy andDictionary:dict andURL:url];
-    
-}
-
-
--(void)login_withEmail:(NSString*)email andPwd:(NSString *)pwd andSELF:(id)selfy{
-    
-    //use md5 here
-    
-    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:email, @"email",pwd,@"pwd",@"login",@"action", nil];
-    
-    NSURL *url = [NSURL URLWithString:USERURL];
-    //post
-    [self performAsyncTask:selfy andDictionary:dict andURL:url];
-}
 
 /************************
  

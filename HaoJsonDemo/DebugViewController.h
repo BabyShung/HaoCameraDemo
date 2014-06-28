@@ -21,7 +21,7 @@
 
 @end
 
-@interface DebugViewController : UIViewController <EdibleCameraDelegate>
+@interface DebugViewController : UIViewController <EdibleCameraDelegate,TesseractDelegate>
 
 
 @property (retain, nonatomic) id <DebugVCDelegate> debugDelegate;

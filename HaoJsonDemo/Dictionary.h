@@ -14,17 +14,9 @@
 @property (strong,nonatomic) NSArray *terms;
 @property (strong,nonatomic) NSMutableArray *results;
 
--(instancetype) initDictInDefaultLang;
 
 -(instancetype) initDictInLang:(TargetLang) lang;
-
-//Search locally, return foods
--(NSArray *) localSearchOCRString:(NSString *)inputStr;
-
-//-(NSArray *) lookupOCRString:(NSString *)inputStr foundKeywords:(NSMutableArray *)keywords;
-
-//Send search request to server
--(void) serverSearchOCRString:(NSString *)inputStr andCompletion:(void (^)(BOOL success, NSError *err))block;
+-(NSArray *) lookupOCRString:(NSString *)inputStr foundKeywords:(NSMutableArray *)keywords;
 
 //Dictionary update function
 //  1. download file from server;

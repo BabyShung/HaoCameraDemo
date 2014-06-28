@@ -7,13 +7,11 @@
 //
 
 #import "Dictionary.h"
-#import "ShareData.h"
 #import "DBOperation.h"
-#import "Food.h"
 
 @interface Dictionary()
 @property (nonatomic,readwrite) TargetLang lang;
-@property (strong,nonatomic) DBOperation *operation;
+@property (strong,nonatomic) DBOperation *opration;
 @end
 
 @implementation Dictionary
@@ -25,48 +23,15 @@
     return self;
     
 }
-
--(instancetype) initDictInDefaultLang{
-    self = [super init];
-    self.lang = [[ShareData shareData] defaultTargetLang];
-    return self;
-}
-
--(DBOperation *)operation
+-(DBOperation *)opration
 {
-    if (!_operation) {
-        _operation = [[DBOperation alloc] init];
+    if (!_opration) {
+        _opration = [[DBOperation alloc] init];
     }
-    return _operation;
+    return _opration;
 }
 
--(NSArray *) localSearchOCRString:(NSString *)inputStr
-{
-    NSMutableArray *keywords,*foods;
-    keywords = [[NSMutableArray alloc]init];
-    foods = [[NSMutableArray alloc]init];
-    
-    NSArray *translates = [self lookupOCRString:inputStr foundKeywords:keywords];
-    
-    if (keywords.count!=0) {
-        for (int i =0;i<keywords.count;i++) {
-            Food *food =[[Food alloc]initWithTitle:keywords[i] andTranslations:translates[i]];
-            [foods addObject:food];
-        }
-        return foods;
-    }
-    else{
-        return nil;
-    }
-    
-}
 
--(void) serverSearchOCRString:(NSString *)inputStr andCompletion:(void (^)(BOOL, NSError *))block
-{
-    
-}
-
-//Local search an ocr string
 -(NSArray *) lookupOCRString:(NSString *)inputStr foundKeywords:(NSMutableArray *)keywords
 {
     if (!keywords) {
@@ -77,7 +42,7 @@
     }
     
     NSArray *words = [self splitAndFilterWordsFromString:inputStr];
-    NSMutableArray *translations= [self.operation searchWords:words getKeywords:keywords inLangTable:self.lang];
+    NSMutableArray *translations= [self.opration searchWords:words getKeywords:keywords inLangTable:self.lang];
     
     //Exclude keywords which are substrings of other keywords
     NSInteger count = keywords.count;
@@ -102,6 +67,7 @@
             i--;
         }
     }
+    
     return translations;
 
 }

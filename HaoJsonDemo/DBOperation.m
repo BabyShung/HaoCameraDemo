@@ -39,7 +39,6 @@
     
     //Get keywords from keyword file
     ShareData *sharedata = [ShareData shareData];
-    [self.connector createEditableCopyOf:[sharedata keywordFileName]];
     NSArray *kwArray = [self getItemsInFileByFilePath:[sharedata writableKeywordFilePath]];
     
     [self.connector openDB];
@@ -70,12 +69,11 @@
     
     ShareData *sharedata = [ShareData shareData];
     NSString *langTableName = [sharedata langTableName:lang];
-    [self.connector createEditableCopyOf:[sharedata langFileName:lang]];
-    //Get words from Language file
-    NSArray *wArray = [self getItemsInFileByFilePath:[sharedata writableLangFilePath:lang]];
     
     [self.connector openDB];
     
+    //Get words from Language file
+    NSArray *wArray = [self getItemsInFileByFilePath:[sharedata writableLangFilePath:lang]];
     //Create keyword table, drop if it exists;
     [self execute:[NSString stringWithFormat:@"DROP TABLE IF EXISTS %@;",langTableName]];
     [self execute:[NSString stringWithFormat:@"CREATE TABLE %@ (wid INTEGER PRIMARY KEY, wstr TEXT);",langTableName]];
@@ -104,7 +102,6 @@
     
     NSString *langTableName =[sharedata langTableName:lang];
     [self.connector openDB];
-    NSLog(@"--DB search start--");
     for (NSString *word in wordsArray) {
         NSString *sql =[NSString stringWithFormat:@"SELECT DISTINCT Keyword.kwstr,%@.wstr FROM %@,Keyword WHERE UPPER(Keyword.kwstr)=UPPER('%@') AND Keyword.kwid=%@.wid;",langTableName,langTableName,word,langTableName];
     
@@ -129,7 +126,6 @@
         
     }
     [self.connector closeDB];
-    NSLog(@"DB returns %d",(int)translations.count);
     return translations;
 }
 
