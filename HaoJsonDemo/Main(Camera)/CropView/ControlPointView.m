@@ -7,6 +7,8 @@
 //
 
 #import "ControlPointView.h"
+#import "ED_Color.h"
+
 
 @implementation ControlPointView
 
@@ -15,7 +17,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.color = [UIColor colorWithRed:18.0/255.0 green:173.0/255.0 blue:251.0/255.0 alpha:1];
+        self.color = [ED_Color edibleBlueColor_Deep];
         self.opaque = NO;
     }
     return self;

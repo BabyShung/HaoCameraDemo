@@ -11,17 +11,22 @@
 #import "Food.h"
 @interface AsyncRequest : NSObject 
 
+-(void)getFoodInfo:(NSString*)foodname andLanguage:(NSString *)language ;
 
--(void)getFoodInfo:(NSString*)foodname andLanguage:(NSString *)language andSELF:(id)selfy;
+-(void)getReviews_fid:(NSUInteger)fid ;
 
--(void)getReviews_fid:(NSUInteger)fid andSELF:(id)selfy;
+-(void)doComment:(Comment *)comment toFood:(Food *)food withAction:(NSString*)action ;
 
--(void)doComment:(Comment *)comment toFood:(Food *)food withAction:(NSString*)action andSELF:(id)selfy;
+-(void)likeOrDislike_rid:(int)rid andLike:(int)like ;
 
--(void)likeOrDislike_rid:(int)rid andLike:(int)like andSELF:(id)selfy;
+-(void)signup_withEmail:(NSString*)email andName:(NSString*)name andPwd:(NSString *)pwd ;
 
+-(void)login_withEmail:(NSString*)email andPwd:(NSString *)pwd ;
 
+-(void)checkEmail:(NSString*)email ;
 
--(void)performGETAsyncTask:(id)selfy andURLString:(NSString *)urlString;
+-(void)performGETAsyncTaskwithURLString:(NSString *)urlString;
+
+-(instancetype)initWithDelegate:(id)selfy;
 
 @end

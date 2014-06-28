@@ -29,4 +29,8 @@
     return [UIColor colorWithRed:(46/255.0) green:(181/255.0) blue:(231/255.0) alpha:1];
 }
 
++ (UIColor *) edibleBlueColor_Deep {
+    return [UIColor colorWithRed:51/255.0 green:119/255.0 blue:172/255.0 alpha:1];
+}
+
 @end

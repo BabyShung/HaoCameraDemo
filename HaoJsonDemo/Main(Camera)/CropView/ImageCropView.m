@@ -7,6 +7,8 @@
 //
 
 #import "ImageCropView.h"
+#import "ED_Color.h"
+
 
 #define DEFAULT_MASK_ALPHA 0.50
 #define square NO
@@ -53,7 +55,7 @@ CGRect SquareCGRectAtCenter(CGFloat centerX, CGFloat centerY, CGFloat size) {
     //the shade
     shadeView = [[ShadeView alloc] initWithFrame:subviewFrame];
     
-    shadeView.cropBorderColor = [UIColor redColor];
+    shadeView.cropBorderColor = [ED_Color edibleBlueColor_Deep];
     
     //the image (didn't use at all since the image is nil so that we see the stream view)
     imageView = [[UIImageView alloc] initWithFrame:subviewFrame];

@@ -400,7 +400,6 @@
     
     [_camManager setScaleFactor:SCALE_FACTOR];
     
-    
 	[_StreamView.layer addSublayer:_captureVideoPreviewLayer];
     
 	[_camManager startRunning];//begin the stream

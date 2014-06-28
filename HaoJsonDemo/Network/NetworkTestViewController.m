@@ -35,7 +35,7 @@
 	
     _webdata = [[NSMutableData alloc]init];
     
-    self.async = [[AsyncRequest alloc]init];
+    self.async = [[AsyncRequest alloc]initWithDelegate:self];
     
 }
 - (IBAction)getImage:(id)sender {
@@ -43,38 +43,6 @@
     Edible_S3 *s3 = [[Edible_S3 alloc]init];
     //fetch an image from the S3 server
     self.imageView.image = [s3 getImageFromS3:@"test_photo.png"];
-    
-}
-
-- (IBAction)getRequest:(id)sender {
-    
-        
-    //[async performGETAsyncTask:self andURLString:@"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/Other?name=我"];
-    
-    //1.
-    //[async getFoodInfo:@"blue cheese" andLanguage:@"CN" andSELF:self];
-    
-    //2.
-    //[async getReviews:@"calico bean" andUid:1 andStart:0 andOffset:5 andSELF:self];
-    
-    //3.
-    
-//    GeneralUser *guser = [[GeneralUser alloc]init];
-//    guser.Uid = 1;
-//    guser.Uname = @"Anonymity";
-//    
-//    Review *review = [[Review alloc]init];
-//    review.title = @"calico bean";
-//    review.rate = 5;
-//    review.comment = @"Nice food!!!";
-//    review.byUser = guser;
-//    review.time = [[NSDate date] timeIntervalSince1970]*1000.0;
-//    
-//    [async doReview:review andAction:@"update" andSELF:self];//action: update, post
-    
-    
-    //4. pass >0 like, pass <0 dislike, pass 0 not change
-    //[async likeOrDislike_rid:5 andLike:20 andSELF:self];
     
 }
 
@@ -160,12 +128,12 @@
 
 
 - (IBAction)getFoodInfo:(id)sender {
-    [self.async getFoodInfo:@"blue cheese" andLanguage:@"CN" andSELF:self];
+    [self.async getFoodInfo:@"blue cheese" andLanguage:@"CN"];
 }
 
 - (IBAction)getReview:(id)sender {
     
-    [self.async getReviews_fid:1 andSELF:self];
+    [self.async getReviews_fid:1];
 }
 
 - (IBAction)postReview:(id)sender {
@@ -181,7 +149,7 @@
     Comment *review = [[Comment alloc]initWithCommentID:0 andFood:food andRate:3 andComment:@"User Hao commented!!!!"];
 
 
-    [self.async doComment:review toFood:food withAction:@"add" andSELF:self];//action: update, post
+    [self.async doComment:review toFood:food withAction:@"add"];//action: update, post
 
     
 }
@@ -198,12 +166,12 @@
     //comment
     Comment *review = [[Comment alloc]initWithCommentID:8 andFood:food andRate:3 andComment:@"User Hao commented!!!!"];
     
-    [self.async doComment:review toFood:food withAction:@"update" andSELF:self];//action: update, post
+    [self.async doComment:review toFood:food withAction:@"update"];//action: update, post
 }
 
 - (IBAction)like:(id)sender {
     
-    [self.async likeOrDislike_rid:9 andLike:20 andSELF:self];
+    [self.async likeOrDislike_rid:9 andLike:20];
     
 }
 - (IBAction)testBlock:(id)sender {
@@ -227,4 +195,19 @@
     }];
     
 }
+
+- (IBAction)login:(id)sender {
+    
+    [self.async login_withEmail:@"hao3@123.com" andPwd:@"123"];
+}
+
+- (IBAction)signup:(id)sender {
+    
+    [self.async signup_withEmail:@"hao3@123.com" andName:@"hao" andPwd:@"123"];
+}
+
+- (IBAction)checkEmail:(id)sender {
+    [self.async checkEmail:@"hao4@123.com"];
+}
+
 @end

@@ -112,6 +112,8 @@
 		B8C8F331195E1EFF009F8F6E /* trained_classifierNM1.xml in Resources */ = {isa = PBXBuildFile; fileRef = B8C8F32E195E1EFF009F8F6E /* trained_classifierNM1.xml */; };
 		B8C8F332195E1EFF009F8F6E /* trained_classifierNM2.xml in Resources */ = {isa = PBXBuildFile; fileRef = B8C8F32F195E1EFF009F8F6E /* trained_classifierNM2.xml */; };
 		B8C8F336195F494A009F8F6E /* TesseractOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C8F335195F494A009F8F6E /* TesseractOCR.framework */; };
+		B8C8F339195F4BD5009F8F6E /* edi_md5.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C8F338195F4BD5009F8F6E /* edi_md5.m */; };
+		B8C8F33C195F4F08009F8F6E /* FormValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C8F33B195F4F08009F8F6E /* FormValidator.m */; };
 		B8D09A791948BCCF006C070D /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D09A761948BCCF006C070D /* User.m */; };
 		B8D6953C193E71C200E504FA /* ED_Color.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D6953B193E71C200E504FA /* ED_Color.m */; };
 		B8F29C5519311A5C008979A7 /* FrameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C4A19311A5C008979A7 /* FrameViewController.m */; };
@@ -318,6 +320,10 @@
 		B8C8F32E195E1EFF009F8F6E /* trained_classifierNM1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = trained_classifierNM1.xml; sourceTree = "<group>"; };
 		B8C8F32F195E1EFF009F8F6E /* trained_classifierNM2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = trained_classifierNM2.xml; sourceTree = "<group>"; };
 		B8C8F335195F494A009F8F6E /* TesseractOCR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TesseractOCR.framework; sourceTree = "<group>"; };
+		B8C8F337195F4BD5009F8F6E /* edi_md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = edi_md5.h; sourceTree = "<group>"; };
+		B8C8F338195F4BD5009F8F6E /* edi_md5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = edi_md5.m; sourceTree = "<group>"; };
+		B8C8F33A195F4F08009F8F6E /* FormValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormValidator.h; sourceTree = "<group>"; };
+		B8C8F33B195F4F08009F8F6E /* FormValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormValidator.m; sourceTree = "<group>"; };
 		B8D09A751948BCCF006C070D /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		B8D09A761948BCCF006C070D /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		B8D6953A193E71C200E504FA /* ED_Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ED_Color.h; sourceTree = "<group>"; };
@@ -432,9 +438,11 @@
 			name = testfiles;
 			sourceTree = "<group>";
 		};
-		ACA1726C193920A6005E7D51 /* UI components */ = {
+		ACA1726C193920A6005E7D51 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				B8C8F337195F4BD5009F8F6E /* edi_md5.h */,
+				B8C8F338195F4BD5009F8F6E /* edi_md5.m */,
 				B8B6113F195A63DA005268D5 /* UIImage+ImageEffects.h */,
 				B8B61140195A63DA005268D5 /* UIImage+ImageEffects.m */,
 				B8B61071195926D8005268D5 /* Button */,
@@ -443,7 +451,7 @@
 				B8D6953A193E71C200E504FA /* ED_Color.h */,
 				B8D6953B193E71C200E504FA /* ED_Color.m */,
 			);
-			name = "UI components";
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 		B82353B8192BE2DF00D6BCAC /* Image */ = {
@@ -703,6 +711,8 @@
 			isa = PBXGroup;
 			children = (
 				B8B6106D195926C8005268D5 /* TransitionLR */,
+				B8C8F33A195F4F08009F8F6E /* FormValidator.h */,
+				B8C8F33B195F4F08009F8F6E /* FormValidator.m */,
 				B8B61067195926C0005268D5 /* LoginViewController.h */,
 				B8B61068195926C0005268D5 /* LoginViewController.m */,
 				B8B61069195926C0005268D5 /* RegisterViewController.h */,
@@ -879,7 +889,7 @@
 				B8D09A701948BCBA006C070D /* Objects */,
 				B84ADC0D19474B76005059A5 /* Network */,
 				AC8A356819461D3E00FC5465 /* LocalDB */,
-				ACA1726C193920A6005E7D51 /* UI components */,
+				ACA1726C193920A6005E7D51 /* Utilities */,
 				3A014C051933E12700D06090 /* wordCorrect */,
 				3A014BFF1933C67000D06090 /* textDetection */,
 				B8DABCFA192FC2A100FF545E /* ImageProcessing */,
@@ -1126,6 +1136,7 @@
 				B8B6104619592493005268D5 /* ControlPointView.m in Sources */,
 				B8D6953C193E71C200E504FA /* ED_Color.m in Sources */,
 				B8B61147195A63DA005268D5 /* IQFeedbackView.m in Sources */,
+				B8C8F33C195F4F08009F8F6E /* FormValidator.m in Sources */,
 				ACA1726B1939209A005E7D51 /* LoadControls.m in Sources */,
 				B8F29C5819311A5C008979A7 /* EP_thirdViewController.mm in Sources */,
 				B8B6104819592493005268D5 /* ShadeView.m in Sources */,
@@ -1136,6 +1147,7 @@
 				B8B6103919592369005268D5 /* JTSImageViewController.m in Sources */,
 				B8FA464918F9E954007DA680 /* main.m in Sources */,
 				B8B61023195922B5005268D5 /* FBShimmeringLayer.m in Sources */,
+				B8C8F339195F4BD5009F8F6E /* edi_md5.m in Sources */,
 				B8B60FAB195914DF005268D5 /* smallLayout.m in Sources */,
 				B8B6108E195927D2005268D5 /* DAKeyboardControl.m in Sources */,
 				B8B6103A19592369005268D5 /* JTSSimpleImageDownloader.m in Sources */,

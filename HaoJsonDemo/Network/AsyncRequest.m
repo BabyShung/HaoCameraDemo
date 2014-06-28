@@ -8,7 +8,7 @@
 
 #import "AsyncRequest.h"
 #import "User.h"
-
+#import "edi_md5.h"
 
 //Test url
 //http://edibleserver-env.elasticbeanstalk.com/food?title=Bacon&lang=CN
@@ -23,9 +23,27 @@
 
 #define DOREVIEW @"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/review"
 
-@implementation AsyncRequest 
+#define USERURL @"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/user"
 
--(void)getReviews_fid:(NSUInteger)fid andSELF:(id)selfy{
+
+@interface AsyncRequest ()
+
+@property (strong,nonatomic) id selfy;
+
+@end
+
+@implementation AsyncRequest
+
+
+-(instancetype)initWithDelegate:(id)selfy{
+    
+    if (self = [super init]) {
+        self.selfy = selfy;
+    }
+    return self;
+}
+
+-(void)getReviews_fid:(NSUInteger)fid {
     
     User *user = [User sharedInstance];
     
@@ -35,12 +53,12 @@
     
     [reviewString appendString:paraString];
     
-    [self performGETAsyncTask:selfy andURLString:[NSString stringWithString:reviewString]];
+    [self performGETAsyncTaskwithURLString:[NSString stringWithString:reviewString]];
 }
 
 
--(void)getFoodInfo:(NSString*)foodname andLanguage:(NSString *)language andSELF:(id)selfy{
-
+-(void)getFoodInfo:(NSString*)foodname andLanguage:(NSString *)language {
+    
     NSMutableString *paraString = [NSMutableString stringWithString:@"title="];
     [paraString appendString:foodname];
     [paraString appendString:@"&lang="];
@@ -48,12 +66,12 @@
     NSMutableString *foodString =  [NSMutableString stringWithString:FOODURL];
     
     [foodString appendString:paraString];
-
+    
     NSString *finalString = [NSString stringWithString:foodString];
     
-
     
-    [self performGETAsyncTask:selfy andURLString:finalString];
+    
+    [self performGETAsyncTaskwithURLString:finalString];
     
     
 }
@@ -63,8 +81,8 @@
  post review
  
  ******************/
--(void)doComment:(Comment *)comment toFood:(Food *)food withAction:(NSString*)action andSELF:(id)selfy{
-
+-(void)doComment:(Comment *)comment toFood:(Food *)food withAction:(NSString*)action {
+    
     User *user = [User sharedInstance];
     
     NSNumber *uidNumber = [NSNumber numberWithInt:user.Uid];
@@ -90,11 +108,11 @@
         dict = [NSDictionary dictionaryWithObjectsAndKeys:cidNumber, @"rid",comment.comment, @"comments", rateNumber, @"rate", uidNumber, @"uid", action,@"action", nil];
         
     }
-
-
+    
+    
     NSURL *url = [NSURL URLWithString:DOREVIEW];
     
-    [self performAsyncTask:selfy andDictionary:dict andURL:url];
+    [self performAsyncTask_Dictionary:dict andURL:url];
 }
 
 /******************
@@ -102,19 +120,65 @@
  like or dislike
  
  ******************/
--(void)likeOrDislike_rid:(int)rid andLike:(int)like andSELF:(id)selfy{
+-(void)likeOrDislike_rid:(int)rid andLike:(int)like {
     
     NSNumber *ridNumber = [NSNumber numberWithInt:rid];
     NSNumber *likeNumber = [NSNumber numberWithInt:like];
     
     
-
+    
     
     NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:ridNumber, @"rid",likeNumber, @"like",@"like",@"action", nil];
     
     NSURL *url = [NSURL URLWithString:DOREVIEW];
     
-    [self performAsyncTask:selfy andDictionary:dict andURL:url];
+    [self performAsyncTask_Dictionary:dict andURL:url];
+}
+
+/************************
+ 
+ register (post)
+ 
+ ************************/
+-(void)signup_withEmail:(NSString*)email andName:(NSString*)name andPwd:(NSString *)pwd {
+    
+    edi_md5 *edimd5 = [[edi_md5 alloc]init];
+    
+    pwd = [edimd5 md5:pwd];
+    
+    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:email, @"email",name, @"name",pwd,@"pwd",@"register",@"action", nil];
+    
+    NSURL *url = [NSURL URLWithString:USERURL];
+    //post
+    [self performAsyncTask_Dictionary:dict andURL:url];
+    
+}
+
+/************************
+ 
+ login (post)
+ 
+ ************************/
+-(void)login_withEmail:(NSString*)email andPwd:(NSString *)pwd {
+    
+    //use md5 here
+    edi_md5 *edimd5 = [[edi_md5 alloc]init];
+    
+    pwd = [edimd5 md5:pwd];
+    
+    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:email, @"email",pwd,@"pwd",@"login",@"action", nil];
+    
+    NSURL *url = [NSURL URLWithString:USERURL];
+    //post
+    [self performAsyncTask_Dictionary:dict andURL:url];
+}
+
+-(void)checkEmail:(NSString*)email {
+    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:email, @"email",@"check",@"action", nil];
+    
+    NSURL *url = [NSURL URLWithString:USERURL];
+    //post
+    [self performAsyncTask_Dictionary:dict andURL:url];
 }
 
 
@@ -123,8 +187,8 @@
  Shared method (get)
  
  ************************/
--(void)performGETAsyncTask:(id)selfy andURLString:(NSString *)urlString{
-
+-(void)performGETAsyncTaskwithURLString:(NSString *)urlString{
+    
     NSString *urlEncodeString =[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     NSLog(@"GET summary: %@",urlEncodeString);
@@ -133,7 +197,7 @@
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:selfy];
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:_selfy];
     [conn start];
 }
 
@@ -143,7 +207,7 @@
  Shared method (post)
  
  ************************/
--(void)performAsyncTask:(id)selfy andDictionary:(NSDictionary *)dict andURL:(NSURL *)url{
+-(void)performAsyncTask_Dictionary:(NSDictionary *)dict andURL:(NSURL *)url{
     NSError *error;
     //convert dictionary to data
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:dict options:kNilOptions error:&error];
@@ -156,7 +220,7 @@
     // print json:
     NSLog(@"JSON summary: %@", [[NSString alloc] initWithData:jsonData
                                                      encoding:NSUTF8StringEncoding]);
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:selfy];
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:_selfy];
     [conn start];
 }
 

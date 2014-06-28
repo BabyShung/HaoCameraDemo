@@ -36,7 +36,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
     self.title = title;
     self.transTitle = translate;
     _webdata = [[NSMutableData alloc]init];
-    _async = [[AsyncRequest alloc]init];
+    _async = [[AsyncRequest alloc]initWithDelegate:self];
     _photoNames = [NSMutableArray array];
     _tagNames = [NSMutableArray array];
     _comments = [NSMutableArray array];
@@ -56,7 +56,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 
     _foodInfoCompletionBlock = block;
     
-    [self.async getFoodInfo:self.title andLanguage:@"CN" andSELF:self];
+    [self.async getFoodInfo:self.title andLanguage:@"CN"];
     
 }
 
@@ -66,7 +66,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
     _commentCompletionBlock = block;
     
     
-    [self.async getReviews_fid:self.fid andSELF:self];
+    [self.async getReviews_fid:self.fid];
     
 }
 
