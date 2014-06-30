@@ -26,5 +26,4 @@
 
 -(void)setUpForSmallLayout;
 
--(void)configDelegateForFoodInfoView;
 @end

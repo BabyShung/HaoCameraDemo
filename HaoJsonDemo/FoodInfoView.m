@@ -73,6 +73,8 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
 
 @property (strong,nonatomic) NSMutableArray *imgNameArray;
 
+@property (strong,nonatomic) NSMutableArray *tagArray;
+
 @property (strong,nonatomic) NSString *loaderName;
 @end
 
@@ -86,6 +88,7 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
         
         self.currentVC = vc;
         self.imgNameArray = [NSMutableArray array];
+        self.tagArray = [NSMutableArray array];
         //init all UI controls
         [self loadControls];
         
@@ -98,6 +101,7 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     if (self) {
         self.currentVC = nil;
         self.imgNameArray = [NSMutableArray array];
+        self.tagArray = [NSMutableArray array];
         //init all UI controls
         [self loadControls];
         
@@ -194,14 +198,14 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     //init all the image paras
 //    externalFileURLs = [NSMutableArray array];
 //    
-    NSString *namesString = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"fullURLs" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
-    NSArray *fileNamesArray = [namesString componentsSeparatedByString:@"\n"];
-    
-    for (int i = 0; i < fileNamesArray.count; i++) {
-        NSString *urlString = fileNamesArray[i];
-        NSURL *url = [NSURL URLWithString:urlString];
-        [self.imgNameArray addObject:url];
-    }
+//    NSString *namesString = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"fullURLs" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
+//    NSArray *fileNamesArray = [namesString componentsSeparatedByString:@"\n"];
+//    
+//    for (int i = 0; i < fileNamesArray.count; i++) {
+//        NSString *urlString = fileNamesArray[i];
+//        NSURL *url = [NSURL URLWithString:urlString];
+//        [self.imgNameArray addObject:url];
+//    }
     
     //add table view
     //----------------------------comment
@@ -235,9 +239,11 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     _commentsTableView.dataSource = self;
     [_commentsTableView reloadData];
     
-    [_tagview addTags:@[@"蓝色", @"臭",@"酸",@"软", @"难消化",@"高热量",@"发酵品"]];
+    [_tagview addTags:self.tagArray];
     
-    self.descriptionLabel.text = @"蓝芝士是一种听上去很好吃但是味道很恶心的芝士。";
+//    [_tagview addTags:@[@"蓝色", @"臭",@"酸",@"软", @"难消化",@"高热量",@"发酵品"]];
+//    
+//    self.descriptionLabel.text = @"蓝芝士是一种听上去很好吃但是味道很恶心的芝士。";
     
     [self.descriptionLabel sizeToFit];
 //    [self.descriptionLabel shine];
@@ -264,7 +270,7 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     
     
     //Load the new image //externalFileURLs[indexPath.row]
-    [cell.imageView loadImageFromURLAtAmazonAsync:self.imgNameArray[indexPath.row] withLoaderName:self.loaderName completion:^(BOOL success, M13ImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
+    [cell.imageView loadImageFromURLAtAmazonAsync:[NSURL URLWithString:self.imgNameArray[indexPath.row]] withLoaderName:self.loaderName completion:^(BOOL success, M13ImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
         //This is where you would refresh the cell if need be. If a cell of basic style, just call "setNeedsRelayout" on the cell.
         
         cell.activityView.hidden = YES;
@@ -382,50 +388,6 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
 /*                                */
 /*************** MEi **************/
 
-//Update Layout when cell's frame changes
--(void)updateUIForBounds:(CGRect)rect{
-    
-    CGFloat width = CGRectGetWidth(rect);
-    CGFloat height = CGRectGetHeight(rect);
-    
-    /*Resize scrollview so that it still can scroll*/
-    
-    [self setFrame:rect];
-    [self.scrollview setFrame:self.bounds];
-    [self.scrollview setContentSize:CGSizeMake(width,ScrollViewContentSizeHeight)];
-    
-    /*Resize views in scroll view*/
-    
-    CGFloat sizeMultiplier = (height-190)/( CGRectGetHeight([[UIScreen mainScreen] bounds])-190);
-    self.shimmeringView.frame = CGRectMake(CLeftMargin, TitleTopMargin, width-CLeftMargin, ShimmmerViewHeight);
-    self.titleLabel.frame = self.shimmeringView.bounds;
-    [self.titleLabel setFont:[UIFont fontWithName:PlainTextFontName size:SmallTitleFontSize+(LargeTitleFontSize-SmallTitleFontSize)*sizeMultiplier]];
-    //NSLog(@"`````````Title lable width %f",self.titleLabel.bounds.size.width);
-    
-    self.separator.frame = CGRectMake(CLeftMargin, CGRectGetMaxY(self.titleLabel.frame) + BelowShimmmerGap, width-2*CLeftMargin, SeparatorViewHeight);
-    
-    self.translateLabel.frame = CGRectMake(CLeftMargin, TitleTopMargin + CGRectGetHeight(self.titleLabel.frame)  , width, TranslateLabelHeight);
-    
-    self.descriptionLabel.frame = CGRectMake(CLeftMargin, CGRectGetHeight(self.titleLabel.frame)+ CGRectGetMaxY(self.titleLabel.frame) + MiddleGAP, width - CLeftMargin*2, TranslateLabelHeight);
-    
-    self.tagview.frame = CGRectMake(0, BelowDescriptionLabelGap+CGRectGetMaxY(self.descriptionLabel.frame) , width, TagViewHeight);
-    
-    self.photoCollectionView.frame = CGRectMake(0, CGRectGetMaxY(self.tagview.frame) + GAP, width, PhotoCollectionViewHeight);
-    
-    self.commentsViewContainer.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, width, height );
-    self.commentsTableView.frame = self.commentsViewContainer.bounds;
-    
-    /*Change alpha values for 4 special views*/
-    
-    CGFloat newAlpha= (CGRectGetHeight(self.frame)-ViewAlphaRecreaseRate)/(CGRectGetHeight([[UIScreen mainScreen] bounds])-ViewAlphaRecreaseRate);
-    self.descriptionLabel.alpha = newAlpha;
-    self.tagview.alpha = newAlpha;
-    self.commentsViewContainer.alpha = newAlpha;
-    self.photoCollectionView.alpha = newAlpha;
-    //NSLog(@"FOOD INFO VIEW layout subview");
-}
-
-
 -(void)layoutSubviews{
 
     CGFloat width = CGRectGetWidth(self.frame);
@@ -488,10 +450,28 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     self.commentsViewContainer.hidden = YES;
 }
 
--(void)setWithFood:(Food *)food{
+/*************** MEi **************/
+/*                                */
+/*            Rendering           */
+/*                                */
+/*************** MEi **************/
+
+-(void)setFoodInfoWith:(Food *)food{
     self.titleLabel.text = food.title;
     self.translateLabel.text = food.transTitle;
-    //self.imgNameArray =
+    self.descriptionLabel.text = food.food_description;
+    if (self.imgNameArray.count>0) {
+        [self.imgNameArray removeAllObjects];
+    }
+    [self.imgNameArray addObjectsFromArray:food.photoNames];
+    
+    if (self.tagArray.count>0) {
+        [self.tagArray removeAllObjects];
+        
+    }
+    [self.tagArray addObjectsFromArray:food.tagNames];
+    
+    NSLog(@"FIV: I get %d photos, %d tags for %@",(int)self.imgNameArray.count,self.tagArray.count,food.title);
     
 }
 

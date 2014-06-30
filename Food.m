@@ -22,7 +22,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 
 @property (nonatomic,readwrite,getter = isFoodInfoCompleted) BOOL foodInfoComplete;
 
-@property (nonatomic,readwrite,getter = isCommentsCompleted) BOOL commentsComplete;
+@property (nonatomic,readwrite,getter = isCommentLoaded) BOOL commentLoaded;
 
 @property (nonatomic,strong) AsyncRequest *async;
 @property (strong,nonatomic) NSMutableData *webdata;
@@ -37,10 +37,10 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 {
     self = [super init];
     self.foodInfoComplete = NO;
-    self.commentsComplete = NO;
+    self.commentLoaded = NO;
     self.title = title;
     self.transTitle = translate;
-    self.food_description = nil;
+    self.food_description = @"";
     _webdata = [[NSMutableData alloc]init];
     _async = [[AsyncRequest alloc]initWithDelegate:self];
     _photoNames = [NSMutableArray array];
@@ -165,8 +165,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
             
         }else if([action isEqualToString:@"get_reviews"]){//comment
             
-            self.commentsComplete = YES;
-            
+            self.commentLoaded = YES;
             //create comment array data and assign to self.comments
             
             //....

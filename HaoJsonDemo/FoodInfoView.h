@@ -46,13 +46,11 @@
 
 -(void)setVC:(UIViewController *)vc;
 
--(void)updateUIForBounds:(CGRect)frame;
-
 -(void)setUpForLargeLayout;
 
 -(void)setUpForSmallLayout;
 
--(void)setWithFood:(Food *)food;
+-(void)setFoodInfoWith:(Food *)food;
 
 -(void)shineDescription;
 @end

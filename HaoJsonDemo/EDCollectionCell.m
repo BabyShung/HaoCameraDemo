@@ -45,7 +45,8 @@
 /**********MEI************/
 
 -(void) setCellWithFood:(Food *)food{
-    [self.foodInfoView setWithFood:food];
+    self.foodTitle = food.title;
+    [self.foodInfoView setFoodInfoWith:food];
 
 }
 

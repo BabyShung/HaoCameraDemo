@@ -84,7 +84,7 @@ static NSString *CellIdentifier = @"Cell";
 
     /*REQUIRED FOR DEBUGGING ANIMATION*/
 
-    //self.collectionView.hidden = YES;
+    self.collectionView.hidden = YES;
     self.collectionView.backgroundColor = [UIColor clearColor];
     
     //registering dequueue cell
@@ -107,11 +107,9 @@ static NSString *CellIdentifier = @"Cell";
 
 
 - (void) viewDidAppear:(BOOL)animated {
-
     
     //set camView delegate to be DEBUG_VC
     [self.Maindelegate setCamDelegateFromMain:self];
-    
     
     [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.camView.StreamView.alpha = 1;
@@ -122,6 +120,7 @@ static NSString *CellIdentifier = @"Cell";
             }
         }
     }];
+    
 }
 
 
@@ -131,57 +130,63 @@ static NSString *CellIdentifier = @"Cell";
  
  *****************************/
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return _cellCount;
-    //return self.foodArray.count;
+    //return _cellCount;
+    return self.foodArray.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     EDCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
         cell.backgroundColor = [UIColor whiteColor];
-//    Food *food = self.foodArray[indexPath.row];
-    [cell.foodInfoView configureNetworkComponentsWithCellNo:indexPath.row];
-//
-//    
-//    if(!food.isFoodInfoCompleted){
-//        [food fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
-//            if (success) {
-//                [cell setCellWithFood:food];
-//                [cell.foodInfoView configureNetworkComponentsWithCellNo:indexPath.row];
-//            }
-//            else{
-//                /*Should allow uses to load again*/
-//                NSLog(@"Loading food info fails when init cell");
-//            }
-//        }];
-//    }
-//    else{//Food info is completed, config delegate for FoodInfoView at once
-//        [cell setCellWithFood:food];
-//        [cell.foodInfoView configureNetworkComponentsWithCellNo:indexPath.row];
-//        
-//    }
+
+//    [cell.foodInfoView configureNetworkComponentsWithCellNo:indexPath.row];
+
+    Food *food = self.foodArray[indexPath.row];
+    [cell setCellWithFood:food];
     
+    if(!food.isFoodInfoCompleted){
+        NSLog(@"Start to request food info");
+        [food fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
+            if (success) {
+                NSLog(@"return info successfully");
+                
+                [cell setCellWithFood:food];
+                [cell.foodInfoView configureNetworkComponentsWithCellNo:indexPath.row];
+            }
+            else{
+                /*Should allow uses to load again*/
+                NSLog(@"Loading food info fails when init cell");
+            }
+        }];
+    }
+    else{
+        //Food info is completed, config delegate for FoodInfoView at once
+        [cell.foodInfoView configureNetworkComponentsWithCellNo:indexPath.row];
+        
+    }
+
     return cell;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-//    Food *food = self.foodArray[indexPath.row];
-//    
-//    
-//    if(!food.isFoodInfoCompleted){
-//        EDCollectionCell *cell = (EDCollectionCell *)[collectionView cellForItemAtIndexPath:indexPath];
-//        [food fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
-//            if (success) {
-//                [cell setCellWithFood:food];
-//                [cell.foodInfoView configureNetworkComponentsWithCellNo:indexPath.row];
-//            }
-//            else{
-//                /*Should allow uses to load again*/
-//                NSLog(@"Loading food info fails when selected");
-//            }
-//        }];
-//    }
+    Food *food = self.foodArray[indexPath.row];
+    
+    if(!food.isFoodInfoCompleted){
+        EDCollectionCell *cell = (EDCollectionCell *)[collectionView cellForItemAtIndexPath:indexPath];
+        [food fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
+            if (success) {
+                [cell setCellWithFood:food];
+                [cell.foodInfoView configureNetworkComponentsWithCellNo:indexPath.row];
+            }
+            else{
+                NSLog(@"Loading food info fails when selected");
+            }
+        }];
+    }
+    
+    
+    
     /***********TODO************/
     /*                         */
     /*Async request to comments*/
@@ -272,9 +277,8 @@ static NSString *CellIdentifier = @"Cell";
     self.collectionView.hidden = NO;
     NSArray *localFoods;
     Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
-    //for (NSString *inputStr in resultStrings)
-    //{
-    localFoods = [dict localSearchOCRString:@"yeast bread with Worcestershire sauce and yogurt"];
+    //@"yeast bread with Worcestershire sauce and yogurt"
+    localFoods = [dict localSearchOCRString:@"blue cheese and carp"];
     NSLog(@"Local Foods: %d",(int)localFoods.count);
     [self addFoodItems:localFoods];
     

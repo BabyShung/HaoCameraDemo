@@ -13,7 +13,7 @@
 
 @property (nonatomic,readonly,getter = isFoodInfoCompleted) BOOL foodInfoComplete;
 
-@property (nonatomic,readonly,getter = isCommentsCompleted) BOOL commentsComplete;
+@property (nonatomic,readonly,getter = isCommentLoaded) BOOL commentLoaded;
 
 @property (nonatomic) NSUInteger fid;
 @property (nonatomic, retain) NSString *title;
