@@ -10,13 +10,13 @@
 
 @implementation Comment
 
--(instancetype)initWithCommentID:(NSUInteger)cid andFood:(Food *)food andRate:(NSUInteger)rate andComment:(NSString *)comment{
+-(instancetype)initWithCommentID:(NSUInteger)cid andFid:(NSUInteger )fid andRate:(NSUInteger)rate andComment:(NSString *)comment{
   
     if (self = [super init]) {
         
         self.cid = cid;
         
-        self.food = food;
+        self.fid = fid;
         
         self.rate = rate;
         
@@ -26,6 +26,31 @@
     
     return self;
 }
+
+-(instancetype)initWithCommentID:(NSUInteger)cid andFid:(NSUInteger)fid andRate:(NSUInteger)rate andLike:(NSUInteger)like andDisLike:(NSUInteger)dislike andComment:(NSString *)comment andByUser:(OtherUser *)byUser{
+    
+    if (self = [super init]) {
+        
+        self.cid = cid;
+        
+        self.fid = fid;
+        
+        self.rate = rate;
+        
+        self.like = like;
+        
+        self.dislike = dislike;
+        
+        self.comment = comment;
+        
+        self.byUser = byUser;
+        
+    }
+    
+    return self;
+}
+
+
 
 - (NSString *)description   //toString description
 {

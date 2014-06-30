@@ -11,6 +11,7 @@
 
 @implementation CommentCell {
     NSInteger _likeCount;
+    NSInteger _dislikeCount;
 }
 const CGFloat kCommentPaddingFromTop = 4.0f;
 const CGFloat kCommentPaddingFromLeft = 10.0f;
@@ -20,7 +21,6 @@ const CGFloat kCommentPaddingFromRight = 8.0f;
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        NSLog(@"init table cell");
         self.backgroundColor = [UIColor whiteColor];
         self.iconView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 35, 35)];
         // Go Toronto!
@@ -32,7 +32,7 @@ const CGFloat kCommentPaddingFromRight = 8.0f;
         self.commentLabel = [[UILabel alloc] init];
         self.commentLabel.textColor = [UIColor blackColor];
         self.commentLabel.textAlignment = NSTextAlignmentLeft;
-        self.commentLabel.font = [UIFont secretFontLightWithSize:16.f];
+        self.commentLabel.font = [UIFont fontWithName:@"Heiti TC" size:14.f];
         self.commentLabel.numberOfLines = 0;
         self.commentLabel.frame = (CGRect){.origin = {CGRectGetMinX(self.iconView.frame) + CGRectGetWidth(self.iconView.frame) + kCommentPaddingFromLeft, CGRectGetMinY(self.iconView.frame) + kCommentPaddingFromTop}};
         [self addSubview:self.commentLabel];
@@ -40,25 +40,22 @@ const CGFloat kCommentPaddingFromRight = 8.0f;
         self.timeLabel = [[UILabel alloc] init];
         self.timeLabel.textColor = [UIColor grayColor];
         self.timeLabel.textAlignment = NSTextAlignmentLeft;
-        self.timeLabel.font = [UIFont secretFontLightWithSize:12.f];
+        self.timeLabel.font = [UIFont fontWithName:@"Heiti TC" size:12.f];
         self.timeLabel.numberOfLines = 1;
         [self addSubview:self.timeLabel];
         
-        
-        self.likeButton = [[UIButton alloc] init];
-        // Hardcode the x value and size for simplicity
-        self.likeButton.frame = (CGRect) {.origin = {290,CGRectGetMinY(self.commentLabel.frame) + 5}, .size = {18,18}};
-        [self.likeButton setImage:[UIImage imageNamed:@"likeButton_unselected.png"] forState:UIControlStateNormal];
-        [self.likeButton setImage:[UIImage imageNamed:@"likeButton_selected.png"] forState:UIControlStateSelected];
-        [self.likeButton setImage:[UIImage imageNamed:@"likeButton_highlighted.png"] forState:UIControlStateHighlighted];
-        [self.likeButton addTarget:self action:@selector(likeButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
+        //Hao
+        self.likeButton = [self createLikeButton_frame:CGRectMake(250, CGRectGetMinY(self.commentLabel.frame) + 5, 18, 18) andTagNumber:1];
         [self addSubview:self.likeButton];
+        
+        self.dislikeButton = [self createLikeButton_frame:CGRectMake(290, CGRectGetMinY(self.commentLabel.frame) + 5, 18, 18) andTagNumber:0];
+        [self addSubview:self.dislikeButton];
         
         self.likeCountLabel = [[UILabel alloc] init];
         self.likeCountLabel.numberOfLines = 1;
         self.likeCountLabel.textColor = [UIColor grayColor];
         self.likeCountLabel.textAlignment = NSTextAlignmentLeft;
-        self.likeCountLabel.font = [UIFont secretFontLightWithSize:12.f];
+        self.likeCountLabel.font = [UIFont fontWithName:@"Heiti TC" size:12.f];
         self.likeCountLabel.hidden = YES;
         [self addSubview:self.likeCountLabel];
         
@@ -73,17 +70,44 @@ const CGFloat kCommentPaddingFromRight = 8.0f;
     return self;
 }
 
-- (void)likeButtonSelected:(id)sender {
-    self.likeButton.selected = !self.likeButton.selected;
-    if (self.likeButton.selected) {
-        _likeCount++;
-    } else {
-        _likeCount--;
+- (void)likeButtonSelected:(UIButton*)sender {
+    
+    if(sender.tag == 1){
+    
+        self.likeButton.selected = !self.likeButton.selected;
+        if (self.likeButton.selected) {
+            _likeCount++;
+        } else {
+            _likeCount--;
+        }
+        self.likeCountLabel.text = [NSString stringWithFormat:@"%d",_likeCount];
+        [self.likeCountLabel sizeToFit];
+        self.likeCountImageView.hidden = _likeCount <= 0;
+        self.likeCountLabel.hidden = _likeCount <= 0;
+    }else{
+        self.dislikeButton.selected = !self.dislikeButton.selected;
+        if (self.dislikeButton.selected) {
+            _dislikeCount++;
+        } else {
+            _dislikeCount--;
+        }
+        self.dislikeCountLabel.text = [NSString stringWithFormat:@"%d",_dislikeCount];
+        [self.dislikeCountLabel sizeToFit];
+        self.dislikeCountImageView.hidden = _dislikeCount <= 0;
+        self.dislikeCountLabel.hidden = _dislikeCount <= 0;
     }
-    self.likeCountLabel.text = [NSString stringWithFormat:@"%d",_likeCount];
-    [self.likeCountLabel sizeToFit];
-    self.likeCountImageView.hidden = _likeCount <= 0;
-    self.likeCountLabel.hidden = _likeCount <= 0;
+}
+
+-(UIButton*)createLikeButton_frame:(CGRect)frame andTagNumber:(NSUInteger)number{
+    UIButton *btn = [[UIButton alloc] init];
+    // Hardcode the x value and size for simplicity
+    btn.frame = frame;
+    btn.tag = number;
+    [btn setImage:[UIImage imageNamed:@"likeButton_unselected.png"] forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"likeButton_selected.png"] forState:UIControlStateSelected];
+    [btn setImage:[UIImage imageNamed:@"likeButton_highlighted.png"] forState:UIControlStateHighlighted];
+    [btn addTarget:self action:@selector(likeButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
+    return btn;
 }
 
 

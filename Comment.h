@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "User.h"
+#import "OtherUser.h"
 
 #import "Food.h"
 
@@ -21,10 +21,20 @@
 
 @property (nonatomic, assign) NSUInteger rate;
 
-@property (nonatomic, strong) Food *food;
+@property (nonatomic, assign) NSUInteger like;
+
+@property (nonatomic, assign) NSUInteger dislike;
+
+@property (nonatomic, assign) NSUInteger fid;
+
+@property (nonatomic, strong) OtherUser *byUser;
 
 
--(instancetype)initWithCommentID:(NSUInteger)cid andFood:(Food *)food andRate:(NSUInteger)rate andComment:(NSString *)comment;
+//for local user to post or update
+-(instancetype)initWithCommentID:(NSUInteger)cid andFid:(NSUInteger )fid andRate:(NSUInteger)rate andComment:(NSString *)comment;
+
+//for initing OtherUser
+-(instancetype)initWithCommentID:(NSUInteger)cid andFid:(NSUInteger )fid andRate:(NSUInteger)rate andLike:(NSUInteger)like andDisLike:(NSUInteger)dislike andComment:(NSString *)comment andByUser:(OtherUser *)byUser;
 
 
 @end

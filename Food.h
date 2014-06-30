@@ -19,7 +19,7 @@
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *transTitle;
 @property (nonatomic, retain) NSString *food_description;
-@property (nonatomic, retain) NSMutableArray *tagNames;
+@property (nonatomic, retain) NSArray *tagNames;
 @property (nonatomic, strong) NSMutableArray *photoNames;
 @property (nonatomic, retain) NSMutableArray *comments;
 

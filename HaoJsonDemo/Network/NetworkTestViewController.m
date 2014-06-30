@@ -140,16 +140,12 @@
     
     //user,late will move to login
     [User sharedInstanceWithUid:1 andUname:@"Anonymity" andUpwd:@"123" andUtype:1 andUselfie:nil];
-    
-    //food
-    Food *food = [[Food alloc] init];
-    food.fid = 1;
-    
+
     //comment
-    Comment *review = [[Comment alloc]initWithCommentID:0 andFood:food andRate:3 andComment:@"User Hao commented!!!!"];
+    Comment *review = [[Comment alloc]initWithCommentID:0 andFid:1 andRate:3 andComment:@"User Hao commented!!!!"];
 
 
-    [self.async doComment:review toFood:food withAction:@"add"];//action: update, post
+    [self.async doComment:review withAction:@"add"];//action: update, post
 
     
 }
@@ -158,15 +154,12 @@
     
     //user,late will move to login
     [User sharedInstanceWithUid:1 andUname:@"Anonymity" andUpwd:@"123" andUtype:1 andUselfie:nil];
-    
-    //food
-    Food *food = [[Food alloc] init];
-    food.fid = 1;
+
     
     //comment
-    Comment *review = [[Comment alloc]initWithCommentID:8 andFood:food andRate:3 andComment:@"User Hao commented!!!!"];
+    Comment *review = [[Comment alloc]initWithCommentID:8 andFid:1 andRate:3 andComment:@"User Hao commented!!!!"];
     
-    [self.async doComment:review toFood:food withAction:@"update"];//action: update, post
+    [self.async doComment:review withAction:@"update"];//action: update, post
 }
 
 - (IBAction)like:(id)sender {

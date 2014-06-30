@@ -8,6 +8,8 @@
 
 #import "Food.h"
 #import "AsyncRequest.h"
+#import "Comment.h"
+#import "OtherUser.h"
 
 const NSString *title = @"Title";
 const NSString *translation = @"Translation";
@@ -116,10 +118,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{    //async
     
     NSString *tmp = [[NSString alloc] initWithData:_webdata encoding:NSUTF8StringEncoding];
-    NSLog(@"***************Hao testing: %@",tmp);
-    
-    
-
+    NSLog(@"Return JSON: %@",tmp);
     
     //1.get food info
     NSDictionary *returnJSONtoNSdict = [NSJSONSerialization JSONObjectWithData:_webdata options:0 error:nil];
@@ -136,17 +135,20 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
             self.foodInfoComplete = YES;
             
             NSArray *resultArr = [returnJSONtoNSdict objectForKey:@"result"];
-            //NSLog(@"count~~: %d",results.count);
+            
+            if(resultArr.count ==0)
+                return;
+            
             
             NSDictionary *foodObj = resultArr[0];
             
-            //self.transTitle = [foodObj objectForKey:@"name"];
             self.fid = [[foodObj objectForKey:@"fid"] intValue];
             self.food_description = [foodObj objectForKey:@"description"];
             
+            NSString *rawTagNams = [foodObj objectForKey:@"tags"];
+            self.tagNames = [rawTagNams componentsSeparatedByString: @";"];
+ 
             NSArray *photoNameArr = [foodObj objectForKey:@"photos"];
-    
-            
             for(int i = 0 ;i<photoNameArr.count;i++){
                 NSDictionary *photoObj = photoNameArr[i];
                 [self.photoNames addObject: [photoObj objectForKey:@"url"]];
@@ -154,6 +156,10 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
             
             
             NSLog(@"fid: %d",self.fid);
+            for(NSString *str in self.tagNames){
+                NSLog(@"tag....: %@",str);
+            }
+            
             NSLog(@"description: %@",self.food_description);
             NSLog(@"url: %@",self.photoNames[0]);
             
@@ -169,13 +175,37 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
             //create comment array data and assign to self.comments
             
             //....
+            NSArray *resultArr = [returnJSONtoNSdict objectForKey:@"result"];
             
+            for(int i = 0 ;i<resultArr.count;i++){
+                
+                NSDictionary *commentsObj = resultArr[i];
+                
+                NSUInteger cid = [[commentsObj objectForKey:@"rid"] intValue];
+                NSUInteger fid = [[commentsObj objectForKey:@"fid"] intValue];
+                NSUInteger rate = [[commentsObj objectForKey:@"rate"] intValue];
+                NSUInteger like = [[commentsObj objectForKey:@"likes"] intValue];
+                NSUInteger dislike = [[commentsObj objectForKey:@"dislikes"] intValue];
+ 
+                NSString *commentWord = [commentsObj objectForKey:@"comments"];
+
+                
+                NSDictionary *creator = [commentsObj objectForKey:@"review_creater"];
+                
+                NSString *selfie = [creator objectForKey:@"selfie"];
+                NSUInteger uid = [[creator objectForKey:@"uid"] intValue];
+                NSUInteger privilege = [[creator objectForKey:@"privilege"] intValue];
+                NSString *name = [creator objectForKey:@"name"];
+
+                OtherUser *byUser = [[OtherUser alloc] initWithUid:uid andUname:name andUtype:privilege andUselfie:selfie];
+                
+                //init comment object
+                Comment *com = [[Comment alloc] initWithCommentID:cid andFid:fid andRate:rate andLike:like andDisLike:dislike andComment:commentWord andByUser:byUser];
+                [self.comments addObject: com];
+
+            }
             
-            
-            
-            
-            
-            
+
             dispatch_async(dispatch_get_main_queue(), ^{
                 _commentCompletionBlock(nil,YES);
             });

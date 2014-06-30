@@ -81,7 +81,7 @@
  post review
  
  ******************/
--(void)doComment:(Comment *)comment toFood:(Food *)food withAction:(NSString*)action {
+-(void)doComment:(Comment *)comment withAction:(NSString*)action {
     
     User *user = [User sharedInstance];
     
@@ -93,7 +93,7 @@
     //doing a post action
     if([action isEqualToString:@"add"]){
         
-        NSNumber *fidNumber = [NSNumber numberWithInt:food.fid];
+        NSNumber *fidNumber = [NSNumber numberWithInt:comment.fid];
         //NSNumber *timeNumber = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]*1000.0];
         //NSLog(@"nsnumber %@",timeNumber);
         

@@ -15,7 +15,7 @@
 
 -(void)getReviews_fid:(NSUInteger)fid ;
 
--(void)doComment:(Comment *)comment toFood:(Food *)food withAction:(NSString*)action ;
+-(void)doComment:(Comment *)comment withAction:(NSString*)action ;
 
 -(void)likeOrDislike_rid:(int)rid andLike:(int)like ;
 
