@@ -422,7 +422,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="login_03.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="6Nu-6h-1Ry">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="login_03.png" translatesAutoresizingMaskIntoConstraints="NO" id="6Nu-6h-1Ry">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -533,7 +533,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="register_03.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="15i-LB-Y0z">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="register_03.png" translatesAutoresizingMaskIntoConstraints="NO" id="15i-LB-Y0z">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
@@ -662,10 +662,10 @@
     </scenes>
     <resources>
         <image name="blackBG.JPG" width="542" height="960"/>
-        <image name="bluechesseLogo.png" width="300" height="300"/>
+        <image name="bluechesseLogo.png" width="301" height="301"/>
         <image name="lock.png" width="85" height="70"/>
-        <image name="login_03.jpg" width="640" height="1136"/>
-        <image name="register_03.jpg" width="640" height="1136"/>
+        <image name="login_03.png" width="641" height="1137"/>
+        <image name="register_03.png" width="641" height="1137"/>
         <image name="user.png" width="85" height="70"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
