@@ -42,7 +42,7 @@
 
 - (id)initWithFrame:(CGRect)frame andVC:(UIViewController *)vc;
 
--(void)configureNetworkComponentswithCellNo:(NSInteger)no;
+-(void)configureNetworkComponentsWithCellNo:(NSInteger)no;
 
 -(void)setVC:(UIViewController *)vc;
 

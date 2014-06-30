@@ -12,6 +12,8 @@
 
 @interface EDCollectionCell : UICollectionViewCell
 
+@property (strong,nonatomic,readonly) NSString *foodTitle;
+
 @property (strong,nonatomic) FoodInfoView *foodInfoView;
 
 //Setup the cell with the food object
@@ -24,5 +26,5 @@
 
 -(void)setUpForSmallLayout;
 
-
+-(void)configDelegateForFoodInfoView;
 @end

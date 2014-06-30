@@ -13,6 +13,7 @@
 
 @interface EDCollectionCell()
 
+@property (strong,nonatomic,readwrite) NSString *foodTitle;
 @end
 
 @implementation EDCollectionCell
@@ -30,7 +31,7 @@
 -(void)setup{
     self.foodInfoView = [[FoodInfoView alloc] initWithFrame:self.bounds];
     [self.foodInfoView setUpForSmallLayout];
-    //[self.foodInfoView configureNetworkComponentswithCellNo:self.];
+    //[self.foodInfoView configureNetworkComponentsWithCellNo:self.];
     [self.contentView addSubview:self.foodInfoView];
     
     

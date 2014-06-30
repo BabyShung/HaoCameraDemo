@@ -20,7 +20,9 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 
 @interface Food()
 
-@property (nonatomic,readwrite,getter = isCompleted) BOOL complete;
+@property (nonatomic,readwrite,getter = isFoodInfoCompleted) BOOL foodInfoComplete;
+
+@property (nonatomic,readwrite,getter = isCommentsCompleted) BOOL commentsComplete;
 
 @property (nonatomic,strong) AsyncRequest *async;
 @property (strong,nonatomic) NSMutableData *webdata;
@@ -34,7 +36,8 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 -(instancetype)initWithTitle:(NSString *)title andTranslations:(NSString *)translate
 {
     self = [super init];
-    self.complete = NO;
+    self.foodInfoComplete = NO;
+    self.commentsComplete = NO;
     self.title = title;
     self.transTitle = translate;
     self.food_description = nil;
@@ -128,8 +131,9 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
     if(status){ //if we get food info back
 
         
-        if([action isEqualToString:@"get_food"]){        //food
-
+        if([action isEqualToString:@"get_food"]){//food
+            
+            self.foodInfoComplete = YES;
             
             NSArray *resultArr = [returnJSONtoNSdict objectForKey:@"result"];
             //NSLog(@"count~~: %d",results.count);
@@ -148,7 +152,6 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
                 [self.photoNames addObject: [photoObj objectForKey:@"url"]];
             }
             
-            self.complete = YES;
             
             NSLog(@"fid: %d",self.fid);
             NSLog(@"description: %@",self.food_description);
@@ -160,8 +163,9 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
             });
             
             
-        }else if([action isEqualToString:@"get_reviews"]){        //comment
+        }else if([action isEqualToString:@"get_reviews"]){//comment
             
+            self.commentsComplete = YES;
             
             //create comment array data and assign to self.comments
             

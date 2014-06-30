@@ -11,7 +11,9 @@
 
 @interface Food : NSObject <NSURLConnectionDataDelegate>
 
-@property (nonatomic,readonly,getter = isCompleted) BOOL complete;
+@property (nonatomic,readonly,getter = isFoodInfoCompleted) BOOL foodInfoComplete;
+
+@property (nonatomic,readonly,getter = isCommentsCompleted) BOOL commentsComplete;
 
 @property (nonatomic) NSUInteger fid;
 @property (nonatomic, retain) NSString *title;

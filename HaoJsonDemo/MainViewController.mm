@@ -139,34 +139,55 @@ static NSString *CellIdentifier = @"Cell";
     
     EDCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
         cell.backgroundColor = [UIColor whiteColor];
-    //[cell.foodInfoView configureNetworkComponentswithCellNo:indexPath.row];
-
-//    Food *food = [self.foodArray objectAtIndex:indexPath.row];
-//    food
-//    if (food.description) {
-//        [cell setCellWithFood:food];
-//    }
-//    else{
+//    Food *food = self.foodArray[indexPath.row];
+    [cell.foodInfoView configureNetworkComponentsWithCellNo:indexPath.row];
+//
+//    
+//    if(!food.isFoodInfoCompleted){
 //        [food fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
 //            if (success) {
 //                [cell setCellWithFood:food];
+//                [cell.foodInfoView configureNetworkComponentsWithCellNo:indexPath.row];
+//            }
+//            else{
+//                /*Should allow uses to load again*/
+//                NSLog(@"Loading food info fails when init cell");
 //            }
 //        }];
-////    }
+//    }
+//    else{//Food info is completed, config delegate for FoodInfoView at once
+//        [cell setCellWithFood:food];
+//        [cell.foodInfoView configureNetworkComponentsWithCellNo:indexPath.row];
+//        
+//    }
     
     return cell;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    //deselect !!??
-    //[collectionView deselectItemAtIndexPath:indexPath animated:YES];
-    
-//    [food fetchCommentsCompletion:^(NSError *err, BOOL success) {
-//    <#code#>
-//}];
-    
-    
+//    Food *food = self.foodArray[indexPath.row];
+//    
+//    
+//    if(!food.isFoodInfoCompleted){
+//        EDCollectionCell *cell = (EDCollectionCell *)[collectionView cellForItemAtIndexPath:indexPath];
+//        [food fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
+//            if (success) {
+//                [cell setCellWithFood:food];
+//                [cell.foodInfoView configureNetworkComponentsWithCellNo:indexPath.row];
+//            }
+//            else{
+//                /*Should allow uses to load again*/
+//                NSLog(@"Loading food info fails when selected");
+//            }
+//        }];
+//    }
+    /***********TODO************/
+    /*                         */
+    /*Async request to comments*/
+    /*                         */
+    /***********TODO************/
+
     SecondViewController *viewController = [[SecondViewController alloc] initWithCollectionViewLayout:[[largeLayout alloc] init]];
     //used for pausing camera
     viewController.camView = self.camView;

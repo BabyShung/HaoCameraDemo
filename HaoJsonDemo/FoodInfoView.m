@@ -97,7 +97,7 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     self = [super initWithFrame:frame];
     if (self) {
         self.currentVC = nil;
-        self.imgNameArray = nil;
+        self.imgNameArray = [NSMutableArray array];
         //init all UI controls
         [self loadControls];
         
@@ -194,14 +194,14 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     //init all the image paras
 //    externalFileURLs = [NSMutableArray array];
 //    
-//    NSString *namesString = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"fullURLs" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
-//    NSArray *fileNamesArray = [namesString componentsSeparatedByString:@"\n"];
-//    
-//    for (int i = 0; i < fileNamesArray.count; i++) {
-//        NSString *urlString = fileNamesArray[i];
-//        NSURL *url = [NSURL URLWithString:urlString];
-//        [externalFileURLs addObject:url];
-//    }
+    NSString *namesString = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"fullURLs" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
+    NSArray *fileNamesArray = [namesString componentsSeparatedByString:@"\n"];
+    
+    for (int i = 0; i < fileNamesArray.count; i++) {
+        NSString *urlString = fileNamesArray[i];
+        NSURL *url = [NSURL URLWithString:urlString];
+        [self.imgNameArray addObject:url];
+    }
     
     //add table view
     //----------------------------comment
@@ -226,7 +226,7 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
 }
 
 /*!!!!! Fist time display !!!!!*/
--(void)configureNetworkComponentswithCellNo:(NSInteger)no{
+-(void)configureNetworkComponentsWithCellNo:(NSInteger)no{
     NSLog(@"test```");
     self.loaderName = [NSString stringWithFormat:@"%d",(int)no];
     self.photoCollectionView.delegate = self;
@@ -491,12 +491,7 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
 -(void)setWithFood:(Food *)food{
     self.titleLabel.text = food.title;
     self.translateLabel.text = food.transTitle;
-    if (food.isCompleted) {
-        self.descriptionLabel.text = food.food_description;
-        
-    }
-    self.descriptionLabel.text = food.food_description;
-    //self.imgNameArray = []
+    //self.imgNameArray =
     
 }
 
