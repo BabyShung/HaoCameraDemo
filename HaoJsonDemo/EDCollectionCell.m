@@ -76,12 +76,10 @@
                        toLayout:(UICollectionViewLayout *)newLayout
 {
     if ([newLayout class] == [smallLayout class]){
-        NSLog(@" Will do large -> small");
 
         [self.foodInfoView setUpForSmallLayout];
     }
     else{
-        NSLog(@" Will do small -> large");
 
         [self.foodInfoView setUpForLargeLayout];
     }
@@ -100,9 +98,10 @@
         [self.foodInfoView shineDescription];
         self.foodInfoView.scrollview.scrollEnabled = YES;
     }
-    NSLog(@"Cell layout subviews");
     
 }
-
+-(void)prepareForReuse{
+    [self.foodInfoView cleanUpForReuse];
+}
 
 @end

@@ -53,4 +53,6 @@
 -(void)setFoodInfoWith:(Food *)food;
 
 -(void)shineDescription;
+
+-(void)cleanUpForReuse;
 @end

@@ -23,8 +23,9 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 @interface Food()
 
 @property (nonatomic,readwrite,getter = isFoodInfoCompleted) BOOL foodInfoComplete;
-
+@property (nonatomic,readwrite,getter = isLoadingInfo) BOOL loadingFoodInfo;
 @property (nonatomic,readwrite,getter = isCommentLoaded) BOOL commentLoaded;
+@property (nonatomic,readwrite,getter = isLoadingComments) BOOL loadingComments;
 
 @property (nonatomic,strong) AsyncRequest *async;
 @property (strong,nonatomic) NSMutableData *webdata;
@@ -61,7 +62,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 
 //fetch async food info
 -(void) fetchAsyncInfoCompletion:(void (^)(NSError *err, BOOL success))block{
-
+    _loadingFoodInfo = YES;
     _foodInfoCompletionBlock = block;
     
     [self.async getFoodInfo:self.title andLanguage:@"CN"];
@@ -71,6 +72,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 //fetch async comment
 -(void) fetchCommentsCompletion:(void (^)(NSError *err, BOOL success))block
 {
+    _loadingComments = YES;
     _commentCompletionBlock = block;
     
     
@@ -100,6 +102,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 }
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
+    NSLog(@"&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&connection fails");
 
     //if error, put error to block
 //    if(_isFoodRequest){
@@ -165,6 +168,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
             
             
             dispatch_async(dispatch_get_main_queue(), ^{
+                _loadingFoodInfo = NO;
                 _foodInfoCompletionBlock(nil,YES);
             });
             
@@ -207,6 +211,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
             
 
             dispatch_async(dispatch_get_main_queue(), ^{
+                _loadingComments = NO;
                 _commentCompletionBlock(nil,YES);
             });
         }

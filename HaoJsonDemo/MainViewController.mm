@@ -84,7 +84,7 @@ static NSString *CellIdentifier = @"Cell";
 
     /*REQUIRED FOR DEBUGGING ANIMATION*/
 
-    self.collectionView.hidden = YES;
+   self.collectionView.hidden = YES;
     self.collectionView.backgroundColor = [UIColor clearColor];
     
     //registering dequueue cell
@@ -144,8 +144,8 @@ static NSString *CellIdentifier = @"Cell";
     Food *food = self.foodArray[indexPath.row];
     [cell setCellWithFood:food];
     
-    if(!food.isFoodInfoCompleted){
-        NSLog(@"Start to request food info");
+    if(!food.isFoodInfoCompleted && !food.isLoadingInfo){
+        NSLog(@"=======================Start to request food info");
         [food fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
             if (success) {
                 NSLog(@"return info successfully");
@@ -170,20 +170,20 @@ static NSString *CellIdentifier = @"Cell";
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    Food *food = self.foodArray[indexPath.row];
-    
-    if(!food.isFoodInfoCompleted){
-        EDCollectionCell *cell = (EDCollectionCell *)[collectionView cellForItemAtIndexPath:indexPath];
-        [food fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
-            if (success) {
-                [cell setCellWithFood:food];
-                [cell.foodInfoView configureNetworkComponentsWithCellNo:indexPath.row];
-            }
-            else{
-                NSLog(@"Loading food info fails when selected");
-            }
-        }];
-    }
+//    Food *food = self.foodArray[indexPath.row];
+//
+//    if(!food.isFoodInfoCompleted){
+//        EDCollectionCell *cell = (EDCollectionCell *)[collectionView cellForItemAtIndexPath:indexPath];
+//        [food fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
+//            if (success) {
+//                [cell setCellWithFood:food];
+//                [cell.foodInfoView configureNetworkComponentsWithCellNo:indexPath.row];
+//            }
+//            else{
+//                NSLog(@"Loading food info fails when selected");
+//            }
+//        }];
+//    }
     
     
     

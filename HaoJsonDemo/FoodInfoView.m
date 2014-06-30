@@ -41,33 +41,11 @@ const CGFloat TagFontSize = 18.f;
 const CGFloat SmallTitleFontSize = 15.f;
 const CGFloat SmallTextFontSize = 10.f;
 
-/*The rate at which TagView, TableView and PhotoView reduce alpha
-  The Larger, the faster
-  MAX = Screen Height; MIN = 0*/
 const CGFloat ViewAlphaRecreaseRate = 450.f;
 
-///*-----*/
-////const CGFloat kCommentCellHeight = .088f;
-//
-//const CGFloat CLeftMargin = .047f;
-//const CGFloat TitleTopMargin = .018f;
-//const CGFloat GAP = .011;
-//const CGFloat MiddleGAP = .035f;
-//
-//const CGFloat ShimmmerViewHeight = .053f;
-//const CGFloat SeparatorViewHeight = 1.f;//FIXED
-//const CGFloat BelowShimmmerGap = .018f;
-//const CGFloat TranslateLabelHeight = .123f;
-//const CGFloat BelowTranslateGap = .035f;
-//const CGFloat DescriptionLabelHeight = .07f;
-//const CGFloat BelowDescriptionLabelGap = .035f;
-///*const CGFloat TagViewHeight = .07f;
-//const CGFloat PhotoCollectionViewHeight = .47f;*/
 
 @interface FoodInfoView () <UICollectionViewDataSource,UICollectionViewDelegate,TagViewDelegate,UITableViewDataSource, UITableViewDelegate>
-{
-    //NSMutableArray *externalFileURLs;
-}
+
 /*current cv must be set up when view appear*/
 @property (strong,nonatomic) UIViewController *currentVC;
 
@@ -126,9 +104,6 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     //should add up all
     self.scrollview.contentSize = CGSizeMake(width,ScrollViewContentSizeHeight);
     
-    
-//    CGRect titleRect = CGRectMake(CLeftMargin, TitleTopMargin, width-CLeftMargin, ShimmmerViewHeight);
-//    self.shimmeringView = [[FBShimmeringView alloc] initWithFrame:titleRect];
     self.shimmeringView = [[FBShimmeringView alloc] init];
     self.shimmeringView.shimmering = NO;   //start shimmering
     self.shimmeringView.shimmeringBeginFadeDuration = 0.3;
@@ -138,45 +113,38 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     
     self.titleLabel = [[UILabel alloc] initWithFrame:_shimmeringView.frame];
     self.titleLabel.numberOfLines = 0;
-    self.titleLabel.text = @"Blue Cheese blue cheese";
+    self.titleLabel.text = @"";
     self.titleLabel.font = [UIFont fontWithName:PlainTextFontName size:LargeTitleFontSize];
     self.titleLabel.textColor = [UIColor blackColor];
     self.titleLabel.backgroundColor = [UIColor clearColor];
     _shimmeringView.contentView = self.titleLabel;
     
-    
-    //self.separator = [[UIView alloc] initWithFrame:CGRectMake(CLeftMargin, CGRectGetMaxY(self.titleLabel.frame) + BelowShimmmerGap, width-2*CLeftMargin, SeparatorViewHeight)];
     self.separator = [[UIView alloc] init];
     self.separator.backgroundColor = [UIColor blackColor];
     [self.scrollview addSubview:self.separator];
     
-    //self.translateLabel = [[UILabel alloc] initWithFrame:CGRectMake(CLeftMargin, TitleTopMargin + CGRectGetHeight(self.titleLabel.frame)  , width, TranslateLabelHeight)];
+
     self.translateLabel = [[UILabel alloc] init];
     self.translateLabel.numberOfLines = 0;
-    //self.titleLabel.adjustsFontSizeToFitWidth = YES;
-    self.translateLabel.text = @"蓝芝士";
+    self.translateLabel.text = @"";
     self.translateLabel.font = [UIFont fontWithName:PlainTextFontName size:LargeTextFontSize];
     self.translateLabel.textColor = [UIColor blackColor];
-    //self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.translateLabel.backgroundColor = [UIColor clearColor];
     [self.scrollview addSubview:self.translateLabel];
     
 /*-------------------Following Views Will Be Hidden In Small Layout----------------------------*/
     
-    //self.descriptionLabel = [[RQShineLabel alloc] initWithFrame:CGRectMake(CLeftMargin, CGRectGetHeight(self.titleLabel.frame)+ CGRectGetMaxY(self.titleLabel.frame) + MiddleGAP, width - CLeftMargin*2, TranslateLabelHeight)];
     self.descriptionLabel = [[RQShineLabel alloc] init];
     self.descriptionLabel.numberOfLines = 0;
     self.descriptionLabel.text = @"";
     self.descriptionLabel.font = [UIFont fontWithName:PlainTextFontName size:LargeTextFontSize];
     self.descriptionLabel.backgroundColor = [UIColor clearColor];
-    //self.descriptionLabel.hidden = YES;
-    //label.center = self.view.center;
-    //self.descriptionLabel.textColor = [UIColor grayColor];
+
+    self.descriptionLabel.textColor = [UIColor blackColor];
     
     [self.scrollview addSubview:self.descriptionLabel];
     
     _tagview = [[TagView alloc]initWithFrame:CGRectMake(0, BelowDescriptionLabelGap+CGRectGetMaxY(self.descriptionLabel.frame), width, TagViewHeight)];
-    //_tagview = [[TagView alloc]init];
     _tagview.allowToUseSingleSpace = YES;
     _tagview.delegate = self;
     [_tagview setFont:[UIFont fontWithName:TagTextFontName size:TagFontSize]];
@@ -195,26 +163,10 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     [self.photoCollectionView setShowsHorizontalScrollIndicator:NO];
     [self.scrollview addSubview:self.photoCollectionView];
     
-    //init all the image paras
-//    externalFileURLs = [NSMutableArray array];
-//    
-//    NSString *namesString = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"fullURLs" ofType:@"txt"] encoding:NSUTF8StringEncoding error:nil];
-//    NSArray *fileNamesArray = [namesString componentsSeparatedByString:@"\n"];
-//    
-//    for (int i = 0; i < fileNamesArray.count; i++) {
-//        NSString *urlString = fileNamesArray[i];
-//        NSURL *url = [NSURL URLWithString:urlString];
-//        [self.imgNameArray addObject:url];
-//    }
-    
     //add table view
     //----------------------------comment
     _commentsViewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, width, height)];
-
-    //_commentsViewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + 6.f,320, 568 )];
-    //[_commentsViewContainer addGradientMaskWithStartPoint:CGPointMake(0.5, 0.0) endPoint:CGPointMake(0.5, 0.03)];
-    //************** pay attention to tableview *****************
-    //_commentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) ) style:UITableViewStylePlain];
+    
     _commentsTableView = [[UITableView alloc] initWithFrame:_commentsViewContainer.frame style:UITableViewStylePlain];
     _commentsTableView.scrollEnabled = NO;
     
@@ -240,16 +192,7 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     [_commentsTableView reloadData];
     
     [_tagview addTags:self.tagArray];
-    
-//    [_tagview addTags:@[@"蓝色", @"臭",@"酸",@"软", @"难消化",@"高热量",@"发酵品"]];
-//    
-//    self.descriptionLabel.text = @"蓝芝士是一种听上去很好吃但是味道很恶心的芝士。";
-    
-    [self.descriptionLabel sizeToFit];
-//    [self.descriptionLabel shine];
-    
-    
-    NSLog(@"visible %d",self.descriptionLabel.isVisible);
+    self.descriptionLabel.textColor = [UIColor blackColor];
 }
 
 /**********************************
@@ -266,7 +209,7 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
 
     
     //Cancel any other previous downloads for the image view.
-    //[cell.imageView cancelLoadingAllImagesAndLoaderName:self.loaderName];
+    [cell.imageView cancelLoadingAllImagesAndLoaderName:self.loaderName];
     
     
     //Load the new image //externalFileURLs[indexPath.row]
@@ -307,31 +250,11 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return self.imgNameArray.count;
-    //return externalFileURLs.count;
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
-}
-
-
-
-
-/**********************************
- 
- tagView delegate
- 
- ************************/
-#pragma mark - HKKTagWriteViewDelegate
-- (void)tagWriteView:(TagView *)view didMakeTag:(NSString *)tag
-{
-    //NSLog(@"added tag = %@", tag);
-}
-
-- (void)tagWriteView:(TagView *)view didRemoveTag:(NSString *)tag
-{
-    //NSLog(@"removed tag = %@", tag);
 }
 
 
@@ -427,14 +350,12 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     self.tagview.alpha = newAlpha;
     self.commentsViewContainer.alpha = newAlpha;
     self.photoCollectionView.alpha = newAlpha;
-    NSLog(@"FOOD INFO VIEW layout subview");
 
 }
 
 
 -(void)setUpForLargeLayout{
     self.userInteractionEnabled = YES;
-//    self.scrollview.scrollEnabled = YES;
     self.descriptionLabel.hidden = NO;
     self.tagview.hidden = NO;
     self.photoCollectionView.hidden = NO;
@@ -443,7 +364,6 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
 
 -(void)setUpForSmallLayout{
     self.userInteractionEnabled = NO;
-//    self.scrollview.scrollEnabled = NO;
     self.descriptionLabel.hidden = YES;
     self.tagview.hidden = YES;
     self.photoCollectionView.hidden = YES;
@@ -460,15 +380,7 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     self.titleLabel.text = food.title;
     self.translateLabel.text = food.transTitle;
     self.descriptionLabel.text = food.food_description;
-    if (self.imgNameArray.count>0) {
-        [self.imgNameArray removeAllObjects];
-    }
     [self.imgNameArray addObjectsFromArray:food.photoNames];
-    
-    if (self.tagArray.count>0) {
-        [self.tagArray removeAllObjects];
-        
-    }
     [self.tagArray addObjectsFromArray:food.tagNames];
     
     NSLog(@"FIV: I get %d photos, %d tags for %@",(int)self.imgNameArray.count,self.tagArray.count,food.title);
@@ -478,6 +390,12 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
 -(void)shineDescription{
     if (self.descriptionLabel.text.length>0) {
         [self.descriptionLabel shine];
+        //[self.descriptionLabel fadeOut];
     }
+}
+
+-(void)cleanUpForReuse{
+    [self.imgNameArray removeAllObjects];
+    [self.tagArray removeAllObjects];
 }
 @end

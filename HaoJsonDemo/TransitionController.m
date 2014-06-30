@@ -220,8 +220,8 @@
                     
                     self.initialPinchPoint = point;
                     self.hasActiveInteraction = YES; // the transition is in active motion
-                    [self.collectionView selectItemAtIndexPath:[self.collectionView indexPathForItemAtPoint:point] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
-                    //[self disableCollectionView];
+                    //[self.collectionView selectItemAtIndexPath:[self.collectionView indexPathForItemAtPoint:point] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+                    
                     [self.delegate interactionBeganAtPoint:point];
                 }
             }
