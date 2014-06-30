@@ -60,12 +60,9 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"you got it!");
+    EDCollectionCell *edCell = (EDCollectionCell *)cell;
+    edCell.foodInfoView.scrollview.contentOffset = CGPointZero;
 }
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    NSLog(@"````````````````LARGE VIEW CHANGE A CELL");
-}
--(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
-    NSLog(@"````````````````LARGE VIEW CHANGE A CELL");
-}
+
 
 @end
