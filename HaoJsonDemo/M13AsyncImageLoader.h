@@ -37,6 +37,10 @@
  
  @param name The name of the asynchronous image loader to cleanup.
  */
+
+
++ (void)cleanupLoaderAll;
+
 + (void)cleanupLoaderWithName:(NSString *)name;
 /**
  The cache all asynchronous image loaders will use, unless set otherwise.
@@ -74,7 +78,7 @@
 //The length of time to try and load an image before stopping.
 @property (nonatomic, assign) NSTimeInterval loadingTimeout;
 
-- (void)loadImageAtURLAtAmazon:(NSURL *)url target:(id)target completion:(M13AsynchronousImageLoaderCompletionBlock)completion;
+- (void)loadImageAtURLAtAmazon:(NSURL *)url target:(id)target completion:(M13CompletionBlock)completion;
 
 
 @end

@@ -18,7 +18,7 @@
     NSMutableData *imageData;
 }
 
-- (void)setCompletionBlock:(M13AsynchronousImageLoaderCompletionBlock)completionBlock
+- (void)setCompletionBlock:(M13CompletionBlock)completionBlock
 {
     _completionBlock = completionBlock;
 }
@@ -34,7 +34,7 @@
     if (_fileURL == nil) {
         //Fail
         finished = YES;
-        _completionBlock(NO, M13AsynchronousImageLoaderImageLoadedLocationNone, nil, nil, _target);
+        _completionBlock(NO, M13ImageLoadedLocationNone, nil, nil, _target);
         return;
     }
     
@@ -68,7 +68,7 @@
                     loading = NO;
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        _completionBlock(YES, M13AsynchronousImageLoaderImageLoadedLocationExternalFile, image, _fileURL, _target);
+                        _completionBlock(YES, M13LoadedLocationExternalFile, image, _fileURL, _target);
                     });
                     
                 } else {
@@ -78,7 +78,7 @@
                     loading = NO;
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        _completionBlock(NO, M13AsynchronousImageLoaderImageLoadedLocationLocalFile, nil, _fileURL, _target);
+                        _completionBlock(NO, M13ImageLoadedLocationLocalFile, nil, _fileURL, _target);
                     });
                 }
             });
@@ -173,7 +173,7 @@
                 loading = NO;
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    _completionBlock(YES, M13AsynchronousImageLoaderImageLoadedLocationExternalFile, image, _fileURL, _target);
+                    _completionBlock(YES, M13LoadedLocationExternalFile, image, _fileURL, _target);
                 });
                 
             } else {
@@ -183,7 +183,7 @@
                 loading = NO;
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    _completionBlock(NO, M13AsynchronousImageLoaderImageLoadedLocationExternalFile, nil, _fileURL, _target);
+                    _completionBlock(NO, M13LoadedLocationExternalFile, nil, _fileURL, _target);
                 });
             }
         });
@@ -202,7 +202,7 @@
     NSLog(@"Amazon failed To Load Image: %@", error.localizedDescription);
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        _completionBlock(NO, M13AsynchronousImageLoaderImageLoadedLocationExternalFile, nil, _fileURL, _target);
+        _completionBlock(NO, M13LoadedLocationExternalFile, nil, _fileURL, _target);
     });
 }
 
@@ -238,7 +238,7 @@
     NSLog(@"Failed To Load Image: %@", error.localizedDescription);
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        _completionBlock(NO, M13AsynchronousImageLoaderImageLoadedLocationExternalFile, nil, _fileURL, _target);
+        _completionBlock(NO, M13LoadedLocationExternalFile, nil, _fileURL, _target);
     });
     
 }
@@ -275,7 +275,7 @@
                 loading = NO;
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    _completionBlock(YES, M13AsynchronousImageLoaderImageLoadedLocationExternalFile, image, _fileURL, _target);
+                    _completionBlock(YES, M13LoadedLocationExternalFile, image, _fileURL, _target);
                 });
                 
             } else {
@@ -285,7 +285,7 @@
                 loading = NO;
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    _completionBlock(NO, M13AsynchronousImageLoaderImageLoadedLocationExternalFile, nil, _fileURL, _target);
+                    _completionBlock(NO, M13LoadedLocationExternalFile, nil, _fileURL, _target);
                 });
             }
         });

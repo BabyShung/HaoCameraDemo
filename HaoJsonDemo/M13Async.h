@@ -9,15 +9,12 @@
 #import <Foundation/Foundation.h>
 
 typedef enum {
-    M13AsynchronousImageLoaderImageLoadedLocationNone,
-    M13AsynchronousImageLoaderImageLoadedLocationCache,
-    M13AsynchronousImageLoaderImageLoadedLocationLocalFile,
-    M13AsynchronousImageLoaderImageLoadedLocationExternalFile
-} M13AsynchronousImageLoaderImageLoadedLocation;
+    M13ImageLoadedLocationNone,
+    M13ImageLoadedLocationCache,
+    M13ImageLoadedLocationLocalFile,
+    M13LoadedLocationExternalFile
+} M13ImageLoadedLocation;
 
-typedef void (^M13AsynchronousImageLoaderCompletionBlock)(BOOL success, M13AsynchronousImageLoaderImageLoadedLocation location, UIImage *image, NSURL *url, id target);
+//completion block
+typedef void (^M13CompletionBlock)(BOOL success, M13ImageLoadedLocation location, UIImage *image, NSURL *url, id target);
 
-
-@interface M13Async : NSObject
-
-@end

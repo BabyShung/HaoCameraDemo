@@ -255,19 +255,16 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
 {
     EDImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    // Configure the cell...
-    //dispatch_async(dispatch_get_main_queue(), ^{
     cell.activityView.hidden = NO;
     [cell.activityView startAnimating];
-    //});
-    //Set the loading image
-    //cell.imageView.image = loadingImage;
+
     
     //Cancel any other previous downloads for the image view.
-    //[cell.imageView cancelLoadingAllImages];
+    //[cell.imageView cancelLoadingAllImagesAndLoaderName:self.loaderName];
+    
     
     //Load the new image //externalFileURLs[indexPath.row]
-    [cell.imageView loadImageFromURLAtAmazonAsync:self.imgNameArray[indexPath.row] withLoaderName:self.loaderName completion:^(BOOL success, M13AsynchronousImageLoaderImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
+    [cell.imageView loadImageFromURLAtAmazonAsync:self.imgNameArray[indexPath.row] withLoaderName:self.loaderName completion:^(BOOL success, M13ImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
         //This is where you would refresh the cell if need be. If a cell of basic style, just call "setNeedsRelayout" on the cell.
         
         cell.activityView.hidden = YES;

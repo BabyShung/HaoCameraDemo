@@ -18,15 +18,15 @@
 @implementation UIImageView (M13AsynchronousImageView)
 
 //load image with different loader
-- (void)loadImageFromURLAtAmazonAsync:(NSURL *)url withLoaderName:(NSString *)name completion:(M13AsynchronousImageLoaderCompletionBlock)completion
+- (void)loadImageFromURLAtAmazonAsync:(NSURL *)url withLoaderName:(NSString *)name completion:(M13CompletionBlock)completion
 {
-    [[M13AsyncImageLoader loaderWithName:name] loadImageAtURLAtAmazon:url target:self completion:^(BOOL success, M13AsynchronousImageLoaderImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
+    [[M13AsyncImageLoader loaderWithName:name] loadImageAtURLAtAmazon:url target:self completion:^(BOOL success, M13ImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
         //Set the image if loaded
         if (success) {
             
             self.image = image;
             
-            if(location == M13AsynchronousImageLoaderImageLoadedLocationCache){
+            if(location == M13ImageLoadedLocationCache){
                 NSLog(@"it is cache");
             }else{
                 //Hao modified
@@ -52,6 +52,11 @@
     //need to change
     [[M13AsyncImageLoader defaultLoader] cancelLoadingImagesForTarget:self];
 }
+
+- (void)cancelLoadingAllImagesAndLoaderName:(NSString *)loaderName{
+    [[M13AsyncImageLoader loaderWithName:loaderName] cancelLoadingImagesForTarget:self];
+}
+
 
 - (void)cancelLoadingImageAtURL:(NSURL *)url
 {

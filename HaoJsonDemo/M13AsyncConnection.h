@@ -31,10 +31,10 @@
 @property (nonatomic, assign) NSTimeInterval timeoutInterval;
 
 //The completion block to run once the image is downloaded.
-@property (nonatomic, copy) M13AsynchronousImageLoaderCompletionBlock completionBlock;
+@property (nonatomic, copy) M13CompletionBlock completionBlock;
 
 //The completion block to run once the image has loaded.
-- (void)setCompletionBlock:(M13AsynchronousImageLoaderCompletionBlock)completionBlock;
+- (void)setCompletionBlock:(M13CompletionBlock)completionBlock;
 
 //Begin loading the image.
 - (void)startLoading;

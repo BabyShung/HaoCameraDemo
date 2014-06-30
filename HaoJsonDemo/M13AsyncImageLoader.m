@@ -15,6 +15,8 @@
  
  *********************************/
 
+static NSMutableDictionary *loaders;
+
 @interface M13AsyncImageLoader ()
 
 //The queue of connections to load image files.
@@ -37,6 +39,12 @@
     return [M13AsyncImageLoader loaderWithName:name cleanup:NO];
 }
 
++ (void)cleanupLoaderAll{
+    for(NSString* name in [loaders allKeys]){
+        [M13AsyncImageLoader loaderWithName:name cleanup:YES];
+    }
+}
+
 + (void)cleanupLoaderWithName:(NSString *)name
 {
     [M13AsyncImageLoader loaderWithName:name cleanup:YES];
@@ -46,7 +54,7 @@
 {
     //Create the dictionary to hold the loader if necessary
     static dispatch_once_t onceToken;
-    static NSMutableDictionary *loaders;
+    
     dispatch_once(&onceToken, ^{
         loaders = [[NSMutableDictionary alloc] init];
     });
@@ -90,14 +98,14 @@
     return defaultCache;
 }
 
-- (void)loadImageAtURLAtAmazon:(NSURL *)url target:(id)target completion:(M13AsynchronousImageLoaderCompletionBlock)completion
+- (void)loadImageAtURLAtAmazon:(NSURL *)url target:(id)target completion:(M13CompletionBlock)completion
 {
     //******** Try loading the image from the cache first.
     
     UIImage *image = [self.imageCache objectForKey:url];
     //If we have the image, return
     if (image) {
-        completion(YES, M13AsynchronousImageLoaderImageLoadedLocationCache, image, url, target);
+        completion(YES, M13ImageLoadedLocationCache, image, url, target);
         return;
     }
     
@@ -109,7 +117,7 @@
     connection.fileURL = url;
     connection.target = target;
     connection.timeoutInterval = _loadingTimeout;
-    [connection setCompletionBlock:^(BOOL success, M13AsynchronousImageLoaderImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
+    [connection setCompletionBlock:^(BOOL success, M13ImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
         //Add the image to the cache
         if (success) {
             [self.imageCache setObject:image forKey:url];
@@ -150,9 +158,9 @@
                 //Run the queued connection's completion, and add to the array for removal
                 [completedByProxyConnections addObject:queuedConnection];
                 //Figure out where the file was loaded from. Don't want to use cache, since this was a loaded image.
-                M13AsynchronousImageLoaderImageLoadedLocation location = [queuedConnection.fileURL isFileURL] ? M13AsynchronousImageLoaderImageLoadedLocationLocalFile : M13AsynchronousImageLoaderImageLoadedLocationExternalFile;
+                M13ImageLoadedLocation location = [queuedConnection.fileURL isFileURL] ? M13ImageLoadedLocationLocalFile : M13LoadedLocationExternalFile;
                 //Run the completion.
-                M13AsynchronousImageLoaderCompletionBlock completion = queuedConnection.completionBlock;
+                M13CompletionBlock completion = queuedConnection.completionBlock;
                 completion(YES, location, [self.imageCache objectForKey:queuedConnection.fileURL], queuedConnection.fileURL, queuedConnection.target);
             }
         }
@@ -188,8 +196,13 @@
     [self updateConnections];
 }
 
+
+
+
+//entry point
 - (void)cancelLoadingImagesForTarget:(id)target
 {
+    
     NSMutableArray *objectsToRemove = [NSMutableArray array];
     //Cancel all connections for the given target.
     for (M13AsyncConnection *connection in _connectionQueue) {
