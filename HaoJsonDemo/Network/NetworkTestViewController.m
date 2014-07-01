@@ -69,59 +69,6 @@
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{    //async
 
-    //1.get food info
-//    NSDictionary *returnJSONtoNSdict = [NSJSONSerialization JSONObjectWithData:_webdata options:0 error:nil];
-//    
-//    int status = [[returnJSONtoNSdict objectForKey:@"status"] intValue];
-//    NSLog(@"status --- -- -   %d",status);
-//    
-//    if(status){
-//        NSMutableArray *results = [returnJSONtoNSdict objectForKey:@"results"];
-//        
-//        for(NSDictionary *dict in results){
-//            NSString *title = [dict objectForKey:@"title"];
-//            NSString *description = [dict objectForKey:@"description"];
-//            NSLog(@"title --- -- -   %@",title);
-//            NSLog(@"description --- -- -   %@",description);
-//        }
-//    }else{
-//        NSLog(@"failed");
-//    }
-    
-    
-    
-    
-    
-    
-    //2.get reviews
-//    NSDictionary *returnJSONtoNSdict = [NSJSONSerialization JSONObjectWithData:_webdata options:0 error:nil];
-//    int status = [[returnJSONtoNSdict objectForKey:@"status"] intValue];
-//    NSLog(@"status! --- -- -   %d",status);
-//    
-//    NSMutableArray *results = [returnJSONtoNSdict objectForKey:@"result"];
-//    NSLog(@"count~~: %d",results.count);
-//    
-//    NSString *title = [[results objectAtIndex:0] objectForKey:@"title"];
-//    NSLog(@"title --- -- -   %@",title);
-//    
-//    NSDictionary *user = [[results objectAtIndex:0] objectForKey:@"user"];
-//    NSString *uid = [user objectForKey:@"uid"];
-//    NSLog(@"uid --- -- -   %@",uid);
-    
-    
-    
-    //3.post review
-    
-//    NSDictionary *returnJSONtoNSdict = [NSJSONSerialization JSONObjectWithData:_webdata options:0 error:nil];
-//    
-//    NSString *tmp = [[NSString alloc] initWithData:_webdata encoding:NSUTF8StringEncoding];
-//    NSLog(@"Output: %@",tmp);
-//    int status = [[returnJSONtoNSdict objectForKey:@"status"] intValue];
-//    NSLog(@"status! --- -- -   %d",status);
-
-    
-
-    //4.like review
     NSString *tmp = [[NSString alloc] initWithData:_webdata encoding:NSUTF8StringEncoding];
     NSLog(@"!?? %@",tmp);
 }
@@ -139,7 +86,7 @@
 - (IBAction)postReview:(id)sender {
     
     //user,late will move to login
-    [User sharedInstanceWithUid:1 andUname:@"Anonymity" andUpwd:@"123" andUtype:1 andUselfie:nil];
+    [User sharedInstanceWithUid:1 andEmail:@"123@.com" andUname:@"Anonymity" andUpwd:@"123" andUtype:1 andUselfie:nil];
 
     //comment
     Comment *review = [[Comment alloc]initWithCommentID:0 andFid:1 andRate:3 andComment:@"User Hao commented!!!!"];
@@ -153,7 +100,7 @@
 - (IBAction)updateReview:(id)sender {
     
     //user,late will move to login
-    [User sharedInstanceWithUid:1 andUname:@"Anonymity" andUpwd:@"123" andUtype:1 andUselfie:nil];
+    [User sharedInstanceWithUid:1 andEmail:@"123@.com" andUname:@"Anonymity" andUpwd:@"123" andUtype:1 andUselfie:nil];
 
     
     //comment
@@ -196,7 +143,7 @@
 
 - (IBAction)signup:(id)sender {
     
-    [self.async signup_withEmail:@"hao3@123.com" andName:@"hao" andPwd:@"123"];
+    [self.async signup_withEmail:@"hao4@123.com" andName:@"hao" andPwd:@"1234"];
 }
 
 - (IBAction)checkEmail:(id)sender {

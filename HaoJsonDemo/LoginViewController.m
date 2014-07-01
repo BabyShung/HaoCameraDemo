@@ -11,6 +11,8 @@
 #import "MKTransitionCoordinator.h"
 #import "UIButton+Bootstrap.h"
 #import "FrameViewController.h"
+#import "User.h"
+
 
 @interface LoginViewController () <MKTransitionCoordinatorDelegate>
 
@@ -32,11 +34,7 @@
     
     [self.loginBtn primaryStyle];
     
-    //animate label
-    //[self.animatedLabel animateWithWords:@[@"PolicyApp",@"Like it?"] forDuration:3.0f];
     
-    //self.logoView.layer.cornerRadius = 80.0f;
-
     
     self.userView.layer.cornerRadius = 5;
     self.pwdView.layer.cornerRadius = 5;
@@ -44,8 +42,6 @@
     [self.userTextField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
     [self.pwdTextField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
 
-
-    
 }
 
 #pragma mark - MKTransitionCoordinatorDelegate Methods
@@ -66,15 +62,34 @@
 - (IBAction)login:(id)sender {
     
     UIWindow *windooo = [[[UIApplication sharedApplication] delegate] window];
-    
-    
     FrameViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"Frame"];
-    
     [UIView transitionWithView:windooo
                       duration:0.3
                        options:UIViewAnimationOptionCurveEaseOut
                     animations:^{ windooo.rootViewController = fvc; }
                     completion:nil];
     
+//    [User loginWithEmail:self.userTextField.text andPwd:self.pwdTextField.text andCompletion:^(NSError *err, BOOL success){
+//        
+//        if(success){//user info already set
+//            //transition
+//            UIWindow *windooo = [[[UIApplication sharedApplication] delegate] window];
+//            FrameViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"Frame"];
+//            [UIView transitionWithView:windooo
+//                              duration:0.3
+//                               options:UIViewAnimationOptionCurveEaseOut
+//                            animations:^{ windooo.rootViewController = fvc; }
+//                            completion:nil];
+//        }else if(!err){//logic login error
+//            
+//        }else{
+//            
+//        }
+//        
+//    }];
+    
+    
+    
+
 }
 @end

@@ -142,10 +142,6 @@
  ************************/
 -(void)signup_withEmail:(NSString*)email andName:(NSString*)name andPwd:(NSString *)pwd {
     
-    edi_md5 *edimd5 = [[edi_md5 alloc]init];
-    
-    pwd = [edimd5 md5:pwd];
-    
     NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:email, @"email",name, @"name",pwd,@"pwd",@"register",@"action", nil];
     
     NSURL *url = [NSURL URLWithString:USERURL];
@@ -160,11 +156,6 @@
  
  ************************/
 -(void)login_withEmail:(NSString*)email andPwd:(NSString *)pwd {
-    
-    //use md5 here
-    edi_md5 *edimd5 = [[edi_md5 alloc]init];
-    
-    pwd = [edimd5 md5:pwd];
     
     NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:email, @"email",pwd,@"pwd",@"login",@"action", nil];
     

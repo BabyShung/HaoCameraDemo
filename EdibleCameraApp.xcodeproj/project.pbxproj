@@ -127,8 +127,8 @@
 		B8C8F387195F7F9A009F8F6E /* ED_torch_v@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8C8F379195F7F9A009F8F6E /* ED_torch_v@2x.png */; };
 		B8C8F38A195F834B009F8F6E /* register_03.png in Resources */ = {isa = PBXBuildFile; fileRef = B8C8F388195F834B009F8F6E /* register_03.png */; };
 		B8C8F38B195F834B009F8F6E /* login_03.png in Resources */ = {isa = PBXBuildFile; fileRef = B8C8F389195F834B009F8F6E /* login_03.png */; };
-		B8C8F38D195F8471009F8F6E /* bluechesseLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = B8C8F38C195F8471009F8F6E /* bluechesseLogo.png */; };
 		B8C8F3901961E24F009F8F6E /* OtherUser.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C8F38F1961E24F009F8F6E /* OtherUser.m */; };
+		B8C8F3921962551F009F8F6E /* bluechesseLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = B8C8F3911962551F009F8F6E /* bluechesseLogo.png */; };
 		B8D09A791948BCCF006C070D /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D09A761948BCCF006C070D /* User.m */; };
 		B8D6953C193E71C200E504FA /* ED_Color.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D6953B193E71C200E504FA /* ED_Color.m */; };
 		B8F29C5519311A5C008979A7 /* FrameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C4A19311A5C008979A7 /* FrameViewController.m */; };
@@ -355,9 +355,9 @@
 		B8C8F379195F7F9A009F8F6E /* ED_torch_v@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ED_torch_v@2x.png"; sourceTree = "<group>"; };
 		B8C8F388195F834B009F8F6E /* register_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = register_03.png; sourceTree = "<group>"; };
 		B8C8F389195F834B009F8F6E /* login_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_03.png; sourceTree = "<group>"; };
-		B8C8F38C195F8471009F8F6E /* bluechesseLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bluechesseLogo.png; sourceTree = "<group>"; };
 		B8C8F38E1961E24F009F8F6E /* OtherUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherUser.h; sourceTree = "<group>"; };
 		B8C8F38F1961E24F009F8F6E /* OtherUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherUser.m; sourceTree = "<group>"; };
+		B8C8F3911962551F009F8F6E /* bluechesseLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bluechesseLogo.png; sourceTree = "<group>"; };
 		B8D09A751948BCCF006C070D /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		B8D09A761948BCCF006C070D /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		B8D6953A193E71C200E504FA /* ED_Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ED_Color.h; sourceTree = "<group>"; };
@@ -740,9 +740,9 @@
 		B8B6105B1959268B005268D5 /* LoginRegister */ = {
 			isa = PBXGroup;
 			children = (
+				B8C8F3911962551F009F8F6E /* bluechesseLogo.png */,
 				B8C8F388195F834B009F8F6E /* register_03.png */,
 				B8C8F389195F834B009F8F6E /* login_03.png */,
-				B8C8F38C195F8471009F8F6E /* bluechesseLogo.png */,
 				B8B6105C19592696005268D5 /* blackBG.JPG */,
 				B8B6105D19592696005268D5 /* lock.png */,
 				B8B6105E19592696005268D5 /* lock@2x.png */,
@@ -1075,7 +1075,7 @@
 			files = (
 				AC1E7766194F583100532F65 /* foodlist_a-z_sql_KW.txt in Resources */,
 				B8B6106519592696005268D5 /* user@2x.png in Resources */,
-				B8C8F38D195F8471009F8F6E /* bluechesseLogo.png in Resources */,
+				B8C8F3921962551F009F8F6E /* bluechesseLogo.png in Resources */,
 				B8C8F382195F7F9A009F8F6E /* ED_logout.png in Resources */,
 				B8B6106319592696005268D5 /* lock@2x.png in Resources */,
 				B8C8F385195F7F9A009F8F6E /* ED_search@2x.png in Resources */,
