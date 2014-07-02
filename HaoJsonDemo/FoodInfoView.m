@@ -16,7 +16,7 @@
 
 static NSString *CellIdentifier = @"Cell";
 
-const CGFloat ScrollViewContentSizeHeight = 1000.f;
+const CGFloat ScrollViewContentSizeHeight = 1100.f;
 const CGFloat kCommentCellHeight = 50.0f;
 const CGFloat kCommentCellMaxHeight = 100.f;
 
@@ -306,7 +306,7 @@ const  NSInteger NumCommentsPerLoad = 5;
     /*Resize scrollview so that it still can scroll*/
     
     [self.scrollview setFrame:self.bounds];
-    [self.scrollview setContentSize:CGSizeMake(width,ScrollViewContentSizeHeight)];
+    
     
     /*Resize views in scroll view*/
     
@@ -325,7 +325,9 @@ const  NSInteger NumCommentsPerLoad = 5;
     
     self.photoCollectionView.frame = CGRectMake(0, CGRectGetMaxY(self.tagview.frame) + GAP, width, PhotoCollectionViewHeight);
     
-    self.commentsTableView.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, width, height );
+    [self.scrollview setContentSize:CGSizeMake(width,CGRectGetMaxY(self.commentsTableView.frame)+10)];
+    
+    //self.commentsTableView.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, width, height );
     
     /*Change alpha values for 4 special views*/
     
@@ -370,6 +372,7 @@ const  NSInteger NumCommentsPerLoad = 5;
 
 /* Fist time display, set up comment table delegate*/
 -(void)configCommentTable{
+
     _commentsTableView.delegate = self;
     _commentsTableView.dataSource = self;
     [_commentsTableView reloadData];
@@ -412,7 +415,10 @@ const  NSInteger NumCommentsPerLoad = 5;
 
         [self.myFood fetchOldestCommentsSize:NumCommentsPerLoad andSkip:self.myFood.comments.count completion:^(NSError *err, BOOL success) {
             if (success) {
-
+                CGFloat height = self.myFood.comments.count*kCommentCellMaxHeight;
+                self.commentsTableView.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, CGRectGetWidth([[UIScreen mainScreen] bounds]), height);
+                [self.scrollview sizeToFit];
+                        self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width, self.scrollview.contentSize.height+height);
                 [self configCommentTable];
             }
             
