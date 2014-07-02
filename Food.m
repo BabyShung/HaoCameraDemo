@@ -63,11 +63,16 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
     self.foodInfoComplete = YES;
     self.loadingComments = NO;
     self.commentLoaded = NO;
+    _photoNames = [NSMutableArray array];
+    _tagNames = [NSMutableArray array];
+    _comments = [NSMutableArray array];
     
     self.fid = [[dict objectForKey:@"fid"] intValue];
     self.title = [dict objectForKey:@"title"];
     self.transTitle = [dict objectForKey:@"name"];
     self.food_description = [dict objectForKey:@"description"];
+    _webdata = [[NSMutableData alloc]init];
+    _async = [[AsyncRequest alloc]initWithDelegate:self];
     
     NSString *rawTagNams = [dict objectForKey:@"tags"];
     self.tagNames = [rawTagNams componentsSeparatedByString: @";"];
@@ -119,7 +124,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
     _loadingComments = YES;
     _commentCompletionBlock = block;
     
-    //NSLog(@"++++++++++++FOOD++++++++ : %d",self.fid);
+    NSLog(@"++++++++++++FOOD++++++++ : %d",self.fid);
     [self.async getReviews_fid:self.fid withLoadSize:size andSkip:skip];
 }
 

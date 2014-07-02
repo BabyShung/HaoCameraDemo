@@ -38,13 +38,18 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
     self = [super init];
     self.searchingFood = NO;
     self.lang = lang;
+    _webdata = [[NSMutableData alloc]init];
+    _async = [[AsyncRequest alloc]initWithDelegate:self];
     return self;
     
 }
 
 -(instancetype) initDictInDefaultLang{
     self = [super init];
+    self.searchingFood = NO;
     self.lang = [[ShareData shareData] defaultTargetLang];
+    _webdata = [[NSMutableData alloc]init];
+    _async = [[AsyncRequest alloc]initWithDelegate:self];
     return self;
 }
 
@@ -215,12 +220,10 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
     
     int status = [[returnJSONtoNSdict objectForKey:@"status"] intValue];
     
-    NSString *action = [returnJSONtoNSdict objectForKey:@"action"];
+    //NSString *action = [returnJSONtoNSdict objectForKey:@"action"];
     
     if(status){ //if we get food info back
         
-        
-        if([action isEqualToString:@"get_food"]){//food
             
 
             
@@ -248,8 +251,20 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
                 
             
             
-        }
+        
 
+    }else{  //failed
+        
+        
+       //food
+            dispatch_async(dispatch_get_main_queue(), ^{
+                _searchCompletionBlock(nil,NO);
+            });
+            
+
+        
+        
     }
+
 }
 @end

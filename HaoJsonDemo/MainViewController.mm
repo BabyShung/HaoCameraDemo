@@ -52,6 +52,7 @@ static NSString *CellIdentifier = @"Cell";
 
 @property (strong,nonatomic) NSMutableArray *foodArray;
 
+
 @property (strong,nonatomic) TransitionController *transitionController;
 
 
@@ -100,15 +101,15 @@ static NSString *CellIdentifier = @"Cell";
     self.navigationController.delegate = self.transitionController;
     
     //add in collectionView
-    _clearBtn = [LoadControls createCameraButton_Image:@"ED_cross.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(10, 10, 10, 10) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
-    [_clearBtn addTarget:self action:@selector(clearBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    _clearBtn.alpha = 1;
-    [self.collectionView addSubview:_clearBtn];
-    
-    _captureBtn = [LoadControls createCameraButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andCenter:CGPointMake(320-10-20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
-    [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    _captureBtn.alpha = 1;
-    [self.collectionView addSubview:_captureBtn];
+//    _clearBtn = [LoadControls createCameraButton_Image:@"ED_cross.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(10, 10, 10, 10) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
+//    [_clearBtn addTarget:self action:@selector(clearBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    _clearBtn.alpha = 1;
+//    [self.collectionView addSubview:_clearBtn];
+//    
+//    _captureBtn = [LoadControls createCameraButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andCenter:CGPointMake(320-10-20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
+//    [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    _captureBtn.alpha = 1;
+//    [self.collectionView addSubview:_captureBtn];
     
 }
 
@@ -195,16 +196,16 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 
--(void)addItem
-{
-    [self.collectionView performBatchUpdates:^{
-        //self.cellCount = self.cellCount + 1;
-        Food *food = [[Food alloc]initWithTitle:@"123" andTranslations:@"qwe"];
-        [self.foodArray addObject:food];
-        [self.collectionView insertItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
-        
-    } completion:nil];
-}
+//-(void)addItem
+//{
+//    [self.collectionView performBatchUpdates:^{
+//        //self.cellCount = self.cellCount + 1;
+//        Food *food = [[Food alloc]initWithTitle:@"123" andTranslations:@"qwe"];
+//        [self.foodArray addObject:food];
+//        [self.collectionView insertItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
+//        
+//    } completion:nil];
+//}
 
 -(void)addFoodItems:(NSArray *) newFoodItems
 {
@@ -260,12 +261,18 @@ static NSString *CellIdentifier = @"Cell";
 - (void) EdibleCamera:(MainViewController *)simpleCam didFinishWithImage:(UIImage *)image withRect:(CGRect)rect andCropSize:(CGSize)size{
     self.collectionView.hidden = NO;
     self.collectionView.alpha = 1;
-    NSArray *localFoods;
+
     Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
     //@"yeast bread with Worcestershire sauce and yogurt"
-    localFoods = [dict localSearchOCRString:@"blue cheese and carp"];
-    NSLog(@"Local Foods: %d",(int)localFoods.count);
-    [self addFoodItems:localFoods];
+    [dict serverSearchOCRString:@"blue cheese and carp" andCompletion:^(NSArray *results, BOOL success) {
+        NSLog(@"Local Foods: %d",(int)results.count);
+        [self addFoodItems:results];
+    }];
+//    NSArray *localFoods;
+//    localFoods = [dict localSearchOCRString:@"blue cheese and carp"];
+//    NSLog(@"Local Foods: %d",(int)localFoods.count);
+//    [self addFoodItems:localFoods];
+
     
     //also add two btns, one cross:clear cell, and one capture:
     

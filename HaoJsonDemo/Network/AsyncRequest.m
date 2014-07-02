@@ -51,7 +51,7 @@
 -(void)getReviews_fid:(NSUInteger)fid withLoadSize:(NSUInteger)size andSkip:(NSUInteger)skip{
     
     User *user = [User sharedInstance];
-    
+
     NSMutableString *paraString = [NSMutableString string];
     [paraString appendString:[NSString stringWithFormat:@"fid=%d&uid=%d&start=%ld&offset=%ld",(int)fid,(int)user.Uid,(long)skip,(long)size]];
     NSMutableString *reviewString =  [NSMutableString stringWithString:REVIEWURL];
@@ -59,6 +59,7 @@
     [reviewString appendString:paraString];
     
     [self performGETAsyncTaskwithURLString:[NSString stringWithString:reviewString]];
+    
 }
 
 -(void)getFoodInfo:(NSString*)foodname andLang:(TargetLang)lang {
@@ -218,6 +219,7 @@
  
  ************************/
 -(void)performGETAsyncTaskwithURLString:(NSString *)urlString{
+    NSLog(@"---AsyncRequst---: Perform %@",urlString);
     
     NSString *urlEncodeString =[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     

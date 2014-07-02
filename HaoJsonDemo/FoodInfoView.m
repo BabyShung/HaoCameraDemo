@@ -412,13 +412,14 @@ const  NSInteger NumCommentsPerLoad = 5;
 {
     //If NO comments has been fetched, request them
     if (!self.myFood.isCommentLoaded && !self.myFood.isLoadingComments) {
-
+        NSLog(@"+++FIV+++ : request comments");
         [self.myFood fetchOldestCommentsSize:NumCommentsPerLoad andSkip:self.myFood.comments.count completion:^(NSError *err, BOOL success) {
             if (success) {
+                NSLog(@"+++FIV+++ : I get comments!");
                 CGFloat height = self.myFood.comments.count*kCommentCellMaxHeight;
                 self.commentsTableView.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, CGRectGetWidth([[UIScreen mainScreen] bounds]), height);
                 [self.scrollview sizeToFit];
-                        self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width, self.scrollview.contentSize.height+height);
+                self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width, self.scrollview.contentSize.height+height);
                 [self configCommentTable];
             }
             
