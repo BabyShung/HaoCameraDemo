@@ -92,7 +92,7 @@
     Comment *review = [[Comment alloc]initWithCommentID:0 andFid:2 andRate:3 andComment:@"ggrd"];
 
 
-    [self.async doComment:review withAction:@"add"];//action: update, post
+    [self.async doComment:review rating:3 withAction:@"add"];//action: update, post
 
     
 }
@@ -106,7 +106,7 @@
     //comment
     Comment *review = [[Comment alloc]initWithCommentID:8 andFid:1 andRate:3 andComment:@"User Hao commented!!!!"];
     
-    [self.async doComment:review withAction:@"update"];//action: update, post
+    [self.async doComment:review rating:3 withAction:@"update"];//action: update, post
 }
 
 - (IBAction)like:(id)sender {
@@ -124,7 +124,11 @@
         NSLog(@"fetch food info block!");
     }];
     
-    [food fetchCommentsCompletion:^(NSError *err, BOOL success){
+
+    
+    
+    
+    [food fetchOldestCommentsSize:5 andSkip:0 completion:^(NSError *err, BOOL success){
         NSLog(@"%d",success);
         NSLog(@"fetch comment block!");
     }];

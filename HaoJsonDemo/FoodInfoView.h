@@ -33,16 +33,18 @@
 
 @property (strong, nonatomic) RQShineLabel *descriptionLabel;
 
-@property (strong,nonatomic) UIView *commentsViewContainer;
 @property (strong,nonatomic) UITableView *commentsTableView;
-@property (strong,nonatomic) NSMutableArray *comments;
 
-@property (nonatomic) BOOL canScrollDown;
+@property (strong,nonatomic) Food *myFood;
 
 
 - (id)initWithFrame:(CGRect)frame andVC:(UIViewController *)vc;
 
--(void)configureNetworkComponentsWithCellNo:(NSInteger)no;
+//-(void)configureNetworkComponentsWithCellNo:(NSInteger)no;
+
+-(void)configPhotoAndTagWithCellNo:(NSInteger)no;
+
+-(void)configCommentTable;
 
 -(void)setVC:(UIViewController *)vc;
 
@@ -50,7 +52,9 @@
 
 -(void)setUpForSmallLayout;
 
--(void)setFoodInfoWith:(Food *)food;
+//-(void)setFoodInfoWith:(Food *)food;
+
+-(void)prepareForDisplayInCell:(NSInteger)cellNo;
 
 -(void)shineDescription;
 

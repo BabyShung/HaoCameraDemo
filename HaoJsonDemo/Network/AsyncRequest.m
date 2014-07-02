@@ -43,12 +43,16 @@
     return self;
 }
 
--(void)getReviews_fid:(NSUInteger)fid {
+-(void)getReviews_fid:(NSUInteger)fid{
+    [self getReviews_fid:fid withLoadSize:5 andSkip:0];
+}
+
+-(void)getReviews_fid:(NSUInteger)fid withLoadSize:(NSUInteger)size andSkip:(NSUInteger)skip{
     
     User *user = [User sharedInstance];
     
     NSMutableString *paraString = [NSMutableString string];
-    [paraString appendString:[NSString stringWithFormat:@"fid=%d&uid=%d&start=0&offset=5",fid,user.Uid]];
+    [paraString appendString:[NSString stringWithFormat:@"fid=%d&uid=%d&start=%ld&offset=%ld",(int)fid,(int)user.Uid,(long)skip,(long)size]];
     NSMutableString *reviewString =  [NSMutableString stringWithString:REVIEWURL];
     
     [reviewString appendString:paraString];
@@ -81,31 +85,31 @@
  post review
  
  ******************/
--(void)doComment:(Comment *)comment withAction:(NSString*)action {
+-(void)doComment:(Comment *)comment rating:(NSUInteger)rate withAction:(NSString*)action {
     
     User *user = [User sharedInstance];
     
-    NSNumber *uidNumber = [NSNumber numberWithInt:user.Uid];
-    NSNumber *rateNumber = [NSNumber numberWithInt:comment.rate];
+    NSNumber *uidNumber = [NSNumber numberWithInteger:user.Uid];
+    NSNumber *rateNumber = [NSNumber numberWithInteger:rate];
     
     NSDictionary * dict;
     
     //doing a post action
     if([action isEqualToString:@"add"]){
         
-        NSNumber *fidNumber = [NSNumber numberWithInt:comment.fid];
+        NSNumber *fidNumber = [NSNumber numberWithInteger:comment.fid];
         //NSNumber *timeNumber = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]*1000.0];
         //NSLog(@"nsnumber %@",timeNumber);
         
-        dict = [NSDictionary dictionaryWithObjectsAndKeys:fidNumber, @"fid",comment.comment, @"comments", rateNumber, @"rate", uidNumber, @"uid",action,@"action", nil];
+        dict = [NSDictionary dictionaryWithObjectsAndKeys:fidNumber, @"fid",comment.text, @"comments", rateNumber, @"rate", uidNumber, @"uid",action,@"action", nil];
         
         
     }else{//doing an update action
         
-        NSNumber *cidNumber = [NSNumber numberWithInt:comment.cid];
+        NSNumber *cidNumber = [NSNumber numberWithInteger:comment.cid];
         
         
-        dict = [NSDictionary dictionaryWithObjectsAndKeys:cidNumber, @"rid",comment.comment, @"comments", rateNumber, @"rate", uidNumber, @"uid", action,@"action", nil];
+        dict = [NSDictionary dictionaryWithObjectsAndKeys:cidNumber, @"rid",comment.text, @"comments", rateNumber, @"rate", uidNumber, @"uid", action,@"action", nil];
         
     }
     
