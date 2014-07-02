@@ -11,6 +11,6 @@
 
 @interface SecondViewController : UICollectionViewController
 
-@property (strong,nonatomic) CameraView *camView;
+
 
 @end

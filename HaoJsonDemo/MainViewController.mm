@@ -15,7 +15,6 @@
 
 #import "SecondViewController.h"
 
-
 #import "opencv2/opencv.hpp"
 #import "UIImage+OpenCV.h"
 #import "ImagePreProcessor.h"
@@ -23,9 +22,11 @@
 #import "WordCorrector.h"
 #import "Dictionary.h"
 #import "Food.h"
-
+#import "ED_Color.h"
 #import "LoadControls.h"
 #import "AppDelegate.h"
+
+#import "LoadControls.h"
 
 static NSString *CellIdentifier = @"Cell";
 
@@ -34,7 +35,9 @@ static NSString *CellIdentifier = @"Cell";
     CGFloat ScreenWidth;
     CGFloat ScreenHeight;
 }
+@property (strong, nonatomic) UIButton * clearBtn;
 
+@property (strong, nonatomic) UIButton * captureBtn;
 
 @property (strong,nonatomic) Tesseract *tesseract;
 
@@ -49,10 +52,7 @@ static NSString *CellIdentifier = @"Cell";
 
 @property (strong,nonatomic) NSMutableArray *foodArray;
 
-@property (nonatomic, assign) NSInteger cellCount;
-
 @property (strong,nonatomic) TransitionController *transitionController;
-
 
 
 @end
@@ -62,7 +62,6 @@ static NSString *CellIdentifier = @"Cell";
 -(NSMutableArray *)foodArray{
     if (!_foodArray) {
         _foodArray = [[NSMutableArray alloc]init];
-        
     }
     return _foodArray;
 }
@@ -72,41 +71,77 @@ static NSString *CellIdentifier = @"Cell";
     ScreenWidth = CGRectGetWidth([[UIScreen mainScreen] bounds]);
     ScreenHeight = CGRectGetHeight([[UIScreen mainScreen] bounds]);
     
-    //number of cell
-    self.cellCount = 10;
-    
     //setup tesseract
     [self loadTesseract];
     
     //init controls
     [self loadControls];
-    
-
-    /*REQUIRED FOR DEBUGGING ANIMATION*/
-
-   self.collectionView.hidden = YES;
-    self.collectionView.backgroundColor = [UIColor clearColor];
-    
-    //registering dequueue cell
-    [self.collectionView registerClass:[EDCollectionCell class] forCellWithReuseIdentifier:CellIdentifier];
-    
-    
-    //self.debugV = [[debugView alloc] initWithFrame:CGRectMake(0, 0, 320, 200) andReferenceCV:self];
-    //[self.view insertSubview:self.debugV aboveSubview:self.collectionView];
-    
-    self.transitionController = [[TransitionController alloc] initWithCollectionView:self.collectionView];
-    self.transitionController.delegate = self;
-    self.navigationController.delegate = self.transitionController;
 
 }
 
 -(void)loadControls{
     self.camView = [[CameraView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) andOrientation:self.interfaceOrientation andAppliedVC:self];
     [self.view insertSubview:self.camView belowSubview:self.collectionView];
+    
+    /*REQUIRED FOR DEBUGGING ANIMATION*/
+    
+    self.collectionView.hidden = YES;
+    self.collectionView.backgroundColor = [UIColor clearColor];
+    
+    //registering dequueue cell
+    [self.collectionView registerClass:[EDCollectionCell class] forCellWithReuseIdentifier:CellIdentifier];
+    
+    //debug view
+    //self.debugV = [[debugView alloc] initWithFrame:CGRectMake(0, 0, 320, 200) andReferenceCV:self];
+    //[self.view insertSubview:self.debugV aboveSubview:self.collectionView];
+    
+    self.transitionController = [[TransitionController alloc] initWithCollectionView:self.collectionView];
+    self.transitionController.delegate = self;
+    self.navigationController.delegate = self.transitionController;
+    
+    //add in collectionView
+    _clearBtn = [LoadControls createCameraButton_Image:@"ED_cross.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(10, 10, 10, 10) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
+    [_clearBtn addTarget:self action:@selector(clearBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    _clearBtn.alpha = 1;
+    [self.collectionView addSubview:_clearBtn];
+    
+    _captureBtn = [LoadControls createCameraButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andCenter:CGPointMake(320-10-20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
+    [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    _captureBtn.alpha = 1;
+    [self.collectionView addSubview:_captureBtn];
+    
 }
 
+- (void) clearBtnPressed:(id)sender {
+    
+        [UICollectionView transitionWithView:self.collectionView
+                                    duration:0.5
+                                     options:UIViewAnimationOptionTransitionCrossDissolve
+                                  animations:^(){
+                                      self.collectionView.alpha = 0;
+                                  }
+                                  completion:^(BOOL finished){
+                                      
+                                      [self.foodArray removeAllObjects];
+                                      [self.collectionView reloadData];
+
+                                      
+                                      
+                                      NSLog(@"food array count: %d",self.foodArray.count);
+                                      self.collectionView.hidden = YES;
+                                  }];
+    
+}
+
+- (void) captureBtnPressed:(id)sender {
+    //[self.settingDelegate slideToPreviousPage];
+    NSLog(@"yoyoxx22");
+}
 
 - (void) viewDidAppear:(BOOL)animated {
+    
+    //scroll DEspeed normal
+    self.collectionView.decelerationRate = UIScrollViewDecelerationRateNormal;
     
     //set camView delegate to be DEBUG_VC
     [self.Maindelegate setCamDelegateFromMain:self];
@@ -123,7 +158,6 @@ static NSString *CellIdentifier = @"Cell";
     
 }
 
-
 /*******************************
  
  collection view delegate
@@ -137,20 +171,16 @@ static NSString *CellIdentifier = @"Cell";
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     EDCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-        cell.backgroundColor = [UIColor whiteColor];
-
+    
+    
     [cell configFIVForCell:indexPath.row withFood:self.foodArray[indexPath.row]];
-
+    
     return cell;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     SecondViewController *viewController = [[SecondViewController alloc] initWithCollectionViewLayout:[[largeLayout alloc] init]];
-    //used for pausing camera
-    viewController.camView = self.camView;
-    
-    
     viewController.useLayoutToLayoutNavigationTransitions = YES;
     [self.navigationController pushViewController:viewController animated:YES];
 }
@@ -168,7 +198,9 @@ static NSString *CellIdentifier = @"Cell";
 -(void)addItem
 {
     [self.collectionView performBatchUpdates:^{
-        self.cellCount = self.cellCount + 1;
+        //self.cellCount = self.cellCount + 1;
+        Food *food = [[Food alloc]initWithTitle:@"123" andTranslations:@"qwe"];
+        [self.foodArray addObject:food];
         [self.collectionView insertItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
         
     } completion:nil];
@@ -181,10 +213,15 @@ static NSString *CellIdentifier = @"Cell";
         
         NSInteger startIndex = self.foodArray.count;
         
+        NSLog(@"newFoodItems.count: %d",newFoodItems.count);
+        
+        NSLog(@"self.foodArray.count: %d",(int)self.foodArray.count);
+        
         NSMutableArray *newIndexPaths = [[NSMutableArray alloc]init];
         for (int i =0; i<newFoodItems.count; i++){
             [newIndexPaths addObject:[NSIndexPath indexPathForItem:(startIndex+i) inSection:0]];
         }
+        
         [self.collectionView performBatchUpdates:^{
             [self.foodArray addObjectsFromArray:newFoodItems];
             [self.collectionView insertItemsAtIndexPaths:newIndexPaths];
@@ -192,7 +229,6 @@ static NSString *CellIdentifier = @"Cell";
         } completion:nil];
     }
 }
-
 
 //transitionVC delegate
 - (void)interactionBeganAtPoint:(CGPoint)point
@@ -205,7 +241,6 @@ static NSString *CellIdentifier = @"Cell";
 
 -(void)loadTesseract{
     _tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];//langague package
-    _tesseract.delegate = self;
     [_tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz()&/" forKey:@"tessedit_char_whitelist"]; //limit search
 }
 
@@ -220,20 +255,19 @@ static NSString *CellIdentifier = @"Cell";
     return recognizedText;
 }
 
-- (BOOL)shouldCancelImageRecognitionForTesseract:(Tesseract*)tesseract {
-    return NO;  // return YES, if you need to interrupt tesseract before it finishes
-}
-
 #pragma mark CAMERA DELEGATE
 
 - (void) EdibleCamera:(MainViewController *)simpleCam didFinishWithImage:(UIImage *)image withRect:(CGRect)rect andCropSize:(CGSize)size{
     self.collectionView.hidden = NO;
+    self.collectionView.alpha = 1;
     NSArray *localFoods;
     Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
     //@"yeast bread with Worcestershire sauce and yogurt"
     localFoods = [dict localSearchOCRString:@"blue cheese and carp"];
     NSLog(@"Local Foods: %d",(int)localFoods.count);
     [self addFoodItems:localFoods];
+    
+    //also add two btns, one cross:clear cell, and one capture:
     
     if (image) {
         
@@ -243,11 +277,11 @@ static NSString *CellIdentifier = @"Cell";
         UIImage *originalImage = [UIImage imageWithCGImage:onScreenImage.CGImage];
         
         self.imgArray = [TextDetector detectTextRegions:originalImage];
-
+        
         if ([_imgArray count] > 0)
         {
             for(int i = 0; i<(self.imgArray.count-1);i++){
-
+                
                 _tempMat= [self.imgArray[i] CVMat];
                 
                 // Step 3. put Mat into pre processor- Charlie
@@ -258,20 +292,20 @@ static NSString *CellIdentifier = @"Cell";
             }
             
             NSString *result = @"";
-
+            
             for (int i = 0; i<_imgArray.count-1; i++) {
                 NSString *tmp = [self recognizeImageWithTesseract:[_imgArray objectAtIndex:i]];
                 result = [result stringByAppendingFormat:@"%d. %@\n",i, tmp];
                 //            NSLog(@"tmp %d: %@",i, tmp);
             }
-
+            
             
             onScreenImage = [_imgArray objectAtIndex:(_imgArray.count-1)];
             NSLog(@"<<<<<<<<<<1.5 RESULT: \n%@", result);
             
-                /*     Analyze OCR Results locally      */
-
-
+            /*     Analyze OCR Results locally      */
+            
+            
             
         }
         

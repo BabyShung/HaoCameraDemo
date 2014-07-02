@@ -22,7 +22,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        NSLog(@"CELL INIT");
         [self setup];
     }
     return self;
@@ -32,9 +31,7 @@
     self.foodInfoView = [[FoodInfoView alloc] initWithFrame:self.bounds];
     [self.foodInfoView setUpForSmallLayout];
     [self.contentView addSubview:self.foodInfoView];
-    
-    
-
+    self.backgroundColor = [UIColor whiteColor];
 }
 
 /**********MEI************/

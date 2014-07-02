@@ -9,8 +9,11 @@
 #import "SecondViewController.h"
 #import "TransitionLayout.h"
 #import "EDCollectionCell.h"
+#import "AppDelegate.h"
 
 @interface SecondViewController ()
+
+@property (strong,nonatomic) CameraView *camView;
 
 @end
 
@@ -21,11 +24,13 @@
 {
     [super viewDidLoad];
     
-    //NSLog(@"c number: %d",[self.collectionView numberOfItemsInSection:0]);
+    AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    self.camView = [appDlg getCamView];
     
     
 }
 -(void)viewWillAppear:(BOOL)animated{
+
     NSLog(@"second view will appear");
     for(EDCollectionCell *cell in self.collectionView.visibleCells){
         [cell setVCForFoodInfoView:self];
@@ -33,6 +38,10 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
+    
+    //scroll DE speed fast
+    self.collectionView.decelerationRate = UIScrollViewDecelerationRateFast;
+    
     if(self.camView){
         [self.camView pauseCamera];
     }
