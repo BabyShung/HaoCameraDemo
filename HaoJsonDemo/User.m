@@ -9,12 +9,15 @@
 #import "User.h"
 #import "AsyncRequest.h"
 #import "edi_md5.h"
-@implementation User
+@implementation User 
+
 
 static edibleBlock CompletionBlock;
 static NSMutableData *webdata;
 static NSString *password;
 static User *sharedInstance = nil;
+static AsyncRequest *async;
+
 
 + (User *)sharedInstance{   //directly get the instance
     return sharedInstance;
@@ -77,18 +80,32 @@ static User *sharedInstance = nil;
     //use md5 here
     edi_md5 *edimd5 = [[edi_md5 alloc]init];
     password = [edimd5 md5:pwd];
+    
     CompletionBlock = block;
-    AsyncRequest *async = [[AsyncRequest alloc] initWithDelegate:self];
-    [async login_withEmail:email andPwd:password];
+    async = [[AsyncRequest alloc] initWithDelegate:sharedInstance];
+    [async login_withEmail:email andPwd:pwd];
 }
 
 +(void)registerWithEmail:(NSString *) email andName:(NSString *)name andPwd:(NSString *)pwd andCompletion:(void (^)(NSError *err, BOOL success))block{
     //use md5 here
     edi_md5 *edimd5 = [[edi_md5 alloc]init];
     password = [edimd5 md5:pwd];
+    
     CompletionBlock = block;
-    AsyncRequest *async = [[AsyncRequest alloc] initWithDelegate:self];
-    [async signup_withEmail:email andName:name andPwd:password];
+    async = [[AsyncRequest alloc] initWithDelegate:sharedInstance];
+    [async signup_withEmail:email andName:name andPwd:pwd];
+}
+
++(NSDictionary*)toDictionary{
+    
+    if(!sharedInstance.Uid)
+        return nil;
+    
+    NSNumber *uidNumber = [NSNumber numberWithInt:sharedInstance.Uid];
+    NSNumber *typeNumber = [NSNumber numberWithInt:sharedInstance.type];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uidNumber, @"uid",sharedInstance.email, @"email",sharedInstance.name, @"name",sharedInstance.pwd,@"pwd",typeNumber,@"type",sharedInstance.selfie,@"selfie", nil];
+    
+    return dict;
 }
 
 

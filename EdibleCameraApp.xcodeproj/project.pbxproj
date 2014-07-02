@@ -97,6 +97,7 @@
 		B8B61147195A63DA005268D5 /* IQFeedbackView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B61142195A63DA005268D5 /* IQFeedbackView.m */; };
 		B8B61148195A63DA005268D5 /* DALinedTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B61144195A63DA005268D5 /* DALinedTextView.m */; };
 		B8B6114E195A6B90005268D5 /* BlurActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6114D195A6B90005268D5 /* BlurActionSheet.m */; };
+		B8BBAFD819630B24007CE548 /* LoadingAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BBAFD719630B24007CE548 /* LoadingAnimation.m */; };
 		B8C21B2B194F43EB0012B616 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C21B29194F43EB0012B616 /* AWSRuntime.framework */; };
 		B8C21B2C194F43EB0012B616 /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C21B2A194F43EB0012B616 /* AWSS3.framework */; };
 		B8C8F284195DEC85009F8F6E /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C8F283195DEC85009F8F6E /* Comment.m */; };
@@ -318,6 +319,8 @@
 		B8B61144195A63DA005268D5 /* DALinedTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DALinedTextView.m; sourceTree = "<group>"; };
 		B8B6114C195A6B90005268D5 /* BlurActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlurActionSheet.h; sourceTree = "<group>"; };
 		B8B6114D195A6B90005268D5 /* BlurActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlurActionSheet.m; sourceTree = "<group>"; };
+		B8BBAFD619630B24007CE548 /* LoadingAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingAnimation.h; sourceTree = "<group>"; };
+		B8BBAFD719630B24007CE548 /* LoadingAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingAnimation.m; sourceTree = "<group>"; };
 		B8C21B29194F43EB0012B616 /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSRuntime.framework; sourceTree = "<group>"; };
 		B8C21B2A194F43EB0012B616 /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSS3.framework; sourceTree = "<group>"; };
 		B8C8F282195DEC85009F8F6E /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comment.h; path = ../Comment.h; sourceTree = "<group>"; };
@@ -756,6 +759,8 @@
 			isa = PBXGroup;
 			children = (
 				B8B6106D195926C8005268D5 /* TransitionLR */,
+				B8BBAFD619630B24007CE548 /* LoadingAnimation.h */,
+				B8BBAFD719630B24007CE548 /* LoadingAnimation.m */,
 				B8C8F33A195F4F08009F8F6E /* FormValidator.h */,
 				B8C8F33B195F4F08009F8F6E /* FormValidator.m */,
 				B8B61067195926C0005268D5 /* LoginViewController.h */,
@@ -1167,6 +1172,7 @@
 				B8B6103B19592369005268D5 /* UIApplication+JTSImageViewController.m in Sources */,
 				B8C8F3901961E24F009F8F6E /* OtherUser.m in Sources */,
 				B8D09A791948BCCF006C070D /* User.m in Sources */,
+				B8BBAFD819630B24007CE548 /* LoadingAnimation.m in Sources */,
 				ACDD6D52195F4AE800AD51A7 /* Dictionary.m in Sources */,
 				B8B6105719592528005268D5 /* NetworkTestViewController.m in Sources */,
 				B8B60FE319591E2E005268D5 /* TagView.m in Sources */,

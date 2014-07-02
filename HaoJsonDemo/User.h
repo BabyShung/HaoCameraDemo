@@ -33,4 +33,6 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 
 +(void)registerWithEmail:(NSString *) email andName:(NSString *)name andPwd:(NSString *)pwd andCompletion:(void (^)(NSError *err, BOOL success))block;
 
++(NSDictionary*)toDictionary;
+
 @end

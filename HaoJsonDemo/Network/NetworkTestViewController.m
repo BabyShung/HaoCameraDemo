@@ -75,7 +75,7 @@
 
 
 - (IBAction)getFoodInfo:(id)sender {
-    [self.async getFoodInfo:@"blue cheese" andLanguage:@"CN"];
+    [self.async getFoodInfo:@"carp" andLanguage:@"CN"];
 }
 
 - (IBAction)getReview:(id)sender {
@@ -86,10 +86,10 @@
 - (IBAction)postReview:(id)sender {
     
     //user,late will move to login
-    [User sharedInstanceWithUid:1 andEmail:@"123@.com" andUname:@"Anonymity" andUpwd:@"123" andUtype:1 andUselfie:nil];
+    [User sharedInstanceWithUid:7 andEmail:@"123@.com" andUname:@"Anonymity" andUpwd:@"123" andUtype:1 andUselfie:nil];
 
     //comment
-    Comment *review = [[Comment alloc]initWithCommentID:0 andFid:1 andRate:3 andComment:@"User Hao commented!!!!"];
+    Comment *review = [[Comment alloc]initWithCommentID:0 andFid:2 andRate:3 andComment:@"ggrd"];
 
 
     [self.async doComment:review withAction:@"add"];//action: update, post
@@ -120,20 +120,14 @@
     food.fid = 1;//for fetch comment
     
     [food fetchAsyncInfoCompletion:^(NSError *err, BOOL success){
-    
         NSLog(@"%d",success);
         NSLog(@"fetch food info block!");
-        
     }];
-    
-    
-    
     
     [food fetchCommentsCompletion:^(NSError *err, BOOL success){
         NSLog(@"%d",success);
         NSLog(@"fetch comment block!");
     }];
-    
 }
 
 - (IBAction)login:(id)sender {
@@ -143,7 +137,7 @@
 
 - (IBAction)signup:(id)sender {
     
-    [self.async signup_withEmail:@"hao4@123.com" andName:@"hao" andPwd:@"1234"];
+    [self.async signup_withEmail:@"1@123.com" andName:@"hao" andPwd:@"123"];
 }
 
 - (IBAction)checkEmail:(id)sender {

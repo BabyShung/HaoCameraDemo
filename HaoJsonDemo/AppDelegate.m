@@ -10,16 +10,12 @@
 #import "SQLConnector.h"
 #import "ShareData.h"
 #import "DBOperation.h"
-#import "NavBarSetting.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
-    //set the theme of all navigation bar
-//    NavBarSetting *nbsetting = [[NavBarSetting alloc]init];
-//    [nbsetting setNavBarTheme];
+
     
     
     /*Init Sharedata SINGLETON (INIT ONLY ONCE)*/
