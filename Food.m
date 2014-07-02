@@ -39,8 +39,12 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 -(instancetype)initWithTitle:(NSString *)title andTranslations:(NSString *)translate
 {
     self = [super init];
+    
+    self.loadingFoodInfo = NO;
     self.foodInfoComplete = NO;
+    self.loadingComments = NO;
     self.commentLoaded = NO;
+    
     self.title = title;
     self.transTitle = translate;
     self.food_description = @"";
@@ -75,10 +79,19 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
     _loadingComments = YES;
     _commentCompletionBlock = block;
     
-    
-    [self.async getReviews_fid:self.fid];
+    //NSLog(@"++++++++++++FOOD++++++++ : %d",self.fid);
+   [self.async getReviews_fid:self.fid withLoadSize:5 andSkip:0];
     
 }
+
+-(void) fetchOldestCommentsSize:(NSUInteger)size andSkip:(NSUInteger)skip completion:(void (^)(NSError *err, BOOL success))block {
+    _loadingComments = YES;
+    _commentCompletionBlock = block;
+    
+    //NSLog(@"++++++++++++FOOD++++++++ : %d",self.fid);
+    [self.async getReviews_fid:self.fid withLoadSize:size andSkip:skip];
+}
+
 
 -(void) throwFoodExceptionCausedBy:(NSString *)reason{
     
@@ -102,7 +115,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 }
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
-    NSLog(@"&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&connection fails");
+
 
     //if error, put error to block
 //    if(_isFoodRequest){
@@ -158,7 +171,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
             }
             
             
-            NSLog(@"fid: %d",self.fid);
+            NSLog(@"fid: %d",(int)self.fid);
             for(NSString *str in self.tagNames){
                 NSLog(@"tag....: %@",str);
             }
@@ -180,7 +193,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
             
             //....
             NSArray *resultArr = [returnJSONtoNSdict objectForKey:@"result"];
-            
+            //NSLog(@"+++FOOD+++: I get %d comments for %@",(int)resultArr.count,self.title);
             for(int i = 0 ;i<resultArr.count;i++){
                 
                 NSDictionary *commentsObj = resultArr[i];

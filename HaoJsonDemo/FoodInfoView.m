@@ -12,11 +12,13 @@
 #import "JTSImageInfo.h"
 #import "UIImageView+M13AsynchronousImageView.h"
 #import "CommentCell.h"
+#import "Comment.h"
 
 static NSString *CellIdentifier = @"Cell";
 
-const CGFloat ScrollViewContentSizeHeight = 1100.f;
+const CGFloat ScrollViewContentSizeHeight = 1000.f;
 const CGFloat kCommentCellHeight = 50.0f;
+const CGFloat kCommentCellMaxHeight = 100.f;
 
 const CGFloat CLeftMargin = 15.0f;
 const CGFloat TitleTopMargin = 10.0f;
@@ -42,16 +44,12 @@ const CGFloat SmallTitleFontSize = 15.f;
 const CGFloat SmallTextFontSize = 10.f;
 
 const CGFloat ViewAlphaRecreaseRate = 450.f;
+const  NSInteger NumCommentsPerLoad = 5;
 
-
-@interface FoodInfoView () <UICollectionViewDataSource,UICollectionViewDelegate,TagViewDelegate,UITableViewDataSource, UITableViewDelegate>
+@interface FoodInfoView () <UICollectionViewDataSource,UICollectionViewDelegate,TagViewDelegate,UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate>
 
 /*current cv must be set up when view appear*/
 @property (strong,nonatomic) UIViewController *currentVC;
-
-@property (strong,nonatomic) NSMutableArray *imgNameArray;
-
-@property (strong,nonatomic) NSMutableArray *tagArray;
 
 @property (strong,nonatomic) NSString *loaderName;
 @end
@@ -65,8 +63,6 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     if (self) {
         
         self.currentVC = vc;
-        self.imgNameArray = [NSMutableArray array];
-        self.tagArray = [NSMutableArray array];
         //init all UI controls
         [self loadControls];
         
@@ -78,8 +74,8 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     self = [super initWithFrame:frame];
     if (self) {
         self.currentVC = nil;
-        self.imgNameArray = [NSMutableArray array];
-        self.tagArray = [NSMutableArray array];
+        
+        self.myFood = nil;
         //init all UI controls
         [self loadControls];
         
@@ -97,6 +93,7 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     CGFloat width = CGRectGetWidth(self.bounds);
     
     self.scrollview=[[UIScrollView alloc]initWithFrame:self.bounds];
+    self.scrollview.delegate = self;
     self.scrollview.showsVerticalScrollIndicator=YES;
     self.scrollview.scrollEnabled=YES;
     self.scrollview.userInteractionEnabled=YES;
@@ -165,35 +162,18 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     
     //add table view
     //----------------------------comment
-    _commentsViewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, width, height)];
     
-    _commentsTableView = [[UITableView alloc] initWithFrame:_commentsViewContainer.frame style:UITableViewStylePlain];
+    _commentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, width, height) style:UITableViewStylePlain];
     _commentsTableView.scrollEnabled = NO;
     
     _commentsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     _commentsTableView.separatorColor = [UIColor clearColor];
     
     //********* finally put in self.view ************
-    [_commentsViewContainer addSubview:_commentsTableView];
-    [self.scrollview addSubview:_commentsViewContainer];
+    [self.scrollview addSubview:_commentsTableView];
     
-    // Let's put in some fake data!
-    _comments = [@[@"Oh my god! Me too!", @"I happened to be one of the coolest guy to learn this shit!", @"More comments", @"Go Toronto Blue Jays!", @"I rather stay home", @"I don't get what you are saying", @"I don't have an iPhone"] mutableCopy];
 }
 
-/*!!!!! Fist time display !!!!!*/
--(void)configureNetworkComponentsWithCellNo:(NSInteger)no{
-    NSLog(@"test```");
-    self.loaderName = [NSString stringWithFormat:@"%d",(int)no];
-    self.photoCollectionView.delegate = self;
-    self.photoCollectionView.dataSource = self;
-    _commentsTableView.delegate = self;
-    _commentsTableView.dataSource = self;
-    [_commentsTableView reloadData];
-    
-    [_tagview addTags:self.tagArray];
-    self.descriptionLabel.textColor = [UIColor blackColor];
-}
 
 /**********************************
  
@@ -212,8 +192,8 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     [cell.imageView cancelLoadingAllImagesAndLoaderName:self.loaderName];
     
     
-    //Load the new image //externalFileURLs[indexPath.row]
-    [cell.imageView loadImageFromURLAtAmazonAsync:[NSURL URLWithString:self.imgNameArray[indexPath.row]] withLoaderName:self.loaderName completion:^(BOOL success, M13ImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
+    //Load the new image
+    [cell.imageView loadImageFromURLAtAmazonAsync:[NSURL URLWithString:self.myFood.photoNames[indexPath.row]] withLoaderName:self.loaderName completion:^(BOOL success, M13ImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
         //This is where you would refresh the cell if need be. If a cell of basic style, just call "setNeedsRelayout" on the cell.
         
         cell.activityView.hidden = YES;
@@ -249,7 +229,7 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.imgNameArray.count;
+    return self.myFood.photoNames.count;
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -270,20 +250,25 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_comments count];
+    return [self.myFood.comments count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *text = [_comments objectAtIndex:[indexPath row]];
+    Comment *comment = (Comment *)[self.myFood.comments objectAtIndex:[indexPath row]];
+    NSString *text = [NSString stringWithFormat:@"%@:\n%@",comment.byUser.Uname,comment.text];
     CGRect rect = [text boundingRectWithSize:(CGSize){225, MAXFLOAT}
                                      options:NSStringDrawingUsesLineFragmentOrigin
                                   attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16.f]}
                                      context:nil];
     CGSize requiredSize = rect.size;
+
     return kCommentCellHeight + requiredSize.height;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    Comment *comment = (Comment *)[self.myFood.comments objectAtIndex:[indexPath row]];
+    NSString *text = [NSString stringWithFormat:@"%@:\n%@",comment.byUser.Uname,comment.text];
     
     CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"Cell %d", (int)indexPath.row]];
     if (!cell) {
@@ -291,7 +276,7 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.commentLabel.frame = (CGRect) {.origin = cell.commentLabel.frame.origin, .size = {CGRectGetMinX(cell.likeButton.frame) - CGRectGetMaxY(cell.iconView.frame) - kCommentPaddingFromLeft - kCommentPaddingFromRight,[self tableView:tableView heightForRowAtIndexPath:indexPath] - kCommentCellHeight}};
-        cell.commentLabel.text = _comments[indexPath.row];
+        cell.commentLabel.text =text;
         cell.timeLabel.frame = (CGRect) {.origin = {CGRectGetMinX(cell.commentLabel.frame), CGRectGetMaxY(cell.commentLabel.frame)}};
         cell.timeLabel.text = @"1d ago";
         [cell.timeLabel sizeToFit];
@@ -301,6 +286,8 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
         cell.likeCountImageView.image = [UIImage imageNamed:@"like_greyIcon.png"];
         cell.likeCountLabel.frame = CGRectMake(CGRectGetMaxX(cell.likeCountImageView.frame) + 3, CGRectGetMinY(cell.timeLabel.frame), 0, CGRectGetHeight(cell.timeLabel.frame));
     }
+
+
     
     return cell;
 }
@@ -318,7 +305,6 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     
     /*Resize scrollview so that it still can scroll*/
     
-    //[self setFrame:rect];
     [self.scrollview setFrame:self.bounds];
     [self.scrollview setContentSize:CGSizeMake(width,ScrollViewContentSizeHeight)];
     
@@ -328,7 +314,6 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     self.shimmeringView.frame = CGRectMake(CLeftMargin, TitleTopMargin, width-CLeftMargin, ShimmmerViewHeight);
     self.titleLabel.frame = self.shimmeringView.bounds;
     [self.titleLabel setFont:[UIFont fontWithName:PlainTextFontName size:SmallTitleFontSize+(LargeTitleFontSize-SmallTitleFontSize)*sizeMultiplier]];
-    //NSLog(@"`````````Title lable width %f",self.titleLabel.bounds.size.width);
     
     self.separator.frame = CGRectMake(CLeftMargin, CGRectGetMaxY(self.titleLabel.frame) + BelowShimmmerGap, width-2*CLeftMargin, SeparatorViewHeight);
     
@@ -340,26 +325,23 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     
     self.photoCollectionView.frame = CGRectMake(0, CGRectGetMaxY(self.tagview.frame) + GAP, width, PhotoCollectionViewHeight);
     
-    self.commentsViewContainer.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, width, height );
-    self.commentsTableView.frame = self.commentsViewContainer.bounds;
+    self.commentsTableView.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, width, height );
     
     /*Change alpha values for 4 special views*/
     
     CGFloat newAlpha= (CGRectGetHeight(self.frame)-ViewAlphaRecreaseRate)/(CGRectGetHeight([[UIScreen mainScreen] bounds])-ViewAlphaRecreaseRate);
     self.descriptionLabel.alpha = newAlpha;
     self.tagview.alpha = newAlpha;
-    self.commentsViewContainer.alpha = newAlpha;
+    self.commentsTableView.alpha = newAlpha;
     self.photoCollectionView.alpha = newAlpha;
-
 }
-
 
 -(void)setUpForLargeLayout{
     self.userInteractionEnabled = YES;
     self.descriptionLabel.hidden = NO;
     self.tagview.hidden = NO;
     self.photoCollectionView.hidden = NO;
-    self.commentsViewContainer.hidden = NO;
+     self.commentsTableView.hidden = NO;
 }
 
 -(void)setUpForSmallLayout{
@@ -367,7 +349,7 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
     self.descriptionLabel.hidden = YES;
     self.tagview.hidden = YES;
     self.photoCollectionView.hidden = YES;
-    self.commentsViewContainer.hidden = YES;
+     self.commentsTableView.hidden = YES;
 }
 
 /*************** MEi **************/
@@ -376,26 +358,126 @@ const CGFloat ViewAlphaRecreaseRate = 450.f;
 /*                                */
 /*************** MEi **************/
 
--(void)setFoodInfoWith:(Food *)food{
-    self.titleLabel.text = food.title;
-    self.translateLabel.text = food.transTitle;
-    self.descriptionLabel.text = food.food_description;
-    [self.imgNameArray addObjectsFromArray:food.photoNames];
-    [self.tagArray addObjectsFromArray:food.tagNames];
-    
-    NSLog(@"FIV: I get %d photos, %d tags for %@",(int)self.imgNameArray.count,self.tagArray.count,food.title);
-    
+/* Fist time display, set up photoview delegate*/
+-(void)configPhotoAndTagWithCellNo:(NSInteger)no{
+    NSLog(@"test```");
+    self.loaderName = [NSString stringWithFormat:@"%d",(int)no];
+    self.photoCollectionView.delegate = self;
+    self.photoCollectionView.dataSource = self;
+    [_tagview addTags:self.myFood.tagNames];
+    self.descriptionLabel.textColor = [UIColor blackColor];
+}
+
+/* Fist time display, set up comment table delegate*/
+-(void)configCommentTable{
+    _commentsTableView.delegate = self;
+    _commentsTableView.dataSource = self;
+    [_commentsTableView reloadData];
+}
+
+-(void)setFoodInfo{
+    self.titleLabel.text = self.myFood.title;
+    self.translateLabel.text = self.myFood.transTitle;
+    self.descriptionLabel.text = self.myFood.food_description;
+}
+
+-(void)prepareForDisplayInCell:(NSInteger)cellNo{
+    if (self.myFood) {
+        //Assure title and translation are showed;
+        [self setFoodInfo];
+        
+        //If food info is not completed, request it
+        if (!self.myFood.isLoadingInfo && !self.myFood.foodInfoComplete) {
+            
+            [self.myFood fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
+                if (success) {
+                    [self setFoodInfo];
+                    [self configPhotoAndTagWithCellNo:cellNo];
+                    [self prepareComments];
+                }
+                
+            }];
+        }
+        else{//Food info is complete, config at once;
+            [self configPhotoAndTagWithCellNo:cellNo];
+            [self prepareComments];
+        }
+        
+    }
+}
+-(void)prepareComments
+{
+    //If NO comments has been fetched, request them
+    if (!self.myFood.isCommentLoaded && !self.myFood.isLoadingComments) {
+
+        [self.myFood fetchOldestCommentsSize:NumCommentsPerLoad andSkip:self.myFood.comments.count completion:^(NSError *err, BOOL success) {
+            if (success) {
+
+                [self configCommentTable];
+            }
+            
+        }];
+    }
 }
 
 -(void)shineDescription{
     if (self.descriptionLabel.text.length>0) {
         [self.descriptionLabel shine];
-        //[self.descriptionLabel fadeOut];
     }
 }
 
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+
+    if (scrollView.contentOffset.y + scrollView.frame.size.height >= scrollView.contentSize.height) {
+
+        //Request to server
+        //Load more comments
+        [self.myFood fetchOldestCommentsSize:NumCommentsPerLoad andSkip:self.myFood.comments.count completion:^(NSError *err, BOOL success) {
+            if(success){
+                [self updateCommentTableUI];
+                [self.commentsTableView reloadData];
+            }
+        }];
+        
+    
+    }
+}
+
+//remember to reload data
+-(void)updateCommentTableUI
+{
+    NSLog(@"+++FIV+++:update comment table");
+    NSInteger newCount = self.myFood.comments.count;
+    NSInteger oldCount = [self.commentsTableView numberOfRowsInSection:0];
+    
+    if (newCount>oldCount){
+        CGFloat deltaHeight = 0.f;
+
+        NSMutableArray *insertIndexPaths = [NSMutableArray arrayWithCapacity:newCount-oldCount];
+        
+        for (int ind = 0; ind < newCount-oldCount; ind++)
+        {
+            NSIndexPath *newPath =  [NSIndexPath indexPathForRow:oldCount+ind inSection:0];
+            [insertIndexPaths addObject:newPath];
+            Comment *comment = (Comment *)[self.myFood.comments objectAtIndex:oldCount+ind];
+            NSString *text = [NSString stringWithFormat:@"%@:\n%@",comment.byUser.Uname,comment.text];
+            CGRect rect = [text boundingRectWithSize:(CGSize){225, MAXFLOAT}
+                                             options:NSStringDrawingUsesLineFragmentOrigin
+                                          attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16.f]}
+                                             context:nil];
+            deltaHeight += (CGRectGetHeight(rect)+kCommentCellHeight);
+        }
+        
+        self.commentsTableView.frame =  CGRectMake(self.commentsTableView.frame.origin.x, self.commentsTableView.frame.origin.y, self.commentsTableView.frame.size.width, self.commentsTableView.frame.size.height + deltaHeight);
+        [self.scrollview sizeToFit];
+        self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width, self.scrollview.contentSize.height+deltaHeight);
+        
+        [self.commentsTableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationFade];
+    }
+    
+}
+
 -(void)cleanUpForReuse{
-    [self.imgNameArray removeAllObjects];
-    [self.tagArray removeAllObjects];
+    self.myFood = nil;
 }
 @end

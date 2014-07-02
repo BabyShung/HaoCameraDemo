@@ -13,9 +13,11 @@
 
 -(void)getFoodInfo:(NSString*)foodname andLanguage:(NSString *)language ;
 
--(void)getReviews_fid:(NSUInteger)fid ;
+-(void)getReviews_fid:(NSUInteger)fid;
 
--(void)doComment:(Comment *)comment withAction:(NSString*)action ;
+-(void)getReviews_fid:(NSUInteger)fid withLoadSize:(NSUInteger)size andSkip:(NSUInteger)skip;
+
+-(void)doComment:(Comment *)comment rating:(NSUInteger)rate withAction:(NSString*)action;
 
 -(void)likeOrDislike_rid:(int)rid andLike:(int)like ;
 

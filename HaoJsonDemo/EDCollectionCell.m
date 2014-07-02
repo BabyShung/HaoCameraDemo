@@ -31,7 +31,6 @@
 -(void)setup{
     self.foodInfoView = [[FoodInfoView alloc] initWithFrame:self.bounds];
     [self.foodInfoView setUpForSmallLayout];
-    //[self.foodInfoView configureNetworkComponentsWithCellNo:self.];
     [self.contentView addSubview:self.foodInfoView];
     
     
@@ -44,10 +43,11 @@
 /*                       */
 /**********MEI************/
 
--(void) setCellWithFood:(Food *)food{
-    self.foodTitle = food.title;
-    [self.foodInfoView setFoodInfoWith:food];
-
+-(void) configFIVForCell:(NSInteger)cellno withFood:(Food *) food{
+    if (!self.foodInfoView.myFood) {
+        self.foodInfoView.myFood = food;
+    }
+    [self.foodInfoView prepareForDisplayInCell:cellno];
 }
 
 -(void)setVCForFoodInfoView:(UIViewController *)vc
@@ -80,7 +80,6 @@
         [self.foodInfoView setUpForSmallLayout];
     }
     else{
-
         [self.foodInfoView setUpForLargeLayout];
     }
     

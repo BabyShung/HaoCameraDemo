@@ -10,7 +10,7 @@
 
 @implementation Comment
 
--(instancetype)initWithCommentID:(NSUInteger)cid andFid:(NSUInteger )fid andRate:(NSUInteger)rate andComment:(NSString *)comment{
+-(instancetype)initWithCommentID:(NSUInteger)cid andFid:(NSUInteger )fid andRate:(NSUInteger)rate andComment:(NSString *)text{
   
     if (self = [super init]) {
         
@@ -18,16 +18,14 @@
         
         self.fid = fid;
         
-        self.rate = rate;
-        
-        self.comment = comment;
+        self.text = text;
         
     }
     
     return self;
 }
 
--(instancetype)initWithCommentID:(NSUInteger)cid andFid:(NSUInteger)fid andRate:(NSUInteger)rate andLike:(NSUInteger)like andDisLike:(NSUInteger)dislike andComment:(NSString *)comment andByUser:(OtherUser *)byUser{
+-(instancetype)initWithCommentID:(NSUInteger)cid andFid:(NSUInteger)fid andRate:(NSUInteger)rate andLike:(NSUInteger)like andDisLike:(NSUInteger)dislike andComment:(NSString *)text andByUser:(OtherUser *)byUser{
     
     if (self = [super init]) {
         
@@ -35,13 +33,11 @@
         
         self.fid = fid;
         
-        self.rate = rate;
-        
         self.like = like;
         
         self.dislike = dislike;
         
-        self.comment = comment;
+        self.text = text;
         
         self.byUser = byUser;
         
@@ -54,7 +50,7 @@
 
 - (NSString *)description   //toString description
 {
-    NSString *desc  = [NSString stringWithFormat:@"comment: %@, rate: %d",self.comment,self.rate];
+    NSString *desc  = [NSString stringWithFormat:@"comment: %@",self.text];
     
     return desc;
     

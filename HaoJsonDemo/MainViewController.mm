@@ -139,59 +139,12 @@ static NSString *CellIdentifier = @"Cell";
     EDCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
         cell.backgroundColor = [UIColor whiteColor];
 
-//    [cell.foodInfoView configureNetworkComponentsWithCellNo:indexPath.row];
-
-    Food *food = self.foodArray[indexPath.row];
-    [cell setCellWithFood:food];
-    
-    if(!food.isFoodInfoCompleted && !food.isLoadingInfo){
-        NSLog(@"=======================Start to request food info");
-        [food fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
-            if (success) {
-                NSLog(@"return info successfully");
-                
-                [cell setCellWithFood:food];
-                [cell.foodInfoView configureNetworkComponentsWithCellNo:indexPath.row];
-            }
-            else{
-                /*Should allow uses to load again*/
-                NSLog(@"Loading food info fails when init cell");
-            }
-        }];
-    }
-    else{
-        //Food info is completed, config delegate for FoodInfoView at once
-        [cell.foodInfoView configureNetworkComponentsWithCellNo:indexPath.row];
-        
-    }
+    [cell configFIVForCell:indexPath.row withFood:self.foodArray[indexPath.row]];
 
     return cell;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-//    Food *food = self.foodArray[indexPath.row];
-//
-//    if(!food.isFoodInfoCompleted){
-//        EDCollectionCell *cell = (EDCollectionCell *)[collectionView cellForItemAtIndexPath:indexPath];
-//        [food fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
-//            if (success) {
-//                [cell setCellWithFood:food];
-//                [cell.foodInfoView configureNetworkComponentsWithCellNo:indexPath.row];
-//            }
-//            else{
-//                NSLog(@"Loading food info fails when selected");
-//            }
-//        }];
-//    }
-    
-    
-    
-    /***********TODO************/
-    /*                         */
-    /*Async request to comments*/
-    /*                         */
-    /***********TODO************/
 
     SecondViewController *viewController = [[SecondViewController alloc] initWithCollectionViewLayout:[[largeLayout alloc] init]];
     //used for pausing camera
@@ -211,7 +164,7 @@ static NSString *CellIdentifier = @"Cell";
     return transitionLayout;
 }
 
-/*----------- ------------*/
+
 -(void)addItem
 {
     [self.collectionView performBatchUpdates:^{
