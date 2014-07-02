@@ -23,7 +23,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 
 + (User *)sharedInstanceWithUid:(NSUInteger)uid andEmail:(NSString*)email andUname:(NSString*)uname andUpwd:(NSString*)upwd andUtype:(NSUInteger)utype andUselfie:(NSString*)uselfie;
 
-+(void)ClearUser;
++(void)ClearUserInfo;
 
 +(void)logout;
 
@@ -34,5 +34,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 +(void)registerWithEmail:(NSString *) email andName:(NSString *)name andPwd:(NSString *)pwd andCompletion:(void (^)(NSError *err, BOOL success))block;
 
 +(NSDictionary*)toDictionary;
+
++(User *)fromDictionaryToUser:(NSDictionary *)dict;
 
 @end

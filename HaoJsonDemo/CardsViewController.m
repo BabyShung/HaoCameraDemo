@@ -16,8 +16,10 @@
 #import "LoadControls.h"
 #import "MKTransitionCoordinator.h"
 #import "IQFeedbackView.h"
-
+#import "AppDelegate.h"
 #import "BlurActionSheet.h"
+#import "User.h"
+
 
 
 const NSString *collectionCellIdentity = @"Cell";
@@ -26,7 +28,7 @@ const CGFloat TopMargin = 25.0f;
 static NSArray *colors;
 
 @interface CardsViewController () <UICollectionViewDataSource,
-    UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
+UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *currentCellHeader;
 @property (weak, nonatomic) IBOutlet UILabel *policyLabel;
@@ -38,6 +40,7 @@ static NSArray *colors;
 @property (nonatomic, weak) IBOutlet UICollectionView *bottomCollectionView;
 
 @property (strong,nonatomic) NSArray *settings;
+@property (strong,nonatomic) NSArray *settingsImages;
 
 @property (strong,nonatomic) UILabel *titleLabel;
 @property (strong,nonatomic) FBShimmeringView *shimmeringView;
@@ -62,7 +65,11 @@ static NSArray *colors;
                [UIColor colorWithRed:(233/255.0) green:(0/255.0) blue:(11/255.0) alpha:1]];
     
     self.settings = [NSArray arrayWithObjects:@"Search",@"Feedback",@"About",@"Logout", nil];
-    
+    self.settingsImages = [NSArray arrayWithObjects:
+                           [UIImage imageNamed:@"ED_search.png"],
+                           [UIImage imageNamed:@"ED_feedback.png"],
+                           [UIImage imageNamed:@"ED_about.png"],
+                           [UIImage imageNamed:@"ED_logout.png"], nil];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -78,10 +85,27 @@ static NSArray *colors;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     
-    _previousPageBtn = [LoadControls createCameraButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20)];
-     [_previousPageBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self loadControls];
+    
+    User *user = [User sharedInstance];
+    
+    self.titleLabel.text = [NSString stringWithFormat: @"Hello, %@",user.name];
+    
+    
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.shimmeringView.shimmering = NO;
+    });
+}
+
+-(void)loadControls{
+    _previousPageBtn = [LoadControls createCameraButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
+    [_previousPageBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_previousPageBtn];
     
     
@@ -96,7 +120,7 @@ static NSArray *colors;
     self.bottomCollectionView.clipsToBounds = NO;
     
     //first show
-
+    
     
     CGRect titleRect = CGRectMake(LeftMargin, TopMargin, self.view.bounds.size.width, 30);
     self.shimmeringView = [[FBShimmeringView alloc] initWithFrame:titleRect];
@@ -107,7 +131,6 @@ static NSArray *colors;
     [self.view addSubview:self.shimmeringView];
     
     self.titleLabel = [[UILabel alloc] initWithFrame:_shimmeringView.bounds];
-    self.titleLabel.text = @"Hello, Hao";
     self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:22];
     self.titleLabel.textColor = [UIColor whiteColor];
     //self.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -116,34 +139,19 @@ static NSArray *colors;
     
     
     
-//    self.descriptionLabel = ({
-//        RQShineLabel *label = [[RQShineLabel alloc] initWithFrame:CGRectMake(LeftMargin+32, CGRectGetHeight(self.titleLabel.frame)+ 64, 100, 300)];
-//        label.numberOfLines = 0;
-//        label.text = @"Plan\n\n\n\nPolicy No.\n\n\n\nPhone No.\n\n\n\nWebsite";
-//        label.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:13.0];
-//        label.backgroundColor = [UIColor clearColor];
-//        [label sizeToFit];
-//        //label.center = self.view.center;
-//        label.textColor = [UIColor whiteColor];
-//        label;
-//    });
-//    [self.view addSubview:self.descriptionLabel];
-    
+    //    self.descriptionLabel = ({
+    //        RQShineLabel *label = [[RQShineLabel alloc] initWithFrame:CGRectMake(LeftMargin+32, CGRectGetHeight(self.titleLabel.frame)+ 64, 100, 300)];
+    //        label.numberOfLines = 0;
+    //        label.text = @"Plan\n\n\n\nPolicy No.\n\n\n\nPhone No.\n\n\n\nWebsite";
+    //        label.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:13.0];
+    //        label.backgroundColor = [UIColor clearColor];
+    //        [label sizeToFit];
+    //        //label.center = self.view.center;
+    //        label.textColor = [UIColor whiteColor];
+    //        label;
+    //    });
+    //    [self.view addSubview:self.descriptionLabel];
 }
-
--(void)viewDidAppear:(BOOL)animated{
-    
-
-    
-    //let shine label shine
-    //[self.descriptionLabel shine];
-    
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        self.shimmeringView.shimmering = NO;
-//    });
-}
-
-
 
 #pragma mark - UIScrollViewDelegate Methods
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -151,18 +159,10 @@ static NSArray *colors;
         NSIndexPath *centerCellIndex = [self.bottomCollectionView indexPathForItemAtPoint:CGPointMake(CGRectGetMidX(self.bottomCollectionView.bounds) , CGRectGetMidY(self.bottomCollectionView.bounds))];
         
         if(centerCellIndex.row != _assumedIndex){
-            _assumedIndex = centerCellIndex.row;
+            _assumedIndex = (int)centerCellIndex.row;
             
-            NSLog(@"did scroll to index: %d",centerCellIndex.row);
+            NSLog(@"did scroll to index: %d",(int)centerCellIndex.row);
         }
-        
-        
-//        Carrier *current = (Carrier*)[self.carriers objectAtIndex:centerCellIndex.row];
-//        self.currentCellHeader.text = [NSString stringWithFormat:@"%@", current.plan];
-//        self.policyLabel.text = current.policyNumber.count==0?@"":current.policyNumber[0];
-//        self.phoneLabel.text = current.phoneNumber;
-//        self.webLabel.text = current.website;
-        
     }
 }
 
@@ -174,21 +174,19 @@ static NSArray *colors;
 - (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
     
     return [self.settings count];
-
+    
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-        CardsCollectionCell *cell = (CardsCollectionCell *)[collectionView dequeueReusableCellWithReuseIdentifier:[collectionCellIdentity copy] forIndexPath:indexPath];
-        //cell.imageView = ((DECellData*)self.bottomCVDataSource[indexPath.item]).cellImageView;
+    CardsCollectionCell *cell = (CardsCollectionCell *)[collectionView dequeueReusableCellWithReuseIdentifier:[collectionCellIdentity copy] forIndexPath:indexPath];
+    cell.titleLabel.text = [self.settings objectAtIndex:indexPath.row];
+    cell.backgroundColor = colors[indexPath.row%self.settings.count];
+    cell.imageView.image = self.settingsImages[indexPath.row];
+    NSLog(@"<><><> %@",self.settingsImages[indexPath.row]);
+    NSLog(@"<><><> %@",cell.imageView.image);
+    return cell;
     
-        cell.titleLabel.text = [self.settings objectAtIndex:indexPath.row];
-        cell.backgroundColor = colors[indexPath.row%self.settings.count];
-    
-
-        
-        return cell;
-
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -229,7 +227,23 @@ static NSArray *colors;
          log out release things
          
          ************************/
-       
+        
+        //release camera resource
+        AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        
+        [appDlg closeCamera];
+        
+        //set user to nil
+        [User ClearUserInfo];
+        
+        //clear userdefault for second login
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentUser"]) {
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentUser"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        
+        [self transitionToLoginVC];
+        
         NSLog(@"click log out");
     }];
     
@@ -237,13 +251,22 @@ static NSArray *colors;
     
 }
 
-
--(void)viewWillDisappear:(BOOL)animated{
-    
-    [self clickAndScroll:nil];
+-(void)transitionToLoginVC{
+    UIWindow *windooo = [[[UIApplication sharedApplication] delegate] window];
+    UIViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"Start"];
+    [UIView transitionWithView:windooo
+                      duration:0.3
+                       options:UIViewAnimationOptionCurveEaseOut
+                    animations:^{
+                        self.view.alpha = 0;
+                    }
+                    completion:^(BOOL success){
+                        windooo.rootViewController = fvc;
+                    }];
 }
 
-- (IBAction)clickAndScroll:(id)sender {
+
+-(void)viewWillDisappear:(BOOL)animated{
     
     [self CardSlide:YES];
 }
@@ -251,7 +274,6 @@ static NSArray *colors;
 -(void)CardSlide:(BOOL)left{
     [self.bottomCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:(left?0:[self.settings count]-1) inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
 }
-
 
 #pragma mark - MKTransitionCoordinatorDelegate Methods
 - (UIViewController*) toViewControllerForInteractivePushFromPoint:(CGPoint)locationInWindow {

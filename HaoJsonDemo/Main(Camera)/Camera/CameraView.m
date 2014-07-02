@@ -13,6 +13,9 @@
 #define CROPFRAME_FRAME_WIDTH 220
 #define CROPFRAME_FRAME_HEIGHT 80
 
+#define CAPTURE_BTN_WIDTH 70
+#define CAPTURE_BTN_HEIGHT 70
+
 #define DEFAULT_MASK_ALPHA 0.50
 
 #import "CameraView.h"
@@ -73,9 +76,13 @@
         self.iot = iot;
         self.appliedVC = VC;
         [self setup];
+        
+        //NSLog(@"************ before app delegate **************");
         //save reference of camView so that when enter BG will close, etc
         AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        appDlg.CameraView = self;
+        
+        appDlg.cameraView = self;
+        
         
     }
     return self;
@@ -154,7 +161,7 @@
             _backBtn.center = CGPointMake(offsetFromSide + (_backBtn.bounds.size.width / 2), centerY);
             _TorchBtn.center = _backBtn.center;
             
-            _captureBtn.bounds = CGRectMake(0, 0, 80, 60);
+            _captureBtn.bounds = CGRectMake(0, 0, CAPTURE_BTN_WIDTH, CAPTURE_BTN_HEIGHT);
             _captureBtn.center = CGPointMake(screenWidth/2, centerY - 10);
             
             // offset from backBTN is '20'
@@ -312,41 +319,48 @@
 
 #pragma mark CLOSE
 
+//dismissVC
 - (void) closeWithCompletion:(void (^)(void))completion {
     
     //first dismiss VC..
     [self.appliedVC dismissViewControllerAnimated:YES completion:^{
         
-        completion();
-        
-        /******************
-         
-         Clean up
-         
-         ***************/
-        isImageResized = NO;
-        isSaveWaitingForResizedImage = NO;
-        isRotateWaitingForResizedImage = NO;
-        
-        [_camManager stopRunning];//key point
-        
-        
-        _capturedImageView.image = nil;
-        [_capturedImageView removeFromSuperview];
-        _capturedImageView = nil;
-        
-        [_StreamView removeFromSuperview];
-        _StreamView = nil;
-        
-        [_camManager clearResource];
-        
-        //self.view = nil;
-        
-        self.camDelegate = nil;
+        [self clearResourse:completion];
         
         [self.appliedVC removeFromParentViewController];
         
     }];
+}
+
+- (void) closeWithCompletionWithoutDismissing:(void (^)(void))completion {
+    [self clearResourse:completion];
+}
+
+-(void)clearResourse:(void (^)(void))completion{
+    
+    completion();
+    
+    /******************
+     
+     Clean up
+     
+     ***************/
+    isImageResized = NO;
+    isSaveWaitingForResizedImage = NO;
+    isRotateWaitingForResizedImage = NO;
+    
+    [_camManager stopRunning];//key point
+    
+    _capturedImageView.image = nil;
+    [_capturedImageView removeFromSuperview];
+    _capturedImageView = nil;
+    
+    [_StreamView removeFromSuperview];
+    _StreamView = nil;
+    
+    [_camManager clearResource];
+    
+    self.camDelegate = nil;
 }
 
 
@@ -451,19 +465,19 @@
     
     
     // -- LOAD BUTTONS BEGIN -- //
-    _backBtn = [LoadControls createCameraButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointZero];
+    _backBtn = [LoadControls createCameraButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointZero andSmallRadius:YES];
     [_backBtn addTarget:self action:@selector(backBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    _TorchBtn = [LoadControls createCameraButton_Image:@"Lightening.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(6, 9, 6, 9) andCenter:torchStart];
+    _TorchBtn = [LoadControls createCameraButton_Image:@"ED_torch.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(0, 0, 0, 0) andCenter:torchStart andSmallRadius:YES];
     [_TorchBtn addTarget:self action:@selector(torchBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    _saveBtn = [LoadControls createCameraButton_Image:@"Download.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 10.5, 7, 10.5) andCenter:CGPointZero];
+    _saveBtn = [LoadControls createCameraButton_Image:@"Download.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 10.5, 7, 10.5) andCenter:CGPointZero andSmallRadius:YES];
     [_saveBtn addTarget:self action:@selector(saveBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    _nextPageBtn = [LoadControls createCameraButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 13, 9, 10) andCenter:nextStart];
+    _nextPageBtn = [LoadControls createCameraButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 13, 9, 10) andCenter:nextStart andSmallRadius:YES];
     [_nextPageBtn addTarget:self action:@selector(nextPagePressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    _captureBtn = [LoadControls createCameraButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsZero andCenter:captureStart];
+    _captureBtn = [LoadControls createCameraButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsZero andCenter:captureStart andSmallRadius:NO];
     [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     [_captureBtn setTitleColor:[ED_Color darkGreyColor] forState:UIControlStateNormal];
     _captureBtn.titleLabel.font = [UIFont systemFontOfSize:12.5];

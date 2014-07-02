@@ -53,14 +53,14 @@
 
 - (void) startRunning{
     if(![_mySesh isRunning]){
-        NSLog(@"Start running **");
+        NSLog(@"***** Camera Manager Start running *****");
         [_mySesh startRunning];
     }
 }
 
 - (void) stopRunning{
     if([_mySesh isRunning]){
-        NSLog(@"Stop running **");
+        NSLog(@"***** Camera Manager Stop running *****");
         [_mySesh stopRunning];
     }
 }

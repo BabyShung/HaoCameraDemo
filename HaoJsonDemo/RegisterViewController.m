@@ -12,6 +12,7 @@
 #import "FrameViewController.h"
 #import "FormValidator.h"
 #import "LoadingAnimation.h"
+#import "ED_Color.h"
 
 @interface RegisterViewController () <UITextFieldDelegate>
 {
@@ -29,7 +30,7 @@
 {
     [super viewDidLoad];
    
-    [self checkAndStartLoadingAnimation];
+    //[self checkAndStartLoadingAnimation];
     
     [self.emailTextField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
     [self.userTextField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
@@ -97,6 +98,13 @@
         [User registerWithEmail:self.emailTextField.text andName:self.userTextField.text andPwd:self.pwdTextField.text andCompletion:^(NSError *err, BOOL success){
             
             if(success){//user info already set
+                
+                //User info already set
+                NSDictionary *dict = [User toDictionary];
+                //put info into nsuserdefault
+                [[NSUserDefaults standardUserDefaults] setObject:dict forKey:@"CurrentUser"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                
                 //transition
                 [self transitionToFrameVC];
             }else if(!err){
@@ -137,11 +145,13 @@
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
     
-    if(textField.center.y != signupBtnY){
-        if(!iPhone5){
+    if(!iPhone5){
+        
+
+        if(self.signupBtn.center.y == signupBtnY){
             [UIView animateWithDuration:0.4f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                signupBtnY -= 60;
-                self.signupBtn.center = CGPointMake(160, signupBtnY);
+                //signupBtnY -= 60;
+                self.signupBtn.center = CGPointMake(160, self.signupBtn.center.y-60);
                 
             } completion:nil];
         }
@@ -154,10 +164,12 @@
 
 -(void)goDownAnimation{
     if(!iPhone5){
-        [UIView animateWithDuration:0.4f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            signupBtnY += 60;
-            self.signupBtn.center = CGPointMake(160, signupBtnY);
-        } completion:nil];
+        if(self.signupBtn.center.y == signupBtnY - 60){
+            [UIView animateWithDuration:0.4f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                //signupBtnY += 60;
+                self.signupBtn.center = CGPointMake(160, self.signupBtn.center.y+60);
+            } completion:nil];
+        }
     }
     [self.view endEditing:YES];
 }
@@ -165,9 +177,9 @@
 -(void)checkAndStartLoadingAnimation{
     //start animation
     if(!self.loadingImage){
-        self.loadingImage = [[LoadingAnimation alloc] initWithStyle:RTSpinKitViewStyleWave color:[UIColor colorWithRed:69/255.0 green:164/255.0 blue:84/255.0 alpha:1]];
+        self.loadingImage = [[LoadingAnimation alloc] initWithStyle:RTSpinKitViewStyleWave color:[ED_Color edibleGreenColor]];
         CGRect screenBounds = [[UIScreen mainScreen] bounds];
-        self.loadingImage.center = CGPointMake(CGRectGetMidX(screenBounds), iPhone5? screenBounds.size.height*0.4:screenBounds.size.height*0.5);
+        self.loadingImage.center = CGPointMake(CGRectGetMidX(screenBounds), iPhone5? screenBounds.size.height*0.4:screenBounds.size.height*0.6);
         [self.view addSubview:self.loadingImage];
     }
     [self.loadingImage startAnimating];

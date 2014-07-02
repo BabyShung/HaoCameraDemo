@@ -60,13 +60,18 @@ static AsyncRequest *async;
 
 - (NSString *)description   //toString description
 {
-	NSString *desc  = [NSString stringWithFormat:@"Uid: %d, Uname: %@, Utype: %lu, Uselfie: %@", self.Uid, self.name, (unsigned long)self.type, self.selfie?@"Yes":@"Nil"];
-	
+	NSString *desc  = [NSString stringWithFormat:@"\n Uid: %d,\n Uname: %@,\n Email: %@,\n Utype: %d,\n Uselfie: %@,\n pwd: %@\n", (int)self.Uid, self.name,self.email, (int)self.type, self.selfie?@"Yes":@"Nil",self.pwd];
 	return desc;
 }
 
-+(void)ClearUser{
-    sharedInstance = nil;
++(void)ClearUserInfo{
+    NSLog(@"----- User info clear----");
+    sharedInstance.Uid = 0;
+    sharedInstance.email = nil;
+    sharedInstance.name =nil;
+    sharedInstance.pwd = nil;
+    sharedInstance.type = 0;
+    sharedInstance.selfie = nil;
 }
 
 +(void)loginWithCompletion:(void (^)(NSError *err, BOOL success))block{
@@ -82,6 +87,8 @@ static AsyncRequest *async;
     password = [edimd5 md5:pwd];
     
     CompletionBlock = block;
+    if(!sharedInstance)
+        [self sharedInstanceWithUid:0 andEmail:email andUname:nil andUpwd:password andUtype:0 andUselfie:nil];
     async = [[AsyncRequest alloc] initWithDelegate:sharedInstance];
     [async login_withEmail:email andPwd:pwd];
 }
@@ -92,6 +99,8 @@ static AsyncRequest *async;
     password = [edimd5 md5:pwd];
     
     CompletionBlock = block;
+    if(!sharedInstance)
+        [self sharedInstanceWithUid:0 andEmail:email andUname:nil andUpwd:password andUtype:0 andUselfie:nil];
     async = [[AsyncRequest alloc] initWithDelegate:sharedInstance];
     [async signup_withEmail:email andName:name andPwd:pwd];
 }
@@ -101,13 +110,24 @@ static AsyncRequest *async;
     if(!sharedInstance.Uid)
         return nil;
     
-    NSNumber *uidNumber = [NSNumber numberWithInt:sharedInstance.Uid];
-    NSNumber *typeNumber = [NSNumber numberWithInt:sharedInstance.type];
+    NSNumber *uidNumber = [NSNumber numberWithInt:(int)sharedInstance.Uid];
+    NSNumber *typeNumber = [NSNumber numberWithInt:(int)sharedInstance.type];
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uidNumber, @"uid",sharedInstance.email, @"email",sharedInstance.name, @"name",sharedInstance.pwd,@"pwd",typeNumber,@"type",sharedInstance.selfie,@"selfie", nil];
     
     return dict;
 }
 
++(User *)fromDictionaryToUser:(NSDictionary *)dict{
+    
+    NSUInteger uid = [[dict objectForKey:@"uid"] intValue];
+    NSString *email = [dict objectForKey:@"email"];
+    NSString *name = [dict objectForKey:@"name"];
+    NSString *pwd = [dict objectForKey:@"pwd"];
+    NSUInteger type = [[dict objectForKey:@"type"] intValue];
+    NSString *selfie = [dict objectForKey:@"selfie"];
+    
+    return [self sharedInstanceWithUid:uid andEmail:email andUname:name andUpwd:pwd andUtype:type andUselfie:selfie];
+}
 
 /****************************************
  

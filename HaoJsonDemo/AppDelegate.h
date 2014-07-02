@@ -17,7 +17,8 @@
 @property (strong, nonatomic) CameraView *cameraView;
 
 
-
 -(CameraView *)getCamView;
+-(void)closeCamera;
+
 
 @end

@@ -14,6 +14,8 @@
 #import "User.h"
 #import "FormValidator.h"
 #import "LoadingAnimation.h"
+#import "ED_Color.h"
+#import "UIResponder+KeyboardCache.h"
 
 @interface LoginViewController () <MKTransitionCoordinatorDelegate,UITextFieldDelegate>
 
@@ -30,23 +32,26 @@
 {
     [super viewDidLoad];
     
-    [self checkAndStartLoadingAnimation];
+    //cache keyboard
+    [UIResponder cacheKeyboard];
     
-    //[User sharedInstanceWithUid:1 andEmail:@"123@.com" andUname:@"Anonymity" andUpwd:@"123" andUtype:1 andUselfie:nil];
-    //NSDictionary *dict = [User toDictionary];
-    
-    
+    //[self checkAndStartLoadingAnimation];
+
     //[[NSUserDefaults standardUserDefaults] setObject:dict forKey:@"CurrentUser"];
     //[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentUser"];
     //[[NSUserDefaults standardUserDefaults] synchronize];
     
     
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentUser"]) {
-        NSDictionary *dict2 = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentUser"];
-        NSLog(@"uid: %d",[[dict2 objectForKey:@"uid"] intValue]);
-        NSLog(@"email: %@",[dict2 objectForKey:@"email"]);
-        NSLog(@"name: %@",[dict2 objectForKey:@"name"]);
-        [self transitionToFrameVC];
+        NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentUser"];
+        //from dictionary to User instance
+        [User fromDictionaryToUser:dict];
+        
+        [self transitionToFrameVC_duration:0];
+        
+        NSLog(@"******************  Second Login: %@",[User sharedInstance]);
+        
+        
     }else{
         self.menuInteractor = [[MKTransitionCoordinator alloc] initWithParentViewController:self];
         self.menuInteractor.delegate = self;
@@ -65,10 +70,12 @@
         self.emailTextField.delegate = self;
         self.pwdTextField.delegate = self;
         
+        
         UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(MySingleTap:)];
         [self.view addGestureRecognizer:singleTap];
     }
 }
+
 
 #pragma mark - MKTransitionCoordinatorDelegate Methods
 - (UIViewController*) toViewControllerForInteractivePushFromPoint:(CGPoint)locationInWindow {
@@ -91,11 +98,11 @@
     [self validateAllInputs];
 }
 
--(void)transitionToFrameVC{
+-(void)transitionToFrameVC_duration:(CGFloat) duration{
     UIWindow *windooo = [[[UIApplication sharedApplication] delegate] window];
     FrameViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"Frame"];
     [UIView transitionWithView:windooo
-                      duration:0.5
+                      duration:duration
                        options:UIViewAnimationOptionCurveEaseOut
                     animations:^{
                         self.view.alpha = 0;
@@ -104,7 +111,6 @@
                         windooo.rootViewController = fvc;
                     }];
 }
-
 
 -(void)validateAllInputs{
     //trim
@@ -115,16 +121,24 @@
     
     if([validate isValid]){    //success
         
-        //[self goDownAnimation];
-        
         [self.view endEditing:YES];
         [self checkAndStartLoadingAnimation];
         
         //user login
         [User loginWithEmail:trimmedEmail andPwd:self.pwdTextField.text andCompletion:^(NSError *err, BOOL success){
             if(success){//user info already set
+                
+                //User info already set
+                NSDictionary *dict = [User toDictionary];
+                //put info into nsuserdefault
+                [[NSUserDefaults standardUserDefaults] setObject:dict forKey:@"CurrentUser"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                NSLog(@"%@",[User sharedInstance]);
+                
+                
                 //transition
-               // [self transitionToFrameVC];
+                [self transitionToFrameVC_duration:0.5];
             }else if(!err){
                 
                 [self.loadingImage stopAnimating];
@@ -187,7 +201,7 @@
 -(void)checkAndStartLoadingAnimation{
     //start animation
     if(!self.loadingImage){
-        self.loadingImage = [[LoadingAnimation alloc] initWithStyle:RTSpinKitViewStyleWave color:[UIColor colorWithRed:0.161 green:0.502 blue:0.725 alpha:1.0]];
+        self.loadingImage = [[LoadingAnimation alloc] initWithStyle:RTSpinKitViewStyleWave color:[ED_Color edibleBlueColor_DeepDark]];
         CGRect screenBounds = [[UIScreen mainScreen] bounds];
         self.loadingImage.center = CGPointMake(CGRectGetMidX(screenBounds), iPhone5? screenBounds.size.height*0.7:screenBounds.size.height*0.82);
         [self.view addSubview:self.loadingImage];

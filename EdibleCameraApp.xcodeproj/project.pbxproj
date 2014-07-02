@@ -98,6 +98,7 @@
 		B8B61148195A63DA005268D5 /* DALinedTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B61144195A63DA005268D5 /* DALinedTextView.m */; };
 		B8B6114E195A6B90005268D5 /* BlurActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6114D195A6B90005268D5 /* BlurActionSheet.m */; };
 		B8BBAFD819630B24007CE548 /* LoadingAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BBAFD719630B24007CE548 /* LoadingAnimation.m */; };
+		B8BBB01D19645C70007CE548 /* UIResponder+KeyboardCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BBB01C19645C70007CE548 /* UIResponder+KeyboardCache.m */; };
 		B8C21B2B194F43EB0012B616 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C21B29194F43EB0012B616 /* AWSRuntime.framework */; };
 		B8C21B2C194F43EB0012B616 /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C21B2A194F43EB0012B616 /* AWSS3.framework */; };
 		B8C8F284195DEC85009F8F6E /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C8F283195DEC85009F8F6E /* Comment.m */; };
@@ -321,6 +322,8 @@
 		B8B6114D195A6B90005268D5 /* BlurActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlurActionSheet.m; sourceTree = "<group>"; };
 		B8BBAFD619630B24007CE548 /* LoadingAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingAnimation.h; sourceTree = "<group>"; };
 		B8BBAFD719630B24007CE548 /* LoadingAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingAnimation.m; sourceTree = "<group>"; };
+		B8BBB01B19645C70007CE548 /* UIResponder+KeyboardCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIResponder+KeyboardCache.h"; sourceTree = "<group>"; };
+		B8BBB01C19645C70007CE548 /* UIResponder+KeyboardCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+KeyboardCache.m"; sourceTree = "<group>"; };
 		B8C21B29194F43EB0012B616 /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSRuntime.framework; sourceTree = "<group>"; };
 		B8C21B2A194F43EB0012B616 /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSS3.framework; sourceTree = "<group>"; };
 		B8C8F282195DEC85009F8F6E /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comment.h; path = ../Comment.h; sourceTree = "<group>"; };
@@ -758,6 +761,8 @@
 		B8B61066195926B7005268D5 /* LoginRegister */ = {
 			isa = PBXGroup;
 			children = (
+				B8BBB01B19645C70007CE548 /* UIResponder+KeyboardCache.h */,
+				B8BBB01C19645C70007CE548 /* UIResponder+KeyboardCache.m */,
 				B8B6106D195926C8005268D5 /* TransitionLR */,
 				B8BBAFD619630B24007CE548 /* LoadingAnimation.h */,
 				B8BBAFD719630B24007CE548 /* LoadingAnimation.m */,
@@ -1179,6 +1184,7 @@
 				B8B6104719592493005268D5 /* ImageCropView.m in Sources */,
 				AC749201195A2D4300D3CBBA /* TransitionLayout.m in Sources */,
 				B8B61088195927C4005268D5 /* SearchViewController.m in Sources */,
+				B8BBB01D19645C70007CE548 /* UIResponder+KeyboardCache.m in Sources */,
 				3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */,
 				3A5654BC1936838C0085CC87 /* TextDetector.mm in Sources */,
 				B8B6114E195A6B90005268D5 /* BlurActionSheet.m in Sources */,

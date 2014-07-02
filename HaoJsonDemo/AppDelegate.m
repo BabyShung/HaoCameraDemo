@@ -106,4 +106,10 @@
     return self.cameraView;
 }
 
+-(void)closeCamera{
+    [self.cameraView closeWithCompletionWithoutDismissing:^(){
+        NSLog(@"In app delegate: camera closed");
+    }];
+}
+
 @end

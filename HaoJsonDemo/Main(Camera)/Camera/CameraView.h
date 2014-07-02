@@ -73,6 +73,8 @@
 // Use this to close Cam - Otherwise, the captureSession may not close properly and may result in memory leaks.
 - (void) closeWithCompletion:(void (^)(void))completion;
 
+- (void) closeWithCompletionWithoutDismissing:(void (^)(void))completion ;
+
 //Use this method for programmatically acquire a photo
 - (void) capturePhoto;
 

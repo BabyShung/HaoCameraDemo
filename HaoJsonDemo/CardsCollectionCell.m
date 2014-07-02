@@ -26,6 +26,16 @@
         [self.contentView addSubview:self.titleLabel];
         
         
+        
+        _imageView = [LoadControls createImageViewWithRect:CGRectMake(0, 0, 35, 35)];
+        
+        
+        _imageView.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2 + 10);
+
+        _imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        [self.contentView addSubview:_imageView];
+        
+        
         self.layer.cornerRadius = 8;
 
         
@@ -33,15 +43,6 @@
     return self;
 }
 
--(void)setImageView:(UIImageView *)imageView {
-    _imageView = imageView;
-    _imageView.frame = self.bounds;
-    _imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    _imageView.layer.cornerRadius = 10.f;
-    _imageView.clipsToBounds = YES;
-    [self addSubview:_imageView];
-    
-}
 
 
 @end
