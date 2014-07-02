@@ -30,8 +30,6 @@
     return result;
 }
 
-
-
 +(UIImageView *)createImageViewWithRect:(CGRect)rect{
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:rect];
     imageView.backgroundColor = [UIColor clearColor];
@@ -80,8 +78,6 @@
         button.center = center;
     }
 
-
-    
     button.layer.shouldRasterize = YES;
     button.layer.rasterizationScale = [UIScreen mainScreen].scale;
     button.layer.cornerRadius = radius?smallBTNRadius:largeBTNRadius;

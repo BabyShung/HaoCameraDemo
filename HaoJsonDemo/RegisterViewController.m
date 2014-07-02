@@ -13,6 +13,7 @@
 #import "FormValidator.h"
 #import "LoadingAnimation.h"
 #import "ED_Color.h"
+#import "UIAlertView+Blocks.h"
 
 @interface RegisterViewController () <UITextFieldDelegate>
 {
@@ -90,6 +91,7 @@
     
     if([validate isValid]){    //success
         
+        self.signupBtn.enabled = NO;
         [self.view endEditing:YES];
         
         [self checkAndStartLoadingAnimation];
@@ -107,23 +109,32 @@
                 
                 //transition
                 [self transitionToFrameVC];
-            }else if(!err){
+            }else{
                 
+                //email already register
+                self.signupBtn.enabled = YES;
                 [self.loadingImage stopAnimating];
-                [self showErrorMsg:@"Email or password not correct."];
+                [self showErrorMsg:[err localizedDescription] withTextField:self.emailTextField];
             }
         }];
         
     }else{  //failure
-        NSLog(@"Error Messages From Clinet Side: %@",[validate errorMsg]);
         NSString *errorString = [[validate errorMsg] componentsJoinedByString: @"\n"];
-        [self showErrorMsg:errorString];
+        [self showErrorMsg:errorString withTextField:nil];
     }
 }
 
--(void)showErrorMsg:(NSString *)msg{
+-(void)showErrorMsg:(NSString *)msg withTextField:(UITextField *)textfield{
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops.." message:msg delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
-    [alert show];
+    [alert showWithHandler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        
+        if (buttonIndex == [alertView cancelButtonIndex]) {
+            if(textfield){
+                textfield.text = @"";
+                [textfield becomeFirstResponder];
+            }
+        }
+    }];
 }
 
 /********************************************

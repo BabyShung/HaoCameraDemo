@@ -16,6 +16,7 @@
 #import "LoadingAnimation.h"
 #import "ED_Color.h"
 #import "UIResponder+KeyboardCache.h"
+#import "UIAlertView+Blocks.h"
 
 @interface LoginViewController () <MKTransitionCoordinatorDelegate,UITextFieldDelegate>
 
@@ -121,6 +122,7 @@
     
     if([validate isValid]){    //success
         
+        self.loginBtn.enabled = NO;
         [self.view endEditing:YES];
         [self checkAndStartLoadingAnimation];
         
@@ -139,23 +141,32 @@
                 
                 //transition
                 [self transitionToFrameVC_duration:0.5];
-            }else if(!err){
+            }else{
                 
+                self.loginBtn.enabled = YES;
                 [self.loadingImage stopAnimating];
-                [self showErrorMsg:@"Email or password not correct."];
+                [self showErrorMsg:[err localizedDescription] withTextField:self.emailTextField];
             }
         }];
         
-    }else{  //failure
+    }else{  //validator failure
         NSString *errorString = [[validate errorMsg] componentsJoinedByString: @"\n"];
-        [self showErrorMsg:errorString];
+        [self showErrorMsg:errorString withTextField:nil];
     }
 }
 
 
--(void)showErrorMsg:(NSString *)msg{
+-(void)showErrorMsg:(NSString *)msg withTextField:(UITextField *)textfield{
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops.." message:msg delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
-    [alert show];
+    [alert showWithHandler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        
+        if (buttonIndex == [alertView cancelButtonIndex]) {
+            if(textfield){
+                textfield.text = @"";
+                [textfield becomeFirstResponder];
+            }
+        }
+    }];
 }
 
 /********************************************

@@ -9,7 +9,7 @@
 #import "User.h"
 #import "AsyncRequest.h"
 #import "edi_md5.h"
-@implementation User 
+@implementation User
 
 
 static edibleBlock CompletionBlock;
@@ -163,42 +163,52 @@ static AsyncRequest *async;
     NSDictionary *returnJSONtoNSdict = [NSJSONSerialization JSONObjectWithData:webdata options:0 error:nil];
     
     int status = [[returnJSONtoNSdict objectForKey:@"status"] intValue];
+    //NSString *log = [returnJSONtoNSdict objectForKey:@"log"];
     
-    //NSString *action = [returnJSONtoNSdict objectForKey:@"action"];
+    NSString *action = [returnJSONtoNSdict objectForKey:@"action"];
     
     if(status){ //if we get food info back
         
-        //if([action isEqualToString:@"login"]){//login
-            NSDictionary *info = [returnJSONtoNSdict objectForKey:@"result"];
-            
-            NSUInteger uid = [[info objectForKey:@"uid"] intValue];
-            NSString *uselfie = [info objectForKey:@"selfie"];
-            NSString *uemail = [info objectForKey:@"email"];
-            NSString *uname = [info objectForKey:@"name"];
-            NSUInteger utype = [[info objectForKey:@"privilege"] intValue];
-            
-            [User sharedInstanceWithUid:uid andEmail:uemail andUname:uname andUpwd:password andUtype:utype andUselfie:uselfie];
-            
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                CompletionBlock(nil,YES);
-            });
-        //}else  if([action isEqualToString:@"register"]){
-            
-            
-       // }
-        
-        
+        if([action isEqualToString:@"login"]){//login
+            [self configureUser:returnJSONtoNSdict];
+        }else  if([action isEqualToString:@"register"]){
+            [self configureUser:returnJSONtoNSdict];
+        }
     }else{
-        
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            CompletionBlock(nil,NO);
-        });
+        if([action isEqualToString:@"login"]){//login
+            [self configureError:@"Email or password incorrect."];
+        }else  if([action isEqualToString:@"register"]){
+            [self configureError:@"Email already registered."];
+        }
     }
     
 }
 
+-(void)configureError:(NSString *)errMsg{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSMutableDictionary* details = [NSMutableDictionary dictionary];
+        NSString *log = errMsg;
+        [details setValue:log forKey:NSLocalizedDescriptionKey];
+        // populate the error object with the details
+        NSError *error = [NSError errorWithDomain:@"LoginReg" code:200 userInfo:details];
+        CompletionBlock(error,NO);
+    });
+}
+
+-(void)configureUser:(NSDictionary *)returnJSONtoNSdict{
+    NSDictionary *info = [returnJSONtoNSdict objectForKey:@"result"];
+    NSUInteger uid = [[info objectForKey:@"uid"] intValue];
+    NSString *uselfie = [info objectForKey:@"selfie"];
+    NSString *uemail = [info objectForKey:@"email"];
+    NSString *uname = [info objectForKey:@"name"];
+    NSUInteger utype = [[info objectForKey:@"privilege"] intValue];
+    
+    [User sharedInstanceWithUid:uid andEmail:uemail andUname:uname andUpwd:password andUtype:utype andUselfie:uselfie];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        CompletionBlock(nil,YES);
+    });
+}
 
 
 @end

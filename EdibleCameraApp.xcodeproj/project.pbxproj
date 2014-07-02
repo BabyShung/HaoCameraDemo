@@ -51,7 +51,6 @@
 		B8B60FDB19591E07005268D5 /* secret.png in Resources */ = {isa = PBXBuildFile; fileRef = B8B60FD119591E07005268D5 /* secret.png */; };
 		B8B60FE319591E2E005268D5 /* TagView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FE119591E2E005268D5 /* TagView.m */; };
 		B8B60FE419591E2E005268D5 /* btn_tag_delete.png in Resources */ = {isa = PBXBuildFile; fileRef = B8B60FE219591E2E005268D5 /* btn_tag_delete.png */; };
-		B8B60FF119591E60005268D5 /* fullURLs.txt in Resources */ = {isa = PBXBuildFile; fileRef = B8B60FEA19591E60005268D5 /* fullURLs.txt */; };
 		B8B60FF219591E60005268D5 /* EDImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FEC19591E60005268D5 /* EDImageCell.m */; };
 		B8B60FF319591E60005268D5 /* EDImageFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FEE19591E60005268D5 /* EDImageFlowLayout.m */; };
 		B8B60FF419591E60005268D5 /* UIImageView+M13AsynchronousImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FF019591E60005268D5 /* UIImageView+M13AsynchronousImageView.m */; };
@@ -99,6 +98,7 @@
 		B8B6114E195A6B90005268D5 /* BlurActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6114D195A6B90005268D5 /* BlurActionSheet.m */; };
 		B8BBAFD819630B24007CE548 /* LoadingAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BBAFD719630B24007CE548 /* LoadingAnimation.m */; };
 		B8BBB01D19645C70007CE548 /* UIResponder+KeyboardCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BBB01C19645C70007CE548 /* UIResponder+KeyboardCache.m */; };
+		B8BBB020196491DA007CE548 /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BBB01F196491DA007CE548 /* UIAlertView+Blocks.m */; };
 		B8C21B2B194F43EB0012B616 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C21B29194F43EB0012B616 /* AWSRuntime.framework */; };
 		B8C21B2C194F43EB0012B616 /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C21B2A194F43EB0012B616 /* AWSS3.framework */; };
 		B8C8F284195DEC85009F8F6E /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C8F283195DEC85009F8F6E /* Comment.m */; };
@@ -235,7 +235,6 @@
 		B8B60FE019591E2E005268D5 /* TagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagView.h; sourceTree = "<group>"; };
 		B8B60FE119591E2E005268D5 /* TagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagView.m; sourceTree = "<group>"; };
 		B8B60FE219591E2E005268D5 /* btn_tag_delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_tag_delete.png; sourceTree = "<group>"; };
-		B8B60FEA19591E60005268D5 /* fullURLs.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fullURLs.txt; sourceTree = "<group>"; };
 		B8B60FEB19591E60005268D5 /* EDImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDImageCell.h; sourceTree = "<group>"; };
 		B8B60FEC19591E60005268D5 /* EDImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDImageCell.m; sourceTree = "<group>"; };
 		B8B60FED19591E60005268D5 /* EDImageFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDImageFlowLayout.h; sourceTree = "<group>"; };
@@ -324,6 +323,8 @@
 		B8BBAFD719630B24007CE548 /* LoadingAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingAnimation.m; sourceTree = "<group>"; };
 		B8BBB01B19645C70007CE548 /* UIResponder+KeyboardCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIResponder+KeyboardCache.h"; sourceTree = "<group>"; };
 		B8BBB01C19645C70007CE548 /* UIResponder+KeyboardCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+KeyboardCache.m"; sourceTree = "<group>"; };
+		B8BBB01E196491DA007CE548 /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
+		B8BBB01F196491DA007CE548 /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Blocks.m"; sourceTree = "<group>"; };
 		B8C21B29194F43EB0012B616 /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSRuntime.framework; sourceTree = "<group>"; };
 		B8C21B2A194F43EB0012B616 /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSS3.framework; sourceTree = "<group>"; };
 		B8C8F282195DEC85009F8F6E /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comment.h; path = ../Comment.h; sourceTree = "<group>"; };
@@ -481,6 +482,8 @@
 		ACA1726C193920A6005E7D51 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				B8BBB01E196491DA007CE548 /* UIAlertView+Blocks.h */,
+				B8BBB01F196491DA007CE548 /* UIAlertView+Blocks.m */,
 				B8C8F337195F4BD5009F8F6E /* edi_md5.h */,
 				B8C8F338195F4BD5009F8F6E /* edi_md5.m */,
 				B8B6113F195A63DA005268D5 /* UIImage+ImageEffects.h */,
@@ -671,7 +674,6 @@
 			isa = PBXGroup;
 			children = (
 				B8B60FF519591E63005268D5 /* ImageViewer */,
-				B8B60FEA19591E60005268D5 /* fullURLs.txt */,
 				B8B60FEB19591E60005268D5 /* EDImageCell.h */,
 				B8B60FEC19591E60005268D5 /* EDImageCell.m */,
 				B8B60FED19591E60005268D5 /* EDImageFlowLayout.h */,
@@ -1140,7 +1142,6 @@
 				AC1E7765194F583100532F65 /* foodlist_a-z_sql_CN.txt in Resources */,
 				B8C8F331195E1EFF009F8F6E /* trained_classifierNM1.xml in Resources */,
 				B8B60FD819591E07005268D5 /* likeButtonToolbar_unselected.png in Resources */,
-				B8B60FF119591E60005268D5 /* fullURLs.txt in Resources */,
 				B8B6106119592696005268D5 /* blackBG.JPG in Resources */,
 				B8B60FD219591E07005268D5 /* commentButton.png in Resources */,
 				B8C8F332195E1EFF009F8F6E /* trained_classifierNM2.xml in Resources */,
@@ -1177,6 +1178,7 @@
 				B8B6103B19592369005268D5 /* UIApplication+JTSImageViewController.m in Sources */,
 				B8C8F3901961E24F009F8F6E /* OtherUser.m in Sources */,
 				B8D09A791948BCCF006C070D /* User.m in Sources */,
+				B8BBB020196491DA007CE548 /* UIAlertView+Blocks.m in Sources */,
 				B8BBAFD819630B24007CE548 /* LoadingAnimation.m in Sources */,
 				ACDD6D52195F4AE800AD51A7 /* Dictionary.m in Sources */,
 				B8B6105719592528005268D5 /* NetworkTestViewController.m in Sources */,
