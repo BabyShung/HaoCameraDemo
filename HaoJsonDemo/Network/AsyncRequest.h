@@ -9,9 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "Comment.h"
 #import "Food.h"
+#import "ShareData.h"
+
 @interface AsyncRequest : NSObject 
 
--(void)getFoodInfo:(NSString*)foodname andLanguage:(NSString *)language ;
+//-(void)getFoodInfo:(NSString*)foodname andLanguage:(NSString *)language ;
+
+-(void)getFoodInfo:(NSString*)foodname andLang:(TargetLang)lang;
 
 -(void)getReviews_fid:(NSUInteger)fid;
 

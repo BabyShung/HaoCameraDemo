@@ -56,6 +56,37 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
     return self;
 }
 
+-(instancetype) initWithDictionary:(NSDictionary *) dict{
+    self = [super init];
+    
+    self.loadingFoodInfo = NO;
+    self.foodInfoComplete = YES;
+    self.loadingComments = NO;
+    self.commentLoaded = NO;
+    
+    self.fid = [[dict objectForKey:@"fid"] intValue];
+    self.title = [dict objectForKey:@"title"];
+    self.transTitle = [dict objectForKey:@"name"];
+    self.food_description = [dict objectForKey:@"description"];
+    
+    NSString *rawTagNams = [dict objectForKey:@"tags"];
+    self.tagNames = [rawTagNams componentsSeparatedByString: @";"];
+    
+    NSArray *photoNameArr = [dict objectForKey:@"photos"];
+    for(int i = 0 ;i<photoNameArr.count;i++){
+        NSDictionary *photoObj = photoNameArr[i];
+        [self.photoNames addObject: [photoObj objectForKey:@"url"]];
+    }
+    NSLog(@"fid: %d",(int)self.fid);
+    for(NSString *str in self.tagNames){
+        NSLog(@"tag....: %@",str);
+    }
+    
+    NSLog(@"description: %@",self.food_description);
+    NSLog(@"url: %@",self.photoNames[0]);
+    
+    return self;
+}
 
 
 /****************************************
@@ -69,20 +100,20 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
     _loadingFoodInfo = YES;
     _foodInfoCompletionBlock = block;
     
-    [self.async getFoodInfo:self.title andLanguage:@"CN"];
+    [self.async getFoodInfo:self.title andLang:[[ShareData shareData] defaultTargetLang]];
     
 }
 
 //fetch async comment
--(void) fetchCommentsCompletion:(void (^)(NSError *err, BOOL success))block
-{
-    _loadingComments = YES;
-    _commentCompletionBlock = block;
-    
-    //NSLog(@"++++++++++++FOOD++++++++ : %d",self.fid);
-   [self.async getReviews_fid:self.fid withLoadSize:5 andSkip:0];
-    
-}
+//-(void) fetchCommentsCompletion:(void (^)(NSError *err, BOOL success))block
+//{
+//    _loadingComments = YES;
+//    _commentCompletionBlock = block;
+//    
+//    //NSLog(@"++++++++++++FOOD++++++++ : %d",self.fid);
+//   [self.async getReviews_fid:self.fid withLoadSize:5 andSkip:0];
+//    
+//}
 
 -(void) fetchOldestCommentsSize:(NSUInteger)size andSkip:(NSUInteger)skip completion:(void (^)(NSError *err, BOOL success))block {
     _loadingComments = YES;

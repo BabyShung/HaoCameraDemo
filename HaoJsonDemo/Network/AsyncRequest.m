@@ -7,6 +7,7 @@
 //
 
 #import "AsyncRequest.h"
+#import "ShareData.h"
 #import "User.h"
 #import "edi_md5.h"
 
@@ -60,6 +61,36 @@
     [self performGETAsyncTaskwithURLString:[NSString stringWithString:reviewString]];
 }
 
+-(void)getFoodInfo:(NSString*)foodname andLang:(TargetLang)lang {
+    NSString *language;
+    
+    switch (lang) {
+        case Chinese:
+            language = @"CN";
+            break;
+        case English:
+            language = @"EN";
+        default:
+            language = @"CN";
+            break;
+    }
+    
+    NSMutableString *paraString = [NSMutableString stringWithString:@"title="];
+    [paraString appendString:foodname];
+    [paraString appendString:@"&lang="];
+    [paraString appendString:language];
+    NSMutableString *foodString =  [NSMutableString stringWithString:FOODURL];
+    
+    [foodString appendString:paraString];
+    
+    NSString *finalString = [NSString stringWithString:foodString];
+    
+    
+    
+    [self performGETAsyncTaskwithURLString:finalString];
+    
+    
+}
 
 -(void)getFoodInfo:(NSString*)foodname andLanguage:(NSString *)language {
     
