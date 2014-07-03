@@ -7,6 +7,7 @@
 //
 
 #import "AsyncRequest.h"
+#import "ShareData.h"
 #import "User.h"
 #import "edi_md5.h"
 
@@ -50,7 +51,7 @@
 -(void)getReviews_fid:(NSUInteger)fid withLoadSize:(NSUInteger)size andSkip:(NSUInteger)skip{
     
     User *user = [User sharedInstance];
-    
+
     NSMutableString *paraString = [NSMutableString string];
     [paraString appendString:[NSString stringWithFormat:@"fid=%d&uid=%d&start=%ld&offset=%ld",(int)fid,(int)user.Uid,(long)skip,(long)size]];
     NSMutableString *reviewString =  [NSMutableString stringWithString:REVIEWURL];
@@ -58,8 +59,39 @@
     [reviewString appendString:paraString];
     
     [self performGETAsyncTaskwithURLString:[NSString stringWithString:reviewString]];
+    
 }
 
+-(void)getFoodInfo:(NSString*)foodname andLang:(TargetLang)lang {
+    NSString *language;
+    
+    switch (lang) {
+        case Chinese:
+            language = @"CN";
+            break;
+        case English:
+            language = @"EN";
+        default:
+            language = @"CN";
+            break;
+    }
+    
+    NSMutableString *paraString = [NSMutableString stringWithString:@"title="];
+    [paraString appendString:foodname];
+    [paraString appendString:@"&lang="];
+    [paraString appendString:language];
+    NSMutableString *foodString =  [NSMutableString stringWithString:FOODURL];
+    
+    [foodString appendString:paraString];
+    
+    NSString *finalString = [NSString stringWithString:foodString];
+    
+    
+    
+    [self performGETAsyncTaskwithURLString:finalString];
+    
+    
+}
 
 -(void)getFoodInfo:(NSString*)foodname andLanguage:(NSString *)language {
     
@@ -187,6 +219,7 @@
  
  ************************/
 -(void)performGETAsyncTaskwithURLString:(NSString *)urlString{
+    NSLog(@"---AsyncRequst---: Perform %@",urlString);
     
     NSString *urlEncodeString =[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     

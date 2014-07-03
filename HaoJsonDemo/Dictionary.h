@@ -9,10 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "ShareData.h"
 
-@interface Dictionary : NSObject
+@interface Dictionary : NSObject <NSURLConnectionDataDelegate>
+
 @property (nonatomic,readonly) TargetLang translateTo;
+
 @property (strong,nonatomic) NSArray *terms;
+
 @property (strong,nonatomic) NSMutableArray *results;
+
+@property (nonatomic,readonly,getter = isSearchingFood) BOOL searchingFood;
 
 -(instancetype) initDictInDefaultLang;
 
@@ -24,7 +29,7 @@
 //-(NSArray *) lookupOCRString:(NSString *)inputStr foundKeywords:(NSMutableArray *)keywords;
 
 //Send search request to server
--(void) serverSearchOCRString:(NSString *)inputStr andCompletion:(void (^)(BOOL success, NSError *err))block;
+-(void) serverSearchOCRString:(NSString *)inputStr andCompletion:(void (^)(NSArray *results, BOOL success))block;
 
 //Dictionary update function
 //  1. download file from server;

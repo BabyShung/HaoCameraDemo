@@ -51,7 +51,7 @@ const  NSInteger NumCommentsPerLoad = 5;
 /*current cv must be set up when view appear*/
 @property (strong,nonatomic) UIViewController *currentVC;
 
-@property (strong,nonatomic) NSString *loaderName;
+@property (strong,nonatomic) NSString *imgLoaderName;
 @end
 
 @implementation FoodInfoView
@@ -174,6 +174,29 @@ const  NSInteger NumCommentsPerLoad = 5;
     
 }
 
+/**********************************
+ 
+ scrollview delegate
+ 
+ ************************/
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    
+    if (scrollView.contentOffset.y + scrollView.frame.size.height >= scrollView.contentSize.height) {
+        
+        //Request to server
+        //Load more comments
+        [self.myFood fetchOldestCommentsSize:NumCommentsPerLoad andSkip:self.myFood.comments.count completion:^(NSError *err, BOOL success) {
+            if(success){
+                [self updateCommentTableUI];
+                [self.commentsTableView reloadData];
+            }
+        }];
+        
+        
+    }
+}
+
 
 /**********************************
  
@@ -189,11 +212,11 @@ const  NSInteger NumCommentsPerLoad = 5;
 
     
     //Cancel any other previous downloads for the image view.
-    [cell.imageView cancelLoadingAllImagesAndLoaderName:self.loaderName];
+    [cell.imageView cancelLoadingAllImagesAndLoaderName:self.imgLoaderName];
     
     
     //Load the new image
-    [cell.imageView loadImageFromURLAtAmazonAsync:[NSURL URLWithString:self.myFood.photoNames[indexPath.row]] withLoaderName:self.loaderName completion:^(BOOL success, M13ImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
+    [cell.imageView loadImageFromURLAtAmazonAsync:[NSURL URLWithString:self.myFood.photoNames[indexPath.row]] withLoaderName:self.imgLoaderName completion:^(BOOL success, M13ImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
         //This is where you would refresh the cell if need be. If a cell of basic style, just call "setNeedsRelayout" on the cell.
         
         cell.activityView.hidden = YES;
@@ -360,65 +383,25 @@ const  NSInteger NumCommentsPerLoad = 5;
 /*                                */
 /*************** MEi **************/
 
-/* Fist time display, set up photoview delegate*/
--(void)configPhotoAndTagWithCellNo:(NSInteger)no{
-    NSLog(@"test```");
-    self.loaderName = [NSString stringWithFormat:@"%d",(int)no];
-    self.photoCollectionView.delegate = self;
-    self.photoCollectionView.dataSource = self;
-    [_tagview addTags:self.myFood.tagNames];
-    self.descriptionLabel.textColor = [UIColor blackColor];
-}
-
-/* Fist time display, set up comment table delegate*/
--(void)configCommentTable{
-
-    _commentsTableView.delegate = self;
-    _commentsTableView.dataSource = self;
-    [_commentsTableView reloadData];
-}
-
 -(void)setFoodInfo{
     self.titleLabel.text = self.myFood.title;
     self.translateLabel.text = self.myFood.transTitle;
     self.descriptionLabel.text = self.myFood.food_description;
 }
 
--(void)prepareForDisplayInCell:(NSInteger)cellNo{
-    if (self.myFood) {
-        //Assure title and translation are showed;
-        [self setFoodInfo];
-        
-        //If food info is not completed, request it
-        if (!self.myFood.isLoadingInfo && !self.myFood.foodInfoComplete) {
-            
-            [self.myFood fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
-                if (success) {
-                    [self setFoodInfo];
-                    [self configPhotoAndTagWithCellNo:cellNo];
-                    [self prepareComments];
-                }
-                
-            }];
-        }
-        else{//Food info is complete, config at once;
-            [self configPhotoAndTagWithCellNo:cellNo];
-            [self prepareComments];
-        }
-        
-    }
-}
+//Fetch the comments for first time display
 -(void)prepareComments
 {
     //If NO comments has been fetched, request them
     if (!self.myFood.isCommentLoaded && !self.myFood.isLoadingComments) {
-
+        NSLog(@"+++FIV+++ : request comments");
         [self.myFood fetchOldestCommentsSize:NumCommentsPerLoad andSkip:self.myFood.comments.count completion:^(NSError *err, BOOL success) {
             if (success) {
+                NSLog(@"+++FIV+++ : I get comments!");
                 CGFloat height = self.myFood.comments.count*kCommentCellMaxHeight;
                 self.commentsTableView.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, CGRectGetWidth([[UIScreen mainScreen] bounds]), height);
                 [self.scrollview sizeToFit];
-                        self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width, self.scrollview.contentSize.height+height);
+                self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width, self.scrollview.contentSize.height+height);
                 [self configCommentTable];
             }
             
@@ -426,28 +409,14 @@ const  NSInteger NumCommentsPerLoad = 5;
     }
 }
 
--(void)shineDescription{
-    if (self.descriptionLabel.text.length>0) {
-        [self.descriptionLabel shine];
-    }
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-
-    if (scrollView.contentOffset.y + scrollView.frame.size.height >= scrollView.contentSize.height) {
-
-        //Request to server
-        //Load more comments
-        [self.myFood fetchOldestCommentsSize:NumCommentsPerLoad andSkip:self.myFood.comments.count completion:^(NSError *err, BOOL success) {
-            if(success){
-                [self updateCommentTableUI];
-                [self.commentsTableView reloadData];
-            }
-        }];
-        
+//Set up comment table delegate
+-(void)configCommentTable{
     
-    }
+    _commentsTableView.delegate = self;
+    _commentsTableView.dataSource = self;
+    [_commentsTableView reloadData];
 }
+
 
 //remember to reload data
 -(void)updateCommentTableUI
@@ -458,7 +427,7 @@ const  NSInteger NumCommentsPerLoad = 5;
     
     if (newCount>oldCount){
         CGFloat deltaHeight = 0.f;
-
+        
         NSMutableArray *insertIndexPaths = [NSMutableArray arrayWithCapacity:newCount-oldCount];
         
         for (int ind = 0; ind < newCount-oldCount; ind++)
@@ -486,4 +455,89 @@ const  NSInteger NumCommentsPerLoad = 5;
 -(void)cleanUpForReuse{
     self.myFood = nil;
 }
+
+/************  DISPLAY IN COLLECTION VIEW  ************/
+
+// Fist time display, set up photoview delegate
+-(void)configPhotoAndTagWithCellNo:(NSInteger)no{
+    NSLog(@"test```");
+    self.imgLoaderName= [NSString stringWithFormat:@"%d",(int)no];
+    self.photoCollectionView.delegate = self;
+    self.photoCollectionView.dataSource = self;
+    [_tagview addTags:self.myFood.tagNames];
+    self.descriptionLabel.textColor = [UIColor blackColor];
+}
+
+//Prepare data for first time display
+-(void)prepareForDisplayInCell:(NSInteger)cellNo{
+    if (self.myFood) {
+        //Assure title and translation are showed;
+        [self setFoodInfo];
+        
+        //If food info is not completed, request it
+        if (!self.myFood.isLoadingInfo && !self.myFood.foodInfoComplete) {
+            
+            [self.myFood fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
+                if (success) {
+                    [self setFoodInfo];
+                    [self configPhotoAndTagWithCellNo:cellNo];
+                    [self prepareComments];
+                }
+                
+            }];
+        }
+        else{//Food info is complete, config at once;
+            [self configPhotoAndTagWithCellNo:cellNo];
+            [self prepareComments];
+        }
+        
+    }
+}
+
+/************  DISPLAY IN SINGLE VIEW  ************/
+
+//Prepare data for first time display
+-(void)prepareForDisplay{
+    if (self.myFood) {
+        //Assure title and translation are showed;
+        [self setFoodInfo];
+        
+        //If food info is not completed, request it
+        if (!self.myFood.isLoadingInfo && !self.myFood.foodInfoComplete) {
+            
+            [self.myFood fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
+                if (success) {
+                    [self setFoodInfo];
+                    [self configPhotoAndTag];
+                    [self prepareComments];
+                }
+                
+            }];
+        }
+        else{//Food info is complete, config at once;
+            [self configPhotoAndTag];
+            [self prepareComments];
+        }
+        
+    }
+}
+
+// Fist time display, set up photoview delegate
+-(void)configPhotoAndTag{
+    NSLog(@"test```");
+    self.imgLoaderName = @"Default";
+    self.photoCollectionView.delegate = self;
+    self.photoCollectionView.dataSource = self;
+    [_tagview addTags:self.myFood.tagNames];
+    self.descriptionLabel.textColor = [UIColor blackColor];
+}
+
+-(void)shineDescription{
+    if (self.descriptionLabel.text.length>0) {
+        [self.descriptionLabel shine];
+    }
+}
+
+
+
 @end

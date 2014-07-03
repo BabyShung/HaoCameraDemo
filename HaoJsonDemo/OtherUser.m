@@ -20,7 +20,7 @@
         
         self.Utype = utype;
         
-        self.Uselfie = uselfie;
+        self.Uselfie = uselfie ;
         
     }
     return self;

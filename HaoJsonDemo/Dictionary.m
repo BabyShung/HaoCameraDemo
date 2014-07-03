@@ -10,10 +10,25 @@
 #import "ShareData.h"
 #import "DBOperation.h"
 #import "Food.h"
+#import "AsyncRequest.h"
+
+typedef void (^edibleBlock)(NSArray *results, BOOL success);
 
 @interface Dictionary()
+
 @property (nonatomic,readwrite) TargetLang lang;
+
 @property (strong,nonatomic) DBOperation *operation;
+
+@property (nonatomic,strong) AsyncRequest *async;
+
+@property (strong,nonatomic) NSMutableData *webdata;
+
+@property (nonatomic, copy) edibleBlock searchCompletionBlock;
+
+
+@property (nonatomic,readwrite,getter = isSearchingFood) BOOL searchingFood;
+
 @end
 
 @implementation Dictionary
@@ -21,14 +36,20 @@
 -(instancetype) initDictInLang:(TargetLang) lang
 {
     self = [super init];
+    self.searchingFood = NO;
     self.lang = lang;
+    _webdata = [[NSMutableData alloc]init];
+    _async = [[AsyncRequest alloc]initWithDelegate:self];
     return self;
     
 }
 
 -(instancetype) initDictInDefaultLang{
     self = [super init];
+    self.searchingFood = NO;
     self.lang = [[ShareData shareData] defaultTargetLang];
+    _webdata = [[NSMutableData alloc]init];
+    _async = [[AsyncRequest alloc]initWithDelegate:self];
     return self;
 }
 
@@ -61,9 +82,11 @@
     
 }
 
--(void) serverSearchOCRString:(NSString *)inputStr andCompletion:(void (^)(BOOL, NSError *))block
+-(void) serverSearchOCRString:(NSString *)inputStr andCompletion:(void (^)(NSArray *results, BOOL success))block
 {
-    
+    _searchingFood = YES;
+    _searchCompletionBlock = block;
+    [self.async getFoodInfo:inputStr andLang:self.lang];
 }
 
 //Local search an ocr string
@@ -153,4 +176,95 @@
     @throw ex;
 }
 
+
+/****************************************
+ 
+ delegate methods for networkConnection
+ 
+ ****************************************/
+
+
+-(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
+    [_webdata setLength:0];
+}
+
+-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
+    [_webdata appendData:data];
+}
+
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
+    
+    
+    //if error, put error to block
+    //    if(_isFoodRequest){
+    //        dispatch_async(dispatch_get_main_queue(), ^{
+    //            _foodInfoCompletionBlock(error,NO);
+    //        });
+    //    }else{
+    //        dispatch_async(dispatch_get_main_queue(), ^{
+    //            _commentCompletionBlock(error,NO);
+    //        });
+    //    }
+    
+    
+}
+
+-(void)connectionDidFinishLoading:(NSURLConnection *)connection{    //async
+    
+    
+    NSString *tmp = [[NSString alloc] initWithData:_webdata encoding:NSUTF8StringEncoding];
+    NSLog(@"Return JSON: %@",tmp);
+    
+    //1.get food info
+    NSDictionary *returnJSONtoNSdict = [NSJSONSerialization JSONObjectWithData:_webdata options:0 error:nil];
+    
+    int status = [[returnJSONtoNSdict objectForKey:@"status"] intValue];
+    
+    //NSString *action = [returnJSONtoNSdict objectForKey:@"action"];
+    
+    if(status){ //if we get food info back
+        
+            
+
+            
+            NSArray *resultArr = [returnJSONtoNSdict objectForKey:@"result"];
+            
+            if(resultArr.count ==0){
+                return;
+            }
+            NSMutableArray *foodArray = [NSMutableArray array];
+            
+            for (NSDictionary *foodObj in resultArr) {
+                
+                
+                //NSDictionary *foodObj = resultArr[0];
+                Food *food = [[Food alloc]initWithDictionary:foodObj];
+                [foodArray addObject:food];
+                
+
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                _searchingFood = NO;
+                _searchCompletionBlock(foodArray,YES);
+            });
+                
+            
+            
+        
+
+    }else{  //failed
+        
+        
+       //food
+            dispatch_async(dispatch_get_main_queue(), ^{
+                _searchCompletionBlock(nil,NO);
+            });
+            
+
+        
+        
+    }
+
+}
 @end

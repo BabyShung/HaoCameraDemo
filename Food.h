@@ -31,14 +31,15 @@
 -(instancetype) initWithTitle:(NSString *)title andTranslations:(NSString *)translate andQueryTimes:(NSUInteger)queryTimes;
 
 //For Server search results
-//-(instancetype) initWithDictionary:(NSDictionary *) dict;
+-(instancetype) initWithDictionary:(NSDictionary *) dict;
 
 
 //fetch async food info
 -(void) fetchAsyncInfoCompletion:(void (^)(NSError *err, BOOL success))block;
 
 //fetch async comment
--(void) fetchCommentsCompletion:(void (^)(NSError *err, BOOL success))block;
+//-(void) fetchCommentsCompletion:(void (^)(NSError *err, BOOL success))block;
+
 -(void) fetchOldestCommentsSize:(NSUInteger)size andSkip:(NSUInteger)skip completion:(void (^)(NSError *err, BOOL success))block;
 
 @end
