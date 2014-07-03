@@ -103,12 +103,14 @@ static NSString *CellIdentifier = @"Cell";
     _clearBtn = [LoadControls createCameraButton_Image:@"ED_cross.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(10, 10, 10, 10) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
     [_clearBtn addTarget:self action:@selector(clearBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     _clearBtn.alpha = 1;
-    [self.collectionView addSubview:_clearBtn];
+    _clearBtn.hidden = YES;
+    [self.view addSubview:_clearBtn];
     
     _captureBtn = [LoadControls createCameraButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andCenter:CGPointMake(320-10-20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
     [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     _captureBtn.alpha = 1;
-    [self.collectionView addSubview:_captureBtn];
+    _captureBtn.hidden = YES;
+    [self.view addSubview:_captureBtn];
     
 }
 
@@ -119,8 +121,14 @@ static NSString *CellIdentifier = @"Cell";
                                      options:UIViewAnimationOptionTransitionCrossDissolve
                                   animations:^(){
                                       self.collectionView.alpha = 0;
+                                      self.clearBtn.alpha = 0;
+                                      self.captureBtn.alpha = 0;
+                                      
                                   }
                                   completion:^(BOOL finished){
+                                      
+                                      self.clearBtn.hidden = YES;
+                                      self.captureBtn.hidden = YES;
                                       
                                       [self.foodArray removeAllObjects];
                                       [self.collectionView reloadData];
@@ -213,10 +221,6 @@ static NSString *CellIdentifier = @"Cell";
         
         NSInteger startIndex = self.foodArray.count;
         
-        NSLog(@"newFoodItems.count: %d",newFoodItems.count);
-        
-        NSLog(@"self.foodArray.count: %d",(int)self.foodArray.count);
-        
         NSMutableArray *newIndexPaths = [[NSMutableArray alloc]init];
         for (int i =0; i<newFoodItems.count; i++){
             [newIndexPaths addObject:[NSIndexPath indexPathForItem:(startIndex+i) inSection:0]];
@@ -260,6 +264,22 @@ static NSString *CellIdentifier = @"Cell";
 - (void) EdibleCamera:(MainViewController *)simpleCam didFinishWithImage:(UIImage *)image withRect:(CGRect)rect andCropSize:(CGSize)size{
     self.collectionView.hidden = NO;
     self.collectionView.alpha = 1;
+    
+    [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.clearBtn.alpha = 1;
+        self.captureBtn.alpha = 1;
+    } completion:^(BOOL finished) {
+        if (finished) {
+            self.clearBtn.hidden = NO;
+            self.captureBtn.hidden = NO;
+        }
+    }];
+    
+
+    
+    
+    
+    
     NSArray *localFoods;
     Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
     //@"yeast bread with Worcestershire sauce and yogurt"
