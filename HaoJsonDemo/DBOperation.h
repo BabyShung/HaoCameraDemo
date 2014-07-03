@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "sqlite3.h"
 #import "ShareData.h"
-
+#import "Food.h"
 
 /*******************************/
 /*!!!!DEFINED IN SHARE DATA!!!!*/
@@ -26,6 +26,22 @@
 -(void) createKeywordTable;
 
 -(void) createLangTable:(TargetLang) lang;
+
+-(void) createSearchHistoryTable;
+
+
+
+/*******************************/
+/*!!!!    Search History   !!!!*/
+/*   1. upsertSearchHistory    */
+/*                             */
+/*    */
+/*                             */
+/*  */
+/*******************************/
+-(void) upsertSearchHistory:(Food *)food;
+
+-(NSMutableArray *)fetchSearchHistoryByOrder_withLimitNumber:(NSUInteger)number;
 
 //Found keywords will be saved in kwArray
 -(NSMutableArray *) searchWords:(NSArray *) wordsArray getKeywords:(NSMutableArray *)kwArray inLangTable:(TargetLang)lang;

@@ -11,11 +11,17 @@
 #import "ShareData.h"
 #import "DBOperation.h"
 
+#import "MainViewController.h"
+
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
+    
+    SQLConnector *sqlc = [[SQLConnector alloc]init];
+    [sqlc sqliteDBFilePath];
     
     
     /*Init Sharedata SINGLETON (INIT ONLY ONCE)*/
@@ -48,12 +54,20 @@
         DBOperation *operation = [[DBOperation alloc] init];
         [operation createLangTable:Chinese];
         [operation createKeywordTable];
+        [operation createSearchHistoryTable];
 //        SQLConnector *connector = [SQLConnector sharedInstance];
 //        ShareData *sharedata = [ShareData shareData];
 //        [connector createEditableCopyOf:[sharedata keywordFileName]];
 //        [connector createEditableCopyOf:[sharedata langFileName:Chinese]];
 //        [connector createEditableCopyOf:[sharedata filterWordsFileName]];
     }
+    
+    //Food *food = [[Food alloc] initWithTitle:@"ads" andTranslations:@"xxx"];
+     //DBOperation *dbo = [[DBOperation alloc] init];
+    //[dbo upsertSearchHistory:food];
+    //[dbo fetchSearchHistoryByOrder_withLimitNumber:2];
+    
+    
     return YES;
 }
 							
@@ -67,9 +81,9 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    NSLog(@"enter background");
+    NSLog(@"******************* enter Background *******************");
     
-    [self.cameraView checkCameraAndOperate];
+    [self.cameraView pauseCamera];
     NSLog(@"CameraIsOn??   %d" , [self.cameraView CameraIsOn]);
     
     
@@ -79,8 +93,12 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    NSLog(@"enter foreground!");
-    [self.cameraView checkCameraAndOperate];
+    if([[self.nvc topViewController] class] == [MainViewController class]){
+        [self.cameraView resumeCamera];
+        NSLog(@"top vc is main VC");
+    }
+    
+    NSLog(@"******************* enter foreground!  *******************");
      NSLog(@"CameraIsOn??   %d" , [self.cameraView CameraIsOn]);
     
     

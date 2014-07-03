@@ -82,6 +82,7 @@
         AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         
         appDlg.cameraView = self;
+        appDlg.nvc = self.appliedVC.navigationController;
         
         
     }
@@ -107,7 +108,7 @@
 }
 
 -(void)checkCameraAndOperate{
-    [_camManager isSessionRunning]?[_camManager stopRunning]:[_camManager startRunning];
+    [_camManager isSessionRunning]?[self pauseCamera]:[self resumeCamera];
 }
 
 -(void)setup{

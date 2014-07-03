@@ -35,6 +35,55 @@
     NSLog(@"SQL executed successfully");
 }
 
+
+//For search
+-(void) upsertSearchHistory:(Food *)food{
+    [self.connector openDB];
+    
+    NSString *sql = [NSString stringWithFormat:@"select sid from SearchHistory where title='%@'",food.title];
+    NSLog(@"Execute SQL:%@",sql);
+    BOOL result = [self executeReturnBool:sql];
+    if(!result){
+        [self execute:[NSString stringWithFormat:@"INSERT INTO SearchHistory (title,translate,queryTimes) VALUES ('%@','%@',1)",food.title,food.transTitle]];
+    }
+    else{
+        [self execute:[NSString stringWithFormat:@"UPDATE SearchHistory SET queryTimes = queryTimes + 1, ts = datetime('now','localtime') WHERE title = '%@'",food.title]];
+    }
+    [self.connector closeDB];
+    NSLog(@"upsert SQL executed successfully");
+}
+
+-(NSMutableArray *)fetchSearchHistoryByOrder_withLimitNumber:(NSUInteger)number{
+    
+    [self.connector openDB];
+    NSMutableArray *foods = [NSMutableArray array];
+    sqlite3_stmt *stm = nil;
+    NSString *sql =[NSString stringWithFormat:@"SELECT title,translate,queryTimes FROM SearchHistory order by queryTimes desc,ts desc LIMIT %d",(int)number];
+	if (stm == nil)
+    {
+		if (sqlite3_prepare_v2([self.connector database], [sql UTF8String], -1, &stm, NULL) != SQLITE_OK)
+        {
+			NSAssert1(0, @"Error: failed to prepare statement with message '%s'.", sqlite3_errmsg([self.connector database]));
+		}
+	}
+    while (sqlite3_step(stm) == SQLITE_ROW)
+	{
+        NSString *title = [NSString stringWithUTF8String:(char *)sqlite3_column_text(stm, 0)];
+        NSString *translate = [NSString stringWithUTF8String:(char *)sqlite3_column_text(stm, 1)];
+        NSUInteger queryTimes = sqlite3_column_int(stm, 2);
+        Food *tmp = [[Food alloc]initWithTitle:title andTranslations:translate andQueryTimes:queryTimes];
+        NSLog(@"%@",tmp);
+        [foods addObject:tmp];
+    }
+    sqlite3_finalize(stm);
+    [self.connector closeDB];
+    
+    return foods;
+    
+}
+
+
+
 -(void) createKeywordTable{
     
     //Get keywords from keyword file
@@ -98,6 +147,12 @@
 
 }
 
+-(void) createSearchHistoryTable{
+    [self.connector openDB];
+    [self execute:@"CREATE TABLE IF NOT EXISTS SearchHistory(sid INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT,translate TEXT,queryTimes INTEGER,ts TimeStamp NOT NULL DEFAULT (datetime('now','localtime')));"];
+    [self.connector closeDB];
+}
+
 
 -(NSMutableArray *) searchWords:(NSArray *)wordsArray getKeywords:(NSMutableArray *)kwArray inLangTable:(TargetLang)lang{
     ShareData *sharedata = [ShareData shareData];
@@ -151,6 +206,23 @@
         [self throwDBOperationExceptionCausedBy:reason];
     }
 }
+
+-(BOOL)executeReturnBool:(NSString *)sql{
+    sqlite3_stmt *stmt = nil;
+    
+    //Prepare the statement
+    if (sqlite3_prepare_v2([self.connector database], [sql UTF8String], -1, &stmt, nil) != SQLITE_OK){
+        [self.connector closeDB];
+        NSString *reason = [NSString stringWithFormat:@"!Error: failed to prepare statement with message '%s'.", sqlite3_errmsg([self.connector database])];
+        [self throwDBOperationExceptionCausedBy:reason];
+        
+    }
+    BOOL result = sqlite3_step(stmt) == SQLITE_ROW;
+    sqlite3_finalize(stmt);
+    return result?YES:NO;
+
+}
+
 
 -(void) bulkTextInsertBySQL:(NSString *)sql andArray:(NSArray *)textArray{
     

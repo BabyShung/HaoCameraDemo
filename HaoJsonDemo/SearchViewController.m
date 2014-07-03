@@ -1,21 +1,30 @@
-
+//
+//  SearchViewController.m
+//  SSSearchBarExample
+//
+//  Created by Hao Zheng on 7/2/14.
+//  Copyright (c) 2014 Simon Gislen. All rights reserved.
+//
 
 #import "SearchViewController.h"
 #import "SSSearchBar.h"
-#import "DAKeyboardControl.h"
+#import "SearchCell.h"
+#import "LoadControls.h"
+#import "ED_Color.h"
+#import "DBOperation.h"
 
-#define TOOLBAR_HEIGHT 50.f
-#define SEARCHBAR_HEIGHT 40.f
-#define SEARCHBAR_PADDING 10.f
-static NSString * const CellIdentifier = @"Cell";
+static NSString *CellIdentifier = @"Cell";
 
+@interface SearchViewController () <SSSearchBarDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
 
-@interface SearchViewController () <SSSearchBarDelegate,UITableViewDataSource,UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet SSSearchBar *searchBar;
 
-@property (strong, nonatomic) SSSearchBar *searchBar;
-@property (strong, nonatomic) UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+
+@property (strong, nonatomic) UIButton *backBtn;
 
 @property (nonatomic) NSArray *data;
+
 @property (nonatomic) NSArray *searchData;
 
 @end
@@ -25,85 +34,59 @@ static NSString * const CellIdentifier = @"Cell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
 
+    [self loadControls];
     
     
-    self.data = @[ @"Hey there!",@"Hey there!",@"Hey there!",@"Hey there!",@"Hey there!",@"Hey there!",@"Hey there!",@"Hey there!",@"Hey there!",@"Hey there!",@"Hey there!",@"Hey there!",@"Hey there!", @"This is a custom UISearchBar.", @"And it's really easy to use...", @"Sweet!" ];
+    DBOperation *dbo = [[DBOperation alloc] init];
+    
+    
+    self.data = [dbo fetchSearchHistoryByOrder_withLimitNumber:10];
     self.searchData = self.data;
     
-    
-    [self LoadControls];
-    
-  
-    
+
 }
 
--(void)LoadControls{
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f,
-                                                                           0.0f,
-                                                                           self.view.bounds.size.width,
-                                                                           self.view.bounds.size.height - TOOLBAR_HEIGHT)];
-    tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellIdentifier];
+-(void)loadControls{
+    _backBtn = [LoadControls createCameraButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
+    [_backBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_backBtn];
     
-    tableView.delegate = self;
-    tableView.dataSource = self;
-    self.tableView = tableView;
-    [self.view addSubview:tableView];
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    self.collectionView.backgroundColor = [UIColor clearColor];
     
-    //toolbar
-    UIToolbar *toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f,
-                                                                     self.view.bounds.size.height - TOOLBAR_HEIGHT,
-                                                                     self.view.bounds.size.width,
-                                                                     TOOLBAR_HEIGHT)];
-    toolBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-    [self.view addSubview:toolBar];
     
-    //search bar
-    self.searchBar = [[SSSearchBar alloc] initWithFrame:CGRectMake(SEARCHBAR_PADDING,
-                                                                   5.0f,
-                                                                   toolBar.bounds.size.width - 2*SEARCHBAR_PADDING,
-                                                                   SEARCHBAR_HEIGHT)];
     self.searchBar.cancelButtonHidden = NO;
-    self.searchBar.placeholder = NSLocalizedString(@"Enter food name", nil);
+    self.searchBar.placeholder = NSLocalizedString(@"Search food", nil);
     self.searchBar.delegate = self;
-    [toolBar addSubview:self.searchBar];
-    
-    
-    
-    
-    self.view.keyboardTriggerOffset = toolBar.bounds.size.height;
-    
-    [self.view addKeyboardPanningWithFrameBasedActionHandler:^(CGRect keyboardFrameInView, BOOL opening, BOOL closing) {
-        /*
-         Try not to call "self" inside this block (retain cycle).
-         But if you do, make sure to remove DAKeyboardControl
-         when you are done with the view controller by calling:
-         [self.view removeKeyboardControl];
-         */
-        
-        //NSLog(@"yoyo");
-        
-        CGRect toolBarFrame = toolBar.frame;
-        toolBarFrame.origin.y = keyboardFrameInView.origin.y - toolBarFrame.size.height;
-        toolBar.frame = toolBarFrame;
-        
-        CGRect tableViewFrame = tableView.frame;
-        tableViewFrame.size.height = toolBarFrame.origin.y;
-        tableView.frame = tableViewFrame;
-    } constraintBasedActionHandler:nil];
-    
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    [self.searchBar becomeFirstResponder];
+    
+    [UIView animateWithDuration:.5 delay:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        _backBtn.center = CGPointMake(_backBtn.center.x, iPhone5? 320: 200);
+    } completion:^(BOOL finished) {
+        if (finished) {
+
+        }
+    }];
+}
+
+- (void) previousPagePressed:(id)sender {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
-    
-    if([self.searchBar isFirstResponder]){
-         [self.searchBar resignFirstResponder];
-    }
+    [self resignKeyboard];
 }
 
+-(void)resignKeyboard{
+    if([self.searchBar isFirstResponder]){
+        [self.searchBar resignFirstResponder];
+    }
+}
 #pragma mark - SSSearchBarDelegate
 
 - (void)searchBarCancelButtonClicked:(SSSearchBar *)searchBar {
@@ -117,26 +100,27 @@ static NSString * const CellIdentifier = @"Cell";
     [self filterTableViewWithText:searchText];
 }
 
-#pragma mark - UITableViewDataSource
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
 }
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return [self.searchData count];
 }
-- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    SearchCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    cell.textLabel.text = self.searchData[indexPath.row];
-    cell.textLabel.font = [UIFont fontWithName:@"Avenir Next" size:16];
-    cell.textLabel.textColor = [UIColor blackColor];
+    Food *food = self.searchData[indexPath.row];
+    cell.titleLabel.text = food.title;
+    cell.transLabel.text = food.transTitle;
+    cell.queryLabel.text = [NSString stringWithFormat:@"%d次",(int)food.queryTimes];
     return cell;
 }
 
-#pragma mark - UITableViewDelegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"click %d",(int)indexPath.row);
 }
 
 #pragma mark - Helper Methods
@@ -150,7 +134,7 @@ static NSString * const CellIdentifier = @"Cell";
         self.searchData = [self.data filteredArrayUsingPredicate:predicate];
     }
     
-    [self.tableView reloadData];
+    [self.collectionView reloadData];
 }
 
 @end

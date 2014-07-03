@@ -16,6 +16,8 @@
 
 @property (strong, nonatomic) CameraView *cameraView;
 
+@property (strong, nonatomic) UINavigationController *nvc;
+
 
 -(CameraView *)getCamView;
 -(void)closeCamera;

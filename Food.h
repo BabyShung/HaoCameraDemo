@@ -23,9 +23,12 @@
 @property (nonatomic, retain) NSArray *tagNames;
 @property (nonatomic, strong) NSMutableArray *photoNames;
 @property (nonatomic, retain) NSMutableArray *comments;
+@property (nonatomic) NSUInteger queryTimes;
 
 //For local search results
 -(instancetype) initWithTitle:(NSString *)title andTranslations:(NSString *)translate;
+
+-(instancetype) initWithTitle:(NSString *)title andTranslations:(NSString *)translate andQueryTimes:(NSUInteger)queryTimes;
 
 //For Server search results
 //-(instancetype) initWithDictionary:(NSDictionary *) dict;
