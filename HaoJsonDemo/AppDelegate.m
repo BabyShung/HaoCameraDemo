@@ -79,6 +79,7 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    
     NSLog(@"enter foreground!");
     [self.cameraView checkCameraAndOperate];
      NSLog(@"CameraIsOn??   %d" , [self.cameraView CameraIsOn]);

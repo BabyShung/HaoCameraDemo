@@ -76,6 +76,7 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 - (void)viewDidLoad{
+    NSLog(@"+++ MVC +++ : I did load");
     
     ScreenWidth = CGRectGetWidth([[UIScreen mainScreen] bounds]);
     ScreenHeight = CGRectGetHeight([[UIScreen mainScreen] bounds]);
@@ -87,7 +88,15 @@ static NSString *CellIdentifier = @"Cell";
     [self loadControls];
 
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+NSLog(@"+++ MVC +++ : I will appear");
+}
+-(void)viewWillDisappear:(BOOL)animated{
+NSLog(@"+++ MVC +++ : I will disappear");
+}
+-(void)viewDidDisappear:(BOOL)animated{
+NSLog(@"+++ MVC +++ : I did disappear");
+}
 -(void)loadControls{
     self.camView = [[CameraView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) andOrientation:self.interfaceOrientation andAppliedVC:self];
     [self.view insertSubview:self.camView belowSubview:self.collectionView];
@@ -103,6 +112,7 @@ static NSString *CellIdentifier = @"Cell";
     //debug view
     //self.debugV = [[debugView alloc] initWithFrame:CGRectMake(0, 0, 320, 200) andReferenceCV:self];
     //[self.view insertSubview:self.debugV aboveSubview:self.collectionView];
+    NSLog(@"+++ MVC +++ : I init transition controller");
     
     self.transitionController = [[TransitionController alloc] initWithCollectionView:self.collectionView];
     self.transitionController.delegate = self;
@@ -150,6 +160,8 @@ static NSString *CellIdentifier = @"Cell";
 
 - (void) viewDidAppear:(BOOL)animated {
     
+    NSLog(@"+++ MVC +++ : I did appear");
+    
     //scroll DEspeed normal
     self.collectionView.decelerationRate = UIScrollViewDecelerationRateNormal;
     
@@ -189,7 +201,7 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    NSLog(@"+++ MVC +++ : I select a cell");
     SecondViewController *viewController = [[SecondViewController alloc] initWithCollectionViewLayout:[[largeLayout alloc] init]];
     viewController.useLayoutToLayoutNavigationTransitions = YES;
     [self.navigationController pushViewController:viewController animated:YES];
@@ -200,28 +212,13 @@ static NSString *CellIdentifier = @"Cell";
 - (UICollectionViewTransitionLayout *)collectionView:(UICollectionView *)collectionView
                         transitionLayoutForOldLayout:(UICollectionViewLayout *)fromLayout newLayout:(UICollectionViewLayout *)toLayout
 {
+    NSLog(@"+++ MVC +++ : I access to transition layout");
     TransitionLayout *transitionLayout = [[TransitionLayout alloc] initWithCurrentLayout:fromLayout nextLayout:toLayout];
     return transitionLayout;
 }
 
-
-//-(void)addItem
-//{
-//    [self.collectionView performBatchUpdates:^{
-//        //self.cellCount = self.cellCount + 1;
-//        Food *food = [[Food alloc]initWithTitle:@"123" andTranslations:@"qwe"];
-//        [self.foodArray addObject:food];
-//        [self.collectionView insertItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
-//        
-//    } completion:nil];
-//}
-
-//-(NSArray *)excludeExistingFood:(NSArray *)newFoodItems
-//{
-//    NSMutableArray *addItems = [NSMutableArray array];
-//    for(Food *food)
-//}
-
+//Add new items into collection view
+//This method will exclude duplicates results
 -(void)addFoodItems:(NSArray *) newFoodItems
 {
     if (newFoodItems.count>0) {
@@ -229,7 +226,7 @@ static NSString *CellIdentifier = @"Cell";
         
         NSInteger startIndex = self.foodArray.count;
         
-        NSLog(@"+++ MAIN VC +++ : +newFoodItems.count: %d",(int)newFoodItems.count);
+        //NSLog(@"+++ MAIN VC +++ : +newFoodItems.count: %d",(int)newFoodItems.count);
         
         //NSLog(@"self.foodArray.count: %d",(int)self.foodArray.count);
         
@@ -250,7 +247,7 @@ static NSString *CellIdentifier = @"Cell";
                 count--;
             }
         }
-        NSLog(@"+++ MAIN VC +++ : -newFoodItems.count: %d",(int)addItems.count);
+       // NSLog(@"+++ MAIN VC +++ : -newFoodItems.count: %d",(int)addItems.count);
         
         [self.collectionView performBatchUpdates:^{
             [self.foodArray addObjectsFromArray:addItems];
@@ -263,10 +260,11 @@ static NSString *CellIdentifier = @"Cell";
 //transitionVC delegate
 - (void)interactionBeganAtPoint:(CGPoint)point
 {
-    UIViewController *topVC = [self.navigationController topViewController];
-    if ([topVC class] != [MainViewController class]) {
+    NSLog(@"+++ MVC +++ : POP transition interaction will begin");
+//    UIViewController *topVC = [self.navigationController topViewController];
+//    if ([topVC class] != [MainViewController class]) {
         [self.navigationController popViewControllerAnimated:YES];
-    }
+//    }
 }
 
 -(void)loadTesseract{

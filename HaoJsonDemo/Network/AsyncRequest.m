@@ -219,7 +219,6 @@
  
  ************************/
 -(void)performGETAsyncTaskwithURLString:(NSString *)urlString{
-    NSLog(@"---AsyncRequst---: Perform %@",urlString);
     
     NSString *urlEncodeString =[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     

@@ -91,26 +91,6 @@
     return YES;
 }
 
--(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
-{
-//    CGPoint location = [gestureRecognizer locationInView:self.collectionView];
-//    NSIndexPath *indexpath = [self.collectionView indexPathForItemAtPoint:[gestureRecognizer locationInView:self.collectionView]];
-    //CGPoint offset = cell.foodInfoView.scrollview.contentOffset;
-    // NSLog(@"location(%f, %f),cell %d, offset(%f, %f)",location.x,location.y,indexpath.row,offset.x,offset.y);
-    
-//    self.currentCell = (EDCollectionCell *)[self.collectionView cellForItemAtIndexPath:[self.collectionView indexPathForItemAtPoint:[gestureRecognizer locationInView:self.collectionView]]];
-//
-//    if (self.currentCell.foodInfoView.scrollview.contentOffset.y >.0f) {
-//        return NO;
-//    }
-//    else{
-//        NSLog(@"pop start");
-//
-//        return YES;
-//    }
-    return YES;
-}
-
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext
 {
 }
@@ -175,14 +155,14 @@
         self.hasActiveInteraction = NO;
     }
     else if(self.transitionLayout.transitionProgress <0.1){
-        NSLog(@"pop canceled");
+        NSLog(@"+++ TC +++ : I cancel interactive transition");
 
         //[self enableCollectionView];
         [self.collectionView cancelInteractiveTransition];
         [self.context cancelInteractiveTransition];
     }
     else if (success){
-        
+         NSLog(@"+++ TC +++ : I will finish interactive transition");
         [self.collectionView finishInteractiveTransition];
         [self.context finishInteractiveTransition];
     }
@@ -214,9 +194,13 @@
             break;
         case UIGestureRecognizerStateBegan:
             if (sender.numberOfTouches == 1) {
+                 NSLog(@"+++ TC +++ : A 1 finger gesture began");
+                
                  EDCollectionCell *cell = (EDCollectionCell *)[self.collectionView cellForItemAtIndexPath:[self.collectionView indexPathForItemAtPoint:point]];
-
-                if (!self.hasActiveInteraction && fabsf(velocity.y/velocity.x)>2 && !(cell.foodInfoView.scrollview.contentOffset.y>.0f)){
+                //fabsf(velocity.y/velocity.x)>2
+                if (!self.hasActiveInteraction && velocity.y>0 && fabsf(velocity.y/velocity.x)>2 && cell.foodInfoView.scrollview.contentOffset.y<=0){
+                    
+                    NSLog(@"+++ TC +++ : I will start interactive transition");
                     
                     self.initialPinchPoint = point;
                     self.hasActiveInteraction = YES; // the transition is in active motion
@@ -229,7 +213,8 @@
         case UIGestureRecognizerStateChanged:
             if (self.hasActiveInteraction){
                 CGFloat distance = sqrt(translate.x*translate.x + translate.y*translate.y);
-                CGFloat offsetX = translate.x;
+                //CGFloat offsetX = translate.x;
+                CGFloat offsetX = 0;
                 CGFloat offsetY = translate.y - distance;
                 CGFloat ratio =(point.y - self.initialPinchPoint.y)/(screenH-self.initialPinchPoint.y);
                 
@@ -239,16 +224,6 @@
                 [self updateWithProgress:progress andOffset:offsetToUse];
             }
             
-    }
-}
--(void)enableCollectionView{
-    for (EDCollectionCell *cell in self.collectionView.visibleCells) {
-        [cell setUpForLargeLayout];
-    }
-}
--(void)disableCollectionView{
-    for (EDCollectionCell *cell in self.collectionView.visibleCells) {
-        [cell setUpForSmallLayout];
     }
 }
 
