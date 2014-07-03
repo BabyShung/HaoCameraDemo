@@ -27,9 +27,6 @@
 		ACDD6D55195F4B2000AD51A7 /* EDCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDD6D54195F4B2000AD51A7 /* EDCollectionCell.m */; };
 		ACDD6D58195F4BAD00AD51A7 /* DBOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDD6D57195F4BAD00AD51A7 /* DBOperation.m */; };
 		ACDD6D5B195F4C3100AD51A7 /* FoodInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDD6D5A195F4C3100AD51A7 /* FoodInfoView.m */; };
-		B82353AE192BE2D800D6BCAC /* Attribution_PixelLove.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353A4192BE2D800D6BCAC /* Attribution_PixelLove.png */; };
-		B82353B6192BE2D800D6BCAC /* shutter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353AC192BE2D800D6BCAC /* shutter@2x.png */; };
-		B82353BD192BE2F400D6BCAC /* CameraRotate.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353B9192BE2F400D6BCAC /* CameraRotate.png */; };
 		B82353BE192BE2F400D6BCAC /* Download.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353BA192BE2F400D6BCAC /* Download.png */; };
 		B82353BF192BE2F400D6BCAC /* Lightening.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353BB192BE2F400D6BCAC /* Lightening.png */; };
 		B82353C0192BE2F400D6BCAC /* CameraPrevious.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353BC192BE2F400D6BCAC /* CameraPrevious.png */; };
@@ -86,8 +83,6 @@
 		B8B61082195927A2005268D5 /* CardsCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6107C195927A2005268D5 /* CardsCollectionCell.m */; };
 		B8B61083195927A2005268D5 /* CardFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6107E195927A2005268D5 /* CardFlowLayout.m */; };
 		B8B61084195927A2005268D5 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B61080195927A2005268D5 /* CardsViewController.m */; };
-		B8B61088195927C4005268D5 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B61087195927C4005268D5 /* SearchViewController.m */; };
-		B8B6108E195927D2005268D5 /* DAKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6108B195927D2005268D5 /* DAKeyboardControl.m */; };
 		B8B6108F195927D2005268D5 /* SSSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6108D195927D2005268D5 /* SSSearchBar.m */; };
 		B8B610941959CFBC005268D5 /* CameraNext.png in Resources */ = {isa = PBXBuildFile; fileRef = B8B610931959CFBC005268D5 /* CameraNext.png */; };
 		B8B610A0195A0BE0005268D5 /* NavBarSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6109F195A0BE0005268D5 /* NavBarSetting.m */; };
@@ -99,6 +94,13 @@
 		B8BBAFD819630B24007CE548 /* LoadingAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BBAFD719630B24007CE548 /* LoadingAnimation.m */; };
 		B8BBB01D19645C70007CE548 /* UIResponder+KeyboardCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BBB01C19645C70007CE548 /* UIResponder+KeyboardCache.m */; };
 		B8BBB020196491DA007CE548 /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BBB01F196491DA007CE548 /* UIAlertView+Blocks.m */; };
+		B8BBB0261964FF51007CE548 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BBB0251964FF51007CE548 /* SearchCell.m */; };
+		B8BBB0291964FF9A007CE548 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BBB0281964FF9A007CE548 /* SearchViewController.m */; };
+		B8BBB02E1964FFA9007CE548 /* close-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B8BBB02A1964FFA9007CE548 /* close-icon.png */; };
+		B8BBB02F1964FFA9007CE548 /* close-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8BBB02B1964FFA9007CE548 /* close-icon@2x.png */; };
+		B8BBB0301964FFA9007CE548 /* search-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B8BBB02C1964FFA9007CE548 /* search-icon.png */; };
+		B8BBB0311964FFA9007CE548 /* search-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8BBB02D1964FFA9007CE548 /* search-icon@2x.png */; };
+		B8BBB0341965B23A007CE548 /* SingleFoodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BBB0331965B23A007CE548 /* SingleFoodViewController.m */; };
 		B8C21B2B194F43EB0012B616 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C21B29194F43EB0012B616 /* AWSRuntime.framework */; };
 		B8C21B2C194F43EB0012B616 /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C21B2A194F43EB0012B616 /* AWSS3.framework */; };
 		B8C8F284195DEC85009F8F6E /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C8F283195DEC85009F8F6E /* Comment.m */; };
@@ -138,14 +140,6 @@
 		B8F29C6319314357008979A7 /* DebugViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8F29C6219314357008979A7 /* DebugViewController.mm */; };
 		B8F29C681932DC55008979A7 /* Camera_01.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F29C641932DC55008979A7 /* Camera_01.png */; };
 		B8F29C691932DC55008979A7 /* Camera_01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F29C651932DC55008979A7 /* Camera_01@2x.png */; };
-		B8F29C6A1932DC55008979A7 /* Search_01.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F29C661932DC55008979A7 /* Search_01.png */; };
-		B8F29C6B1932DC55008979A7 /* Search_01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F29C671932DC55008979A7 /* Search_01@2x.png */; };
-		B8F29C701932DCF5008979A7 /* Dine_01.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F29C6C1932DCF5008979A7 /* Dine_01.png */; };
-		B8F29C711932DCF5008979A7 /* Dine_01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F29C6D1932DCF5008979A7 /* Dine_01@2x.png */; };
-		B8F29C721932DCF5008979A7 /* Me_01.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F29C6E1932DCF5008979A7 /* Me_01.png */; };
-		B8F29C731932DCF5008979A7 /* Me_01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F29C6F1932DCF5008979A7 /* Me_01@2x.png */; };
-		B8F29C761932DD20008979A7 /* Discover_01.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F29C741932DD20008979A7 /* Discover_01.png */; };
-		B8F29C771932DD20008979A7 /* Discover_01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F29C751932DD20008979A7 /* Discover_01@2x.png */; };
 		B8FA463D18F9E954007DA680 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8FA463C18F9E954007DA680 /* Foundation.framework */; };
 		B8FA463F18F9E954007DA680 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8FA463E18F9E954007DA680 /* CoreGraphics.framework */; };
 		B8FA464118F9E954007DA680 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8FA464018F9E954007DA680 /* UIKit.framework */; };
@@ -206,9 +200,6 @@
 		ACDD6D57195F4BAD00AD51A7 /* DBOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBOperation.m; sourceTree = "<group>"; };
 		ACDD6D59195F4C3100AD51A7 /* FoodInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodInfoView.h; sourceTree = "<group>"; };
 		ACDD6D5A195F4C3100AD51A7 /* FoodInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodInfoView.m; sourceTree = "<group>"; };
-		B82353A4192BE2D800D6BCAC /* Attribution_PixelLove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Attribution_PixelLove.png; sourceTree = "<group>"; };
-		B82353AC192BE2D800D6BCAC /* shutter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shutter@2x.png"; sourceTree = "<group>"; };
-		B82353B9192BE2F400D6BCAC /* CameraRotate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CameraRotate.png; sourceTree = "<group>"; };
 		B82353BA192BE2F400D6BCAC /* Download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Download.png; sourceTree = "<group>"; };
 		B82353BB192BE2F400D6BCAC /* Lightening.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Lightening.png; sourceTree = "<group>"; };
 		B82353BC192BE2F400D6BCAC /* CameraPrevious.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CameraPrevious.png; sourceTree = "<group>"; };
@@ -301,10 +292,6 @@
 		B8B6107E195927A2005268D5 /* CardFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardFlowLayout.m; sourceTree = "<group>"; };
 		B8B6107F195927A2005268D5 /* CardsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
 		B8B61080195927A2005268D5 /* CardsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
-		B8B61086195927C4005268D5 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
-		B8B61087195927C4005268D5 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
-		B8B6108A195927D2005268D5 /* DAKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAKeyboardControl.h; sourceTree = "<group>"; };
-		B8B6108B195927D2005268D5 /* DAKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAKeyboardControl.m; sourceTree = "<group>"; };
 		B8B6108C195927D2005268D5 /* SSSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSSearchBar.h; sourceTree = "<group>"; };
 		B8B6108D195927D2005268D5 /* SSSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSSearchBar.m; sourceTree = "<group>"; };
 		B8B610931959CFBC005268D5 /* CameraNext.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CameraNext.png; sourceTree = "<group>"; };
@@ -325,6 +312,16 @@
 		B8BBB01C19645C70007CE548 /* UIResponder+KeyboardCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+KeyboardCache.m"; sourceTree = "<group>"; };
 		B8BBB01E196491DA007CE548 /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
 		B8BBB01F196491DA007CE548 /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Blocks.m"; sourceTree = "<group>"; };
+		B8BBB0241964FF51007CE548 /* SearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCell.h; sourceTree = "<group>"; };
+		B8BBB0251964FF51007CE548 /* SearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCell.m; sourceTree = "<group>"; };
+		B8BBB0271964FF9A007CE548 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		B8BBB0281964FF9A007CE548 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		B8BBB02A1964FFA9007CE548 /* close-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close-icon.png"; sourceTree = "<group>"; };
+		B8BBB02B1964FFA9007CE548 /* close-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close-icon@2x.png"; sourceTree = "<group>"; };
+		B8BBB02C1964FFA9007CE548 /* search-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-icon.png"; sourceTree = "<group>"; };
+		B8BBB02D1964FFA9007CE548 /* search-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-icon@2x.png"; sourceTree = "<group>"; };
+		B8BBB0321965B23A007CE548 /* SingleFoodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleFoodViewController.h; sourceTree = "<group>"; };
+		B8BBB0331965B23A007CE548 /* SingleFoodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleFoodViewController.m; sourceTree = "<group>"; };
 		B8C21B29194F43EB0012B616 /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSRuntime.framework; sourceTree = "<group>"; };
 		B8C21B2A194F43EB0012B616 /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AWSS3.framework; sourceTree = "<group>"; };
 		B8C8F282195DEC85009F8F6E /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comment.h; path = ../Comment.h; sourceTree = "<group>"; };
@@ -377,14 +374,6 @@
 		B8F29C6219314357008979A7 /* DebugViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DebugViewController.mm; sourceTree = "<group>"; };
 		B8F29C641932DC55008979A7 /* Camera_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Camera_01.png; sourceTree = "<group>"; };
 		B8F29C651932DC55008979A7 /* Camera_01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Camera_01@2x.png"; sourceTree = "<group>"; };
-		B8F29C661932DC55008979A7 /* Search_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Search_01.png; sourceTree = "<group>"; };
-		B8F29C671932DC55008979A7 /* Search_01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Search_01@2x.png"; sourceTree = "<group>"; };
-		B8F29C6C1932DCF5008979A7 /* Dine_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dine_01.png; sourceTree = "<group>"; };
-		B8F29C6D1932DCF5008979A7 /* Dine_01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Dine_01@2x.png"; sourceTree = "<group>"; };
-		B8F29C6E1932DCF5008979A7 /* Me_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Me_01.png; sourceTree = "<group>"; };
-		B8F29C6F1932DCF5008979A7 /* Me_01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Me_01@2x.png"; sourceTree = "<group>"; };
-		B8F29C741932DD20008979A7 /* Discover_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Discover_01.png; sourceTree = "<group>"; };
-		B8F29C751932DD20008979A7 /* Discover_01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Discover_01@2x.png"; sourceTree = "<group>"; };
 		B8FA463918F9E954007DA680 /* EdibleCameraApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EdibleCameraApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8FA463C18F9E954007DA680 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B8FA463E18F9E954007DA680 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -500,6 +489,10 @@
 		B82353B8192BE2DF00D6BCAC /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				B8BBB02A1964FFA9007CE548 /* close-icon.png */,
+				B8BBB02B1964FFA9007CE548 /* close-icon@2x.png */,
+				B8BBB02C1964FFA9007CE548 /* search-icon.png */,
+				B8BBB02D1964FFA9007CE548 /* search-icon@2x.png */,
 				B8C8F36C195F7F9A009F8F6E /* default_selfie.png */,
 				B8C8F36D195F7F9A009F8F6E /* default_selfie@2x.png */,
 				B8C8F36E195F7F9A009F8F6E /* ED_about.png */,
@@ -519,8 +512,6 @@
 				B8B6105B1959268B005268D5 /* LoginRegister */,
 				B82353C4192BE46C00D6BCAC /* ICON */,
 				ACA172631937C8D7005E7D51 /* testfiles */,
-				B82353A4192BE2D800D6BCAC /* Attribution_PixelLove.png */,
-				B82353AC192BE2D800D6BCAC /* shutter@2x.png */,
 			);
 			name = Image;
 			sourceTree = "<group>";
@@ -528,21 +519,12 @@
 		B82353C4192BE46C00D6BCAC /* ICON */ = {
 			isa = PBXGroup;
 			children = (
-				B8F29C741932DD20008979A7 /* Discover_01.png */,
-				B8F29C751932DD20008979A7 /* Discover_01@2x.png */,
-				B8F29C6C1932DCF5008979A7 /* Dine_01.png */,
-				B8F29C6D1932DCF5008979A7 /* Dine_01@2x.png */,
 				B8B610931959CFBC005268D5 /* CameraNext.png */,
-				B8F29C6E1932DCF5008979A7 /* Me_01.png */,
-				B8F29C6F1932DCF5008979A7 /* Me_01@2x.png */,
+				B82353BC192BE2F400D6BCAC /* CameraPrevious.png */,
 				B8F29C641932DC55008979A7 /* Camera_01.png */,
 				B8F29C651932DC55008979A7 /* Camera_01@2x.png */,
-				B8F29C661932DC55008979A7 /* Search_01.png */,
-				B8F29C671932DC55008979A7 /* Search_01@2x.png */,
-				B82353B9192BE2F400D6BCAC /* CameraRotate.png */,
 				B82353BA192BE2F400D6BCAC /* Download.png */,
 				B82353BB192BE2F400D6BCAC /* Lightening.png */,
-				B82353BC192BE2F400D6BCAC /* CameraPrevious.png */,
 			);
 			name = ICON;
 			sourceTree = "<group>";
@@ -820,9 +802,13 @@
 		B8B61085195927B2005268D5 /* SearchPage */ = {
 			isa = PBXGroup;
 			children = (
+				B8BBB0271964FF9A007CE548 /* SearchViewController.h */,
+				B8BBB0281964FF9A007CE548 /* SearchViewController.m */,
+				B8BBB0321965B23A007CE548 /* SingleFoodViewController.h */,
+				B8BBB0331965B23A007CE548 /* SingleFoodViewController.m */,
+				B8BBB0241964FF51007CE548 /* SearchCell.h */,
+				B8BBB0251964FF51007CE548 /* SearchCell.m */,
 				B8B61089195927CA005268D5 /* SearchBar */,
-				B8B61086195927C4005268D5 /* SearchViewController.h */,
-				B8B61087195927C4005268D5 /* SearchViewController.m */,
 			);
 			name = SearchPage;
 			sourceTree = "<group>";
@@ -830,8 +816,6 @@
 		B8B61089195927CA005268D5 /* SearchBar */ = {
 			isa = PBXGroup;
 			children = (
-				B8B6108A195927D2005268D5 /* DAKeyboardControl.h */,
-				B8B6108B195927D2005268D5 /* DAKeyboardControl.m */,
 				B8B6108C195927D2005268D5 /* SSSearchBar.h */,
 				B8B6108D195927D2005268D5 /* SSSearchBar.m */,
 			);
@@ -1091,22 +1075,17 @@
 				B8C8F382195F7F9A009F8F6E /* ED_logout.png in Resources */,
 				B8B6106319592696005268D5 /* lock@2x.png in Resources */,
 				B8C8F385195F7F9A009F8F6E /* ED_search@2x.png in Resources */,
-				B8F29C761932DD20008979A7 /* Discover_01.png in Resources */,
 				B8C8F386195F7F9A009F8F6E /* ED_torch_v.png in Resources */,
 				B8F29C691932DC55008979A7 /* Camera_01@2x.png in Resources */,
-				B8F29C731932DCF5008979A7 /* Me_01@2x.png in Resources */,
-				B82353AE192BE2D800D6BCAC /* Attribution_PixelLove.png in Resources */,
-				B8F29C6B1932DC55008979A7 /* Search_01@2x.png in Resources */,
 				B8C8F38B195F834B009F8F6E /* login_03.png in Resources */,
 				B8C8F37B195F7F9A009F8F6E /* default_selfie@2x.png in Resources */,
+				B8BBB02F1964FFA9007CE548 /* close-icon@2x.png in Resources */,
 				B8C8F37A195F7F9A009F8F6E /* default_selfie.png in Resources */,
 				B8C8F380195F7F9A009F8F6E /* ED_feedback.png in Resources */,
 				B8B60FD919591E07005268D5 /* bluejay.jpg in Resources */,
-				B82353BD192BE2F400D6BCAC /* CameraRotate.png in Resources */,
 				B8C8F381195F7F9A009F8F6E /* ED_feedback@2x.png in Resources */,
 				ACA172651937C8F5005E7D51 /* w2-1:3.jpg in Resources */,
-				B82353B6192BE2D800D6BCAC /* shutter@2x.png in Resources */,
-				B8F29C701932DCF5008979A7 /* Dine_01.png in Resources */,
+				B8BBB0311964FFA9007CE548 /* search-icon@2x.png in Resources */,
 				B8B60FDA19591E07005268D5 /* moreButton.png in Resources */,
 				B8B6106219592696005268D5 /* lock.png in Resources */,
 				B8C8F330195E1EFF009F8F6E /* trained_classifier_erGrouping.xml in Resources */,
@@ -1117,21 +1096,19 @@
 				B8FA465518F9E954007DA680 /* Images.xcassets in Resources */,
 				B8F29C681932DC55008979A7 /* Camera_01.png in Resources */,
 				B8C8F383195F7F9A009F8F6E /* ED_logout@2x.png in Resources */,
-				B8F29C6A1932DC55008979A7 /* Search_01.png in Resources */,
-				B8F29C771932DD20008979A7 /* Discover_01@2x.png in Resources */,
+				B8BBB02E1964FFA9007CE548 /* close-icon.png in Resources */,
 				B8B60FDB19591E07005268D5 /* secret.png in Resources */,
 				B8B61145195A63DA005268D5 /* addImage.png in Resources */,
 				B82353BF192BE2F400D6BCAC /* Lightening.png in Resources */,
 				B8B610941959CFBC005268D5 /* CameraNext.png in Resources */,
 				AC1E7764194F583100532F65 /* filterwords.txt in Resources */,
 				B82353F0192CFC4C00D6BCAC /* tessdata in Resources */,
-				B8F29C721932DCF5008979A7 /* Me_01.png in Resources */,
 				B8B60FD519591E07005268D5 /* likeButton_selected.png in Resources */,
 				B8C8F37D195F7F9A009F8F6E /* ED_about@2x.png in Resources */,
 				B8C8F38A195F834B009F8F6E /* register_03.png in Resources */,
 				B8B6106419592696005268D5 /* user.png in Resources */,
-				B8F29C711932DCF5008979A7 /* Dine_01@2x.png in Resources */,
 				B8B60FD719591E07005268D5 /* likeButtonToolbar_selected.png in Resources */,
+				B8BBB0301964FFA9007CE548 /* search-icon.png in Resources */,
 				B8C8F37E195F7F9A009F8F6E /* ED_cross.png in Resources */,
 				B82353BE192BE2F400D6BCAC /* Download.png in Resources */,
 				B8FA464718F9E954007DA680 /* InfoPlist.strings in Resources */,
@@ -1181,11 +1158,12 @@
 				B8BBB020196491DA007CE548 /* UIAlertView+Blocks.m in Sources */,
 				B8BBAFD819630B24007CE548 /* LoadingAnimation.m in Sources */,
 				ACDD6D52195F4AE800AD51A7 /* Dictionary.m in Sources */,
+				B8BBB0341965B23A007CE548 /* SingleFoodViewController.m in Sources */,
+				B8BBB0291964FF9A007CE548 /* SearchViewController.m in Sources */,
 				B8B6105719592528005268D5 /* NetworkTestViewController.m in Sources */,
 				B8B60FE319591E2E005268D5 /* TagView.m in Sources */,
 				B8B6104719592493005268D5 /* ImageCropView.m in Sources */,
 				AC749201195A2D4300D3CBBA /* TransitionLayout.m in Sources */,
-				B8B61088195927C4005268D5 /* SearchViewController.m in Sources */,
 				B8BBB01D19645C70007CE548 /* UIResponder+KeyboardCache.m in Sources */,
 				3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */,
 				3A5654BC1936838C0085CC87 /* TextDetector.mm in Sources */,
@@ -1238,7 +1216,7 @@
 				B8B61023195922B5005268D5 /* FBShimmeringLayer.m in Sources */,
 				B8C8F339195F4BD5009F8F6E /* edi_md5.m in Sources */,
 				B8B60FAB195914DF005268D5 /* smallLayout.m in Sources */,
-				B8B6108E195927D2005268D5 /* DAKeyboardControl.m in Sources */,
+				B8BBB0261964FF51007CE548 /* SearchCell.m in Sources */,
 				B8C8F360195F76E7009F8F6E /* M13AsyncImageLoader.m in Sources */,
 				B8B6103A19592369005268D5 /* JTSSimpleImageDownloader.m in Sources */,
 			);

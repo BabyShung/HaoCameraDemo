@@ -92,8 +92,6 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
     
     self.titleLabel.text = [NSString stringWithFormat: @"Hello, %@",user.name];
     
-    
-    
 }
 
 -(void)viewDidAppear:(BOOL)animated{

@@ -119,6 +119,7 @@ NSLog(@"+++ MVC +++ : I did disappear");
     self.navigationController.delegate = self.transitionController;
     
     //add in collectionView
+
 //    _clearBtn = [LoadControls createCameraButton_Image:@"ED_cross.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(10, 10, 10, 10) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
 //    [_clearBtn addTarget:self action:@selector(clearBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
 //    _clearBtn.alpha = 1;
@@ -128,6 +129,7 @@ NSLog(@"+++ MVC +++ : I did disappear");
 //    [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
 //    _captureBtn.alpha = 1;
 //    [self.collectionView addSubview:_captureBtn];
+
     
 }
 
@@ -138,9 +140,16 @@ NSLog(@"+++ MVC +++ : I did disappear");
                                      options:UIViewAnimationOptionTransitionCrossDissolve
                                   animations:^(){
                                       self.collectionView.alpha = 0;
+                                      self.clearBtn.alpha = 0;
+                                      self.captureBtn.alpha = 0;
+                                      
                                   }
                                   completion:^(BOOL finished){
+             
+                                      //self.clearBtn.hidden = YES;
+                                     // self.captureBtn.hidden = YES;
                                       
+                                      //[self.foodArray removeAllObjects];
                                       self.foodArray =nil;
                                       self.existingFood =nil;
                                       [self.collectionView reloadData];
@@ -224,12 +233,13 @@ NSLog(@"+++ MVC +++ : I did disappear");
     if (newFoodItems.count>0) {
         
         
-        NSInteger startIndex = self.foodArray.count;
-        
+        NSInteger startIndex = self.foodArray.count;        
         //NSLog(@"+++ MAIN VC +++ : +newFoodItems.count: %d",(int)newFoodItems.count);
+
         
         //NSLog(@"self.foodArray.count: %d",(int)self.foodArray.count);
         
+
         NSMutableArray *newIndexPaths = [[NSMutableArray alloc]init];
         NSMutableArray *addItems = [[NSMutableArray alloc]initWithArray:newFoodItems];
         
@@ -288,6 +298,23 @@ NSLog(@"+++ MVC +++ : I did disappear");
 - (void) EdibleCamera:(MainViewController *)simpleCam didFinishWithImage:(UIImage *)image withRect:(CGRect)rect andCropSize:(CGSize)size{
     self.collectionView.hidden = NO;
     self.collectionView.alpha = 1;
+    
+//    [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+//        self.clearBtn.alpha = 1;
+//        self.captureBtn.alpha = 1;
+//    } completion:^(BOOL finished) {
+//        if (finished) {
+//            self.clearBtn.hidden = NO;
+//            self.captureBtn.hidden = NO;
+//        }
+//    }];
+    
+
+    
+    
+    
+    
+    //NSArray *localFoods;
 
     Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
     //@"yeast bread with Worcestershire sauce and yogurt"

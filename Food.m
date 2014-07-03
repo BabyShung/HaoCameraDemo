@@ -38,21 +38,27 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 //Local search use this to init Food
 -(instancetype)initWithTitle:(NSString *)title andTranslations:(NSString *)translate
 {
-    self = [super init];
-    
-    self.loadingFoodInfo = NO;
-    self.foodInfoComplete = NO;
-    self.loadingComments = NO;
-    self.commentLoaded = NO;
-    
-    self.title = title;
-    self.transTitle = translate;
-    self.food_description = @"";
-    _webdata = [[NSMutableData alloc]init];
-    _async = [[AsyncRequest alloc]initWithDelegate:self];
-    _photoNames = [NSMutableArray array];
-    _tagNames = [NSMutableArray array];
-    _comments = [NSMutableArray array];
+    if (self = [super init]) {
+        self.loadingFoodInfo = NO;
+        self.foodInfoComplete = NO;
+        self.loadingComments = NO;
+        self.commentLoaded = NO;
+        
+        self.title = title;
+        self.transTitle = translate;
+        self.food_description = @"";
+        _webdata = [[NSMutableData alloc]init];
+        _async = [[AsyncRequest alloc]initWithDelegate:self];
+        _photoNames = [NSMutableArray array];
+        _tagNames = [NSMutableArray array];
+        _comments = [NSMutableArray array];
+    }
+    return self;
+}
+
+-(instancetype) initWithTitle:(NSString *)title andTranslations:(NSString *)translate andQueryTimes:(NSUInteger)queryTimes{
+    self = [self initWithTitle:title andTranslations:translate];
+    self.queryTimes = queryTimes;
     return self;
 }
 
@@ -297,7 +303,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 
 -(NSString *)description
 {
-    NSString *desc  = [NSString stringWithFormat:@"Title: %@, transTitle: %@", self.title, self.transTitle];
+    NSString *desc  = [NSString stringWithFormat:@"Title: %@, transTitle: %@, queryTimes: %d", self.title, self.transTitle,(int)self.queryTimes];
 	return desc;
 }
 
