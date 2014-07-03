@@ -39,6 +39,6 @@
 
 @property (retain, nonatomic) id <MainVCDelegate> Maindelegate;
 
--(void)addItem;
+//-(void)addItem;
 
 @end

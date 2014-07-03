@@ -92,7 +92,7 @@
     }
     else{
         [self.foodInfoView shineDescription];
-        self.foodInfoView.scrollview.scrollEnabled = YES;
+        self.foodInfoView.scrollview.scrollEnabled = NO;
     }
     
 }

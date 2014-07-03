@@ -10,7 +10,7 @@
 
 @implementation OtherUser
 
-- (instancetype)initWithUid:(NSUInteger)uid andUname:(NSString*)uname andUtype:(NSUInteger)utype andUselfie:(NSData*)uselfie{
+- (instancetype)initWithUid:(NSUInteger)uid andUname:(NSString*)uname andUtype:(NSUInteger)utype andUselfie:(NSString*)uselfie{
     
     if (self = [super init]) {
         
@@ -20,7 +20,7 @@
         
         self.Utype = utype;
         
-        self.Uselfie = uselfie;
+        self.Uselfie = uselfie ;
         
     }
     return self;

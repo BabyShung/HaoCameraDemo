@@ -124,7 +124,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
     _loadingComments = YES;
     _commentCompletionBlock = block;
     
-    NSLog(@"++++++++++++FOOD++++++++ : %d",self.fid);
+    NSLog(@"++++++++++++FOOD++++++++ : %d",(int)self.fid);
     [self.async getReviews_fid:self.fid withLoadSize:size andSkip:skip];
 }
 

@@ -52,6 +52,8 @@ static NSString *CellIdentifier = @"Cell";
 
 @property (strong,nonatomic) NSMutableArray *foodArray;
 
+@property (strong,nonatomic) NSMutableDictionary *existingFood;
+
 
 @property (strong,nonatomic) TransitionController *transitionController;
 
@@ -65,6 +67,12 @@ static NSString *CellIdentifier = @"Cell";
         _foodArray = [[NSMutableArray alloc]init];
     }
     return _foodArray;
+}
+-(NSDictionary *)existingFood{
+    if (!_existingFood) {
+        _existingFood = [[NSMutableDictionary alloc]init];
+    }
+    return _existingFood;
 }
 
 - (void)viewDidLoad{
@@ -123,12 +131,13 @@ static NSString *CellIdentifier = @"Cell";
                                   }
                                   completion:^(BOOL finished){
                                       
-                                      [self.foodArray removeAllObjects];
+                                      self.foodArray =nil;
+                                      self.existingFood =nil;
                                       [self.collectionView reloadData];
 
                                       
                                       
-                                      NSLog(@"food array count: %d",self.foodArray.count);
+                                      NSLog(@"food array count: %d",(int)self.foodArray.count);
                                       self.collectionView.hidden = YES;
                                   }];
     
@@ -207,6 +216,12 @@ static NSString *CellIdentifier = @"Cell";
 //    } completion:nil];
 //}
 
+//-(NSArray *)excludeExistingFood:(NSArray *)newFoodItems
+//{
+//    NSMutableArray *addItems = [NSMutableArray array];
+//    for(Food *food)
+//}
+
 -(void)addFoodItems:(NSArray *) newFoodItems
 {
     if (newFoodItems.count>0) {
@@ -214,17 +229,31 @@ static NSString *CellIdentifier = @"Cell";
         
         NSInteger startIndex = self.foodArray.count;
         
-        NSLog(@"newFoodItems.count: %d",newFoodItems.count);
+        NSLog(@"+++ MAIN VC +++ : +newFoodItems.count: %d",(int)newFoodItems.count);
         
-        NSLog(@"self.foodArray.count: %d",(int)self.foodArray.count);
+        //NSLog(@"self.foodArray.count: %d",(int)self.foodArray.count);
         
         NSMutableArray *newIndexPaths = [[NSMutableArray alloc]init];
-        for (int i =0; i<newFoodItems.count; i++){
-            [newIndexPaths addObject:[NSIndexPath indexPathForItem:(startIndex+i) inSection:0]];
+        NSMutableArray *addItems = [[NSMutableArray alloc]initWithArray:newFoodItems];
+        
+        int count = (int)addItems.count;
+        for (int i =0; i<count; i++){
+            Food *food = addItems[i];
+            if (![self.existingFood valueForKey:[food.title lowercaseString]]) {
+                [self.existingFood setValue:@"1" forKey:[food.title lowercaseString]];
+                [newIndexPaths addObject:[NSIndexPath indexPathForItem:(startIndex+i) inSection:0]];
+                
+            }
+            else{
+                [addItems removeObjectAtIndex:i];
+                i--;
+                count--;
+            }
         }
+        NSLog(@"+++ MAIN VC +++ : -newFoodItems.count: %d",(int)addItems.count);
         
         [self.collectionView performBatchUpdates:^{
-            [self.foodArray addObjectsFromArray:newFoodItems];
+            [self.foodArray addObjectsFromArray:addItems];
             [self.collectionView insertItemsAtIndexPaths:newIndexPaths];
             
         } completion:nil];
@@ -265,13 +294,13 @@ static NSString *CellIdentifier = @"Cell";
     Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
     //@"yeast bread with Worcestershire sauce and yogurt"
     [dict serverSearchOCRString:@"blue cheese and carp" andCompletion:^(NSArray *results, BOOL success) {
-        NSLog(@"Local Foods: %d",(int)results.count);
+        NSLog(@"++++Main VC++++ : Server Foods: %d",(int)results.count);
         [self addFoodItems:results];
     }];
-//    NSArray *localFoods;
-//    localFoods = [dict localSearchOCRString:@"blue cheese and carp"];
-//    NSLog(@"Local Foods: %d",(int)localFoods.count);
-//    [self addFoodItems:localFoods];
+    NSArray *localFoods;
+    localFoods = [dict localSearchOCRString:@"blue cheese and carp"];
+    NSLog(@"++++Main VC++++ : Local Foods: %d",(int)localFoods.count);
+    [self addFoodItems:localFoods];
 
     
     //also add two btns, one cross:clear cell, and one capture:
