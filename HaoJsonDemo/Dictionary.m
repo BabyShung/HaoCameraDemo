@@ -201,10 +201,10 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
     
-    dispatch_async(dispatch_get_main_queue(), ^{
+    //dispatch_async(dispatch_get_main_queue(), ^{
         _searchingFood = NO;
         _searchCompletionBlock(nil,NO);
-    });
+    //});
     
     
 }
@@ -244,10 +244,10 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
 
             }
             
-            dispatch_async(dispatch_get_main_queue(), ^{
+            //dispatch_async(dispatch_get_main_queue(), ^{
                 _searchingFood = NO;
                 _searchCompletionBlock(foodArray,YES);
-            });
+            //});
                 
             
             
@@ -255,10 +255,10 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
 
     }else{  //failed
 
-            dispatch_async(dispatch_get_main_queue(), ^{
+            //dispatch_async(dispatch_get_main_queue(), ^{
                 _searchingFood = NO;
                 _searchCompletionBlock(nil,NO);
-            });
+            //});
 
     }
 
