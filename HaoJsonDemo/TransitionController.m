@@ -155,14 +155,14 @@
         self.hasActiveInteraction = NO;
     }
     else if(self.transitionLayout.transitionProgress <0.1){
-        NSLog(@"+++ TC +++ : I cancel interactive transition");
+        //NSLog(@"+++ TC +++ : I cancel interactive transition");
 
         //[self enableCollectionView];
         [self.collectionView cancelInteractiveTransition];
         [self.context cancelInteractiveTransition];
     }
     else if (success){
-         NSLog(@"+++ TC +++ : I will finish interactive transition");
+         //NSLog(@"+++ TC +++ : I will finish interactive transition");
         [self.collectionView finishInteractiveTransition];
         [self.context finishInteractiveTransition];
     }
@@ -194,13 +194,13 @@
             break;
         case UIGestureRecognizerStateBegan:
             if (sender.numberOfTouches == 1) {
-                 NSLog(@"+++ TC +++ : A 1 finger gesture began");
+                 //NSLog(@"+++ TC +++ : A 1 finger gesture began");
                 
                  EDCollectionCell *cell = (EDCollectionCell *)[self.collectionView cellForItemAtIndexPath:[self.collectionView indexPathForItemAtPoint:point]];
                 //fabsf(velocity.y/velocity.x)>2
                 if (!self.hasActiveInteraction && velocity.y>0 && fabsf(velocity.y/velocity.x)>2 && cell.foodInfoView.scrollview.contentOffset.y<=0){
                     
-                    NSLog(@"+++ TC +++ : I will start interactive transition");
+                    //NSLog(@"+++ TC +++ : I will start interactive transition");
                     
                     self.initialPinchPoint = point;
                     self.hasActiveInteraction = YES; // the transition is in active motion

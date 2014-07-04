@@ -9,8 +9,9 @@
 /* Begin PBXBuildFile section */
 		3A5654BC1936838C0085CC87 /* TextDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A5654BB1936838C0085CC87 /* TextDetector.mm */; };
 		3A5654BF193778AD0085CC87 /* WordCorrector.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5654BE193778AD0085CC87 /* WordCorrector.m */; };
+		3A6959651966FC8200FB21F9 /* TextDetector2.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A6959641966FC8200FB21F9 /* TextDetector2.mm */; };
+		3A6959681966FCBE00FB21F9 /* ImagePreProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A6959671966FCBE00FB21F9 /* ImagePreProcessor.mm */; };
 		3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */; };
-		3AA1BD90192FA982002729BC /* ImagePreProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1BD8F192FA982002729BC /* ImagePreProcessor.mm */; };
 		AC1E7760194F580800532F65 /* ShareData.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1E775F194F580800532F65 /* ShareData.m */; };
 		AC1E7764194F583100532F65 /* filterwords.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC1E7761194F583100532F65 /* filterwords.txt */; };
 		AC1E7765194F583100532F65 /* foodlist_a-z_sql_CN.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC1E7762194F583100532F65 /* foodlist_a-z_sql_CN.txt */; };
@@ -170,10 +171,12 @@
 		3A5654BB1936838C0085CC87 /* TextDetector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextDetector.mm; sourceTree = "<group>"; };
 		3A5654BD193778AD0085CC87 /* WordCorrector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordCorrector.h; sourceTree = "<group>"; };
 		3A5654BE193778AD0085CC87 /* WordCorrector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordCorrector.m; sourceTree = "<group>"; };
+		3A6959631966FC8200FB21F9 /* TextDetector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDetector2.h; sourceTree = "<group>"; };
+		3A6959641966FC8200FB21F9 /* TextDetector2.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextDetector2.mm; sourceTree = "<group>"; };
+		3A6959661966FCBE00FB21F9 /* ImagePreProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreProcessor.h; sourceTree = "<group>"; };
+		3A6959671966FCBE00FB21F9 /* ImagePreProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImagePreProcessor.mm; sourceTree = "<group>"; };
 		3AA1BD8B192FA282002729BC /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
 		3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
-		3AA1BD8E192FA982002729BC /* ImagePreProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreProcessor.h; sourceTree = "<group>"; };
-		3AA1BD8F192FA982002729BC /* ImagePreProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImagePreProcessor.mm; sourceTree = "<group>"; };
 		AC1E775F194F580800532F65 /* ShareData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareData.m; sourceTree = "<group>"; };
 		AC1E7761194F583100532F65 /* filterwords.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = filterwords.txt; sourceTree = "<group>"; };
 		AC1E7762194F583100532F65 /* foodlist_a-z_sql_CN.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "foodlist_a-z_sql_CN.txt"; sourceTree = "<group>"; };
@@ -426,6 +429,8 @@
 		3A014BFF1933C67000D06090 /* textDetection */ = {
 			isa = PBXGroup;
 			children = (
+				3A6959631966FC8200FB21F9 /* TextDetector2.h */,
+				3A6959641966FC8200FB21F9 /* TextDetector2.mm */,
 				B8C8F32D195E1EFF009F8F6E /* trained_classifier_erGrouping.xml */,
 				B8C8F32E195E1EFF009F8F6E /* trained_classifierNM1.xml */,
 				B8C8F32F195E1EFF009F8F6E /* trained_classifierNM2.xml */,
@@ -880,8 +885,8 @@
 		B8DABCFA192FC2A100FF545E /* ImageProcessing */ = {
 			isa = PBXGroup;
 			children = (
-				3AA1BD8E192FA982002729BC /* ImagePreProcessor.h */,
-				3AA1BD8F192FA982002729BC /* ImagePreProcessor.mm */,
+				3A6959661966FCBE00FB21F9 /* ImagePreProcessor.h */,
+				3A6959671966FCBE00FB21F9 /* ImagePreProcessor.mm */,
 				3AA1BD8B192FA282002729BC /* UIImage+OpenCV.h */,
 				3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */,
 			);
@@ -1149,7 +1154,6 @@
 				B8B60FBB19591605005268D5 /* SecondViewController.m in Sources */,
 				B8B610A0195A0BE0005268D5 /* NavBarSetting.m in Sources */,
 				B8B6104E195924F2005268D5 /* CameraView.m in Sources */,
-				3AA1BD90192FA982002729BC /* ImagePreProcessor.mm in Sources */,
 				ACDD6D55195F4B2000AD51A7 /* EDCollectionCell.m in Sources */,
 				B8B61084195927A2005268D5 /* CardsViewController.m in Sources */,
 				B8B6103B19592369005268D5 /* UIApplication+JTSImageViewController.m in Sources */,
@@ -1197,6 +1201,7 @@
 				B8B6106B195926C0005268D5 /* LoginViewController.m in Sources */,
 				B8B60FF219591E60005268D5 /* EDImageCell.m in Sources */,
 				B8FA464D18F9E954007DA680 /* AppDelegate.m in Sources */,
+				3A6959651966FC8200FB21F9 /* TextDetector2.mm in Sources */,
 				AC1E7760194F580800532F65 /* ShareData.m in Sources */,
 				3A5654BF193778AD0085CC87 /* WordCorrector.m in Sources */,
 				B8B6104619592493005268D5 /* ControlPointView.m in Sources */,
@@ -1214,6 +1219,7 @@
 				B8B6103919592369005268D5 /* JTSImageViewController.m in Sources */,
 				B8FA464918F9E954007DA680 /* main.m in Sources */,
 				B8B61023195922B5005268D5 /* FBShimmeringLayer.m in Sources */,
+				3A6959681966FCBE00FB21F9 /* ImagePreProcessor.mm in Sources */,
 				B8C8F339195F4BD5009F8F6E /* edi_md5.m in Sources */,
 				B8B60FAB195914DF005268D5 /* smallLayout.m in Sources */,
 				B8BBB0261964FF51007CE548 /* SearchCell.m in Sources */,

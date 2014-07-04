@@ -130,7 +130,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
     _loadingComments = YES;
     _commentCompletionBlock = block;
     
-    NSLog(@"++++++++++++FOOD++++++++ : %d",(int)self.fid);
+    //NSLog(@"++++++++++++FOOD++++++++ : %d",(int)self.fid);
     [self.async getReviews_fid:self.fid withLoadSize:size andSkip:skip];
 }
 
@@ -183,7 +183,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 
     
     NSString *tmp = [[NSString alloc] initWithData:_webdata encoding:NSUTF8StringEncoding];
-    NSLog(@"Return JSON: %@",tmp);
+    //NSLog(@"Return JSON: %@",tmp);
     
     //1.get food info
     NSDictionary *returnJSONtoNSdict = [NSJSONSerialization JSONObjectWithData:_webdata options:0 error:nil];

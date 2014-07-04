@@ -18,7 +18,7 @@
 #import "opencv2/opencv.hpp"
 #import "UIImage+OpenCV.h"
 #import "ImagePreProcessor.h"
-#import "TextDetector.h"
+#import "TextDetector2.h"
 #import "WordCorrector.h"
 #import "Dictionary.h"
 #import "Food.h"
@@ -76,7 +76,7 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 - (void)viewDidLoad{
-    NSLog(@"+++ MVC +++ : I did load");
+    //NSLog(@"+++ MVC +++ : I did load");
     
     ScreenWidth = CGRectGetWidth([[UIScreen mainScreen] bounds]);
     ScreenHeight = CGRectGetHeight([[UIScreen mainScreen] bounds]);
@@ -89,13 +89,13 @@ static NSString *CellIdentifier = @"Cell";
 
 }
 -(void)viewWillAppear:(BOOL)animated{
-NSLog(@"+++ MVC +++ : I will appear");
+//NSLog(@"+++ MVC +++ : I will appear");
 }
 -(void)viewWillDisappear:(BOOL)animated{
-NSLog(@"+++ MVC +++ : I will disappear");
+//NSLog(@"+++ MVC +++ : I will disappear");
 }
 -(void)viewDidDisappear:(BOOL)animated{
-NSLog(@"+++ MVC +++ : I did disappear");
+//NSLog(@"+++ MVC +++ : I did disappear");
 }
 -(void)loadControls{
     self.camView = [[CameraView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) andOrientation:self.interfaceOrientation andAppliedVC:self];
@@ -112,7 +112,7 @@ NSLog(@"+++ MVC +++ : I did disappear");
     //debug view
     //self.debugV = [[debugView alloc] initWithFrame:CGRectMake(0, 0, 320, 200) andReferenceCV:self];
     //[self.view insertSubview:self.debugV aboveSubview:self.collectionView];
-    NSLog(@"+++ MVC +++ : I init transition controller");
+    //NSLog(@"+++ MVC +++ : I init transition controller");
     
     self.transitionController = [[TransitionController alloc] initWithCollectionView:self.collectionView];
     self.transitionController.delegate = self;
@@ -169,7 +169,7 @@ NSLog(@"+++ MVC +++ : I did disappear");
 
 - (void) viewDidAppear:(BOOL)animated {
     
-    NSLog(@"+++ MVC +++ : I did appear");
+    //NSLog(@"+++ MVC +++ : I did appear");
     
     //scroll DEspeed normal
     self.collectionView.decelerationRate = UIScrollViewDecelerationRateNormal;
@@ -210,7 +210,7 @@ NSLog(@"+++ MVC +++ : I did disappear");
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"+++ MVC +++ : I select a cell");
+    //NSLog(@"+++ MVC +++ : I select a cell");
     SecondViewController *viewController = [[SecondViewController alloc] initWithCollectionViewLayout:[[largeLayout alloc] init]];
     viewController.useLayoutToLayoutNavigationTransitions = YES;
     [self.navigationController pushViewController:viewController animated:YES];
@@ -221,7 +221,7 @@ NSLog(@"+++ MVC +++ : I did disappear");
 - (UICollectionViewTransitionLayout *)collectionView:(UICollectionView *)collectionView
                         transitionLayoutForOldLayout:(UICollectionViewLayout *)fromLayout newLayout:(UICollectionViewLayout *)toLayout
 {
-    NSLog(@"+++ MVC +++ : I access to transition layout");
+    //NSLog(@"+++ MVC +++ : I access to transition layout");
     TransitionLayout *transitionLayout = [[TransitionLayout alloc] initWithCurrentLayout:fromLayout nextLayout:toLayout];
     return transitionLayout;
 }
@@ -270,7 +270,7 @@ NSLog(@"+++ MVC +++ : I did disappear");
 //transitionVC delegate
 - (void)interactionBeganAtPoint:(CGPoint)point
 {
-    NSLog(@"+++ MVC +++ : POP transition interaction will begin");
+   // NSLog(@"+++ MVC +++ : POP transition interaction will begin");
 //    UIViewController *topVC = [self.navigationController topViewController];
 //    if ([topVC class] != [MainViewController class]) {
         [self.navigationController popViewControllerAnimated:YES];
@@ -319,12 +319,12 @@ NSLog(@"+++ MVC +++ : I did disappear");
     Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
     //@"yeast bread with Worcestershire sauce and yogurt"
     [dict serverSearchOCRString:@"blue cheese and carp" andCompletion:^(NSArray *results, BOOL success) {
-        NSLog(@"++++Main VC++++ : Server Foods: %d",(int)results.count);
+        //NSLog(@"++++Main VC++++ : Server Foods: %d",(int)results.count);
         [self addFoodItems:results];
     }];
     NSArray *localFoods;
     localFoods = [dict localSearchOCRString:@"blue cheese and carp"];
-    NSLog(@"++++Main VC++++ : Local Foods: %d",(int)localFoods.count);
+    //NSLog(@"++++Main VC++++ : Local Foods: %d",(int)localFoods.count);
     [self addFoodItems:localFoods];
 
     
@@ -337,31 +337,27 @@ NSLog(@"+++ MVC +++ : I did disappear");
         UIImage *onScreenImage = [LoadControls scaleImage:image withScale:1.5f withRect:rect andCropSize:size];
         UIImage *originalImage = [UIImage imageWithCGImage:onScreenImage.CGImage];
         
-        self.imgArray = [TextDetector detectTextRegions:originalImage];
-        
+        //self.imgArray = [TextDetector detectTextRegions:originalImage];
+        TextDetector2 *td2 = [[TextDetector2 alloc]init];
+        self.imgArray = [td2 findTextArea:originalImage];
+        NSString *result = @"";
+        NSMutableArray *ocrStrings = [NSMutableArray array];
         if ([_imgArray count] > 0)
         {
-            for(int i = 0; i<(self.imgArray.count-1);i++){
+            for(UIImage *preImage in _imgArray){
                 
-                _tempMat= [self.imgArray[i] CVMat];
+                _tempMat= [preImage CVMat];
                 
                 // Step 3. put Mat into pre processor- Charlie
                 _tempMat = [self.ipp processImage:_tempMat];
-                
-                self.imgArray[i] = [UIImage imageWithCVMat:_tempMat];//convert back to uiimage
+                NSString *ocrStr = [self recognizeImageWithTesseract:[UIImage imageWithCVMat:_tempMat]];
+                result = [result stringByAppendingFormat:@"%@\n",ocrStr];
+                [ocrStrings addObject:ocrStr];
                 
             }
             
-            NSString *result = @"";
             
-            for (int i = 0; i<_imgArray.count-1; i++) {
-                NSString *tmp = [self recognizeImageWithTesseract:[_imgArray objectAtIndex:i]];
-                result = [result stringByAppendingFormat:@"%d. %@\n",i, tmp];
-                //            NSLog(@"tmp %d: %@",i, tmp);
-            }
-            
-            
-            onScreenImage = [_imgArray objectAtIndex:(_imgArray.count-1)];
+            //onScreenImage = [_imgArray objectAtIndex:(_imgArray.count-1)];
             NSLog(@"<<<<<<<<<<1.5 RESULT: \n%@", result);
             
             /*     Analyze OCR Results locally      */
