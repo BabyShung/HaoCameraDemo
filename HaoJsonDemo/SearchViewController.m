@@ -12,6 +12,7 @@
 #import "LoadControls.h"
 #import "ED_Color.h"
 #import "DBOperation.h"
+#import "Food.h"
 
 static NSString *CellIdentifier = @"Cell";
 
@@ -37,30 +38,12 @@ static NSString *CellIdentifier = @"Cell";
 
     [self loadControls];
     
-    
     DBOperation *dbo = [[DBOperation alloc] init];
-    
-    
     self.data = [dbo fetchSearchHistoryByOrder_withLimitNumber:10];
     self.searchData = self.data;
-    
-
 }
 
--(void)loadControls{
-    _backBtn = [LoadControls createCameraButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
-    [_backBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_backBtn];
-    
-    self.collectionView.delegate = self;
-    self.collectionView.dataSource = self;
-    self.collectionView.backgroundColor = [UIColor clearColor];
-    
-    
-    self.searchBar.cancelButtonHidden = NO;
-    self.searchBar.placeholder = NSLocalizedString(@"Search food", nil);
-    self.searchBar.delegate = self;
-}
+
 
 -(void)viewDidAppear:(BOOL)animated{
     [self.searchBar becomeFirstResponder];
@@ -94,6 +77,9 @@ static NSString *CellIdentifier = @"Cell";
     [self filterTableViewWithText:self.searchBar.text];
 }
 - (void)searchBarSearchButtonClicked:(SSSearchBar *)searchBar {
+    
+    //also search in db and send server request
+    
     [self.searchBar resignFirstResponder];
 }
 - (void)searchBar:(SSSearchBar *)searchBar textDidChange:(NSString *)searchText {
@@ -130,11 +116,26 @@ static NSString *CellIdentifier = @"Cell";
         self.searchData = self.data;
     }
     else {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self CONTAINS[cd] %@", searchText];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.title CONTAINS[cd] %@", searchText];
         self.searchData = [self.data filteredArrayUsingPredicate:predicate];
     }
     
     [self.collectionView reloadData];
+}
+
+-(void)loadControls{
+    _backBtn = [LoadControls createCameraButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
+    [_backBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_backBtn];
+    
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    self.collectionView.backgroundColor = [UIColor clearColor];
+    
+    
+    self.searchBar.cancelButtonHidden = NO;
+    self.searchBar.placeholder = NSLocalizedString(@"Search food", nil);
+    self.searchBar.delegate = self;
 }
 
 @end
