@@ -59,4 +59,6 @@
 -(void)shineDescription;
 
 -(void)cleanUpForReuse;
+
+-(void)resetData;
 @end

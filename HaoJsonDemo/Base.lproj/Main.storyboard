@@ -175,7 +175,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HPe-4k-Li4">
-                                <rect key="frame" x="31" y="276" width="99" height="52"/>
+                                <rect key="frame" x="104" y="368" width="99" height="52"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.71774232390000003" green="0.4270198368" blue="0.58674205079999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="getFood">
@@ -186,11 +186,11 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rOk-XM-HTx">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="190"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="haj-Aj-SuA">
-                                <rect key="frame" x="146" y="263" width="95" height="52"/>
+                                <rect key="frame" x="211" y="392" width="95" height="52"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.65111954220000001" green="0.99374729390000005" blue="0.54750426289999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="TestS3">
@@ -201,7 +201,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="heR-Pm-2EL">
-                                <rect key="frame" x="38" y="355" width="88" height="50"/>
+                                <rect key="frame" x="11" y="394" width="88" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.76852864870612669" green="0.90095150470733643" blue="0.51843054592366977" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="getReview">
@@ -212,7 +212,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V8q-df-Ji1">
-                                <rect key="frame" x="38" y="433" width="92" height="49"/>
+                                <rect key="frame" x="11" y="452" width="92" height="49"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.90095150470733643" green="0.81422023113884046" blue="0.34966020712194679" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="postReview">
@@ -223,13 +223,13 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CGJ-hS-H42">
-                                <rect key="frame" x="29" y="214" width="248" height="30"/>
+                                <rect key="frame" x="29" y="330" width="248" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="52A-CY-Rma">
-                                <rect key="frame" x="146" y="366" width="98" height="45"/>
+                                <rect key="frame" x="211" y="456" width="98" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.65111954220000001" green="0.99374729390000005" blue="0.54750426289999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="updateReview">
@@ -240,7 +240,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="my5-Qf-8Pk">
-                                <rect key="frame" x="161" y="323" width="65" height="30"/>
+                                <rect key="frame" x="118" y="433" width="65" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="like">
@@ -251,7 +251,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Avu-IC-ikn">
-                                <rect key="frame" x="36" y="501" width="88" height="47"/>
+                                <rect key="frame" x="20" y="509" width="88" height="47"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.90095150469999996" green="0.2026505364" blue="0.2089901793" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="testBlock">
@@ -262,7 +262,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k5L-v4-Ino">
-                                <rect key="frame" x="155" y="427" width="71" height="30"/>
+                                <rect key="frame" x="118" y="471" width="71" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.93221859060000001" green="0.93221859060000001" blue="0.93221859060000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="login">
@@ -273,7 +273,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oe3-fX-nk6">
-                                <rect key="frame" x="147" y="465" width="79" height="30"/>
+                                <rect key="frame" x="127" y="518" width="79" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.93221859060000001" green="0.93221859060000001" blue="0.93221859060000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="register">
@@ -284,7 +284,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KJn-4u-ncr">
-                                <rect key="frame" x="151" y="510" width="79" height="30"/>
+                                <rect key="frame" x="221" y="518" width="79" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.92568160079999995" green="0.92568160079999995" blue="0.92568160079999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="checkEmail">

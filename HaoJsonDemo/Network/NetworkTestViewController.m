@@ -42,7 +42,7 @@
     
     Edible_S3 *s3 = [[Edible_S3 alloc]init];
     //fetch an image from the S3 server
-    self.imageView.image = [s3 getImageFromS3:@"test_photo.png"];
+    self.imageView.image = [s3 getImageFromS3:@"test_10.png"];
     
 }
 

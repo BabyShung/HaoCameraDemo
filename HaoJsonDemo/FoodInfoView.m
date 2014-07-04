@@ -212,15 +212,24 @@ const  NSInteger NumCommentsPerLoad = 5;
     [cell.imageView cancelLoadingAllImagesAndLoaderName:self.imgLoaderName];
     
     
+    
+    NSLog(@"**************** 8 *************");
+    NSLog(@"**************** 8.1 ************* %@",self.myFood);
+     NSLog(@"**************** 8.1 ************* %d",indexPath.row);
+    NSLog(@"**************** 8.1 ************* %d",self.myFood.photoNames.count);
+    NSLog(@"**************** 8.1 ************* %@",[NSURL URLWithString:self.myFood.photoNames[indexPath.row]]);
+    NSLog(@"**************** 8.2 ************* %@",self.imgLoaderName);
+    
+    
     //Load the new image
     [cell.imageView loadImageFromURLAtAmazonAsync:[NSURL URLWithString:self.myFood.photoNames[indexPath.row]] withLoaderName:self.imgLoaderName completion:^(BOOL success, M13ImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
-        //This is where you would refresh the cell if need be. If a cell of basic style, just call "setNeedsRelayout" on the cell.
-        
+
         cell.activityView.hidden = YES;
         [cell.activityView stopAnimating];
         
         
     }];
+    NSLog(@"**************** 9 *************");
     return cell;
 }
 
@@ -451,6 +460,17 @@ const  NSInteger NumCommentsPerLoad = 5;
 
 -(void)cleanUpForReuse{
     self.myFood = nil;
+
+}
+
+-(void)resetData{
+    self.myFood.photoNames = nil;
+    self.photoCollectionView.delegate = nil;
+    [self.photoCollectionView reloadData];
+    self.myFood.comments = nil;
+    self.commentsTableView.delegate = nil;
+    [self.commentsTableView reloadData];
+    [self.tagview removeTags:self.tagview.tags];
 }
 
 /************  DISPLAY IN COLLECTION VIEW  ************/

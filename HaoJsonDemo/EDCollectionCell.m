@@ -41,9 +41,9 @@
 /**********MEI************/
 
 -(void) configFIVForCell:(NSInteger)cellno withFood:(Food *) food{
-    if (!self.foodInfoView.myFood) {
+    //if (!self.foodInfoView.myFood) {
         self.foodInfoView.myFood = food;
-    }
+    //}
     [self.foodInfoView prepareForDisplayInCell:cellno];
 }
 

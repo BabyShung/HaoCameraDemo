@@ -13,7 +13,7 @@
 
 //Test url
 //http://edibleserver-env.elasticbeanstalk.com/food?title=Bacon&lang=CN
-//http://edibleserver-env.elasticbeanstalk.com/review?title=bacon&start=0&offset=5&order=LIKE_NUM DESC
+//http://default-environment-9hfbefpjmu.elasticbeanstalk.com/review?fid=1&uid=10&start=0&offset=5DESC
 
 
 #define OTHER @"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/Other?name=我"

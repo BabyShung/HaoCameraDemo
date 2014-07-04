@@ -25,7 +25,7 @@
 #import "ED_Color.h"
 #import "LoadControls.h"
 #import "AppDelegate.h"
-
+#import "M13AsyncImageLoader.h"
 #import "LoadControls.h"
 
 static NSString *CellIdentifier = @"Cell";
@@ -63,11 +63,14 @@ static NSString *CellIdentifier = @"Cell";
 @implementation MainViewController
 
 -(NSMutableArray *)foodArray{
+    NSLog(@"get foodArray!!!!");
     if (!_foodArray) {
         _foodArray = [[NSMutableArray alloc]init];
+        NSLog(@"get foodArray!!!! init");
     }
     return _foodArray;
 }
+
 -(NSDictionary *)existingFood{
     if (!_existingFood) {
         _existingFood = [[NSMutableDictionary alloc]init];
@@ -144,28 +147,62 @@ static NSString *CellIdentifier = @"Cell";
                                       self.collectionView.alpha = 0;
                                       self.clearBtn.alpha = 0;
                                       self.captureBtn.alpha = 0;
-                                      
                                   }
                                   completion:^(BOOL finished){
              
                                       self.clearBtn.hidden = YES;
                                       self.captureBtn.hidden = YES;
+                                      self.collectionView.hidden = YES;
                                       
                                       //[self.foodArray removeAllObjects];
-                                      self.foodArray =nil;
+                                      
+                                      
+                                      
+                                      //self.foodArray =nil;
                                       self.existingFood =nil;
-                                      [self.collectionView reloadData];
+                                      //[self.collectionView reloadData];
 
                                       
                                       
+                                      
+                                      
+                                      for(EDCollectionCell *cell in self.collectionView.visibleCells)
+                                      {
+                                          [cell.foodInfoView resetData];
+                                      }
+                                      [self.foodArray removeAllObjects];
+                                      [self.collectionView reloadData];
+                                      
+                                      
+                                      //[M13AsyncImageLoader cleanupLoaderAll];
+                                      
+                                      
+//                                      NSMutableArray *newIndexPaths = [NSMutableArray array];
+//                                      for (int i =0; i<self.foodArray.count; i++){
+//                                          [newIndexPaths addObject:[NSIndexPath indexPathForItem:i inSection:0]];
+//                                      }
+//                                      
+//                                      [self.collectionView performBatchUpdates:^{
+//                                          [self.foodArray removeAllObjects];
+//                                          
+//                                          for(EDCollectionCell *cell in self.collectionView.visibleCells)
+//                                          {
+//                                              [cell.foodInfoView resetData];
+//                                          }
+//                                          [self.collectionView reloadData];
+//                                          
+//                                      } completion:nil];
+
+                                      
+                                      
+                                      
                                       NSLog(@"food array count: %d",(int)self.foodArray.count);
-                                      self.collectionView.hidden = YES;
+                                      
                                   }];
     
 }
 
 - (void) captureBtnPressed:(id)sender {
-    //[self.settingDelegate slideToPreviousPage];
     NSLog(@"yoyoxx22");
 }
 
@@ -201,14 +238,12 @@ static NSString *CellIdentifier = @"Cell";
  
  *****************************/
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    //return _cellCount;
     return self.foodArray.count;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     EDCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-    
     
     [cell configFIVForCell:indexPath.row withFood:self.foodArray[indexPath.row]];
     
