@@ -11,6 +11,7 @@
 #import "DBOperation.h"
 #import "Food.h"
 #import "AsyncRequest.h"
+#import "WordCorrector.h"
 
 typedef void (^edibleBlock)(NSArray *results, BOOL success);
 
@@ -137,6 +138,12 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
                                                             [NSCharacterSet whitespaceCharacterSet]]] ;
     NSInteger numOfWords = words.count;
     
+    WordCorrector *wdc = [[WordCorrector alloc]init];
+    NSMutableArray *words_corrected = [NSMutableArray array];
+    for(NSString *word in words){
+        [words_corrected addObject: [wdc correctWord:word]];
+    }
+    
     //Get filter words as a string
 //    NSError *err;
 //    ShareData *sharedata = [ShareData shareData];
@@ -158,14 +165,14 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
 //    
     //Generate all combination of remain words
     for (int i=0; i<numOfWords-1; i++) {
-        NSString *tmpString = words[i];
+        NSString *tmpString = words_corrected[i];
         for (int j = i+1; j < numOfWords ; j++) {
-            tmpString = [tmpString stringByAppendingFormat:@" %@",words[j]];
-            [words addObject:tmpString];
+            tmpString = [tmpString stringByAppendingFormat:@" %@",words_corrected[j]];
+            [words_corrected addObject:tmpString];
         }
     }
     
-    return words;
+    return words_corrected;
     
 }
 

@@ -37,4 +37,6 @@
 //+(void)updateKeyword;
 //+(void)updateDictInLang:(TargetLang) lang;
 
+-(NSArray *)splitAndFilterWordsFromString:(NSString *)str;
+
 @end

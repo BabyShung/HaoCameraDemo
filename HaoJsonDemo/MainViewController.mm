@@ -302,8 +302,8 @@ static NSString *CellIdentifier = @"Cell";
 #pragma mark CAMERA DELEGATE
 
 - (void) EdibleCamera:(MainViewController *)simpleCam didFinishWithImage:(UIImage *)image withRect:(CGRect)rect andCropSize:(CGSize)size{
-    self.collectionView.hidden = NO;
-    self.collectionView.alpha = 1;
+    //self.collectionView.hidden = NO;
+    //self.collectionView.alpha = 1;
     
     [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.clearBtn.alpha = 1;
@@ -323,15 +323,15 @@ static NSString *CellIdentifier = @"Cell";
     //NSArray *localFoods;
 
     Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
-    //@"yeast bread with Worcestershire sauce and yogurt"
-    [dict serverSearchOCRString:@"blue cheese and carp" andCompletion:^(NSArray *results, BOOL success) {
-        //NSLog(@"++++Main VC++++ : Server Foods: %d",(int)results.count);
-        [self addFoodItems:results];
-    }];
-    NSArray *localFoods;
-    localFoods = [dict localSearchOCRString:@"blue cheese and carp"];
-    //NSLog(@"++++Main VC++++ : Local Foods: %d",(int)localFoods.count);
-    [self addFoodItems:localFoods];
+//    //@"yeast bread with Worcestershire sauce and yogurt"
+//    [dict serverSearchOCRString:@"blue cheese and carp" andCompletion:^(NSArray *results, BOOL success) {
+//        //NSLog(@"++++Main VC++++ : Server Foods: %d",(int)results.count);
+//        [self addFoodItems:results];
+//    }];
+//    NSArray *localFoods;
+//    localFoods = [dict localSearchOCRString:@"blue cheese and carp"];
+//    //NSLog(@"++++Main VC++++ : Local Foods: %d",(int)localFoods.count);
+//    [self addFoodItems:localFoods];
 
     
     //also add two btns, one cross:clear cell, and one capture:
@@ -357,6 +357,7 @@ static NSString *CellIdentifier = @"Cell";
                 // Step 3. put Mat into pre processor- Charlie
                 _tempMat = [self.ipp processImage:_tempMat];
                 NSString *ocrStr = [self recognizeImageWithTesseract:[UIImage imageWithCVMat:_tempMat]];
+                ocrStr = [[dict splitAndFilterWordsFromString:ocrStr] componentsJoinedByString:@" "];
                 result = [result stringByAppendingFormat:@"%@\n",ocrStr];
                 [ocrStrings addObject:ocrStr];
                 

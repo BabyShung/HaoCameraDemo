@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3A5654BC1936838C0085CC87 /* TextDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A5654BB1936838C0085CC87 /* TextDetector.mm */; };
-		3A5654BF193778AD0085CC87 /* WordCorrector.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5654BE193778AD0085CC87 /* WordCorrector.m */; };
 		3A6959651966FC8200FB21F9 /* TextDetector2.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A6959641966FC8200FB21F9 /* TextDetector2.mm */; };
 		3A6959681966FCBE00FB21F9 /* ImagePreProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A6959671966FCBE00FB21F9 /* ImagePreProcessor.mm */; };
+		3A69596A19670A2F00FB21F9 /* WordCorrector.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A69596919670A2F00FB21F9 /* WordCorrector.m */; };
 		3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */; };
 		AC1E7760194F580800532F65 /* ShareData.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1E775F194F580800532F65 /* ShareData.m */; };
 		AC1E7764194F583100532F65 /* filterwords.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC1E7761194F583100532F65 /* filterwords.txt */; };
@@ -170,11 +170,11 @@
 		3A5654BA1936838C0085CC87 /* TextDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDetector.h; sourceTree = "<group>"; };
 		3A5654BB1936838C0085CC87 /* TextDetector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextDetector.mm; sourceTree = "<group>"; };
 		3A5654BD193778AD0085CC87 /* WordCorrector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordCorrector.h; sourceTree = "<group>"; };
-		3A5654BE193778AD0085CC87 /* WordCorrector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordCorrector.m; sourceTree = "<group>"; };
 		3A6959631966FC8200FB21F9 /* TextDetector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDetector2.h; sourceTree = "<group>"; };
 		3A6959641966FC8200FB21F9 /* TextDetector2.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextDetector2.mm; sourceTree = "<group>"; };
 		3A6959661966FCBE00FB21F9 /* ImagePreProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreProcessor.h; sourceTree = "<group>"; };
 		3A6959671966FCBE00FB21F9 /* ImagePreProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImagePreProcessor.mm; sourceTree = "<group>"; };
+		3A69596919670A2F00FB21F9 /* WordCorrector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordCorrector.m; sourceTree = "<group>"; };
 		3AA1BD8B192FA282002729BC /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
 		3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
 		AC1E775F194F580800532F65 /* ShareData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareData.m; sourceTree = "<group>"; };
@@ -443,8 +443,8 @@
 		3A014C051933E12700D06090 /* wordCorrect */ = {
 			isa = PBXGroup;
 			children = (
+				3A69596919670A2F00FB21F9 /* WordCorrector.m */,
 				3A5654BD193778AD0085CC87 /* WordCorrector.h */,
-				3A5654BE193778AD0085CC87 /* WordCorrector.m */,
 			);
 			name = wordCorrect;
 			sourceTree = "<group>";
@@ -1150,6 +1150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8B61146195A63DA005268D5 /* UIImage+ImageEffects.m in Sources */,
+				3A69596A19670A2F00FB21F9 /* WordCorrector.m in Sources */,
 				B8F29C5519311A5C008979A7 /* FrameViewController.m in Sources */,
 				B8B60FBB19591605005268D5 /* SecondViewController.m in Sources */,
 				B8B610A0195A0BE0005268D5 /* NavBarSetting.m in Sources */,
@@ -1203,7 +1204,6 @@
 				B8FA464D18F9E954007DA680 /* AppDelegate.m in Sources */,
 				3A6959651966FC8200FB21F9 /* TextDetector2.mm in Sources */,
 				AC1E7760194F580800532F65 /* ShareData.m in Sources */,
-				3A5654BF193778AD0085CC87 /* WordCorrector.m in Sources */,
 				B8B6104619592493005268D5 /* ControlPointView.m in Sources */,
 				B8D6953C193E71C200E504FA /* ED_Color.m in Sources */,
 				B8B61147195A63DA005268D5 /* IQFeedbackView.m in Sources */,
