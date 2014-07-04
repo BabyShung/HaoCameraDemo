@@ -180,10 +180,9 @@ const  NSInteger NumCommentsPerLoad = 5;
  
  ************************/
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    
-    if (scrollView.contentOffset.y + scrollView.frame.size.height >= scrollView.contentSize.height) {
-        
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if (scrollView.contentOffset.y + scrollView.frame.size.height == scrollView.contentSize.height && !self.myFood.isLoadingComments) {
         //Request to server
         //Load more comments
         [self.myFood fetchOldestCommentsSize:NumCommentsPerLoad andSkip:self.myFood.comments.count completion:^(NSError *err, BOOL success) {
@@ -192,8 +191,6 @@ const  NSInteger NumCommentsPerLoad = 5;
                 [self.commentsTableView reloadData];
             }
         }];
-        
-        
     }
 }
 
@@ -279,7 +276,7 @@ const  NSInteger NumCommentsPerLoad = 5;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     Comment *comment = (Comment *)[self.myFood.comments objectAtIndex:[indexPath row]];
     NSString *text = [NSString stringWithFormat:@"%@:\n%@",comment.byUser.Uname,comment.text];
-    CGRect rect = [text boundingRectWithSize:(CGSize){225, MAXFLOAT}
+    CGRect rect = [text boundingRectWithSize:(CGSize){225, kCommentCellMaxHeight}
                                      options:NSStringDrawingUsesLineFragmentOrigin
                                   attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16.f]}
                                      context:nil];
@@ -426,7 +423,7 @@ const  NSInteger NumCommentsPerLoad = 5;
     NSInteger oldCount = [self.commentsTableView numberOfRowsInSection:0];
     
     if (newCount>oldCount){
-        CGFloat deltaHeight = 0.f;
+        CGFloat deltaHeight = 0;
         
         NSMutableArray *insertIndexPaths = [NSMutableArray arrayWithCapacity:newCount-oldCount];
         
@@ -436,15 +433,15 @@ const  NSInteger NumCommentsPerLoad = 5;
             [insertIndexPaths addObject:newPath];
             Comment *comment = (Comment *)[self.myFood.comments objectAtIndex:oldCount+ind];
             NSString *text = [NSString stringWithFormat:@"%@:\n%@",comment.byUser.Uname,comment.text];
-            CGRect rect = [text boundingRectWithSize:(CGSize){225, MAXFLOAT}
+            CGRect rect = [text boundingRectWithSize:(CGSize){225, kCommentCellMaxHeight}
                                              options:NSStringDrawingUsesLineFragmentOrigin
                                           attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16.f]}
                                              context:nil];
-            deltaHeight += (CGRectGetHeight(rect)+kCommentCellHeight);
+            deltaHeight += (int)(CGRectGetHeight(rect)+kCommentCellHeight);
+            
         }
-        
+        //NSLog(@"+++ FIV +++ : deltaH = %f",deltaHeight);
         self.commentsTableView.frame =  CGRectMake(self.commentsTableView.frame.origin.x, self.commentsTableView.frame.origin.y, self.commentsTableView.frame.size.width, self.commentsTableView.frame.size.height + deltaHeight);
-        [self.scrollview sizeToFit];
         self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width, self.scrollview.contentSize.height+deltaHeight);
         
         [self.commentsTableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationFade];

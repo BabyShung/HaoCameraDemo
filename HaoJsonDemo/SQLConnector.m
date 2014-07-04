@@ -43,6 +43,7 @@ static NSString *kSQLiteFileName = @"localDB.db";
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:kSQLiteFileName];
+    [self createEditableCopyOf:kSQLiteFileName];
 	NSLog(@"Database path = %@", path);
 	
 	return path;
@@ -98,7 +99,10 @@ static NSString *kSQLiteFileName = @"localDB.db";
 	{
         NSString *reason = [NSString stringWithFormat:@"Failed to create writable database file with message '%@'.", [error localizedDescription]];
         [self throwConnectorExceptionCausedBy:reason];
-
+        
+    }
+    else{
+        NSLog(@"+++ connector +++ : copy %@ successfully",filename);
     }
 }
 

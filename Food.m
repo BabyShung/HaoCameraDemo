@@ -163,6 +163,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
         NSString *urlStr = [[nowRequest URL] absoluteString];
         if([urlStr rangeOfString:@"food"].location != NSNotFound )
         {
+            NSLog(@"+++ FOOD +++ : GET food failure");
             _loadingFoodInfo = NO;
             dispatch_async(dispatch_get_main_queue(), ^{
                 _foodInfoCompletionBlock(error,NO);
@@ -170,6 +171,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
         }
         else if ([urlStr rangeOfString:@"review"].location != NSNotFound )
         {
+            NSLog(@"+++ FOOD +++ : GET review failure");
             _loadingComments = NO;
             dispatch_async(dispatch_get_main_queue(), ^{
                 _commentCompletionBlock(error,NO);

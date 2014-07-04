@@ -20,8 +20,8 @@
 {
 
     
-    SQLConnector *sqlc = [[SQLConnector alloc]init];
-    [sqlc sqliteDBFilePath];
+//    SQLConnector *sqlc = [[SQLConnector alloc]init];
+//    [sqlc sqliteDBFilePath];
     
     
     /*Init Sharedata SINGLETON (INIT ONLY ONCE)*/
@@ -51,10 +51,10 @@
 /*                    Default Dictionary = Chinese                         */
 /*                                                                         */
         //Prepare database
-        DBOperation *operation = [[DBOperation alloc] init];
-        [operation createLangTable:Chinese];
-        [operation createKeywordTable];
-        [operation createSearchHistoryTable];
+//        DBOperation *operation = [[DBOperation alloc] init];
+//        [operation createLangTable:Chinese];
+//        [operation createKeywordTable];
+//        [operation createSearchHistoryTable];
 //        SQLConnector *connector = [SQLConnector sharedInstance];
 //        ShareData *sharedata = [ShareData shareData];
 //        [connector createEditableCopyOf:[sharedata keywordFileName]];
