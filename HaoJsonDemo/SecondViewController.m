@@ -31,14 +31,14 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
 
-    NSLog(@"+++ 2ndVC +++ : I will appear");
+    //NSLog(@"+++ 2ndVC +++ : I will appear");
     for(EDCollectionCell *cell in self.collectionView.visibleCells){
         [cell setVCForFoodInfoView:self];
     }
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    NSLog(@"+++ 2ndVC +++ : I did appear");
+    //NSLog(@"+++ 2ndVC +++ : I did appear");
     //scroll DE speed fast
     self.collectionView.decelerationRate = UIScrollViewDecelerationRateFast;
     
@@ -48,14 +48,14 @@
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    NSLog(@"+++ 2ndVC +++ : I did disappear");
+    //NSLog(@"+++ 2ndVC +++ : I did disappear");
     if(self.camView){
         [self.camView resumeCamera];
     }
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    NSLog(@"+++ 2ndVC +++ : I will disappear");
+    //NSLog(@"+++ 2ndVC +++ : I will disappear");
 }
 
 //-(BOOL)prefersStatusBarHidden{

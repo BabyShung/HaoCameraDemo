@@ -1,6 +1,6 @@
 //
 //  ImagePreProcessor.m
-//  TestGray
+//
 //
 //  Created by CharlieGao on 6/27/14.
 //  Copyright (c) 2014 Edible Innovations. All rights reserved.
@@ -10,6 +10,8 @@
 #import "opencv2/opencv.hpp"
 #import "UIImage+OpenCV.h"
 
+using namespace cv;
+using namespace std;
 
 @implementation ImagePreProcessor
 
@@ -17,53 +19,62 @@
 
 -(cv::Mat)processImage: (cv::Mat)inputImage{
     
-    NSLog(@"PrePro: processImage called!");
+    NSLog(@"ImagePrePro: Called!");
     
     cv::Mat output;
-    int backGround = 0;
-    backGround = [self checkBackground:inputImage];
+    int backGround = 1;
+    backGround = [self checkBackground2:inputImage];
     
     if (backGround == 0) {
-        NSLog(@"Prepro: background = 0");
-        inputImage = [self increaseContrast:inputImage];
+        NSLog(@"ImagePrePro: Black Backgroud");
         
-        inputImage = [self removeBackgroundBlack:inputImage];
+        //inputImage = [self increaseContrast:inputImage];
+        //inputImage = [self erode:inputImage];
+        //inputImage = [self dilate:inputImage];
+        /*
+         inputImage = [self removeBackgroundBlack:inputImage];
+         inputImage = [self erode:inputImage];
+         inputImage = [self dilate:inputImage];
+         */
+        inputImage = [self adaptiveThresholdBlack:inputImage];
         inputImage = [self erode:inputImage];
         inputImage = [self dilate:inputImage];
         
     }
     else if(backGround == 1){
-        NSLog(@"Prepro: background = 1");
-        cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
-        
-        inputImage = [self adaptiveThreshold:inputImage];
-        inputImage = [self erode:inputImage];
-        inputImage = [self dilate:inputImage];
-        
-    }
-    else if(backGround == 2 ){
-        NSLog(@"Prepro: background = 2");
-        cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
+        NSLog(@"ImagePrePro: Normal Image");
         
         //inputImage = [self increaseContrast:inputImage];
         inputImage = [self adaptiveThreshold:inputImage];
         inputImage = [self erode:inputImage];
         inputImage = [self dilate:inputImage];
-       inputImage = [self removeBackgroundWhite:inputImage];
+
+
         
     }
-    else{
-        NSLog(@"Prepro: background = 3");
+    else if(backGround == 2 ){
+        //test case.
+        NSLog(@"ImagePrePro: Test mode 1 ");
+        cv::cvtColor(inputImage, inputImage, cv::COLOR_BGRA2BGR);
+        
+        inputImage = [self adaptiveThreshold:inputImage];
+        inputImage = [self erode:inputImage];
+        inputImage = [self dilate:inputImage];
+    }
+    else if(backGround == 10){
+        NSLog(@"ImagePrePro: Test mode 2");
+        //       inputImage = [self adaptiveThreshold:inputImage];
+        //       inputImage = [self erode:inputImage];
+        //       inputImage = [self dilate:inputImage];
+        NSMutableArray *imgUIArray;
+        imgUIArray = [self findContour:inputImage:inputImage];
+        UIImage* testUIImage = [imgUIArray objectAtIndex:1];
+        
+        inputImage = [testUIImage CVMat];
+        
     }
     
-    
-        
-    //add border
-    cv::Scalar value = cv::Scalar(255, 255, 255);//color
-    copyMakeBorder( inputImage, inputImage, 10, 10, 10, 10, cv::BORDER_CONSTANT, value);//add border
-    
-    return inputImage;
-}
+    return inputImage;}
 
 
 
@@ -181,16 +192,13 @@
     //the function converts BGR into YCrCb format, and then takes care of the first channel of it.
     //the first channel of YCrCb is for grayscale representation, feeding into adaptiveThrenshold function whose input is sigle channel
     
-    
     std::vector<cv::Mat> channels;
     
     cv::Mat img_threshold;
-    
-    cv::cvtColor(inputMat, img_threshold, cv::COLOR_YCrCb2BGR); //change the color image from BGR to YCrCb format
-    
+    cv::cvtColor(inputMat, img_threshold, cv::COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
     cv::split(img_threshold,channels); //split the image into channels
     
-    //add simple threshold removing little
+    //--Simple threshold, removing little noisy
     
     cv::Size size;
     size.height = 3;
@@ -199,21 +207,17 @@
     cv::GaussianBlur(channels[0], channels[0], size, 0.5);
     cv::threshold(channels[0], channels[0], 0,255, cv::THRESH_TRUNC | cv::THRESH_OTSU);
     
-    //simple end here
+    //--Simple end here
     
     cv::adaptiveThreshold(channels[0], channels[0], 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY,11, 2);
-    
     cv::merge(channels,img_threshold); //merge 3 channels including the modified 1st channel into one image
-    
     cv::cvtColor(img_threshold, img_threshold, cv::COLOR_YCrCb2BGR); //change the color image from YCrCb to BGR format
     
     return img_threshold;
-    
 }
 
 
--(cv::Mat)adaptiveThresholdLight:(cv::Mat)inputMat{
-    //currently same as adaptiveThreshold()
+-(cv::Mat)adaptiveThresholdBlack:(cv::Mat)inputMat{
     //input mat is in BGR format
     //ouput mat is in BGR format
     //the function converts BGR into YCrCb format, and then takes care of the first channel of it.
@@ -222,26 +226,26 @@
     std::vector<cv::Mat> channels;
     
     cv::Mat img_threshold;
-    
-    cv::cvtColor(inputMat, img_threshold, cv::COLOR_YCrCb2BGR); //change the color image from BGR to YCrCb format
-    
+    cv::cvtColor(inputMat, img_threshold, cv::COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
     cv::split(img_threshold,channels); //split the image into channels
     
-    //add simple threshold removing little
+    //--Simple threshold, removing little noisy
     
     cv::Size size;
     size.height = 3;
     size.width = 3;
     
     cv::GaussianBlur(channels[0], channels[0], size, 0.5);
+    //reverse color
+    
+    cv::bitwise_not(channels[0], channels[0]);
+    
     cv::threshold(channels[0], channels[0], 0,255, cv::THRESH_TRUNC | cv::THRESH_OTSU);
-    cv::GaussianBlur(channels[0], channels[0], size, 0.5);
-    //simple end here
+    
+    //--Simple end here
     
     cv::adaptiveThreshold(channels[0], channels[0], 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY,11, 2);
-    
     cv::merge(channels,img_threshold); //merge 3 channels including the modified 1st channel into one image
-    
     cv::cvtColor(img_threshold, img_threshold, cv::COLOR_YCrCb2BGR); //change the color image from YCrCb to BGR format
     
     return img_threshold;
@@ -251,17 +255,14 @@
 //------/Threshold method
 
 
--(int)checkBackground:(cv::Mat )input
-{
-    
+-(int)checkBackground:(cv::Mat )input{
+    //this function check image background is black or white
     
     std::vector<cv::Mat> channels;
-    
-    cv::cvtColor(input, input, cv::COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
-    
+    cv::cvtColor(input, input, COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
     cv::split(input,channels); //split the image into channels
     
-    input = channels[0]; //keep gray image
+    input = channels[0]; //keep gray channel
     
     int rows = input.rows;
     int cols = input.cols;
@@ -318,36 +319,79 @@
             else if(pixl_int > pivot_pixl_xlarge) {
                 count_xlarge ++;
             }
-            
-            
         }
     }
     
     if (count_xsmall >= count_large + count_xlarge + count_medium) {
-        return 0;// too dark
-    }
-    else if(count_xlarge >= count_xsmall + count_small + count_medium) {
-        NSLog(@"large: %d", count_large);
-        NSLog(@"small: %d", count_medium);
-        return 1;// too light
+        return 0;// Black background
     }
     else{
-        return 2;// medium
+        return 1;// Normal light
     }
 }
 
 
-//-------/Remove Back ground version1
+-(int)checkBackground2:(cv::Mat)inputRectImg{
+    
+    std::vector<cv::Mat> channels;
+    cv::cvtColor(inputRectImg, inputRectImg, COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
+    cv::split(inputRectImg,channels); //split the image into channels
+    
+    inputRectImg = channels[0]; //keep gray channel
+    
+    int rows = inputRectImg.rows;
+    int cols = inputRectImg.cols;
+    
+    //count the sum of the pixl for the whole rect img
+    int sum_pixl = 0;
+    int sum_outer_pixl = 0;
+    
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            uchar pixl = inputRectImg.at<uchar>(i,j);
+            int pixl_int = pixl - '0';
+            
+            if(i < 2 || j < 2 ){
+                sum_outer_pixl = sum_outer_pixl + pixl_int;
+            }
+            
+            sum_pixl = sum_pixl + pixl_int;
+            
+        }
+    }
+    //count the average of the pixels
+    int ave_pixl = sum_pixl/(rows*cols);
+    int ave_outer_pixl = sum_outer_pixl/(2*(rows+cols));
+    NSLog(@"ImagePrePro: all: %d",ave_pixl);
+    NSLog(@"ImagePrePro: out: %d",ave_outer_pixl);
+    
+    
+    if(ave_pixl <= ave_outer_pixl){
+        
+        return 1;// normal i.e. white paper black words
+    }
+    if(ave_pixl > ave_outer_pixl){
+        return 0;// black paper white words
+    }
+    else{
+        return 2;//test mode
+    }
+    
+}
+
+
 
 -(cv::Mat)removeBackgroundBlack:(cv::Mat)inputImage{
+    //This function removes background for images with black background.
+    //Reverse color function is adopt in this section
     
     cv::Size size;
     size.height = 3;
     size.width = 3;
     
     cv::GaussianBlur(inputImage, inputImage, size, 0.5);
-    cv::threshold(inputImage, inputImage, 125,255, cv::THRESH_BINARY_INV);
-    //cv::GaussianBlur(inputImage, inputImage, size, 0.8);
+    cv::threshold(inputImage, inputImage, 100,255, cv::THRESH_BINARY_INV);
+    cv::GaussianBlur(inputImage, inputImage, size, 0.5);
     
     return inputImage;
     
@@ -384,8 +428,6 @@
 //-------/Remove Back ground version1
 
 //-------below is remove back ground version 2  stable version
-
-
 
 -(cv::Mat)removeBackground2:(cv::Mat) inputMat
 {
@@ -456,9 +498,232 @@
 }
 
 
-
-
 //-------/remove back ground v2
 
+//-----------find contour
+
+typedef vector<vector<cv::Point> > TContours;
+-(NSMutableArray*)findContour:(cv::Mat)inputImage:(cv::Mat)orgImage{
+    
+    cv::cvtColor( inputImage, inputImage, COLOR_BGR2GRAY );
+    
+    double high_thres = cv::threshold( inputImage, inputImage, 0, 255, THRESH_BINARY+THRESH_OTSU );
+    
+    cv::Mat canny_output;
+    //cv::vector<cv::vector<Point> > contours;
+    vector<cv::Vec4i> hierarchy;
+    
+    /// Detect edges using canny
+    Canny( inputImage, canny_output, high_thres/2, high_thres, 3 );
+    
+    //typedef cv::vector<cv::vector<cv::Point> > TContours;
+    TContours contours;
+    
+    
+    /// Find contours
+    findContours( canny_output, contours, hierarchy, RETR_LIST, CHAIN_APPROX_SIMPLE, cv::Point(0, 0) );
+    
+    
+    Mat drawing = Mat::zeros( canny_output.size(), CV_8UC3 );
+    
+    
+    /// Approximate contours to polygons + get bounding rects and circles
+    vector<vector<cv::Point> > contours_poly( contours.size() );
+    vector<cv::Rect> boundRect( contours.size() );
+    vector<Point2f>center( contours.size() );
+    vector<float>radius( contours.size() );
+    
+    
+    for( int i = 0; i < contours.size(); i++ )
+    {
+        drawContours( drawing, contours, i, Scalar(255,0,0), 1, 8, hierarchy, 0, cv::Point() );
+        approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
+        boundRect[i] = boundingRect( Mat(contours_poly[i]) );
+    }
+    
+    
+    //---remove insider rects
+    vector<cv::Rect> outRect;
+    outRect = [self removeInsider:boundRect];
+    
+    
+    //----merge near
+    vector<cv::Rect> merged_rects;
+    merged_rects = [self mergeNeighbors:outRect];
+    
+    
+    //----merge overlap
+    vector<cv::Rect> sigle_rects;
+    sigle_rects = [self removeOverlape:merged_rects];
+    
+    
+    
+    //---draw rects
+    NSMutableArray *UIRects = [[NSMutableArray alloc] init];
+    for(int i = 0; i< sigle_rects.size(); i++){
+        if(sigle_rects[i].tl().x > 0 && sigle_rects[i].tl().y > 0)
+        {//skip null
+            //rectangle(drawing, sigle_rects[i].tl(), sigle_rects[i].br(), Scalar(255,255,255), 1, 8, 0 );
+            
+            //convert to mat pointer and stored in NSarray
+            cv::Mat tmpMat;
+            
+            orgImage(sigle_rects[i]).copyTo(tmpMat);
+            
+            [UIRects addObject:[UIImage imageWithCVMat:tmpMat]];
+            
+        }
+        else{
+            //NSLog(@"nothing to draw: %d",i);
+        }
+    }
+    
+    return UIRects;
+    
+    
+}
+
+
+-(vector<cv::Rect>)removeInsider:(vector<cv::Rect>)rects{
+    
+    cv::Rect bigRect; //temp
+    vector<cv::Rect> newRects(rects.size());
+    int newIndex = 0;
+    int flag;
+    
+    for( int i = 0; i< rects.size(); i++ )
+    {
+        flag = 0;
+        cv::Rect rect0 = rects[i]; //temp
+        
+        if(i == 0){
+            newRects[0] = rect0;
+        }
+        
+        for(int j = 0; j< rects.size(); j++){
+            if(i != j){
+                cv::Rect intersection = rect0 & rects[j];
+                
+                if(intersection == rect0 && (rect0.area()!=rects[j].area()))//current is insider
+                {
+                    flag += 1;
+                    //NSLog(@"j : %d",j);
+                    
+                }
+                else{
+                    //if current rect is not a insider, then add it to newRect
+                    flag += 0;
+                    
+                }
+            }
+        }
+        
+        if(flag == 0){
+            newRects[newIndex] = rect0;
+            newIndex ++;
+        }
+        
+    }
+    
+    return newRects;
+}
+
+-(vector<cv::Rect>)removeOverlape:(vector<cv::Rect>)rects{
+    
+    cv::Rect bigRect; //temp
+    vector<cv::Rect> newRects(rects.size());
+    int newIndex = 0;
+    int flag;
+    
+    for( int i = 0; i< rects.size(); i++ )
+    {
+        flag = 0;
+        cv::Rect rect0 = rects[i]; //temp
+        
+        if(i == 0){
+            newRects[0] = rect0;
+        }
+        
+        for(int j = i+1; j< rects.size(); j++){
+            if(i != j){
+                cv::Rect intersection = rect0 & rects[j];
+                
+                if(intersection.area() > 0 )//current is overlaped with some
+                {
+                    flag += 1;
+                    rects[j] |= rect0;
+                    
+                    
+                }
+                else{
+                    flag += 0;
+                    
+                }
+            }
+        }
+        if(flag == 0){
+            //NSLog(@"newIndex: %d",newIndex);
+            newRects[newIndex] = rect0;
+            newIndex ++;
+        }
+    }
+    
+    return newRects;
+    
+    
+}
+
+-(vector<cv::Rect>)mergeNeighbors:(vector<cv::Rect>)rects{
+    
+    int index = 0;
+    int newIndex = 0;
+    int flag = 0;
+    vector<cv::Rect> newRects(rects.size());
+    
+    for(index= 0; index<rects.size();index++){
+        
+        flag = 0;
+        cv::Rect tempRect = rects[index];
+        
+        for(int index_in=0;index_in<rects.size();index_in++){
+            
+            if(index == 0){//first rect
+                
+                newRects[0] = rects[0];
+            }
+            
+            //cv::Point pl0 = rects[index].tl();
+            cv::Point br0 = tempRect.br();
+            cv::Point pl1 = rects[index_in].tl();
+            //cv::Point br1 = rects[index_in].br();
+            int distance_x = abs(br0.x-pl1.x);
+            //int distance_y = abs(br0.y-pl1.y);
+            
+            
+            if( (distance_x < 8) && index != index_in)
+            {
+                //if two rects are close, then merge the insider to the current,
+                // counter dose not increas
+                
+                tempRect |= rects[index_in];
+                flag += 1;
+                
+            }
+            else{
+                //if current rect is far from the second rect, then count ++
+                flag +=0;
+                
+            }
+            
+        }
+        //NSLog(@"newIndex: %d",newIndex);
+        newRects[newIndex] = tempRect;
+        newIndex++;
+        
+    }
+    return newRects;
+}
+
+//-----------/find contour
 
 @end
