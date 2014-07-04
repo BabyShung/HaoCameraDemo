@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Food.h"
 
 @interface SingleFoodViewController : UIViewController
+
+@property (strong,nonatomic) Food* currentFood;
 
 @end

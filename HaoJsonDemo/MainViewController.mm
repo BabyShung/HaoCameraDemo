@@ -120,15 +120,17 @@ NSLog(@"+++ MVC +++ : I did disappear");
     
     //add in collectionView
 
-//    _clearBtn = [LoadControls createCameraButton_Image:@"ED_cross.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(10, 10, 10, 10) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
-//    [_clearBtn addTarget:self action:@selector(clearBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-//    _clearBtn.alpha = 1;
-//    [self.collectionView addSubview:_clearBtn];
-//    
-//    _captureBtn = [LoadControls createCameraButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andCenter:CGPointMake(320-10-20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
-//    [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-//    _captureBtn.alpha = 1;
-//    [self.collectionView addSubview:_captureBtn];
+    _clearBtn = [LoadControls createCameraButton_Image:@"ED_cross.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(10, 10, 10, 10) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
+    [_clearBtn addTarget:self action:@selector(clearBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    _clearBtn.alpha = 1;
+    _clearBtn.hidden = YES;
+    [self.view insertSubview:_clearBtn aboveSubview:self.collectionView];
+    
+    _captureBtn = [LoadControls createCameraButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andCenter:CGPointMake(320-10-20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
+    [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    _captureBtn.alpha = 1;
+    _captureBtn.hidden = YES;
+    [self.view insertSubview:_captureBtn aboveSubview:self.collectionView];
 
     
 }
@@ -146,8 +148,8 @@ NSLog(@"+++ MVC +++ : I did disappear");
                                   }
                                   completion:^(BOOL finished){
              
-                                      //self.clearBtn.hidden = YES;
-                                     // self.captureBtn.hidden = YES;
+                                      self.clearBtn.hidden = YES;
+                                      self.captureBtn.hidden = YES;
                                       
                                       //[self.foodArray removeAllObjects];
                                       self.foodArray =nil;
@@ -168,6 +170,10 @@ NSLog(@"+++ MVC +++ : I did disappear");
 }
 
 - (void) viewDidAppear:(BOOL)animated {
+    
+    
+    [self.view bringSubviewToFront:_clearBtn];
+    [self.view bringSubviewToFront:_captureBtn];
     
     NSLog(@"+++ MVC +++ : I did appear");
     
@@ -299,15 +305,15 @@ NSLog(@"+++ MVC +++ : I did disappear");
     self.collectionView.hidden = NO;
     self.collectionView.alpha = 1;
     
-//    [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-//        self.clearBtn.alpha = 1;
-//        self.captureBtn.alpha = 1;
-//    } completion:^(BOOL finished) {
-//        if (finished) {
-//            self.clearBtn.hidden = NO;
-//            self.captureBtn.hidden = NO;
-//        }
-//    }];
+    [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.clearBtn.alpha = 1;
+        self.captureBtn.alpha = 1;
+    } completion:^(BOOL finished) {
+        if (finished) {
+            self.clearBtn.hidden = NO;
+            self.captureBtn.hidden = NO;
+        }
+    }];
     
 
     

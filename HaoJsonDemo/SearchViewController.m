@@ -13,6 +13,8 @@
 #import "ED_Color.h"
 #import "DBOperation.h"
 #import "Food.h"
+#import "SingleFoodViewController.h"
+#import "DBOperation.h"
 
 static NSString *CellIdentifier = @"Cell";
 
@@ -24,7 +26,7 @@ static NSString *CellIdentifier = @"Cell";
 
 @property (strong, nonatomic) UIButton *backBtn;
 
-@property (nonatomic) NSArray *data;
+@property (nonatomic) NSArray *foodData;
 
 @property (nonatomic) NSArray *searchData;
 
@@ -39,8 +41,8 @@ static NSString *CellIdentifier = @"Cell";
     [self loadControls];
     
     DBOperation *dbo = [[DBOperation alloc] init];
-    self.data = [dbo fetchSearchHistoryByOrder_withLimitNumber:10];
-    self.searchData = self.data;
+    self.foodData = [dbo fetchSearchHistoryByOrder_withLimitNumber:10];
+    self.searchData = self.foodData;
 }
 
 
@@ -109,15 +111,48 @@ static NSString *CellIdentifier = @"Cell";
     NSLog(@"click %d",(int)indexPath.row);
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([segue.destinationViewController isKindOfClass:[SingleFoodViewController class]]) {
+        
+        // Get the selected item index path
+        NSIndexPath *selectedIndexPath = [[self.collectionView indexPathsForSelectedItems] firstObject];
+        
+        // Set the thing on the view controller we're about to show
+        if (selectedIndexPath != nil) {
+            SingleFoodViewController *sfvc = segue.destinationViewController;
+            sfvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+            
+            Food *selectedFood = self.foodData[selectedIndexPath.row];
+            
+            sfvc.currentFood = selectedFood;
+            
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                //also save this query to searchHistory
+                DBOperation *dbo = [[DBOperation alloc] init];
+                [dbo upsertSearchHistory:selectedFood];
+                
+                self.foodData = [dbo fetchSearchHistoryByOrder_withLimitNumber:10];
+                self.searchData = self.foodData;
+                [self.collectionView reloadData];
+            });
+            
+        }
+    }
+}
+
+
 #pragma mark - Helper Methods
 
 - (void)filterTableViewWithText:(NSString *)searchText {
     if ([searchText isEqualToString:@""]) {
-        self.searchData = self.data;
+        self.searchData = self.foodData;
     }
     else {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.title CONTAINS[cd] %@", searchText];
-        self.searchData = [self.data filteredArrayUsingPredicate:predicate];
+        self.searchData = [self.foodData filteredArrayUsingPredicate:predicate];
     }
     
     [self.collectionView reloadData];

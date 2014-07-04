@@ -7,8 +7,12 @@
 //
 
 #import "SingleFoodViewController.h"
+#import "LoadControls.h"
+#import "ED_Color.h"
 
 @interface SingleFoodViewController ()
+
+@property (strong, nonatomic) UIButton *backBtn;
 
 @end
 
@@ -18,6 +22,32 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    NSLog(@"%@",self.currentFood);
+    
+    
+    //1.add foodInfoView
+    
+    
+    //2.add backBtn
+    [self loadControls];
 }
+
+
+-(BOOL)prefersStatusBarHidden{
+    return YES;
+}
+
+-(void)loadControls{
+    _backBtn = [LoadControls createCameraButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
+    [_backBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_backBtn];
+
+}
+
+- (void) previousPagePressed:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 @end

@@ -35,9 +35,9 @@
 /*!!!!    Search History   !!!!*/
 /*   1. upsertSearchHistory    */
 /*                             */
-/*    */
+/*   2.fetchSearchHistoryByOrder_withLimitNumber */
 /*                             */
-/*  */
+/*                  */
 /*******************************/
 -(void) upsertSearchHistory:(Food *)food;
 
