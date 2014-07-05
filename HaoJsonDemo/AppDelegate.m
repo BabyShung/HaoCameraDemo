@@ -19,6 +19,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
+
+
+    
     
 //    SQLConnector *sqlc = [[SQLConnector alloc]init];
 //    [sqlc sqliteDBFilePath];

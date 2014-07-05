@@ -156,6 +156,8 @@ static AsyncRequest *async;
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{    //async
     
+    //NSLog(@"%@",[[connection currentRequest] URL]);
+    
     NSString *tmp = [[NSString alloc] initWithData:webdata encoding:NSUTF8StringEncoding];
     NSLog(@"!Return JSON: %@",tmp);
     
@@ -175,10 +177,14 @@ static AsyncRequest *async;
             [self configureUser:returnJSONtoNSdict];
         }
     }else{
+        NSLog(@"failed!!!!!!!!!!!!!!");
+        
         if([action isEqualToString:@"login"]){//login
             [self configureError:@"Email or password incorrect."];
+            NSLog(@"failed!!!!!!!!!!!!!!11111");
         }else  if([action isEqualToString:@"register"]){
             [self configureError:@"Email already registered."];
+            NSLog(@"failed!!!!!!!!!!!!!!22222");
         }
     }
     
