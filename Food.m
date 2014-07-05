@@ -185,7 +185,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 
     
     NSString *tmp = [[NSString alloc] initWithData:_webdata encoding:NSUTF8StringEncoding];
-    //NSLog(@"Return JSON: %@",tmp);
+    NSLog(@"Return JSON: %@",tmp);
     
     //1.get food info
     NSDictionary *returnJSONtoNSdict = [NSJSONSerialization JSONObjectWithData:_webdata options:0 error:nil];
@@ -284,12 +284,15 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 
         
         if([action isEqualToString:@"get_food"]){   //food
+            NSLog(@"+++ FOOD +++ : FAILURE - GET 0 FOOD RECORD!");
             _loadingFoodInfo = NO;
             //dispatch_async(dispatch_get_main_queue(), ^{
                 _foodInfoCompletionBlock(nil,NO);
             //});
             
         }else if([action isEqualToString:@"get_reviews"]){        //comment
+            
+            NSLog(@"+++ FOOD +++ : FAILURE - GET 0 REVIEW RECORD!");
             _loadingComments = NO;
             //dispatch_async(dispatch_get_main_queue(), ^{
                 _commentCompletionBlock(nil,NO);

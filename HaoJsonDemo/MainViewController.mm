@@ -392,7 +392,10 @@ static NSString *CellIdentifier = @"Cell";
                 // Step 3. put Mat into pre processor- Charlie
                 _tempMat = [self.ipp processImage:_tempMat];
                 NSString *ocrStr = [self recognizeImageWithTesseract:[UIImage imageWithCVMat:_tempMat]];
-                ocrStr = [[dict splitAndFilterWordsFromString:ocrStr] componentsJoinedByString:@" "];
+                
+                /********* TODO: word correction *******/
+                
+                //ocrStr = [[dict splitAndFilterWordsFromString:ocrStr] componentsJoinedByString:@" "];
                 result = [result stringByAppendingFormat:@"%@\n",ocrStr];
                 [ocrStrings addObject:ocrStr];
                 

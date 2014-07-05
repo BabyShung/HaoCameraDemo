@@ -40,8 +40,6 @@
 
 - (id)initWithFrame:(CGRect)frame andVC:(UIViewController *)vc;
 
-//-(void)configureNetworkComponentsWithCellNo:(NSInteger)no;
-
 -(void)configPhotoAndTagWithCellNo:(NSInteger)no;
 
 -(void)configCommentTable;
@@ -52,9 +50,9 @@
 
 -(void)setUpForSmallLayout;
 
-//-(void)setFoodInfoWith:(Food *)food;
-
 -(void)prepareForDisplayInCell:(NSInteger)cellNo;
+
+-(void)prepareForDisplay;
 
 -(void)shineDescription;
 

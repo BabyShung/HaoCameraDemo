@@ -16,7 +16,7 @@
 
 static NSString *CellIdentifier = @"Cell";
 
-const CGFloat ScrollViewContentSizeHeight = 1100.f;
+const CGFloat ScrollViewContentSizeHeight = 1000.f;
 const CGFloat kCommentCellHeight = 50.0f;
 const CGFloat kCommentCellMaxHeight = 100.f;
 
@@ -99,7 +99,7 @@ const  NSInteger NumCommentsPerLoad = 5;
     self.scrollview.userInteractionEnabled=YES;
     [self addSubview:self.scrollview];
     //should add up all
-    self.scrollview.contentSize = CGSizeMake(width,ScrollViewContentSizeHeight);
+    //self.scrollview.contentSize = CGSizeMake(width,ScrollViewContentSizeHeight);
     
     self.shimmeringView = [[FBShimmeringView alloc] init];
     self.shimmeringView.shimmering = NO;   //start shimmering
@@ -163,14 +163,15 @@ const  NSInteger NumCommentsPerLoad = 5;
     //add table view
     //----------------------------comment
     
-    _commentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, width, height) style:UITableViewStylePlain];
+    _commentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, width,height) style:UITableViewStylePlain];
     _commentsTableView.scrollEnabled = NO;
     
     _commentsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     _commentsTableView.separatorColor = [UIColor clearColor];
-    
+
     //********* finally put in self.view ************
     [self.scrollview addSubview:_commentsTableView];
+    self.scrollview.contentSize = CGSizeMake(width, CGRectGetMaxY(self.commentsTableView.frame)+10);
     
 }
 
@@ -210,17 +211,7 @@ const  NSInteger NumCommentsPerLoad = 5;
     
     //Cancel any other previous downloads for the image view.
     [cell.imageView cancelLoadingAllImagesAndLoaderName:self.imgLoaderName];
-    
-    
-    
-    NSLog(@"**************** 8 *************");
-    NSLog(@"**************** 8.1 ************* %@",self.myFood);
-     NSLog(@"**************** 8.1 ************* %d",indexPath.row);
-    NSLog(@"**************** 8.1 ************* %d",self.myFood.photoNames.count);
-    NSLog(@"**************** 8.1 ************* %@",[NSURL URLWithString:self.myFood.photoNames[indexPath.row]]);
-    NSLog(@"**************** 8.2 ************* %@",self.imgLoaderName);
-    
-    
+
     //Load the new image
     [cell.imageView loadImageFromURLAtAmazonAsync:[NSURL URLWithString:self.myFood.photoNames[indexPath.row]] withLoaderName:self.imgLoaderName completion:^(BOOL success, M13ImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
 
@@ -229,7 +220,6 @@ const  NSInteger NumCommentsPerLoad = 5;
         
         
     }];
-    NSLog(@"**************** 9 *************");
     return cell;
 }
 
@@ -354,10 +344,11 @@ const  NSInteger NumCommentsPerLoad = 5;
     
     self.photoCollectionView.frame = CGRectMake(0, CGRectGetMaxY(self.tagview.frame) + GAP, width, PhotoCollectionViewHeight);
     
-    [self.scrollview setContentSize:CGSizeMake(width,CGRectGetMaxY(self.commentsTableView.frame)+10)];
+    //[self.scrollview setContentSize:CGSizeMake(width,CGRectGetMaxY(self.commentsTableView.frame)+10)];
+
     
     //self.commentsTableView.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, width, height );
-    
+    //
     /*Change alpha values for 4 special views*/
     
     CGFloat newAlpha= (CGRectGetHeight(self.frame)-ViewAlphaRecreaseRate)/(CGRectGetHeight([[UIScreen mainScreen] bounds])-ViewAlphaRecreaseRate);
@@ -365,6 +356,8 @@ const  NSInteger NumCommentsPerLoad = 5;
     self.tagview.alpha = newAlpha;
     self.commentsTableView.alpha = newAlpha;
     self.photoCollectionView.alpha = newAlpha;
+
+    NSLog(@"+++ FIV %@ +++ LAYOUT SUBVIEW: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.contentSize.height,self.scrollview.frame.size.height);
 }
 
 -(void)setUpForLargeLayout{
@@ -400,15 +393,19 @@ const  NSInteger NumCommentsPerLoad = 5;
 {
     //If NO comments has been fetched, request them
     if (!self.myFood.isCommentLoaded && !self.myFood.isLoadingComments) {
+
         //NSLog(@"+++FIV+++ : request comments");
         [self.myFood fetchOldestCommentsSize:NumCommentsPerLoad andSkip:self.myFood.comments.count completion:^(NSError *err, BOOL success) {
             if (success) {
                 //NSLog(@"+++FIV+++ : I get comments!");
                 CGFloat height = self.myFood.comments.count*kCommentCellMaxHeight;
                 self.commentsTableView.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, CGRectGetWidth([[UIScreen mainScreen] bounds]), height);
-                [self.scrollview sizeToFit];
-                self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width, self.scrollview.contentSize.height+height);
+                //[self.scrollview sizeToFit];
+                //self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width, self.scrollview.contentSize.height+height);
+                self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width,CGRectGetMaxY(self.commentsTableView.frame)+10);
                 [self configCommentTable];
+                NSLog(@"+++ FIV %@+++ PREPARE CMT: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.contentSize.height,self.scrollview.frame.size.height);
+
             }
             
         }];
@@ -451,7 +448,9 @@ const  NSInteger NumCommentsPerLoad = 5;
         }
         //NSLog(@"+++ FIV +++ : deltaH = %f",deltaHeight);
         self.commentsTableView.frame =  CGRectMake(self.commentsTableView.frame.origin.x, self.commentsTableView.frame.origin.y, self.commentsTableView.frame.size.width, self.commentsTableView.frame.size.height + deltaHeight);
+        //self.scrollview.frame =CGRectMake(self.scrollview.frame.origin.x, self.scrollview.frame.origin.y, self.scrollview.frame.size.width, self.scrollview.frame.size.height + deltaHeight);
         self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width, self.scrollview.contentSize.height+deltaHeight);
+        NSLog(@"+++ FIV %@ +++ UPD CMT UI: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.contentSize.height,self.scrollview.frame.size.height);
         
         [self.commentsTableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationFade];
     }

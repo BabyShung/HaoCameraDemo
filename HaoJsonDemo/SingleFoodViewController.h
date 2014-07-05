@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Food.h"
+#import "FoodInfoView.h"
 
 @interface SingleFoodViewController : UIViewController
 
 @property (strong,nonatomic) Food* currentFood;
+
+@property (strong,nonatomic) FoodInfoView *foodInfoView;
 
 @end
