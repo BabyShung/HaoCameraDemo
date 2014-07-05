@@ -65,21 +65,21 @@
 //        [connector createEditableCopyOf:[sharedata filterWordsFileName]];
     }
     
-//    Food *food = [[Food alloc] initWithTitle:@"Blue cheese" andTranslations:@"蓝芝士"];
-//    Food *food2 = [[Food alloc] initWithTitle:@"Bacon" andTranslations:@"培根"];
-//    Food *food3 = [[Food alloc] initWithTitle:@"Onion" andTranslations:@"洋葱"];
-//    Food *food4 = [[Food alloc] initWithTitle:@"Apple" andTranslations:@"苹果"];
-//    Food *food5 = [[Food alloc] initWithTitle:@"Garlic" andTranslations:@"蒜"];
-//    Food *food6 = [[Food alloc] initWithTitle:@"Apple" andTranslations:@"苹果"];
-//    Food *food7 = [[Food alloc] initWithTitle:@"Toufu" andTranslations:@"豆腐"];
-//    Food *food8 = [[Food alloc] initWithTitle:@"Banana" andTranslations:@"香蕉"];
-//    Food *food9 = [[Food alloc] initWithTitle:@"Biscuit" andTranslations:@"饼干"];
-//    DBOperation *dbo = [[DBOperation alloc] init];
-//    [dbo upsertSearchHistory:food];[dbo upsertSearchHistory:food2];
-//    [dbo upsertSearchHistory:food3];[dbo upsertSearchHistory:food4];
-//    [dbo upsertSearchHistory:food5];[dbo upsertSearchHistory:food6];
-//    [dbo upsertSearchHistory:food7];[dbo upsertSearchHistory:food8];
-//    [dbo upsertSearchHistory:food9];
+    Food *food = [[Food alloc] initWithTitle:@"Blue cheese" andTranslations:@"蓝芝士"];
+    Food *food2 = [[Food alloc] initWithTitle:@"Bacon" andTranslations:@"培根"];
+    Food *food3 = [[Food alloc] initWithTitle:@"Onion" andTranslations:@"洋葱"];
+    Food *food4 = [[Food alloc] initWithTitle:@"Apple" andTranslations:@"苹果"];
+    Food *food5 = [[Food alloc] initWithTitle:@"Garlic" andTranslations:@"蒜"];
+    Food *food6 = [[Food alloc] initWithTitle:@"Apple" andTranslations:@"苹果"];
+    Food *food7 = [[Food alloc] initWithTitle:@"Toufu" andTranslations:@"豆腐"];
+    Food *food8 = [[Food alloc] initWithTitle:@"Banana" andTranslations:@"香蕉"];
+    Food *food9 = [[Food alloc] initWithTitle:@"Biscuit" andTranslations:@"饼干"];
+    DBOperation *dbo = [[DBOperation alloc] init];
+    [dbo upsertSearchHistory:food];[dbo upsertSearchHistory:food2];
+    [dbo upsertSearchHistory:food3];[dbo upsertSearchHistory:food4];
+    [dbo upsertSearchHistory:food5];[dbo upsertSearchHistory:food6];
+    [dbo upsertSearchHistory:food7];[dbo upsertSearchHistory:food8];
+    [dbo upsertSearchHistory:food9];
     
     //[dbo fetchSearchHistoryByOrder_withLimitNumber:2];
     

@@ -73,7 +73,8 @@
                        toLayout:(UICollectionViewLayout *)newLayout
 {
     if ([newLayout class] == [smallLayout class]){
-
+        
+        [self.foodInfoView.scrollview setContentOffset:CGPointZero animated:NO];
         [self.foodInfoView setUpForSmallLayout];
     }
     else{
