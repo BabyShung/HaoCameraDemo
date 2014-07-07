@@ -48,7 +48,7 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
 
 @property (strong, nonatomic) UIButton * previousPageBtn;
 
-@property (nonatomic) int assumedIndex;
+@property (nonatomic) NSUInteger assumedIndex;
 
 @property (nonatomic) BOOL shouldSlideBack;
 
@@ -157,7 +157,7 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
         NSIndexPath *centerCellIndex = [self.bottomCollectionView indexPathForItemAtPoint:CGPointMake(CGRectGetMidX(self.bottomCollectionView.bounds) , CGRectGetMidY(self.bottomCollectionView.bounds))];
         
         if(centerCellIndex.row != _assumedIndex){
-            _assumedIndex = (int)centerCellIndex.row;
+            _assumedIndex = centerCellIndex.row;
             
             NSLog(@"did scroll to index: %d",(int)centerCellIndex.row);
         }

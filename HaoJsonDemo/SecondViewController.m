@@ -14,10 +14,9 @@
 #import "ED_Color.h"
 #import "HATransparentView.h"
 #import "DXStarRatingView.h"
+#import "SearchDictionary.h"
 
 @interface SecondViewController () <HATransparentViewDelegate>
-
-@property (strong,nonatomic) CameraView *camView;
 
 @property (strong, nonatomic) UIButton * backBtn;
 
@@ -26,6 +25,8 @@
 @property (strong, nonatomic) HATransparentView *transparentView;
 
 @property (strong, nonatomic) DXStarRatingView *rateView;
+
+@property (nonatomic) NSUInteger assumedIndex;
 
 
 @end
@@ -36,14 +37,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    self.camView = [appDlg getCamView];
-    
-    
-    
+
 }
 
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+
+        NSIndexPath *centerCellIndex = [self.collectionView indexPathForItemAtPoint:self.collectionView.contentOffset];
+        EDCollectionCell *cell = (EDCollectionCell *)[self.collectionView cellForItemAtIndexPath:centerCellIndex];
+    
+        //wherever scroll to another cell, check and save food into dict
+        [SearchDictionary addSearchHistory:cell.foodInfoView.myFood];
+    
+        NSLog(@"----------------------************************-------------, %d",centerCellIndex.row);
+    
+}
 
 #pragma mark - RatingDelegate
 - (void)didChangeRating:(NSNumber*)newRating
@@ -112,50 +119,22 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     
-
-    
     //set up buttons
     [self setupButtonAndAnimate];
     
-    
-    
-    
-    //NSLog(@"+++ 2ndVC +++ : I did appear");
     //scroll DE speed fast
     self.collectionView.decelerationRate = UIScrollViewDecelerationRateFast;
-    
-    //remove this part, not good code
-    if(self.camView){
-        [self.camView pauseCamera];
-    }
-}
 
--(void)viewDidDisappear:(BOOL)animated{
-    //NSLog(@"+++ 2ndVC +++ : I did disappear");
-    if(self.camView){
-        [self.camView resumeCamera];
-    }
 }
-
--(void)viewWillDisappear:(BOOL)animated{
-    //NSLog(@"+++ 2ndVC +++ : I will disappear");
-}
-
-//-(BOOL)prefersStatusBarHidden{
-//    return YES;
-//}
 
 - (UICollectionViewTransitionLayout *)collectionView:(UICollectionView *)collectionView
                         transitionLayoutForOldLayout:(UICollectionViewLayout *)fromLayout newLayout:(UICollectionViewLayout *)toLayout
 {
-    NSLog(@"begin1 !?");
     TransitionLayout *transitionLayout = [[TransitionLayout alloc] initWithCurrentLayout:fromLayout nextLayout:toLayout];
-    
     return transitionLayout;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"you got it!");
     EDCollectionCell *edCell = (EDCollectionCell *)cell;
     edCell.foodInfoView.scrollview.contentOffset = CGPointZero;
 }

@@ -35,7 +35,7 @@ const CGFloat BelowDescriptionLabelGap = 20.f;
 const CGFloat TagViewHeight = 40.f;
 const CGFloat PhotoCollectionViewHeight = 268.f;
 
-static NSString *PlainTextFontName = @"HelveticaNeue-UltraLight";
+static NSString *PlainTextFontName = @"HelveticaNeue-Light";
 static NSString *TagTextFontName = @"Heiti TC";
 const CGFloat LargeTitleFontSize = 25.f;
 const CGFloat LargeTextFontSize = 20.f;

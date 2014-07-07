@@ -10,7 +10,7 @@
 #import "SQLConnector.h"
 #import "ShareData.h"
 #import "DBOperation.h"
-
+#import "SearchDictionary.h"
 #import "MainViewController.h"
 
 
@@ -20,7 +20,23 @@
 {
 
 
-
+    //init global search history for main VC
+    [SearchDictionary initSharedInstance];
+    
+    Food *foodx = [[Food alloc] initWithTitle:@"Tofu" andTranslations:@"豆腐"];
+    Food *foodxx = [[Food alloc] initWithTitle:@"Cola" andTranslations:@"可乐"];
+    [SearchDictionary addSearchHistory:foodx];
+    [SearchDictionary addSearchHistory:foodx];
+    [SearchDictionary addSearchHistory:foodxx];
+    
+    NSLog(@"xxxx %@",foodx);
+    
+    NSLog(@"xxxx2 %@",[[SearchDictionary sharedInstance].dict objectForKey:@"Bacon"]);
+    
+    NSLog(@"xx %d",[SearchDictionary sharedInstance].dict.count);
+    [SearchDictionary removeAllSearchHistory];
+    
+    NSLog(@"xx %d",[SearchDictionary sharedInstance].dict.count);
     
     
 //    SQLConnector *sqlc = [[SQLConnector alloc]init];
@@ -133,6 +149,11 @@
     NSLog(@"will terminate..");
 
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    
+    //store all the query into searchHistory
+    [SearchDictionary saveSearchHistoryToLocalDB];
+    
+    
 }
 
 

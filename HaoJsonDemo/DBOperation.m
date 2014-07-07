@@ -40,7 +40,7 @@
 -(void) upsertSearchHistory:(Food *)food{
     [self.connector openDB];
     
-    NSString *sql = [NSString stringWithFormat:@"select sid from SearchHistory where title='%@'",food.title];
+    NSString *sql = [NSString stringWithFormat:@"select sid from SearchHistory where upper(title)=upper('%@')",food.title ];
     NSLog(@"Execute SQL:%@",sql);
     BOOL result = [self executeReturnBool:sql];
     if(!result){

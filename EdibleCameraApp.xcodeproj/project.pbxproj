@@ -34,6 +34,7 @@
 		B82353C0192BE2F400D6BCAC /* CameraPrevious.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353BC192BE2F400D6BCAC /* CameraPrevious.png */; };
 		B82353EE192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B82353ED192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib */; };
 		B82353F0192CFC4C00D6BCAC /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = B82353EF192CFC4C00D6BCAC /* tessdata */; };
+		B8AB89C2196AEF1C00F32E4F /* SearchDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = B8AB89C1196AEF1C00F32E4F /* SearchDictionary.m */; };
 		B8B60FAB195914DF005268D5 /* smallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FA8195914DF005268D5 /* smallLayout.m */; };
 		B8B60FAC195914DF005268D5 /* largeLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FAA195914DF005268D5 /* largeLayout.m */; };
 		B8B60FB5195914FB005268D5 /* debugView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FB4195914FB005268D5 /* debugView.m */; };
@@ -234,6 +235,8 @@
 		B82353BC192BE2F400D6BCAC /* CameraPrevious.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CameraPrevious.png; sourceTree = "<group>"; };
 		B82353ED192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
 		B82353EF192CFC4C00D6BCAC /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
+		B8AB89C0196AEF1C00F32E4F /* SearchDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchDictionary.h; sourceTree = "<group>"; };
+		B8AB89C1196AEF1C00F32E4F /* SearchDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchDictionary.m; sourceTree = "<group>"; };
 		B8B60FA7195914DF005268D5 /* smallLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smallLayout.h; sourceTree = "<group>"; };
 		B8B60FA8195914DF005268D5 /* smallLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smallLayout.m; sourceTree = "<group>"; };
 		B8B60FA9195914DF005268D5 /* largeLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = largeLayout.h; sourceTree = "<group>"; };
@@ -875,6 +878,8 @@
 		B8B61085195927B2005268D5 /* SearchPage */ = {
 			isa = PBXGroup;
 			children = (
+				B8AB89C0196AEF1C00F32E4F /* SearchDictionary.h */,
+				B8AB89C1196AEF1C00F32E4F /* SearchDictionary.m */,
 				B8BBB0271964FF9A007CE548 /* SearchViewController.h */,
 				B8BBB0281964FF9A007CE548 /* SearchViewController.m */,
 				B8BBB0321965B23A007CE548 /* SingleFoodViewController.h */,
@@ -1319,6 +1324,7 @@
 				B8D6953C193E71C200E504FA /* ED_Color.m in Sources */,
 				B8B61147195A63DA005268D5 /* IQFeedbackView.m in Sources */,
 				B8C8F33C195F4F08009F8F6E /* FormValidator.m in Sources */,
+				B8AB89C2196AEF1C00F32E4F /* SearchDictionary.m in Sources */,
 				ACA1726B1939209A005E7D51 /* LoadControls.m in Sources */,
 				B8F29C5819311A5C008979A7 /* EP_thirdViewController.mm in Sources */,
 				B8CC9F651968980100CCFE74 /* HATransparentView.m in Sources */,

@@ -88,4 +88,6 @@
 
 -(void)checkCameraAndOperate;
 
+- (void) backBtnPressed:(id)sender;
+
 @end

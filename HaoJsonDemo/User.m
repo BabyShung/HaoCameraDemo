@@ -181,10 +181,9 @@ static AsyncRequest *async;
         
         if([action isEqualToString:@"login"]){//login
             [self configureError:@"Email or password incorrect."];
-            NSLog(@"failed!!!!!!!!!!!!!!11111");
-        }else  if([action isEqualToString:@"register"]){
+        }//else  if([action isEqualToString:@"register"]){
+        else{   //PS: bugs in server!! only show this
             [self configureError:@"Email already registered."];
-            NSLog(@"failed!!!!!!!!!!!!!!22222");
         }
     }
     

@@ -90,17 +90,21 @@
 }
 
 - (void)resumeCamera{
-    [_camManager startRunning];
-    [UIView animateWithDuration:0.3 animations:^{
-        self.capturedImageView.backgroundColor = [UIColor clearColor];
-    }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_camManager startRunning];
+        [UIView animateWithDuration:0.3 animations:^{
+            self.capturedImageView.backgroundColor = [UIColor clearColor];
+        }];
+    });
 }
 
 - (void)pauseCamera{
-    [_camManager stopRunning];
-    [UIView animateWithDuration:0.3 animations:^{
-        self.capturedImageView.backgroundColor = [UIColor blackColor];
-    }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_camManager stopRunning];
+        [UIView animateWithDuration:0.3 animations:^{
+            self.capturedImageView.backgroundColor = [UIColor blackColor];
+        }];
+    });
 }
 
 -(BOOL)CameraIsOn{
@@ -175,12 +179,12 @@
             // Hide
             for (UIButton * btn in @[_captureBtn, _TorchBtn]) btn.hidden = YES;
             // Show
-            _saveBtn.hidden = NO;
+            //_saveBtn.hidden = NO;
             
             // Force User Preference
-            _backBtn.hidden = _hideBackButton;
+            //_backBtn.hidden = _hideBackButton;
             
-            _backBtn.hidden = NO;
+            //_backBtn.hidden = NO;
         }
         else {  // ELSE camera stream -- show capture controls / hide preview controls
             // Show
@@ -238,6 +242,7 @@
 
 - (void) captureBtnPressed:(id)sender {
     [self capturePhoto];
+    [self photoCaptured];
 }
 
 - (void) saveBtnPressed:(id)sender {
