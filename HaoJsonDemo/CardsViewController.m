@@ -64,7 +64,7 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
                [UIColor colorWithRed:(253/255.0) green:(91/255.0) blue:(159/255.0) alpha:1],
                [UIColor colorWithRed:(233/255.0) green:(0/255.0) blue:(11/255.0) alpha:1]];
     
-    self.settings = [NSArray arrayWithObjects:@"Search",@"Feedback",@"About",@"Logout", nil];
+    self.settings = [NSArray arrayWithObjects:NSLocalizedString(@"CARD_SEARCH", nil),NSLocalizedString(@"CARD_FEEDBACK", nil),NSLocalizedString(@"CARD_ABOUT", nil),NSLocalizedString(@"CARD_LOGOUT", nil), nil];
     self.settingsImages = [NSArray arrayWithObjects:
                            [UIImage imageNamed:@"ED_search.png"],
                            [UIImage imageNamed:@"ED_feedback.png"],
@@ -90,7 +90,7 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
     
     User *user = [User sharedInstance];
     
-    self.titleLabel.text = [NSString stringWithFormat: @"Hello, %@",user.name];
+    self.titleLabel.text = [NSString stringWithFormat: @"%@, %@",NSLocalizedString(@"Hello", nil),user.name];
     
 }
 
@@ -196,7 +196,7 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
     if(index == 0){
         [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Search"] animated:YES];
     }else if(index == 1){
-        IQFeedbackView *feedback = [[IQFeedbackView alloc] initWithTitle:@"Feedback" message:nil image:nil cancelButtonTitle:@"Cancel" doneButtonTitle:@"Send"];
+        IQFeedbackView *feedback = [[IQFeedbackView alloc] initWithTitle:NSLocalizedString(@"Feedback", nil) message:nil image:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) doneButtonTitle:NSLocalizedString(@"Send", nil)];
         [feedback setCanAddImage:NO];
         [feedback setCanEditText:YES];
         
@@ -214,11 +214,11 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
 
 -(void)willLogout{
     //show a confirm dialog
-    BlurActionSheet *lrf =  [[BlurActionSheet alloc] initWithDelegate_cancelButtonTitle:@"Cancel"];
+    BlurActionSheet *lrf =  [[BlurActionSheet alloc] initWithDelegate_cancelButtonTitle:NSLocalizedString(@"Cancel", nil)];
     
     lrf.blurRadius = 50.f;
     
-    [lrf addButtonWithTitle:@"Log Out" actionBlock:^{
+    [lrf addButtonWithTitle:NSLocalizedString(@"Log out", nil) actionBlock:^{
         
         /************************
          

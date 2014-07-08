@@ -1,0 +1,75 @@
+
+/* Class = "IBUIButton"; normalTitle = "Login"; ObjectID = "27J-mz-zxJ"; */
+"27J-mz-zxJ.normalTitle" = "登入";
+
+/* Class = "IBUIButton"; normalTitle = "updateReview"; ObjectID = "52A-CY-Rma"; */
+"52A-CY-Rma.normalTitle" = "updateReview";
+
+/* Class = "IBUIButton"; normalTitle = "Sign up"; ObjectID = "6ic-ru-quV"; */
+"6ic-ru-quV.normalTitle" = "注册";
+
+/* Class = "IBUIButton"; normalTitle = "Sign up"; ObjectID = "9Nu-rV-biw"; */
+"9Nu-rV-biw.normalTitle" = "注册";
+
+/* Class = "IBUIButton"; normalTitle = "testBlock"; ObjectID = "Avu-IC-ikn"; */
+"Avu-IC-ikn.normalTitle" = "testBlock";
+
+/* Class = "IBUITextField"; placeholder = "Type"; ObjectID = "CGJ-hS-H42"; */
+"CGJ-hS-H42.placeholder" = "类型";
+
+/* Class = "IBUIButton"; normalTitle = "getFood"; ObjectID = "HPe-4k-Li4"; */
+"HPe-4k-Li4.normalTitle" = "getFood";
+
+/* Class = "IBUIButton"; normalTitle = "checkEmail"; ObjectID = "KJn-4u-ncr"; */
+"KJn-4u-ncr.normalTitle" = "checkEmail";
+
+/* Class = "IBUIButton"; normalTitle = "register"; ObjectID = "Oe3-fX-nk6"; */
+"Oe3-fX-nk6.normalTitle" = "注册";
+
+/* Class = "IBUIButton"; normalTitle = "postReview"; ObjectID = "V8q-df-Ji1"; */
+"V8q-df-Ji1.normalTitle" = "postReview";
+
+/* Class = "IBUITextField"; placeholder = "Email"; ObjectID = "VcW-rA-udG"; */
+"VcW-rA-udG.placeholder" = "邮箱";
+
+/* Class = "IBUITextField"; placeholder = "User name"; ObjectID = "ZEa-vA-scu"; */
+"ZEa-vA-scu.placeholder" = "用户名";
+
+/* Class = "IBUIButton"; normalTitle = "back to login"; ObjectID = "elX-e3-hUj"; */
+"elX-e3-hUj.normalTitle" = "重新登入";
+
+/* Class = "IBUIButton"; normalTitle = "TestS3"; ObjectID = "haj-Aj-SuA"; */
+"haj-Aj-SuA.normalTitle" = "TestS3";
+
+/* Class = "IBUIButton"; normalTitle = "getReview"; ObjectID = "heR-Pm-2EL"; */
+"heR-Pm-2EL.normalTitle" = "getReview";
+
+/* Class = "IBUILabel"; text = "Blue Cheese"; ObjectID = "hjc-8M-qgO"; */
+"hjc-8M-qgO.text" = "蓝芝士";
+
+/* Class = "IBUIButton"; normalTitle = "login"; ObjectID = "k5L-v4-Ino"; */
+"k5L-v4-Ino.normalTitle" = "登入";
+
+/* Class = "IBUILabel"; text = "p"; ObjectID = "mdU-Hv-qi0"; */
+"mdU-Hv-qi0.text" = "p";
+
+/* Class = "IBUIButton"; normalTitle = "like"; ObjectID = "my5-Qf-8Pk"; */
+"my5-Qf-8Pk.normalTitle" = "赞";
+
+/* Class = "IBUITextField"; placeholder = "Password"; ObjectID = "ogZ-ar-is4"; */
+"ogZ-ar-is4.placeholder" = "密码";
+
+/* Class = "IBUITextField"; placeholder = "Email"; ObjectID = "sK0-As-kSb"; */
+"sK0-As-kSb.placeholder" = "邮箱";
+
+/* Class = "IBUILabel"; text = "Translate"; ObjectID = "sUL-on-sk9"; */
+"sUL-on-sk9.text" = "翻译";
+
+/* Class = "IBUIButton"; normalTitle = "Forgot password?"; ObjectID = "x0f-2C-e8H"; */
+"x0f-2C-e8H.normalTitle" = "忘记密码?";
+
+/* Class = "IBUITextField"; placeholder = "Password"; ObjectID = "xlg-F4-GJ2"; */
+"xlg-F4-GJ2.placeholder" = "密码";
+
+/* Class = "IBUILabel"; text = "Title"; ObjectID = "xpU-8i-cEC"; */
+"xpU-8i-cEC.text" = "名称";

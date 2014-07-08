@@ -145,7 +145,7 @@ static AsyncRequest *async;
 }
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops.." message:@"Network problem..please try again." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"OOPS", nil) message:NSLocalizedString(@"ERROR_NETWORK", nil) delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
     [alert show];
     
     //also set things back
@@ -180,10 +180,10 @@ static AsyncRequest *async;
         NSLog(@"failed!!!!!!!!!!!!!!");
         
         if([action isEqualToString:@"login"]){//login
-            [self configureError:@"Email or password incorrect."];
+            [self configureError:NSLocalizedString(@"ERROR_LOGIN", nil)];
         }//else  if([action isEqualToString:@"register"]){
         else{   //PS: bugs in server!! only show this
-            [self configureError:@"Email already registered."];
+            [self configureError:NSLocalizedString(@"ERROR_REGISTER", nil)];
         }
     }
     

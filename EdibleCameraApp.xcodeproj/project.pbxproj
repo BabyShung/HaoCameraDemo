@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		106FF1A2196B49670099B743 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 106FF1A4196B49670099B743 /* Localizable.strings */; };
 		3A5654BC1936838C0085CC87 /* TextDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A5654BB1936838C0085CC87 /* TextDetector.mm */; };
 		3A6959651966FC8200FB21F9 /* TextDetector2.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A6959641966FC8200FB21F9 /* TextDetector2.mm */; };
 		3A6959681966FCBE00FB21F9 /* ImagePreProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A6959671966FCBE00FB21F9 /* ImagePreProcessor.mm */; };
@@ -193,6 +194,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		106FF19B196B48620099B743 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		106FF19C196B48620099B743 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		106FF19D196B48620099B743 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		106FF19F196B489B0099B743 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		106FF1A3196B49670099B743 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		106FF1A5196B49690099B743 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		3A5654BA1936838C0085CC87 /* TextDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDetector.h; sourceTree = "<group>"; };
 		3A5654BB1936838C0085CC87 /* TextDetector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextDetector.mm; sourceTree = "<group>"; };
 		3A5654BD193778AD0085CC87 /* WordCorrector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordCorrector.h; sourceTree = "<group>"; };
@@ -1065,6 +1072,7 @@
 				B8FA464518F9E954007DA680 /* InfoPlist.strings */,
 				B8FA464818F9E954007DA680 /* main.m */,
 				B8FA464A18F9E954007DA680 /* EdibleCameraApp-Prefix.pch */,
+				106FF1A4196B49670099B743 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1149,6 +1157,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = B8FA463018F9E954007DA680;
 			productRefGroup = B8FA463A18F9E954007DA680 /* Products */;
@@ -1170,6 +1179,8 @@
 				B8CC9F9C1968A5D600CCFE74 /* btn-close-black.png in Resources */,
 				B8CC9F8119689E6400CCFE74 /* ED_about@2x.png in Resources */,
 				B8CC9F9319689E6400CCFE74 /* ICON-24.png in Resources */,
+				106FF1A2196B49670099B743 /* Localizable.strings in Resources */,
+				B8B6106519592696005268D5 /* user@2x.png in Resources */,
 				B8C8F3921962551F009F8F6E /* bluechesseLogo.png in Resources */,
 				B8F29C691932DC55008979A7 /* Camera_01@2x.png in Resources */,
 				B8C8F38B195F834B009F8F6E /* login_03.png in Resources */,
@@ -1365,10 +1376,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		106FF1A4196B49670099B743 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				106FF1A3196B49670099B743 /* en */,
+				106FF1A5196B49690099B743 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		B8FA464518F9E954007DA680 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				B8FA464618F9E954007DA680 /* en */,
+				106FF19C196B48620099B743 /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1377,6 +1398,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				B8FA464F18F9E954007DA680 /* Base */,
+				106FF19B196B48620099B743 /* zh-Hans */,
+				106FF19F196B489B0099B743 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1385,6 +1408,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				B8FA466518F9E954007DA680 /* en */,
+				106FF19D196B48620099B743 /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

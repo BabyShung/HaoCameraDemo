@@ -1,0 +1,33 @@
+/* 
+  Localizable.strings
+  EdibleCameraApp
+
+  Created by fangwan on 7/7/14.
+  Copyright (c) 2014 Hao Zheng. All rights reserved.
+*/
+"CARD_SEARCH"="Search";
+"CARD_FEEDBACK"="Feedback";
+"CARD_LOGOUT"="Logout";
+"CARD_ABOUT"="About";
+"ERROR_NETWORK" = "Network problem..please try again.";
+"OOPS"="Oops";
+"ERROR_LOGIN"="Email or password incorrect.";
+"ERROR_REGISTER"="Email already registered.";
+"ERROR_EMAIL"="Email is invalid.";
+"ERROR_EMAIL_FORMAT"=" letters or numbers only.";
+"PLEASE_ENTER"="Please Enter";
+"ERROR_PASSWORD_NOT_SAME"="Passwords not the same.";
+"AT_LEAST"="at least";
+"AT_MOST"="at most";
+"Hello"="Hello";
+"Cancel"="Cancel";
+"Send"="Send";
+"Email"="Email";
+"Username"="Username";
+"Password"="Password";
+"Old password"="Old password";
+"New password"="New password";
+"Confirm New password"="Confirm New password";
+"Feedback"="Feedback";
+"Log out"="Log out";
+"Search food"="Search food";
