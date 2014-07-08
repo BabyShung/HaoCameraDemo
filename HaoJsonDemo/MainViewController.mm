@@ -336,7 +336,7 @@ static NSString *CellIdentifier = @"Cell";
         
         
         //PS: image variable is the original size image (2448*3264)
-        UIImage *onScreenImage = [LoadControls scaleImage:image withScale:3.0f withRect:rect andCropSize:size];
+        UIImage *onScreenImage = [LoadControls scaleImage:image withScale:2.5f withRect:rect andCropSize:size];
         UIImage *originalImage = [UIImage imageWithCGImage:onScreenImage.CGImage];
 //        TextDetector2 *td2 = [[TextDetector2 alloc]init];
 //        self.imgArray = [td2 findTextArea:originalImage];
