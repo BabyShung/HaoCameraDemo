@@ -13,6 +13,7 @@
 #import "EDImageFlowLayout.h"
 #import "RQShineLabel.h"
 #import "Food.h"
+#import "Comment.h"
 
 
 

@@ -48,7 +48,7 @@ static AsyncRequest *async;
             sharedInstance.pwd = upwd;
             sharedInstance.type = utype;
             sharedInstance.selfie = uselfie;
-            
+            sharedInstance.latestComment = nil;
             
             webdata = [[NSMutableData alloc]init];
         });
@@ -72,6 +72,7 @@ static AsyncRequest *async;
     sharedInstance.pwd = nil;
     sharedInstance.type = 0;
     sharedInstance.selfie = nil;
+    sharedInstance.latestComment = nil;
 }
 
 +(void)loginWithCompletion:(void (^)(NSError *err, BOOL success))block{
@@ -103,6 +104,16 @@ static AsyncRequest *async;
         [self sharedInstanceWithUid:0 andEmail:email andUname:nil andUpwd:password andUtype:0 andUselfie:nil];
     async = [[AsyncRequest alloc] initWithDelegate:sharedInstance];
     [async signup_withEmail:email andName:name andPwd:pwd];
+}
+
++(void)fetchMyCommentOnFood:(NSUInteger)fid andCompletion:(void (^)(NSError *err, BOOL success))block{
+    CompletionBlock = block;
+    [async getReviews_fid:fid byUid:[User sharedInstance].Uid];
+}
+
++(void)createComment:(Comment *)comment andCompletion:(void (^)(NSError *err, BOOL success))block{
+    CompletionBlock = block;
+    [async doComment:comment];
 }
 
 +(NSDictionary*)toDictionary{
@@ -149,9 +160,12 @@ static AsyncRequest *async;
     [alert show];
     
     //also set things back
-    dispatch_async(dispatch_get_main_queue(), ^{
-        CompletionBlock(error,NO);
-    });
+    if (CompletionBlock) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            CompletionBlock(error,NO);
+        });
+    }
+
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{    //async
@@ -175,6 +189,22 @@ static AsyncRequest *async;
             [self configureUser:returnJSONtoNSdict];
         }else  if([action isEqualToString:@"register"]){
             [self configureUser:returnJSONtoNSdict];
+        }else if ([action isEqualToString:@"post_update"]){
+            if (CompletionBlock) {
+                CompletionBlock(nil,YES);
+            }
+        }
+        else{//get my review
+            NSArray *resultArr = [returnJSONtoNSdict objectForKey:@"result"];
+            if (resultArr.count == 1) {
+                [User sharedInstance].latestComment = [[Comment alloc]initWithDict:resultArr[0]];
+            }else{
+                [User sharedInstance].latestComment = nil;
+            }
+            if (CompletionBlock) {
+                CompletionBlock(nil,YES);
+            }
+            
         }
     }else{
         NSLog(@"failed!!!!!!!!!!!!!!");
@@ -185,6 +215,12 @@ static AsyncRequest *async;
         }else  if([action isEqualToString:@"register"]){
             [self configureError:@"Email already registered."];
             NSLog(@"failed!!!!!!!!!!!!!!22222");
+        }else {
+            //post update; get my reiview
+            if (CompletionBlock) {
+                CompletionBlock(nil,NO);
+            }
+            
         }
     }
     
@@ -210,10 +246,14 @@ static AsyncRequest *async;
     NSUInteger utype = [[info objectForKey:@"privilege"] intValue];
     
     [User sharedInstanceWithUid:uid andEmail:uemail andUname:uname andUpwd:password andUtype:utype andUselfie:uselfie];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        CompletionBlock(nil,YES);
-    });
+    if (CompletionBlock) {
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            CompletionBlock(nil,YES);
+            
+        });
+    }
 }
 
 

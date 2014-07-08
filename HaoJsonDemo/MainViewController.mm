@@ -359,12 +359,12 @@ static NSString *CellIdentifier = @"Cell";
 
     Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
     //@"yeast bread with Worcestershire sauce and yogurt"
-    [dict serverSearchOCRString:@"blue cheese and carp" andCompletion:^(NSArray *results, BOOL success) {
+    [dict serverSearchOCRString:@"sushi and caper with oatmeal" andCompletion:^(NSArray *results, BOOL success) {
         //NSLog(@"++++Main VC++++ : Server Foods: %d",(int)results.count);
         [self addFoodItems:results];
     }];
     NSArray *localFoods;
-    localFoods = [dict localSearchOCRString:@"blue cheese and carp"];
+    localFoods = [dict localSearchOCRString:@"sushi and caper with oatmeal"];
     //NSLog(@"++++Main VC++++ : Local Foods: %d",(int)localFoods.count);
     [self addFoodItems:localFoods];
 

@@ -21,6 +21,10 @@
 
 -(void)getReviews_fid:(NSUInteger)fid withLoadSize:(NSUInteger)size andSkip:(NSUInteger)skip;
 
+-(void)getReviews_fid:(NSUInteger)fid byUid:(NSUInteger)uid;
+
+-(void)doComment:(Comment *)comment;
+
 -(void)doComment:(Comment *)comment rating:(NSUInteger)rate withAction:(NSString*)action;
 
 -(void)likeOrDislike_rid:(int)rid andLike:(int)like ;

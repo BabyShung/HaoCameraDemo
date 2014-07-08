@@ -23,6 +23,8 @@
 
 @property (nonatomic, assign) NSUInteger dislike;
 
+@property (nonatomic, assign) NSInteger rate;
+
 @property (nonatomic, assign) NSUInteger fid;
 
 @property (nonatomic, strong) OtherUser *byUser;
@@ -32,7 +34,9 @@
 -(instancetype)initWithCommentID:(NSUInteger)cid andFid:(NSUInteger )fid andRate:(NSUInteger)rate andComment:(NSString *)text;
 
 //for initing OtherUser
--(instancetype)initWithCommentID:(NSUInteger)cid andFid:(NSUInteger )fid andRate:(NSUInteger)rate andLike:(NSUInteger)like andDisLike:(NSUInteger)dislike andComment:(NSString *)text andByUser:(OtherUser *)byUser;
+-(instancetype)initWithCommentID:(NSUInteger)cid andFid:(NSUInteger )fid andRate:(NSInteger)rate andLike:(NSUInteger)like andDisLike:(NSUInteger)dislike andComment:(NSString *)text andByUser:(OtherUser *)byUser;
+
+-(instancetype)initWithDict:(NSDictionary *)dict;
 
 
 @end

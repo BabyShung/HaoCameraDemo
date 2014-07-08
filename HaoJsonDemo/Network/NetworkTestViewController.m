@@ -86,15 +86,22 @@
 - (IBAction)postReview:(id)sender {
     
     //user,late will move to login
-    [User sharedInstanceWithUid:7 andEmail:@"123@.com" andUname:@"Anonymity" andUpwd:@"123" andUtype:1 andUselfie:nil];
-
-    //comment
-    Comment *review = [[Comment alloc]initWithCommentID:0 andFid:2 andRate:3 andComment:@"ggrd"];
-
-
-    [self.async doComment:review rating:3 withAction:@"add"];//action: update, post
-
+    //[User sharedInstanceWithUid:7 andEmail:@"gcte2010@gmail.com" andUname:@"Charlie" andUpwd:@"engineer" andUtype:1 andUselfie:nil];
+    [User loginWithEmail:@"gcte2010@gmail.com" andPwd:@"engineer" andCompletion:^(NSError *err, BOOL success) {
+        if (success) {
+            Comment *review = [[Comment alloc]initWithCommentID:0 andFid:2 andRate:3 andComment:@"ggrd"];
+            //
+            //
+            //    [self.async doComment:review rating:3 withAction:@"add"];//action: update, post
+            //[self.async doComment:review];
+            [User fetchMyCommentOnFood:2 andCompletion:nil];
+        }
+    }];
+//
+//    //commen
+//    [self.async getReviews_fid:2 byUid:1];
     
+
 }
 
 - (IBAction)updateReview:(id)sender {

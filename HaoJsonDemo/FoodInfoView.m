@@ -12,7 +12,7 @@
 #import "JTSImageInfo.h"
 #import "UIImageView+M13AsynchronousImageView.h"
 #import "CommentCell.h"
-#import "Comment.h"
+
 
 static NSString *CellIdentifier = @"Cell";
 
@@ -188,6 +188,7 @@ const  NSInteger NumCommentsPerLoad = 5;
         //Load more comments
         [self.myFood fetchOldestCommentsSize:NumCommentsPerLoad andSkip:self.myFood.comments.count completion:^(NSError *err, BOOL success) {
             if(success){
+
                 [self updateCommentTableUI];
                 [self.commentsTableView reloadData];
             }
@@ -397,14 +398,15 @@ const  NSInteger NumCommentsPerLoad = 5;
         //NSLog(@"+++FIV+++ : request comments");
         [self.myFood fetchOldestCommentsSize:NumCommentsPerLoad andSkip:self.myFood.comments.count completion:^(NSError *err, BOOL success) {
             if (success) {
-                //NSLog(@"+++FIV+++ : I get comments!");
+                NSLog(@"+++FIV+++ : I get %d comments!",(int)self.myFood.comments.count);
+                
                 CGFloat height = self.myFood.comments.count*kCommentCellMaxHeight;
                 self.commentsTableView.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, CGRectGetWidth([[UIScreen mainScreen] bounds]), height);
                 //[self.scrollview sizeToFit];
                 //self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width, self.scrollview.contentSize.height+height);
                 self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width,CGRectGetMaxY(self.commentsTableView.frame)+10);
                 [self configCommentTable];
-                NSLog(@"+++ FIV %@+++ PREPARE CMT: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.contentSize.height,self.scrollview.frame.size.height);
+                //NSLog(@"+++ FIV %@+++ PREPARE CMT: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.contentSize.height,self.scrollview.frame.size.height);
 
             }
             
@@ -429,6 +431,8 @@ const  NSInteger NumCommentsPerLoad = 5;
     NSInteger oldCount = [self.commentsTableView numberOfRowsInSection:0];
     
     if (newCount>oldCount){
+        NSLog(@"+++ FIV +++ : I refreshed and get %d comments!",(int)(newCount-oldCount));
+        
         CGFloat deltaHeight = 0;
         
         NSMutableArray *insertIndexPaths = [NSMutableArray arrayWithCapacity:newCount-oldCount];
@@ -450,7 +454,7 @@ const  NSInteger NumCommentsPerLoad = 5;
         self.commentsTableView.frame =  CGRectMake(self.commentsTableView.frame.origin.x, self.commentsTableView.frame.origin.y, self.commentsTableView.frame.size.width, self.commentsTableView.frame.size.height + deltaHeight);
         //self.scrollview.frame =CGRectMake(self.scrollview.frame.origin.x, self.scrollview.frame.origin.y, self.scrollview.frame.size.width, self.scrollview.frame.size.height + deltaHeight);
         self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width, self.scrollview.contentSize.height+deltaHeight);
-        NSLog(@"+++ FIV %@ +++ UPD CMT UI: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.contentSize.height,self.scrollview.frame.size.height);
+       // NSLog(@"+++ FIV %@ +++ UPD CMT UI: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.contentSize.height,self.scrollview.frame.size.height);
         
         [self.commentsTableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationFade];
     }

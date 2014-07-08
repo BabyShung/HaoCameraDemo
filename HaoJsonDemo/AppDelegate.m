@@ -18,7 +18,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
+    
+    /*          MUST BE CALLED AT FIRST        */
+    /*Init Sharedata SINGLETON (INIT ONLY ONCE)*/
+    
+    [ShareData shareDataSetUp];
 
 
     
@@ -27,9 +31,7 @@
 //    [sqlc sqliteDBFilePath];
     
     
-    /*Init Sharedata SINGLETON (INIT ONLY ONCE)*/
-    
-    [ShareData shareDataSetUp];
+
     
     /*Read User default to set target lang*/
     

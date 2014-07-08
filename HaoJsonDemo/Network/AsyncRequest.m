@@ -62,6 +62,15 @@
     
 }
 
+-(void)getReviews_fid:(NSUInteger)fid byUid:(NSUInteger)uid
+{
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:fid], @"fid",[NSNumber numberWithInteger:uid], @"uid",@"my_review",@"action", nil];
+    
+    NSURL *url = [NSURL URLWithString:DOREVIEW];
+    
+    [self performAsyncTask_Dictionary:dict andURL:url];
+}
+
 -(void)getFoodInfo:(NSString*)foodname andLang:(TargetLang)lang {
     NSString *language;
     
@@ -117,12 +126,24 @@
  post review
  
  ******************/
+
+-(void)doComment:(Comment *)comment{
+    NSNumber *uidNumber = [NSNumber numberWithInteger:[User sharedInstance].Uid];
+
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:comment.fid], @"fid",comment.text, @"comments", [NSNumber numberWithInteger:comment.rate], @"rate", uidNumber, @"uid",@"post_update",@"action", nil];
+    
+    NSURL *url = [NSURL URLWithString:DOREVIEW];
+
+    [self performAsyncTask_Dictionary:dict andURL:url];
+}
+
 -(void)doComment:(Comment *)comment rating:(NSUInteger)rate withAction:(NSString*)action {
     
     User *user = [User sharedInstance];
     
     NSNumber *uidNumber = [NSNumber numberWithInteger:user.Uid];
     NSNumber *rateNumber = [NSNumber numberWithInteger:rate];
+    
     
     NSDictionary * dict;
     
@@ -147,7 +168,7 @@
     
     
     NSURL *url = [NSURL URLWithString:DOREVIEW];
-    
+     NSLog(@"POST: %@",url);
     [self performAsyncTask_Dictionary:dict andURL:url];
 }
 
@@ -156,6 +177,7 @@
  like or dislike
  
  ******************/
+
 -(void)likeOrDislike_rid:(int)rid andLike:(int)like {
     
     NSNumber *ridNumber = [NSNumber numberWithInt:rid];
@@ -200,6 +222,7 @@
     NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:email, @"email",pwd,@"pwd",@"login",@"action", nil];
     
     NSURL *url = [NSURL URLWithString:USERURL];
+   
     //post
     [self performAsyncTask_Dictionary:dict andURL:url];
 }

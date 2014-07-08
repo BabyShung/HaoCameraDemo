@@ -10,6 +10,7 @@
 #import "AsyncRequest.h"
 #import "Comment.h"
 #import "OtherUser.h"
+#import "User.h"
 
 const NSString *title = @"Title";
 const NSString *translation = @"Translation";
@@ -77,6 +78,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
     self.title = [dict objectForKey:@"title"];
     self.transTitle = [dict objectForKey:@"name"];
     self.food_description = [dict objectForKey:@"description"];
+    self.rate = [[dict objectForKey:@"rate"] floatValue];
     _webdata = [[NSMutableData alloc]init];
     _async = [[AsyncRequest alloc]initWithDelegate:self];
     
@@ -211,6 +213,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
             
             self.fid = [[foodObj objectForKey:@"fid"] intValue];
             self.food_description = [foodObj objectForKey:@"description"];
+            self.rate = [[foodObj objectForKey:@"rate"] floatValue];
             
             NSString *rawTagNams = [foodObj objectForKey:@"tags"];
             self.tagNames = [rawTagNams componentsSeparatedByString: @";"];
@@ -244,30 +247,33 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
             //....
             NSArray *resultArr = [returnJSONtoNSdict objectForKey:@"result"];
             //NSLog(@"+++FOOD+++: I get %d comments for %@",(int)resultArr.count,self.title);
+            
             for(int i = 0 ;i<resultArr.count;i++){
                 
                 NSDictionary *commentsObj = resultArr[i];
                 
-                NSUInteger cid = [[commentsObj objectForKey:@"rid"] intValue];
-                NSUInteger fid = [[commentsObj objectForKey:@"fid"] intValue];
-                NSUInteger rate = [[commentsObj objectForKey:@"rate"] intValue];
-                NSUInteger like = [[commentsObj objectForKey:@"likes"] intValue];
-                NSUInteger dislike = [[commentsObj objectForKey:@"dislikes"] intValue];
- 
-                NSString *commentWord = [commentsObj objectForKey:@"comments"];
-
                 
-                NSDictionary *creator = [commentsObj objectForKey:@"review_creater"];
-                
-                NSString *selfie = [creator objectForKey:@"selfie"];
-                NSUInteger uid = [[creator objectForKey:@"uid"] intValue];
-                NSUInteger privilege = [[creator objectForKey:@"privilege"] intValue];
-                NSString *name = [creator objectForKey:@"name"];
-
-                OtherUser *byUser = [[OtherUser alloc] initWithUid:uid andUname:name andUtype:privilege andUselfie:selfie];
-                
-                //init comment object
-                Comment *com = [[Comment alloc] initWithCommentID:cid andFid:fid andRate:rate andLike:like andDisLike:dislike andComment:commentWord andByUser:byUser];
+//                NSUInteger cid = [[commentsObj objectForKey:@"rid"] intValue];
+//                NSUInteger fid = [[commentsObj objectForKey:@"fid"] intValue];
+//                NSUInteger rate = [[commentsObj objectForKey:@"rate"] intValue];
+//                NSUInteger like = [[commentsObj objectForKey:@"likes"] intValue];
+//                NSUInteger dislike = [[commentsObj objectForKey:@"dislikes"] intValue];
+// 
+//                NSString *commentWord = [commentsObj objectForKey:@"comments"];
+//
+//                
+//                NSDictionary *creator = [commentsObj objectForKey:@"review_creater"];
+//                
+//                NSString *selfie = [creator objectForKey:@"selfie"];
+//                NSUInteger uid = [[creator objectForKey:@"uid"] intValue];
+//                NSUInteger privilege = [[creator objectForKey:@"privilege"] intValue];
+//                NSString *name = [creator objectForKey:@"name"];
+//                
+//                OtherUser *byUser = [[OtherUser alloc] initWithUid:uid andUname:name andUtype:privilege andUselfie:selfie];
+//                
+//                //init comment object
+//                Comment *com = [[Comment alloc] initWithCommentID:cid andFid:fid andRate:rate andLike:like andDisLike:dislike andComment:commentWord andByUser:byUser];
+                Comment *com = [[Comment alloc]initWithDict:commentsObj];
                 [self.comments addObject: com];
 
             }
