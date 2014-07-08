@@ -35,6 +35,10 @@
 		B82353EE192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B82353ED192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib */; };
 		B82353F0192CFC4C00D6BCAC /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = B82353EF192CFC4C00D6BCAC /* tessdata */; };
 		B8AB89C2196AEF1C00F32E4F /* SearchDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = B8AB89C1196AEF1C00F32E4F /* SearchDictionary.m */; };
+		B8AB89C7196C525100F32E4F /* lock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8AB89C3196C525100F32E4F /* lock@2x.png */; };
+		B8AB89C8196C525100F32E4F /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = B8AB89C4196C525100F32E4F /* user.png */; };
+		B8AB89C9196C525100F32E4F /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = B8AB89C5196C525100F32E4F /* lock.png */; };
+		B8AB89CA196C525100F32E4F /* user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8AB89C6196C525100F32E4F /* user@2x.png */; };
 		B8B60FAB195914DF005268D5 /* smallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FA8195914DF005268D5 /* smallLayout.m */; };
 		B8B60FAC195914DF005268D5 /* largeLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FAA195914DF005268D5 /* largeLayout.m */; };
 		B8B60FB5195914FB005268D5 /* debugView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FB4195914FB005268D5 /* debugView.m */; };
@@ -74,10 +78,6 @@
 		B8B6105719592528005268D5 /* NetworkTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6105419592528005268D5 /* NetworkTestViewController.m */; };
 		B8B6105A195925F2005268D5 /* Edible_S3.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B61059195925F2005268D5 /* Edible_S3.m */; };
 		B8B6106119592696005268D5 /* blackBG.JPG in Resources */ = {isa = PBXBuildFile; fileRef = B8B6105C19592696005268D5 /* blackBG.JPG */; };
-		B8B6106219592696005268D5 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = B8B6105D19592696005268D5 /* lock.png */; };
-		B8B6106319592696005268D5 /* lock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8B6105E19592696005268D5 /* lock@2x.png */; };
-		B8B6106419592696005268D5 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = B8B6105F19592696005268D5 /* user.png */; };
-		B8B6106519592696005268D5 /* user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8B6106019592696005268D5 /* user@2x.png */; };
 		B8B6106B195926C0005268D5 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B61068195926C0005268D5 /* LoginViewController.m */; };
 		B8B6106C195926C0005268D5 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6106A195926C0005268D5 /* RegisterViewController.m */; };
 		B8B61070195926D1005268D5 /* MKTransitionCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B6106F195926D1005268D5 /* MKTransitionCoordinator.m */; };
@@ -237,6 +237,10 @@
 		B82353EF192CFC4C00D6BCAC /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		B8AB89C0196AEF1C00F32E4F /* SearchDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchDictionary.h; sourceTree = "<group>"; };
 		B8AB89C1196AEF1C00F32E4F /* SearchDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchDictionary.m; sourceTree = "<group>"; };
+		B8AB89C3196C525100F32E4F /* lock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock@2x.png"; sourceTree = "<group>"; };
+		B8AB89C4196C525100F32E4F /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
+		B8AB89C5196C525100F32E4F /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock.png; sourceTree = "<group>"; };
+		B8AB89C6196C525100F32E4F /* user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user@2x.png"; sourceTree = "<group>"; };
 		B8B60FA7195914DF005268D5 /* smallLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smallLayout.h; sourceTree = "<group>"; };
 		B8B60FA8195914DF005268D5 /* smallLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smallLayout.m; sourceTree = "<group>"; };
 		B8B60FA9195914DF005268D5 /* largeLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = largeLayout.h; sourceTree = "<group>"; };
@@ -304,10 +308,6 @@
 		B8B61058195925F2005268D5 /* Edible_S3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Edible_S3.h; sourceTree = "<group>"; };
 		B8B61059195925F2005268D5 /* Edible_S3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Edible_S3.m; sourceTree = "<group>"; };
 		B8B6105C19592696005268D5 /* blackBG.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = blackBG.JPG; sourceTree = "<group>"; };
-		B8B6105D19592696005268D5 /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock.png; sourceTree = "<group>"; };
-		B8B6105E19592696005268D5 /* lock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock@2x.png"; sourceTree = "<group>"; };
-		B8B6105F19592696005268D5 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
-		B8B6106019592696005268D5 /* user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user@2x.png"; sourceTree = "<group>"; };
 		B8B61067195926C0005268D5 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		B8B61068195926C0005268D5 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		B8B61069195926C0005268D5 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
@@ -810,10 +810,10 @@
 				B8C8F388195F834B009F8F6E /* register_03.png */,
 				B8C8F389195F834B009F8F6E /* login_03.png */,
 				B8B6105C19592696005268D5 /* blackBG.JPG */,
-				B8B6105D19592696005268D5 /* lock.png */,
-				B8B6105E19592696005268D5 /* lock@2x.png */,
-				B8B6105F19592696005268D5 /* user.png */,
-				B8B6106019592696005268D5 /* user@2x.png */,
+				B8AB89C5196C525100F32E4F /* lock.png */,
+				B8AB89C3196C525100F32E4F /* lock@2x.png */,
+				B8AB89C4196C525100F32E4F /* user.png */,
+				B8AB89C6196C525100F32E4F /* user@2x.png */,
 			);
 			name = LoginRegister;
 			sourceTree = "<group>";
@@ -1170,14 +1170,14 @@
 				B8CC9F9C1968A5D600CCFE74 /* btn-close-black.png in Resources */,
 				B8CC9F8119689E6400CCFE74 /* ED_about@2x.png in Resources */,
 				B8CC9F9319689E6400CCFE74 /* ICON-24.png in Resources */,
-				B8B6106519592696005268D5 /* user@2x.png in Resources */,
 				B8C8F3921962551F009F8F6E /* bluechesseLogo.png in Resources */,
-				B8B6106319592696005268D5 /* lock@2x.png in Resources */,
 				B8F29C691932DC55008979A7 /* Camera_01@2x.png in Resources */,
 				B8C8F38B195F834B009F8F6E /* login_03.png in Resources */,
+				B8AB89C7196C525100F32E4F /* lock@2x.png in Resources */,
 				B8BBB02F1964FFA9007CE548 /* close-icon@2x.png in Resources */,
 				B8CC9F8619689E6400CCFE74 /* ED_feedback.png in Resources */,
 				B8CC9F9219689E6400CCFE74 /* ICON-23@2x.png in Resources */,
+				B8AB89CA196C525100F32E4F /* user@2x.png in Resources */,
 				B8CC9F621968980100CCFE74 /* rating-star-on.png in Resources */,
 				B8B60FD919591E07005268D5 /* bluejay.jpg in Resources */,
 				ACA172651937C8F5005E7D51 /* w2-1:3.jpg in Resources */,
@@ -1185,7 +1185,6 @@
 				B8CC9F8019689E6400CCFE74 /* ED_about.png in Resources */,
 				B8CC9F631968980100CCFE74 /* rating-star-on@2x.png in Resources */,
 				B8B60FDA19591E07005268D5 /* moreButton.png in Resources */,
-				B8B6106219592696005268D5 /* lock.png in Resources */,
 				B8CC9F9419689E6400CCFE74 /* ICON-25@2x.png in Resources */,
 				B8CC9FA41968A75900CCFE74 /* ED_back_2.png in Resources */,
 				B8C8F330195E1EFF009F8F6E /* trained_classifier_erGrouping.xml in Resources */,
@@ -1197,6 +1196,7 @@
 				B8F29C681932DC55008979A7 /* Camera_01.png in Resources */,
 				B8BBB02E1964FFA9007CE548 /* close-icon.png in Resources */,
 				B8B60FDB19591E07005268D5 /* secret.png in Resources */,
+				B8AB89C8196C525100F32E4F /* user.png in Resources */,
 				B8CC9F601968980100CCFE74 /* rating-star-off.png in Resources */,
 				B8B61145195A63DA005268D5 /* addImage.png in Resources */,
 				B82353BF192BE2F400D6BCAC /* Lightening.png in Resources */,
@@ -1207,6 +1207,7 @@
 				ACFF2E1C19674D1C00CAC713 /* localDB.db in Resources */,
 				B8CC9FA51968A75900CCFE74 /* ED_back_2@2x.png in Resources */,
 				B8CC9F9119689E6400CCFE74 /* ICON-22.png in Resources */,
+				B8AB89C9196C525100F32E4F /* lock.png in Resources */,
 				B8CC9F9519689E6400CCFE74 /* ICON-26.png in Resources */,
 				B82353F0192CFC4C00D6BCAC /* tessdata in Resources */,
 				B8CC9F9A1968A5D600CCFE74 /* btn-close.png in Resources */,
@@ -1220,7 +1221,6 @@
 				B8CC9F8A19689E6400CCFE74 /* ED_search.png in Resources */,
 				B8CC9FA81968A75900CCFE74 /* ED_feedback_right.png in Resources */,
 				B8CC9F611968980100CCFE74 /* rating-star-off@2x.png in Resources */,
-				B8B6106419592696005268D5 /* user.png in Resources */,
 				B8B60FD719591E07005268D5 /* likeButtonToolbar_selected.png in Resources */,
 				B8CC9F8919689E6400CCFE74 /* ED_logout@2x.png in Resources */,
 				B8BBB0301964FFA9007CE548 /* search-icon.png in Resources */,

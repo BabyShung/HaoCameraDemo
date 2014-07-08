@@ -464,7 +464,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="lock.png" translatesAutoresizingMaskIntoConstraints="NO" id="T4v-v9-4v7">
-                                                <rect key="frame" x="0.0" y="0.0" width="61" height="50"/>
+                                                <rect key="frame" x="4" y="0.0" width="61" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                         </subviews>
@@ -482,7 +482,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="user.png" translatesAutoresizingMaskIntoConstraints="NO" id="f8i-ye-EHg">
-                                                <rect key="frame" x="0.0" y="0.0" width="61" height="50"/>
+                                                <rect key="frame" x="4" y="0.0" width="61" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                         </subviews>
@@ -740,10 +740,10 @@
     <resources>
         <image name="blackBG.JPG" width="542" height="960"/>
         <image name="bluechesseLogo.png" width="301" height="301"/>
-        <image name="lock.png" width="85" height="70"/>
+        <image name="lock.png" width="86" height="71"/>
         <image name="login_03.png" width="641" height="1137"/>
         <image name="register_03.png" width="641" height="1137"/>
-        <image name="user.png" width="85" height="70"/>
+        <image name="user.png" width="86" height="71"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
