@@ -13,6 +13,8 @@
 #import "UIImageView+M13AsynchronousImageView.h"
 #import "CommentCell.h"
 #import "Comment.h"
+#import "LoadControls.h"
+#import "ED_Color.h"
 
 static NSString *CellIdentifier = @"Cell";
 
@@ -48,6 +50,8 @@ const  NSInteger NumCommentsPerLoad = 5;
 
 @interface FoodInfoView () <UICollectionViewDataSource,UICollectionViewDelegate,TagViewDelegate,UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate>
 
+
+@property (strong, nonatomic) UIButton * commentBtn;
 /*current cv must be set up when view appear*/
 @property (strong,nonatomic) UIViewController *currentVC;
 
@@ -173,7 +177,28 @@ const  NSInteger NumCommentsPerLoad = 5;
     [self.scrollview addSubview:_commentsTableView];
     self.scrollview.contentSize = CGSizeMake(width, CGRectGetMaxY(self.commentsTableView.frame)+10);
     
+    //add comment button above scrollview
+    _commentBtn = [LoadControls createCameraButton_Image:@"ED_feedback_right.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andCenter:CGPointMake(320-10-20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
+    [_commentBtn addTarget:self action:@selector(commentBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    _commentBtn.alpha = 1;
+    //_commentBtn.hidden = YES;
+    [self addSubview:_commentBtn];
+    
 }
+
+- (void) commentBtnPressed:(id)sender {
+    NSLog(@"yo in food view!!!");
+    //1. get fid
+    
+    //2. get uid
+    //    User *user = [User sharedInstance];
+    //    if(user.Uid != 0){
+    //        //show comment button
+    //    }
+    
+    //3.send to server
+}
+
 
 /**********************************
  
@@ -498,6 +523,9 @@ const  NSInteger NumCommentsPerLoad = 5;
                     [self setFoodInfo];
                     [self configPhotoAndTagWithCellNo:cellNo];
                     [self prepareComments];
+                    
+
+
                 }
                 
             }];

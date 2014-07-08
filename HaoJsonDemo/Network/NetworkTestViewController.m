@@ -75,7 +75,7 @@
 
 
 - (IBAction)getFoodInfo:(id)sender {
-    [self.async getFoodInfo:@"carp" andLang:[[ShareData shareData] defaultTargetLang]];
+    [self.async getFoodInfo:@"oatmeal" andLang:[[ShareData shareData] defaultTargetLang]];
 }
 
 - (IBAction)getReview:(id)sender {

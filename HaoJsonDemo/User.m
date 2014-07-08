@@ -9,6 +9,8 @@
 #import "User.h"
 #import "AsyncRequest.h"
 #import "edi_md5.h"
+#import "AppDelegate.h"
+
 @implementation User
 
 
@@ -126,6 +128,9 @@ static AsyncRequest *async;
     NSUInteger type = [[dict objectForKey:@"type"] intValue];
     NSString *selfie = [dict objectForKey:@"selfie"];
     
+    //second login, but remember to init async
+    async = [[AsyncRequest alloc] initWithDelegate:sharedInstance];
+    
     return [self sharedInstanceWithUid:uid andEmail:email andUname:name andUpwd:pwd andUtype:type andUselfie:selfie];
 }
 
@@ -215,5 +220,28 @@ static AsyncRequest *async;
     });
 }
 
-
++(void)logout{
+    /************************
+     
+     log out release things
+     
+     ************************/
+    
+    //release camera resource
+    AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    [appDlg closeCamera];
+    
+    //set user to nil
+    [User ClearUserInfo];
+    
+    //clear userdefault for second login
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentUser"]) {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentUser"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    
+    NSLog(@"click log out");
+}
 @end

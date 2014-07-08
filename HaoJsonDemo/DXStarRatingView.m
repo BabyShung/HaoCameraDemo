@@ -24,8 +24,8 @@
 
 #define kStarPadding 1.0
 
-#define kRatingStarOnImage [UIImage imageNamed:@"rating-star-on@2x.png"]
-#define kRatingStarOffImage [UIImage imageNamed:@"rating-star-off@2x.png"]
+#define kRatingStarOnImage [UIImage imageNamed:@"star_on.png"]
+#define kRatingStarOffImage [UIImage imageNamed:@"star_off.png"]
 
 @interface DXStarRatingView ()
 {

@@ -2,32 +2,17 @@
 /* Class = "IBUIButton"; normalTitle = "Login"; ObjectID = "27J-mz-zxJ"; */
 "27J-mz-zxJ.normalTitle" = "Login";
 
-/* Class = "IBUIButton"; normalTitle = "updateReview"; ObjectID = "52A-CY-Rma"; */
-"52A-CY-Rma.normalTitle" = "updateReview";
-
 /* Class = "IBUIButton"; normalTitle = "Sign up"; ObjectID = "6ic-ru-quV"; */
 "6ic-ru-quV.normalTitle" = "Sign up";
 
 /* Class = "IBUIButton"; normalTitle = "Sign up"; ObjectID = "9Nu-rV-biw"; */
 "9Nu-rV-biw.normalTitle" = "Sign up";
 
-/* Class = "IBUIButton"; normalTitle = "testBlock"; ObjectID = "Avu-IC-ikn"; */
-"Avu-IC-ikn.normalTitle" = "testBlock";
-
 /* Class = "IBUITextField"; placeholder = "Type"; ObjectID = "CGJ-hS-H42"; */
 "CGJ-hS-H42.placeholder" = "Type";
 
-/* Class = "IBUIButton"; normalTitle = "getFood"; ObjectID = "HPe-4k-Li4"; */
-"HPe-4k-Li4.normalTitle" = "getFood";
-
-/* Class = "IBUIButton"; normalTitle = "checkEmail"; ObjectID = "KJn-4u-ncr"; */
-"KJn-4u-ncr.normalTitle" = "checkEmail";
-
 /* Class = "IBUIButton"; normalTitle = "register"; ObjectID = "Oe3-fX-nk6"; */
 "Oe3-fX-nk6.normalTitle" = "register";
-
-/* Class = "IBUIButton"; normalTitle = "postReview"; ObjectID = "V8q-df-Ji1"; */
-"V8q-df-Ji1.normalTitle" = "postReview";
 
 /* Class = "IBUITextField"; placeholder = "Email"; ObjectID = "VcW-rA-udG"; */
 "VcW-rA-udG.placeholder" = "Email";
@@ -37,12 +22,6 @@
 
 /* Class = "IBUIButton"; normalTitle = "back to login"; ObjectID = "elX-e3-hUj"; */
 "elX-e3-hUj.normalTitle" = "back to login";
-
-/* Class = "IBUIButton"; normalTitle = "TestS3"; ObjectID = "haj-Aj-SuA"; */
-"haj-Aj-SuA.normalTitle" = "TestS3";
-
-/* Class = "IBUIButton"; normalTitle = "getReview"; ObjectID = "heR-Pm-2EL"; */
-"heR-Pm-2EL.normalTitle" = "getReview";
 
 /* Class = "IBUILabel"; text = "Blue Cheese"; ObjectID = "hjc-8M-qgO"; */
 "hjc-8M-qgO.text" = "Blue Cheese";
@@ -66,7 +45,7 @@
 "sUL-on-sk9.text" = "Translate";
 
 /* Class = "IBUIButton"; normalTitle = "Forgot password?"; ObjectID = "x0f-2C-e8H"; */
-"x0f-2C-e8H.normalTitle" = "Forgot password?";
+"x0f-2C-e8H.normalTitle" = "Skip Login";
 
 /* Class = "IBUITextField"; placeholder = "Password"; ObjectID = "xlg-F4-GJ2"; */
 "xlg-F4-GJ2.placeholder" = "Password";

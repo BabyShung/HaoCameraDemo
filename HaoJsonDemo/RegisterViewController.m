@@ -56,6 +56,10 @@
     [self.signupBtn successStyle];
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    [self.emailTextField becomeFirstResponder];
+}
+
 - (IBAction)backToLogin:(UIButton *)sender {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }

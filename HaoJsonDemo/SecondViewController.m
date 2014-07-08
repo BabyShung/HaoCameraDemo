@@ -15,12 +15,13 @@
 #import "HATransparentView.h"
 #import "DXStarRatingView.h"
 #import "SearchDictionary.h"
+#import "User.h"
 
 @interface SecondViewController () <HATransparentViewDelegate>
 
 @property (strong, nonatomic) UIButton * backBtn;
 
-@property (strong, nonatomic) UIButton * commentBtn;
+//@property (strong, nonatomic) UIButton * commentBtn;
 
 @property (strong, nonatomic) HATransparentView *transparentView;
 
@@ -33,11 +34,31 @@
 
 @implementation SecondViewController
 
+//-(void)showCommentButton:(NSNotification*)notification{
+//    NSLog(@"yoyoyoxxxxx*********************************************** yoyoyoyoyo");
+//    
+//    //get food id
+//    NSUInteger fid = [[notification.userInfo objectForKey:@"fid"] intValue];
+//    
+//    //get uid
+//    User *user = [User sharedInstance];
+//    if(user.Uid != 0){
+//        //show comment button
+//    }
+//}
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showCommentButton:) name:@"showCmtButton" object:nil];
 
+}
+-(void)dealloc
+{
+    //[[NSNotificationCenter defaultCenter]removeObserver:self name:@"showCmtButton" object:nil];
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
@@ -47,6 +68,15 @@
     
         //wherever scroll to another cell, check and save food into dict
         [SearchDictionary addSearchHistory:cell.foodInfoView.myFood];
+    
+    
+    if(cell.foodInfoView.myFood.foodInfoComplete){
+        //self.commentBtn
+    }
+    
+    //tell the secondVC whether it can show the comment button
+    //[[NSNotificationCenter defaultCenter]postNotificationName:@"showCmtButton" object:self userInfo:@{@"food":cell.myFood}];
+    
     
         NSLog(@"----------------------************************-------------, %d",centerCellIndex.row);
     
@@ -70,25 +100,25 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-- (void) commentBtnPressed:(id)sender {
-    _transparentView = [[HATransparentView alloc] init];
-    _transparentView.delegate = self;
-    [_transparentView open];
-    
-    
-    // Add a textView
-    UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(20, 120, _transparentView.frame.size.width - 40, 250)];
-    textView.text = @"asdasdasdasdasdqweqweaxczxczxcasdwqesdfadsfasdfasdfsafasf";
-    //textView.backgroundColor = [UIColor clearColor];
-    textView.textColor = [UIColor blackColor];
-    textView.editable = YES;
-    textView.font = [UIFont systemFontOfSize:20];
-    [_transparentView addSubview:textView];
-    
-    self.rateView = [[DXStarRatingView alloc] initWithFrame:CGRectMake((_transparentView.frame.size.width - 250)/2, 60, 260, 65)];
-    [self.rateView setStars:0 target:self callbackAction:@selector(didChangeRating:)];
-    [_transparentView addSubview:self.rateView];
-}
+//- (void) commentBtnPressed:(id)sender {
+//    _transparentView = [[HATransparentView alloc] init];
+//    _transparentView.delegate = self;
+//    [_transparentView open];
+//    
+//    
+//    // Add a textView
+//    UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(20, 120, _transparentView.frame.size.width - 40, 250)];
+//    textView.text = @"asdasdasdasdasdqweqweaxczxczxcasdwqesdfadsfasdfasdfsafasf";
+//    //textView.backgroundColor = [UIColor clearColor];
+//    textView.textColor = [UIColor blackColor];
+//    textView.editable = YES;
+//    textView.font = [UIFont systemFontOfSize:20];
+//    [_transparentView addSubview:textView];
+//    
+//    self.rateView = [[DXStarRatingView alloc] initWithFrame:CGRectMake((_transparentView.frame.size.width - 250)/2, 60, 260, 65)];
+//    [self.rateView setStars:0 target:self callbackAction:@selector(didChangeRating:)];
+//    [_transparentView addSubview:self.rateView];
+//}
 
 -(void)setupButtonAndAnimate{
     _backBtn = [LoadControls createCameraButton_Image:@"ED_back_2.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
@@ -97,15 +127,15 @@
     //_backBtn.hidden = YES;
     [self.view insertSubview:_backBtn aboveSubview:self.collectionView];
     
-    _commentBtn = [LoadControls createCameraButton_Image:@"ED_feedback_right.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andCenter:CGPointMake(320-10-20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
-    [_commentBtn addTarget:self action:@selector(commentBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    _commentBtn.alpha = 0;
-    //_commentBtn.hidden = YES;
-    [self.view insertSubview:_commentBtn aboveSubview:self.collectionView];
+//    _commentBtn = [LoadControls createCameraButton_Image:@"ED_feedback_right.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andCenter:CGPointMake(320-10-20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
+//    [_commentBtn addTarget:self action:@selector(commentBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    _commentBtn.alpha = 0;
+//    //_commentBtn.hidden = YES;
+//    [self.view insertSubview:_commentBtn aboveSubview:self.collectionView];
     
     [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         _backBtn.alpha = 1;
-        _commentBtn.alpha = 1;
+        //_commentBtn.alpha = 1;
     } completion:nil];
     
 }

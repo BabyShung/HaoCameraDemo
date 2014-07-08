@@ -155,7 +155,7 @@
         return ;
     }else{//not match
         self.minLengthError = YES;
-        NSString *msg = [NSString stringWithFormat:@"%@ %@ %d.",textFieldName,NSLocalizedString(@"AT_LEAST", nil), length];
+        NSString *msg = [NSString stringWithFormat:@"%@%@%d%@.",textFieldName,NSLocalizedString(@"AT_LEAST", nil), length,NSLocalizedString(@"DIGIT", nil)];
         [self.minLengthErrorMsg addObject:msg];
         return ;
     }

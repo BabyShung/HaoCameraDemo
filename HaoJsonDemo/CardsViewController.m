@@ -181,8 +181,6 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
     cell.titleLabel.text = [self.settings objectAtIndex:indexPath.row];
     cell.backgroundColor = colors[indexPath.row%self.settings.count];
     cell.imageView.image = self.settingsImages[indexPath.row];
-    NSLog(@"<><><> %@",self.settingsImages[indexPath.row]);
-    NSLog(@"<><><> %@",cell.imageView.image);
     return cell;
     
 }
@@ -220,29 +218,10 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
     
     [lrf addButtonWithTitle:NSLocalizedString(@"Log out", nil) actionBlock:^{
         
-        /************************
-         
-         log out release things
-         
-         ************************/
-        
-        //release camera resource
-        AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        
-        [appDlg closeCamera];
-        
-        //set user to nil
-        [User ClearUserInfo];
-        
-        //clear userdefault for second login
-        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentUser"]) {
-            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentUser"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
-        
+        [User logout];
+
         [self transitionToLoginVC];
         
-        NSLog(@"click log out");
     }];
     
     [lrf show];
