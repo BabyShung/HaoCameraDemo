@@ -18,6 +18,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    /*Init Sharedata SINGLETON (INIT ONLY ONCE)*/
+    
+    [ShareData shareDataSetUp];
 
 
     //init global search history for main VC
@@ -31,7 +35,7 @@
     
     NSLog(@"xxxx %@",foodx);
     
-    NSLog(@"xxxx2 %@",[[SearchDictionary sharedInstance].dict objectForKey:@"Bacon"]);
+   NSLog(@"xxxx2 %@",[[SearchDictionary sharedInstance].dict objectForKey:@"Bacon"]);
     
     NSLog(@"xx %d",[SearchDictionary sharedInstance].dict.count);
     [SearchDictionary removeAllSearchHistory];
@@ -39,13 +43,11 @@
     NSLog(@"xx %d",[SearchDictionary sharedInstance].dict.count);
     
     
-//    SQLConnector *sqlc = [[SQLConnector alloc]init];
-//    [sqlc sqliteDBFilePath];
+    SQLConnector *sqlc = [[SQLConnector alloc]init];
+    [sqlc sqliteDBFilePath];
     
     
-    /*Init Sharedata SINGLETON (INIT ONLY ONCE)*/
-    
-    [ShareData shareDataSetUp];
+
     
     /*Read User default to set target lang*/
     

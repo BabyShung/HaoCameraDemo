@@ -2,10 +2,9 @@
 //  ImagePreProcessor.m
 //
 //
-//  Created by CharlieGao on 6/27/14.
+//  Created by CharlieGao on 6/30/14.
 //  Copyright (c) 2014 Edible Innovations. All rights reserved.
 //
-
 #import "ImagePreProcessor.h"
 #import "opencv2/opencv.hpp"
 #import "UIImage+OpenCV.h"
@@ -362,8 +361,8 @@ using namespace std;
     //count the average of the pixels
     int ave_pixl = sum_pixl/(rows*cols);
     int ave_outer_pixl = sum_outer_pixl/(2*(rows+cols));
-    NSLog(@"ImagePrePro: all: %d",ave_pixl);
-    NSLog(@"ImagePrePro: out: %d",ave_outer_pixl);
+    //NSLog(@"ImagePrePro: all: %d",ave_pixl);
+    //NSLog(@"ImagePrePro: out: %d",ave_outer_pixl);
     
     
     if(ave_pixl <= ave_outer_pixl){
@@ -503,7 +502,7 @@ using namespace std;
 //-----------find contour
 
 typedef vector<vector<cv::Point> > TContours;
--(NSMutableArray*)findContour:(cv::Mat)inputImage:(cv::Mat)orgImage{
+-(NSMutableArray*)findContour:(cv::Mat)inputImage :(cv::Mat)orgImage{
     
     cv::cvtColor( inputImage, inputImage, COLOR_BGR2GRAY );
     

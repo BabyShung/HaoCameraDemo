@@ -15,22 +15,17 @@ using namespace std;
 
 @implementation TextDetector2
 
-
-
 -(NSMutableArray*)findTextArea: (UIImage*)inputImage{
     
     NSLog(@"TextDetector: Called!");
     
     cv::Mat inputMat = [inputImage CVMat];
-    
-    
     NSMutableArray *imgUIArray = [[NSMutableArray alloc] init];;
     imgUIArray = [self findContour:inputMat:inputMat];
-    //NSArray *imgArray = [NSArray arrayWithArray:imgUIArray]; // output
     
+    //NSArray *imgArray = [NSArray arrayWithArray:imgUIArray]; // output
     //UIImage* testUIImage = [imgUIArray objectAtIndex:0];
     //inputImage = [testUIImage CVMat];
-    
     
     return imgUIArray;
 }
@@ -45,58 +40,6 @@ using namespace std;
     return matImage;
 }
 
--(cv::Mat)erode:(cv::Mat)img{
-    
-    int erosion_elem = 2;
-    int erosion_size = 1;
-    cv::Mat erosion_dst;
-    int erosion_type;
-    if( erosion_elem == 0 ){ erosion_type = cv::MORPH_RECT; }
-    else if( erosion_elem == 1 ){ erosion_type = cv::MORPH_CROSS; }
-    else if( erosion_elem == 2) { erosion_type = cv::MORPH_ELLIPSE; }
-    
-    cv::Mat element = getStructuringElement( erosion_type,
-                                            cv::Size( 2*erosion_size + 1, 2*erosion_size+1 ),
-                                            cv::Point( erosion_size, erosion_size ) );
-    /// Apply the erosion operation
-    erode( img, erosion_dst, element );
-    return erosion_dst;
-    
-}
-
-
--(cv::Mat)dilate:(cv::Mat)img{
-    
-    cv::Mat dilation_dst;
-    int dilation_type;
-    int dilation_elem = 1;
-    int dilation_size = 1;
-    
-    if( dilation_elem == 0 ){ dilation_type = cv::MORPH_RECT; }
-    else if( dilation_elem == 1 ){ dilation_type = cv::MORPH_CROSS; }
-    else if( dilation_elem == 2) { dilation_type = cv::MORPH_ELLIPSE; }
-    
-    cv::Mat element = getStructuringElement( dilation_type,
-                                            cv::Size( 2*dilation_size + 1, 2*dilation_size+1 ),
-                                            cv::Point( dilation_size, dilation_size ) );
-    /// Apply the dilation operation
-    dilate( img, dilation_dst, element );
-    
-    return dilation_dst;
-    
-}
-
--(cv::Mat)gaussianBlur:(cv::Mat)inputImage :(int)h :(int)w{
-    
-    cv::Mat output;
-    cv::Size size;
-	size.height = h;
-	size.width = w;
-    cv::GaussianBlur(inputImage, output, size, 0.8);
-    return output;
-    
-}
-
 
 -(cv::Mat)sharpen:(cv::Mat)inputImage{
     cv::Mat output;
@@ -105,58 +48,14 @@ using namespace std;
     return output;
 }
 
--(cv::Mat)increaseContrast:(cv::Mat)inputMat{
-    //input mat is in BGR format
-    //ouput mat is in BGR format
-    //the function converts BGR into YCrCb format, and then takes care of the first channel of it.
-    
-    
-    vector<cv::Mat> channels;
-    
-    cv::Mat img_hist_equalized;
-    
-    cv::cvtColor(inputMat, img_hist_equalized, cv::COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
-    
-    cv::split(img_hist_equalized,channels); //split the image into channels
-    
-    cv::equalizeHist(channels[0], channels[0]); //equalize histogram on the 1st channel (Y)
-    
-    cv::merge(channels,img_hist_equalized); //merge 3 channels including the modified 1st channel into one image
-    
-    cv::cvtColor(img_hist_equalized, img_hist_equalized, cv::COLOR_YCrCb2BGR); //change the color image from YCrCb to BGR format
-    
-    return img_hist_equalized;
-    
-}
 
 //------------/Basic method
-
-
-//-------/Remove Back ground version1
-
-
-
--(cv::Mat)removeBackground:(cv::Mat)inputImage{
-    
-    cv::Size size;
-    size.height = 3;
-    size.width = 3;
-    
-    cv::GaussianBlur(inputImage, inputImage, size, 0.5);
-    cv::threshold(inputImage, inputImage, 0,255, cv::THRESH_TRUNC|cv::THRESH_OTSU);
-    cv::GaussianBlur(inputImage, inputImage, size, 0.8);
-    
-    return inputImage;
-    
-}
-
-//-------/Remove Back ground version1
 
 
 //-----------find contour
 
 typedef vector<vector<cv::Point> > TContours;//global
--(NSMutableArray*)findContour:(cv::Mat)inputImg:(cv::Mat)orgImage{
+-(NSMutableArray*)findContour:(cv::Mat)inputImg :(cv::Mat)orgImage{
     
     cv::cvtColor( inputImg, inputImg, cv::COLOR_BGR2GRAY );
 
@@ -176,8 +75,8 @@ typedef vector<vector<cv::Point> > TContours;//global
     findContours( canny_output, contours, hierarchy, RETR_LIST, CHAIN_APPROX_SIMPLE, cv::Point(0, 0) );
     
     
-    Mat drawing = Mat::zeros( canny_output.size(), CV_8UC3 );
-    
+    Mat drawing ;//= Mat::zeros( canny_output.size(), CV_8UC3 );
+    drawing = orgImage;
     
     /// Approximate contours to polygons + get bounding rects and circles
     vector<vector<cv::Point> > contours_poly( contours.size() );
@@ -188,7 +87,7 @@ typedef vector<vector<cv::Point> > TContours;//global
     
     for( int i = 0; i < contours.size(); i++ )
     {
-        drawContours( drawing, contours, i, Scalar(255,0,0), 1, 8, hierarchy, 0, cv::Point() );
+        //drawContours( drawing, contours, i, Scalar(255,0,0), 1, 8, hierarchy, 0, cv::Point() );
         approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
         boundRect[i] = boundingRect( Mat(contours_poly[i]) );
     }
@@ -214,11 +113,11 @@ typedef vector<vector<cv::Point> > TContours;//global
     
     NSMutableArray *UIRects = [[NSMutableArray alloc] init];
     for(int i = 0; i< sigle_rects.size(); i++){
-        if(sigle_rects[i].width > 10 && sigle_rects[i].height > 25)
-        {//skip null
-            //rectangle(drawing, sigle_rects[i].tl(), sigle_rects[i].br(), Scalar(255,255,255), 1, 8, 0 );
+        if(sigle_rects[i].width > 10 && sigle_rects[i].height > 15 )
+        {
             
-            //convert to mat pointer and stored in NSarray
+            
+            
             cv::Mat tmpMat;
             
             int x = cv::max(sigle_rects[i].x-3,0);
@@ -245,11 +144,14 @@ typedef vector<vector<cv::Point> > TContours;//global
             
             [UIRects addObject:[UIImage imageWithCVMat:tmpMat]];
             
+            rectangle(drawing, tempRect.tl(), tempRect.br(), Scalar(0,0,255), 1, 8, 0 ); // draw rectangles
+            
         }
         else{
             //NSLog(@"nothing to draw: %d",i);
         }
     }
+    [UIRects addObject:[UIImage imageWithCVMat:drawing]];//add overview img to the end of the array
     
     return UIRects;
     
@@ -258,8 +160,7 @@ typedef vector<vector<cv::Point> > TContours;//global
 
 //Comparison function for std::sort
 //Sort regions y-axis desc. and x-axis asce.
-bool compareLoc(const cv::Rect &a,const cv::Rect &b)
-{
+bool compareLoc(const cv::Rect &a,const cv::Rect &b){
     if (a.y < b.y) return true;
     else if (a.y == b.y)
     {
@@ -411,14 +312,6 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b)
 }
 
 //-----------/find contour
-
--(void) groupsDrawWithMat:(Mat &)src :(cv::Rect)rect{
-    cout<<"Drawing groups..."<< endl;
-
-        rectangle(src,rect.tl(),rect.br(),Scalar( 0, 255, 255 ), 3, 8 );
-
-}
-
 
 
 @end

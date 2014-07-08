@@ -70,8 +70,7 @@ static NSString *CellIdentifier = @"Cell";
     //init controls, *camera*
     [self loadControls];
     
-    //set camView delegate to be DEBUG_VC
-    [self.Maindelegate setCamDelegateFromMain:self];
+
     
 }
 -(void)viewWillAppear:(BOOL)animated{
@@ -165,6 +164,9 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 - (void) viewDidAppear:(BOOL)animated {
+    
+    //set camView delegate to be DEBUG_VC
+    [self.Maindelegate setCamDelegateFromMain:self];
     
     [self.view bringSubviewToFront:_clearBtn];
     [self.view bringSubviewToFront:_captureBtn];
@@ -299,6 +301,9 @@ static NSString *CellIdentifier = @"Cell";
     self.collectionView.hidden = NO;
     self.collectionView.alpha = 1;
     
+    //NSLog(@"****************** ccccccc ******************* %@",image);
+    
+    
     [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.clearBtn.alpha = 1;
         self.captureBtn.alpha = 1;
@@ -311,37 +316,20 @@ static NSString *CellIdentifier = @"Cell";
     
     
     
-    
-    
-    
-    //NSArray *localFoods;
+    /****** OCR and Searching Components *****/
     
     Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
-    //@"yeast bread with Worcestershire sauce and yogurt"
-    [dict serverSearchOCRString:@"Blue cheese and carp" andCompletion:^(NSArray *results, BOOL success) {
-        //NSLog(@"++++Main VC++++ : Server Foods: %d",(int)results.count);
-        [self addFoodItems:results];
-    }];
-    NSArray *localFoods;
-    localFoods = [dict localSearchOCRString:@"blue cheese and carp and bacon and olive and bean"];
-    //NSLog(@"++++Main VC++++ : Local Foods: %d",(int)localFoods.count);
-    [self addFoodItems:localFoods];
-    
-    
-    //also add two btns, one cross:clear cell, and one capture:
+    NSMutableArray *localFoods = [NSMutableArray array];
     
     if (image) {
         
         
         //PS: image variable is the original size image (2448*3264)
-        UIImage *onScreenImage = [LoadControls scaleImage:image withScale:1.5f withRect:rect andCropSize:size];
+        UIImage *onScreenImage = [LoadControls scaleImage:image withScale:3.0f withRect:rect andCropSize:size];
         UIImage *originalImage = [UIImage imageWithCGImage:onScreenImage.CGImage];
-        
-        //self.imgArray = [TextDetector detectTextRegions:originalImage];
         TextDetector2 *td2 = [[TextDetector2 alloc]init];
         self.imgArray = [td2 findTextArea:originalImage];
-        NSString *result = @"";
-        NSMutableArray *ocrStrings = [NSMutableArray array];
+        NSLog(@"+++ MAIN VC +++ : text areas %d",(int)self.imgArray.count);
         if ([_imgArray count] > 0)
         {
             for(UIImage *preImage in _imgArray){
@@ -351,23 +339,11 @@ static NSString *CellIdentifier = @"Cell";
                 // Step 3. put Mat into pre processor- Charlie
                 _tempMat = [self.ipp processImage:_tempMat];
                 NSString *ocrStr = [self recognizeImageWithTesseract:[UIImage imageWithCVMat:_tempMat]];
+                NSLog(@" ++++++++++ MAIN VC +++++++++++ : TEESSACT REC: %@",ocrStr);
                 
-                /********* TODO: word correction *******/
-                
-                //ocrStr = [[dict splitAndFilterWordsFromString:ocrStr] componentsJoinedByString:@" "];
-                result = [result stringByAppendingFormat:@"%@\n",ocrStr];
-                [ocrStrings addObject:ocrStr];
-                
+                [localFoods addObjectsFromArray:[dict localSearchOCRString:ocrStr]];
             }
-            
-            
-            //onScreenImage = [_imgArray objectAtIndex:(_imgArray.count-1)];
-            NSLog(@"<<<<<<<<<<1.5 RESULT: \n%@", result);
-            
-            /*     Analyze OCR Results locally      */
-            
-            
-            
+            [self addFoodItems:localFoods];        
         }
         
     }

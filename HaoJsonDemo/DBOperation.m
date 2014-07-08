@@ -161,8 +161,9 @@
     NSString *langTableName =[sharedata langTableName:lang];
     [self.connector openDB];
     for (NSString *word in wordsArray) {
+        
         NSString *sql =[NSString stringWithFormat:@"SELECT DISTINCT Keyword.kwstr,%@.wstr FROM %@,Keyword WHERE UPPER(Keyword.kwstr)=UPPER('%@') AND Keyword.kwid=%@.wid;",langTableName,langTableName,word,langTableName];
-    
+        NSLog(@"++++++++++++ DB SEARCH ++++++++++++  WORD = %@",word);
         sqlite3_stmt *stmt = nil;
         
         //Prepare the statement
@@ -190,8 +191,8 @@
 -(NSArray *) getItemsInFileByFilePath:(NSString *) path{
     
     NSString *content=[NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    NSArray *kwArray = [content componentsSeparatedByString:@"\r\n"];
-    NSLog(@"# of keywords = %d", kwArray.count);
+    NSArray *kwArray = [content componentsSeparatedByString:@"\n"];
+    NSLog(@"# of keywords = %d", (int)kwArray.count);
     
     return kwArray;
 
