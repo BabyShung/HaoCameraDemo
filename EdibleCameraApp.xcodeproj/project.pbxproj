@@ -19,6 +19,7 @@
 		AC1E7764194F583100532F65 /* filterwords.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC1E7761194F583100532F65 /* filterwords.txt */; };
 		AC3FDCE2196C49230008D311 /* foodlist_kw_en_7000.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC3FDCE1196C49230008D311 /* foodlist_kw_en_7000.txt */; };
 		AC3FDCE4196C49290008D311 /* foodlist_kw_cn_7000.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC3FDCE3196C49290008D311 /* foodlist_kw_cn_7000.txt */; };
+		AC3FDCE6196CA1E20008D311 /* localDB.db in Resources */ = {isa = PBXBuildFile; fileRef = AC3FDCE5196CA1E20008D311 /* localDB.db */; };
 		AC7491F8195A2C4F00D3CBBA /* TransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7491F7195A2C4F00D3CBBA /* TransitionController.m */; };
 		AC749201195A2D4300D3CBBA /* TransitionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC749200195A2D4300D3CBBA /* TransitionLayout.m */; };
 		AC8A357A19461E2100FC5465 /* SQLConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8A357619461E2100FC5465 /* SQLConnector.m */; };
@@ -221,6 +222,7 @@
 		AC1E7761194F583100532F65 /* filterwords.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = filterwords.txt; sourceTree = "<group>"; };
 		AC3FDCE1196C49230008D311 /* foodlist_kw_en_7000.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = foodlist_kw_en_7000.txt; sourceTree = "<group>"; };
 		AC3FDCE3196C49290008D311 /* foodlist_kw_cn_7000.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = foodlist_kw_cn_7000.txt; sourceTree = "<group>"; };
+		AC3FDCE5196CA1E20008D311 /* localDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = localDB.db; sourceTree = "<group>"; };
 		AC7491F6195A2C4F00D3CBBA /* TransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionController.h; sourceTree = "<group>"; };
 		AC7491F7195A2C4F00D3CBBA /* TransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionController.m; sourceTree = "<group>"; };
 		AC7491FF195A2D4300D3CBBA /* TransitionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionLayout.h; sourceTree = "<group>"; };
@@ -524,7 +526,8 @@
 		AC8A356819461D3E00FC5465 /* LocalDB */ = {
 			isa = PBXGroup;
 			children = (
-				3AC9FAF2196CA0F500153773 /* localDB.db */,
+
+				AC3FDCE5196CA1E20008D311 /* localDB.db */,
 				AC3FDCE3196C49290008D311 /* foodlist_kw_cn_7000.txt */,
 				AC3FDCE1196C49230008D311 /* foodlist_kw_en_7000.txt */,
 				AC1E7761194F583100532F65 /* filterwords.txt */,
@@ -1246,6 +1249,7 @@
 				B8C8F38A195F834B009F8F6E /* register_03.png in Resources */,
 				B8CC9F7F19689E6400CCFE74 /* default_selfie@2x.png in Resources */,
 				B8CC9F8A19689E6400CCFE74 /* ED_search.png in Resources */,
+				AC3FDCE6196CA1E20008D311 /* localDB.db in Resources */,
 				3AC9FAF1196C3EBC00153773 /* localDB.db in Resources */,
 				B8CC9FA81968A75900CCFE74 /* ED_feedback_right.png in Resources */,
 				B8CC9F611968980100CCFE74 /* rating-star-off@2x.png in Resources */,
