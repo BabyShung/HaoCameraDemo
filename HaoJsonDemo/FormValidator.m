@@ -32,33 +32,33 @@
 - (void) Email:(NSString *) email andUsername: (NSString *) username andPwd: (NSString *)pwd{
     
     //----pass the textFields
-    [self Required:email FieldName:@"Email"];
+    [self Required:email FieldName:NSLocalizedString(@"Email", nil)];
     //----register case
     if(username){
-        [self Required:username FieldName:@"Username"];
+        [self Required:username FieldName:NSLocalizedString(@"Username", nil)];
     }
-    [self Required:pwd FieldName:@"Password"];
-    [self Email:email FieldName:@"Email"];
+    [self Required:pwd FieldName:NSLocalizedString(@"Password", nil)];
+    [self Email:email FieldName:NSLocalizedString(@"Email", nil)];
     //----register case
     if(username){
         
-        [self MinLength:6 textField:pwd FieldName:@"Password"];
-        [self LettersNumbersOnly:username FieldName:@"Username"];
+        [self MinLength:6 textField:pwd FieldName:NSLocalizedString(@"Password", nil)];
+        [self LettersNumbersOnly:username FieldName:NSLocalizedString(@"Username", nil)];
         
-        [self MaxLength:20 textField:username FieldName:@"Username"];
+        [self MaxLength:20 textField:username FieldName:NSLocalizedString(@"Username", nil)];
         
     }
-    [self MaxLength:20 textField:pwd FieldName:@"Password"];
+    [self MaxLength:20 textField:pwd FieldName:NSLocalizedString(@"Password", nil)];
     
 }
 
 - (void) OldPwd:(NSString *) oldpwd andNextPwd: (NSString *) nextpwd andConfirmPwd: (NSString *)confirmpwd{
-    [self Required:oldpwd FieldName:@"Old password"];
-    [self Required:nextpwd FieldName:@"New password"];
-    [self Required:confirmpwd FieldName:@"Confirm New Password"];
+    [self Required:oldpwd FieldName:NSLocalizedString(@"Old password", nil)];
+    [self Required:nextpwd FieldName:NSLocalizedString(@"New password", nil)];
+    [self Required:confirmpwd FieldName:NSLocalizedString(@"Confirm New password", nil)];
     
-    [self MinLength:6 textField:nextpwd FieldName:@"New password"];
-    [self MaxLength:20 textField:nextpwd FieldName:@"New password"];
+    [self MinLength:6 textField:nextpwd FieldName:NSLocalizedString(@"New password", nil)];
+    [self MaxLength:20 textField:nextpwd FieldName:NSLocalizedString(@"New password", nil)];
     
     [self SameCheck:nextpwd andConfirm:confirmpwd];
 }
@@ -78,7 +78,7 @@
     
     NSString *emailRegEx = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
-    NSString *msg = @"Email is invalid.";
+    NSString *msg = NSLocalizedString(@"ERROR_EMAIL", nil);
     if ([emailTest evaluateWithObject:emailAddress] == NO) {//not match
         self.emailError = YES;
         [self.emailErrorMsg addObject:msg];
@@ -102,7 +102,7 @@
     
     if([lettersSpaceTest evaluateWithObject:textField] == NO){
         self.lettersNumbersOnly = YES;
-        NSString *msg = [NSString stringWithFormat:@"%@%s",textFieldName," letters or numbers only."];
+        NSString *msg = [NSString stringWithFormat:@"%@%@",textFieldName,NSLocalizedString(@"ERROR_EMAIL_FORMAT", nil)];
         [self.lettersNumbersOnlyMsg addObject:msg];
         return ;
     }else{
@@ -119,7 +119,7 @@
     
     if (textField.length == 0) {//empty
         self.requiredError = YES;
-        NSString *msg = [NSString stringWithFormat:@"Please enter %@.",textFieldName];
+        NSString *msg = [NSString stringWithFormat:@"%@%@.",NSLocalizedString(@"PLEASE_ENTER", nil),textFieldName];
         [self.requiredErrorMsg addObject:msg];
         return ;
     }else{
@@ -136,7 +136,7 @@
     
     if (![textField1 isEqualToString:textField2]) {//not equal
         self.samePwdError = YES;
-        NSString *msg = [NSString stringWithFormat:@"Passwords not the same."];
+        NSString *msg = NSLocalizedString(@"ERROR_PASSWORD_NOT_SAME", nil);
         [self.samePwdErrorMsg addObject:msg];
         return ;
     }else{
@@ -155,7 +155,7 @@
         return ;
     }else{//not match
         self.minLengthError = YES;
-        NSString *msg = [NSString stringWithFormat:@"%@ at least %d.",textFieldName, length];
+        NSString *msg = [NSString stringWithFormat:@"%@%@%d%@.",textFieldName,NSLocalizedString(@"AT_LEAST", nil), length,NSLocalizedString(@"DIGIT", nil)];
         [self.minLengthErrorMsg addObject:msg];
         return ;
     }
@@ -172,7 +172,7 @@
         return ;
     }else{
         self.maxLengthError = YES;
-        NSString *msg = [NSString stringWithFormat:@"%@ at most %d.",textFieldName, length];
+        NSString *msg = [NSString stringWithFormat:@"%@ %@ %d.",textFieldName, NSLocalizedString(@"AT_MOST", nil),length];
         [self.maxLengthErrorMsg addObject:msg];
         return ;
     }

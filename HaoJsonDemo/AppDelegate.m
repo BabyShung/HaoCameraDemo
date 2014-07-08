@@ -10,7 +10,7 @@
 #import "SQLConnector.h"
 #import "ShareData.h"
 #import "DBOperation.h"
-
+#import "SearchDictionary.h"
 #import "MainViewController.h"
 
 
@@ -19,18 +19,34 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
+
     /*          MUST BE CALLED AT FIRST        */
     /*Init Sharedata SINGLETON (INIT ONLY ONCE)*/
     
     [ShareData shareDataSetUp];
 
-
+    //init global search history for main VC
+    [SearchDictionary initSharedInstance];
     
-    
+//    Food *foodx = [[Food alloc] initWithTitle:@"Tofu" andTranslations:@"豆腐"];
+//    Food *foodxx = [[Food alloc] initWithTitle:@"Cola" andTranslations:@"可乐"];
+//    [SearchDictionary addSearchHistory:foodx];
+//    [SearchDictionary addSearchHistory:foodx];
+//    [SearchDictionary addSearchHistory:foodxx];
+//    
+//    NSLog(@"xxxx %@",foodx);
+//    
+//   NSLog(@"xxxx2 %@",[[SearchDictionary sharedInstance].dict objectForKey:@"Bacon"]);
+//
+//    NSLog(@"xx %d",[SearchDictionary sharedInstance].dict.count);
+//    [SearchDictionary removeAllSearchHistory];
+//    
+//    NSLog(@"xx %d",[SearchDictionary sharedInstance].dict.count);
+//    
+//    
 //    SQLConnector *sqlc = [[SQLConnector alloc]init];
 //    [sqlc sqliteDBFilePath];
-    
-    
+//    
 
     
     /*Read User default to set target lang*/
@@ -67,21 +83,21 @@
 //        [connector createEditableCopyOf:[sharedata filterWordsFileName]];
     }
     
-    Food *food = [[Food alloc] initWithTitle:@"Blue cheese" andTranslations:@"蓝芝士"];
-    Food *food2 = [[Food alloc] initWithTitle:@"Bacon" andTranslations:@"培根"];
-    Food *food3 = [[Food alloc] initWithTitle:@"Onion" andTranslations:@"洋葱"];
-    Food *food4 = [[Food alloc] initWithTitle:@"Apple" andTranslations:@"苹果"];
-    Food *food5 = [[Food alloc] initWithTitle:@"Garlic" andTranslations:@"蒜"];
-    Food *food6 = [[Food alloc] initWithTitle:@"Apple" andTranslations:@"苹果"];
-    Food *food7 = [[Food alloc] initWithTitle:@"Toufu" andTranslations:@"豆腐"];
-    Food *food8 = [[Food alloc] initWithTitle:@"Banana" andTranslations:@"香蕉"];
-    Food *food9 = [[Food alloc] initWithTitle:@"Biscuit" andTranslations:@"饼干"];
-    DBOperation *dbo = [[DBOperation alloc] init];
-    [dbo upsertSearchHistory:food];[dbo upsertSearchHistory:food2];
-    [dbo upsertSearchHistory:food3];[dbo upsertSearchHistory:food4];
-    [dbo upsertSearchHistory:food5];[dbo upsertSearchHistory:food6];
-    [dbo upsertSearchHistory:food7];[dbo upsertSearchHistory:food8];
-    [dbo upsertSearchHistory:food9];
+//    Food *food = [[Food alloc] initWithTitle:@"Blue cheese" andTranslations:@"蓝芝士"];
+//    Food *food2 = [[Food alloc] initWithTitle:@"Bacon" andTranslations:@"培根"];
+//    Food *food3 = [[Food alloc] initWithTitle:@"Onion" andTranslations:@"洋葱"];
+//    Food *food4 = [[Food alloc] initWithTitle:@"Apple" andTranslations:@"苹果"];
+//    Food *food5 = [[Food alloc] initWithTitle:@"Garlic" andTranslations:@"蒜"];
+//    Food *food6 = [[Food alloc] initWithTitle:@"Apple" andTranslations:@"苹果"];
+//    Food *food7 = [[Food alloc] initWithTitle:@"Toufu" andTranslations:@"豆腐"];
+//    Food *food8 = [[Food alloc] initWithTitle:@"Banana" andTranslations:@"香蕉"];
+//    Food *food9 = [[Food alloc] initWithTitle:@"Biscuit" andTranslations:@"饼干"];
+//    DBOperation *dbo = [[DBOperation alloc] init];
+//    [dbo upsertSearchHistory:food];[dbo upsertSearchHistory:food2];
+//    [dbo upsertSearchHistory:food3];[dbo upsertSearchHistory:food4];
+//    [dbo upsertSearchHistory:food5];[dbo upsertSearchHistory:food6];
+//    [dbo upsertSearchHistory:food7];[dbo upsertSearchHistory:food8];
+//    [dbo upsertSearchHistory:food9];
     
     //[dbo fetchSearchHistoryByOrder_withLimitNumber:2];
     
@@ -135,6 +151,11 @@
     NSLog(@"will terminate..");
 
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    
+    //store all the query into searchHistory
+    [SearchDictionary saveSearchHistoryToLocalDB];
+    
+    
 }
 
 

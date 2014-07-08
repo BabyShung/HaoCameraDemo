@@ -94,6 +94,7 @@ static NSString *kSQLiteFileName = @"localDB.db";
     
     // The writable file does not exist, so copy the read-only one from main bundle to the writable
     NSError *error;
+    NSLog(@"COPY %@",[sharedata readonlyPathByFileName:filename]);
     success = [fileManager copyItemAtPath:[sharedata readonlyPathByFileName:filename] toPath:[sharedata writablePathByFileName:filename] error:&error];
 	if (!success)
 	{

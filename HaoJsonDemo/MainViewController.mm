@@ -10,11 +10,8 @@
 #import "TransitionController.h"
 #import "debugView.h"
 #import "EDCollectionCell.h"
-
 #import "TransitionLayout.h"
-
 #import "SecondViewController.h"
-
 #import "opencv2/opencv.hpp"
 #import "UIImage+OpenCV.h"
 #import "ImagePreProcessor.h"
@@ -27,6 +24,8 @@
 #import "AppDelegate.h"
 #import "M13AsyncImageLoader.h"
 #import "LoadControls.h"
+#import "SearchDictionary.h"
+
 
 static NSString *CellIdentifier = @"Cell";
 
@@ -47,39 +46,20 @@ static NSString *CellIdentifier = @"Cell";
 
 @property (nonatomic) cv::Mat tempMat;
 
-
 @property (nonatomic,strong) debugView *debugV;
 
 @property (strong,nonatomic) NSMutableArray *foodArray;
 
 @property (strong,nonatomic) NSMutableDictionary *existingFood;
 
-
 @property (strong,nonatomic) TransitionController *transitionController;
-
 
 @end
 
 @implementation MainViewController
 
--(NSMutableArray *)foodArray{
-    NSLog(@"get foodArray!!!!");
-    if (!_foodArray) {
-        _foodArray = [[NSMutableArray alloc]init];
-        NSLog(@"get foodArray!!!! init");
-    }
-    return _foodArray;
-}
-
--(NSDictionary *)existingFood{
-    if (!_existingFood) {
-        _existingFood = [[NSMutableDictionary alloc]init];
-    }
-    return _existingFood;
-}
 
 - (void)viewDidLoad{
-    //NSLog(@"+++ MVC +++ : I did load");
     
     ScreenWidth = CGRectGetWidth([[UIScreen mainScreen] bounds]);
     ScreenHeight = CGRectGetHeight([[UIScreen mainScreen] bounds]);
@@ -87,18 +67,20 @@ static NSString *CellIdentifier = @"Cell";
     //setup tesseract
     [self loadTesseract];
     
-    //init controls
+    //init controls, *camera*
     [self loadControls];
+    
 
+    
 }
 -(void)viewWillAppear:(BOOL)animated{
-//NSLog(@"+++ MVC +++ : I will appear");
+    //NSLog(@"+++ MVC +++ : I will appear");
 }
 -(void)viewWillDisappear:(BOOL)animated{
-//NSLog(@"+++ MVC +++ : I will disappear");
+    //NSLog(@"+++ MVC +++ : I will disappear");
 }
 -(void)viewDidDisappear:(BOOL)animated{
-//NSLog(@"+++ MVC +++ : I did disappear");
+    //NSLog(@"+++ MVC +++ : I did disappear");
 }
 -(void)loadControls{
     self.camView = [[CameraView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) andOrientation:self.interfaceOrientation andAppliedVC:self];
@@ -122,7 +104,7 @@ static NSString *CellIdentifier = @"Cell";
     self.navigationController.delegate = self.transitionController;
     
     //add in collectionView
-
+    
     _clearBtn = [LoadControls createCameraButton_Image:@"ED_cross.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(10, 10, 10, 10) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
     [_clearBtn addTarget:self action:@selector(clearBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     _clearBtn.alpha = 1;
@@ -134,91 +116,65 @@ static NSString *CellIdentifier = @"Cell";
     _captureBtn.alpha = 1;
     _captureBtn.hidden = YES;
     [self.view insertSubview:_captureBtn aboveSubview:self.collectionView];
-
+    
     
 }
 
 - (void) clearBtnPressed:(id)sender {
     
-        [UICollectionView transitionWithView:self.collectionView
-                                    duration:0.5
-                                     options:UIViewAnimationOptionTransitionCrossDissolve
-                                  animations:^(){
-                                      self.collectionView.alpha = 0;
-                                      self.clearBtn.alpha = 0;
-                                      self.captureBtn.alpha = 0;
-                                  }
-                                  completion:^(BOOL finished){
-             
-                                      self.clearBtn.hidden = YES;
-                                      self.captureBtn.hidden = YES;
-                                      self.collectionView.hidden = YES;
-                                      
-                                      //[self.foodArray removeAllObjects];
-                                      
-                                      
-                                      
-                                      //self.foodArray =nil;
-                                      self.existingFood =nil;
-                                      //[self.collectionView reloadData];
-
-                                      
-                                      
-                                      
-                                      
-                                      for(EDCollectionCell *cell in self.collectionView.visibleCells)
-                                      {
-                                          [cell.foodInfoView resetData];
-                                      }
-                                      [self.foodArray removeAllObjects];
-                                      [self.collectionView reloadData];
-                                      
-                                      
-                                      //[M13AsyncImageLoader cleanupLoaderAll];
-                                      
-                                      
-//                                      NSMutableArray *newIndexPaths = [NSMutableArray array];
-//                                      for (int i =0; i<self.foodArray.count; i++){
-//                                          [newIndexPaths addObject:[NSIndexPath indexPathForItem:i inSection:0]];
-//                                      }
-//                                      
-//                                      [self.collectionView performBatchUpdates:^{
-//                                          [self.foodArray removeAllObjects];
-//                                          
-//                                          for(EDCollectionCell *cell in self.collectionView.visibleCells)
-//                                          {
-//                                              [cell.foodInfoView resetData];
-//                                          }
-//                                          [self.collectionView reloadData];
-//                                          
-//                                      } completion:nil];
-
-                                      
-                                      
-                                      
-                                      NSLog(@"food array count: %d",(int)self.foodArray.count);
-                                      
-                                  }];
+    //save searchHistory and clear
+    [SearchDictionary saveSearchHistoryToLocalDB];
     
+    
+    [self.camView backBtnPressed:nil];
+    [self.camView resumeCamera];
+    
+    
+    
+    [UICollectionView transitionWithView:self.collectionView
+                                duration:0.5
+                                 options:UIViewAnimationOptionTransitionCrossDissolve
+                              animations:^(){
+                                  self.collectionView.alpha = 0;
+                                  self.clearBtn.alpha = 0;
+                                  self.captureBtn.alpha = 0;
+                              }
+                              completion:^(BOOL finished){
+                                  
+                                  self.clearBtn.hidden = YES;
+                                  self.captureBtn.hidden = YES;
+                                  self.collectionView.hidden = YES;
+                                  
+                                  self.existingFood =nil;
+                                  
+                                  for(EDCollectionCell *cell in self.collectionView.visibleCells)
+                                  {
+                                      [cell.foodInfoView resetData];
+                                  }
+                                  [self.foodArray removeAllObjects];
+                                  [self.collectionView reloadData];
+                              }];
 }
 
 - (void) captureBtnPressed:(id)sender {
-    NSLog(@"yoyoxx22");
+
+    //resume camera
+    [self.camView backBtnPressed:nil];
+    [self.camView resumeCamera];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
     
+    //set camView delegate to be DEBUG_VC
+    [self.Maindelegate setCamDelegateFromMain:self];
     
     [self.view bringSubviewToFront:_clearBtn];
     [self.view bringSubviewToFront:_captureBtn];
     
     NSLog(@"+++ MVC +++ : I did appear");
-
+    
     //scroll DEspeed normal
     self.collectionView.decelerationRate = UIScrollViewDecelerationRateNormal;
-    
-    //set camView delegate to be DEBUG_VC
-    [self.Maindelegate setCamDelegateFromMain:self];
     
     [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.camView.StreamView.alpha = 1;
@@ -251,7 +207,17 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    //NSLog(@"+++ MVC +++ : I select a cell");
+    
+    //close camera
+    [self.camView pauseCamera];
+    
+    
+    //save in search history
+    EDCollectionCell *cell = (EDCollectionCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+    //NSLog(@"<><><><><><><><><*********** %@",cell.foodInfoView.myFood);
+    [SearchDictionary addSearchHistory:cell.foodInfoView.myFood];
+    
+
     SecondViewController *viewController = [[SecondViewController alloc] initWithCollectionViewLayout:[[largeLayout alloc] init]];
     viewController.useLayoutToLayoutNavigationTransitions = YES;
     [self.navigationController pushViewController:viewController animated:YES];
@@ -274,13 +240,8 @@ static NSString *CellIdentifier = @"Cell";
     if (newFoodItems.count>0) {
         
         
-        NSInteger startIndex = self.foodArray.count;        
-        //NSLog(@"+++ MAIN VC +++ : +newFoodItems.count: %d",(int)newFoodItems.count);
-
+        NSInteger startIndex = self.foodArray.count;
         
-        //NSLog(@"self.foodArray.count: %d",(int)self.foodArray.count);
-        
-
         NSMutableArray *newIndexPaths = [[NSMutableArray alloc]init];
         NSMutableArray *addItems = [[NSMutableArray alloc]initWithArray:newFoodItems];
         
@@ -298,7 +259,7 @@ static NSString *CellIdentifier = @"Cell";
                 count--;
             }
         }
-       // NSLog(@"+++ MAIN VC +++ : -newFoodItems.count: %d",(int)addItems.count);
+        // NSLog(@"+++ MAIN VC +++ : -newFoodItems.count: %d",(int)addItems.count);
         
         [self.collectionView performBatchUpdates:^{
             [self.foodArray addObjectsFromArray:addItems];
@@ -311,11 +272,11 @@ static NSString *CellIdentifier = @"Cell";
 //transitionVC delegate
 - (void)interactionBeganAtPoint:(CGPoint)point
 {
-   // NSLog(@"+++ MVC +++ : POP transition interaction will begin");
-//    UIViewController *topVC = [self.navigationController topViewController];
-//    if ([topVC class] != [MainViewController class]) {
-        [self.navigationController popViewControllerAnimated:YES];
-//    }
+    // NSLog(@"+++ MVC +++ : POP transition interaction will begin");
+    //    UIViewController *topVC = [self.navigationController topViewController];
+    //    if ([topVC class] != [MainViewController class]) {
+    [self.navigationController popViewControllerAnimated:YES];
+    //    }
 }
 
 -(void)loadTesseract{
@@ -340,6 +301,9 @@ static NSString *CellIdentifier = @"Cell";
     self.collectionView.hidden = NO;
     self.collectionView.alpha = 1;
     
+    //NSLog(@"****************** ccccccc ******************* %@",image);
+    
+    
     [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.clearBtn.alpha = 1;
         self.captureBtn.alpha = 1;
@@ -350,66 +314,48 @@ static NSString *CellIdentifier = @"Cell";
         }
     }];
     
-
     
     
+    /****** OCR and Searching Components *****/
     
-    
-    //NSArray *localFoods;
-
     Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
     //@"yeast bread with Worcestershire sauce and yogurt"
     [dict serverSearchOCRString:@"sushi and caper with oatmeal" andCompletion:^(NSArray *results, BOOL success) {
         //NSLog(@"++++Main VC++++ : Server Foods: %d",(int)results.count);
         [self addFoodItems:results];
     }];
-    NSArray *localFoods;
-    localFoods = [dict localSearchOCRString:@"sushi and caper with oatmeal"];
+    NSArray *localFoods = [dict localSearchOCRString:@"sushi and caper with oatmeal"];
     //NSLog(@"++++Main VC++++ : Local Foods: %d",(int)localFoods.count);
     [self addFoodItems:localFoods];
 
     
     //also add two btns, one cross:clear cell, and one capture:
+    //NSMutableArray *localFoods = [NSMutableArray array];
     
     if (image) {
         
         
         //PS: image variable is the original size image (2448*3264)
-        UIImage *onScreenImage = [LoadControls scaleImage:image withScale:1.5f withRect:rect andCropSize:size];
+        UIImage *onScreenImage = [LoadControls scaleImage:image withScale:3.0f withRect:rect andCropSize:size];
         UIImage *originalImage = [UIImage imageWithCGImage:onScreenImage.CGImage];
-        
-        //self.imgArray = [TextDetector detectTextRegions:originalImage];
-        TextDetector2 *td2 = [[TextDetector2 alloc]init];
-        self.imgArray = [td2 findTextArea:originalImage];
-        NSString *result = @"";
-        NSMutableArray *ocrStrings = [NSMutableArray array];
-        if ([_imgArray count] > 0)
-        {
-            for(UIImage *preImage in _imgArray){
-                
-                _tempMat= [preImage CVMat];
-                
-                // Step 3. put Mat into pre processor- Charlie
-                _tempMat = [self.ipp processImage:_tempMat];
-                NSString *ocrStr = [self recognizeImageWithTesseract:[UIImage imageWithCVMat:_tempMat]];
-                
-                /********* TODO: word correction *******/
-                
-                //ocrStr = [[dict splitAndFilterWordsFromString:ocrStr] componentsJoinedByString:@" "];
-                result = [result stringByAppendingFormat:@"%@\n",ocrStr];
-                [ocrStrings addObject:ocrStr];
-                
-            }
-            
-            
-            //onScreenImage = [_imgArray objectAtIndex:(_imgArray.count-1)];
-            NSLog(@"<<<<<<<<<<1.5 RESULT: \n%@", result);
-            
-            /*     Analyze OCR Results locally      */
-            
-            
-            
-        }
+//        TextDetector2 *td2 = [[TextDetector2 alloc]init];
+//        self.imgArray = [td2 findTextArea:originalImage];
+//        NSLog(@"+++ MAIN VC +++ : text areas %d",(int)self.imgArray.count);
+//        if ([_imgArray count] > 0)
+//        {
+//            for(UIImage *preImage in _imgArray){
+//                
+//                _tempMat= [preImage CVMat];
+//                
+//                // Step 3. put Mat into pre processor- Charlie
+//                _tempMat = [self.ipp processImage:_tempMat];
+//                NSString *ocrStr = [self recognizeImageWithTesseract:[UIImage imageWithCVMat:_tempMat]];
+//                NSLog(@" ++++++++++ MAIN VC +++++++++++ : TEESSACT REC: %@",ocrStr);
+//                
+//                [localFoods addObjectsFromArray:[dict localSearchOCRString:ocrStr]];
+//            }
+//            [self addFoodItems:localFoods];        
+//        }
         
     }
     
@@ -422,6 +368,7 @@ static NSString *CellIdentifier = @"Cell";
     
 }
 
+// GETTERs
 -(ImagePreProcessor*)ipp{
     if(!_ipp){
         _ipp = [[ImagePreProcessor alloc] init];
@@ -435,4 +382,19 @@ static NSString *CellIdentifier = @"Cell";
     }
     return  _imgArray;
 }
+
+-(NSMutableArray *)foodArray{
+    if (!_foodArray) {
+        _foodArray = [[NSMutableArray alloc]init];
+    }
+    return _foodArray;
+}
+
+-(NSDictionary *)existingFood{
+    if (!_existingFood) {
+        _existingFood = [[NSMutableDictionary alloc]init];
+    }
+    return _existingFood;
+}
+
 @end

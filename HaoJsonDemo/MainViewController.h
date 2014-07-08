@@ -32,7 +32,6 @@
 
 @end
 
-
 @interface MainViewController : UICollectionViewController
 
 @property (nonatomic,strong) CameraView* camView;

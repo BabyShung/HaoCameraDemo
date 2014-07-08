@@ -49,7 +49,7 @@
 
     
 
-    //_debugMode = YES;
+    _debugMode = YES;
     
     //declare all the viewControllers
     

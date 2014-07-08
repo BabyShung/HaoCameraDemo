@@ -1,0 +1,54 @@
+
+/* Class = "IBUIButton"; normalTitle = "Login"; ObjectID = "27J-mz-zxJ"; */
+"27J-mz-zxJ.normalTitle" = "Login";
+
+/* Class = "IBUIButton"; normalTitle = "Sign up"; ObjectID = "6ic-ru-quV"; */
+"6ic-ru-quV.normalTitle" = "Sign up";
+
+/* Class = "IBUIButton"; normalTitle = "Sign up"; ObjectID = "9Nu-rV-biw"; */
+"9Nu-rV-biw.normalTitle" = "Sign up";
+
+/* Class = "IBUITextField"; placeholder = "Type"; ObjectID = "CGJ-hS-H42"; */
+"CGJ-hS-H42.placeholder" = "Type";
+
+/* Class = "IBUIButton"; normalTitle = "register"; ObjectID = "Oe3-fX-nk6"; */
+"Oe3-fX-nk6.normalTitle" = "register";
+
+/* Class = "IBUITextField"; placeholder = "Email"; ObjectID = "VcW-rA-udG"; */
+"VcW-rA-udG.placeholder" = "Email";
+
+/* Class = "IBUITextField"; placeholder = "User name"; ObjectID = "ZEa-vA-scu"; */
+"ZEa-vA-scu.placeholder" = "User name";
+
+/* Class = "IBUIButton"; normalTitle = "back to login"; ObjectID = "elX-e3-hUj"; */
+"elX-e3-hUj.normalTitle" = "back to login";
+
+/* Class = "IBUILabel"; text = "Blue Cheese"; ObjectID = "hjc-8M-qgO"; */
+"hjc-8M-qgO.text" = "Blue Cheese";
+
+/* Class = "IBUIButton"; normalTitle = "login"; ObjectID = "k5L-v4-Ino"; */
+"k5L-v4-Ino.normalTitle" = "login";
+
+/* Class = "IBUILabel"; text = "p"; ObjectID = "mdU-Hv-qi0"; */
+"mdU-Hv-qi0.text" = "p";
+
+/* Class = "IBUIButton"; normalTitle = "like"; ObjectID = "my5-Qf-8Pk"; */
+"my5-Qf-8Pk.normalTitle" = "like";
+
+/* Class = "IBUITextField"; placeholder = "Password"; ObjectID = "ogZ-ar-is4"; */
+"ogZ-ar-is4.placeholder" = "Password";
+
+/* Class = "IBUITextField"; placeholder = "Email"; ObjectID = "sK0-As-kSb"; */
+"sK0-As-kSb.placeholder" = "Email";
+
+/* Class = "IBUILabel"; text = "Translate"; ObjectID = "sUL-on-sk9"; */
+"sUL-on-sk9.text" = "Translate";
+
+/* Class = "IBUIButton"; normalTitle = "Forgot password?"; ObjectID = "x0f-2C-e8H"; */
+"x0f-2C-e8H.normalTitle" = "Skip Login";
+
+/* Class = "IBUITextField"; placeholder = "Password"; ObjectID = "xlg-F4-GJ2"; */
+"xlg-F4-GJ2.placeholder" = "Password";
+
+/* Class = "IBUILabel"; text = "Title"; ObjectID = "xpU-8i-cEC"; */
+"xpU-8i-cEC.text" = "Title";

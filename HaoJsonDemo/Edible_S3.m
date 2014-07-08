@@ -10,9 +10,9 @@
 #import <AWSRuntime/AWSRuntime.h>
 #import <AWSS3/AWSS3.h>
 
-#define ACCESS_KEY @"AKIAJ7TAGWYEK4MSYTTA"
-#define SECRET_KEY @"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"
-#define BUCKET_NAME @"test-edible"
+#define ACCESS_KEY @"AKIAIAIIJQENWHME2RCA"
+#define SECRET_KEY @"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"
+#define BUCKET_NAME @"ming-test-bucket"
 
 
 @interface Edible_S3 () <AmazonServiceRequestDelegate>

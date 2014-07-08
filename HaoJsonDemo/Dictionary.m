@@ -27,6 +27,8 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
 
 @property (nonatomic, copy) edibleBlock searchCompletionBlock;
 
+@property (nonatomic,strong)WordCorrector *wordCorrector;
+
 
 @property (nonatomic,readwrite,getter = isSearchingFood) BOOL searchingFood;
 
@@ -39,6 +41,7 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
     self = [super init];
     self.searchingFood = NO;
     self.lang = lang;
+    self.wordCorrector = [[WordCorrector alloc]init];
     _webdata = [[NSMutableData alloc]init];
     _async = [[AsyncRequest alloc]initWithDelegate:self];
     return self;
@@ -48,6 +51,7 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
 -(instancetype) initDictInDefaultLang{
     self = [super init];
     self.searchingFood = NO;
+    self.wordCorrector = [[WordCorrector alloc]init];
     self.lang = [[ShareData shareData] defaultTargetLang];
     _webdata = [[NSMutableData alloc]init];
     _async = [[AsyncRequest alloc]initWithDelegate:self];
@@ -94,14 +98,14 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
 -(NSArray *) lookupOCRString:(NSString *)inputStr foundKeywords:(NSMutableArray *)keywords
 {
     if (!keywords) {
-        keywords = [[NSMutableArray alloc]init];
+        [self throwDictExceptionCausedBy:@"MutableArray Keywords NOT init"];
     }
     if ([keywords count]!=0) {
-        keywords = nil;
+        [keywords removeAllObjects];
     }
-    
-    NSArray *words = [self splitAndFilterWordsFromString:inputStr];
-    NSMutableArray *translations= [self.operation searchWords:words getKeywords:keywords inLangTable:self.lang];
+
+    NSMutableArray *translations= [self.operation searchWords:[self splitAndFilterWordsFromString:inputStr] getKeywords:keywords inLangTable:self.lang];
+
     
     //Exclude keywords which are substrings of other keywords
     NSInteger count = keywords.count;
@@ -126,6 +130,7 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
             i--;
         }
     }
+    
     return translations;
 
 }
@@ -133,15 +138,13 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
 
 -(NSArray *)splitAndFilterWordsFromString:(NSString *)str
 {
-    //Devide string into words
-    NSMutableArray *words = [NSMutableArray arrayWithArray:[str componentsSeparatedByCharactersInSet:
+    //Devide string into words and exclude newline characters
+    NSMutableArray *words = [NSMutableArray arrayWithArray:[[str stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsSeparatedByCharactersInSet:
                                                             [NSCharacterSet whitespaceCharacterSet]]] ;
-    NSInteger numOfWords = words.count;
     
-    WordCorrector *wdc = [[WordCorrector alloc]init];
     NSMutableArray *words_corrected = [NSMutableArray array];
     for(NSString *word in words){
-        [words_corrected addObject: [wdc correctWord:word]];
+        [words_corrected addObject: [_wordCorrector correctWord:word]];
     }
     
     //Get filter words as a string
@@ -162,13 +165,15 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
 //            numOfWords--;
 //        }
 //    }
-//    
+//
     //Generate all combination of remain words
+    NSMutableString * tmpStr = [[NSMutableString alloc]init];
+    NSUInteger numOfWords = words_corrected.count;
     for (int i=0; i<numOfWords-1; i++) {
-        NSString *tmpString = words_corrected[i];
+        [tmpStr setString:words_corrected[i]];
         for (int j = i+1; j < numOfWords ; j++) {
-            tmpString = [tmpString stringByAppendingFormat:@" %@",words_corrected[j]];
-            [words_corrected addObject:tmpString];
+            [tmpStr appendFormat:@" %@",words_corrected[j]];
+            [words_corrected addObject:[NSString stringWithString:tmpStr]];
         }
     }
     

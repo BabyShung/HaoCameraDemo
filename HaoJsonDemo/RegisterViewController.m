@@ -56,6 +56,10 @@
     [self.signupBtn successStyle];
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    [self.emailTextField becomeFirstResponder];
+}
+
 - (IBAction)backToLogin:(UIButton *)sender {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
@@ -125,7 +129,7 @@
 }
 
 -(void)showErrorMsg:(NSString *)msg withTextField:(UITextField *)textfield{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops.." message:msg delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"OOPS", nil) message:msg delegate:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles: nil];
     [alert showWithHandler:^(UIAlertView *alertView, NSInteger buttonIndex) {
         
         if (buttonIndex == [alertView cancelButtonIndex]) {

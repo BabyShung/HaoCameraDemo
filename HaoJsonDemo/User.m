@@ -9,6 +9,8 @@
 #import "User.h"
 #import "AsyncRequest.h"
 #import "edi_md5.h"
+#import "AppDelegate.h"
+
 @implementation User
 
 
@@ -137,6 +139,9 @@ static AsyncRequest *async;
     NSUInteger type = [[dict objectForKey:@"type"] intValue];
     NSString *selfie = [dict objectForKey:@"selfie"];
     
+    //second login, but remember to init async
+    async = [[AsyncRequest alloc] initWithDelegate:sharedInstance];
+    
     return [self sharedInstanceWithUid:uid andEmail:email andUname:name andUpwd:pwd andUtype:type andUselfie:selfie];
 }
 
@@ -156,7 +161,7 @@ static AsyncRequest *async;
 }
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops.." message:@"Network problem..please try again." delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"OOPS", nil) message:NSLocalizedString(@"ERROR_NETWORK", nil) delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
     [alert show];
     
     //also set things back
@@ -210,17 +215,16 @@ static AsyncRequest *async;
         NSLog(@"failed!!!!!!!!!!!!!!");
         
         if([action isEqualToString:@"login"]){//login
-            [self configureError:@"Email or password incorrect."];
-            NSLog(@"failed!!!!!!!!!!!!!!11111");
-        }else  if([action isEqualToString:@"register"]){
-            [self configureError:@"Email already registered."];
-            NSLog(@"failed!!!!!!!!!!!!!!22222");
-        }else {
-            //post update; get my reiview
-            if (CompletionBlock) {
-                CompletionBlock(nil,NO);
-            }
-            
+
+            [self configureError:NSLocalizedString(@"ERROR_LOGIN", nil)];
+        }
+        else if([action isEqualToString:@"register"]){   //PS: bugs in server!! only show this
+            [self configureError:NSLocalizedString(@"ERROR_REGISTER", nil)];
+
+        }
+        
+        if (CompletionBlock) {
+            CompletionBlock(nil,NO);
         }
     }
     
@@ -256,5 +260,28 @@ static AsyncRequest *async;
     }
 }
 
-
++(void)logout{
+    /************************
+     
+     log out release things
+     
+     ************************/
+    
+    //release camera resource
+    AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    [appDlg closeCamera];
+    
+    //set user to nil
+    [User ClearUserInfo];
+    
+    //clear userdefault for second login
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentUser"]) {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentUser"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    
+    NSLog(@"click log out");
+}
 @end

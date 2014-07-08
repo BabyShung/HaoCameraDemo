@@ -10,7 +10,7 @@
 #import "opencv2/opencv.hpp"
 #import "UIImage+OpenCV.h"
 #import "ImagePreProcessor.h"
-#import "TextDetector.h"
+#import "TextDetector2.h"
 #import "WordCorrector.h"
 #import "LoadControls.h"
 
@@ -138,7 +138,9 @@
         //NSMutableArray *locations = [[NSMutableArray alloc] init];
         NSDate *tdStart = [NSDate date];
         
-        self.imgArray = [TextDetector detectTextRegions:originalImage];
+        TextDetector2 *td2 = [[TextDetector2 alloc]init];
+        
+        self.imgArray = [td2 findTextArea :originalImage];
         NSDate *tdFinish = [NSDate date];
         NSTimeInterval tdTime = [tdFinish timeIntervalSinceDate:tdStart];
         NSLog(@"<<<<<<<<<<1.5 tdTime = %f", tdTime);

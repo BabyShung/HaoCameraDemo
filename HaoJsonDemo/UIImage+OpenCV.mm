@@ -1,26 +1,4 @@
-//
-//  UIImage+OpenCV.mm
-//  OpenCVClient
-//
-//  Created by Robin Summerhill on 02/09/2011.
-//  Copyright 2011 Aptogo Limited. All rights reserved.
-//
-//  Permission is given to use this source code file without charge in any
-//  project, commercial or otherwise, entirely at your risk, with the condition
-//  that any redistribution (in part or whole) of source code must retain
-//  this copyright and permission notice. Attribution in compiled projects is
-//  appreciated but not required.
-//
-
 #import "UIImage+OpenCV.h"
-
-static void ProviderReleaseDataNOP(void *info, const void *data, size_t size)
-{
-    // Do not release memory
-    return;
-}
-
-
 
 @implementation UIImage (UIImage_OpenCV)
 
@@ -31,7 +9,7 @@ static void ProviderReleaseDataNOP(void *info, const void *data, size_t size)
     CGFloat cols = self.size.width;
     CGFloat rows = self.size.height;
     
-    cv::Mat cvMat(rows, cols, CV_8UC4); // 8 bits per component, 4 channels
+    cv::Mat cvMat(rows, cols, CV_8UC4);
     
     CGContextRef contextRef = CGBitmapContextCreate(cvMat.data,                 // Pointer to backing data
                                                     cols,                      // Width of bitmap
@@ -45,13 +23,6 @@ static void ProviderReleaseDataNOP(void *info, const void *data, size_t size)
     CGContextDrawImage(contextRef, CGRectMake(0, 0, cols, rows), self.CGImage);
     CGContextRelease(contextRef);
     
-    return cvMat;
-}
-
--(cv::Mat)CVMat8UC3
-{
-    cv::Mat cvMat = [self CVMat];
-    cv::cvtColor(cvMat, cvMat, cv::COLOR_BGRA2BGR);
     return cvMat;
 }
 
@@ -93,7 +64,7 @@ static void ProviderReleaseDataNOP(void *info, const void *data, size_t size)
     if (cvMat.elemSize() == 1)
     {
         colorSpace = CGColorSpaceCreateDeviceGray();
-        NSLog(@"UIImage+OpenCV: Gray Mat to UIImage");
+        NSLog(@"UIImage—OpenCV: Convert Gray Mat to UIImage");
     }
     else
     {

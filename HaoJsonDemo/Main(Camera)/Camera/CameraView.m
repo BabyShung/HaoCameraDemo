@@ -90,17 +90,21 @@
 }
 
 - (void)resumeCamera{
-    [_camManager startRunning];
-    [UIView animateWithDuration:0.3 animations:^{
-        self.capturedImageView.backgroundColor = [UIColor clearColor];
-    }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_camManager startRunning];
+        [UIView animateWithDuration:0.3 animations:^{
+            self.capturedImageView.backgroundColor = [UIColor clearColor];
+        }];
+    });
 }
 
 - (void)pauseCamera{
-    [_camManager stopRunning];
-    [UIView animateWithDuration:0.3 animations:^{
-        self.capturedImageView.backgroundColor = [UIColor blackColor];
-    }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_camManager stopRunning];
+        [UIView animateWithDuration:0.3 animations:^{
+            self.capturedImageView.backgroundColor = [UIColor blackColor];
+        }];
+    });
 }
 
 -(BOOL)CameraIsOn{
@@ -136,8 +140,10 @@
 
 //delegate method from CameraManager
 -(void)imageDidCaptured:(UIImage *)image{
+    
     _capturedImageView.image = image;
     _disablePhotoPreview? [self photoCaptured] : [self drawControls];
+    [self photoCaptured];
 }
 
 #pragma mark CAMERA CONTROLS
@@ -175,12 +181,12 @@
             // Hide
             for (UIButton * btn in @[_captureBtn, _TorchBtn]) btn.hidden = YES;
             // Show
-            _saveBtn.hidden = NO;
+            //_saveBtn.hidden = NO;
             
             // Force User Preference
-            _backBtn.hidden = _hideBackButton;
+            //_backBtn.hidden = _hideBackButton;
             
-            _backBtn.hidden = NO;
+            //_backBtn.hidden = NO;
         }
         else {  // ELSE camera stream -- show capture controls / hide preview controls
             // Show
@@ -222,11 +228,6 @@
         [self resizeImage];
     }
     
-    //-----For debug
-    
-    //move tab to 1
-    //[self.appliedVC.Maindelegate slideToDebugPage];
-    
     //click back btn
     [self backBtnPressed:nil];
     
@@ -238,6 +239,7 @@
 
 - (void) captureBtnPressed:(id)sender {
     [self capturePhoto];
+    //[self photoCaptured];
 }
 
 - (void) saveBtnPressed:(id)sender {
@@ -310,8 +312,11 @@
     CGRect drawRect = CGRectMake(-offsetLeft, -offsetTop, targetWidth, screenHeight);
     
     // See if someone's waiting for resized image
-    if (isSaveWaitingForResizedImage == YES)
+    NSLog(@"****************** ddddddxxx ********************");
+    if (isSaveWaitingForResizedImage == YES){
         [self.camDelegate EdibleCamera:self.appliedVC didFinishWithImage:_capturedImageView.image withRect:drawRect andCropSize:size];
+        NSLog(@"****************** dddddd ********************");
+    }
     if (isRotateWaitingForResizedImage == YES)
         _capturedImageView.contentMode = UIViewContentModeScaleAspectFit;
     

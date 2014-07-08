@@ -8,7 +8,7 @@
 
 #import "ImageCropView.h"
 #import "ED_Color.h"
-
+#import "LoadControls.h"
 
 #define DEFAULT_MASK_ALPHA 0.50
 #define square NO
@@ -85,6 +85,10 @@ CGRect SquareCGRectAtCenter(CGFloat centerX, CGFloat centerY, CGFloat size) {
     
     //pan gesture
     UIPanGestureRecognizer* dragRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDrag:)];
+    
+//    self.alignLabel = [LoadControls createLabelWithRect:CGRectMake(self.cropAreaInView.origin.x, self.cropAreaInView.origin.y, 30, 30) andTextAlignment:NSTextAlignmentLeft andFont:[UIFont fontWithName:@"Heiti TC" size:16] andTextColor:[UIColor redColor]];
+//    self.alignLabel.text = @"Aa";
+//    [cropAreaView addSubview:self.alignLabel];
     
     /*****************
      

@@ -27,7 +27,7 @@
     NSArray *arrGuessed = [checker guessesForWordRange:misspelledRange inString:testString language:@"en_US"];
     
     if ((NSNull *)arrGuessed == [NSNull null]){
-         NSLog(@"Word correction: Correct!");
+         //NSLog(@"Word correction: Correct!");
     }else
     {
         int count = [arrGuessed count];
@@ -36,21 +36,21 @@
         }
         
         testString = [self replaceWord:testString];
-        NSLog(@"Word correction 0.0: %@", testString);
+        //NSLog(@"Word correction 0.0: %@", testString);
         
         for (int i=0; i<count; i++) {
             NSString *originalString = arrGuessed[i];
-            NSLog(@"Word correction0: %@",arrGuessed[i]);
+            //NSLog(@"Word correction0: %@",arrGuessed[i]);
             // Method Start
             // MutableArray of String-pairs Arrays
             originalString = [self replaceWord: originalString];
             
-            NSLog(@"Word correction 01: %@", originalString);
+            //NSLog(@"Word correction 01: %@", originalString);
                   
             if ([originalString isEqualToString:testString]){
-                NSLog(@"Word correction1: %@",arrGuessed[i]);
+                //NSLog(@"Word correction1: %@",arrGuessed[i]);
                 output = arrGuessed[i];
-                NSLog(@"Word correction2: %@",output);
+                //NSLog(@"Word correction2: %@",output);
                 mark = 1;
             }
         }
@@ -59,7 +59,7 @@
 //        }
     }
    
-    NSLog(@"Word correction3: %@",output);
+    //NSLog(@"Word correction3: %@",output);
     return output;
     
 }
@@ -78,14 +78,20 @@
                                                [NSArray arrayWithObjects:@"c",@"1",nil],
                                                [NSArray arrayWithObjects:@"o",@"1",nil],
                                                [NSArray arrayWithObjects:@"u",@"1",nil],
+                                               [NSArray arrayWithObjects:@"v",@"1",nil],
                                                [NSArray arrayWithObjects:@"i",@"2",nil],
                                                [NSArray arrayWithObjects:@"j",@"2",nil],
                                                [NSArray arrayWithObjects:@"I",@"2",nil],
                                                [NSArray arrayWithObjects:@"J",@"2",nil],
+                                               [NSArray arrayWithObjects:@"L",@"2",nil],
                                                [NSArray arrayWithObjects:@"t",@"6",nil],
                                                [NSArray arrayWithObjects:@"l",@"6",nil],
                                                [NSArray arrayWithObjects:@"O",@"4",nil],
                                                [NSArray arrayWithObjects:@"Q",@"4",nil],
+                                               [NSArray arrayWithObjects:@"n",@"6",nil],
+                                               [NSArray arrayWithObjects:@"m",@"6",nil],
+                                               [NSArray arrayWithObjects:@"/",@"7",nil],
+                                               [NSArray arrayWithObjects:@" ",@"7",nil],
                                                nil];
     
     // For or while loop to Find and Replace strings
