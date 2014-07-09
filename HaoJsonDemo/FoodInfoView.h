@@ -38,6 +38,7 @@
 
 @property (strong,nonatomic) Food *myFood;
 
+@property (strong, nonatomic) UIButton * commentBtn;
 
 - (id)initWithFrame:(CGRect)frame andVC:(UIViewController *)vc;
 

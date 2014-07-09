@@ -18,7 +18,7 @@
 #import "SearchDictionary.h"
 #import "User.h"
 
-@interface SecondViewController () <HATransparentViewDelegate,UITextViewDelegate>
+@interface SecondViewController () <HATransparentViewDelegate>
 
 @property (strong, nonatomic) UIButton * backBtn;
 
@@ -74,6 +74,12 @@ const NSInteger MaxCharNum = 20;
     //[[NSNotificationCenter defaultCenter]removeObserver:self name:@"showCmtButton" object:nil];
 }
 
+/***********************************/
+/*                                 */
+/*    Collection View Delegate     */
+/*                                 */
+/***********************************/
+
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
 
         NSIndexPath *centerCellIndex = [self.collectionView indexPathForItemAtPoint:self.collectionView.contentOffset];
@@ -81,93 +87,89 @@ const NSInteger MaxCharNum = 20;
     
         //wherever scroll to another cell, check and save food into dict
         [SearchDictionary addSearchHistory:cell.foodInfoView.myFood];
-    
-    
-    if(cell.foodInfoView.myFood.foodInfoComplete){
-        //self.commentBtn
-    }
+
     
     //tell the secondVC whether it can show the comment button
     //[[NSNotificationCenter defaultCenter]postNotificationName:@"showCmtButton" object:self userInfo:@{@"food":cell.myFood}];
     
     
-        NSLog(@"----------------------************************-------------, %d",centerCellIndex.row);
     
 }
 
-#pragma mark - RatingDelegate
-- (void)didChangeRating:(NSNumber*)newRating
-{
-    _currentStars = [newRating unsignedIntegerValue];
-    NSLog(@"didChangeRating: %@",newRating);
-}
 
-#pragma mark - HATransparentViewDelegate
-
-- (void)HATransparentViewDidClosed
-{
-    [User sharedInstance].latestComment = _currentComment;
-    NSLog(@"Did close");
-    //clean up and reload all visible cells comment table
-    //
-}
+//#pragma mark - RatingDelegate
+//- (void)didChangeRating:(NSNumber*)newRating
+//{
+//    _currentStars = [newRating unsignedIntegerValue];
+//    NSLog(@"didChangeRating: %@",newRating);
+//}
+//
+//#pragma mark - HATransparentViewDelegate
+//
+//- (void)HATransparentViewDidClosed
+//{
+//    [User sharedInstance].latestComment = _currentComment;
+//    NSLog(@"Did close");
+//    //clean up and reload all visible cells comment table
+//    //
+//}
 
 - (void) backBtnPressed:(id)sender {
     
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-- (void) commentBtnPressed:(id)sender {
-    
-    NSLog(@"+++ 2ND VC +++ : collection view content offset = (%f,%f), screen W = %f",self.collectionView.contentOffset.x,self.collectionView.contentOffset.y,CGRectGetWidth([[UIScreen mainScreen] bounds]));
-    
-    EDCollectionCell *commentCell = (EDCollectionCell *)[self.collectionView cellForItemAtIndexPath:[self.collectionView indexPathForItemAtPoint:self.collectionView.contentOffset]];
-    NSLog(@"+++ 2ND VC +++ : comment on %@",commentCell.foodInfoView.myFood.title);
-    _currentFid = commentCell.foodInfoView.myFood.fid;
-    
-    [User fetchMyCommentOnFood:_currentFid andCompletion:^(NSError *err, BOOL success)
-    {
-        if (success) {
-            _willSendComment = NO;
-            _currentComment =nil;
-            _transparentView = [[HATransparentView alloc] init];
-            _transparentView.delegate = self;
-            [_transparentView open];
-            
-            // Add a textView
-            UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(20, 120, _transparentView.frame.size.width - 40, 250)];
-            textView.textColor = [UIColor blackColor];
-            textView.editable = YES;
-            textView.font = [UIFont systemFontOfSize:20];
-            [textView setReturnKeyType:UIReturnKeySend];
-            textView.delegate = self;
-            
-            self.rateView = [[DXStarRatingView alloc] initWithFrame:CGRectMake((_transparentView.frame.size.width - 250)/2, 60, 260, 65)];
-            
-            _wordCountLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(textView.frame)-100, CGRectGetMaxY(textView.frame)-50, 100, 50)];
-            _wordCountLabel.textColor = [UIColor lightGrayColor];
-            _wordStr = [[NSMutableString alloc]initWithFormat:@"%d",(int)MaxCharNum];
-            _wordCountLabel.text =_wordStr;
-            _wordCountLabel.textAlignment = NSTextAlignmentRight;
-            //textView.backgroundColor = [UIColor clearColor];
-            
-            
-            if ([User sharedInstance].latestComment) {
-                textView.text = [User sharedInstance].latestComment.text;
-                [self.rateView setStars:(int)[User sharedInstance].latestComment.rate target:self callbackAction:@selector(didChangeRating:)];
-            }
-            else{
-                //textView.text = @"Please comment...";
-                [self.rateView setStars:3 target:self callbackAction:@selector(didChangeRating:)];
-            }
-            [_transparentView addSubview:textView];
-            [_transparentView addSubview:self.rateView];
-            [_transparentView addSubview:_wordCountLabel];
-        }
-    }];
-    
-
-}
+//- (void) commentBtnPressed:(id)sender {
+//    
+//    NSLog(@"+++ 2ND VC +++ : collection view content offset = (%f,%f), screen W = %f",self.collectionView.contentOffset.x,self.collectionView.contentOffset.y,CGRectGetWidth([[UIScreen mainScreen] bounds]));
+//    
+//    EDCollectionCell *commentCell = (EDCollectionCell *)[self.collectionView cellForItemAtIndexPath:[self.collectionView indexPathForItemAtPoint:self.collectionView.contentOffset]];
+//    NSLog(@"+++ 2ND VC +++ : comment on %@",commentCell.foodInfoView.myFood.title);
+//    _currentFid = commentCell.foodInfoView.myFood.fid;
+//    
+//    [User fetchMyCommentOnFood:_currentFid andCompletion:^(NSError *err, BOOL success)
+//    {
+//        if (success) {
+//            _willSendComment = NO;
+//            _currentComment =nil;
+//            _transparentView = [[HATransparentView alloc] init];
+//            _transparentView.delegate = self;
+//            [_transparentView open];
+//            
+//            // Add a textView
+//            UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(20, 120, _transparentView.frame.size.width - 40, 250)];
+//            textView.textColor = [UIColor blackColor];
+//            textView.editable = YES;
+//            textView.font = [UIFont systemFontOfSize:20];
+//            [textView setReturnKeyType:UIReturnKeySend];
+//            textView.delegate = self;
+//            
+//            self.rateView = [[DXStarRatingView alloc] initWithFrame:CGRectMake((_transparentView.frame.size.width - 250)/2, 60, 260, 65)];
+//            
+//            _wordCountLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(textView.frame)-100, CGRectGetMaxY(textView.frame)-50, 100, 50)];
+//            _wordCountLabel.textColor = [UIColor lightGrayColor];
+//            _wordStr = [[NSMutableString alloc]initWithFormat:@"%d",(int)MaxCharNum];
+//            _wordCountLabel.text =_wordStr;
+//            _wordCountLabel.textAlignment = NSTextAlignmentRight;
+//            //textView.backgroundColor = [UIColor clearColor];
+//            
+//            
+//            if ([User sharedInstance].latestComment) {
+//                textView.text = [User sharedInstance].latestComment.text;
+//                [self.rateView setStars:(int)[User sharedInstance].latestComment.rate target:self callbackAction:@selector(didChangeRating:)];
+//            }
+//            else{
+//                //textView.text = @"Please comment...";
+//                [self.rateView setStars:3 target:self callbackAction:@selector(didChangeRating:)];
+//            }
+//            [_transparentView addSubview:textView];
+//            [_transparentView addSubview:self.rateView];
+//            [_transparentView addSubview:_wordCountLabel];
+//        }
+//    }];
+//    
+//
+//}
 
 //- (void) commentBtnPressed:(id)sender {
 //    _transparentView = [[HATransparentView alloc] init];
@@ -257,22 +259,25 @@ const NSInteger MaxCharNum = 20;
 -(void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
     EDCollectionCell *edCell = (EDCollectionCell *)cell;
     edCell.foodInfoView.scrollview.contentOffset = CGPointZero;
-    [User sharedInstance].latestComment = nil;
+    
+    edCell.foodInfoView.commentBtn.alpha = .0f;
+    edCell.foodInfoView.commentBtn.hidden = YES;
+    //[User sharedInstance].latestComment = nil;
 }
 /********************/
 /* TextView delegate*/
 /********************/
--(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-    if ([text isEqualToString:@"\n"]) {
-        _willSendComment = YES;
-        [textView resignFirstResponder];
-        return NO;
-    }
-    
-    return YES;
-}
+//-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+//    if ([text isEqualToString:@"\n"]) {
+//        _willSendComment = YES;
+//        [textView resignFirstResponder];
+//        return NO;
+//    }
+//    
+//    return YES;
+//}
 
--(void)textViewDidChange:(UITextView *)textView
+/*-(void)textViewDidChange:(UITextView *)textView
 {
     if (textView.text.length > MaxCharNum) {
         textView.text = [textView.text substringToIndex:MaxCharNum];
@@ -281,9 +286,9 @@ const NSInteger MaxCharNum = 20;
     [_wordStr appendFormat:@"%i",(int)(MaxCharNum - textView.text.length)];
     self.wordCountLabel.text =_wordStr;
     
-}
+}*/
 
--(void)textViewDidEndEditing:(UITextView *)textView
+/*-(void)textViewDidEndEditing:(UITextView *)textView
 {
     NSLog(@"+++ 2ND VC +++ : text view end editing");
     if (!_currentComment) {
@@ -305,5 +310,5 @@ const NSInteger MaxCharNum = 20;
     //post comment
     
     
-}
+}*/
 @end

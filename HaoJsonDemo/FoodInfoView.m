@@ -51,7 +51,7 @@ const  NSInteger NumCommentsPerLoad = 5;
 @interface FoodInfoView () <UICollectionViewDataSource,UICollectionViewDelegate,TagViewDelegate,UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate>
 
 
-@property (strong, nonatomic) UIButton * commentBtn;
+
 /*current cv must be set up when view appear*/
 @property (strong,nonatomic) UIViewController *currentVC;
 
@@ -180,8 +180,8 @@ const  NSInteger NumCommentsPerLoad = 5;
     //add comment button above scrollview
     _commentBtn = [LoadControls createCameraButton_Image:@"ED_feedback_right.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andCenter:CGPointMake(320-10-20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
     [_commentBtn addTarget:self action:@selector(commentBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    _commentBtn.alpha = 1;
-    //_commentBtn.hidden = YES;
+    _commentBtn.alpha = .0f;
+    _commentBtn.hidden = YES;
     [self addSubview:_commentBtn];
     
 }
@@ -423,7 +423,7 @@ const  NSInteger NumCommentsPerLoad = 5;
         //NSLog(@"+++FIV+++ : request comments");
         [self.myFood fetchOldestCommentsSize:NumCommentsPerLoad andSkip:self.myFood.comments.count completion:^(NSError *err, BOOL success) {
             if (success) {
-                NSLog(@"+++FIV+++ : I get %d comments!",(int)self.myFood.comments.count);
+                //NSLog(@"+++FIV+++ : I get %d comments!",(int)self.myFood.comments.count);
                 
                 CGFloat height = self.myFood.comments.count*kCommentCellMaxHeight;
                 self.commentsTableView.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, CGRectGetWidth([[UIScreen mainScreen] bounds]), height);
@@ -527,9 +527,11 @@ const  NSInteger NumCommentsPerLoad = 5;
                     [self setFoodInfo];
                     [self configPhotoAndTagWithCellNo:cellNo];
                     [self prepareComments];
-                    
+                    [UIView animateWithDuration:1 animations:^{
+                        self.commentBtn.hidden = NO;
+                        self.commentBtn.alpha = 1;
 
-
+                    }];
                 }
                 
             }];
@@ -537,6 +539,10 @@ const  NSInteger NumCommentsPerLoad = 5;
         else{//Food info is complete, config at once;
             [self configPhotoAndTagWithCellNo:cellNo];
             [self prepareComments];
+            [UIView animateWithDuration:1 animations:^{
+                self.commentBtn.hidden = NO;
+                self.commentBtn.alpha = 1;
+            }];
         }
         
     }
