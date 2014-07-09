@@ -205,38 +205,41 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
             
             NSArray *resultArr = [returnJSONtoNSdict objectForKey:@"result"];
             
-            if(resultArr.count ==0)
-                return;
-            
-            
-            NSDictionary *foodObj = resultArr[0];
-            
-            self.fid = [[foodObj objectForKey:@"fid"] intValue];
-            self.food_description = [foodObj objectForKey:@"description"];
-            self.rate = [[foodObj objectForKey:@"rate"] floatValue];
-            
-            NSString *rawTagNams = [foodObj objectForKey:@"tags"];
-            self.tagNames = [rawTagNams componentsSeparatedByString: @";"];
- 
-            NSArray *photoNameArr = [foodObj objectForKey:@"photos"];
-            for(int i = 0 ;i<photoNameArr.count;i++){
-                NSDictionary *photoObj = photoNameArr[i];
-                [self.photoNames addObject: [photoObj objectForKey:@"url"]];
+            if(resultArr.count ==0){
+                _foodInfoComplete = NO;
+                _foodInfoCompletionBlock(nil,NO);
             }
-            
-            
-            NSLog(@"fid: %d",(int)self.fid);
-            for(NSString *str in self.tagNames){
-                NSLog(@"tag....: %@",str);
-            }
-            
-            NSLog(@"description: %@",self.food_description);
-            NSLog(@"url: %@",self.photoNames[0]);
-            
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
+            else{
+                NSDictionary *foodObj = resultArr[0];
+                
+                self.fid = [[foodObj objectForKey:@"fid"] intValue];
+                self.food_description = [foodObj objectForKey:@"description"];
+                self.rate = [[foodObj objectForKey:@"rate"] floatValue];
+                
+                NSString *rawTagNams = [foodObj objectForKey:@"tags"];
+                self.tagNames = [rawTagNams componentsSeparatedByString: @";"];
+                
+                NSArray *photoNameArr = [foodObj objectForKey:@"photos"];
+                for(int i = 0 ;i<photoNameArr.count;i++){
+                    NSDictionary *photoObj = photoNameArr[i];
+                    [self.photoNames addObject: [photoObj objectForKey:@"url"]];
+                }
+                
+                
+                NSLog(@"fid: %d",(int)self.fid);
+                for(NSString *str in self.tagNames){
+                    NSLog(@"tag....: %@",str);
+                }
+                
+                NSLog(@"description: %@",self.food_description);
+                NSLog(@"url: %@",self.photoNames[0]);
+                
+                //dispatch_async(dispatch_get_main_queue(), ^{
                 _foodInfoCompletionBlock(nil,YES);
-            });
+                //});
+            }
+            
+
             
             
         }else if([action isEqualToString:@"get_reviews"]){//comment

@@ -38,6 +38,7 @@
 
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity
 {
+    //NSLog(@"000000000000000000000000");
     CGFloat rawPageValue = self.collectionView.contentOffset.x / self.pageWidth;
     CGFloat currentPage = (velocity.x > 0.0) ? floor(rawPageValue) : ceil(rawPageValue);
     CGFloat nextPage = (velocity.x > 0.0) ? ceil(rawPageValue) : floor(rawPageValue);

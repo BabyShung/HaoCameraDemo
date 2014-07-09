@@ -15,6 +15,7 @@
 #import "Comment.h"
 #import "LoadControls.h"
 #import "ED_Color.h"
+#import "User.h"
 
 static NSString *CellIdentifier = @"Cell";
 
@@ -180,23 +181,9 @@ const  NSInteger NumCommentsPerLoad = 5;
     //add comment button above scrollview
     _commentBtn = [LoadControls createCameraButton_Image:@"ED_feedback_right.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andCenter:CGPointMake(320-10-20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
     [_commentBtn addTarget:self action:@selector(commentBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    _commentBtn.alpha = .0f;
-    _commentBtn.hidden = YES;
+    [self hideCommentButton];
     [self addSubview:_commentBtn];
     
-}
-
-- (void) commentBtnPressed:(id)sender {
-    NSLog(@"yo in food view!!!");
-    //1. get fid
-    
-    //2. get uid
-    //    User *user = [User sharedInstance];
-    //    if(user.Uid != 0){
-    //        //show comment button
-    //    }
-    
-    //3.send to server
 }
 
 
@@ -229,7 +216,7 @@ const  NSInteger NumCommentsPerLoad = 5;
  ************************/
 -(UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"~~~~~~%@~~~~~~~~Cell %d~~~~~~~ SHOW ~~~~PHOTO %@ ~~~~~~~~~~~~~~~~~~~~~~",self.myFood.title,(int)indexPath.row,self.myFood.photoNames[indexPath.row]);
+    //NSLog(@"~~~~~~%@~~~~~~~~Cell %d~~~~~~~ SHOW ~~~~PHOTO %@ ~~~~~~~~~~~~~~~~~~~~~~",self.myFood.title,(int)indexPath.row,self.myFood.photoNames[indexPath.row]);
     EDImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
     cell.activityView.hidden = NO;
@@ -511,7 +498,7 @@ const  NSInteger NumCommentsPerLoad = 5;
 -(void)configPhotoAndTagWithCellNo:(NSInteger)no{
     NSLog(@"test```");
     self.imgLoaderName= [NSString stringWithFormat:@"%d",(int)no];
-    NSLog(@"~~~~~~~~~~CONFIG PHOTO FOR %@ ~~~~~~~~~~~~%d",self.myFood.title,(int)self.myFood.photoNames.count);
+    //NSLog(@"~~~~~~~~~~CONFIG PHOTO FOR %@ ~~~~~~~~~~~~%d",self.myFood.title,(int)self.myFood.photoNames.count);
 
     self.photoCollectionView.dataSource = self;
     self.photoCollectionView.delegate = self;
@@ -527,35 +514,28 @@ const  NSInteger NumCommentsPerLoad = 5;
     if (self.myFood) {
         //Assure title and translation are showed;
         [self setFoodInfo];
-        NSLog(@"******************** !!!!!! setting food !!!!!!00 **********************");
+        //NSLog(@"******************** !!!!!! setting food !!!!!!00 **********************");
         //If food info is not completed, request it
         if (!self.myFood.isLoadingInfo && !self.myFood.foodInfoComplete) {
             
             [self.myFood fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
-                NSLog(@"******************** !!!!!! setting food !!!!!!11 **********************");
+                //NSLog(@"******************** !!!!!! setting food !!!!!!11 **********************");
                 if (success) {
                     
-                    NSLog(@"******************** !!!!!! setting food !!!!!!22 **********************");
+                    //NSLog(@"******************** !!!!!! setting food !!!!!!22 **********************");
                     [self setFoodInfo];
                     [self configPhotoAndTagWithCellNo:cellNo];
                     [self prepareComments];
-                    [UIView animateWithDuration:1 animations:^{
-                        self.commentBtn.hidden = NO;
-                        self.commentBtn.alpha = 1;
-
-                    }];
+                    [self showCommentButton];
                 }
                 
             }];
         }
         else{//Food info is complete, config at once;
-            NSLog(@"******************** !!!!!! setting food !!!!!!333 **********************");
+            //NSLog(@"******************** !!!!!! setting food !!!!!!333 **********************");
             [self configPhotoAndTagWithCellNo:cellNo];
             [self prepareComments];
-            [UIView animateWithDuration:1 animations:^{
-                self.commentBtn.hidden = NO;
-                self.commentBtn.alpha = 1;
-            }];
+            [self showCommentButton];
         }
         
     }
@@ -605,5 +585,38 @@ const  NSInteger NumCommentsPerLoad = 5;
 }
 
 
+/******************************/
+/*                            */
+/*      Comment Feature       */
+/*                            */
+/******************************/
+
+- (void) commentBtnPressed:(id)sender {
+    NSLog(@"++++ FIV ++++ : COMMENT BUTTON PRESSED");
+    //1. get fid
+    
+    //2. get uid
+    //    User *user = [User sharedInstance];
+    //    if(user.Uid != 0){
+    //        //show comment button
+    //    }
+    
+    //3.send to server
+}
+
+-(void)hideCommentButton{
+    _commentBtn.alpha = .0f;
+    _commentBtn.hidden = YES;
+}
+
+-(void)showCommentButton{
+    if ([User sharedInstance].Uid != 1) {
+        [UIView animateWithDuration:1 animations:^{
+            self.commentBtn.hidden = NO;
+            self.commentBtn.alpha = 1;
+        }];
+    }
+    
+}
 
 @end

@@ -91,10 +91,10 @@
     return YES;
 }
 
--(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
-    NSLog(@"000000000000000000000000");
-    return YES;
-}
+//-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+//    NSLog(@"000000000000000000000000");
+//    return YES;
+//}
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext
 {
@@ -228,7 +228,15 @@
                 CGFloat progress = MAX(MIN(ratio*1.5, 1.0), 0.0);
                 
                 [self updateWithProgress:progress andOffset:offsetToUse];
+                
+            }//user scroll horizonally
+            else if(fabsf(velocity.y/velocity.x)<=2){
+                EDCollectionCell *cell = (EDCollectionCell *)[self.collectionView cellForItemAtIndexPath:[self.collectionView indexPathForItemAtPoint:self.initialPinchPoint]];
+                
+                cell.foodInfoView.commentBtn.alpha = 1-fabsf(translate.x/100);
+            
             }
+            break;
             
     }
 }
