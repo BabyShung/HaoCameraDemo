@@ -103,7 +103,7 @@ static NSString *CellIdentifier = @"Cell";
     Food *food = self.searchData[indexPath.row];
     cell.titleLabel.text = food.title;
     cell.transLabel.text = food.transTitle;
-    cell.queryLabel.text = [NSString stringWithFormat:@"%d次",(int)food.queryTimes];
+    cell.queryLabel.text = [NSString stringWithFormat:@"%d%@",(int)food.queryTimes,food.queryTimes>1?NSLocalizedString(@"TIMES", nil):NSLocalizedString(@"TIME", nil)];
     return cell;
 }
 

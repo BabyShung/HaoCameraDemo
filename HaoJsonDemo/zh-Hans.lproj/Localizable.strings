@@ -36,3 +36,5 @@
 "SUCCESS_FEEDBACK" = "谢谢亲 : )";
 "FAIL_FEEDBACK" = "抱歉亲，请重发";
 "TEXT_NOT_NIL"="亲，请写些东西";
+"TIME" = "次";
+"TIMES" = "次";

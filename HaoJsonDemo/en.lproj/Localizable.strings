@@ -35,3 +35,5 @@
 "SUCCESS_FEEDBACK" = "Thank you : )";
 "FAIL_FEEDBACK" = "Sorry, please send again";
 "TEXT_NOT_NIL"="Please type something : )";
+"TIME" = " time";
+"TIMES" = " times";
