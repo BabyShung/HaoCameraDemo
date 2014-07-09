@@ -45,7 +45,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
         self.loadingComments = NO;
         self.commentLoaded = NO;
         
-        self.title = title;
+        self.title = [title capitalizedString] ;
         self.transTitle = translate;
         self.food_description = @"";
         _webdata = [[NSMutableData alloc]init];
@@ -75,7 +75,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
     _comments = [NSMutableArray array];
     
     self.fid = [[dict objectForKey:@"fid"] intValue];
-    self.title = [dict objectForKey:@"title"];
+    self.title = [[dict objectForKey:@"title"] capitalizedString];
     self.transTitle = [dict objectForKey:@"name"];
     self.food_description = [dict objectForKey:@"description"];
     self.rate = [[dict objectForKey:@"rate"] floatValue];
@@ -326,5 +326,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
     NSString *desc  = [NSString stringWithFormat:@"Title: %@, transTitle: %@, queryTimes: %d", self.title, self.transTitle,(int)self.queryTimes];
 	return desc;
 }
+
+
 
 @end

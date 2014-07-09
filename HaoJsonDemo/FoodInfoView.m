@@ -358,7 +358,7 @@ const  NSInteger NumCommentsPerLoad = 5;
     
 
     
-    //self.commentsTableView.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, width,  CGRectGetHeight(self.commentsTableView.frame));
+    self.commentsTableView.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, width,  CGRectGetHeight(self.commentsTableView.frame));
     //
     /*Change alpha values for 4 special views*/
     
