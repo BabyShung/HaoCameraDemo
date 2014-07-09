@@ -45,4 +45,6 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 
 +(User *)anonymousLogin;
 
++(void)sendFeedBack:(NSString*)content andCompletion:(void (^)(NSError *err, BOOL success))block;
+
 @end

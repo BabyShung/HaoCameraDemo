@@ -269,6 +269,15 @@
 
 -(void)doneButtonClicked:(UIBarButtonItem*)button
 {
+    UITextView * tv = (UITextView*)textViewFeedback;
+    
+    if(tv.text.length==0){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"OOPS", nil) message:NSLocalizedString(@"TEXT_NOT_NIL", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles: nil];
+        [alert show];
+        return;
+    }
+    
+    
 	if (_completionHandler)
 	{
 		_completionHandler(NO, [self message], [self image]);
@@ -279,7 +288,7 @@
 {
 	if (_completionHandler)
 	{
-		_completionHandler(YES, nil, nil);
+		_completionHandler(YES, [self message], nil);
 	}
 }
 

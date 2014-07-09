@@ -139,16 +139,26 @@ static AsyncRequest *async;
     NSUInteger type = [[dict objectForKey:@"type"] intValue];
     NSString *selfie = [dict objectForKey:@"selfie"];
     
+    User *user = [self sharedInstanceWithUid:uid andEmail:email andUname:name andUpwd:pwd andUtype:type andUselfie:selfie];
+    
     //second login, but remember to init async
     async = [[AsyncRequest alloc] initWithDelegate:sharedInstance];
     
-    return [self sharedInstanceWithUid:uid andEmail:email andUname:name andUpwd:pwd andUtype:type andUselfie:selfie];
+    return user;
 }
 
 +(User *)anonymousLogin{
     async = [[AsyncRequest alloc] initWithDelegate:sharedInstance];
     
-    return [self sharedInstanceWithUid:1 andEmail:@"Anonymous@edible.com" andUname:@"Anonymous" andUpwd:nil andUtype:0 andUselfie:@"default_selfie.png"];
+    User *user = [self sharedInstanceWithUid:1 andEmail:@"Anonymous@edible.com" andUname:@"Anonymous" andUpwd:nil andUtype:0 andUselfie:@"default_selfie.png"];
+    async = [[AsyncRequest alloc] initWithDelegate:sharedInstance];
+    return user;
+}
+
+
++(void)sendFeedBack:(NSString*)content andCompletion:(void (^)(NSError *err, BOOL success))block{
+    CompletionBlock = block;
+    [async sendFeedbackWithContent:content];
 }
 
 
@@ -198,26 +208,42 @@ static AsyncRequest *async;
     if(status){ //if we get food info back
         
         if([action isEqualToString:@"login"]){//login
+            
             [self configureUser:returnJSONtoNSdict];
-        }else  if([action isEqualToString:@"register"]){
+            
+        }else if([action isEqualToString:@"register"]){
+            
             [self configureUser:returnJSONtoNSdict];
-        }else if ([action isEqualToString:@"post_update"]){
-            if (CompletionBlock) {
-                CompletionBlock(nil,YES);
-            }
+            
+        }else if ([action isEqualToString:@"post_update_review"]){
+            
+            
+        }else if([action isEqualToString:@"post_feed_back"]){
+            
+            
         }
-        else{//get my review
+        else if([action isEqualToString:@"get_review"]){//get my review
+            
             NSArray *resultArr = [returnJSONtoNSdict objectForKey:@"result"];
             if (resultArr.count == 1) {
                 [User sharedInstance].latestComment = [[Comment alloc]initWithDict:resultArr[0]];
             }else{
                 [User sharedInstance].latestComment = nil;
             }
+
+            
+        }
+        
+        
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
             if (CompletionBlock) {
                 CompletionBlock(nil,YES);
             }
-            
-        }
+        });
+
+        
     }else{
         NSLog(@"failed!!!!!!!!!!!!!!");
         

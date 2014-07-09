@@ -19,7 +19,7 @@
 #import "AppDelegate.h"
 #import "BlurActionSheet.h"
 #import "User.h"
-
+#import "UIView+Toast.h"
 
 
 const NSString *collectionCellIdentity = @"Cell";
@@ -196,18 +196,29 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
     if(index == 0){
         [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Search"] animated:YES];
     }else if(index == 1){
-        IQFeedbackView *feedback = [[IQFeedbackView alloc] initWithTitle:NSLocalizedString(@"Feedback", nil) message:nil image:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) doneButtonTitle:NSLocalizedString(@"Send", nil)];
+        IQFeedbackView *feedback = [[IQFeedbackView alloc] initWithTitle:NSLocalizedString(@"Feedback", nil) message:self.tempFeedbackText image:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) doneButtonTitle:NSLocalizedString(@"Send", nil)];
         [feedback setCanAddImage:NO];
         [feedback setCanEditText:YES];
         
         [feedback showInViewController:self completionHandler:^(BOOL isCancel, NSString *message, UIImage *image) {
             
-            NSLog(@"msg %@",message);
-            if(!isCancel){
-                NSLog(@"clicked send!");
+            if(!isCancel){//sending feedback
+                [User sendFeedBack:message andCompletion:^(NSError *err,BOOL success){
+                    
+                    if(success){
+                        [self.view makeToast:NSLocalizedString(@"SUCCESS_FEEDBACK", nil)];
+                        self.tempFeedbackText = @"";
+                    }else{
+                        [self.view makeToast:NSLocalizedString(@"FAIL_FEEDBACK", nil)];
+                    }
+                    
+                    
+                }];
+                
+                
             }else{
                 //temporary save the text
-                //self.tempFeedbackText =
+                self.tempFeedbackText = message;
             }
             
             [feedback dismiss];

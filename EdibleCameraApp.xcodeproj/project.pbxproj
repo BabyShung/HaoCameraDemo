@@ -45,6 +45,7 @@
 		B8AB89D0196C7EA400F32E4F /* star_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8AB89CC196C7EA400F32E4F /* star_off@2x.png */; };
 		B8AB89D1196C7EA400F32E4F /* star_on.png in Resources */ = {isa = PBXBuildFile; fileRef = B8AB89CD196C7EA400F32E4F /* star_on.png */; };
 		B8AB89D2196C7EA400F32E4F /* star_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8AB89CE196C7EA400F32E4F /* star_on@2x.png */; };
+		B8AB89D7196DDB4900F32E4F /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = B8AB89D6196DDB4900F32E4F /* UIView+Toast.m */; };
 		B8B60FAB195914DF005268D5 /* smallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FA8195914DF005268D5 /* smallLayout.m */; };
 		B8B60FAC195914DF005268D5 /* largeLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FAA195914DF005268D5 /* largeLayout.m */; };
 		B8B60FB5195914FB005268D5 /* debugView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FB4195914FB005268D5 /* debugView.m */; };
@@ -259,6 +260,8 @@
 		B8AB89CD196C7EA400F32E4F /* star_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_on.png; sourceTree = "<group>"; };
 		B8AB89CE196C7EA400F32E4F /* star_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_on@2x.png"; sourceTree = "<group>"; };
 		B8AB89D4196CA2FE00F32E4F /* localDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = localDB.db; sourceTree = "<group>"; };
+		B8AB89D5196DDB4900F32E4F /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
+		B8AB89D6196DDB4900F32E4F /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		B8B60FA7195914DF005268D5 /* smallLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smallLayout.h; sourceTree = "<group>"; };
 		B8B60FA8195914DF005268D5 /* smallLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smallLayout.m; sourceTree = "<group>"; };
 		B8B60FA9195914DF005268D5 /* largeLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = largeLayout.h; sourceTree = "<group>"; };
@@ -550,6 +553,8 @@
 		ACA1726C193920A6005E7D51 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				B8AB89D5196DDB4900F32E4F /* UIView+Toast.h */,
+				B8AB89D6196DDB4900F32E4F /* UIView+Toast.m */,
 				B8BBB01E196491DA007CE548 /* UIAlertView+Blocks.h */,
 				B8BBB01F196491DA007CE548 /* UIAlertView+Blocks.m */,
 				B8C8F337195F4BD5009F8F6E /* edi_md5.h */,
@@ -1302,6 +1307,7 @@
 				B8B6104E195924F2005268D5 /* CameraView.m in Sources */,
 				ACDD6D55195F4B2000AD51A7 /* EDCollectionCell.m in Sources */,
 				B8B61084195927A2005268D5 /* CardsViewController.m in Sources */,
+				B8AB89D7196DDB4900F32E4F /* UIView+Toast.m in Sources */,
 				B8B6103B19592369005268D5 /* UIApplication+JTSImageViewController.m in Sources */,
 				B8C8F3901961E24F009F8F6E /* OtherUser.m in Sources */,
 				B8D09A791948BCCF006C070D /* User.m in Sources */,

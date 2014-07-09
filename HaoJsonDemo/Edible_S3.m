@@ -12,7 +12,7 @@
 
 #define ACCESS_KEY @"AKIAIAIIJQENWHME2RCA"
 #define SECRET_KEY @"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"
-#define BUCKET_NAME @"ming-test-bucket"
+#define BUCKET_NAME @"blue-cheese-deployment"
 
 
 @interface Edible_S3 () <AmazonServiceRequestDelegate>

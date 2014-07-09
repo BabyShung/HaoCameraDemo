@@ -8,7 +8,7 @@
 "CARD_SEARCH"="Search";
 "CARD_FEEDBACK"="Feedback";
 "CARD_LOGOUT"="Logout";
-"CARD_ABOUT"="About";
+"CARD_ABOUT"="About us";
 "ERROR_NETWORK" = "Network problem..please try again.";
 "OOPS"="Oops..";
 "ERROR_LOGIN"="Email or password incorrect.";
@@ -32,3 +32,6 @@
 "Log out"="Log out";
 "Search food"="Search food";
 "DIGIT" = " digits";
+"SUCCESS_FEEDBACK" = "Thank you : )";
+"FAIL_FEEDBACK" = "Sorry, please send again";
+"TEXT_NOT_NIL"="Please type something : )";
