@@ -48,6 +48,8 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
 
 @property (strong, nonatomic) UIButton * previousPageBtn;
 
+@property (strong,nonatomic) NSString *tempFeedbackText;
+
 @property (nonatomic) NSUInteger assumedIndex;
 
 @property (nonatomic) BOOL shouldSlideBack;
@@ -199,6 +201,15 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
         [feedback setCanEditText:YES];
         
         [feedback showInViewController:self completionHandler:^(BOOL isCancel, NSString *message, UIImage *image) {
+            
+            NSLog(@"msg %@",message);
+            if(!isCancel){
+                NSLog(@"clicked send!");
+            }else{
+                //temporary save the text
+                //self.tempFeedbackText =
+            }
+            
             [feedback dismiss];
         }];
     }else if (index == 2){

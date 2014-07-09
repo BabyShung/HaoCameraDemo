@@ -107,33 +107,30 @@
 - (IBAction)updateReview:(id)sender {
     
     //user,late will move to login
-    [User sharedInstanceWithUid:1 andEmail:@"123@.com" andUname:@"Anonymity" andUpwd:@"123" andUtype:1 andUselfie:nil];
+    [User sharedInstanceWithUid:2 andEmail:@"123@.com" andUname:@"Anonymity" andUpwd:@"123" andUtype:1 andUselfie:nil];
 
     
     //comment
-    Comment *review = [[Comment alloc]initWithCommentID:8 andFid:1 andRate:3 andComment:@"User Hao commented!!!!"];
+    Comment *review = [[Comment alloc]initWithCommentID:8 andFid:1 andRate:3 andComment:@"User Hao commented*******"];
     
-    [self.async doComment:review rating:3 withAction:@"update"];//action: update, post
+    [self.async doComment:review];
+    //[self.async doComment:review rating:3 withAction:@"update"];//action: update, post
 }
 
 - (IBAction)like:(id)sender {
     
-    [self.async likeOrDislike_rid:9 andLike:20];
+    [self.async likeOrDislike_rid:1 andLike:20];
     
 }
 - (IBAction)testBlock:(id)sender {
     
-    Food *food = [[Food alloc]initWithTitle:@"blue cheese" andTranslations:@"蓝芝士"];
+    Food *food = [[Food alloc]initWithTitle:@"sushi" andTranslations:@"寿司"];
     food.fid = 1;//for fetch comment
     
     [food fetchAsyncInfoCompletion:^(NSError *err, BOOL success){
         NSLog(@"%d",success);
         NSLog(@"fetch food info block!");
     }];
-    
-
-    
-    
     
     [food fetchOldestCommentsSize:5 andSkip:0 completion:^(NSError *err, BOOL success){
         NSLog(@"%d",success);
@@ -143,16 +140,22 @@
 
 - (IBAction)login:(id)sender {
     
-    [self.async login_withEmail:@"hao3@123.com" andPwd:@"123"];
+    [self.async login_withEmail:@"1xxx@123.com" andPwd:@"123"];
 }
 
 - (IBAction)signup:(id)sender {
     
-    [self.async signup_withEmail:@"1@123.com" andName:@"hao" andPwd:@"123"];
+    [self.async signup_withEmail:@"1xxx@123.com" andName:@"hao" andPwd:@"123"];
 }
 
 - (IBAction)checkEmail:(id)sender {
     [self.async checkEmail:@"hao4@123.com"];
 }
 
+- (IBAction)sendFeedback:(id)sender {
+    
+    NSString *content = @"A lof of bugs!";
+    [self.async sendFeedbackWithContent:content];
+    
+}
 @end

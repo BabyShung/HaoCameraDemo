@@ -145,6 +145,13 @@ static AsyncRequest *async;
     return [self sharedInstanceWithUid:uid andEmail:email andUname:name andUpwd:pwd andUtype:type andUselfie:selfie];
 }
 
++(User *)anonymousLogin{
+    async = [[AsyncRequest alloc] initWithDelegate:sharedInstance];
+    
+    return [self sharedInstanceWithUid:1 andEmail:@"Anonymous@edible.com" andUname:@"Anonymous" andUpwd:nil andUtype:0 andUselfie:@"default_selfie.png"];
+}
+
+
 /****************************************
  
  delegate methods for networkConnection

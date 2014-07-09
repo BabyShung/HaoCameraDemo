@@ -126,7 +126,8 @@
         [self.view endEditing:YES];
         [self checkAndStartLoadingAnimation];
         
-        //user login
+        //************************************* user login ************************************************
+        
         [User loginWithEmail:trimmedEmail andPwd:self.pwdTextField.text andCompletion:^(NSError *err, BOOL success){
             if(success){//user info already set
                 
@@ -220,5 +221,22 @@
     [self.loadingImage startAnimating];
 }
 
+- (IBAction)SkipLogin:(id)sender {
+    //skipping login, generate a user with uid "1" ... ... ...
+    [User anonymousLogin];
+    
+    //User info already set
+    NSDictionary *dict = [User toDictionary];
+    //put info into nsuserdefault
+    [[NSUserDefaults standardUserDefaults] setObject:dict forKey:@"CurrentUser"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    NSLog(@"%@",[User sharedInstance]);
+    
+    
+    //transition
+    [self transitionToFrameVC_duration:0.5];
+
+}
 
 @end

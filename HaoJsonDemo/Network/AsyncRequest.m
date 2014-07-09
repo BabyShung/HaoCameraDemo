@@ -26,6 +26,9 @@
 
 #define USERURL @"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/user"
 
+#define FEEDBACKURL @"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/feedback"
+
+#define FOOD_POST_URL @"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/food"
 
 @interface AsyncRequest ()
 
@@ -73,13 +76,13 @@
 
 -(void)getFoodInfo:(NSString*)foodname andLang:(TargetLang)lang {
     NSString *language;
-    
     switch (lang) {
         case Chinese:
             language = @"CN";
             break;
         case English:
             language = @"EN";
+            break;
         default:
             language = @"CN";
             break;
@@ -102,24 +105,39 @@
     
 }
 
--(void)getFoodInfo:(NSString*)foodname andLanguage:(NSString *)language {
-    
-    NSMutableString *paraString = [NSMutableString stringWithString:@"title="];
-    [paraString appendString:foodname];
-    [paraString appendString:@"&lang="];
-    [paraString appendString:language];
-    NSMutableString *foodString =  [NSMutableString stringWithString:FOODURL];
-    
-    [foodString appendString:paraString];
-    
-    NSString *finalString = [NSString stringWithString:foodString];
-    
-    
-    
-    [self performGETAsyncTaskwithURLString:finalString];
-    
-    
+//-(void)getFoodInfo:(NSString*)foodname andLanguage:(NSString *)language {
+//    
+//    NSMutableString *paraString = [NSMutableString stringWithString:@"title="];
+//    [paraString appendString:foodname];
+//    [paraString appendString:@"&lang="];
+//    [paraString appendString:language];
+//    NSMutableString *foodString =  [NSMutableString stringWithString:FOODURL];
+//    
+//    [foodString appendString:paraString];
+//    
+//    NSString *finalString = [NSString stringWithString:foodString];
+//    
+//    [self performGETAsyncTaskwithURLString:finalString];
+//}
+
+-(void)getFoodInfo_byPost:(NSString*)foodname andLanguage:(TargetLang)lang{
+    NSString *language;
+    switch (lang) {
+        case Chinese:
+            language = @"CN";
+            break;
+        case English:
+            language = @"EN";
+            break;
+        default:
+            language = @"CN";
+            break;
+    }
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:foodname, @"title",language, @"lang", @"search",@"action", nil];
+    NSURL *url = [NSURL URLWithString:FOOD_POST_URL];
+    [self performAsyncTask_Dictionary:dict andURL:url];
 }
+
 
 /******************
  
@@ -130,45 +148,57 @@
 -(void)doComment:(Comment *)comment{
     NSNumber *uidNumber = [NSNumber numberWithInteger:[User sharedInstance].Uid];
 
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:comment.fid], @"fid",comment.text, @"comments", [NSNumber numberWithInteger:comment.rate], @"rate", uidNumber, @"uid",@"post_update",@"action", nil];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:comment.fid], @"fid",comment.text, @"comments", [NSNumber numberWithInteger:comment.rate], @"rate", uidNumber, @"uid",@"post_update_review",@"action", nil];
     
     NSURL *url = [NSURL URLWithString:DOREVIEW];
 
     [self performAsyncTask_Dictionary:dict andURL:url];
 }
 
--(void)doComment:(Comment *)comment rating:(NSUInteger)rate withAction:(NSString*)action {
+//-(void)doComment:(Comment *)comment rating:(NSUInteger)rate withAction:(NSString*)action {
+//    
+//    User *user = [User sharedInstance];
+//    
+//    NSNumber *uidNumber = [NSNumber numberWithInteger:user.Uid];
+//    NSNumber *rateNumber = [NSNumber numberWithInteger:rate];
+//    
+//    
+//    NSDictionary * dict;
+//    
+//    //doing a post action
+//    if([action isEqualToString:@"add"]){
+//        
+//        NSNumber *fidNumber = [NSNumber numberWithInteger:comment.fid];
+//        //NSNumber *timeNumber = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]*1000.0];
+//        //NSLog(@"nsnumber %@",timeNumber);
+//        
+//        dict = [NSDictionary dictionaryWithObjectsAndKeys:fidNumber, @"fid",comment.text, @"comments", rateNumber, @"rate", uidNumber, @"uid",action,@"action", nil];
+//        
+//        
+//    }else{//doing an update action
+//        
+//        NSNumber *cidNumber = [NSNumber numberWithInteger:comment.cid];
+//        
+//        
+//        dict = [NSDictionary dictionaryWithObjectsAndKeys:cidNumber, @"rid",comment.text, @"comments", rateNumber, @"rate", uidNumber, @"uid", action,@"action", nil];
+//        
+//    }
+//    
+//    
+//    NSURL *url = [NSURL URLWithString:DOREVIEW];
+//     NSLog(@"POST: %@",url);
+//    [self performAsyncTask_Dictionary:dict andURL:url];
+//}
+
+
+-(void)sendFeedbackWithContent:(NSString *)content{
     
     User *user = [User sharedInstance];
+    NSNumber *uidnumber = [NSNumber numberWithInteger:1];//user.Uid
     
-    NSNumber *uidNumber = [NSNumber numberWithInteger:user.Uid];
-    NSNumber *rateNumber = [NSNumber numberWithInteger:rate];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uidnumber, @"uid",content, @"content",@"post_feed_back",@"action", nil];
     
-    
-    NSDictionary * dict;
-    
-    //doing a post action
-    if([action isEqualToString:@"add"]){
-        
-        NSNumber *fidNumber = [NSNumber numberWithInteger:comment.fid];
-        //NSNumber *timeNumber = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]*1000.0];
-        //NSLog(@"nsnumber %@",timeNumber);
-        
-        dict = [NSDictionary dictionaryWithObjectsAndKeys:fidNumber, @"fid",comment.text, @"comments", rateNumber, @"rate", uidNumber, @"uid",action,@"action", nil];
-        
-        
-    }else{//doing an update action
-        
-        NSNumber *cidNumber = [NSNumber numberWithInteger:comment.cid];
-        
-        
-        dict = [NSDictionary dictionaryWithObjectsAndKeys:cidNumber, @"rid",comment.text, @"comments", rateNumber, @"rate", uidNumber, @"uid", action,@"action", nil];
-        
-    }
-    
-    
-    NSURL *url = [NSURL URLWithString:DOREVIEW];
-     NSLog(@"POST: %@",url);
+    NSURL *url = [NSURL URLWithString:FEEDBACKURL];
     [self performAsyncTask_Dictionary:dict andURL:url];
 }
 
@@ -183,10 +213,7 @@
     NSNumber *ridNumber = [NSNumber numberWithInt:rid];
     NSNumber *likeNumber = [NSNumber numberWithInt:like];
     
-    
-    
-    
-    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:ridNumber, @"rid",likeNumber, @"like",@"like",@"action", nil];
+    NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:ridNumber, @"rid",likeNumber, @"like",@"like_review",@"action", nil];
     
     NSURL *url = [NSURL URLWithString:DOREVIEW];
     

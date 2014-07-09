@@ -25,7 +25,7 @@
 
 -(void)doComment:(Comment *)comment;
 
--(void)doComment:(Comment *)comment rating:(NSUInteger)rate withAction:(NSString*)action;
+//-(void)doComment:(Comment *)comment rating:(NSUInteger)rate withAction:(NSString*)action;
 
 -(void)likeOrDislike_rid:(int)rid andLike:(int)like ;
 
@@ -36,6 +36,10 @@
 -(void)checkEmail:(NSString*)email ;
 
 -(void)performGETAsyncTaskwithURLString:(NSString *)urlString;
+
+-(void)sendFeedbackWithContent:(NSString *)content;
+
+-(void)getFoodInfo_byPost:(NSString*)foodname andLanguage:(TargetLang)lang;
 
 -(instancetype)initWithDelegate:(id)selfy;
 

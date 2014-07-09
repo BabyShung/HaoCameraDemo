@@ -43,4 +43,6 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 
 +(User *)fromDictionaryToUser:(NSDictionary *)dict;
 
++(User *)anonymousLogin;
+
 @end

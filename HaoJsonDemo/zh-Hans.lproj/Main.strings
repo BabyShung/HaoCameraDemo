@@ -21,7 +21,7 @@
 "ZEa-vA-scu.placeholder" = "用户名";
 
 /* Class = "IBUIButton"; normalTitle = "back to login"; ObjectID = "elX-e3-hUj"; */
-"elX-e3-hUj.normalTitle" = "重新登入";
+"elX-e3-hUj.normalTitle" = "返回";
 
 /* Class = "IBUILabel"; text = "Blue Cheese"; ObjectID = "hjc-8M-qgO"; */
 "hjc-8M-qgO.text" = "蓝芝士";
