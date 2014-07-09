@@ -221,10 +221,6 @@
 		AC1E7761194F583100532F65 /* filterwords.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = filterwords.txt; sourceTree = "<group>"; };
 		AC3FDCE1196C49230008D311 /* foodlist_kw_en_7000.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = foodlist_kw_en_7000.txt; sourceTree = "<group>"; };
 		AC3FDCE3196C49290008D311 /* foodlist_kw_cn_7000.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = foodlist_kw_cn_7000.txt; sourceTree = "<group>"; };
-<<<<<<< HEAD
-		AC3FDCE7196CA3560008D311 /* localDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = localDB.db; sourceTree = "<group>"; };
-=======
->>>>>>> FETCH_HEAD
 		AC7491F6195A2C4F00D3CBBA /* TransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionController.h; sourceTree = "<group>"; };
 		AC7491F7195A2C4F00D3CBBA /* TransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionController.m; sourceTree = "<group>"; };
 		AC7491FF195A2D4300D3CBBA /* TransitionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionLayout.h; sourceTree = "<group>"; };
@@ -529,11 +525,7 @@
 		AC8A356819461D3E00FC5465 /* LocalDB */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
-				AC3FDCE7196CA3560008D311 /* localDB.db */,
-=======
 				B8AB89D4196CA2FE00F32E4F /* localDB.db */,
->>>>>>> FETCH_HEAD
 				AC3FDCE3196C49290008D311 /* foodlist_kw_cn_7000.txt */,
 				AC3FDCE1196C49230008D311 /* foodlist_kw_en_7000.txt */,
 				AC1E7761194F583100532F65 /* filterwords.txt */,
@@ -1255,10 +1247,6 @@
 				B8C8F38A195F834B009F8F6E /* register_03.png in Resources */,
 				B8CC9F7F19689E6400CCFE74 /* default_selfie@2x.png in Resources */,
 				B8CC9F8A19689E6400CCFE74 /* ED_search.png in Resources */,
-<<<<<<< HEAD
-				AC3FDCE8196CA3560008D311 /* localDB.db in Resources */,
-=======
->>>>>>> FETCH_HEAD
 				3AC9FAF1196C3EBC00153773 /* localDB.db in Resources */,
 				B8CC9FA81968A75900CCFE74 /* ED_feedback_right.png in Resources */,
 				B8CC9F611968980100CCFE74 /* rating-star-off@2x.png in Resources */,
