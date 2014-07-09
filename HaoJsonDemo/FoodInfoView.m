@@ -160,7 +160,7 @@ const  NSInteger NumCommentsPerLoad = 5;
 
     [self.photoCollectionView registerClass:[EDImageCell class] forCellWithReuseIdentifier:CellIdentifier];
     self.photoCollectionView.backgroundColor = [UIColor clearColor];
-    
+    self.photoCollectionView.decelerationRate = UIScrollViewDecelerationRateFast;
     [self.photoCollectionView setShowsHorizontalScrollIndicator:NO];
     [self.scrollview addSubview:self.photoCollectionView];
     
@@ -229,6 +229,7 @@ const  NSInteger NumCommentsPerLoad = 5;
  ************************/
 -(UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"~~~~~~%@~~~~~~~~Cell %d~~~~~~~ SHOW ~~~~PHOTO %@ ~~~~~~~~~~~~~~~~~~~~~~",self.myFood.title,(int)indexPath.row,self.myFood.photoNames[indexPath.row]);
     EDImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
     cell.activityView.hidden = NO;
@@ -244,6 +245,8 @@ const  NSInteger NumCommentsPerLoad = 5;
         cell.activityView.hidden = YES;
         [cell.activityView stopAnimating];
         
+        //cell.imageView.image = image;
+        
         
     }];
     return cell;
@@ -252,22 +255,16 @@ const  NSInteger NumCommentsPerLoad = 5;
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     EDImageCell *cell = (EDImageCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    
     // Create image info
     JTSImageInfo *imageInfo = [[JTSImageInfo alloc] init];
-    
     imageInfo.image = cell.imageView.image;
-    
     imageInfo.referenceRect = cell.imageView.frame;
-    
     imageInfo.referenceView = cell.imageView.superview;
-    
     // Setup view controller
     JTSImageViewController *imageViewer = [[JTSImageViewController alloc]
                                            initWithImageInfo:imageInfo
                                            mode:JTSImageViewControllerMode_Image
                                            backgroundStyle:JTSImageViewControllerBackgroundStyle_ScaledDimmedBlurred];
-    
     // Present the view controller.
     [imageViewer showFromViewController:self.currentVC transition:JTSImageViewControllerTransition_FromOriginalPosition];
 }
@@ -486,19 +483,26 @@ const  NSInteger NumCommentsPerLoad = 5;
     
 }
 
+//this method got called when cell preparing for reuse
 -(void)cleanUpForReuse{
+    
+    //set the food object in foodInfoView(belonging to collection cell) to nil
     self.myFood = nil;
-
+    
+    //
+    [self resetData];
 }
 
 -(void)resetData{
-    self.myFood.photoNames = nil;
+    self.myFood.photoNames = nil;//datasource for food photos in bottomCollectionview
     self.photoCollectionView.delegate = nil;
     [self.photoCollectionView reloadData];
-    self.myFood.comments = nil;
+    
+    self.myFood.comments = nil;//datasource for comment tableview
     self.commentsTableView.delegate = nil;
     [self.commentsTableView reloadData];
-    [self.tagview removeTags:self.tagview.tags];
+    
+    [self.tagview clear];
 }
 
 /************  DISPLAY IN COLLECTION VIEW  ************/
@@ -507,8 +511,13 @@ const  NSInteger NumCommentsPerLoad = 5;
 -(void)configPhotoAndTagWithCellNo:(NSInteger)no{
     NSLog(@"test```");
     self.imgLoaderName= [NSString stringWithFormat:@"%d",(int)no];
-    self.photoCollectionView.delegate = self;
+    NSLog(@"~~~~~~~~~~CONFIG PHOTO FOR %@ ~~~~~~~~~~~~%d",self.myFood.title,(int)self.myFood.photoNames.count);
+
     self.photoCollectionView.dataSource = self;
+    self.photoCollectionView.delegate = self;
+    
+    [self.photoCollectionView reloadData];
+    
     [_tagview addTags:self.myFood.tagNames];
     self.descriptionLabel.textColor = [UIColor blackColor];
 }
@@ -518,12 +527,15 @@ const  NSInteger NumCommentsPerLoad = 5;
     if (self.myFood) {
         //Assure title and translation are showed;
         [self setFoodInfo];
-        
+        NSLog(@"******************** !!!!!! setting food !!!!!!00 **********************");
         //If food info is not completed, request it
         if (!self.myFood.isLoadingInfo && !self.myFood.foodInfoComplete) {
             
             [self.myFood fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
+                NSLog(@"******************** !!!!!! setting food !!!!!!11 **********************");
                 if (success) {
+                    
+                    NSLog(@"******************** !!!!!! setting food !!!!!!22 **********************");
                     [self setFoodInfo];
                     [self configPhotoAndTagWithCellNo:cellNo];
                     [self prepareComments];
@@ -535,6 +547,7 @@ const  NSInteger NumCommentsPerLoad = 5;
             }];
         }
         else{//Food info is complete, config at once;
+            NSLog(@"******************** !!!!!! setting food !!!!!!333 **********************");
             [self configPhotoAndTagWithCellNo:cellNo];
             [self prepareComments];
         }
@@ -543,8 +556,7 @@ const  NSInteger NumCommentsPerLoad = 5;
 }
 
 /************  DISPLAY IN SINGLE VIEW  ************/
-
-//Prepare data for first time display
+//Prepare data for first time display IN SINGLE FOOD VIEW
 -(void)prepareForDisplay{
     if (self.myFood) {
         //Assure title and translation are showed;

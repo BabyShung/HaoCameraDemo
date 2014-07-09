@@ -54,6 +54,8 @@ static NSString *CellIdentifier = @"Cell";
 
 @property (strong,nonatomic) TransitionController *transitionController;
 
+@property (nonatomic)BOOL testingBool;
+
 @end
 
 @implementation MainViewController
@@ -71,17 +73,11 @@ static NSString *CellIdentifier = @"Cell";
     [self loadControls];
     
 
+    //set camView delegate to be DEBUG_VC
+    [self.Maindelegate setCamDelegateFromMain:self];
     
 }
--(void)viewWillAppear:(BOOL)animated{
-    //NSLog(@"+++ MVC +++ : I will appear");
-}
--(void)viewWillDisappear:(BOOL)animated{
-    //NSLog(@"+++ MVC +++ : I will disappear");
-}
--(void)viewDidDisappear:(BOOL)animated{
-    //NSLog(@"+++ MVC +++ : I did disappear");
-}
+
 -(void)loadControls{
     self.camView = [[CameraView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) andOrientation:self.interfaceOrientation andAppliedVC:self];
     [self.view insertSubview:self.camView belowSubview:self.collectionView];
@@ -135,27 +131,28 @@ static NSString *CellIdentifier = @"Cell";
                                 duration:0.5
                                  options:UIViewAnimationOptionTransitionCrossDissolve
                               animations:^(){
+                                  //alpha collection view and two buttons
                                   self.collectionView.alpha = 0;
                                   self.clearBtn.alpha = 0;
                                   self.captureBtn.alpha = 0;
                               }
                               completion:^(BOOL finished){
-                                  
+                                  //hide collection view and two buttons
                                   self.clearBtn.hidden = YES;
                                   self.captureBtn.hidden = YES;
                                   self.collectionView.hidden = YES;
                                   
                                   self.existingFood =nil;
                                   
-                                  for(EDCollectionCell *cell in self.collectionView.visibleCells)
-                                  {
-                                      [cell.foodInfoView resetData];
-                                  }
                                   [self.foodArray removeAllObjects];
                                   [self.collectionView reloadData];
                               }];
+    
+    
+    //[M13AsyncImageLoader cleanupLoaderAll];
 }
 
+//right bottom button
 - (void) captureBtnPressed:(id)sender {
 
     //resume camera
@@ -165,13 +162,8 @@ static NSString *CellIdentifier = @"Cell";
 
 - (void) viewDidAppear:(BOOL)animated {
     
-    //set camView delegate to be DEBUG_VC
-    [self.Maindelegate setCamDelegateFromMain:self];
-    
     [self.view bringSubviewToFront:_clearBtn];
     [self.view bringSubviewToFront:_captureBtn];
-    
-    NSLog(@"+++ MVC +++ : I did appear");
     
     //scroll DEspeed normal
     self.collectionView.decelerationRate = UIScrollViewDecelerationRateNormal;
@@ -211,13 +203,11 @@ static NSString *CellIdentifier = @"Cell";
     //close camera
     [self.camView pauseCamera];
     
-    
     //save in search history
     EDCollectionCell *cell = (EDCollectionCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
-    //NSLog(@"<><><><><><><><><*********** %@",cell.foodInfoView.myFood);
     [SearchDictionary addSearchHistory:cell.foodInfoView.myFood];
     
-
+    //present secondVC
     SecondViewController *viewController = [[SecondViewController alloc] initWithCollectionViewLayout:[[largeLayout alloc] init]];
     viewController.useLayoutToLayoutNavigationTransitions = YES;
     [self.navigationController pushViewController:viewController animated:YES];
@@ -228,7 +218,6 @@ static NSString *CellIdentifier = @"Cell";
 - (UICollectionViewTransitionLayout *)collectionView:(UICollectionView *)collectionView
                         transitionLayoutForOldLayout:(UICollectionViewLayout *)fromLayout newLayout:(UICollectionViewLayout *)toLayout
 {
-    //NSLog(@"+++ MVC +++ : I access to transition layout");
     TransitionLayout *transitionLayout = [[TransitionLayout alloc] initWithCurrentLayout:fromLayout nextLayout:toLayout];
     return transitionLayout;
 }
@@ -314,19 +303,37 @@ static NSString *CellIdentifier = @"Cell";
         }
     }];
     
-    
+//    if(self.testingBool){
     
     /****** OCR and Searching Components *****/
     
     Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
     //@"yeast bread with Worcestershire sauce and yogurt"
-    [dict serverSearchOCRString:@"sushi and caper with oatmeal" andCompletion:^(NSArray *results, BOOL success) {
+    [dict serverSearchOCRString:@"Romano and flatbread and roll and Romano Cheese" andCompletion:^(NSArray *results, BOOL success) {
         //NSLog(@"++++Main VC++++ : Server Foods: %d",(int)results.count);
         [self addFoodItems:results];
     }];
-    NSArray *localFoods = [dict localSearchOCRString:@"sushi and caper with oatmeal"];
+    NSArray *localFoods = [dict localSearchOCRString:@"Romano and flatbread and roll and Romano Cheese"];
     //NSLog(@"++++Main VC++++ : Local Foods: %d",(int)localFoods.count);
     [self addFoodItems:localFoods];
+        
+        
+//    }else{
+//        
+//        
+//        Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
+//        //@"yeast bread with Worcestershire sauce and yogurt"
+//        [dict serverSearchOCRString:@"sushi and caper with oatmeal" andCompletion:^(NSArray *results, BOOL success) {
+//            //NSLog(@"++++Main VC++++ : Server Foods: %d",(int)results.count);
+//            [self addFoodItems:results];
+//        }];
+//        NSArray *localFoods = [dict localSearchOCRString:@"sushi and caper with oatmeal"];
+//        //NSLog(@"++++Main VC++++ : Local Foods: %d",(int)localFoods.count);
+//        [self addFoodItems:localFoods];
+//        
+//    }
+    
+    self.testingBool = !self.testingBool;
 
     
     //also add two btns, one cross:clear cell, and one capture:
