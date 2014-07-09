@@ -14,11 +14,11 @@
 		3A69596A19670A2F00FB21F9 /* WordCorrector.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A69596919670A2F00FB21F9 /* WordCorrector.m */; };
 		3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */; };
 		3AC9FAF1196C3EBC00153773 /* localDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 3AC9FAF0196C3EBC00153773 /* localDB.db */; };
+		3AC9FAF3196CA0F500153773 /* localDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 3AC9FAF2196CA0F500153773 /* localDB.db */; };
 		AC1E7760194F580800532F65 /* ShareData.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1E775F194F580800532F65 /* ShareData.m */; };
 		AC1E7764194F583100532F65 /* filterwords.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC1E7761194F583100532F65 /* filterwords.txt */; };
 		AC3FDCE2196C49230008D311 /* foodlist_kw_en_7000.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC3FDCE1196C49230008D311 /* foodlist_kw_en_7000.txt */; };
 		AC3FDCE4196C49290008D311 /* foodlist_kw_cn_7000.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC3FDCE3196C49290008D311 /* foodlist_kw_cn_7000.txt */; };
-		AC3FDCE8196CA3560008D311 /* localDB.db in Resources */ = {isa = PBXBuildFile; fileRef = AC3FDCE7196CA3560008D311 /* localDB.db */; };
 		AC7491F8195A2C4F00D3CBBA /* TransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7491F7195A2C4F00D3CBBA /* TransitionController.m */; };
 		AC749201195A2D4300D3CBBA /* TransitionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC749200195A2D4300D3CBBA /* TransitionLayout.m */; };
 		AC8A357A19461E2100FC5465 /* SQLConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8A357619461E2100FC5465 /* SQLConnector.m */; };
@@ -216,11 +216,15 @@
 		3AA1BD8B192FA282002729BC /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
 		3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
 		3AC9FAF0196C3EBC00153773 /* localDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = localDB.db; sourceTree = "<group>"; };
+		3AC9FAF2196CA0F500153773 /* localDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = localDB.db; sourceTree = "<group>"; };
 		AC1E775F194F580800532F65 /* ShareData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareData.m; sourceTree = "<group>"; };
 		AC1E7761194F583100532F65 /* filterwords.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = filterwords.txt; sourceTree = "<group>"; };
 		AC3FDCE1196C49230008D311 /* foodlist_kw_en_7000.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = foodlist_kw_en_7000.txt; sourceTree = "<group>"; };
 		AC3FDCE3196C49290008D311 /* foodlist_kw_cn_7000.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = foodlist_kw_cn_7000.txt; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		AC3FDCE7196CA3560008D311 /* localDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = localDB.db; sourceTree = "<group>"; };
+=======
+>>>>>>> FETCH_HEAD
 		AC7491F6195A2C4F00D3CBBA /* TransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionController.h; sourceTree = "<group>"; };
 		AC7491F7195A2C4F00D3CBBA /* TransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionController.m; sourceTree = "<group>"; };
 		AC7491FF195A2D4300D3CBBA /* TransitionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionLayout.h; sourceTree = "<group>"; };
@@ -258,6 +262,7 @@
 		B8AB89CC196C7EA400F32E4F /* star_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_off@2x.png"; sourceTree = "<group>"; };
 		B8AB89CD196C7EA400F32E4F /* star_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_on.png; sourceTree = "<group>"; };
 		B8AB89CE196C7EA400F32E4F /* star_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_on@2x.png"; sourceTree = "<group>"; };
+		B8AB89D4196CA2FE00F32E4F /* localDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = localDB.db; sourceTree = "<group>"; };
 		B8B60FA7195914DF005268D5 /* smallLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smallLayout.h; sourceTree = "<group>"; };
 		B8B60FA8195914DF005268D5 /* smallLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smallLayout.m; sourceTree = "<group>"; };
 		B8B60FA9195914DF005268D5 /* largeLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = largeLayout.h; sourceTree = "<group>"; };
@@ -524,7 +529,11 @@
 		AC8A356819461D3E00FC5465 /* LocalDB */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				AC3FDCE7196CA3560008D311 /* localDB.db */,
+=======
+				B8AB89D4196CA2FE00F32E4F /* localDB.db */,
+>>>>>>> FETCH_HEAD
 				AC3FDCE3196C49290008D311 /* foodlist_kw_cn_7000.txt */,
 				AC3FDCE1196C49230008D311 /* foodlist_kw_en_7000.txt */,
 				AC1E7761194F583100532F65 /* filterwords.txt */,
@@ -1246,7 +1255,10 @@
 				B8C8F38A195F834B009F8F6E /* register_03.png in Resources */,
 				B8CC9F7F19689E6400CCFE74 /* default_selfie@2x.png in Resources */,
 				B8CC9F8A19689E6400CCFE74 /* ED_search.png in Resources */,
+<<<<<<< HEAD
 				AC3FDCE8196CA3560008D311 /* localDB.db in Resources */,
+=======
+>>>>>>> FETCH_HEAD
 				3AC9FAF1196C3EBC00153773 /* localDB.db in Resources */,
 				B8CC9FA81968A75900CCFE74 /* ED_feedback_right.png in Resources */,
 				B8CC9F611968980100CCFE74 /* rating-star-off@2x.png in Resources */,
@@ -1261,6 +1273,7 @@
 				B8B60FD619591E07005268D5 /* likeButton_unselected.png in Resources */,
 				B8CC9FA91968A75900CCFE74 /* ED_feedback_right@2x.png in Resources */,
 				B8CC9F7E19689E6400CCFE74 /* default_selfie.png in Resources */,
+				3AC9FAF3196CA0F500153773 /* localDB.db in Resources */,
 				B8C8F331195E1EFF009F8F6E /* trained_classifierNM1.xml in Resources */,
 				B8CC9F9019689E6400CCFE74 /* ICON-21@2x.png in Resources */,
 				B8B60FD819591E07005268D5 /* likeButtonToolbar_unselected.png in Resources */,

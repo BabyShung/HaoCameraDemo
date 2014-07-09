@@ -19,26 +19,28 @@
 
 @interface FoodInfoView : UIView
 
-@property (nonatomic, strong) TagView *tagview;
 
+//components
 @property (strong,nonatomic) UILabel *titleLabel;
-
-@property (strong,nonatomic)UIView *separator;
 @property (strong,nonatomic) UILabel *translateLabel;
-@property (strong,nonatomic) FBShimmeringView *shimmeringView;
-
-@property (strong,nonatomic) UIScrollView *scrollview;
+@property (strong, nonatomic) RQShineLabel *descriptionLabel;
+@property (nonatomic, strong) TagView *tagview;
 
 @property (nonatomic, strong) EDImageFlowLayout *photoLayout;
 @property (strong, nonatomic) UICollectionView *photoCollectionView;
 
-@property (strong, nonatomic) RQShineLabel *descriptionLabel;
-
+@property (strong,nonatomic)UIView *separator;
+@property (strong,nonatomic) FBShimmeringView *shimmeringView;
+@property (strong,nonatomic) UIScrollView *scrollview;
 @property (strong,nonatomic) UITableView *commentsTableView;
 
+//rendering data
 @property (strong,nonatomic) Food *myFood;
 
+
 @property (strong, nonatomic) UIButton * commentBtn;
+
+//methods
 
 - (id)initWithFrame:(CGRect)frame andVC:(UIViewController *)vc;
 

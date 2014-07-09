@@ -18,7 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
+
 
     /*          MUST BE CALLED AT FIRST        */
     /*Init Sharedata SINGLETON (INIT ONLY ONCE)*/

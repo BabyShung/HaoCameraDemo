@@ -20,10 +20,8 @@
 //load image with different loader
 - (void)loadImageFromURLAtAmazonAsync:(NSURL *)url withLoaderName:(NSString *)name completion:(M13CompletionBlock)completion
 {
-    NSLog(@"**************** 10 *************");
     [[M13AsyncImageLoader loaderWithName:name] loadImageAtURLAtAmazon:url target:self completion:^(BOOL success, M13ImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
         //Set the image if loaded
-        NSLog(@"**************** 11 *************");
         if (success) {
             
             self.image = image;

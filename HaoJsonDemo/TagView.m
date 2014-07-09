@@ -371,7 +371,7 @@
     tagBtn.layer.cornerRadius = TAG_RADIUS;//btnFrame.size.height * 0.5f;
     tagBtn.frame = CGRectIntegral(btnFrame);
     
-    NSLog(@"btn frame [%@] = %@", tag, NSStringFromCGRect(tagBtn.frame));
+    //NSLog(@"btn frame [%@] = %@", tag, NSStringFromCGRect(tagBtn.frame));
     
     return tagBtn;
 }
@@ -436,7 +436,7 @@
 - (void)tagButtonDidPushed:(id)sender
 {
     UIButton *btn = sender;
-    NSLog(@"tagButton pushed: %@, idx = %ld", btn.titleLabel.text, (long)btn.tag);
+    //NSLog(@"tagButton pushed: %@, idx = %ld", btn.titleLabel.text, (long)btn.tag);
     
     if (_deleteButton.hidden == NO && btn.tag == _deleteButton.tag)
     {
@@ -463,7 +463,7 @@
 
 - (void)deleteTagDidPush:(id)sender
 {
-    NSLog(@"tag count = %lu,  button tag = %ld", (unsigned long)_tagsMade.count, (long)_deleteButton.tag);
+    //NSLog(@"tag count = %lu,  button tag = %ld", (unsigned long)_tagsMade.count, (long)_deleteButton.tag);
     NSAssert(_tagsMade.count > _deleteButton.tag, @"out of range");
     if (_tagsMade.count <= _deleteButton.tag)
     {
