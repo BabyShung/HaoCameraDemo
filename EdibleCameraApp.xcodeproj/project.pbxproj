@@ -14,6 +14,7 @@
 		3A69596A19670A2F00FB21F9 /* WordCorrector.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A69596919670A2F00FB21F9 /* WordCorrector.m */; };
 		3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */; };
 		3AC9FAF1196C3EBC00153773 /* localDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 3AC9FAF0196C3EBC00153773 /* localDB.db */; };
+		3AC9FAF3196CA0F500153773 /* localDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 3AC9FAF2196CA0F500153773 /* localDB.db */; };
 		AC1E7760194F580800532F65 /* ShareData.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1E775F194F580800532F65 /* ShareData.m */; };
 		AC1E7764194F583100532F65 /* filterwords.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC1E7761194F583100532F65 /* filterwords.txt */; };
 		AC3FDCE2196C49230008D311 /* foodlist_kw_en_7000.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC3FDCE1196C49230008D311 /* foodlist_kw_en_7000.txt */; };
@@ -215,6 +216,7 @@
 		3AA1BD8B192FA282002729BC /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
 		3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
 		3AC9FAF0196C3EBC00153773 /* localDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = localDB.db; sourceTree = "<group>"; };
+		3AC9FAF2196CA0F500153773 /* localDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = localDB.db; sourceTree = "<group>"; };
 		AC1E775F194F580800532F65 /* ShareData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareData.m; sourceTree = "<group>"; };
 		AC1E7761194F583100532F65 /* filterwords.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = filterwords.txt; sourceTree = "<group>"; };
 		AC3FDCE1196C49230008D311 /* foodlist_kw_en_7000.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = foodlist_kw_en_7000.txt; sourceTree = "<group>"; };
@@ -1259,6 +1261,7 @@
 				B8B60FD619591E07005268D5 /* likeButton_unselected.png in Resources */,
 				B8CC9FA91968A75900CCFE74 /* ED_feedback_right@2x.png in Resources */,
 				B8CC9F7E19689E6400CCFE74 /* default_selfie.png in Resources */,
+				3AC9FAF3196CA0F500153773 /* localDB.db in Resources */,
 				B8C8F331195E1EFF009F8F6E /* trained_classifierNM1.xml in Resources */,
 				B8CC9F9019689E6400CCFE74 /* ICON-21@2x.png in Resources */,
 				B8B60FD819591E07005268D5 /* likeButtonToolbar_unselected.png in Resources */,
