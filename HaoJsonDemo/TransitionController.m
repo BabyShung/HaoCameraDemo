@@ -201,14 +201,12 @@
         case UIGestureRecognizerStateBegan:
             if (sender.numberOfTouches == 1) {
                  //NSLog(@"+++ TC +++ : A 1 finger gesture began");
-                
+                self.initialPinchPoint = point;
                  EDCollectionCell *cell = (EDCollectionCell *)[self.collectionView cellForItemAtIndexPath:[self.collectionView indexPathForItemAtPoint:point]];
                 //fabsf(velocity.y/velocity.x)>2
                 if (!self.hasActiveInteraction && velocity.y>0 && fabsf(velocity.y/velocity.x)>2 && cell.foodInfoView.scrollview.contentOffset.y<=0){
                     
                     //NSLog(@"+++ TC +++ : I will start interactive transition");
-                    
-                    self.initialPinchPoint = point;
                     self.hasActiveInteraction = YES; // the transition is in active motion
                     //[self.collectionView selectItemAtIndexPath:[self.collectionView indexPathForItemAtPoint:point] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredHorizontally
                     
@@ -230,9 +228,10 @@
                 [self updateWithProgress:progress andOffset:offsetToUse];
                 
             }//user scroll horizonally
-            else if(fabsf(velocity.y/velocity.x)<=2){
-                EDCollectionCell *cell = (EDCollectionCell *)[self.collectionView cellForItemAtIndexPath:[self.collectionView indexPathForItemAtPoint:self.initialPinchPoint]];
+            else if(fabsf(velocity.y/velocity.x)<=2 && self.collectionView.contentOffset.x>0 && (self.collectionView.contentOffset.x + self.collectionView.frame.size.width != self.collectionView.contentSize.height)){
                 
+                EDCollectionCell *cell = (EDCollectionCell *)[self.collectionView cellForItemAtIndexPath:[self.collectionView indexPathForItemAtPoint:self.initialPinchPoint]];
+                //NSLog(@")))))))))))))))))))))))))))) %@",cell.foodInfoView.myFood.title);
                 cell.foodInfoView.commentBtn.alpha = 1-fabsf(translate.x/100);
             
             }

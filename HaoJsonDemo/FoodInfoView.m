@@ -183,6 +183,7 @@ const  NSInteger NumCommentsPerLoad = 5;
     [_commentBtn addTarget:self action:@selector(commentBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self hideCommentButton];
     [self addSubview:_commentBtn];
+
     
 }
 
@@ -258,6 +259,7 @@ const  NSInteger NumCommentsPerLoad = 5;
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
+    NSLog(@"++++++++ FIV : %@ +++++++++  I get %d photoes",self.myFood.title, (int)self.myFood.photoNames.count);
     return self.myFood.photoNames.count;
 }
 
@@ -354,10 +356,9 @@ const  NSInteger NumCommentsPerLoad = 5;
     
     self.photoCollectionView.frame = CGRectMake(0, CGRectGetMaxY(self.tagview.frame) + GAP, width, PhotoCollectionViewHeight);
     
-    //[self.scrollview setContentSize:CGSizeMake(width,CGRectGetMaxY(self.commentsTableView.frame)+10)];
 
     
-    //self.commentsTableView.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, width, height );
+    //self.commentsTableView.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, width,  CGRectGetHeight(self.commentsTableView.frame));
     //
     /*Change alpha values for 4 special views*/
     
@@ -516,7 +517,7 @@ const  NSInteger NumCommentsPerLoad = 5;
         [self setFoodInfo];
         //NSLog(@"******************** !!!!!! setting food !!!!!!00 **********************");
         //If food info is not completed, request it
-        if (!self.myFood.isLoadingInfo && !self.myFood.foodInfoComplete) {
+        if (!self.myFood.isLoadingInfo && !self.myFood.isFoodInfoCompleted) {
             
             [self.myFood fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
                 //NSLog(@"******************** !!!!!! setting food !!!!!!11 **********************");
@@ -531,7 +532,7 @@ const  NSInteger NumCommentsPerLoad = 5;
                 
             }];
         }
-        else{//Food info is complete, config at once;
+        else if(self.myFood.isFoodInfoCompleted){//Food info is complete, config at once;
             //NSLog(@"******************** !!!!!! setting food !!!!!!333 **********************");
             [self configPhotoAndTagWithCellNo:cellNo];
             [self prepareComments];
@@ -549,7 +550,7 @@ const  NSInteger NumCommentsPerLoad = 5;
         [self setFoodInfo];
         
         //If food info is not completed, request it
-        if (!self.myFood.isLoadingInfo && !self.myFood.foodInfoComplete) {
+        if (!self.myFood.isLoadingInfo && !self.myFood.isFoodInfoCompleted) {
             
             [self.myFood fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
                 if (success) {
@@ -560,7 +561,7 @@ const  NSInteger NumCommentsPerLoad = 5;
                 
             }];
         }
-        else{//Food info is complete, config at once;
+        else if(self.myFood.isFoodInfoCompleted){//Food info is complete, config at once;
             [self configPhotoAndTag];
             [self prepareComments];
         }
@@ -605,15 +606,17 @@ const  NSInteger NumCommentsPerLoad = 5;
 }
 
 -(void)hideCommentButton{
+    self.commentBtn.hidden = YES;
     _commentBtn.alpha = .0f;
-    _commentBtn.hidden = YES;
+    //NSLog(@"------------------------------is hiden = %d",_commentBtn.isHidden);
 }
 
 -(void)showCommentButton{
     if ([User sharedInstance].Uid != 1) {
-        [UIView animateWithDuration:1 animations:^{
+        [UIView animateWithDuration:0.5 animations:^{
             self.commentBtn.hidden = NO;
             self.commentBtn.alpha = 1;
+            //NSLog(@"+++++++++++++++++++++++++is hiden = %d",_commentBtn.isHidden);
         }];
     }
     

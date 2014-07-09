@@ -96,7 +96,10 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
     }
     
     NSLog(@"description: %@",self.food_description);
-    NSLog(@"url: %@",self.photoNames[0]);
+    if (photoNameArr.count>0) {
+            NSLog(@"url: %@",self.photoNames[0]);
+    }
+
     
     return self;
 }
@@ -232,7 +235,10 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
                 }
                 
                 NSLog(@"description: %@",self.food_description);
-                NSLog(@"url: %@",self.photoNames[0]);
+                if (photoNameArr.count>0) {
+                        NSLog(@"url: %@",self.photoNames[0]);
+                }
+
                 
                 //dispatch_async(dispatch_get_main_queue(), ^{
                 _foodInfoCompletionBlock(nil,YES);

@@ -84,10 +84,17 @@ const NSInteger MaxCharNum = 20;
 
         NSIndexPath *centerCellIndex = [self.collectionView indexPathForItemAtPoint:self.collectionView.contentOffset];
         EDCollectionCell *cell = (EDCollectionCell *)[self.collectionView cellForItemAtIndexPath:centerCellIndex];
-    
+    NSLog(@"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~++++++++++++++++++ %d",(int)centerCellIndex.row);
         //wherever scroll to another cell, check and save food into dict
         [SearchDictionary addSearchHistory:cell.foodInfoView.myFood];
+    //if (!cell.foodInfoView.commentBtn.isHidden) {
 
+        [UIView animateWithDuration:0.5 animations:^{
+            cell.foodInfoView.commentBtn.alpha = 1;
+        }];
+    //}
+    
+    
     
     //tell the secondVC whether it can show the comment button
     //[[NSNotificationCenter defaultCenter]postNotificationName:@"showCmtButton" object:self userInfo:@{@"food":cell.myFood}];
