@@ -8,7 +8,7 @@
 
 #define SCALE_FACTOR 1.5f
 
-#define CROPVIEW_HEIGHT 350
+#define CROPVIEW_HEIGHT iPhone5?360:300
 #define CROPFRAME_BOARDER_WIDTH 3
 #define CROPFRAME_FRAME_WIDTH 220
 #define CROPFRAME_FRAME_HEIGHT 80
@@ -312,10 +312,8 @@
     CGRect drawRect = CGRectMake(-offsetLeft, -offsetTop, targetWidth, screenHeight);
     
     // See if someone's waiting for resized image
-    NSLog(@"****************** ddddddxxx ********************");
     if (isSaveWaitingForResizedImage == YES){
         [self.camDelegate EdibleCamera:self.appliedVC didFinishWithImage:_capturedImageView.image withRect:drawRect andCropSize:size];
-        NSLog(@"****************** dddddd ********************");
     }
     if (isRotateWaitingForResizedImage == YES)
         _capturedImageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -492,7 +490,7 @@
     // -- LOAD BUTTONS END -- //
     
     //separator line
-    _separatorLine = [[UIView alloc] initWithFrame:CGRectMake(10, 350, 300, 1)];
+    _separatorLine = [[UIView alloc] initWithFrame:CGRectMake(10, CROPVIEW_HEIGHT, 300, 1)];
     _separatorLine.backgroundColor = [UIColor whiteColor];
     [self addSubview:_separatorLine];
     

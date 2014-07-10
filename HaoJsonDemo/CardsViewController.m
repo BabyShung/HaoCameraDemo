@@ -21,6 +21,7 @@
 #import "User.h"
 #import "UIView+Toast.h"
 
+#define CROPVIEW_HEIGHT iPhone5?360:300
 
 const NSString *collectionCellIdentity = @"Cell";
 const CGFloat LeftMargin = 15.0f;
@@ -53,6 +54,8 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
 @property (nonatomic) NSUInteger assumedIndex;
 
 @property (nonatomic) BOOL shouldSlideBack;
+
+@property (strong, nonatomic) UIView * separatorLine;
 
 @end
 
@@ -104,6 +107,13 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
 }
 
 -(void)loadControls{
+    
+    //separator line
+    _separatorLine = [[UIView alloc] initWithFrame:CGRectMake(10, CROPVIEW_HEIGHT, 300, 1)];
+    _separatorLine.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:_separatorLine];
+    
+    
     _previousPageBtn = [LoadControls createCameraButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
     [_previousPageBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_previousPageBtn];
@@ -194,7 +204,12 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
     NSUInteger index = indexPath.row;
     
     if(index == 0){
+        
+        
         [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Search"] animated:YES];
+        
+
+        
     }else if(index == 1){
         IQFeedbackView *feedback = [[IQFeedbackView alloc] initWithTitle:NSLocalizedString(@"Feedback", nil) message:self.tempFeedbackText image:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) doneButtonTitle:NSLocalizedString(@"Send", nil)];
         [feedback setCanAddImage:NO];

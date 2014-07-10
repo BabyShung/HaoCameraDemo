@@ -76,6 +76,14 @@ static NSString *CellIdentifier = @"Cell";
     //set camView delegate to be DEBUG_VC
     [self.Maindelegate setCamDelegateFromMain:self];
     
+    
+    //for debugging
+//    Food *food1 = [[Food alloc] initWithTitle:@"Blue cheese" andTranslations:@"蓝芝士"];
+//    Food *food2 = [[Food alloc] initWithTitle:@"Bacon" andTranslations:@"培根"];
+//    Food *food3 = [[Food alloc] initWithTitle:@"Onion" andTranslations:@"洋葱"];
+//    self.foodArray = [NSMutableArray arrayWithObjects:food1,food2,food3, nil];
+//    self.collectionView.hidden = NO;
+    
 }
 
 -(void)loadControls{
@@ -332,8 +340,6 @@ static NSString *CellIdentifier = @"Cell";
 //        [self addFoodItems:localFoods];
 //        
 //    }
-    
-    self.testingBool = !self.testingBool;
 
     
     //also add two btns, one cross:clear cell, and one capture:
