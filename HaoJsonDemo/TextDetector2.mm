@@ -151,7 +151,7 @@ typedef vector<vector<cv::Point> > TContours;//global
             //NSLog(@"nothing to draw: %d",i);
         }
     }
-    [UIRects addObject:[UIImage imageWithCVMat:drawing]];//add overview img to the end of the array
+    //[UIRects addObject:[UIImage imageWithCVMat:drawing]];//add overview img to the end of the array
     
     return UIRects;
     
