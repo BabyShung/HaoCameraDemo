@@ -166,7 +166,7 @@
         if(self.signupBtn.center.y == signupBtnY){
             [UIView animateWithDuration:0.4f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 //signupBtnY -= 60;
-                self.signupBtn.center = CGPointMake(160, self.signupBtn.center.y-60);
+                self.signupBtn.center = CGPointMake(160, self.signupBtn.center.y-50);
                 
             } completion:nil];
         }
@@ -179,10 +179,10 @@
 
 -(void)goDownAnimation{
     if(!iPhone5){
-        if(self.signupBtn.center.y == signupBtnY - 60){
+        if(self.signupBtn.center.y == signupBtnY - 50){
             [UIView animateWithDuration:0.4f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 //signupBtnY += 60;
-                self.signupBtn.center = CGPointMake(160, self.signupBtn.center.y+60);
+                self.signupBtn.center = CGPointMake(160, self.signupBtn.center.y+50);
             } completion:nil];
         }
     }

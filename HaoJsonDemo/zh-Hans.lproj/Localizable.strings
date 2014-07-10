@@ -20,6 +20,7 @@
 "AT_LEAST"="至少";
 "AT_MOST"="至多";
 "Hello"="嗨";
+"ANONYMOUS_HELLO"="亲";
 "Cancel"="取消";
 "Send"="发送";
 "Email"="邮箱";
@@ -41,3 +42,6 @@
 "FIV_CMTV_TITLE" = "说说";
 "SUCCESS_COMMENT" = "发送成功";
 "FAIL_COMMENT" = "亲，请重发";
+"DETECTOR_NO_RESULT" = "无结果，再试一次亲";
+"NOT_REGISTERED_TEXT" = "您还没有登陆\n赶紧注册一个吧: )";
+"REGISTER_BUTTON_TEXT" = "注册";

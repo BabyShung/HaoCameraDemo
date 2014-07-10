@@ -26,6 +26,7 @@
 #import "LoadControls.h"
 #import "SearchDictionary.h"
 #import "User.h"
+#import "UIView+Toast.h"
 
 
 static NSString *CellIdentifier = @"Cell";
@@ -55,6 +56,8 @@ static NSString *CellIdentifier = @"Cell";
 
 @property (strong,nonatomic) TransitionController *transitionController;
 
+@property (strong,nonatomic) TextDetector2 *textDetector2;
+
 @property (nonatomic)BOOL testingBool;
 
 @end
@@ -67,6 +70,9 @@ static NSString *CellIdentifier = @"Cell";
     ScreenWidth = CGRectGetWidth([[UIScreen mainScreen] bounds]);
     ScreenHeight = CGRectGetHeight([[UIScreen mainScreen] bounds]);
     
+    //init textDetector - ChutianGao
+    _textDetector2 = [[TextDetector2 alloc]init];
+    
     //setup tesseract
     [self loadTesseract];
     
@@ -76,6 +82,14 @@ static NSString *CellIdentifier = @"Cell";
 
     //set camView delegate to be DEBUG_VC
     [self.Maindelegate setCamDelegateFromMain:self];
+    
+    
+    //for debugging
+//    Food *food1 = [[Food alloc] initWithTitle:@"Blue cheese" andTranslations:@"蓝芝士"];
+//    Food *food2 = [[Food alloc] initWithTitle:@"Bacon" andTranslations:@"培根"];
+//    Food *food3 = [[Food alloc] initWithTitle:@"Onion" andTranslations:@"洋葱"];
+//    self.foodArray = [NSMutableArray arrayWithObjects:food1,food2,food3, nil];
+//    self.collectionView.hidden = NO;
     
 }
 
@@ -102,13 +116,13 @@ static NSString *CellIdentifier = @"Cell";
     
     //add in collectionView
     
-    _clearBtn = [LoadControls createCameraButton_Image:@"ED_cross.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(10, 10, 10, 10) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
+    _clearBtn = [LoadControls createRoundedButton_Image:@"ED_cross.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(10, 10, 10, 10) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
     [_clearBtn addTarget:self action:@selector(clearBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     _clearBtn.alpha = 1;
     _clearBtn.hidden = YES;
     [self.view insertSubview:_clearBtn aboveSubview:self.collectionView];
     
-    _captureBtn = [LoadControls createCameraButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andCenter:CGPointMake(320-10-20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
+    _captureBtn = [LoadControls createRoundedButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andCenter:CGPointMake(320-10-23, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
     [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     _captureBtn.alpha = 1;
     _captureBtn.hidden = YES;
@@ -166,6 +180,8 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 - (void) viewDidAppear:(BOOL)animated {
+    
+    //[self.camView startLoadingAnimation];
     
     [self.view bringSubviewToFront:_clearBtn];
     [self.view bringSubviewToFront:_captureBtn];
@@ -292,36 +308,22 @@ static NSString *CellIdentifier = @"Cell";
 #pragma mark CAMERA DELEGATE
 
 - (void) EdibleCamera:(MainViewController *)simpleCam didFinishWithImage:(UIImage *)image withRect:(CGRect)rect andCropSize:(CGSize)size{
-    self.collectionView.hidden = NO;
-    self.collectionView.alpha = 1;
-    
-    //NSLog(@"****************** ccccccc ******************* %@",image);
-    
-    
-    [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        self.clearBtn.alpha = 1;
-        self.captureBtn.alpha = 1;
-    } completion:^(BOOL finished) {
-        if (finished) {
-            self.clearBtn.hidden = NO;
-            self.captureBtn.hidden = NO;
-        }
-    }];
+
     
 //    if(self.testingBool){
     
     /****** OCR and Searching Components *****/
     
     Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
-    //@"yeast bread with Worcestershire sauce and yogurt"
-    [dict serverSearchOCRString:@"Romano and flatbread and roll and Romano Cheese" andCompletion:^(NSArray *results, BOOL success) {
-        //NSLog(@"++++Main VC++++ : Server Foods: %d",(int)results.count);
-        [self addFoodItems:results];
-    }];
-    NSArray *localFoods = [dict localSearchOCRString:@"Romano and flatbread and roll and Romano Cheese"];
-    //NSLog(@"++++Main VC++++ : Local Foods: %d",(int)localFoods.count);
-    [self addFoodItems:localFoods];
-        
+//    //@"yeast bread with Worcestershire sauce and yogurt"
+//    [dict serverSearchOCRString:@"Romano and flatbread and roll and Romano Cheese" andCompletion:^(NSArray *results, BOOL success) {
+//        //NSLog(@"++++Main VC++++ : Server Foods: %d",(int)results.count);
+//        [self addFoodItems:results];
+//    }];
+//    NSArray *localFoods = [dict localSearchOCRString:@"Romano and flatbread and roll and Romano Cheese"];
+//    //NSLog(@"++++Main VC++++ : Local Foods: %d",(int)localFoods.count);
+//    [self addFoodItems:localFoods];
+    
         
 //    }else{
 //        
@@ -337,8 +339,7 @@ static NSString *CellIdentifier = @"Cell";
 //        [self addFoodItems:localFoods];
 //        
 //    }
-    
-    self.testingBool = !self.testingBool;
+
 
     
     //also add two btns, one cross:clear cell, and one capture:
@@ -350,28 +351,55 @@ static NSString *CellIdentifier = @"Cell";
         //PS: image variable is the original size image (2448*3264)
         UIImage *onScreenImage = [LoadControls scaleImage:image withScale:2.5f withRect:rect andCropSize:size];
         UIImage *originalImage = [UIImage imageWithCGImage:onScreenImage.CGImage];
-//        TextDetector2 *td2 = [[TextDetector2 alloc]init];
-//        self.imgArray = [td2 findTextArea:originalImage];
-//        NSLog(@"+++ MAIN VC +++ : text areas %d",(int)self.imgArray.count);
-//        if ([_imgArray count] > 0)
-//        {
-//            for(UIImage *preImage in _imgArray){
-//                
-//                _tempMat= [preImage CVMat];
-//                
-//                // Step 3. put Mat into pre processor- Charlie
-//                _tempMat = [self.ipp processImage:_tempMat];
-//                NSString *ocrStr = [self recognizeImageWithTesseract:[UIImage imageWithCVMat:_tempMat]];
-//                NSLog(@" ++++++++++ MAIN VC +++++++++++ : TEESSACT REC: %@",ocrStr);
-//                
-//                [localFoods addObjectsFromArray:[dict localSearchOCRString:ocrStr]];
-//            }
-//            [self addFoodItems:localFoods];        
-//        }
+        NSMutableArray *localFoods = [NSMutableArray array];
+        self.imgArray = [self.textDetector2 findTextArea:originalImage];
+        NSLog(@"+++ MAIN VC +++ : text areas %d",(int)self.imgArray.count);
+        if ([_imgArray count] > 0)
+        {
+            for(UIImage *preImage in _imgArray){
+                
+                _tempMat= [preImage CVMat];
+                
+                // Step 3. put Mat into pre processor- Charlie
+                _tempMat = [self.ipp processImage:_tempMat];
+                NSString *ocrStr = [self recognizeImageWithTesseract:[UIImage imageWithCVMat:_tempMat]];
+                NSLog(@" ++++++++++ MAIN VC +++++++++++ : TEESSACT REC: %@",ocrStr);
+                
+                [localFoods addObjectsFromArray:[dict localSearchOCRString:ocrStr]];
+            }
+            //hao added
+            [self.camView stopLoadingAnimation];
+            
+            [self showResultButtons];
+            
+            [self addFoodItems:localFoods];
+            
+        }else{
+            //no image coming back, tell users to retake
+            
+            [self.view makeToast:NSLocalizedString(@"DETECTOR_NO_RESULT", nil)];
+        }
         
     }
     
+    
+    
     NSLog(@"******************!! !! PHOTO TAKEN  !! !!********************");
+}
+
+-(void)showResultButtons{
+    self.collectionView.hidden = NO;
+    self.collectionView.alpha = 1;
+    
+    [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.clearBtn.alpha = 1;
+        self.captureBtn.alpha = 1;
+    } completion:^(BOOL finished) {
+        if (finished) {
+            self.clearBtn.hidden = NO;
+            self.captureBtn.hidden = NO;
+        }
+    }];
 }
 
 //View did load in SimpleCam VC
@@ -380,7 +408,17 @@ static NSString *CellIdentifier = @"Cell";
     
 }
 
+
+
 // GETTERs
+
+//-(TextDetector2*)textDetector2{
+//    if(!_textDetector2){
+//        _textDetector2 = [[TextDetector2 alloc]init];
+//    }
+//    return _textDetector2;
+//}
+
 -(ImagePreProcessor*)ipp{
     if(!_ipp){
         _ipp = [[ImagePreProcessor alloc] init];

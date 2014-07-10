@@ -7,6 +7,7 @@
 //
 
 #import "LoadControls.h"
+#import "ED_Color.h"
 
 #define smallBTNRadius 22
 #define largeBTNRadius 34
@@ -59,7 +60,15 @@
     return tv;
 }
 
-+(UIButton *)createCameraButton_Image:(NSString *)imageName andTintColor:(UIColor *) color andImageInset:(UIEdgeInsets) edgeInset andCenter:(CGPoint)center andSmallRadius:(BOOL)radius{
++(UIButton *)createUIButtonWithRect:(CGRect)rect{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button setTitle:@"" forState:UIControlStateNormal];
+    button.frame = rect;
+    return button;
+}
+
+
++(UIButton *)createRoundedButton_Image:(NSString *)imageName andTintColor:(UIColor *) color andImageInset:(UIEdgeInsets) edgeInset andCenter:(CGPoint)center andSmallRadius:(BOOL)radius{
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
 
@@ -82,7 +91,7 @@
     button.layer.rasterizationScale = [UIScreen mainScreen].scale;
     button.layer.cornerRadius = radius?smallBTNRadius:largeBTNRadius;
     
-    button.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    button.layer.borderColor = [ED_Color darkGreyColor].CGColor;
     button.layer.borderWidth = 0.5;
     return button;
 }

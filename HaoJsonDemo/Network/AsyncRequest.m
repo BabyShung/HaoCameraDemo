@@ -15,9 +15,6 @@
 //http://edibleserver-env.elasticbeanstalk.com/food?title=Bacon&lang=CN
 //http://default-environment-9hfbefpjmu.elasticbeanstalk.com/review?fid=1&uid=10&start=0&offset=5DESC
 
-
-#define OTHER @"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/Other?name=我"
-
 #define FOODURL @"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/food?"
 
 #define REVIEWURL @"http://default-environment-9hfbefpjmu.elasticbeanstalk.com/review?"
@@ -105,21 +102,6 @@
     
 }
 
-//-(void)getFoodInfo:(NSString*)foodname andLanguage:(NSString *)language {
-//    
-//    NSMutableString *paraString = [NSMutableString stringWithString:@"title="];
-//    [paraString appendString:foodname];
-//    [paraString appendString:@"&lang="];
-//    [paraString appendString:language];
-//    NSMutableString *foodString =  [NSMutableString stringWithString:FOODURL];
-//    
-//    [foodString appendString:paraString];
-//    
-//    NSString *finalString = [NSString stringWithString:foodString];
-//    
-//    [self performGETAsyncTaskwithURLString:finalString];
-//}
-
 -(void)getFoodInfo_byPost:(NSString*)foodname andLanguage:(TargetLang)lang{
     NSString *language;
     switch (lang) {
@@ -155,46 +137,15 @@
     [self performAsyncTask_Dictionary:dict andURL:url];
 }
 
-//-(void)doComment:(Comment *)comment rating:(NSUInteger)rate withAction:(NSString*)action {
-//    
-//    User *user = [User sharedInstance];
-//    
-//    NSNumber *uidNumber = [NSNumber numberWithInteger:user.Uid];
-//    NSNumber *rateNumber = [NSNumber numberWithInteger:rate];
-//    
-//    
-//    NSDictionary * dict;
-//    
-//    //doing a post action
-//    if([action isEqualToString:@"add"]){
-//        
-//        NSNumber *fidNumber = [NSNumber numberWithInteger:comment.fid];
-//        //NSNumber *timeNumber = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]*1000.0];
-//        //NSLog(@"nsnumber %@",timeNumber);
-//        
-//        dict = [NSDictionary dictionaryWithObjectsAndKeys:fidNumber, @"fid",comment.text, @"comments", rateNumber, @"rate", uidNumber, @"uid",action,@"action", nil];
-//        
-//        
-//    }else{//doing an update action
-//        
-//        NSNumber *cidNumber = [NSNumber numberWithInteger:comment.cid];
-//        
-//        
-//        dict = [NSDictionary dictionaryWithObjectsAndKeys:cidNumber, @"rid",comment.text, @"comments", rateNumber, @"rate", uidNumber, @"uid", action,@"action", nil];
-//        
-//    }
-//    
-//    
-//    NSURL *url = [NSURL URLWithString:DOREVIEW];
-//     NSLog(@"POST: %@",url);
-//    [self performAsyncTask_Dictionary:dict andURL:url];
-//}
-
-
+/******************
+ 
+ send feedback
+ 
+ ******************/
 -(void)sendFeedbackWithContent:(NSString *)content{
     
     User *user = [User sharedInstance];
-    NSNumber *uidnumber = [NSNumber numberWithInteger:1];//user.Uid
+    NSNumber *uidnumber = [NSNumber numberWithInteger:user.Uid];//user.Uid
     
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:uidnumber, @"uid",content, @"content",@"post_feed_back",@"action", nil];
     
@@ -276,9 +227,11 @@
     
     NSURL *url = [NSURL URLWithString:urlEncodeString];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.f];
+
     
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:_selfy];
+    
     [conn start];
 }
 
@@ -293,6 +246,7 @@
     //convert dictionary to data
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:dict options:kNilOptions error:&error];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setTimeoutInterval:20.f];
     [request setURL:url];
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];

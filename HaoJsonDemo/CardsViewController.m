@@ -20,7 +20,11 @@
 #import "BlurActionSheet.h"
 #import "User.h"
 #import "UIView+Toast.h"
+#import "UIButton+Bootstrap.h"
+#import "LoginViewController.h"
 
+
+#define CROPVIEW_HEIGHT iPhone5?360:300
 
 const NSString *collectionCellIdentity = @"Cell";
 const CGFloat LeftMargin = 15.0f;
@@ -29,11 +33,6 @@ static NSArray *colors;
 
 @interface CardsViewController () <UICollectionViewDataSource,
 UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
-
-@property (weak, nonatomic) IBOutlet UILabel *currentCellHeader;
-@property (weak, nonatomic) IBOutlet UILabel *policyLabel;
-@property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
-@property (weak, nonatomic) IBOutlet UILabel *webLabel;
 
 @property (nonatomic, strong) MKTransitionCoordinator *menuInteractor;
 
@@ -53,6 +52,8 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
 @property (nonatomic) NSUInteger assumedIndex;
 
 @property (nonatomic) BOOL shouldSlideBack;
+
+@property (strong, nonatomic) UIView * separatorLine;
 
 @end
 
@@ -92,19 +93,59 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
     
     User *user = [User sharedInstance];
     
-    self.titleLabel.text = [NSString stringWithFormat: @"%@, %@",NSLocalizedString(@"Hello", nil),user.name];
+    
+    if(user.Uid == AnonymousUser){
+        
+        self.titleLabel.text = [NSString stringWithFormat: @"%@",NSLocalizedString(@"ANONYMOUS_HELLO", nil)];
+        
+        //init view to indicate login
+        self.descriptionLabel.text = NSLocalizedString(@"NOT_REGISTERED_TEXT", nil);
+        
+        UIButton *registerBtn = [[UIButton alloc]initWithFrame:CGRectMake(40, 170, 240, 50)];
+        [registerBtn addTarget:self action:@selector(PressedRegisterButton:) forControlEvents:UIControlEventTouchUpInside];
+        [registerBtn setTitle:NSLocalizedString(@"REGISTER_BUTTON_TEXT", nil) forState:UIControlStateNormal];
+        [registerBtn successStyle];
+        [self.view addSubview:registerBtn];
+        
+
+
+        
+        
+    }else{
+        self.titleLabel.text = [NSString stringWithFormat: @"%@, %@",NSLocalizedString(@"Hello", nil),user.name];
+        
+        //show profile stuff
+    }
+}
+
+-(void)PressedRegisterButton:(id)stuff{
+    
+    [User logout];
+    
+    [self transitionToLoginVC];
     
 }
 
 -(void)viewDidAppear:(BOOL)animated{
+    if(self.shimmeringView.shimmering){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.shimmeringView.shimmering = NO;
+        });
+    }
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.shimmeringView.shimmering = NO;
-    });
+    [self.descriptionLabel shine];
+    
 }
 
 -(void)loadControls{
-    _previousPageBtn = [LoadControls createCameraButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
+    
+    //separator line
+    _separatorLine = [[UIView alloc] initWithFrame:CGRectMake(10, CROPVIEW_HEIGHT, 300, 1)];
+    _separatorLine.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:_separatorLine];
+    
+    
+    _previousPageBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
     [_previousPageBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_previousPageBtn];
     
@@ -139,18 +180,18 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
     
     
     
-    //    self.descriptionLabel = ({
-    //        RQShineLabel *label = [[RQShineLabel alloc] initWithFrame:CGRectMake(LeftMargin+32, CGRectGetHeight(self.titleLabel.frame)+ 64, 100, 300)];
-    //        label.numberOfLines = 0;
-    //        label.text = @"Plan\n\n\n\nPolicy No.\n\n\n\nPhone No.\n\n\n\nWebsite";
-    //        label.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:13.0];
-    //        label.backgroundColor = [UIColor clearColor];
-    //        [label sizeToFit];
-    //        //label.center = self.view.center;
-    //        label.textColor = [UIColor whiteColor];
-    //        label;
-    //    });
-    //    [self.view addSubview:self.descriptionLabel];
+    self.descriptionLabel = ({
+        RQShineLabel *label = [[RQShineLabel alloc] initWithFrame:CGRectMake(32, 10, 270, 200)];
+        label.numberOfLines = 0;
+        label.text = @"";
+        label.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:22.0];
+        label.backgroundColor = [UIColor clearColor];
+        //[label sizeToFit];
+          //label.center = self.view.center;
+        label.textColor = [UIColor whiteColor];
+        label;
+    });
+    [self.view addSubview:self.descriptionLabel];
 }
 
 #pragma mark - UIScrollViewDelegate Methods
@@ -194,7 +235,12 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
     NSUInteger index = indexPath.row;
     
     if(index == 0){
+        
+        
         [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Search"] animated:YES];
+        
+
+        
     }else if(index == 1){
         IQFeedbackView *feedback = [[IQFeedbackView alloc] initWithTitle:NSLocalizedString(@"Feedback", nil) message:self.tempFeedbackText image:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) doneButtonTitle:NSLocalizedString(@"Send", nil)];
         [feedback setCanAddImage:NO];
@@ -224,7 +270,7 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
             [feedback dismiss];
         }];
     }else if (index == 2){
-        [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Register"] animated:YES];
+        [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"AboutUs"] animated:YES];
     }else if (index == 3){
         [self willLogout];
     }

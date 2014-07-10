@@ -20,6 +20,7 @@
 "AT_LEAST"=" at least ";
 "AT_MOST"="at most";
 "Hello"="Hello";
+"ANONYMOUS_HELLO"="Dear friend";
 "Cancel"="Cancel";
 "Send"="Send";
 "Email"=" Email";
@@ -40,3 +41,6 @@
 "FIV_CMTV_TITLE" = "Comment on ";
 "SUCCESS_COMMENT" = "Comment sent";
 "FAIL_COMMENT" = "Sorry, please send again";
+"DETECTOR_NO_RESULT" = "No results, please try again";
+"NOT_REGISTERED_TEXT" = "You are not logged in\nWhy not register one?";
+"REGISTER_BUTTON_TEXT" = "Register";

@@ -21,6 +21,6 @@
 
 @property (weak, nonatomic) IBOutlet UIView *userView;
 
-
+-(void)pushToSignUp_withAnimation:(BOOL)animate;
 
 @end

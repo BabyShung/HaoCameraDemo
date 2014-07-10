@@ -15,6 +15,7 @@
 #import "Food.h"
 #import "SingleFoodViewController.h"
 #import "DBOperation.h"
+#import "AppDelegate.h"
 
 #define FETCH_SEARCH_NUMBER 20
 
@@ -45,6 +46,11 @@ static NSString *CellIdentifier = @"Cell";
     DBOperation *dbo = [[DBOperation alloc] init];
     self.foodData = [dbo fetchSearchHistoryByOrder_withLimitNumber:FETCH_SEARCH_NUMBER];
     self.searchData = self.foodData;
+    
+    
+    //also stop camera
+    AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDlg.cameraView pauseCamera];
 }
 
 
@@ -63,6 +69,11 @@ static NSString *CellIdentifier = @"Cell";
 
 - (void) previousPagePressed:(id)sender {
     [self.navigationController popToRootViewControllerAnimated:YES];
+    
+    
+    //also resume camera
+    AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDlg.cameraView resumeCamera];
 }
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
@@ -161,7 +172,7 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 -(void)loadControls{
-    _backBtn = [LoadControls createCameraButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
+    _backBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
     [_backBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_backBtn];
     

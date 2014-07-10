@@ -22,6 +22,52 @@
             </objects>
             <point key="canvasLocation" x="1919" y="303"/>
         </scene>
+        <!--About Us View Controller-->
+        <scene sceneID="kl1-7e-iEm">
+            <objects>
+                <viewController storyboardIdentifier="AboutUs" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gBt-sy-ge1" customClass="AboutUsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="b2T-br-aeQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="4cx-NW-Zkq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="do9-gH-qKc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="blackBG.JPG" translatesAutoresizingMaskIntoConstraints="NO" id="j9d-qV-8hL">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F7T-zk-nD8">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <mutableString key="text">We are the Edible Innovations!
+
+Award-winning menu translation app helps travelers order with confidence
+
+When we arrived in the United States as international students, we were fascinated by all the foods we had never seen before and were ready to start our delicious adventures. However, the difficulty of understanding menus caused by the language and cultural barriers resulted in many mistakes in our food ordering. Blue cheese was the particular item that had a beautiful name but a horrible taste. The experience of ordering blue cheese with my mouth-watering rib-eye steak inspired us to help other international travelers and students better understand menus and order with confidence.
+
+To use our app, simply take a picture of menu items or type in the items’ names to get immediate translations. Clicking on the translation block presents the detailed descriptions and pictures of the items. We start with English to Chinese translation and will expand to other languages soon. This award-winning product was a finalist for the Prometheus Award of the Technology Association of Iowa and the first place winner in the Papajohn New Venture Competition.
+
+Please also share stories about your food adventures on our online community: www.thebluecheese.com 
+
+Contact Blue Cheese: ceo@thebluecheese.com</mutableString>
+                                <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="4cx-NW-Zkq" firstAttribute="top" secondItem="F7T-zk-nD8" secondAttribute="bottom" id="DGb-A7-kSn"/>
+                            <constraint firstItem="F7T-zk-nD8" firstAttribute="top" secondItem="do9-gH-qKc" secondAttribute="top" id="hfB-zU-mEc"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lVi-UI-9gi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2472" y="298"/>
+        </scene>
         <!--Test View Controller-->
         <scene sceneID="83B-dm-PP6">
             <objects>
@@ -322,10 +368,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Bkf-yg-wl3" userLabel="Bottom Collection View">
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Bkf-yg-wl3" userLabel="Bottom Collection View">
                                 <rect key="frame" x="0.0" y="370" width="320" height="210"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="fAZ-KT-HG6"/>
+                                    <constraint firstAttribute="height" constant="210" id="svG-cR-XtZ"/>
+                                </constraints>
                                 <collectionViewLayout key="collectionViewLayout" id="Jk3-nz-VT3" customClass="CardFlowLayout"/>
                                 <cells/>
                                 <connections>
@@ -333,49 +383,15 @@
                                     <outlet property="delegate" destination="Bos-eE-Oap" id="dNO-fA-t7O"/>
                                 </connections>
                             </collectionView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4CX-Ve-UAC" userLabel="View - Line">
-                                <rect key="frame" x="10" y="350" width="300" height="1"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="206" translatesAutoresizingMaskIntoConstraints="NO" id="2AI-BB-oj9">
-                                <rect key="frame" x="105" y="88" width="206" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EEg-69-Fee">
-                                <rect key="frame" x="124" y="212" width="187" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="187" translatesAutoresizingMaskIntoConstraints="NO" id="jp1-qw-gu6">
-                                <rect key="frame" x="124" y="272" width="187" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ooN-s4-9s6">
-                                <rect key="frame" x="124" y="149" width="187" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Bkf-yg-wl3" secondAttribute="bottom" constant="-12" id="idy-sZ-6f2"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="1BD-SU-b2S"/>
                     <connections>
                         <outlet property="bottomCollectionView" destination="Bkf-yg-wl3" id="C3w-GK-9vn"/>
-                        <outlet property="currentCellHeader" destination="2AI-BB-oj9" id="jFa-kj-tAC"/>
-                        <outlet property="phoneLabel" destination="EEg-69-Fee" id="PyV-Yy-H2y"/>
-                        <outlet property="policyLabel" destination="ooN-s4-9s6" id="Dea-78-GSA"/>
-                        <outlet property="webLabel" destination="jp1-qw-gu6" id="Ab1-WP-gTp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QOL-mf-oEL" sceneMemberID="firstResponder"/>
@@ -432,9 +448,9 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x0f-2C-e8H">
-                                        <rect key="frame" x="62" y="439" width="195" height="30"/>
+                                        <rect key="frame" x="62" y="437" width="195" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                        <fontDescription key="fontDescription" name="STHeitiTC-Medium" family="Heiti TC" pointSize="16"/>
                                         <state key="normal" title="Skip Login">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" red="0.1463500707" green="0.163991686" blue="0.16764987240000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -444,15 +460,15 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Nu-rV-biw">
-                                        <rect key="frame" x="62" y="406" width="195" height="30"/>
+                                        <rect key="frame" x="62" y="393" width="195" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                        <fontDescription key="fontDescription" name="STHeitiTC-Medium" family="Heiti TC" pointSize="16"/>
                                         <state key="normal" title="Sign up">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" red="0.1463500707" green="0.163991686" blue="0.16764987240000001" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="register:" destination="HHj-Jz-yl9" eventType="touchUpInside" id="Gd7-Xf-IPa"/>
+                                            <action selector="clickedSignUp:" destination="HHj-Jz-yl9" eventType="touchUpInside" id="nPd-p5-Crt"/>
                                         </connections>
                                     </button>
                                     <view alpha="0.80000000000000004" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qqL-t7-CPy" userLabel="pwdView">
@@ -539,9 +555,9 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="elX-e3-hUj">
-                                <rect key="frame" x="63" y="317" width="195" height="47"/>
+                                <rect key="frame" x="63" y="313" width="195" height="47"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="STHeitiTC-Medium" family="Heiti TC" pointSize="15"/>
                                 <state key="normal" title="back to login">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" red="0.1463500707" green="0.163991686" blue="0.16764987240000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -594,7 +610,7 @@
                                 <color key="backgroundColor" red="0.1463500707" green="0.163991686" blue="0.16764987240000001" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ic-ru-quV">
-                                <rect key="frame" x="20" y="259" width="280" height="50"/>
+                                <rect key="frame" x="20" y="249" width="280" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
                                 <state key="normal" title="Sign up">
@@ -655,12 +671,12 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FyW-vb-qEH" customClass="SSSearchBar">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FyW-vb-qEH" customClass="SSSearchBar">
                                 <rect key="frame" x="20" y="20" width="280" height="32"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gOq-nR-jqc">
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gOq-nR-jqc">
                                 <rect key="frame" x="0.0" y="74" width="320" height="494"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="yhQ-OF-axH">
@@ -711,6 +727,10 @@
                                 </cells>
                             </collectionView>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="s39-vy-9Uc" firstAttribute="top" secondItem="gOq-nR-jqc" secondAttribute="bottom" id="QQO-di-oNg"/>
+                            <constraint firstItem="gOq-nR-jqc" firstAttribute="top" secondItem="FyW-vb-qEH" secondAttribute="bottom" constant="22" id="R4t-hY-Ac7"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="gOq-nR-jqc" id="GxY-FN-hLw"/>
