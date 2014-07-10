@@ -9,10 +9,11 @@
 #import "CardFlowLayout.h"
 
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
-#define ITEM_WIDTH 160
-#define ITEM_HEIGHT_ip5 193
+#define ITEM_WIDTH_ip5 160
+#define ITEM_WIDTH_ip4 150
+#define ITEM_HEIGHT_ip5 183
 #define ITEM_HEIGHT_ip4 165
-#define EDGE_INSET ITEM_WIDTH/2
+#define EDGE_INSET ITEM_WIDTH_ip5/2
 #define ROTATION_CENTER_VERTICAL_OFFSET 300
 #define ROTATION_ANGLE_DIVIDER 4
 #define SPACING_BETWEEN_CELLS -10
@@ -23,7 +24,7 @@
     
     
     CGFloat collectionViewHeight = self.collectionView.bounds.size.height;
-    self.itemSize = CGSizeMake(ITEM_WIDTH, (iPhone5?ITEM_HEIGHT_ip5:ITEM_HEIGHT_ip4));
+    self.itemSize = CGSizeMake((iPhone5?ITEM_WIDTH_ip5:ITEM_WIDTH_ip4), (iPhone5?ITEM_HEIGHT_ip5:ITEM_HEIGHT_ip4));
     //the item height must be less that the height of the UICollectionView minus the section insets top and bottom values.
     self.sectionInset = UIEdgeInsetsMake(collectionViewHeight-(iPhone5?ITEM_HEIGHT_ip5:ITEM_HEIGHT_ip4)-1, EDGE_INSET, 0, EDGE_INSET);
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;

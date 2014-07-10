@@ -60,6 +60,14 @@
     return tv;
 }
 
++(UIButton *)createUIButtonWithRect:(CGRect)rect{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button setTitle:@"" forState:UIControlStateNormal];
+    button.frame = rect;
+    return button;
+}
+
+
 +(UIButton *)createRoundedButton_Image:(NSString *)imageName andTintColor:(UIColor *) color andImageInset:(UIEdgeInsets) edgeInset andCenter:(CGPoint)center andSmallRadius:(BOOL)radius{
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];

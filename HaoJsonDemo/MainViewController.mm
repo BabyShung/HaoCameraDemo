@@ -25,7 +25,7 @@
 #import "M13AsyncImageLoader.h"
 #import "LoadControls.h"
 #import "SearchDictionary.h"
-
+#import "UIView+Toast.h"
 
 static NSString *CellIdentifier = @"Cell";
 
@@ -54,6 +54,8 @@ static NSString *CellIdentifier = @"Cell";
 
 @property (strong,nonatomic) TransitionController *transitionController;
 
+@property (strong,nonatomic) TextDetector2 *textDetector2;
+
 @property (nonatomic)BOOL testingBool;
 
 @end
@@ -65,6 +67,9 @@ static NSString *CellIdentifier = @"Cell";
     
     ScreenWidth = CGRectGetWidth([[UIScreen mainScreen] bounds]);
     ScreenHeight = CGRectGetHeight([[UIScreen mainScreen] bounds]);
+    
+    //init textDetector - ChutianGao
+    _textDetector2 = [[TextDetector2 alloc]init];
     
     //setup tesseract
     [self loadTesseract];
@@ -297,21 +302,7 @@ static NSString *CellIdentifier = @"Cell";
 #pragma mark CAMERA DELEGATE
 
 - (void) EdibleCamera:(MainViewController *)simpleCam didFinishWithImage:(UIImage *)image withRect:(CGRect)rect andCropSize:(CGSize)size{
-    self.collectionView.hidden = NO;
-    self.collectionView.alpha = 1;
-    
-    //NSLog(@"****************** ccccccc ******************* %@",image);
-    
-    
-    [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        self.clearBtn.alpha = 1;
-        self.captureBtn.alpha = 1;
-    } completion:^(BOOL finished) {
-        if (finished) {
-            self.clearBtn.hidden = NO;
-            self.captureBtn.hidden = NO;
-        }
-    }];
+
     
 //    if(self.testingBool){
     
@@ -355,8 +346,7 @@ static NSString *CellIdentifier = @"Cell";
         UIImage *onScreenImage = [LoadControls scaleImage:image withScale:2.5f withRect:rect andCropSize:size];
         UIImage *originalImage = [UIImage imageWithCGImage:onScreenImage.CGImage];
         NSMutableArray *localFoods = [NSMutableArray array];
-        TextDetector2 *td2 = [[TextDetector2 alloc]init];
-        self.imgArray = [td2 findTextArea:originalImage];
+        self.imgArray = [self.textDetector2 findTextArea:originalImage];
         NSLog(@"+++ MAIN VC +++ : text areas %d",(int)self.imgArray.count);
         if ([_imgArray count] > 0)
         {
@@ -374,7 +364,14 @@ static NSString *CellIdentifier = @"Cell";
             //hao added
             [self.camView stopLoadingAnimation];
             
-            [self addFoodItems:localFoods];        
+            [self showResultButtons];
+            
+            [self addFoodItems:localFoods];
+            
+        }else{
+            //no image coming back, tell users to retake
+            
+            [self.view makeToast:NSLocalizedString(@"DETECTOR_NO_RESULT", nil)];
         }
         
     }
@@ -384,13 +381,38 @@ static NSString *CellIdentifier = @"Cell";
     NSLog(@"******************!! !! PHOTO TAKEN  !! !!********************");
 }
 
+-(void)showResultButtons{
+    self.collectionView.hidden = NO;
+    self.collectionView.alpha = 1;
+    
+    [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.clearBtn.alpha = 1;
+        self.captureBtn.alpha = 1;
+    } completion:^(BOOL finished) {
+        if (finished) {
+            self.clearBtn.hidden = NO;
+            self.captureBtn.hidden = NO;
+        }
+    }];
+}
+
 //View did load in SimpleCam VC
 - (void) EdibleCameraDidLoadCameraIntoView:(MainViewController *)simpleCam {
     NSLog(@"Camera loaded ... ");
     
 }
 
+
+
 // GETTERs
+
+//-(TextDetector2*)textDetector2{
+//    if(!_textDetector2){
+//        _textDetector2 = [[TextDetector2 alloc]init];
+//    }
+//    return _textDetector2;
+//}
+
 -(ImagePreProcessor*)ipp{
     if(!_ipp){
         _ipp = [[ImagePreProcessor alloc] init];

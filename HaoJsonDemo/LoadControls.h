@@ -19,4 +19,6 @@
 
 +(UIButton *)createRoundedButton_Image:(NSString *)imageName andTintColor:(UIColor *) color andImageInset:(UIEdgeInsets) edgeInset andCenter:(CGPoint)center andSmallRadius:(BOOL)radius;
 
++(UIButton *)createUIButtonWithRect:(CGRect)rect;
+
 @end

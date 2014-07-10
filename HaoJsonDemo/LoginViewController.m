@@ -86,9 +86,11 @@
     return [self.storyboard instantiateViewControllerWithIdentifier:@"Register"];
 }
 
-- (IBAction)register:(UIButton *)sender {
-        [self.view endEditing:YES];
-        [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Register"] animated:YES];
+- (IBAction)clickedSignUp:(id)sender {
+    [self.view endEditing:YES];
+    [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Register"] animated:YES];
+    
+    
 }
 
 -(BOOL)prefersStatusBarHidden{

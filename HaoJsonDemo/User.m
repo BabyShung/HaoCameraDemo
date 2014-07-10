@@ -150,7 +150,7 @@ static AsyncRequest *async;
 +(User *)anonymousLogin{
     async = [[AsyncRequest alloc] initWithDelegate:sharedInstance];
     
-    User *user = [self sharedInstanceWithUid:1 andEmail:@"Anonymous@edible.com" andUname:@"Anonymous" andUpwd:nil andUtype:0 andUselfie:@"default_selfie.png"];
+    User *user = [self sharedInstanceWithUid:AnonymousUser andEmail:@"Anonymous@edible.com" andUname:@"Anonymous" andUpwd:nil andUtype:0 andUselfie:@"default_selfie.png"];
     async = [[AsyncRequest alloc] initWithDelegate:sharedInstance];
     return user;
 }
@@ -178,9 +178,7 @@ static AsyncRequest *async;
 }
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"OOPS", nil) message:NSLocalizedString(@"ERROR_NETWORK", nil) delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
-    [alert show];
-    
+
     //also set things back
     if (CompletionBlock) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -230,13 +228,7 @@ static AsyncRequest *async;
             }else{
                 [User sharedInstance].latestComment = nil;
             }
-
-            
         }
-        
-        
-        
-        
         dispatch_async(dispatch_get_main_queue(), ^{
             if (CompletionBlock) {
                 CompletionBlock(nil,YES);
