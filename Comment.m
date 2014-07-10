@@ -8,6 +8,7 @@
 
 #import "Comment.h"
 
+
 @implementation Comment
 
 -(instancetype)initWithCommentID:(NSUInteger)cid andFid:(NSUInteger )fid andRate:(NSUInteger)rate andComment:(NSString *)text{

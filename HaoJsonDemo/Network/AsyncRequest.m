@@ -67,7 +67,7 @@
 
 -(void)getReviews_fid:(NSUInteger)fid byUid:(NSUInteger)uid
 {
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:fid], @"fid",[NSNumber numberWithInteger:uid], @"uid",@"my_review",@"action", nil];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:fid], @"fid",[NSNumber numberWithInteger:uid], @"uid",@"get_my_review",@"action", nil];
     
     NSURL *url = [NSURL URLWithString:DOREVIEW];
     

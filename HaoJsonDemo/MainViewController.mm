@@ -25,6 +25,7 @@
 #import "M13AsyncImageLoader.h"
 #import "LoadControls.h"
 #import "SearchDictionary.h"
+#import "User.h"
 
 
 static NSString *CellIdentifier = @"Cell";
@@ -124,6 +125,10 @@ static NSString *CellIdentifier = @"Cell";
     
     [self.camView backBtnPressed:nil];
     [self.camView resumeCamera];
+    
+    //Clean up cached comments of different foods
+    NSLog(@"+++++++ MVC +++++++++ : clean up last comntes");
+    [[User sharedInstance].lastComments removeAllObjects];
     
     
     

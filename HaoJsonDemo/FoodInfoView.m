@@ -16,6 +16,9 @@
 #import "LoadControls.h"
 #import "ED_Color.h"
 #import "User.h"
+#import "HATransparentView.h"
+#import "DXStarRatingView.h"
+#import "UIView+Toast.h"
 
 static NSString *CellIdentifier = @"Cell";
 
@@ -47,9 +50,11 @@ const CGFloat SmallTitleFontSize = 15.f;
 const CGFloat SmallTextFontSize = 10.f;
 
 const CGFloat ViewAlphaRecreaseRate = 450.f;
-const  NSInteger NumCommentsPerLoad = 5;
+const NSInteger NumCommentsPerLoad = 5;
 
-@interface FoodInfoView () <UICollectionViewDataSource,UICollectionViewDelegate,TagViewDelegate,UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate>
+const NSUInteger MaxCharNum = 10;
+
+@interface FoodInfoView () <UICollectionViewDataSource,UICollectionViewDelegate,TagViewDelegate,UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,HATransparentViewDelegate,UITextViewDelegate>
 
 
 
@@ -57,6 +62,19 @@ const  NSInteger NumCommentsPerLoad = 5;
 @property (strong,nonatomic) UIViewController *currentVC;
 
 @property (strong,nonatomic) NSString *imgLoaderName;
+
+@property (strong,nonatomic) Comment *myComment;
+
+@property (strong,nonatomic) HATransparentView *commentView;
+
+@property (strong,nonatomic) NSMutableString *countStr;
+
+@property (nonatomic) NSUInteger currentStar;
+
+@property (strong,nonatomic) UILabel *countLabel;
+
+@property (strong,nonatomic) UIActivityIndicatorView *activityView;
+
 @end
 
 @implementation FoodInfoView
@@ -68,6 +86,14 @@ const  NSInteger NumCommentsPerLoad = 5;
     if (self) {
         
         self.currentVC = vc;
+        self.myFood = nil;
+        self.myComment = nil;
+        self.countStr =[NSMutableString stringWithString:@""];
+        self.commentView = [[HATransparentView alloc] init];
+        self.commentView.delegate = self;
+        self.activityView=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        
+        self.activityView.center=self.center;
         //init all UI controls
         [self loadControls];
         
@@ -79,8 +105,14 @@ const  NSInteger NumCommentsPerLoad = 5;
     self = [super initWithFrame:frame];
     if (self) {
         self.currentVC = nil;
-        
         self.myFood = nil;
+        self.myComment = nil;
+        self.countStr =[NSMutableString stringWithString:@""];
+        self.commentView = [[HATransparentView alloc] init];
+        self.commentView.delegate = self;
+        self.activityView=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        
+        self.activityView.center=self.center;
         //init all UI controls
         [self loadControls];
         
@@ -355,10 +387,10 @@ const  NSInteger NumCommentsPerLoad = 5;
     self.tagview.frame = CGRectMake(0, BelowDescriptionLabelGap+CGRectGetMaxY(self.descriptionLabel.frame) , width, TagViewHeight);
     
     self.photoCollectionView.frame = CGRectMake(0, CGRectGetMaxY(self.tagview.frame) + GAP, width, PhotoCollectionViewHeight);
-    
 
     
     self.commentsTableView.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, width,  CGRectGetHeight(self.commentsTableView.frame));
+    
     //
     /*Change alpha values for 4 special views*/
     
@@ -368,7 +400,7 @@ const  NSInteger NumCommentsPerLoad = 5;
     self.commentsTableView.alpha = newAlpha;
     self.photoCollectionView.alpha = newAlpha;
 
-    NSLog(@"+++ FIV %@ +++ LAYOUT SUBVIEW: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.contentSize.height,self.scrollview.frame.size.height);
+    //NSLog(@"+++ FIV %@ +++ LAYOUT SUBVIEW: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.contentSize.height,self.scrollview.frame.size.height);
 }
 
 -(void)setUpForLargeLayout{
@@ -476,6 +508,8 @@ const  NSInteger NumCommentsPerLoad = 5;
     
     //set the food object in foodInfoView(belonging to collection cell) to nil
     self.myFood = nil;
+    self.myComment = nil;
+    [self.countStr setString:@""];
     
     //
     [self resetData];
@@ -491,6 +525,8 @@ const  NSInteger NumCommentsPerLoad = 5;
     [self.commentsTableView reloadData];
     
     [self.tagview clear];
+    
+
 }
 
 /************  DISPLAY IN COLLECTION VIEW  ************/
@@ -528,6 +564,9 @@ const  NSInteger NumCommentsPerLoad = 5;
                     [self configPhotoAndTagWithCellNo:cellNo];
                     [self prepareComments];
                     [self showCommentButton];
+             
+                    
+                    
                 }
                 
             }];
@@ -557,6 +596,7 @@ const  NSInteger NumCommentsPerLoad = 5;
                     [self setFoodInfo];
                     [self configPhotoAndTag];
                     [self prepareComments];
+                    [self showCommentButton];
                 }
                 
             }];
@@ -564,6 +604,7 @@ const  NSInteger NumCommentsPerLoad = 5;
         else if(self.myFood.isFoodInfoCompleted){//Food info is complete, config at once;
             [self configPhotoAndTag];
             [self prepareComments];
+            [self showCommentButton];
         }
         
     }
@@ -594,15 +635,68 @@ const  NSInteger NumCommentsPerLoad = 5;
 
 - (void) commentBtnPressed:(id)sender {
     NSLog(@"++++ FIV ++++ : COMMENT BUTTON PRESSED");
-    //1. get fid
+
+    //[self.activityView startAnimating];
     
-    //2. get uid
-    //    User *user = [User sharedInstance];
-    //    if(user.Uid != 0){
-    //        //show comment button
-    //    }
     
-    //3.send to server
+    if ([[User sharedInstance].lastComments objectForKey:[NSString stringWithFormat:@"%d",(int)self.myFood.fid]] == [NSNull null] || ![[User sharedInstance].lastComments objectForKey:[NSString stringWithFormat:@"%d",(int)self.myFood.fid]]) {
+        [self addSubview:self.activityView];
+        [User fetchMyCommentOnFood:self.myFood.fid andCompletion:^(NSError *err, BOOL success) {
+            [self.activityView removeFromSuperview];
+            [self showCommentView];
+        }];
+    }else{
+        //lastcomment has been loaded
+        [self showCommentView];
+    }
+
+}
+
+-(void)showCommentView{
+    [_commentView open];
+    
+    // Add a title Label
+    
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(_commentView.frame.origin.x, _commentView.frame.origin.y+26, CGRectGetWidth(_commentView.frame), 55)];
+    titleLabel.text = [NSString stringWithFormat:@"%@%@",NSLocalizedString(@"FIV_CMTV_TITLE", nil),self.myFood.title];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.font = [UIFont systemFontOfSize:20];
+    titleLabel.textColor = [UIColor whiteColor];
+    
+    //Add a rate View
+    DXStarRatingView *rateView = [[DXStarRatingView alloc] initWithFrame:CGRectMake((_commentView.frame.size.width - 250)/2, CGRectGetMaxY(titleLabel.frame), 260, 65)];
+    
+    // Add a textView
+    UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(rateView.frame), _commentView.frame.size.width - 40, 200)];
+    textView.textColor = [UIColor blackColor];
+    textView.editable = YES;
+    textView.font = [UIFont systemFontOfSize:LargeTextFontSize];
+    [textView setReturnKeyType:UIReturnKeySend];
+    textView.delegate = self;
+    [textView becomeFirstResponder];
+    
+    self.countLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(textView.frame)-90, CGRectGetMaxY(textView.frame)-40, 80, 40)];
+    self.countLabel.textColor = [UIColor lightGrayColor];
+    [_countStr setString:@""];
+    [_countStr appendFormat:@"%d",(int)MaxCharNum];
+    self.countLabel.text =_countStr;
+    self.countLabel.textAlignment = NSTextAlignmentRight;
+    //            //textView.backgroundColor = [UIColor clearColor];
+    
+    id lastcomment = [[User sharedInstance].lastComments objectForKey:[NSString stringWithFormat:@"%d",(int)self.myFood.fid]];
+    if (lastcomment != [NSNull null]) {
+        textView.text = ((Comment *)lastcomment).text;
+        [rateView setStars:(int)((Comment *)lastcomment).rate target:self callbackAction:@selector(didChangeRating:)];
+    }
+    else{
+        //textView.text = @"Please comment...";
+        [rateView setStars:3 target:self callbackAction:@selector(didChangeRating:)];
+    }
+    [_commentView addSubview:titleLabel];
+    [_commentView addSubview:textView];
+    [_commentView addSubview:rateView];
+    [_commentView addSubview:self.countLabel];
+
 }
 
 -(void)hideCommentButton{
@@ -621,5 +715,70 @@ const  NSInteger NumCommentsPerLoad = 5;
     }
     
 }
+
+- (void)didChangeRating:(NSNumber*)newRating
+{
+    _currentStar = [newRating unsignedIntegerValue];
+    //NSLog(@"didChangeRating: %@",newRating);
+}
+
+/*****************************/
+/* HATransparentView delegate*/
+/*****************************/
+- (void)HATransparentViewDidClosed
+{
+    
+    NSLog(@"Did close");
+    
+    self.countLabel = nil;
+}
+
+/********************/
+/* TextView delegate*/
+/********************/
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+//    if ([text isEqualToString:@"\n"]) {
+//
+//        //[textView resignFirstResponder];
+//        //return NO;
+//    }
+
+    return YES;
+}
+
+-(void)textViewDidChange:(UITextView *)textView
+{
+    if ([[textView.text substringFromIndex:(textView.text.length-1)] isEqualToString:@"\n"])
+    {
+        textView.text = [textView.text substringToIndex:textView.text.length-1];
+        
+        Comment *newComment = [[Comment alloc]initWithCommentID:0 andFid:self.myFood.fid andRate:_currentStar andComment:textView.text];
+        [[User sharedInstance].lastComments setObject:newComment forKey:[NSString stringWithFormat:@"%d",(int)self.myFood.fid]];
+        NSLog(@"+++++++++++++++ FIV +++++WILL SEND COMMENT+++++++++++++++++++");
+        [User createComment:newComment andCompletion:^(NSError *err, BOOL success) {
+            if (success)
+            {
+                NSLog(@"+++++++++++++++ FIV +++++SEND COMMENT SUCCEED+++++++++++++++++++");
+                [self.commentView close];
+                [self makeToast:NSLocalizedString(@"SUCCESS_COMMENT", nil)];
+            }
+            else{
+                [self makeToast:NSLocalizedString(@"FAIL_COMMENT", nil)];
+            }
+        }];
+        
+        
+    }
+    else if (textView.text.length > MaxCharNum) {
+        textView.text = [textView.text substringToIndex:MaxCharNum];
+        [_countStr setString:@""];
+        [_countStr appendFormat:@"%i",(int)(MaxCharNum - textView.text.length)];
+        self.countLabel.text =_countStr;
+    }
+
+    
+}
+
+
 
 @end

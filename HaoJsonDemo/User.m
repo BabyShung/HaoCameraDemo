@@ -50,7 +50,7 @@ static AsyncRequest *async;
             sharedInstance.pwd = upwd;
             sharedInstance.type = utype;
             sharedInstance.selfie = uselfie;
-            sharedInstance.latestComment = nil;
+            sharedInstance.lastComments = [NSMutableDictionary dictionary];
             
             webdata = [[NSMutableData alloc]init];
         });
@@ -74,7 +74,7 @@ static AsyncRequest *async;
     sharedInstance.pwd = nil;
     sharedInstance.type = 0;
     sharedInstance.selfie = nil;
-    sharedInstance.latestComment = nil;
+    sharedInstance.lastComments = nil;
 }
 
 +(void)loginWithCompletion:(void (^)(NSError *err, BOOL success))block{
@@ -110,6 +110,7 @@ static AsyncRequest *async;
 
 +(void)fetchMyCommentOnFood:(NSUInteger)fid andCompletion:(void (^)(NSError *err, BOOL success))block{
     CompletionBlock = block;
+    [sharedInstance.lastComments setObject:[NSNull null] forKey:[NSString stringWithFormat:@"%d",(int)fid]];
     [async getReviews_fid:fid byUid:[User sharedInstance].Uid];
 }
 
@@ -225,23 +226,23 @@ static AsyncRequest *async;
         else if([action isEqualToString:@"get_review"]){//get my review
             
             NSArray *resultArr = [returnJSONtoNSdict objectForKey:@"result"];
-            if (resultArr.count == 1) {
-                [User sharedInstance].latestComment = [[Comment alloc]initWithDict:resultArr[0]];
-            }else{
-                [User sharedInstance].latestComment = nil;
+            if (resultArr.count == 1)
+            {
+                Comment *result = [[Comment alloc]initWithDict:resultArr[0]];
+                [sharedInstance.lastComments setObject:result forKey:[NSString stringWithFormat:@"%d",(int)result.fid]];
+                
+                
             }
 
             
         }
-        
-        
-        
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (CompletionBlock) {
+        if (CompletionBlock) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
                 CompletionBlock(nil,YES);
-            }
-        });
+                
+            });
+        }
 
         
     }else{
@@ -257,8 +258,11 @@ static AsyncRequest *async;
         }
         
         if (CompletionBlock) {
-            CompletionBlock(nil,NO);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                CompletionBlock(nil,NO);
+            });
         }
+        
     }
     
 }

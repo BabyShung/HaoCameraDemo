@@ -104,6 +104,8 @@ const NSInteger MaxCharNum = 20;
 }
 
 
+
+
 //#pragma mark - RatingDelegate
 //- (void)didChangeRating:(NSNumber*)newRating
 //{

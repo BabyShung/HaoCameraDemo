@@ -89,11 +89,15 @@
     [self.foodInfoView setFrame:self.bounds];
     
     if (CGRectGetHeight(self.contentView.frame)< CGRectGetHeight([[UIScreen mainScreen] bounds])) {
+        self.foodInfoView.commentBtn.alpha = .0f;
         self.foodInfoView.scrollview.scrollEnabled = NO;
     }
     else{
         [self.foodInfoView shineDescription];
         self.foodInfoView.scrollview.scrollEnabled = YES;
+        [UIView animateWithDuration:0.5 animations:^{
+            self.foodInfoView.commentBtn.alpha = 1;
+        }];
     }
     
 }

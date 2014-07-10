@@ -216,10 +216,10 @@
             break;
         case UIGestureRecognizerStateChanged:
             if (self.hasActiveInteraction){
-                //CGFloat distance = sqrt(translate.x*translate.x + translate.y*translate.y);
+                CGFloat distance = sqrt(translate.x*translate.x + translate.y*translate.y);
                 //CGFloat offsetX = translate.x;
                 CGFloat offsetX = 0;
-                CGFloat offsetY = translate.y; //- distance;
+                CGFloat offsetY = translate.y - distance;
                 CGFloat ratio =(point.y - self.initialPinchPoint.y)/(screenH-self.initialPinchPoint.y);
                 
                 UIOffset offsetToUse = UIOffsetMake(offsetX, offsetY);
@@ -227,8 +227,8 @@
                 
                 [self updateWithProgress:progress andOffset:offsetToUse];
                 
-            }//user scroll horizonally
-            else if(fabsf(velocity.y/velocity.x)<=2 && self.collectionView.contentOffset.x>0 && (self.collectionView.contentOffset.x + self.collectionView.frame.size.width != self.collectionView.contentSize.width)){
+            }//user scroll horizonally /*****   THINK TWICE   ******/
+            else if(velocity.y && fabsf(velocity.y/velocity.x)<=2 && self.collectionView.contentOffset.x>0 && (self.collectionView.contentOffset.x + self.collectionView.frame.size.width != self.collectionView.contentSize.width)){
                 
                 EDCollectionCell *cell = (EDCollectionCell *)[self.collectionView cellForItemAtIndexPath:[self.collectionView indexPathForItemAtPoint:self.initialPinchPoint]];
                 //NSLog(@")))))))))))))))))))))))))))) %@",cell.foodInfoView.myFood.title);

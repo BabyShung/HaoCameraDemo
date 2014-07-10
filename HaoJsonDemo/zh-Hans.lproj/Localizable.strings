@@ -38,3 +38,6 @@
 "TEXT_NOT_NIL"="亲，请写些东西";
 "TIME" = "次";
 "TIMES" = "次";
+"FIV_CMTV_TITLE" = "说说";
+"SUCCESS_COMMENT" = "发送成功";
+"FAIL_COMMENT" = "亲，请重发";

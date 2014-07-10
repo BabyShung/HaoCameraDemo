@@ -48,7 +48,7 @@
     // Close button
     if (!self.hideCloseButton) {
         UIButton *close = [UIButton buttonWithType:UIButtonTypeCustom];
-        close.frame = CGRectMake(self.frame.size.width - 60, 26, 60, 30);
+        close.frame = CGRectMake(self.frame.size.width - 60, 26, 60, 60);
         [close addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:close];
         
@@ -67,11 +67,11 @@
     }
     
     // Animation
-    CATransition *viewIn = [CATransition animation];
-    [viewIn setDuration:0.4];
-    [viewIn setType:kCATransitionReveal];
-    [viewIn setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
-    [[self layer] addAnimation:viewIn forKey:kCATransitionReveal];
+//    CATransition *viewIn = [CATransition animation];
+//    [viewIn setDuration:0.4];
+//    [viewIn setType:kCATransitionReveal];
+//    [viewIn setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
+//    [[self layer] addAnimation:viewIn forKey:kCATransitionReveal];
     
     [[[window subviews] objectAtIndex:0] addSubview:self];
 }

@@ -37,3 +37,6 @@
 "TEXT_NOT_NIL"="Please type something : )";
 "TIME" = " time";
 "TIMES" = " times";
+"FIV_CMTV_TITLE" = "Comment on ";
+"SUCCESS_COMMENT" = "Comment sent";
+"FAIL_COMMENT" = "Sorry, please send again";
