@@ -12,14 +12,14 @@
 #import "DBOperation.h"
 #import "SearchDictionary.h"
 #import "MainViewController.h"
-
+#import "Flurry.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-
+    [Flurry startSession:@"BJKGTKRHXZGZC4VD3RZ9"];
     /*          MUST BE CALLED AT FIRST        */
     /*Init Sharedata SINGLETON (INIT ONLY ONCE)*/
     
