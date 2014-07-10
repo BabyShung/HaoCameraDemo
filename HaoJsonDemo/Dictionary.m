@@ -144,7 +144,12 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
     
     NSMutableArray *words_corrected = [NSMutableArray array];
     for(NSString *word in words){
-        [words_corrected addObject: [_wordCorrector correctWord:word]];
+        NSString *correctedWord = [_wordCorrector correctWord:word];
+        [correctedWord stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        [correctedWord stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+        if (![correctedWord isEqual:@""] && ![correctedWord isEqual:@" "] && correctedWord.length > 1){
+            [words_corrected addObject: [_wordCorrector correctWord:word]];
+        }
     }
     
     //Get filter words as a string
@@ -169,15 +174,17 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
     //Generate all combination of remain words
     NSMutableString * tmpStr = [[NSMutableString alloc]init];
     NSUInteger numOfWords = words_corrected.count;
-    if(numOfWords < 7){ // avoid latancy
+    if(numOfWords < 7 && numOfWords >0){ // avoid latancy
         for (int i=0; i<numOfWords-1; i++) {
             [tmpStr setString:words_corrected[i]];
+            [tmpStr stringByReplacingOccurrencesOfString:@"\r\n"
+                                               withString:@""];
+            
             for (int j = i+1; j < numOfWords ; j++) {
-                NSString *tempword =  [words_corrected objectAtIndex:j];
-                if (![tempword  isEqual: @" "]){
-                    [tmpStr appendFormat:@" %@",words_corrected[j]];
-                    [words_corrected addObject:[NSString stringWithString:tmpStr]];
-                }
+                
+                [tmpStr appendFormat:@" %@",words_corrected[j]];
+                [words_corrected addObject:[NSString stringWithString:tmpStr]];
+                
             }
         }
     }
