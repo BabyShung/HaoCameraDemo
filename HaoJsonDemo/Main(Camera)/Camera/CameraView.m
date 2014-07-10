@@ -25,6 +25,7 @@
 #import "ED_Color.h"
 #import "LoadControls.h"
 #import "AppDelegate.h"
+#import "LoadingAnimation.h"
 
 @interface CameraView () <CameraManageCDelegate>
 {
@@ -62,6 +63,8 @@
 
 @property (nonatomic) UIInterfaceOrientation iot;
 
+@property (nonatomic,strong) LoadingAnimation *loadingImage;
+
 @end
 
 @implementation CameraView
@@ -88,6 +91,26 @@
     }
     return self;
 }
+
+-(void)loadLoadingAnimation{
+    //start animation
+    if(!self.loadingImage){
+        self.loadingImage = [[LoadingAnimation alloc] initWithStyle:RTSpinKitViewStyleWave color:[ED_Color edibleBlueColor]];
+        CGRect screenBounds = [[UIScreen mainScreen] bounds];
+        self.loadingImage.center = CGPointMake(CGRectGetMidX(screenBounds), iPhone5? screenBounds.size.height*0.7:screenBounds.size.height*0.72);
+        [self addSubview:self.loadingImage];
+    }
+}
+
+-(void)startLoadingAnimation{
+
+    [self.loadingImage startAnimating];
+}
+
+-(void)stopLoadingAnimation{
+    [self.loadingImage stopAnimating];
+}
+
 
 - (void)resumeCamera{
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -128,6 +151,7 @@
     
     //init camera
     [self loadCamera];
+
     
     //later can change to let user define it
     _isCropMode = YES;
@@ -136,6 +160,9 @@
     
     // -- PREPARE OUR CONTROLS -- //
     [self loadControls];
+    
+    //init loading animation
+    [self loadLoadingAnimation];
 }
 
 //delegate method from CameraManager
@@ -238,6 +265,10 @@
 #pragma mark BUTTON EVENTS
 
 - (void) captureBtnPressed:(id)sender {
+    
+    //start loading animation
+    [self startLoadingAnimation];
+    
     [self capturePhoto];
     //[self photoCaptured];
 }
@@ -469,19 +500,19 @@
     
     
     // -- LOAD BUTTONS BEGIN -- //
-    _backBtn = [LoadControls createCameraButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointZero andSmallRadius:YES];
+    _backBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointZero andSmallRadius:YES];
     [_backBtn addTarget:self action:@selector(backBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    _TorchBtn = [LoadControls createCameraButton_Image:@"ED_torch.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(0, 0, 0, 0) andCenter:torchStart andSmallRadius:YES];
+    _TorchBtn = [LoadControls createRoundedButton_Image:@"ED_torch.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(0, 0, 0, 0) andCenter:torchStart andSmallRadius:YES];
     [_TorchBtn addTarget:self action:@selector(torchBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    _saveBtn = [LoadControls createCameraButton_Image:@"Download.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 10.5, 7, 10.5) andCenter:CGPointZero andSmallRadius:YES];
+    _saveBtn = [LoadControls createRoundedButton_Image:@"Download.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 10.5, 7, 10.5) andCenter:CGPointZero andSmallRadius:YES];
     [_saveBtn addTarget:self action:@selector(saveBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    _nextPageBtn = [LoadControls createCameraButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 13, 9, 10) andCenter:nextStart andSmallRadius:YES];
+    _nextPageBtn = [LoadControls createRoundedButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 13, 9, 10) andCenter:nextStart andSmallRadius:YES];
     [_nextPageBtn addTarget:self action:@selector(nextPagePressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    _captureBtn = [LoadControls createCameraButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsZero andCenter:captureStart andSmallRadius:NO];
+    _captureBtn = [LoadControls createRoundedButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsZero andCenter:captureStart andSmallRadius:NO];
     [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     [_captureBtn setTitleColor:[ED_Color darkGreyColor] forState:UIControlStateNormal];
     _captureBtn.titleLabel.font = [UIFont systemFontOfSize:12.5];

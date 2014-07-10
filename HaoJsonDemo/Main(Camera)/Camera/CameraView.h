@@ -90,4 +90,10 @@
 
 - (void) backBtnPressed:(id)sender;
 
+//loading animation
+-(void)startLoadingAnimation;
+
+-(void)stopLoadingAnimation;
+
+
 @end
