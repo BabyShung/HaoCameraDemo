@@ -58,7 +58,7 @@
     [self.connector openDB];
     NSMutableArray *foods = [NSMutableArray array];
     sqlite3_stmt *stm = nil;
-    NSString *sql =[NSString stringWithFormat:@"SELECT title,translate,queryTimes FROM SearchHistory order by queryTimes desc,ts desc LIMIT %d",(int)number];
+    NSString *sql =[NSString stringWithFormat:@"SELECT title,translate,queryTimes FROM SearchHistory order by ts desc,queryTimes desc LIMIT %d",(int)number];
 	if (stm == nil)
     {
 		if (sqlite3_prepare_v2([self.connector database], [sql UTF8String], -1, &stm, NULL) != SQLITE_OK)

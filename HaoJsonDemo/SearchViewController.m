@@ -16,6 +16,8 @@
 #import "SingleFoodViewController.h"
 #import "DBOperation.h"
 
+#define FETCH_SEARCH_NUMBER 20
+
 static NSString *CellIdentifier = @"Cell";
 
 @interface SearchViewController () <SSSearchBarDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
@@ -41,7 +43,7 @@ static NSString *CellIdentifier = @"Cell";
     [self loadControls];
     
     DBOperation *dbo = [[DBOperation alloc] init];
-    self.foodData = [dbo fetchSearchHistoryByOrder_withLimitNumber:10];
+    self.foodData = [dbo fetchSearchHistoryByOrder_withLimitNumber:FETCH_SEARCH_NUMBER];
     self.searchData = self.foodData;
 }
 
@@ -134,7 +136,7 @@ static NSString *CellIdentifier = @"Cell";
                 DBOperation *dbo = [[DBOperation alloc] init];
                 [dbo upsertSearchHistory:selectedFood];
                 
-                self.foodData = [dbo fetchSearchHistoryByOrder_withLimitNumber:10];
+                self.foodData = [dbo fetchSearchHistoryByOrder_withLimitNumber:FETCH_SEARCH_NUMBER];
                 self.searchData = self.foodData;
                 [self.collectionView reloadData];
             });

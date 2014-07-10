@@ -229,7 +229,7 @@
     }
     
     //click back btn
-    [self backBtnPressed:nil];
+    //[self backBtnPressed:nil];
     
     //turn torch off if it is on
     [_camManager turnOffTorch:_TorchBtn];

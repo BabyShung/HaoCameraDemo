@@ -223,6 +223,8 @@
 
 - (IBAction)SkipLogin:(id)sender {
     //skipping login, generate a user with uid "1" ... ... ...
+
+    
     [User anonymousLogin];
     
     //User info already set
@@ -233,6 +235,9 @@
     
     NSLog(@"%@",[User sharedInstance]);
     
+    
+    //resign keyboard if possible
+    [self.view endEditing:YES];
     
     //transition
     [self transitionToFrameVC_duration:0.5];
