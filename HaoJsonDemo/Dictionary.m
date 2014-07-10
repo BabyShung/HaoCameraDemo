@@ -169,11 +169,16 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
     //Generate all combination of remain words
     NSMutableString * tmpStr = [[NSMutableString alloc]init];
     NSUInteger numOfWords = words_corrected.count;
-    for (int i=0; i<numOfWords-1; i++) {
-        [tmpStr setString:words_corrected[i]];
-        for (int j = i+1; j < numOfWords ; j++) {
-            [tmpStr appendFormat:@" %@",words_corrected[j]];
-            [words_corrected addObject:[NSString stringWithString:tmpStr]];
+    if(numOfWords < 7){ // avoid latancy
+        for (int i=0; i<numOfWords-1; i++) {
+            [tmpStr setString:words_corrected[i]];
+            for (int j = i+1; j < numOfWords ; j++) {
+                NSString *tempword =  [words_corrected objectAtIndex:j];
+                if (![tempword  isEqual: @" "]){
+                    [tmpStr appendFormat:@" %@",words_corrected[j]];
+                    [words_corrected addObject:[NSString stringWithString:tmpStr]];
+                }
+            }
         }
     }
     

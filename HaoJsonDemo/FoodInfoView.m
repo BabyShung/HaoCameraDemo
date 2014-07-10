@@ -168,7 +168,7 @@ const  NSInteger NumCommentsPerLoad = 5;
     //add table view
     //----------------------------comment
     
-    _commentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, width,height) style:UITableViewStylePlain];
+    _commentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, width,10) style:UITableViewStylePlain];
     _commentsTableView.scrollEnabled = NO;
     
     _commentsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
