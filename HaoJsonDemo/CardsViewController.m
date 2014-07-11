@@ -28,6 +28,8 @@
 
 const NSString *collectionCellIdentity = @"Cell";
 const CGFloat LeftMargin = 15.0f;
+const CGFloat LeftContextMargin = 40.f;
+const CGFloat TopContextMargin = 100.0f;
 const CGFloat TopMargin = 25.0f;
 static NSArray *colors;
 
@@ -99,23 +101,25 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
         self.titleLabel.text = [NSString stringWithFormat: @"%@",NSLocalizedString(@"ANONYMOUS_HELLO", nil)];
         
         //init view to indicate login
-        self.descriptionLabel.text = NSLocalizedString(@"NOT_REGISTERED_TEXT", nil);
+        self.descriptionLabel.text = NSLocalizedString(@"NOT_LOGIN_REGISTERED_TEXT", nil);
         
-        UIButton *registerBtn = [[UIButton alloc]initWithFrame:CGRectMake(40, 170, 240, 50)];
+        UIButton *registerBtn = [[UIButton alloc]initWithFrame:CGRectMake(LeftContextMargin, 190, 240, 50)];
         [registerBtn addTarget:self action:@selector(PressedRegisterButton:) forControlEvents:UIControlEventTouchUpInside];
-        [registerBtn setTitle:NSLocalizedString(@"REGISTER_BUTTON_TEXT", nil) forState:UIControlStateNormal];
+        [registerBtn setTitle:NSLocalizedString(@"LOGIN_REGISTER_BUTTON_TEXT", nil) forState:UIControlStateNormal];
         [registerBtn successStyle];
         [self.view addSubview:registerBtn];
         
 
-
-        
         
     }else{
         self.titleLabel.text = [NSString stringWithFormat: @"%@, %@",NSLocalizedString(@"Hello", nil),user.name];
         
-        //show profile stuff
+        //show 
+        self.descriptionLabel.text = NSLocalizedString(@"LOGGEDIN_CONTEXT_1", nil);
+        self.descriptionLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:18];
     }
+    
+    [self.descriptionLabel sizeToFit];
 }
 
 -(void)PressedRegisterButton:(id)stuff{
@@ -181,12 +185,13 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
     
     
     self.descriptionLabel = ({
-        RQShineLabel *label = [[RQShineLabel alloc] initWithFrame:CGRectMake(32, 10, 270, 200)];
+        RQShineLabel *label = [[RQShineLabel alloc] initWithFrame:CGRectMake(LeftContextMargin, TopContextMargin, 270, 300)];
         label.numberOfLines = 0;
         label.text = @"";
         label.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:22.0];
         label.backgroundColor = [UIColor clearColor];
         //[label sizeToFit];
+
           //label.center = self.view.center;
         label.textColor = [UIColor whiteColor];
         label;
