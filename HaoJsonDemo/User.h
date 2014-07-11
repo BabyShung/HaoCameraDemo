@@ -17,7 +17,7 @@
 @property (nonatomic, retain) NSString *pwd;
 @property (nonatomic, assign) NSUInteger type;
 @property (nonatomic, retain) NSString *selfie;
-@property (nonatomic, retain) Comment *latestComment;
+@property (nonatomic, retain) NSMutableDictionary *lastComments;
 
 typedef void (^edibleBlock)(NSError *err, BOOL success);
 
