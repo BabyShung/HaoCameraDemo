@@ -17,6 +17,7 @@
 #import "ED_Color.h"
 #import "UIResponder+KeyboardCache.h"
 #import "UIAlertView+Blocks.h"
+#import "Flurry.h"
 
 @interface LoginViewController () <MKTransitionCoordinatorDelegate,UITextFieldDelegate>
 
@@ -124,6 +125,8 @@
     
     if([validate isValid]){    //success
         
+        [Flurry logEvent:@"Read_TO_Login"];
+        
         self.loginBtn.enabled = NO;
         [self.view endEditing:YES];
         [self checkAndStartLoadingAnimation];
@@ -141,6 +144,8 @@
                 
                 NSLog(@"%@",[User sharedInstance]);
                 
+                [Flurry logEvent:@"Login_Succeed"];
+
                 
                 //transition
                 [self transitionToFrameVC_duration:0.5];
@@ -225,6 +230,8 @@
 
 - (IBAction)SkipLogin:(id)sender {
     //skipping login, generate a user with uid "1" ... ... ...
+
+    [Flurry logEvent:@"Login_Skip"];
 
     
     [User anonymousLogin];

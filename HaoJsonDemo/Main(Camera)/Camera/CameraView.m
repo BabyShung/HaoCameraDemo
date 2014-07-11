@@ -27,6 +27,7 @@
 #import "AppDelegate.h"
 #import "LoadingAnimation.h"
 #import "IPDashedLineView.h"
+#import "Flurry.h"
 
 @interface CameraView () <CameraManageCDelegate>
 {
@@ -265,6 +266,8 @@
 #pragma mark BUTTON EVENTS
 
 - (void) captureBtnPressed:(id)sender {
+
+    [Flurry logEvent:@"Photo_Taken"];
     
     //start loading animation
     [self startLoadingAnimation];
@@ -278,6 +281,11 @@
 }
 
 - (void) torchBtnPressed:(id)sender {
+    
+    [Flurry logEvent:@"Torch_On"];
+
+    
+    
     [_camManager torchBtnPressed:_TorchBtn];
 }
 
@@ -297,6 +305,11 @@
 }
 
 - (void) nextPagePressed:(id)sender {
+    
+    [Flurry logEvent:@"Next_Page_Pressed"];
+
+    
+    
     [self.appliedVC.Maindelegate slideToNextPage];
 }
 

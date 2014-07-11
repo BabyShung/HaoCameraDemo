@@ -14,6 +14,7 @@
 #import "LoadingAnimation.h"
 #import "ED_Color.h"
 #import "UIAlertView+Blocks.h"
+#import "Flurry.h"
 
 @interface RegisterViewController () <UITextFieldDelegate>
 {
@@ -95,6 +96,9 @@
     
     if([validate isValid]){    //success
         
+        
+        [Flurry logEvent:@"Read_To_Register"];
+        
         self.signupBtn.enabled = NO;
         [self.view endEditing:YES];
         
@@ -105,6 +109,8 @@
             
             if(success){//user info already set
                 
+        [Flurry logEvent:@"Register_Succeed"];
+
                 //User info already set
                 NSDictionary *dict = [User toDictionary];
                 //put info into nsuserdefault

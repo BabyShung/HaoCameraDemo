@@ -23,6 +23,7 @@
 #import "UIButton+Bootstrap.h"
 #import "LoginViewController.h"
 #import "IPDashedLineView.h"
+#import "Flurry.h"
 
 #define CROPVIEW_HEIGHT iPhone5?360:300
 
@@ -243,12 +244,17 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
     
     if(index == 0){
         
+        [Flurry logEvent:@"Index_0_Search"];
+
         
         [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Search"] animated:YES];
         
 
         
     }else if(index == 1){
+        
+        [Flurry logEvent:@"Index_1_Feedback"];
+        
         IQFeedbackView *feedback = [[IQFeedbackView alloc] initWithTitle:NSLocalizedString(@"Feedback", nil) message:self.tempFeedbackText image:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) doneButtonTitle:NSLocalizedString(@"Send", nil)];
         [feedback setCanAddImage:NO];
         [feedback setCanEditText:YES];
@@ -277,8 +283,14 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
             [feedback dismiss];
         }];
     }else if (index == 2){
+        
+        [Flurry logEvent:@"Index_2_About"];
+        
         [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"AboutUs"] animated:YES];
     }else if (index == 3){
+        
+        [Flurry logEvent:@"Index_3_Logout"];
+        
         [self willLogout];
     }
     
@@ -292,6 +304,9 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
     lrf.blurRadius = 50.f;
     
     [lrf addButtonWithTitle:NSLocalizedString(@"Log out", nil) actionBlock:^{
+        
+        
+        [Flurry logEvent:@"Logout_Confirm"];
         
         [User logout];
 

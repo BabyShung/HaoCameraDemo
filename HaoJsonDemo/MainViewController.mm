@@ -27,6 +27,7 @@
 #import "SearchDictionary.h"
 #import "User.h"
 #import "UIView+Toast.h"
+#import "Flurry.h"
 
 
 static NSString *CellIdentifier = @"Cell";
@@ -58,7 +59,6 @@ static NSString *CellIdentifier = @"Cell";
 
 @property (strong,nonatomic) TextDetector2 *textDetector2;
 
-@property (nonatomic)BOOL testingBool;
 
 @end
 
@@ -132,6 +132,11 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 - (void) clearBtnPressed:(id)sender {
+    
+    
+    [Flurry logEvent:@"Clear_Btn_Pressed"];  
+    
+    
     
     //save searchHistory and clear
     [SearchDictionary saveSearchHistoryToLocalDB];
