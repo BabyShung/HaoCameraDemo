@@ -36,7 +36,6 @@
     CGFloat screenHeight;
     
     // Resize Toggles
-    BOOL isImageResized;
     BOOL isSaveWaitingForResizedImage;
     BOOL isRotateWaitingForResizedImage;
     
@@ -104,14 +103,12 @@
 }
 
 -(void)startLoadingAnimation{
-
     [self.loadingImage startAnimating];
 }
 
 -(void)stopLoadingAnimation{
     [self.loadingImage stopAnimating];
 }
-
 
 - (void)resumeCamera{
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -152,7 +149,6 @@
     
     //init camera
     [self loadCamera];
-
     
     //later can change to let user define it
     _isCropMode = YES;
@@ -164,14 +160,6 @@
     
     //init loading animation
     [self loadLoadingAnimation];
-}
-
-//delegate method from CameraManager
--(void)imageDidCaptured:(UIImage *)image{
-    
-    _capturedImageView.image = image;
-    _disablePhotoPreview? [self photoCaptured] : [self drawControls];
-    [self photoCaptured];
 }
 
 #pragma mark CAMERA CONTROLS
@@ -243,21 +231,21 @@
     [_camManager capturePhoto:self.iot];
 }
 
+
+//delegate method from CameraManager
+-(void)imageDidCaptured:(UIImage *)image{
+    
+    _capturedImageView.image = image;
+    _disablePhotoPreview? [self photoCaptured] : [self drawControls];
+    [self photoCaptured];
+}
+
 - (void) photoCaptured {
     NSLog(@"****************** photoCaptured ********************");
-    
-    if (isImageResized) {
-        NSLog(@"****************** isImageResized ********************");
-        
-        //[self.camDelegate EdibleCamera:self didFinishWithImage:_capturedImageView.image andImageViewSize:_capturedImageView.image.size];
-    }
-    else {
-        isSaveWaitingForResizedImage = YES;
-        [self resizeImage];
-    }
-    
-    //click back btn
-    //[self backBtnPressed:nil];
+  
+    isSaveWaitingForResizedImage = YES;
+    [self resizeImage];
+
     
     //turn torch off if it is on
     [_camManager turnOffTorch:_TorchBtn];
@@ -296,9 +284,7 @@
     _capturedImageView.image = nil;
     
     isRotateWaitingForResizedImage = NO;
-    isImageResized = NO;
     isSaveWaitingForResizedImage = NO;
-    
     
     [self drawControls];
     
@@ -362,7 +348,6 @@
     if (isRotateWaitingForResizedImage == YES)
         _capturedImageView.contentMode = UIViewContentModeScaleAspectFit;
     
-    isImageResized = YES;
 }
 
 #pragma mark CLOSE
@@ -393,7 +378,6 @@
      Clean up
      
      ***************/
-    isImageResized = NO;
     isSaveWaitingForResizedImage = NO;
     isRotateWaitingForResizedImage = NO;
     
@@ -549,7 +533,6 @@
     [self drawControls];
 }
 
-
 #pragma mark STATUS BAR
 
 - (BOOL)prefersStatusBarHidden {
@@ -560,14 +543,12 @@
 
 - (void) setHideAllControls:(BOOL)hideAllControls {
     _hideAllControls = hideAllControls;
-    
     // This way, hideAllControls can be used as a toggle.
     [self drawControls];
 }
 - (BOOL) hideAllControls {
     return _hideAllControls;
 }
-
 
 - (void) setHideBackButton:(BOOL)hideBackButton {
     _hideBackButton = hideBackButton;
@@ -576,8 +557,6 @@
 - (BOOL) hideBackButton {
     return _hideBackButton;
 }
-
-
 
 - (void) setHideCaptureButton:(BOOL)hideCaptureButton {
     _hideCaptureButton = hideCaptureButton;

@@ -127,8 +127,6 @@ static NSString *CellIdentifier = @"Cell";
     _captureBtn.alpha = 1;
     _captureBtn.hidden = YES;
     [self.view insertSubview:_captureBtn aboveSubview:self.collectionView];
-    
-    
 }
 
 - (void) clearBtnPressed:(id)sender {
@@ -150,27 +148,12 @@ static NSString *CellIdentifier = @"Cell";
     [[User sharedInstance].lastComments removeAllObjects];
     
     
+    [self hideResultButtonsAndCollectionView];
+
+    self.existingFood =nil;
     
-    [UICollectionView transitionWithView:self.collectionView
-                                duration:0.5
-                                 options:UIViewAnimationOptionTransitionCrossDissolve
-                              animations:^(){
-                                  //alpha collection view and two buttons
-                                  self.collectionView.alpha = 0;
-                                  self.clearBtn.alpha = 0;
-                                  self.captureBtn.alpha = 0;
-                              }
-                              completion:^(BOOL finished){
-                                  //hide collection view and two buttons
-                                  self.clearBtn.hidden = YES;
-                                  self.captureBtn.hidden = YES;
-                                  self.collectionView.hidden = YES;
-                                  
-                                  self.existingFood =nil;
-                                  
-                                  [self.foodArray removeAllObjects];
-                                  [self.collectionView reloadData];
-                              }];
+    [self.foodArray removeAllObjects];
+    [self.collectionView reloadData];
     
     
     //[M13AsyncImageLoader cleanupLoaderAll];
@@ -254,7 +237,6 @@ static NSString *CellIdentifier = @"Cell";
 {
     if (newFoodItems.count>0) {
         
-        
         NSInteger startIndex = self.foodArray.count;
         
         NSMutableArray *newIndexPaths = [[NSMutableArray alloc]init];
@@ -296,7 +278,7 @@ static NSString *CellIdentifier = @"Cell";
 
 -(void)loadTesseract{
     _tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];//langague package
-    [_tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz()&/" forKey:@"tessedit_char_whitelist"]; //limit search
+    [_tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz&,'" forKey:@"tessedit_char_whitelist"]; //limit search
 }
 
 #pragma mark --------- Tesseract
@@ -314,8 +296,6 @@ static NSString *CellIdentifier = @"Cell";
 
 - (void) EdibleCamera:(MainViewController *)simpleCam didFinishWithImage:(UIImage *)image withRect:(CGRect)rect andCropSize:(CGSize)size{
 
-    
-//    if(self.testingBool){
     
     /****** OCR and Searching Components *****/
     
@@ -352,7 +332,6 @@ static NSString *CellIdentifier = @"Cell";
     
     if (image) {
         
-        
         //PS: image variable is the original size image (2448*3264)
         UIImage *onScreenImage = [LoadControls scaleImage:image withScale:2.5f withRect:rect andCropSize:size];
         UIImage *originalImage = [UIImage imageWithCGImage:onScreenImage.CGImage];
@@ -370,60 +349,98 @@ static NSString *CellIdentifier = @"Cell";
                 NSString *ocrStr = [self recognizeImageWithTesseract:[UIImage imageWithCVMat:_tempMat]];
                 NSLog(@" ++++++++++ MAIN VC +++++++++++ : TEESSACT REC: %@",ocrStr);
                 
-                [localFoods addObjectsFromArray:[dict localSearchOCRString:ocrStr]];
+                
+                NSArray *returnResultsFromDB = [dict localSearchOCRString:ocrStr];
+                
+                if(returnResultsFromDB){
+                    
+                    [localFoods addObjectsFromArray:returnResultsFromDB];
+                    
+                    //hao added
+                    [self.camView stopLoadingAnimation];
+                    
+                    [self showResultButtonsAndCollectionView];
+                    
+                    [self addFoodItems:localFoods];
+                    
+                }
             }
-            //hao added
-            [self.camView stopLoadingAnimation];
             
-            [self showResultButtons];
+            if(localFoods.count == 0){
+                //can't search anything from DB
+                [self stopAnimationAndShowErrorToast];
+                NSLog(@"******************  aaaaaa  ********************");
+                
+            }
             
-            [self addFoodItems:localFoods];
             
         }else{
-            //no image coming back, tell users to retake
-            
-            [self.view makeToast:NSLocalizedString(@"DETECTOR_NO_RESULT", nil)];
+            //can't detect anything from textDetector
+            [self stopAnimationAndShowErrorToast];
+            NSLog(@"******************  bbbbb  ********************");
         }
-        
     }
-    
-    
-    
     NSLog(@"******************!! !! PHOTO TAKEN  !! !!********************");
 }
 
--(void)showResultButtons{
-    self.collectionView.hidden = NO;
-    self.collectionView.alpha = 1;
+-(void)stopAnimationAndShowErrorToast{
+    //no image coming back, tell users to retake
+    [self.camView stopLoadingAnimation];
     
-    [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        self.clearBtn.alpha = 1;
-        self.captureBtn.alpha = 1;
-    } completion:^(BOOL finished) {
-        if (finished) {
-            self.clearBtn.hidden = NO;
-            self.captureBtn.hidden = NO;
-        }
-    }];
+    [self.camView backBtnPressed:nil];
+    
+    [self.view makeToast_ForCamera:NSLocalizedString(@"DETECTOR_NO_RESULT", nil)];
+}
+
+-(void)showResultButtonsAndCollectionView{
+    if(self.collectionView.isHidden){
+        self.collectionView.hidden = NO;
+        self.collectionView.alpha = 1;
+        
+        [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            self.clearBtn.alpha = 1;
+            self.captureBtn.alpha = 1;
+        } completion:^(BOOL finished) {
+            if (finished) {
+                self.clearBtn.hidden = NO;
+                self.captureBtn.hidden = NO;
+            }
+        }];
+    }
+}
+
+-(void)hideResultButtonsAndCollectionView{
+    if(!self.collectionView.isHidden){
+        [UICollectionView transitionWithView:self.collectionView
+                                    duration:0.5
+                                     options:UIViewAnimationOptionTransitionCrossDissolve
+                                  animations:^(){
+                                      //alpha collection view and two buttons
+                                      self.collectionView.alpha = 0;
+                                      self.clearBtn.alpha = 0;
+                                      self.captureBtn.alpha = 0;
+                                  }
+                                  completion:^(BOOL finished){
+                                      //hide collection view and two buttons
+                                      self.clearBtn.hidden = YES;
+                                      self.captureBtn.hidden = YES;
+                                      self.collectionView.hidden = YES;
+                                  }];
+    }
 }
 
 //View did load in SimpleCam VC
 - (void) EdibleCameraDidLoadCameraIntoView:(MainViewController *)simpleCam {
     NSLog(@"Camera loaded ... ");
     
+    
+    //pop up introduction view
+    
 }
 
 
 
 // GETTERs
-
-//-(TextDetector2*)textDetector2{
-//    if(!_textDetector2){
-//        _textDetector2 = [[TextDetector2 alloc]init];
-//    }
-//    return _textDetector2;
-//}
-
 -(ImagePreProcessor*)ipp{
     if(!_ipp){
         _ipp = [[ImagePreProcessor alloc] init];

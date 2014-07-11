@@ -33,6 +33,11 @@ static const CGFloat CSToastShadowRadius        = 6.0;
 static const CGSize  CSToastShadowOffset        = { 4.0, 4.0 };
 static const BOOL    CSToastDisplayShadow       = YES;
 
+
+
+static const NSString * CSToastCameraPosition  = @"camera_position";
+
+
 // display duration and position
 static const NSString * CSToastDefaultPosition  = @"bottom";
 static const NSTimeInterval CSToastDefaultDuration  = 2.0;
@@ -71,6 +76,10 @@ static const NSString * CSToastActivityViewKey  = @"CSToastActivityViewKey";
 
 - (void)makeToast:(NSString *)message {
     [self makeToast:message duration:CSToastDefaultDuration position:CSToastDefaultPosition];
+}
+
+- (void)makeToast_ForCamera:(NSString *)message{
+    [self makeToast:message duration:CSToastDefaultDuration position:CSToastCameraPosition];
 }
 
 - (void)makeToast:(NSString *)message duration:(NSTimeInterval)duration position:(id)position {
@@ -214,6 +223,8 @@ static const NSString * CSToastActivityViewKey  = @"CSToastActivityViewKey";
             return CGPointMake(self.bounds.size.width/2, (toast.frame.size.height / 2) + CSToastVerticalPadding);
         } else if([point caseInsensitiveCompare:@"bottom"] == NSOrderedSame) {
             return CGPointMake(self.bounds.size.width/2, (self.bounds.size.height - (toast.frame.size.height / 2)) - CSToastVerticalPadding);
+        }else if([point caseInsensitiveCompare:@"camera_position"] == NSOrderedSame) {
+            return CGPointMake(self.bounds.size.width/2, (self.bounds.size.height - (toast.frame.size.height / 2)-(iPhone5?150:120)) - CSToastVerticalPadding);
         } else if([point caseInsensitiveCompare:@"center"] == NSOrderedSame) {
             return CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
         }
