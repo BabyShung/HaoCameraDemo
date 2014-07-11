@@ -26,6 +26,8 @@
 #import "LoadControls.h"
 #import "AppDelegate.h"
 #import "LoadingAnimation.h"
+#import "IPDashedLineView.h"
+#import "Flurry.h"
 
 @interface CameraView () <CameraManageCDelegate>
 {
@@ -34,7 +36,6 @@
     CGFloat screenHeight;
     
     // Resize Toggles
-    BOOL isImageResized;
     BOOL isSaveWaitingForResizedImage;
     BOOL isRotateWaitingForResizedImage;
     
@@ -52,7 +53,6 @@
 @property (strong, nonatomic) UIButton * saveBtn;
 @property (strong, nonatomic) UIButton * nextPageBtn;
 
-@property (strong, nonatomic) UIView * separatorLine;
 
 //previewLayer
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer * captureVideoPreviewLayer;
@@ -103,14 +103,12 @@
 }
 
 -(void)startLoadingAnimation{
-
     [self.loadingImage startAnimating];
 }
 
 -(void)stopLoadingAnimation{
     [self.loadingImage stopAnimating];
 }
-
 
 - (void)resumeCamera{
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -151,7 +149,6 @@
     
     //init camera
     [self loadCamera];
-
     
     //later can change to let user define it
     _isCropMode = YES;
@@ -163,14 +160,6 @@
     
     //init loading animation
     [self loadLoadingAnimation];
-}
-
-//delegate method from CameraManager
--(void)imageDidCaptured:(UIImage *)image{
-    
-    _capturedImageView.image = image;
-    _disablePhotoPreview? [self photoCaptured] : [self drawControls];
-    [self photoCaptured];
 }
 
 #pragma mark CAMERA CONTROLS
@@ -242,21 +231,21 @@
     [_camManager capturePhoto:self.iot];
 }
 
+
+//delegate method from CameraManager
+-(void)imageDidCaptured:(UIImage *)image{
+    
+    _capturedImageView.image = image;
+    _disablePhotoPreview? [self photoCaptured] : [self drawControls];
+    [self photoCaptured];
+}
+
 - (void) photoCaptured {
     NSLog(@"****************** photoCaptured ********************");
-    
-    if (isImageResized) {
-        NSLog(@"****************** isImageResized ********************");
-        
-        //[self.camDelegate EdibleCamera:self didFinishWithImage:_capturedImageView.image andImageViewSize:_capturedImageView.image.size];
-    }
-    else {
-        isSaveWaitingForResizedImage = YES;
-        [self resizeImage];
-    }
-    
-    //click back btn
-    //[self backBtnPressed:nil];
+  
+    isSaveWaitingForResizedImage = YES;
+    [self resizeImage];
+
     
     //turn torch off if it is on
     [_camManager turnOffTorch:_TorchBtn];
@@ -265,6 +254,8 @@
 #pragma mark BUTTON EVENTS
 
 - (void) captureBtnPressed:(id)sender {
+
+    [Flurry logEvent:@"Photo_Taken"];
     
     //start loading animation
     [self startLoadingAnimation];
@@ -278,6 +269,11 @@
 }
 
 - (void) torchBtnPressed:(id)sender {
+    
+    [Flurry logEvent:@"Torch_On"];
+
+    
+    
     [_camManager torchBtnPressed:_TorchBtn];
 }
 
@@ -288,15 +284,18 @@
     _capturedImageView.image = nil;
     
     isRotateWaitingForResizedImage = NO;
-    isImageResized = NO;
     isSaveWaitingForResizedImage = NO;
-    
     
     [self drawControls];
     
 }
 
 - (void) nextPagePressed:(id)sender {
+    
+    [Flurry logEvent:@"Next_Page_Pressed"];
+
+    
+    
     [self.appliedVC.Maindelegate slideToNextPage];
 }
 
@@ -349,7 +348,6 @@
     if (isRotateWaitingForResizedImage == YES)
         _capturedImageView.contentMode = UIViewContentModeScaleAspectFit;
     
-    isImageResized = YES;
 }
 
 #pragma mark CLOSE
@@ -380,7 +378,6 @@
      Clean up
      
      ***************/
-    isImageResized = NO;
     isSaveWaitingForResizedImage = NO;
     isRotateWaitingForResizedImage = NO;
     
@@ -521,9 +518,12 @@
     // -- LOAD BUTTONS END -- //
     
     //separator line
-    _separatorLine = [[UIView alloc] initWithFrame:CGRectMake(10, CROPVIEW_HEIGHT, 300, 1)];
-    _separatorLine.backgroundColor = [UIColor whiteColor];
-    [self addSubview:_separatorLine];
+    IPDashedLineView *appearance = [IPDashedLineView appearance];
+    [appearance setLineColor:[UIColor whiteColor]];
+    [appearance setLengthPattern:@[@12, @4]];
+    IPDashedLineView *dash0 = [[IPDashedLineView alloc] initWithFrame:CGRectMake(10, CROPVIEW_HEIGHT, 300, 1)];
+    [self addSubview:dash0];
+    
     
     for (UIButton * btn in @[_backBtn, _captureBtn, _TorchBtn, _nextPageBtn, _saveBtn])  {
         [self addSubview:btn];
@@ -532,7 +532,6 @@
     // Draw camera controls
     [self drawControls];
 }
-
 
 #pragma mark STATUS BAR
 
@@ -544,14 +543,12 @@
 
 - (void) setHideAllControls:(BOOL)hideAllControls {
     _hideAllControls = hideAllControls;
-    
     // This way, hideAllControls can be used as a toggle.
     [self drawControls];
 }
 - (BOOL) hideAllControls {
     return _hideAllControls;
 }
-
 
 - (void) setHideBackButton:(BOOL)hideBackButton {
     _hideBackButton = hideBackButton;
@@ -560,8 +557,6 @@
 - (BOOL) hideBackButton {
     return _hideBackButton;
 }
-
-
 
 - (void) setHideCaptureButton:(BOOL)hideCaptureButton {
     _hideCaptureButton = hideCaptureButton;

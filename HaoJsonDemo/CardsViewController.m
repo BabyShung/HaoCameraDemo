@@ -22,12 +22,15 @@
 #import "UIView+Toast.h"
 #import "UIButton+Bootstrap.h"
 #import "LoginViewController.h"
-
+#import "IPDashedLineView.h"
+#import "Flurry.h"
 
 #define CROPVIEW_HEIGHT iPhone5?360:300
 
 const NSString *collectionCellIdentity = @"Cell";
 const CGFloat LeftMargin = 15.0f;
+const CGFloat LeftContextMargin = 40.f;
+const CGFloat TopContextMargin = 100.0f;
 const CGFloat TopMargin = 25.0f;
 static NSArray *colors;
 
@@ -99,23 +102,25 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
         self.titleLabel.text = [NSString stringWithFormat: @"%@",NSLocalizedString(@"ANONYMOUS_HELLO", nil)];
         
         //init view to indicate login
-        self.descriptionLabel.text = NSLocalizedString(@"NOT_REGISTERED_TEXT", nil);
+        self.descriptionLabel.text = NSLocalizedString(@"NOT_LOGIN_REGISTERED_TEXT", nil);
         
-        UIButton *registerBtn = [[UIButton alloc]initWithFrame:CGRectMake(40, 170, 240, 50)];
+        UIButton *registerBtn = [[UIButton alloc]initWithFrame:CGRectMake(LeftContextMargin, 190, 240, 50)];
         [registerBtn addTarget:self action:@selector(PressedRegisterButton:) forControlEvents:UIControlEventTouchUpInside];
-        [registerBtn setTitle:NSLocalizedString(@"REGISTER_BUTTON_TEXT", nil) forState:UIControlStateNormal];
+        [registerBtn setTitle:NSLocalizedString(@"LOGIN_REGISTER_BUTTON_TEXT", nil) forState:UIControlStateNormal];
         [registerBtn successStyle];
         [self.view addSubview:registerBtn];
         
 
-
-        
         
     }else{
         self.titleLabel.text = [NSString stringWithFormat: @"%@, %@",NSLocalizedString(@"Hello", nil),user.name];
         
-        //show profile stuff
+        //show 
+        self.descriptionLabel.text = NSLocalizedString(@"LOGGEDIN_CONTEXT_1", nil);
+        self.descriptionLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:18];
     }
+    
+    [self.descriptionLabel sizeToFit];
 }
 
 -(void)PressedRegisterButton:(id)stuff{
@@ -140,9 +145,11 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
 -(void)loadControls{
     
     //separator line
-    _separatorLine = [[UIView alloc] initWithFrame:CGRectMake(10, CROPVIEW_HEIGHT, 300, 1)];
-    _separatorLine.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:_separatorLine];
+    IPDashedLineView *appearance = [IPDashedLineView appearance];
+    [appearance setLineColor:[UIColor whiteColor]];
+    [appearance setLengthPattern:@[@12, @4]];
+    IPDashedLineView *dash0 = [[IPDashedLineView alloc] initWithFrame:CGRectMake(10, CROPVIEW_HEIGHT, 300, 1)];
+    [self.view addSubview:dash0];
     
     
     _previousPageBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
@@ -181,12 +188,13 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
     
     
     self.descriptionLabel = ({
-        RQShineLabel *label = [[RQShineLabel alloc] initWithFrame:CGRectMake(32, 10, 270, 200)];
+        RQShineLabel *label = [[RQShineLabel alloc] initWithFrame:CGRectMake(LeftContextMargin, TopContextMargin, 270, 300)];
         label.numberOfLines = 0;
         label.text = @"";
         label.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:22.0];
         label.backgroundColor = [UIColor clearColor];
         //[label sizeToFit];
+
           //label.center = self.view.center;
         label.textColor = [UIColor whiteColor];
         label;
@@ -236,12 +244,17 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
     
     if(index == 0){
         
+        [Flurry logEvent:@"Index_0_Search"];
+
         
         [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Search"] animated:YES];
         
 
         
     }else if(index == 1){
+        
+        [Flurry logEvent:@"Index_1_Feedback"];
+        
         IQFeedbackView *feedback = [[IQFeedbackView alloc] initWithTitle:NSLocalizedString(@"Feedback", nil) message:self.tempFeedbackText image:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) doneButtonTitle:NSLocalizedString(@"Send", nil)];
         [feedback setCanAddImage:NO];
         [feedback setCanEditText:YES];
@@ -270,8 +283,14 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
             [feedback dismiss];
         }];
     }else if (index == 2){
+        
+        [Flurry logEvent:@"Index_2_About"];
+        
         [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"AboutUs"] animated:YES];
     }else if (index == 3){
+        
+        [Flurry logEvent:@"Index_3_Logout"];
+        
         [self willLogout];
     }
     
@@ -285,6 +304,9 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
     lrf.blurRadius = 50.f;
     
     [lrf addButtonWithTitle:NSLocalizedString(@"Log out", nil) actionBlock:^{
+        
+        
+        [Flurry logEvent:@"Logout_Confirm"];
         
         [User logout];
 

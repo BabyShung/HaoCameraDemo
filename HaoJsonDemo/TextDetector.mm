@@ -42,7 +42,7 @@ using namespace std;
         [self sortAndMergeGroups:groups andResult:finalgroups];
         
 
-        int gsize = finalgroups.size();
+        int gsize = (int)finalgroups.size();
         cout<<"Crop images..."<<endl;
         
         //Crop the text regions, convert to UIImage and save in array
@@ -103,7 +103,7 @@ using namespace std;
         //Sort and Merge text groups
         [self sortAndMergeGroups:groups andResult:finalgroups];
         
-        int gsize = finalgroups.size();
+        int gsize = (int)finalgroups.size();
         cout<<"Crop images..."<<endl;
         
         for (int i = 0; i < gsize ; i++)
@@ -200,7 +200,7 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b)
     if (!groups.empty())
     {
         
-        int len = groups.size();
+        int len = (int)groups.size();
         cout<<"....Sorting groups...."<<endl;
         std::sort(groups.begin(), groups.end(), compareLoc);
         for (int i =0; i<len; i++) {

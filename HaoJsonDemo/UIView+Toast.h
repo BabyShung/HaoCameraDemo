@@ -34,6 +34,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 // each makeToast method creates a view and displays it as toast
 - (void)makeToast:(NSString *)message;
+- (void)makeToast_ForCamera:(NSString *)message;
 - (void)makeToast:(NSString *)message duration:(NSTimeInterval)interval position:(id)position;
 - (void)makeToast:(NSString *)message duration:(NSTimeInterval)interval position:(id)position image:(UIImage *)image;
 - (void)makeToast:(NSString *)message duration:(NSTimeInterval)interval position:(id)position title:(NSString *)title;

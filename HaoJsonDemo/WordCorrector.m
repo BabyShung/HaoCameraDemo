@@ -7,13 +7,15 @@
 //
 
 #import "WordCorrector.h"
-
+#import "Flurry.h"
 @implementation WordCorrector: NSObject
 
 
 
 -(NSString*)correctWord: (NSString*)input{
     
+    
+
     UITextChecker *checker = [[UITextChecker alloc] init];
     NSString *testString = input;
     NSString *output = testString;
@@ -31,7 +33,7 @@
         //donothing
     }else
     {
-        int count = [arrGuessed count];
+        int count = (int)[arrGuessed count];
         if (count > 20){
             count = 20;
         }
@@ -57,7 +59,7 @@
     else{
         return output;
     }
-    
+    [Flurry logEvent:@"Word_Detector"];
 }
 
 

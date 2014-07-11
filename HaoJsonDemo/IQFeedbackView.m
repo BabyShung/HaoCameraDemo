@@ -49,13 +49,13 @@
 		if ([doneButtonTitle length])
 		{
 			UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:doneButtonTitle style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonClicked:)];
-            if(!IOS_7_OR_GREATER)
-                [doneButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                          [UIFont boldSystemFontOfSize:0],UITextAttributeFont,
-                                          [UIColor darkGrayColor],UITextAttributeTextColor,
-                                          [UIColor blackColor],UITextAttributeTextShadowColor,
-                                          [NSValue valueWithUIOffset:UIOffsetMake(-1, -1)],UITextAttributeTextShadowOffset,
-                                          nil] forState:UIControlStateNormal];
+//            if(!IOS_7_OR_GREATER)
+//                [doneButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+//                                          [UIFont boldSystemFontOfSize:0],UITextAttributeFont,
+//                                          [UIColor darkGrayColor],UITextAttributeTextColor,
+//                                          [UIColor blackColor],UITextAttributeTextShadowColor,
+//                                          [NSValue valueWithUIOffset:UIOffsetMake(-1, -1)],UITextAttributeTextShadowOffset,
+//                                          nil] forState:UIControlStateNormal];
 
             
 			[navigationItem setRightBarButtonItem:doneButton animated:YES];
@@ -64,13 +64,13 @@
 		if ([cancelButtonTitle length])
 		{
 			UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:cancelButtonTitle style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonClicked:)];
-            if(!IOS_7_OR_GREATER)
-                [cancelButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                [UIFont boldSystemFontOfSize:0],UITextAttributeFont,
-                                                [UIColor darkGrayColor],UITextAttributeTextColor,
-                                                [UIColor blackColor],UITextAttributeTextShadowColor,
-                                                [NSValue valueWithUIOffset:UIOffsetMake(-1, -1)],UITextAttributeTextShadowOffset,
-                                                nil] forState:UIControlStateNormal];
+//            if(!IOS_7_OR_GREATER)
+//                [cancelButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+//                                                [UIFont boldSystemFontOfSize:0],UITextAttributeFont,
+//                                                [UIColor darkGrayColor],UITextAttributeTextColor,
+//                                                [UIColor blackColor],UITextAttributeTextShadowColor,
+//                                                [NSValue valueWithUIOffset:UIOffsetMake(-1, -1)],UITextAttributeTextShadowOffset,
+//                                                nil] forState:UIControlStateNormal];
 			[navigationItem setLeftBarButtonItem:cancelButton animated:YES];
 		}
 		
@@ -117,12 +117,12 @@
             [self setBackgroundColor:[UIColor whiteColor]];
             
             [navigationBar setTintColor:[UIColor whiteColor]];
-            [navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                   [UIFont boldSystemFontOfSize:0],UITextAttributeFont,
-                                                   [UIColor darkGrayColor],UITextAttributeTextColor,
-                                                   [UIColor blackColor],UITextAttributeTextShadowColor,
-                                                   [NSValue valueWithUIOffset:UIOffsetMake(-1, -2)],UITextAttributeTextShadowOffset,
-                                                   nil]];
+//            [navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+//                                                   [UIFont boldSystemFontOfSize:0],UITextAttributeFont,
+//                                                   [UIColor darkGrayColor],UITextAttributeTextColor,
+//                                                   [UIColor blackColor],UITextAttributeTextShadowColor,
+//                                                   [NSValue valueWithUIOffset:UIOffsetMake(-1, -2)],UITextAttributeTextShadowOffset,
+//                                                   nil]];
         }
 		
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)     keyboardHeight = 216;

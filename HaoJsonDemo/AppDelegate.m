@@ -18,7 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
+    [Flurry setCrashReportingEnabled:YES];
     [Flurry startSession:@"BJKGTKRHXZGZC4VD3RZ9"];
     /*          MUST BE CALLED AT FIRST        */
     /*Init Sharedata SINGLETON (INIT ONLY ONCE)*/

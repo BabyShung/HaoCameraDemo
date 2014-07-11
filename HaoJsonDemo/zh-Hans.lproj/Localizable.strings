@@ -43,6 +43,9 @@
 "SUCCESS_COMMENT" = "发送成功";
 "FAIL_COMMENT" = "亲，请重发";
 "DETECTOR_NO_RESULT" = "无结果，再试一次亲";
+"NOT_LOGIN_REGISTERED_TEXT" = "您还没有登陆\n赶紧注册一个吧: )";
+"LOGIN_REGISTER_BUTTON_TEXT" = "登陆/注册";
+"LOGGEDIN_CONTEXT_1" = "感谢您的支持!\n恳求多多反馈!\n敬请期待更多功能: )\n\n\n\n\n                             - 蓝芝士团队";
 "NOT_REGISTERED_TEXT" = "您还没有登陆\n赶紧注册一个吧: )";
 "REGISTER_BUTTON_TEXT" = "注册";
 "EMPTY_COMMENT" = "唉呦，空评论~";
