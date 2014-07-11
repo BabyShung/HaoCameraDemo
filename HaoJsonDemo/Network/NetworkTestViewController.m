@@ -89,7 +89,7 @@
     //[User sharedInstanceWithUid:7 andEmail:@"gcte2010@gmail.com" andUname:@"Charlie" andUpwd:@"engineer" andUtype:1 andUselfie:nil];
     [User loginWithEmail:@"gcte2010@gmail.com" andPwd:@"engineer" andCompletion:^(NSError *err, BOOL success) {
         if (success) {
-            Comment *review = [[Comment alloc]initWithCommentID:0 andFid:2 andRate:3 andComment:@"ggrd"];
+            //Comment *review = [[Comment alloc]initWithCommentID:0 andFid:2 andRate:3 andComment:@"ggrd"];
             //
             //
             //    [self.async doComment:review rating:3 withAction:@"add"];//action: update, post

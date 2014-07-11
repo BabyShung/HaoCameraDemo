@@ -104,7 +104,7 @@
     self.pageViewController.dataSource = self;
     
     //actually init (called viewDidLoad for all VCs and show self.VC1 to be the first
-    for(int i = [self.menu count] - 1; i>=0;i--){
+    for(int i = (int)([self.menu count] - 1); i>=0;i--){
         [self.pageViewController setViewControllers:@[self.menu[i]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     }
     

@@ -80,7 +80,7 @@ const CGFloat kCommentPaddingFromRight = 8.0f;
         } else {
             _likeCount--;
         }
-        self.likeCountLabel.text = [NSString stringWithFormat:@"%d",_likeCount];
+        self.likeCountLabel.text = [NSString stringWithFormat:@"%d",(int)_likeCount];
         [self.likeCountLabel sizeToFit];
         self.likeCountImageView.hidden = _likeCount <= 0;
         self.likeCountLabel.hidden = _likeCount <= 0;
@@ -91,7 +91,7 @@ const CGFloat kCommentPaddingFromRight = 8.0f;
         } else {
             _dislikeCount--;
         }
-        self.dislikeCountLabel.text = [NSString stringWithFormat:@"%d",_dislikeCount];
+        self.dislikeCountLabel.text = [NSString stringWithFormat:@"%d",(int)_dislikeCount];
         [self.dislikeCountLabel sizeToFit];
         self.dislikeCountImageView.hidden = _dislikeCount <= 0;
         self.dislikeCountLabel.hidden = _dislikeCount <= 0;

@@ -94,7 +94,8 @@ const  NSInteger NumCommentsPerLoad = 5;
 }
 
 -(void)loadControls{
-    CGFloat height = CGRectGetHeight(self.bounds);
+    
+    //CGFloat height = CGRectGetHeight(self.bounds);
     CGFloat width = CGRectGetWidth(self.bounds);
     
     self.scrollview=[[UIScrollView alloc]initWithFrame:self.bounds];

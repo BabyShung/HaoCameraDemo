@@ -31,7 +31,7 @@
         //donothing
     }else
     {
-        int count = [arrGuessed count];
+        int count = (int)[arrGuessed count];
         if (count > 20){
             count = 20;
         }
