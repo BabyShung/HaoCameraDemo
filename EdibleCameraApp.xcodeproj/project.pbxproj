@@ -1574,7 +1574,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/HaoJsonDemo/tesseract-ios/tesseract-ios-lib/lib",
 					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "";
@@ -1604,7 +1603,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/HaoJsonDemo/tesseract-ios/tesseract-ios-lib/lib",
 					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "";
