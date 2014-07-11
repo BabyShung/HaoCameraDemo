@@ -26,6 +26,7 @@
 #import "LoadControls.h"
 #import "AppDelegate.h"
 #import "LoadingAnimation.h"
+#import "IPDashedLineView.h"
 
 @interface CameraView () <CameraManageCDelegate>
 {
@@ -52,7 +53,6 @@
 @property (strong, nonatomic) UIButton * saveBtn;
 @property (strong, nonatomic) UIButton * nextPageBtn;
 
-@property (strong, nonatomic) UIView * separatorLine;
 
 //previewLayer
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer * captureVideoPreviewLayer;
@@ -521,9 +521,12 @@
     // -- LOAD BUTTONS END -- //
     
     //separator line
-    _separatorLine = [[UIView alloc] initWithFrame:CGRectMake(10, CROPVIEW_HEIGHT, 300, 1)];
-    _separatorLine.backgroundColor = [UIColor whiteColor];
-    [self addSubview:_separatorLine];
+    IPDashedLineView *appearance = [IPDashedLineView appearance];
+    [appearance setLineColor:[UIColor whiteColor]];
+    [appearance setLengthPattern:@[@12, @4]];
+    IPDashedLineView *dash0 = [[IPDashedLineView alloc] initWithFrame:CGRectMake(10, CROPVIEW_HEIGHT, 300, 1)];
+    [self addSubview:dash0];
+    
     
     for (UIButton * btn in @[_backBtn, _captureBtn, _TorchBtn, _nextPageBtn, _saveBtn])  {
         [self addSubview:btn];

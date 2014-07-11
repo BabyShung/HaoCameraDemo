@@ -11,6 +11,7 @@
 @interface ED_Color : NSObject
 
 + (UIColor *) darkGreyColor;
++ (UIColor *) lightGrayColor;
 + (UIColor *) redColor;
 + (UIColor *) greenColor;
 + (UIColor *) blueColor;

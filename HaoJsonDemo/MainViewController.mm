@@ -27,6 +27,7 @@
 #import "SearchDictionary.h"
 #import "UIView+Toast.h"
 
+
 static NSString *CellIdentifier = @"Cell";
 
 @interface MainViewController () <TransitionControllerDelegate,EdibleCameraDelegate>

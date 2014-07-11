@@ -22,7 +22,7 @@
 #import "UIView+Toast.h"
 #import "UIButton+Bootstrap.h"
 #import "LoginViewController.h"
-
+#import "IPDashedLineView.h"
 
 #define CROPVIEW_HEIGHT iPhone5?360:300
 
@@ -144,9 +144,11 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
 -(void)loadControls{
     
     //separator line
-    _separatorLine = [[UIView alloc] initWithFrame:CGRectMake(10, CROPVIEW_HEIGHT, 300, 1)];
-    _separatorLine.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:_separatorLine];
+    IPDashedLineView *appearance = [IPDashedLineView appearance];
+    [appearance setLineColor:[UIColor whiteColor]];
+    [appearance setLengthPattern:@[@12, @4]];
+    IPDashedLineView *dash0 = [[IPDashedLineView alloc] initWithFrame:CGRectMake(10, CROPVIEW_HEIGHT, 300, 1)];
+    [self.view addSubview:dash0];
     
     
     _previousPageBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];

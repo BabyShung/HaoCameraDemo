@@ -35,6 +35,7 @@
 		ACDD6D55195F4B2000AD51A7 /* EDCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDD6D54195F4B2000AD51A7 /* EDCollectionCell.m */; };
 		ACDD6D58195F4BAD00AD51A7 /* DBOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDD6D57195F4BAD00AD51A7 /* DBOperation.m */; };
 		ACDD6D5B195F4C3100AD51A7 /* FoodInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDD6D5A195F4C3100AD51A7 /* FoodInfoView.m */; };
+		B803CFAD196F841C006080D0 /* IPDashedLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = B803CFAC196F841C006080D0 /* IPDashedLineView.m */; };
 		B82353BE192BE2F400D6BCAC /* Download.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353BA192BE2F400D6BCAC /* Download.png */; };
 		B82353BF192BE2F400D6BCAC /* Lightening.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353BB192BE2F400D6BCAC /* Lightening.png */; };
 		B82353C0192BE2F400D6BCAC /* CameraPrevious.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353BC192BE2F400D6BCAC /* CameraPrevious.png */; };
@@ -254,6 +255,8 @@
 		ACDD6D57195F4BAD00AD51A7 /* DBOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBOperation.m; sourceTree = "<group>"; };
 		ACDD6D59195F4C3100AD51A7 /* FoodInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodInfoView.h; sourceTree = "<group>"; };
 		ACDD6D5A195F4C3100AD51A7 /* FoodInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodInfoView.m; sourceTree = "<group>"; };
+		B803CFAB196F841C006080D0 /* IPDashedLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPDashedLineView.h; sourceTree = "<group>"; };
+		B803CFAC196F841C006080D0 /* IPDashedLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPDashedLineView.m; sourceTree = "<group>"; };
 		B82353BA192BE2F400D6BCAC /* Download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Download.png; sourceTree = "<group>"; };
 		B82353BB192BE2F400D6BCAC /* Lightening.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Lightening.png; sourceTree = "<group>"; };
 		B82353BC192BE2F400D6BCAC /* CameraPrevious.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CameraPrevious.png; sourceTree = "<group>"; };
@@ -576,6 +579,8 @@
 		ACA1726C193920A6005E7D51 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				B803CFAB196F841C006080D0 /* IPDashedLineView.h */,
+				B803CFAC196F841C006080D0 /* IPDashedLineView.m */,
 				B8AB89D5196DDB4900F32E4F /* UIView+Toast.h */,
 				B8AB89D6196DDB4900F32E4F /* UIView+Toast.m */,
 				B8BBB01E196491DA007CE548 /* UIAlertView+Blocks.h */,
@@ -1402,6 +1407,7 @@
 				ACA1726B1939209A005E7D51 /* LoadControls.m in Sources */,
 				B8F29C5819311A5C008979A7 /* EP_thirdViewController.mm in Sources */,
 				B8CC9F651968980100CCFE74 /* HATransparentView.m in Sources */,
+				B803CFAD196F841C006080D0 /* IPDashedLineView.m in Sources */,
 				B8C8F363195F7773009F8F6E /* M13AsyncConnection.m in Sources */,
 				B8B6104819592493005268D5 /* ShadeView.m in Sources */,
 				B8B6103F1959243A005268D5 /* RQShineLabel.m in Sources */,
