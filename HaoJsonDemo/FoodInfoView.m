@@ -258,16 +258,35 @@ const NSUInteger MaxCharNum = 10;
 
     
     //Cancel any other previous downloads for the image view.
-    [cell.imageView cancelLoadingAllImagesAndLoaderName:self.imgLoaderName];
+    //[cell.imageView cancelLoadingAllImagesAndLoaderName:self.imgLoaderName];
 
     //Load the new image
     [cell.imageView loadImageFromURLAtAmazonAsync:[NSURL URLWithString:self.myFood.photoNames[indexPath.row]] withLoaderName:self.imgLoaderName completion:^(BOOL success, M13ImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
 
+        //cell.imageView.image = nil;
+        
         cell.activityView.hidden = YES;
         [cell.activityView stopAnimating];
         
-        //cell.imageView.image = image;
         
+        //Set the image if loaded
+        if (success) {
+            
+            if(location == M13ImageLoadedLocationCache){
+                NSLog(@"it is cache");
+                cell.imageView.image = image;
+            }else{
+                //Hao modified
+                [UIView transitionWithView:self
+                                  duration:0.6f
+                                   options:UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationCurveEaseInOut
+                                animations:^{
+                                    cell.imageView.image = image;
+                                } completion:nil];
+            }
+        }else{
+            NSLog(@"network failed");
+        }
         
     }];
     return cell;

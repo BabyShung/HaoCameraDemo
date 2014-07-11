@@ -59,6 +59,8 @@ static NSString *CellIdentifier = @"Cell";
 
 @property (strong,nonatomic) TextDetector2 *textDetector2;
 
+@property (nonatomic) NSUInteger counterForNoResult;
+
 
 @end
 
@@ -139,9 +141,8 @@ static NSString *CellIdentifier = @"Cell";
     //save searchHistory and clear
     [SearchDictionary saveSearchHistoryToLocalDB];
     
-    
-    [self.camView backBtnPressed:nil];
     [self.camView resumeCamera];
+    [self.camView backBtnPressed:nil];
     
     //Clean up cached comments of different foods
     NSLog(@"+++++++ MVC +++++++++ : clean up last comntes");
@@ -278,7 +279,7 @@ static NSString *CellIdentifier = @"Cell";
 
 -(void)loadTesseract{
     _tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];//langague package
-    [_tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz&,'" forKey:@"tessedit_char_whitelist"]; //limit search
+    [_tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" forKey:@"tessedit_char_whitelist"]; //limit search
 }
 
 #pragma mark --------- Tesseract
@@ -308,22 +309,7 @@ static NSString *CellIdentifier = @"Cell";
 //    NSArray *localFoods = [dict localSearchOCRString:@"Romano and flatbread and roll and Romano Cheese"];
 //    //NSLog(@"++++Main VC++++ : Local Foods: %d",(int)localFoods.count);
 //    [self addFoodItems:localFoods];
-    
-        
-//    }else{
-//        
-//        
-//        Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
-//        //@"yeast bread with Worcestershire sauce and yogurt"
-//        [dict serverSearchOCRString:@"sushi and caper with oatmeal" andCompletion:^(NSArray *results, BOOL success) {
-//            //NSLog(@"++++Main VC++++ : Server Foods: %d",(int)results.count);
-//            [self addFoodItems:results];
-//        }];
-//        NSArray *localFoods = [dict localSearchOCRString:@"sushi and caper with oatmeal"];
-//        //NSLog(@"++++Main VC++++ : Local Foods: %d",(int)localFoods.count);
-//        [self addFoodItems:localFoods];
-//        
-//    }
+
 
 
     
@@ -369,15 +355,10 @@ static NSString *CellIdentifier = @"Cell";
             if(localFoods.count == 0){
                 //can't search anything from DB
                 [self stopAnimationAndShowErrorToast];
-                NSLog(@"******************  aaaaaa  ********************");
-                
             }
-            
-            
         }else{
             //can't detect anything from textDetector
             [self stopAnimationAndShowErrorToast];
-            NSLog(@"******************  bbbbb  ********************");
         }
     }
     NSLog(@"******************!! !! PHOTO TAKEN  !! !!********************");
@@ -389,10 +370,23 @@ static NSString *CellIdentifier = @"Cell";
     
     [self.camView backBtnPressed:nil];
     
+    self.counterForNoResult++;
+
+    if(self.counterForNoResult>1){
+        self.counterForNoResult = 0;
+        [self.view makeToast:NSLocalizedString(@"NICE_WARNING_CONTEXT", nil)
+                    duration:7.0
+                    position:@"top"
+                       title:NSLocalizedString(@"NICE_WARNING_TITLE", nil)
+                       image:[UIImage imageNamed:@"indicate_1.jpg"]];
+    }
     [self.view makeToast_ForCamera:NSLocalizedString(@"DETECTOR_NO_RESULT", nil)];
 }
 
 -(void)showResultButtonsAndCollectionView{
+    
+    self.counterForNoResult = 0;
+    
     if(self.collectionView.isHidden){
         self.collectionView.hidden = NO;
         self.collectionView.alpha = 1;

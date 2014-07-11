@@ -8,6 +8,8 @@
 
 #import "EDImageCell.h"
 #import "LoadControls.h"
+#import "UIImageView+M13AsynchronousImageView.h"
+
 
 @interface EDImageCell ()
 
@@ -22,22 +24,16 @@
         
         //self.backgroundColor = [UIColor grayColor];
         
-        
-        //add indicator
-        self.activityView=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        self.activityView.center=self.contentView.center;
-        //[self.activityView startAnimating];
-        [self.contentView addSubview:self.activityView];
-        
         //add imageView
         self.imageView = [LoadControls createImageViewWithRect:CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame))];
         [self.contentView addSubview:self.imageView];
         
+        //add indicator
+        self.activityView=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        self.activityView.center=self.contentView.center;
+        [self.contentView addSubview:self.activityView];
+
         
-        //add a label
-//        self.label = [LoadControls createLabelWithRect:CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame)) andTextAlignment:NSTextAlignmentCenter andFont:[UIFont boldSystemFontOfSize:24] andTextColor:[UIColor blackColor]];
-//
-//        [self.contentView addSubview:self.label];
     }
     return self;
     
@@ -47,23 +43,9 @@
 {
     [super prepareForReuse];
     
+    
+    //[self.imageView cancelLoadingAllImagesAndLoaderName:self.imgLoaderName];
     self.imageView.image = nil;
-    [self setLabelString:@""];
-}
-
-//only useful when switch to flow mode,
-//-(void)applyLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes
-//{
-//    [super applyLayoutAttributes:layoutAttributes];
-// 
-//    //NSLog(@"new cell?");
-//    
-//    self.label.center = CGPointMake(CGRectGetWidth(self.contentView.bounds) / 2.0f, CGRectGetHeight(self.contentView.bounds) / 2.0f);
-//}
-
--(void)setLabelString:(NSString *)labelString
-{
-    self.label.text = labelString;
 }
 
 @end

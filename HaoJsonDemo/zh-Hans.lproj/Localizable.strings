@@ -48,3 +48,5 @@
 "LOGGEDIN_CONTEXT_1" = "感谢您的支持!\n恳求多多反馈!\n敬请期待更多功能: )\n\n\n\n\n                             - 蓝芝士团队";
 "NOT_REGISTERED_TEXT" = "您还没有登陆\n赶紧注册一个吧: )";
 "REGISTER_BUTTON_TEXT" = "注册";
+"NICE_WARNING_CONTEXT" = "当您无法返回结果:\n1.稍微移近字体\n2.打开灯光(左下角)\n";
+"NICE_WARNING_TITLE" = "温馨提示";

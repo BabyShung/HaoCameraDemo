@@ -97,7 +97,7 @@
     if(!self.loadingImage){
         self.loadingImage = [[LoadingAnimation alloc] initWithStyle:RTSpinKitViewStyleWave color:[ED_Color edibleBlueColor]];
         CGRect screenBounds = [[UIScreen mainScreen] bounds];
-        self.loadingImage.center = CGPointMake(CGRectGetMidX(screenBounds), iPhone5? screenBounds.size.height*0.7:screenBounds.size.height*0.72);
+        self.loadingImage.center = CGPointMake(CGRectGetMidX(screenBounds), iPhone5? screenBounds.size.height*0.685:screenBounds.size.height*0.7085);
         [self addSubview:self.loadingImage];
     }
 }

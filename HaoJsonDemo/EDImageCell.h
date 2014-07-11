@@ -15,6 +15,5 @@
 @property (strong,nonatomic) UIActivityIndicatorView *activityView;
 
 
--(void)setLabelString:(NSString *)labelString;
 
 @end

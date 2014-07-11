@@ -12,8 +12,12 @@
 #import "User.h"
 #import "Edible_S3.h"
 #import "Food.h"
+#import <AWSRuntime/AWSRuntime.h>
+@interface NetworkTestViewController () <NSURLConnectionDataDelegate,AmazonServiceRequestDelegate>
 
-@interface NetworkTestViewController () <NSURLConnectionDataDelegate>
+{
+    NSMutableData *imageData;
+}
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong,nonatomic) NSMutableData *webdata;
@@ -42,7 +46,10 @@
     
     Edible_S3 *s3 = [[Edible_S3 alloc]init];
     //fetch an image from the S3 server
-    self.imageView.image = [s3 getImageFromS3:@"test_10.png"];
+    //self.imageView.image = [s3 getImageFromS3:@"1_1405107773080.jpg"];
+    
+    
+    [s3 getImageFromS3Async:@"1_1405107773080.jpg"  andSelfy:self];
     
 }
 
@@ -158,4 +165,41 @@
     [self.async sendFeedbackWithContent:content];
     
 }
+
+/************************
+ 
+ Amazon delegate
+ 
+ **********************/
+-(void)request:(AmazonServiceRequest *)request didReceiveResponse:(NSURLResponse *)response{
+    //Setup to collect image data
+    NSLog(@"************** S3 ********************************************** S3 ******** didReceiveResponse");
+    imageData = [NSMutableData data];
+}
+
+-(void)request:(AmazonServiceRequest *)request didReceiveData:(NSData *)data{
+
+    [imageData appendData:data];
+}
+
+-(void)request:(AmazonServiceRequest *)request didCompleteWithResponse:(AmazonServiceResponse *)response
+{
+     UIImage *image = [UIImage imageWithData:imageData];
+    self.imageView.image = image;
+    
+    
+     NSLog(@"************** S3 ********************************************** S3 ********222");
+ 
+}
+
+
+
+-(void)request:(AmazonServiceRequest *)request didFailWithError:(NSError *)error
+{
+
+    NSLog(@"Amazon failed To Load Image: %@", error.localizedDescription);
+
+}
+
+
 @end

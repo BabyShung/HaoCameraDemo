@@ -21,26 +21,7 @@
 - (void)loadImageFromURLAtAmazonAsync:(NSURL *)url withLoaderName:(NSString *)name completion:(M13CompletionBlock)completion
 {
     [[M13AsyncImageLoader loaderWithName:name] loadImageAtURLAtAmazon:url target:self completion:^(BOOL success, M13ImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
-        //Set the image if loaded
-        if (success) {
-            
-            self.image = image;
-            
-            if(location == M13ImageLoadedLocationCache){
-                NSLog(@"it is cache");
-            }else{
-                //Hao modified
-                [UIView transitionWithView:self
-                                  duration:0.6f
-                                   options:UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationCurveEaseInOut
-                                animations:^{
-                                    self.image = image;
-                                } completion:nil];
-            }
-        }else{
-            NSLog(@"network failed");
-            //self.image = some network failure image
-        }
+
         //Run the completion
         completion(success, location, image, url, target);
     }];
