@@ -29,22 +29,22 @@ const CGFloat kCommentCellMaxHeight = 100.f;
 const CGFloat CLeftMargin = 15.0f;
 const CGFloat TitleTopMargin = 10.0f;
 const CGFloat GAP = 6.0f;
-const CGFloat MiddleGAP = 20.0f;
+const CGFloat MiddleGAP = 10.0f;
 
-const CGFloat ShimmmerViewHeight = 40.f;
+const CGFloat TitleLabelHeight = 40.f;
 const CGFloat SeparatorViewHeight = 1.f;
 const CGFloat BelowShimmmerGap = 10.f;
-const CGFloat TranslateLabelHeight = 70.f;
-const CGFloat BelowTranslateGap = 20.f;
-const CGFloat DescriptionLabelHeight = 40.f;
-const CGFloat BelowDescriptionLabelGap = 20.f;
+const CGFloat TranslateLabelHeight = 30.f;
+const CGFloat BelowTranslateGap = 10.f;
+const CGFloat DescriptionLabelHeight = 100.f;
+const CGFloat BelowDescriptionLabelGap = 1.f;
 const CGFloat TagViewHeight = 40.f;
-const CGFloat PhotoCollectionViewHeight = 268.f;
+const CGFloat PhotoCollectionViewHeight = 200.f;
 
 static NSString *PlainTextFontName = @"HelveticaNeue-Light";
 static NSString *TagTextFontName = @"Heiti TC";
 const CGFloat LargeTitleFontSize = 25.f;
-const CGFloat LargeTextFontSize = 20.f;
+const CGFloat LargeTextFontSize = 18.f;
 const CGFloat TagFontSize = 18.f;
 const CGFloat SmallTitleFontSize = 15.f;
 const CGFloat SmallTextFontSize = 10.f;
@@ -139,20 +139,21 @@ const NSUInteger MaxCharNum = 10;
     //should add up all
     //self.scrollview.contentSize = CGSizeMake(width,ScrollViewContentSizeHeight);
     
-    self.shimmeringView = [[FBShimmeringView alloc] init];
-    self.shimmeringView.shimmering = NO;   //start shimmering
-    self.shimmeringView.shimmeringBeginFadeDuration = 0.3;
-    self.shimmeringView.shimmeringOpacity = 0.3;
-    self.shimmeringView.backgroundColor = [UIColor clearColor];
-    [self.scrollview addSubview:self.shimmeringView];
+//    self.shimmeringView = [[FBShimmeringView alloc] init];
+//    self.shimmeringView.shimmering = NO;   //start shimmering
+//    self.shimmeringView.shimmeringBeginFadeDuration = 0.3;
+//    self.shimmeringView.shimmeringOpacity = 0.3;
+//    self.shimmeringView.backgroundColor = [UIColor clearColor];
+//    [self.scrollview addSubview:self.shimmeringView];
     
-    self.titleLabel = [[UILabel alloc] initWithFrame:_shimmeringView.frame];
+    self.titleLabel = [[UILabel alloc] init];//WithFrame:_shimmeringView.frame];
     self.titleLabel.numberOfLines = 0;
     self.titleLabel.text = @"";
     self.titleLabel.font = [UIFont fontWithName:PlainTextFontName size:LargeTitleFontSize];
     self.titleLabel.textColor = [UIColor blackColor];
     self.titleLabel.backgroundColor = [UIColor clearColor];
-    _shimmeringView.contentView = self.titleLabel;
+    [self.scrollview addSubview:self.titleLabel];
+    //_shimmeringView.contentView = self.titleLabel;
     
     self.separator = [[UIView alloc] init];
     self.separator.backgroundColor = [UIColor blackColor];
@@ -161,8 +162,9 @@ const NSUInteger MaxCharNum = 10;
 
     self.translateLabel = [[UILabel alloc] init];
     self.translateLabel.numberOfLines = 0;
+    //self.translateLabel.lineBreakMode =NSLineBreakByWordWrapping;
     self.translateLabel.text = @"";
-    self.translateLabel.font = [UIFont fontWithName:PlainTextFontName size:LargeTextFontSize];
+    self.translateLabel.font = [UIFont fontWithName:PlainTextFontName size:LargeTitleFontSize];
     self.translateLabel.textColor = [UIColor blackColor];
     self.translateLabel.backgroundColor = [UIColor clearColor];
     [self.scrollview addSubview:self.translateLabel];
@@ -171,6 +173,7 @@ const NSUInteger MaxCharNum = 10;
     
     self.descriptionLabel = [[RQShineLabel alloc] init];
     self.descriptionLabel.numberOfLines = 0;
+    self.descriptionLabel.lineBreakMode =NSLineBreakByWordWrapping;
     self.descriptionLabel.text = @"";
     self.descriptionLabel.font = [UIFont fontWithName:PlainTextFontName size:LargeTextFontSize];
     self.descriptionLabel.backgroundColor = [UIColor clearColor];
@@ -193,7 +196,7 @@ const NSUInteger MaxCharNum = 10;
     self.photoCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.tagview.frame) + GAP, width, PhotoCollectionViewHeight) collectionViewLayout:small];
 
     [self.photoCollectionView registerClass:[EDImageCell class] forCellWithReuseIdentifier:CellIdentifier];
-    self.photoCollectionView.backgroundColor = [UIColor clearColor];
+    self.photoCollectionView.backgroundColor = [UIColor lightGrayColor];//[UIColor clearColor];
     self.photoCollectionView.decelerationRate = UIScrollViewDecelerationRateFast;
     [self.photoCollectionView setShowsHorizontalScrollIndicator:NO];
     [self.scrollview addSubview:self.photoCollectionView];
@@ -209,7 +212,11 @@ const NSUInteger MaxCharNum = 10;
 
     //********* finally put in self.view ************
     [self.scrollview addSubview:_commentsTableView];
-    self.scrollview.contentSize = CGSizeMake(width, CGRectGetMaxY(self.commentsTableView.frame)+10);
+    
+//    //Set scrollview contentSize a little larger so users can scroll to refresh
+//    
+//    self.scrollview.contentSize = CGSizeMake(width, MAX(CGRectGetMaxY(self.commentsTableView.frame),);
+    
     
     //add comment button above scrollview
     _commentBtn = [LoadControls createRoundedButton_Image:@"ED_feedback_right.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andCenter:CGPointMake(320-10-20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
@@ -232,13 +239,8 @@ const NSUInteger MaxCharNum = 10;
     if (scrollView.contentOffset.y + scrollView.frame.size.height == scrollView.contentSize.height && !self.myFood.isLoadingComments) {
         //Request to server
         //Load more comments
-        [self.myFood fetchOldestCommentsSize:NumCommentsPerLoad andSkip:self.myFood.comments.count completion:^(NSError *err, BOOL success) {
-            if(success){
+        [self refreshComments];
 
-                [self updateCommentTableUI];
-                [self.commentsTableView reloadData];
-            }
-        }];
     }
 }
 
@@ -311,7 +313,7 @@ const NSUInteger MaxCharNum = 10;
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSLog(@"++++++++ FIV : %@ +++++++++  I get %d photoes",self.myFood.title, (int)self.myFood.photoNames.count);
+    //NSLog(@"++++++++ FIV : %@ +++++++++  I get %d photoes",self.myFood.title, (int)self.myFood.photoNames.count);
     return self.myFood.photoNames.count;
 }
 
@@ -326,7 +328,6 @@ const NSUInteger MaxCharNum = 10;
  tableview delegate
  
  ************************/
-#pragma mark
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -394,24 +395,33 @@ const NSUInteger MaxCharNum = 10;
     /*Resize views in scroll view*/
     
     CGFloat sizeMultiplier = (height-190)/( CGRectGetHeight([[UIScreen mainScreen] bounds])-190);
-    self.shimmeringView.frame = CGRectMake(CLeftMargin, TitleTopMargin, width-CLeftMargin, ShimmmerViewHeight);
-    self.titleLabel.frame = self.shimmeringView.bounds;
-    [self.titleLabel setFont:[UIFont fontWithName:PlainTextFontName size:SmallTitleFontSize+(LargeTitleFontSize-SmallTitleFontSize)*sizeMultiplier]];
+    //self.shimmeringView.frame = CGRectMake(CLeftMargin, TitleTopMargin, width-CLeftMargin, ShimmmerViewHeight);
+    self.titleLabel.frame = CGRectMake(CLeftMargin, TitleTopMargin, width-CLeftMargin, TitleLabelHeight);
+    [self.titleLabel setFont:[UIFont fontWithName:PlainTextFontName size:SmallTitleFontSize + (LargeTitleFontSize-SmallTitleFontSize)*sizeMultiplier]];
+
+    self.separator.frame = CGRectMake(CLeftMargin, CGRectGetMaxY(self.titleLabel.frame), width-2*CLeftMargin, SeparatorViewHeight);
     
-    self.separator.frame = CGRectMake(CLeftMargin, CGRectGetMaxY(self.titleLabel.frame) + BelowShimmmerGap, width-2*CLeftMargin, SeparatorViewHeight);
+    if (self.frame.size.height < CGRectGetHeight([[UIScreen mainScreen] bounds])){
+        
+        self.descriptionLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    }else{
+        self.translateLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        self.descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
     
-    self.translateLabel.frame = CGRectMake(CLeftMargin, TitleTopMargin + CGRectGetHeight(self.titleLabel.frame)  , width, TranslateLabelHeight);
+    }
     
-    self.descriptionLabel.frame = CGRectMake(CLeftMargin, CGRectGetHeight(self.titleLabel.frame)+ CGRectGetMaxY(self.titleLabel.frame) + MiddleGAP, width - CLeftMargin*2, TranslateLabelHeight);
+    self.translateLabel.frame = CGRectMake(CLeftMargin, TitleTopMargin + CGRectGetMaxY(self.titleLabel.frame), width, TranslateLabelHeight);
     
-    self.tagview.frame = CGRectMake(0, BelowDescriptionLabelGap+CGRectGetMaxY(self.descriptionLabel.frame) , width, TagViewHeight);
+    self.descriptionLabel.frame = CGRectMake(CLeftMargin, CGRectGetMaxY(self.translateLabel.frame) + GAP, width - CLeftMargin*2, DescriptionLabelHeight);
+    
+    self.tagview.frame = CGRectMake(0, BelowDescriptionLabelGap+CGRectGetMaxY(self.descriptionLabel.frame)+ GAP, width, TagViewHeight);
     
     self.photoCollectionView.frame = CGRectMake(0, CGRectGetMaxY(self.tagview.frame) + GAP, width, PhotoCollectionViewHeight);
 
     
     self.commentsTableView.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, width,  CGRectGetHeight(self.commentsTableView.frame));
     
-    //
+    self.scrollview.contentSize = CGSizeMake(width, MAX(CGRectGetHeight(self.commentsTableView.frame), height)+10);
     /*Change alpha values for 4 special views*/
     
     CGFloat newAlpha= (CGRectGetHeight(self.frame)-ViewAlphaRecreaseRate)/(CGRectGetHeight([[UIScreen mainScreen] bounds])-ViewAlphaRecreaseRate);
@@ -420,8 +430,10 @@ const NSUInteger MaxCharNum = 10;
     self.commentsTableView.alpha = newAlpha;
     self.photoCollectionView.alpha = newAlpha;
 
-    //NSLog(@"+++ FIV %@ +++ LAYOUT SUBVIEW: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.contentSize.height,self.scrollview.frame.size.height);
+    NSLog(@"+++ FIV %@ +++  %d LAYOUT SUBVIEW: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.isScrollEnabled,self.scrollview.contentSize.height,self.scrollview.bounds.size.height);
 }
+
+
 
 -(void)setUpForLargeLayout{
     self.userInteractionEnabled = YES;
@@ -445,42 +457,30 @@ const NSUInteger MaxCharNum = 10;
 /*                                */
 /*************** MEi **************/
 
+
+//Before calling this method, update myFood property
 -(void)setFoodInfo{
     self.titleLabel.text = self.myFood.title;
     self.translateLabel.text = self.myFood.transTitle;
     self.descriptionLabel.text = self.myFood.food_description;
 }
 
-//Fetch the comments for first time display
--(void)prepareComments
-{
-    //If NO comments has been fetched, request them
-    if (!self.myFood.isCommentLoaded && !self.myFood.isLoadingComments) {
-
-        //NSLog(@"+++FIV+++ : request comments");
-        [self.myFood fetchOldestCommentsSize:NumCommentsPerLoad andSkip:self.myFood.comments.count completion:^(NSError *err, BOOL success) {
-            if (success) {
-                //NSLog(@"+++FIV+++ : I get %d comments!",(int)self.myFood.comments.count);
+//Load More comments
+-(void)refreshComments{
+    if (!self.myFood.isLoadingComments) {
+        [self.myFood fetchLatestCommentsSize:NumCommentsPerLoad andSkip:self.myFood.comments.count completion:^(NSError *err, BOOL success) {
+            if(success){
                 
-                CGFloat height = self.myFood.comments.count*kCommentCellMaxHeight;
-                self.commentsTableView.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, CGRectGetWidth([[UIScreen mainScreen] bounds]), height);
-                //[self.scrollview sizeToFit];
-                //self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width, self.scrollview.contentSize.height+height);
-                self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width,CGRectGetMaxY(self.commentsTableView.frame)+10);
-                [self configCommentTable];
-                //NSLog(@"+++ FIV %@+++ PREPARE CMT: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.contentSize.height,self.scrollview.frame.size.height);
-
+                [self updateCommentTableUI];
             }
-            
         }];
     }
 }
 
 //Set up comment table delegate
 -(void)configCommentTable{
-    
-    _commentsTableView.delegate = self;
     _commentsTableView.dataSource = self;
+    _commentsTableView.delegate = self;
     [_commentsTableView reloadData];
 }
 
@@ -499,6 +499,7 @@ const NSUInteger MaxCharNum = 10;
         
         NSMutableArray *insertIndexPaths = [NSMutableArray arrayWithCapacity:newCount-oldCount];
         
+        
         for (int ind = 0; ind < newCount-oldCount; ind++)
         {
             NSIndexPath *newPath =  [NSIndexPath indexPathForRow:oldCount+ind inSection:0];
@@ -515,12 +516,25 @@ const NSUInteger MaxCharNum = 10;
         //NSLog(@"+++ FIV +++ : deltaH = %f",deltaHeight);
         self.commentsTableView.frame =  CGRectMake(self.commentsTableView.frame.origin.x, self.commentsTableView.frame.origin.y, self.commentsTableView.frame.size.width, self.commentsTableView.frame.size.height + deltaHeight);
         //self.scrollview.frame =CGRectMake(self.scrollview.frame.origin.x, self.scrollview.frame.origin.y, self.scrollview.frame.size.width, self.scrollview.frame.size.height + deltaHeight);
-        self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width, self.scrollview.contentSize.height+deltaHeight);
-       // NSLog(@"+++ FIV %@ +++ UPD CMT UI: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.contentSize.height,self.scrollview.frame.size.height);
+        self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width,MAX(CGRectGetHeight(self.commentsTableView.frame), self.frame.size.height)+10);
+        NSLog(@"+++ FIV %@ +++ UPD CMT UI: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.contentSize.height,self.scrollview.frame.size.height);
+        if (!self.commentsTableView.delegate) {
+            [self configCommentTable];
+        }
+        else{
+            [self.commentsTableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationFade];
+            [self.commentsTableView reloadData];
+        }
         
-        [self.commentsTableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationFade];
+        
     }
     
+}
+
+//If you want to change description label text, use this method instead
+//It will change the layout accordingly
+-(void) changeDescriptionLabelText:(NSString *)newText{
+
 }
 
 //this method got called when cell preparing for reuse
@@ -549,7 +563,9 @@ const NSUInteger MaxCharNum = 10;
 
 }
 
+/******************************************************/
 /************  DISPLAY IN COLLECTION VIEW  ************/
+/******************************************************/
 
 // Fist time display, set up photoview delegate
 -(void)configPhotoAndTagWithCellNo:(NSInteger)no{
@@ -582,7 +598,8 @@ const NSUInteger MaxCharNum = 10;
                     //NSLog(@"******************** !!!!!! setting food !!!!!!22 **********************");
                     [self setFoodInfo];
                     [self configPhotoAndTagWithCellNo:cellNo];
-                    [self prepareComments];
+                    [self refreshComments];
+                    //[self configCommentTable];
                     [self showCommentButton];
              
                     
@@ -594,14 +611,18 @@ const NSUInteger MaxCharNum = 10;
         else if(self.myFood.isFoodInfoCompleted){//Food info is complete, config at once;
             //NSLog(@"******************** !!!!!! setting food !!!!!!333 **********************");
             [self configPhotoAndTagWithCellNo:cellNo];
-            [self prepareComments];
+            [self refreshComments];
+            //[self configCommentTable];
             [self showCommentButton];
         }
         
     }
 }
 
+/**************************************************/
 /************  DISPLAY IN SINGLE VIEW  ************/
+/**************************************************/
+
 //Prepare data for first time display IN SINGLE FOOD VIEW
 -(void)prepareForDisplay{
     if (self.myFood) {
@@ -615,7 +636,8 @@ const NSUInteger MaxCharNum = 10;
                 if (success) {
                     [self setFoodInfo];
                     [self configPhotoAndTag];
-                    [self prepareComments];
+                    [self refreshComments];
+                    //[self configCommentTable];
                     [self showCommentButton];
                 }
                 
@@ -623,7 +645,8 @@ const NSUInteger MaxCharNum = 10;
         }
         else if(self.myFood.isFoodInfoCompleted){//Food info is complete, config at once;
             [self configPhotoAndTag];
-            [self prepareComments];
+            [self refreshComments];
+            //[self configCommentTable];
             [self showCommentButton];
         }
         
@@ -654,21 +677,25 @@ const NSUInteger MaxCharNum = 10;
 /******************************/
 
 - (void) commentBtnPressed:(id)sender {
-    NSLog(@"++++ FIV ++++ : COMMENT BUTTON PRESSED");
-
-    //[self.activityView startAnimating];
-    
-    
-    if ([[User sharedInstance].lastComments objectForKey:[NSString stringWithFormat:@"%d",(int)self.myFood.fid]] == [NSNull null] || ![[User sharedInstance].lastComments objectForKey:[NSString stringWithFormat:@"%d",(int)self.myFood.fid]]) {
-        [self addSubview:self.activityView];
-        [User fetchMyCommentOnFood:self.myFood.fid andCompletion:^(NSError *err, BOOL success) {
-            [self.activityView removeFromSuperview];
-            [self showCommentView];
-        }];
-    }else{
-        //lastcomment has been loaded
-        [self showCommentView];
-    }
+//    NSLog(@"++++ FIV ++++ : COMMENT BUTTON PRESSED");
+//
+//    [self.activityView startAnimating];
+//    
+//    
+//    if (![[User sharedInstance].lastComments objectForKey:[NSString stringWithFormat:@"%d",(int)self.myFood.fid]]) {
+//        
+//        NSLog(@"++++ FIV ++++ : REQUEST COMMENT ");
+//        [self addSubview:self.activityView];
+//        
+//        [User fetchMyCommentOnFood:self.myFood.fid andCompletion:^(NSError *err, BOOL success) {
+//            [self.activityView removeFromSuperview];
+//            [self showCommentView];
+//        }];
+//    }
+//    else{   //lastcomment has been loaded
+//
+//        [self showCommentView];
+//    }
 
 }
 
@@ -703,10 +730,10 @@ const NSUInteger MaxCharNum = 10;
     self.countLabel.textAlignment = NSTextAlignmentRight;
     //            //textView.backgroundColor = [UIColor clearColor];
     
-    id lastcomment = [[User sharedInstance].lastComments objectForKey:[NSString stringWithFormat:@"%d",(int)self.myFood.fid]];
-    if (lastcomment != [NSNull null]) {
-        textView.text = ((Comment *)lastcomment).text;
-        [rateView setStars:(int)((Comment *)lastcomment).rate target:self callbackAction:@selector(didChangeRating:)];
+    Comment* lastcomment = [[User sharedInstance].lastComments objectForKey:[NSString stringWithFormat:@"%d",(int)self.myFood.fid]];
+    if (lastcomment) {
+        textView.text = lastcomment.text;
+        [rateView setStars:(int)lastcomment.rate target:self callbackAction:@selector(didChangeRating:)];
     }
     else{
         //textView.text = @"Please comment...";
@@ -722,15 +749,16 @@ const NSUInteger MaxCharNum = 10;
 -(void)hideCommentButton{
     self.commentBtn.hidden = YES;
     _commentBtn.alpha = .0f;
-    //NSLog(@"------------------------------is hiden = %d",_commentBtn.isHidden);
+    //NSLog(@"+++++++++ FIV ++++++++++++ : Hide comment button");
 }
 
 -(void)showCommentButton{
-    if ([User sharedInstance].Uid != 1) {
+    //NSLog(@"+++++++++ FIV ++++++++++++ :UID = %d",(int)[User sharedInstance].Uid);
+    if ([User sharedInstance].Uid != AnonymousUser) {
         [UIView animateWithDuration:0.5 animations:^{
             self.commentBtn.hidden = NO;
             self.commentBtn.alpha = 1;
-            //NSLog(@"+++++++++++++++++++++++++is hiden = %d",_commentBtn.isHidden);
+            //NSLog(@"+++++++++ FIV ++++++++++++ : show comment button");
         }];
     }
     
@@ -745,6 +773,7 @@ const NSUInteger MaxCharNum = 10;
 /*****************************/
 /* HATransparentView delegate*/
 /*****************************/
+
 - (void)HATransparentViewDidClosed
 {
     
@@ -768,11 +797,16 @@ const NSUInteger MaxCharNum = 10;
 
 -(void)textViewDidChange:(UITextView *)textView
 {
-    if ([[textView.text substringFromIndex:(textView.text.length-1)] isEqualToString:@"\n"])
+    //User press enter, send the comment
+    if ([textView.text characterAtIndex:MAX((textView.text.length-1), 0)] =='\n')
     {
         textView.text = [textView.text substringToIndex:textView.text.length-1];
+        if (textView.text.length>0) {
+            
+        
         
         Comment *newComment = [[Comment alloc]initWithCommentID:0 andFid:self.myFood.fid andRate:_currentStar andComment:textView.text];
+        
         [[User sharedInstance].lastComments setObject:newComment forKey:[NSString stringWithFormat:@"%d",(int)self.myFood.fid]];
         NSLog(@"+++++++++++++++ FIV +++++WILL SEND COMMENT+++++++++++++++++++");
         [User createComment:newComment andCompletion:^(NSError *err, BOOL success) {
@@ -786,6 +820,10 @@ const NSUInteger MaxCharNum = 10;
                 [self makeToast:NSLocalizedString(@"FAIL_COMMENT", nil)];
             }
         }];
+        }
+        else{
+            [self makeToast:NSLocalizedString(@"EMPTY_COMMENT", nil)];
+        }
         
         
     }

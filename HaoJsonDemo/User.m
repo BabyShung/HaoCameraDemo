@@ -110,7 +110,7 @@ static AsyncRequest *async;
 
 +(void)fetchMyCommentOnFood:(NSUInteger)fid andCompletion:(void (^)(NSError *err, BOOL success))block{
     CompletionBlock = block;
-    [sharedInstance.lastComments setObject:[NSNull null] forKey:[NSString stringWithFormat:@"%d",(int)fid]];
+    //[sharedInstance.lastComments setObject:[NSNull null] forKey:[NSString stringWithFormat:@"%d",(int)fid]];
     [async getReviews_fid:fid byUid:[User sharedInstance].Uid];
 }
 
@@ -221,16 +221,15 @@ static AsyncRequest *async;
             
             
         }
-        else if([action isEqualToString:@"get_review"]){//get my review
+        else if([action isEqualToString:@"get_my_review"]){//get my review
+            NSDictionary *resultDict = [returnJSONtoNSdict objectForKey:@"result"];
+            if (resultDict) {
             
-            NSArray *resultArr = [returnJSONtoNSdict objectForKey:@"result"];
-            if (resultArr.count == 1)
-            {
-                Comment *result = [[Comment alloc]initWithDict:resultArr[0]];
+                Comment *result = [[Comment alloc]initWithDict:resultDict];
                 [sharedInstance.lastComments setObject:result forKey:[NSString stringWithFormat:@"%d",(int)result.fid]];
-                
-                
             }
+                
+            
         }
         if (CompletionBlock) {
             dispatch_async(dispatch_get_main_queue(), ^{

@@ -49,3 +49,4 @@
 "REGISTER_BUTTON_TEXT" = "Register";
 "NICE_WARNING_CONTEXT" = "If no results:\n1.Zoom in\n2.Open torch";
 "NICE_WARNING_TITLE" = "Tips";
+"EMPTY_COMMENT" = "Empty text!";

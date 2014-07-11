@@ -115,8 +115,9 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 -(void) fetchAsyncInfoCompletion:(void (^)(NSError *err, BOOL success))block{
     _loadingFoodInfo = YES;
     _foodInfoCompletionBlock = block;
+    [self.async getFoodInfo_byPost:self.title andLanguage:[[ShareData shareData]defaultTargetLang]];
     
-    [self.async getFoodInfo:self.title andLang:[[ShareData shareData] defaultTargetLang]];
+    //[self.async getFoodInfo:self.title andLang:[[ShareData shareData] defaultTargetLang]];
     
 }
 
@@ -131,7 +132,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 //    
 //}
 
--(void) fetchOldestCommentsSize:(NSUInteger)size andSkip:(NSUInteger)skip completion:(void (^)(NSError *err, BOOL success))block {
+-(void) fetchLatestCommentsSize:(NSUInteger)size andSkip:(NSUInteger)skip completion:(void (^)(NSError *err, BOOL success))block {
     _loadingComments = YES;
     _commentCompletionBlock = block;
     
@@ -164,25 +165,34 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
 
     NSURLRequest *nowRequest = [connection currentRequest];
-    if ([[nowRequest HTTPMethod] isEqualToString:@"GET"]) {
-        NSString *urlStr = [[nowRequest URL] absoluteString];
-        if([urlStr rangeOfString:@"food"].location != NSNotFound )
-        {
-            NSLog(@"+++ FOOD +++ : GET food failure");
-            _loadingFoodInfo = NO;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                _foodInfoCompletionBlock(error,NO);
-            });
-        }
-        else if ([urlStr rangeOfString:@"review"].location != NSNotFound )
-        {
-            NSLog(@"+++ FOOD +++ : GET review failure");
-            _loadingComments = NO;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                _commentCompletionBlock(error,NO);
-            });
-        }
+    
+    if ([[nowRequest HTTPMethod] isEqualToString:@"POST"]) {
         
+        //Get the body of the request and format as JSON
+        NSDictionary *requestBody = [NSJSONSerialization JSONObjectWithData:[nowRequest HTTPBody] options:0 error:nil];
+        
+        //Get action
+        NSString *action = [[requestBody objectForKey:@"action"] stringValue];
+        
+        if ([action isEqualToString:@"get_review"]) {
+            NSLog(@"+++ FOOD +++ : GET review failure");
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                _foodInfoCompletionBlock(error,NO);
+                _loadingComments = NO;
+            });
+        }
+        else if([action isEqualToString:@"get_food"]){
+            NSLog(@"+++ FOOD +++ : GET food failure");
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                _foodInfoCompletionBlock(error,NO);
+                _loadingFoodInfo = NO;
+            });
+            
+        }
     }
 }
 
@@ -203,15 +213,15 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 
         
         if([action isEqualToString:@"get_food"]){//food
-            _foodInfoComplete = YES;
-            _loadingFoodInfo = NO;
+
             
             NSArray *resultArr = [returnJSONtoNSdict objectForKey:@"result"];
             
             if(resultArr.count ==0){
-                _foodInfoComplete = NO;
+                
                 dispatch_async(dispatch_get_main_queue(), ^{
                     _foodInfoCompletionBlock(nil,NO);
+                    _loadingComments = NO;
                 });
             }
             else{
@@ -240,19 +250,19 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
                 if (photoNameArr.count>0) {
                         NSLog(@"url: %@",self.photoNames[0]);
                 }
-
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                _foodInfoCompletionBlock(nil,YES);
+                    _foodInfoCompletionBlock(nil,YES);
+                    _foodInfoComplete = YES;
+                    _loadingFoodInfo = NO;
                 });
             }
             
 
             
             
-        }else if([action isEqualToString:@"get_reviews"]){//comment
-            _commentLoaded = YES;
-            _loadingComments = NO;
+        }else if([action isEqualToString:@"get_review"]){//comment
+
             //create comment array data and assign to self.comments
             
             //....
@@ -292,6 +302,8 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 _commentCompletionBlock(nil,YES);
+                _commentLoaded = YES;
+                _loadingComments = NO;
             });
         }
         
@@ -302,17 +314,19 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
         
         if([action isEqualToString:@"get_food"]){   //food
             NSLog(@"+++ FOOD +++ : FAILURE - GET 0 FOOD RECORD!");
-            _loadingFoodInfo = NO;
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 _foodInfoCompletionBlock(nil,NO);
+                _loadingFoodInfo = NO;
             });
             
         }else if([action isEqualToString:@"get_reviews"]){        //comment
             
             NSLog(@"+++ FOOD +++ : FAILURE - GET 0 REVIEW RECORD!");
-            _loadingComments = NO;
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 _commentCompletionBlock(nil,NO);
+                _loadingComments = NO;
             });
         }
 

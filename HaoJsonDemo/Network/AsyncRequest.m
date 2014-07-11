@@ -51,14 +51,20 @@
 -(void)getReviews_fid:(NSUInteger)fid withLoadSize:(NSUInteger)size andSkip:(NSUInteger)skip{
     
     User *user = [User sharedInstance];
+    
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:fid], @"fid",[NSNumber numberWithInteger:user.Uid], @"uid",[NSNumber numberWithUnsignedInteger:skip],@"start",[NSNumber numberWithUnsignedInteger:size],@"offset",@"get_review",@"action", nil];
+    
+    NSURL *url = [NSURL URLWithString:DOREVIEW];
+    
+    [self performAsyncTask_Dictionary:dict andURL:url];
 
-    NSMutableString *paraString = [NSMutableString string];
-    [paraString appendString:[NSString stringWithFormat:@"fid=%d&uid=%d&start=%ld&offset=%ld",(int)fid,(int)user.Uid,(long)skip,(long)size]];
-    NSMutableString *reviewString =  [NSMutableString stringWithString:REVIEWURL];
-    
-    [reviewString appendString:paraString];
-    
-    [self performGETAsyncTaskwithURLString:[NSString stringWithString:reviewString]];
+//    NSMutableString *paraString = [NSMutableString string];
+//    [paraString appendString:[NSString stringWithFormat:@"fid=%d&uid=%d&start=%ld&offset=%ld",(int)fid,(int)user.Uid,(long)skip,(long)size]];
+//    NSMutableString *reviewString =  [NSMutableString stringWithString:REVIEWURL];
+//    
+//    [reviewString appendString:paraString];
+//    
+//    [self performGETAsyncTaskwithURLString:[NSString stringWithString:reviewString]];
     
 }
 
@@ -115,7 +121,7 @@
             language = @"CN";
             break;
     }
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:foodname, @"title",language, @"lang", @"search",@"action", nil];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:foodname, @"title",language, @"lang", @"get_food",@"action", nil];
     NSURL *url = [NSURL URLWithString:FOOD_POST_URL];
     [self performAsyncTask_Dictionary:dict andURL:url];
 }

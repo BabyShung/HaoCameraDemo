@@ -44,7 +44,7 @@
 
 
 @end
-//const NSInteger MaxCharNum = 20;
+
 @implementation SecondViewController
 
 //-(void)showCommentButton:(NSNotification*)notification{
