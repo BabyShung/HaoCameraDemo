@@ -132,7 +132,7 @@
         NSLog(@"fetch food info block!");
     }];
     
-    [food fetchOldestCommentsSize:5 andSkip:0 completion:^(NSError *err, BOOL success){
+    [food fetchLatestCommentsSize:5 andSkip:0 completion:^(NSError *err, BOOL success){
         NSLog(@"%d",success);
         NSLog(@"fetch comment block!");
     }];

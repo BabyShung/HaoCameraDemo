@@ -45,3 +45,4 @@
 "DETECTOR_NO_RESULT" = "无结果，再试一次亲";
 "NOT_REGISTERED_TEXT" = "您还没有登陆\n赶紧注册一个吧: )";
 "REGISTER_BUTTON_TEXT" = "注册";
+"EMPTY_COMMENT" = "唉呦，空评论~";

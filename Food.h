@@ -41,6 +41,6 @@
 //fetch async comment
 //-(void) fetchCommentsCompletion:(void (^)(NSError *err, BOOL success))block;
 
--(void) fetchOldestCommentsSize:(NSUInteger)size andSkip:(NSUInteger)skip completion:(void (^)(NSError *err, BOOL success))block;
+-(void) fetchLatestCommentsSize:(NSUInteger)size andSkip:(NSUInteger)skip completion:(void (^)(NSError *err, BOOL success))block;
 
 @end
