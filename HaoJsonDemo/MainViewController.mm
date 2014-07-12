@@ -311,7 +311,7 @@ static NSString *CellIdentifier = @"Cell";
     
     /**********************************/
 //    NSArray *localFoods = [dict localSearchOCRString:@"Romano and flatbread and roll and Romano Cheese"];
-//    NSLog(@"++++Main VC++++ : Local Foods: %d",(int)localFoods.count);
+////    NSLog(@"++++Main VC++++ : Local Foods: %d",(int)localFoods.count);
 //    [self addFoodItems:localFoods];
 //    [self showResultButtonsAndCollectionView];
 

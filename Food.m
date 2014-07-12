@@ -172,7 +172,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
         NSDictionary *requestBody = [NSJSONSerialization JSONObjectWithData:[nowRequest HTTPBody] options:0 error:nil];
         
         //Get action
-        NSString *action = [[requestBody objectForKey:@"action"] stringValue];
+        NSString *action = [requestBody objectForKey:@"action"];
         
         if ([action isEqualToString:@"get_review"]) {
             NSLog(@"+++ FOOD +++ : GET review failure");

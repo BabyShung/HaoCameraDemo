@@ -716,7 +716,6 @@
 				B8B60FBA19591605005268D5 /* SecondViewController.m */,
 				B8D6953D193EBB9B00E504FA /* Camera */,
 				B8B6101719592030005268D5 /* ResultCollection */,
-				B8CC9F57196897A400CCFE74 /* CommentView */,
 				B8B60FBC19591DDA005268D5 /* FoodInfoView */,
 			);
 			name = "Main(Camera)";
@@ -739,6 +738,7 @@
 			children = (
 				ACDD6D59195F4C3100AD51A7 /* FoodInfoView.h */,
 				ACDD6D5A195F4C3100AD51A7 /* FoodInfoView.m */,
+				B8CC9F57196897A400CCFE74 /* CommentView */,
 				B8B60FE919591E50005268D5 /* PhotoCollectionView */,
 				B8B60F9F19591416005268D5 /* ShimmerView */,
 				B8B60FE519591E35005268D5 /* ShineLabel */,

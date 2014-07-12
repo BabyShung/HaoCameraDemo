@@ -51,3 +51,4 @@
 "NICE_WARNING_CONTEXT" = "当您无法返回结果:\n1.稍微移近字体\n2.打开灯光(左下角)\n";
 "NICE_WARNING_TITLE" = "温馨提示";
 "EMPTY_COMMENT" = "唉呦，空评论~";
+"COMMENT_TOO_LONG" = "评论太长了，亲";
