@@ -231,8 +231,12 @@
             else if(velocity.y && fabsf(velocity.y/velocity.x)<=2 && self.collectionView.contentOffset.x>0 && (self.collectionView.contentOffset.x + self.collectionView.frame.size.width != self.collectionView.contentSize.width)){
                 
                 EDCollectionCell *cell = (EDCollectionCell *)[self.collectionView cellForItemAtIndexPath:[self.collectionView indexPathForItemAtPoint:self.initialPinchPoint]];
-                //NSLog(@")))))))))))))))))))))))))))) %@",cell.foodInfoView.myFood.title);
-                cell.foodInfoView.commentBtn.alpha = 1-fabsf(translate.x/100);
+                if (!cell.foodInfoView.photoCollectionView.isTracking) {
+                    //NSLog(@"+++++++++ TC ++++++++++++ : USER IS SCROLLING");
+                    //NSLog(@")))))))))))))))))))))))))))) %@",cell.foodInfoView.myFood.title);
+                    cell.foodInfoView.commentBtn.alpha = 1-fabsf(translate.x/100);
+                }
+
             
             }
             break;
