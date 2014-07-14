@@ -501,23 +501,17 @@
     
     
     // -- LOAD BUTTONS BEGIN -- //
-    _backBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointZero andSmallRadius:YES];
+    _backBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointZero];
     [_backBtn addTarget:self action:@selector(backBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    _TorchBtn = [LoadControls createRoundedButton_Image:@"ED_torch.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(0, 0, 0, 0) andCenter:torchStart andSmallRadius:YES];
+    _TorchBtn = [LoadControls createRoundedButton_Image:@"ED_torch.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(0, 0, 0, 0) andCenter:torchStart];
     [_TorchBtn addTarget:self action:@selector(torchBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    _saveBtn = [LoadControls createRoundedButton_Image:@"Download.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 10.5, 7, 10.5) andCenter:CGPointZero andSmallRadius:YES];
+    _saveBtn = [LoadControls createRoundedButton_Image:@"Download.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 10.5, 7, 10.5) andCenter:CGPointZero];
     [_saveBtn addTarget:self action:@selector(saveBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    _nextPageBtn = [LoadControls createRoundedButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 13, 9, 10) andCenter:nextStart andSmallRadius:YES];
+    _nextPageBtn = [LoadControls createRoundedButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 13, 9, 10) andCenter:nextStart];
     [_nextPageBtn addTarget:self action:@selector(nextPagePressed:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    //_captureBtn = [LoadControls createRoundedButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsZero andCenter:captureStart andSmallRadius:NO];
-//    _captureBtn = [LoadControls createCameraButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor_Deep] andImageInset:UIEdgeInsetsZero andCenter:captureStart];
-//    [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-//    [_captureBtn setTitleColor:[ED_Color darkGreyColor] forState:UIControlStateNormal];
 
     
     _captureBtn = [LoadControls createNiceCameraButton];

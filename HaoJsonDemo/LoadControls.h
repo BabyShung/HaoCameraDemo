@@ -17,9 +17,8 @@
 +(UILabel *)createLabelWithRect:(CGRect)rect andTextAlignment:(NSTextAlignment)ta andFont:(UIFont*)font andTextColor:(UIColor*)color;
 +(UITextView *)createTextViewWithRect:(CGRect)rect;
 
-+(UIButton *)createRoundedButton_Image:(NSString *)imageName andTintColor:(UIColor *) color andImageInset:(UIEdgeInsets) edgeInset andCenter:(CGPoint)center andSmallRadius:(BOOL)radius;
++(UIButton *)createRoundedButton_Image:(NSString *)imageName andTintColor:(UIColor *) color andImageInset:(UIEdgeInsets) edgeInset andCenter:(CGPoint)center;
 
-+(UIButton *)createCameraButton_Image:(NSString *)imageName andTintColor:(UIColor *) color andImageInset:(UIEdgeInsets) edgeInset andCenter:(CGPoint)center;
 
 +(UIButton *)createUIButtonWithRect:(CGRect)rect;
 

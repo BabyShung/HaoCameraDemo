@@ -118,13 +118,13 @@ static NSString *CellIdentifier = @"Cell";
     
     //add in collectionView
     
-    _clearBtn = [LoadControls createRoundedButton_Image:@"ED_cross.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(10, 10, 10, 10) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
+    _clearBtn = [LoadControls createRoundedButton_Image:@"ED_cross.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(10, 10, 10, 10) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20)];
     [_clearBtn addTarget:self action:@selector(clearBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     _clearBtn.alpha = 1;
     _clearBtn.hidden = YES;
     [self.view insertSubview:_clearBtn aboveSubview:self.collectionView];
     
-    _captureBtn = [LoadControls createRoundedButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andCenter:CGPointMake(320-10-23, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
+    _captureBtn = [LoadControls createRoundedButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andCenter:CGPointMake(320-10-23, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20)];
     [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     _captureBtn.alpha = 1;
     _captureBtn.hidden = YES;

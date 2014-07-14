@@ -10,8 +10,7 @@
 #import "ED_Color.h"
 #import "MRoundedButton.h"
 
-#define smallBTNRadius 22
-#define largeBTNRadius 34
+#define smallBTNRadius 25
 
 #define ButtonAvailableAlpha 0.6
 
@@ -69,11 +68,11 @@
 }
 
 
-+(UIButton *)createRoundedButton_Image:(NSString *)imageName andTintColor:(UIColor *) color andImageInset:(UIEdgeInsets) edgeInset andCenter:(CGPoint)center andSmallRadius:(BOOL)radius{
++(UIButton *)createRoundedButton_Image:(NSString *)imageName andTintColor:(UIColor *) color andImageInset:(UIEdgeInsets) edgeInset andCenter:(CGPoint)center{
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
 
-    button.bounds = CGRectMake(0, 0, 45, 45);
+    button.bounds = CGRectMake(0, 0, 50, 50);
     button.backgroundColor = [UIColor colorWithWhite:1 alpha:.90];
     button.alpha = ButtonAvailableAlpha;
     
@@ -90,7 +89,7 @@
 
     button.layer.shouldRasterize = YES;
     button.layer.rasterizationScale = [UIScreen mainScreen].scale;
-    button.layer.cornerRadius = radius?smallBTNRadius:largeBTNRadius;
+    button.layer.cornerRadius = smallBTNRadius;
     
     button.layer.borderColor = [ED_Color darkGreyColor].CGColor;
     button.layer.borderWidth = 0.5;
@@ -121,45 +120,10 @@
     button.detailTextLabel.text = NSLocalizedString(@"CAPTURE_BTN", nil);
     button.detailTextLabel.font = [UIFont systemFontOfSize:16];
     button.imageView.image = [UIImage imageNamed:@"Camera_02.png"];
-    //[button setTintColor:[ED_Color edibleBlueColor_Deep]];
     
-    NSLog(@"get btn reference:   %@",button);
     return (UIButton *)button;
 }
 
 
-+(UIButton *)createCameraButton_Image:(NSString *)imageName andTintColor:(UIColor *) color andImageInset:(UIEdgeInsets) edgeInset andCenter:(CGPoint)center{
-    
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    
-    button.bounds = CGRectMake(0, 0, 320, iPhone5?218:180);
-    button.backgroundColor = [UIColor clearColor];
-   // button.backgroundColor = [UIColor colorWithWhite:1 alpha:.90];
-    
-    [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
-    
-    UIImage *backgroungColorForTouchDown = [self imageWithColor:[UIColor colorWithWhite:1 alpha:.60] andRect:button.bounds];
-    [button setBackgroundImage:backgroungColorForTouchDown forState:UIControlStateHighlighted];
-    [button setTintColor:color];
-    [button setImageEdgeInsets:edgeInset];
-    button.center = center;
-    button.layer.shouldRasterize = YES;
-    button.layer.rasterizationScale = [UIScreen mainScreen].scale;
-    
-    return button;
-}
-
-+ (UIImage *)imageWithColor:(UIColor *)color andRect:(CGRect)rect {
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    CGContextSetFillColorWithColor(context, [color CGColor]);
-    CGContextFillRect(context, rect);
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return image;
-}
 
 @end
