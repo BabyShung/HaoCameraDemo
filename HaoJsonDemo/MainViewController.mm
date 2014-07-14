@@ -425,6 +425,7 @@ static NSString *CellIdentifier = @"Cell";
                        title:NSLocalizedString(@"NICE_WARNING_TITLE", nil)
                        image:[UIImage imageNamed:@"indicate_1.jpg"]];
     }
+    //[self.view makeToastActivity];
     [self.view makeToast_ForCamera:NSLocalizedString(@"DETECTOR_NO_RESULT", nil)];
 }
 

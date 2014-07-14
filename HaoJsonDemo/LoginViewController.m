@@ -18,9 +18,10 @@
 #import "UIResponder+KeyboardCache.h"
 #import "UIAlertView+Blocks.h"
 #import "Flurry.h"
+#import <QuartzCore/QuartzCore.h>
+#import "UIView+ZKPulseView.h"
 
 @interface LoginViewController () <MKTransitionCoordinatorDelegate,UITextFieldDelegate>
-
 
 @property (nonatomic, strong) MKTransitionCoordinator *menuInteractor;
 
@@ -33,6 +34,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //[self.userView startPulse];
     
     //cache keyboard
     [UIResponder cacheKeyboard];
@@ -150,10 +153,9 @@
                 //transition
                 [self transitionToFrameVC_duration:0.5];
             }else{
-                
                 self.loginBtn.enabled = YES;
                 [self.loadingImage stopAnimating];
-                [self showErrorMsg:[err localizedDescription] withTextField:self.emailTextField];
+                [self showErrorMsg:[err localizedDescription] withTextField:self.pwdTextField];
             }
         }];
         
