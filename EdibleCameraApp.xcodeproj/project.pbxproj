@@ -23,6 +23,8 @@
 		3AC9FAF3196CA0F500153773 /* localDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 3AC9FAF2196CA0F500153773 /* localDB.db */; };
 		AC1E7760194F580800532F65 /* ShareData.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1E775F194F580800532F65 /* ShareData.m */; };
 		AC1E7764194F583100532F65 /* filterwords.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC1E7761194F583100532F65 /* filterwords.txt */; };
+		AC3FDCF91971F1AB0008D311 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = AC3FDCF81971F1AB0008D311 /* UIView+Toast.m */; };
+		AC3FDD0019742F470008D311 /* LoadingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC3FDCFF19742F470008D311 /* LoadingIndicatorView.m */; };
 		AC7491F8195A2C4F00D3CBBA /* TransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7491F7195A2C4F00D3CBBA /* TransitionController.m */; };
 		AC749201195A2D4300D3CBBA /* TransitionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC749200195A2D4300D3CBBA /* TransitionLayout.m */; };
 		AC8A357A19461E2100FC5465 /* SQLConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8A357619461E2100FC5465 /* SQLConnector.m */; };
@@ -52,7 +54,6 @@
 		B8AB89D0196C7EA400F32E4F /* star_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8AB89CC196C7EA400F32E4F /* star_off@2x.png */; };
 		B8AB89D1196C7EA400F32E4F /* star_on.png in Resources */ = {isa = PBXBuildFile; fileRef = B8AB89CD196C7EA400F32E4F /* star_on.png */; };
 		B8AB89D2196C7EA400F32E4F /* star_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8AB89CE196C7EA400F32E4F /* star_on@2x.png */; };
-		B8AB89D7196DDB4900F32E4F /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = B8AB89D6196DDB4900F32E4F /* UIView+Toast.m */; };
 		B8AB89DB196F19C900F32E4F /* AboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8AB89DA196F19C900F32E4F /* AboutUsViewController.m */; };
 		B8B60FAB195914DF005268D5 /* smallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FA8195914DF005268D5 /* smallLayout.m */; };
 		B8B60FAC195914DF005268D5 /* largeLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FAA195914DF005268D5 /* largeLayout.m */; };
@@ -235,6 +236,10 @@
 		3AC9FAF2196CA0F500153773 /* localDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = localDB.db; sourceTree = "<group>"; };
 		AC1E775F194F580800532F65 /* ShareData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareData.m; sourceTree = "<group>"; };
 		AC1E7761194F583100532F65 /* filterwords.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = filterwords.txt; sourceTree = "<group>"; };
+		AC3FDCF71971F1AB0008D311 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
+		AC3FDCF81971F1AB0008D311 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
+		AC3FDCFE19742F470008D311 /* LoadingIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingIndicatorView.h; sourceTree = "<group>"; };
+		AC3FDCFF19742F470008D311 /* LoadingIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingIndicatorView.m; sourceTree = "<group>"; };
 		AC7491F6195A2C4F00D3CBBA /* TransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionController.h; sourceTree = "<group>"; };
 		AC7491F7195A2C4F00D3CBBA /* TransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionController.m; sourceTree = "<group>"; };
 		AC7491FF195A2D4300D3CBBA /* TransitionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionLayout.h; sourceTree = "<group>"; };
@@ -276,8 +281,6 @@
 		B8AB89CC196C7EA400F32E4F /* star_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_off@2x.png"; sourceTree = "<group>"; };
 		B8AB89CD196C7EA400F32E4F /* star_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_on.png; sourceTree = "<group>"; };
 		B8AB89CE196C7EA400F32E4F /* star_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_on@2x.png"; sourceTree = "<group>"; };
-		B8AB89D5196DDB4900F32E4F /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
-		B8AB89D6196DDB4900F32E4F /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		B8AB89D9196F19C900F32E4F /* AboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsViewController.h; sourceTree = "<group>"; };
 		B8AB89DA196F19C900F32E4F /* AboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsViewController.m; sourceTree = "<group>"; };
 		B8B60FA7195914DF005268D5 /* smallLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smallLayout.h; sourceTree = "<group>"; };
@@ -555,6 +558,15 @@
 			name = Flurry;
 			sourceTree = "<group>";
 		};
+		AC3FDD0119742F560008D311 /* LoadingIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				AC3FDCFE19742F470008D311 /* LoadingIndicatorView.h */,
+				AC3FDCFF19742F470008D311 /* LoadingIndicatorView.m */,
+			);
+			name = LoadingIndicator;
+			sourceTree = "<group>";
+		};
 		AC8A356819461D3E00FC5465 /* LocalDB */ = {
 			isa = PBXGroup;
 			children = (
@@ -583,10 +595,10 @@
 		ACA1726C193920A6005E7D51 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				AC3FDCF71971F1AB0008D311 /* UIView+Toast.h */,
+				AC3FDCF81971F1AB0008D311 /* UIView+Toast.m */,
 				B803CFAB196F841C006080D0 /* IPDashedLineView.h */,
 				B803CFAC196F841C006080D0 /* IPDashedLineView.m */,
-				B8AB89D5196DDB4900F32E4F /* UIView+Toast.h */,
-				B8AB89D6196DDB4900F32E4F /* UIView+Toast.m */,
 				B8BBB01E196491DA007CE548 /* UIAlertView+Blocks.h */,
 				B8BBB01F196491DA007CE548 /* UIAlertView+Blocks.m */,
 				B8C8F337195F4BD5009F8F6E /* edi_md5.h */,
@@ -738,6 +750,7 @@
 			children = (
 				ACDD6D59195F4C3100AD51A7 /* FoodInfoView.h */,
 				ACDD6D5A195F4C3100AD51A7 /* FoodInfoView.m */,
+				AC3FDD0119742F560008D311 /* LoadingIndicator */,
 				B8CC9F57196897A400CCFE74 /* CommentView */,
 				B8B60FE919591E50005268D5 /* PhotoCollectionView */,
 				B8B60F9F19591416005268D5 /* ShimmerView */,
@@ -1357,7 +1370,6 @@
 				B8B6104E195924F2005268D5 /* CameraView.m in Sources */,
 				ACDD6D55195F4B2000AD51A7 /* EDCollectionCell.m in Sources */,
 				B8B61084195927A2005268D5 /* CardsViewController.m in Sources */,
-				B8AB89D7196DDB4900F32E4F /* UIView+Toast.m in Sources */,
 				B8B6103B19592369005268D5 /* UIApplication+JTSImageViewController.m in Sources */,
 				B8C8F3901961E24F009F8F6E /* OtherUser.m in Sources */,
 				B8D09A791948BCCF006C070D /* User.m in Sources */,
@@ -1406,6 +1418,7 @@
 				B8B60FF219591E60005268D5 /* EDImageCell.m in Sources */,
 				B8FA464D18F9E954007DA680 /* AppDelegate.m in Sources */,
 				3A6959651966FC8200FB21F9 /* TextDetector2.mm in Sources */,
+				AC3FDCF91971F1AB0008D311 /* UIView+Toast.m in Sources */,
 				AC1E7760194F580800532F65 /* ShareData.m in Sources */,
 				B8B6104619592493005268D5 /* ControlPointView.m in Sources */,
 				B8D6953C193E71C200E504FA /* ED_Color.m in Sources */,
@@ -1418,6 +1431,7 @@
 				B803CFAD196F841C006080D0 /* IPDashedLineView.m in Sources */,
 				B8C8F363195F7773009F8F6E /* M13AsyncConnection.m in Sources */,
 				B8B6104819592493005268D5 /* ShadeView.m in Sources */,
+				AC3FDD0019742F470008D311 /* LoadingIndicatorView.m in Sources */,
 				B8B6103F1959243A005268D5 /* RQShineLabel.m in Sources */,
 				ACDD6D4F195F4AB800AD51A7 /* MainViewController.mm in Sources */,
 				B8B6103819592369005268D5 /* JTSImageInfo.m in Sources */,

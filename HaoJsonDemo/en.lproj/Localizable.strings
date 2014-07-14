@@ -51,3 +51,5 @@
 "NICE_WARNING_TITLE" = "Tips";
 "EMPTY_COMMENT" = "Empty text!";
 "COMMENT_TOO_LONG" = "Comment Text Too Long";
+"FIV_LOADING_MSG" = "Loading...";
+"FIV_LOADING_FAIL" = "Oops! Touch To Try Again";

@@ -25,7 +25,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 
 @property (nonatomic,readwrite,getter = isFoodInfoCompleted) BOOL foodInfoComplete;
 @property (nonatomic,readwrite,getter = isLoadingInfo) BOOL loadingFoodInfo;
-@property (nonatomic,readwrite,getter = isCommentLoaded) BOOL commentLoaded;
+//@property (nonatomic,readwrite,getter = isCommentLoaded) BOOL commentLoaded;
 @property (nonatomic,readwrite,getter = isLoadingComments) BOOL loadingComments;
 
 @property (nonatomic,strong) AsyncRequest *async;
@@ -43,9 +43,10 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
         self.loadingFoodInfo = NO;
         self.foodInfoComplete = NO;
         self.loadingComments = NO;
-        self.commentLoaded = NO;
+        //self.commentLoaded = NO;
         
         self.title = [title capitalizedString] ;
+        self.rate = -1;
         self.transTitle = translate;
         self.food_description = @"";
         _webdata = [[NSMutableData alloc]init];
@@ -69,7 +70,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
     self.loadingFoodInfo = NO;
     self.foodInfoComplete = YES;
     self.loadingComments = NO;
-    self.commentLoaded = NO;
+    //self.commentLoaded = NO;
     _photoNames = [NSMutableArray array];
     _tagNames = [NSMutableArray array];
     _comments = [NSMutableArray array];
@@ -78,27 +79,29 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
     self.title = [[dict objectForKey:@"title"] capitalizedString];
     self.transTitle = [dict objectForKey:@"name"];
     self.food_description = [dict objectForKey:@"description"];
-    self.rate = [[dict objectForKey:@"rate"] floatValue];
+    self.rate = [[dict objectForKey:@"avg_rate"] floatValue];
     _webdata = [[NSMutableData alloc]init];
     _async = [[AsyncRequest alloc]initWithDelegate:self];
     
     NSString *rawTagNams = [dict objectForKey:@"tags"];
-    self.tagNames = [rawTagNams componentsSeparatedByString: @";"];
+    if (![rawTagNams isEqualToString:@"N/A"]) {
+        self.tagNames = [rawTagNams componentsSeparatedByString: @";"];
+    }
     
     NSArray *photoNameArr = [dict objectForKey:@"photos"];
     for(int i = 0 ;i<photoNameArr.count;i++){
         NSDictionary *photoObj = photoNameArr[i];
         [self.photoNames addObject: [photoObj objectForKey:@"url"]];
     }
-    NSLog(@"fid: %d",(int)self.fid);
-    for(NSString *str in self.tagNames){
-        NSLog(@"tag....: %@",str);
-    }
-    
-    NSLog(@"description: %@",self.food_description);
-    if (photoNameArr.count>0) {
-            NSLog(@"url: %@",self.photoNames[0]);
-    }
+//    NSLog(@"fid: %d",(int)self.fid);
+//    for(NSString *str in self.tagNames){
+//        NSLog(@"tag....: %@",str);
+//    }
+//    
+//    NSLog(@"description: %@",self.food_description);
+//    if (photoNameArr.count>0) {
+//            NSLog(@"url: %@",self.photoNames[0]);
+//    }
 
     
     return self;
@@ -229,11 +232,15 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
                 
                 self.fid = [[foodObj objectForKey:@"fid"] intValue];
                 self.food_description = [foodObj objectForKey:@"description"];
-                self.rate = [[foodObj objectForKey:@"rate"] floatValue];
+                self.rate = [[foodObj objectForKey:@"avg_rate"] floatValue];
                 
                 NSString *rawTagNams = [foodObj objectForKey:@"tags"];
-                self.tagNames = [rawTagNams componentsSeparatedByString: @";"];
+                if (![rawTagNams isEqualToString:@"N/A"]) {
+                    self.tagNames = [rawTagNams componentsSeparatedByString: @";"];
+                }
                 
+
+    
                 NSArray *photoNameArr = [foodObj objectForKey:@"photos"];
                 for(int i = 0 ;i<photoNameArr.count;i++){
                     NSDictionary *photoObj = photoNameArr[i];
@@ -241,15 +248,15 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
                 }
                 
                 
-                NSLog(@"fid: %d",(int)self.fid);
-                for(NSString *str in self.tagNames){
-                    NSLog(@"tag....: %@",str);
-                }
-                
-                NSLog(@"description: %@",self.food_description);
-                if (photoNameArr.count>0) {
-                        NSLog(@"url: %@",self.photoNames[0]);
-                }
+//                NSLog(@"fid: %d",(int)self.fid);
+//                for(NSString *str in self.tagNames){
+//                    NSLog(@"tag....: %@",str);
+//                }
+//                
+//                NSLog(@"description: %@",self.food_description);
+//                if (photoNameArr.count>0) {
+//                        NSLog(@"url: %@",self.photoNames[0]);
+//                }
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     _foodInfoCompletionBlock(nil,YES);
@@ -302,7 +309,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 _commentCompletionBlock(nil,YES);
-                _commentLoaded = YES;
+                //_commentLoaded = YES;
                 _loadingComments = NO;
             });
         }

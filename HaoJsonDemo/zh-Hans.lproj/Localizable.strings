@@ -52,3 +52,5 @@
 "NICE_WARNING_TITLE" = "温馨提示";
 "EMPTY_COMMENT" = "唉呦，空评论~";
 "COMMENT_TOO_LONG" = "评论太长了，亲";
+"FIV_LOADING_MSG" = "努力加载中";
+"FIV_LOADING_FAIL" = "T^T 点我再试一次吧";
