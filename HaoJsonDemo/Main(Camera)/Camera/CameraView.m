@@ -29,6 +29,7 @@
 #import "IPDashedLineView.h"
 #import "Flurry.h"
 
+
 @interface CameraView () <CameraManageCDelegate>
 {
     // Measurements
@@ -95,7 +96,7 @@
 -(void)loadLoadingAnimation{
     //start animation
     if(!self.loadingImage){
-        self.loadingImage = [[LoadingAnimation alloc] initWithStyle:RTSpinKitViewStyleWave color:[ED_Color edibleBlueColor]];
+        self.loadingImage = [[LoadingAnimation alloc] initWithStyle:RTSpinKitViewStyleWave color:[ED_Color edibleBlueColor_Deep]];
         CGRect screenBounds = [[UIScreen mainScreen] bounds];
         self.loadingImage.center = CGPointMake(CGRectGetMidX(screenBounds), iPhone5? screenBounds.size.height*0.685:screenBounds.size.height*0.7085);
         [self addSubview:self.loadingImage];
@@ -184,8 +185,8 @@
             _backBtn.center = CGPointMake(offsetFromSide + (_backBtn.bounds.size.width / 2), centerY);
             _TorchBtn.center = _backBtn.center;
             
-            _captureBtn.bounds = CGRectMake(0, 0, CAPTURE_BTN_WIDTH, CAPTURE_BTN_HEIGHT);
-            _captureBtn.center = CGPointMake(screenWidth/2, centerY - 10);
+            //_captureBtn.bounds = CGRectMake(0, 0, CAPTURE_BTN_WIDTH, CAPTURE_BTN_HEIGHT);
+            _captureBtn.center = CGPointMake(screenWidth/2, screenHeight-(iPhone5?100:90));
             
             // offset from backBTN is '20'
             _saveBtn.center = CGPointMake(_TorchBtn.center.x + (_TorchBtn.bounds.size.width / 2) + offsetBetweenButtons + (_saveBtn.bounds.size.width / 2), centerY);
@@ -259,6 +260,9 @@
     
     //start loading animation
     [self startLoadingAnimation];
+    
+    self.captureBtn.hidden = YES;
+    
     
     [self capturePhoto];
     //[self photoCaptured];
@@ -509,12 +513,23 @@
     _nextPageBtn = [LoadControls createRoundedButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 13, 9, 10) andCenter:nextStart andSmallRadius:YES];
     [_nextPageBtn addTarget:self action:@selector(nextPagePressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    _captureBtn = [LoadControls createRoundedButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsZero andCenter:captureStart andSmallRadius:NO];
+    
+    //_captureBtn = [LoadControls createRoundedButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsZero andCenter:captureStart andSmallRadius:NO];
+//    _captureBtn = [LoadControls createCameraButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor_Deep] andImageInset:UIEdgeInsetsZero andCenter:captureStart];
+//    [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    [_captureBtn setTitleColor:[ED_Color darkGreyColor] forState:UIControlStateNormal];
+
+    
+    _captureBtn = [LoadControls createNiceCameraButton];
     [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [_captureBtn setTitleColor:[ED_Color darkGreyColor] forState:UIControlStateNormal];
-    _captureBtn.titleLabel.font = [UIFont systemFontOfSize:12.5];
-    _captureBtn.titleLabel.numberOfLines = 0;
-    _captureBtn.titleLabel.minimumScaleFactor = .5;
+    
+
+    
+    
+    
+    
+    
+    
     // -- LOAD BUTTONS END -- //
     
     //separator line
@@ -522,10 +537,10 @@
     [appearance setLineColor:[UIColor whiteColor]];
     [appearance setLengthPattern:@[@12, @4]];
     IPDashedLineView *dash0 = [[IPDashedLineView alloc] initWithFrame:CGRectMake(10, CROPVIEW_HEIGHT, 300, 1)];
-    [self addSubview:dash0];
+    //[self addSubview:dash0];
     
     
-    for (UIButton * btn in @[_backBtn, _captureBtn, _TorchBtn, _nextPageBtn, _saveBtn])  {
+    for (UIButton * btn in @[_captureBtn, _backBtn, _TorchBtn, _nextPageBtn, _saveBtn, dash0])  {
         [self addSubview:btn];
     }
     

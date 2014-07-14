@@ -32,6 +32,9 @@
     AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDlg.cameraView pauseCamera];
     
+    
+    self.textView.text = NSLocalizedString(@"ABOUT_US", nil);
+    
 }
 
 - (void) previousPagePressed:(id)sender {

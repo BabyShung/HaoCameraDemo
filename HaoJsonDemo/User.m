@@ -232,6 +232,7 @@ static AsyncRequest *async;
                 
             
         }
+        //finally
         if (CompletionBlock) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 CompletionBlock(nil,YES);
@@ -246,17 +247,10 @@ static AsyncRequest *async;
 
             [self configureError:AMLocalizedString(@"ERROR_LOGIN", nil)];
         }
-        else if([action isEqualToString:@"register"]){   //PS: bugs in server!! only show this
-            [self configureError:AMLocalizedString(@"ERROR_REGISTER", nil)];
+        else if([action isEqualToString:@"user_error"]){   //PS: bugs in server!! only show this
+            [self configureError:NSLocalizedString(@"ERROR_REGISTER", nil)];
 
         }
-        
-        if (CompletionBlock) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                CompletionBlock(nil,NO);
-            });
-        }
-        
     }
     
 }
@@ -268,7 +262,11 @@ static AsyncRequest *async;
         [details setValue:log forKey:NSLocalizedDescriptionKey];
         // populate the error object with the details
         NSError *error = [NSError errorWithDomain:@"LoginReg" code:200 userInfo:details];
-        CompletionBlock(error,NO);
+        if (CompletionBlock) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                CompletionBlock(error,NO);
+            });
+        }
     });
 }
 
@@ -281,14 +279,7 @@ static AsyncRequest *async;
     NSUInteger utype = [[info objectForKey:@"privilege"] intValue];
     
     [User sharedInstanceWithUid:uid andEmail:uemail andUname:uname andUpwd:password andUtype:utype andUselfie:uselfie];
-    if (CompletionBlock) {
-        
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            CompletionBlock(nil,YES);
-            
-        });
-    }
+
 }
 
 +(void)logout{

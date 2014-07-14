@@ -38,20 +38,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F7T-zk-nD8">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7T-zk-nD8">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <string key="text">We are the Edible Innovations!
-
-Award-winning menu translation app helps travelers order with confidence
-
-When we arrived in the United States as international students, we were fascinated by all the foods we had never seen before and were ready to start our delicious adventures. However, the difficulty of understanding menus caused by the language and cultural barriers resulted in many mistakes in our food ordering. Blue cheese was the particular item that had a beautiful name but a horrible taste. The experience of ordering blue cheese with my mouth-watering rib-eye steak inspired us to help other international travelers and students better understand menus and order with confidence.
-
-To use our app, simply take a picture of menu items or type in the items’ names to get immediate translations. Clicking on the translation block presents the detailed descriptions and pictures of the items. We start with English to Chinese translation and will expand to other languages soon. This award-winning product was a finalist for the Prometheus Award of the Technology Association of Iowa and the first place winner in the Papajohn New Venture Competition.
-
-Please also share stories about your food adventures on our online community: www.thebluecheese.com 
-
-Contact Blue Cheese: ceo@thebluecheese.com</string>
                                 <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -63,10 +52,13 @@ Contact Blue Cheese: ceo@thebluecheese.com</string>
                             <constraint firstItem="F7T-zk-nD8" firstAttribute="top" secondItem="do9-gH-qKc" secondAttribute="top" id="hfB-zU-mEc"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="textView" destination="F7T-zk-nD8" id="J4o-O3-rtu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lVi-UI-9gi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2472" y="298"/>
+            <point key="canvasLocation" x="2390" y="303"/>
         </scene>
         <!--Test View Controller-->
         <scene sceneID="83B-dm-PP6">
