@@ -80,6 +80,7 @@
 /*                                 */
 /***********************************/
 
+
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
 
         NSIndexPath *centerCellIndex = [self.collectionView indexPathForItemAtPoint:self.collectionView.contentOffset];
