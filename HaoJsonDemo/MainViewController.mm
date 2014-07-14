@@ -28,7 +28,7 @@
 #import "User.h"
 #import "UIView+Toast.h"
 #import "Flurry.h"
-
+#import "LocalizationSystem.h"
 
 static NSString *CellIdentifier = @"Cell";
 
@@ -118,13 +118,13 @@ static NSString *CellIdentifier = @"Cell";
     
     //add in collectionView
     
-    _clearBtn = [LoadControls createRoundedButton_Image:@"ED_cross.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(10, 10, 10, 10) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
+    _clearBtn = [LoadControls createRoundedButton_Image:@"ED_cross.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(10, 10, 10, 10) andLeftBottomElseRightBottom:YES];
     [_clearBtn addTarget:self action:@selector(clearBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     _clearBtn.alpha = 1;
     _clearBtn.hidden = YES;
     [self.view insertSubview:_clearBtn aboveSubview:self.collectionView];
     
-    _captureBtn = [LoadControls createRoundedButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andCenter:CGPointMake(320-10-23, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
+    _captureBtn = [LoadControls createRoundedButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andLeftBottomElseRightBottom:NO];
     [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     _captureBtn.alpha = 1;
     _captureBtn.hidden = YES;
@@ -354,7 +354,7 @@ static NSString *CellIdentifier = @"Cell";
 //        }else{
 //            //no image coming back, tell users to retake
 //            
-//            [self.view makeToast:NSLocalizedString(@"DETECTOR_NO_RESULT", nil)];
+//            [self.view makeToast:AMLocalizedString(@"DETECTOR_NO_RESULT", nil)];
 //        }
 //        
 //    }
@@ -419,13 +419,14 @@ static NSString *CellIdentifier = @"Cell";
 
     if(self.counterForNoResult>1){
         self.counterForNoResult = 0;
-        [self.view makeToast:NSLocalizedString(@"NICE_WARNING_CONTEXT", nil)
+        [self.view makeToast:AMLocalizedString(@"NICE_WARNING_CONTEXT", nil)
                     duration:7.0
                     position:@"top"
-                       title:NSLocalizedString(@"NICE_WARNING_TITLE", nil)
+                       title:AMLocalizedString(@"NICE_WARNING_TITLE", nil)
                        image:[UIImage imageNamed:@"indicate_1.jpg"]];
     }
-    [self.view makeToast_ForCamera:NSLocalizedString(@"DETECTOR_NO_RESULT", nil)];
+
+    [self.view makeToast_ForCamera:AMLocalizedString(@"DETECTOR_NO_RESULT", nil)];
 }
 
 -(void)showResultButtonsAndCollectionView{

@@ -17,9 +17,7 @@
 #import "User.h"
 #import "HATransparentView.h"
 #import "DXStarRatingView.h"
-
-
-
+#import "LocalizationSystem.h"
 
 static NSString *CellIdentifier = @"Cell";
 
@@ -240,7 +238,7 @@ const CGFloat CommentRateViewWidth = 260;
     
     
     //add comment button above scrollview
-    _commentBtn = [LoadControls createRoundedButton_Image:@"ED_feedback_right.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andCenter:CGPointMake(320-10-20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
+    _commentBtn = [LoadControls createRoundedButton_Image:@"ED_feedback_right.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andLeftBottomElseRightBottom:NO];
     [_commentBtn addTarget:self action:@selector(commentBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self hideCommentButton];
     [self addSubview:_commentBtn];
@@ -788,7 +786,7 @@ const CGFloat CommentRateViewWidth = 260;
     // Add a title Label
     
     UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(_commentView.frame.origin.x+CLeftMargin, _commentView.frame.origin.y+CommentViewTopMargin, CGRectGetWidth(_commentView.frame)-CloseBtnWidth, CommentTitleHtight)];
-    titleLabel.text = [NSString stringWithFormat:@"%@%@",NSLocalizedString(@"FIV_CMTV_TITLE", nil),self.myFood.title];
+    titleLabel.text = [NSString stringWithFormat:@"%@%@",AMLocalizedString(@"FIV_CMTV_TITLE", nil),self.myFood.title];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.font = [UIFont systemFontOfSize:20];
     titleLabel.textColor = [UIColor whiteColor];
@@ -883,11 +881,11 @@ const CGFloat CommentRateViewWidth = 260;
         textView.text = [textView.text substringToIndex:MAX((textView.text.length-1), 0)];
         if (textView.text.length  == 0)
         {
-            [self.commentView makeToast:NSLocalizedString(@"EMPTY_COMMENT", nil) duration:0.5 position:@"center"];
+            [self.commentView makeToast:AMLocalizedString(@"EMPTY_COMMENT", nil) duration:0.5 position:@"center"];
         }
         else if(textView.text.length > MaxCharNum)
         {
-            [self.commentView makeToast:NSLocalizedString(@"COMMENT_TOO_LONG", nil) duration:0.5 position:@"center"];
+            [self.commentView makeToast:AMLocalizedString(@"COMMENT_TOO_LONG", nil) duration:0.5 position:@"center"];
         }
         else{
             
@@ -902,10 +900,10 @@ const CGFloat CommentRateViewWidth = 260;
                     NSLog(@"+++++++++++++++ FIV +++++SEND COMMENT SUCCEED+++++++++++++++++++");
                     [self.commentView hideToastActivity];
                     [self.commentView close];
-                    [self makeToast:NSLocalizedString(@"SUCCESS_COMMENT", nil) duration:0.8 position:@"bottom"];
+                    [self makeToast:AMLocalizedString(@"SUCCESS_COMMENT", nil) duration:0.8 position:@"bottom"];
                 }
                 else{
-                    [self.commentView makeToast:NSLocalizedString(@"FAIL_COMMENT", nil) duration:0.8 position:@"bottom"] ;
+                    [self.commentView makeToast:AMLocalizedString(@"FAIL_COMMENT", nil) duration:0.8 position:@"bottom"] ;
                 }
             }];
         }

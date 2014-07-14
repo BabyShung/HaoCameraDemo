@@ -8,9 +8,9 @@
 
 #import "LoadControls.h"
 #import "ED_Color.h"
+#import "MRoundedButton.h"
 
-#define smallBTNRadius 22
-#define largeBTNRadius 34
+#define smallBTNRadius 25
 
 #define ButtonAvailableAlpha 0.6
 
@@ -68,11 +68,11 @@
 }
 
 
-+(UIButton *)createRoundedButton_Image:(NSString *)imageName andTintColor:(UIColor *) color andImageInset:(UIEdgeInsets) edgeInset andCenter:(CGPoint)center andSmallRadius:(BOOL)radius{
++(UIButton *)createRoundedButton_Image:(NSString *)imageName andTintColor:(UIColor *) color andImageInset:(UIEdgeInsets) edgeInset andLeftBottomElseRightBottom:(BOOL)left{
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
 
-    button.bounds = CGRectMake(0, 0, 45, 45);
+    button.bounds = CGRectMake(0, 0, 50, 50);
     button.backgroundColor = [UIColor colorWithWhite:1 alpha:.90];
     button.alpha = ButtonAvailableAlpha;
     
@@ -83,17 +83,49 @@
         
     }
     
-    if(!CGPointEqualToPoint(center,CGPointZero)){
-        button.center = center;
+    CGFloat centerHeightToBottom = CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20;
+    
+    if(left){
+        button.center = CGPointMake(30, centerHeightToBottom);
+    }else{
+        button.center = CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds]) - 30, centerHeightToBottom);
     }
 
     button.layer.shouldRasterize = YES;
     button.layer.rasterizationScale = [UIScreen mainScreen].scale;
-    button.layer.cornerRadius = radius?smallBTNRadius:largeBTNRadius;
+    button.layer.cornerRadius = smallBTNRadius;
     
     button.layer.borderColor = [ED_Color darkGreyColor].CGColor;
     button.layer.borderWidth = 0.5;
     return button;
+}
+
+
++(UIButton *)createNiceCameraButton{
+    NSDictionary *appearanceProxy1 = @{
+                                       kMRoundedButtonCornerRadius : @4,
+                                       kMRoundedButtonContentColor : [ED_Color edibleBlueColor_Deep],
+                                       kMRoundedButtonContentAnimateToColor : [UIColor blackColor],
+                                       kMRoundedButtonForegroundColor : [UIColor clearColor],
+                                       kMRoundedButtonForegroundAnimateToColor : [[UIColor whiteColor] colorWithAlphaComponent:0.3]};
+    [MRoundedButtonAppearanceManager registerAppearanceProxy:appearanceProxy1 forIdentifier:@"1"];
+    
+    CGRect buttonRect = CGRectMake(0,
+                                   0,
+                                   320,
+                                   iPhone5?218:180);
+    MRoundedButton *button = [[MRoundedButton alloc] initWithFrame:buttonRect
+                                                       buttonStyle:MRoundedButtonImageWithSubtitle
+                                              appearanceIdentifier:[NSString stringWithFormat:@"%d", 1]];
+    button.center = CGPointMake(160, 300);
+    
+    button.backgroundColor = [UIColor clearColor];
+    
+    button.detailTextLabel.text = NSLocalizedString(@"CAPTURE_BTN", nil);
+    button.detailTextLabel.font = [UIFont systemFontOfSize:16];
+    button.imageView.image = [UIImage imageNamed:@"Camera_02.png"];
+    
+    return (UIButton *)button;
 }
 
 

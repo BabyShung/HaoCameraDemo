@@ -24,13 +24,16 @@
     [super viewDidLoad];
 
     
-    _backBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
+    _backBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andLeftBottomElseRightBottom:YES];
     [_backBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_backBtn];
     
     //also stop camera
     AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDlg.cameraView pauseCamera];
+    
+    
+    self.textView.text = NSLocalizedString(@"ABOUT_US", nil);
     
 }
 

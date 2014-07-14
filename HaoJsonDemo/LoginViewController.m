@@ -18,9 +18,11 @@
 #import "UIResponder+KeyboardCache.h"
 #import "UIAlertView+Blocks.h"
 #import "Flurry.h"
+#import "LocalizationSystem.h"
+#import <QuartzCore/QuartzCore.h>
+#import "UIView+ZKPulseView.h"
 
 @interface LoginViewController () <MKTransitionCoordinatorDelegate,UITextFieldDelegate>
-
 
 @property (nonatomic, strong) MKTransitionCoordinator *menuInteractor;
 
@@ -33,6 +35,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+<<<<<<< HEAD
+
+=======
+    //[self.userView startPulse];
+>>>>>>> FETCH_HEAD
     
     //cache keyboard
     [UIResponder cacheKeyboard];
@@ -150,10 +158,9 @@
                 //transition
                 [self transitionToFrameVC_duration:0.5];
             }else{
-                
                 self.loginBtn.enabled = YES;
                 [self.loadingImage stopAnimating];
-                [self showErrorMsg:[err localizedDescription] withTextField:self.emailTextField];
+                [self showErrorMsg:[err localizedDescription] withTextField:self.pwdTextField];
             }
         }];
         
@@ -165,7 +172,7 @@
 
 
 -(void)showErrorMsg:(NSString *)msg withTextField:(UITextField *)textfield{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"OOPS", nil) message:msg delegate:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles: nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:AMLocalizedString(@"OOPS", nil) message:msg delegate:nil cancelButtonTitle:AMLocalizedString(@"Cancel", nil) otherButtonTitles: nil];
     [alert showWithHandler:^(UIAlertView *alertView, NSInteger buttonIndex) {
         
         if (buttonIndex == [alertView cancelButtonIndex]) {

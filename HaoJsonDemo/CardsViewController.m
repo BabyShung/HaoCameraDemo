@@ -24,6 +24,7 @@
 #import "LoginViewController.h"
 #import "IPDashedLineView.h"
 #import "Flurry.h"
+#import "LocalizationSystem.h"
 
 #define CROPVIEW_HEIGHT iPhone5?360:300
 
@@ -69,8 +70,7 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
                [UIColor colorWithRed:(0/255.0) green:(125/255.0) blue:(192/255.0) alpha:1],
                [UIColor colorWithRed:(253/255.0) green:(91/255.0) blue:(159/255.0) alpha:1],
                [UIColor colorWithRed:(233/255.0) green:(0/255.0) blue:(11/255.0) alpha:1]];
-    
-    self.settings = [NSArray arrayWithObjects:NSLocalizedString(@"CARD_SEARCH", nil),NSLocalizedString(@"CARD_FEEDBACK", nil),NSLocalizedString(@"CARD_ABOUT", nil),NSLocalizedString(@"CARD_LOGOUT", nil), nil];
+    self.settings = [NSArray arrayWithObjects:AMLocalizedString(@"CARD_SEARCH", nil),AMLocalizedString(@"CARD_FEEDBACK", nil),AMLocalizedString(@"CARD_ABOUT", nil),AMLocalizedString(@"CARD_LOGOUT", nil), nil];
     self.settingsImages = [NSArray arrayWithObjects:
                            [UIImage imageNamed:@"ED_search.png"],
                            [UIImage imageNamed:@"ED_feedback.png"],
@@ -99,24 +99,24 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
     
     if(user.Uid == AnonymousUser){
         
-        self.titleLabel.text = [NSString stringWithFormat: @"%@",NSLocalizedString(@"ANONYMOUS_HELLO", nil)];
+        self.titleLabel.text = [NSString stringWithFormat: @"%@",AMLocalizedString(@"ANONYMOUS_HELLO", nil)];
         
         //init view to indicate login
-        self.descriptionLabel.text = NSLocalizedString(@"NOT_LOGIN_REGISTERED_TEXT", nil);
+        self.descriptionLabel.text = AMLocalizedString(@"NOT_LOGIN_REGISTERED_TEXT", nil);
         
         UIButton *registerBtn = [[UIButton alloc]initWithFrame:CGRectMake(LeftContextMargin, 190, 240, 50)];
         [registerBtn addTarget:self action:@selector(PressedRegisterButton:) forControlEvents:UIControlEventTouchUpInside];
-        [registerBtn setTitle:NSLocalizedString(@"LOGIN_REGISTER_BUTTON_TEXT", nil) forState:UIControlStateNormal];
+        [registerBtn setTitle:AMLocalizedString(@"LOGIN_REGISTER_BUTTON_TEXT", nil) forState:UIControlStateNormal];
         [registerBtn successStyle];
         [self.view addSubview:registerBtn];
         
 
         
     }else{
-        self.titleLabel.text = [NSString stringWithFormat: @"%@, %@",NSLocalizedString(@"Hello", nil),user.name];
+        self.titleLabel.text = [NSString stringWithFormat: @"%@, %@",AMLocalizedString(@"Hello", nil),user.name];
         
         //show 
-        self.descriptionLabel.text = NSLocalizedString(@"LOGGEDIN_CONTEXT_1", nil);
+        self.descriptionLabel.text = AMLocalizedString(@"LOGGEDIN_CONTEXT_1", nil);
         self.descriptionLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:18];
     }
     
@@ -132,6 +132,9 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
 }
 
 -(void)viewDidAppear:(BOOL)animated{
+    
+
+    
     if(self.shimmeringView.shimmering){
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.shimmeringView.shimmering = NO;
@@ -152,7 +155,7 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
     [self.view addSubview:dash0];
     
     
-    _previousPageBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
+    _previousPageBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andLeftBottomElseRightBottom:YES];
     [_previousPageBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_previousPageBtn];
     
@@ -255,7 +258,7 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
         
         [Flurry logEvent:@"Index_1_Feedback"];
         
-        IQFeedbackView *feedback = [[IQFeedbackView alloc] initWithTitle:NSLocalizedString(@"Feedback", nil) message:self.tempFeedbackText image:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) doneButtonTitle:NSLocalizedString(@"Send", nil)];
+        IQFeedbackView *feedback = [[IQFeedbackView alloc] initWithTitle:AMLocalizedString(@"Feedback", nil) message:self.tempFeedbackText image:nil cancelButtonTitle:AMLocalizedString(@"Cancel", nil) doneButtonTitle:AMLocalizedString(@"Send", nil)];
         [feedback setCanAddImage:NO];
         [feedback setCanEditText:YES];
         
@@ -265,10 +268,10 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
                 [User sendFeedBack:message andCompletion:^(NSError *err,BOOL success){
                     
                     if(success){
-                        [self.view makeToast:NSLocalizedString(@"SUCCESS_FEEDBACK", nil)];
+                        [self.view makeToast:AMLocalizedString(@"SUCCESS_FEEDBACK", nil)];
                         self.tempFeedbackText = @"";
                     }else{
-                        [self.view makeToast:NSLocalizedString(@"FAIL_FEEDBACK", nil)];
+                        [self.view makeToast:AMLocalizedString(@"FAIL_FEEDBACK", nil)];
                     }
                     
                     
@@ -299,11 +302,11 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
 
 -(void)willLogout{
     //show a confirm dialog
-    BlurActionSheet *lrf =  [[BlurActionSheet alloc] initWithDelegate_cancelButtonTitle:NSLocalizedString(@"Cancel", nil)];
+    BlurActionSheet *lrf =  [[BlurActionSheet alloc] initWithDelegate_cancelButtonTitle:AMLocalizedString(@"Cancel", nil)];
     
     lrf.blurRadius = 50.f;
     
-    [lrf addButtonWithTitle:NSLocalizedString(@"Log out", nil) actionBlock:^{
+    [lrf addButtonWithTitle:AMLocalizedString(@"Log out", nil) actionBlock:^{
         
         
         [Flurry logEvent:@"Logout_Confirm"];

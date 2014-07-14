@@ -16,6 +16,7 @@
 #import "SingleFoodViewController.h"
 #import "DBOperation.h"
 #import "AppDelegate.h"
+#import "LocalizationSystem.h"
 
 #define FETCH_SEARCH_NUMBER 20
 
@@ -116,7 +117,7 @@ static NSString *CellIdentifier = @"Cell";
     Food *food = self.searchData[indexPath.row];
     cell.titleLabel.text = food.title;
     cell.transLabel.text = food.transTitle;
-    cell.queryLabel.text = [NSString stringWithFormat:@"%d%@",(int)food.queryTimes,food.queryTimes>1?NSLocalizedString(@"TIMES", nil):NSLocalizedString(@"TIME", nil)];
+    cell.queryLabel.text = [NSString stringWithFormat:@"%d%@",(int)food.queryTimes,food.queryTimes>1?AMLocalizedString(@"TIMES", nil):AMLocalizedString(@"TIME", nil)];
     return cell;
 }
 
@@ -172,7 +173,7 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 -(void)loadControls{
-    _backBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andCenter:CGPointMake(10+20, CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20) andSmallRadius:YES];
+    _backBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andLeftBottomElseRightBottom:YES];
     [_backBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_backBtn];
     
@@ -182,7 +183,7 @@ static NSString *CellIdentifier = @"Cell";
     
     
     self.searchBar.cancelButtonHidden = NO;
-    self.searchBar.placeholder = NSLocalizedString(@"Search food", nil);
+    self.searchBar.placeholder = AMLocalizedString(@"Search food", nil);
     self.searchBar.delegate = self;
 }
 
