@@ -28,7 +28,7 @@
 #import "User.h"
 #import "UIView+Toast.h"
 #import "Flurry.h"
-
+#import "LocalizationSystem.h"
 
 static NSString *CellIdentifier = @"Cell";
 
@@ -354,7 +354,7 @@ static NSString *CellIdentifier = @"Cell";
 //        }else{
 //            //no image coming back, tell users to retake
 //            
-//            [self.view makeToast:NSLocalizedString(@"DETECTOR_NO_RESULT", nil)];
+//            [self.view makeToast:AMLocalizedString(@"DETECTOR_NO_RESULT", nil)];
 //        }
 //        
 //    }
@@ -419,13 +419,13 @@ static NSString *CellIdentifier = @"Cell";
 
     if(self.counterForNoResult>1){
         self.counterForNoResult = 0;
-        [self.view makeToast:NSLocalizedString(@"NICE_WARNING_CONTEXT", nil)
+        [self.view makeToast:AMLocalizedString(@"NICE_WARNING_CONTEXT", nil)
                     duration:7.0
                     position:@"top"
-                       title:NSLocalizedString(@"NICE_WARNING_TITLE", nil)
+                       title:AMLocalizedString(@"NICE_WARNING_TITLE", nil)
                        image:[UIImage imageNamed:@"indicate_1.jpg"]];
     }
-    [self.view makeToast_ForCamera:NSLocalizedString(@"DETECTOR_NO_RESULT", nil)];
+    [self.view makeToast_ForCamera:AMLocalizedString(@"DETECTOR_NO_RESULT", nil)];
 }
 
 -(void)showResultButtonsAndCollectionView{

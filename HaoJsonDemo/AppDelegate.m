@@ -13,6 +13,7 @@
 #import "SearchDictionary.h"
 #import "MainViewController.h"
 #import "Flurry.h"
+#import "languageSetting.h"
 
 @implementation AppDelegate
 
@@ -100,7 +101,8 @@
 //    [dbo upsertSearchHistory:food9];
     
     //[dbo fetchSearchHistoryByOrder_withLimitNumber:2];
-    
+    languageSetting *ls = [[languageSetting alloc]init];
+    [ls checkAndSetLanguage];
     
     return YES;
 }

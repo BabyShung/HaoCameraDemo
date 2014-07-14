@@ -15,6 +15,7 @@
 #import "ED_Color.h"
 #import "UIAlertView+Blocks.h"
 #import "Flurry.h"
+#import "LocalizationSystem.h"
 
 @interface RegisterViewController () <UITextFieldDelegate>
 {
@@ -135,7 +136,7 @@
 }
 
 -(void)showErrorMsg:(NSString *)msg withTextField:(UITextField *)textfield{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"OOPS", nil) message:msg delegate:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles: nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:AMLocalizedString(@"OOPS", nil) message:msg delegate:nil cancelButtonTitle:AMLocalizedString(@"Cancel", nil) otherButtonTitles: nil];
     [alert showWithHandler:^(UIAlertView *alertView, NSInteger buttonIndex) {
         
         if (buttonIndex == [alertView cancelButtonIndex]) {

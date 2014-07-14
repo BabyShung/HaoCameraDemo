@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		106FF1A2196B49670099B743 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 106FF1A4196B49670099B743 /* Localizable.strings */; };
+		10A3AFDC19743E8A00C3B2B0 /* LocalizationSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 10A3AFDB19743E8A00C3B2B0 /* LocalizationSystem.m */; };
+		10A3AFDF197473CD00C3B2B0 /* languageSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 10A3AFDE197473CD00C3B2B0 /* languageSetting.m */; };
 		3A5654BC1936838C0085CC87 /* TextDetector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A5654BB1936838C0085CC87 /* TextDetector.mm */; };
 		3A6959651966FC8200FB21F9 /* TextDetector2.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A6959641966FC8200FB21F9 /* TextDetector2.mm */; };
 		3A6959681966FCBE00FB21F9 /* ImagePreProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A6959671966FCBE00FB21F9 /* ImagePreProcessor.mm */; };
@@ -214,6 +216,10 @@
 		106FF19F196B489B0099B743 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		106FF1A3196B49670099B743 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		106FF1A5196B49690099B743 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		10A3AFDA19743E8A00C3B2B0 /* LocalizationSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalizationSystem.h; sourceTree = "<group>"; };
+		10A3AFDB19743E8A00C3B2B0 /* LocalizationSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizationSystem.m; sourceTree = "<group>"; };
+		10A3AFDD197473CD00C3B2B0 /* languageSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = languageSetting.h; sourceTree = "<group>"; };
+		10A3AFDE197473CD00C3B2B0 /* languageSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = languageSetting.m; sourceTree = "<group>"; };
 		3A5654BA1936838C0085CC87 /* TextDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDetector.h; sourceTree = "<group>"; };
 		3A5654BB1936838C0085CC87 /* TextDetector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextDetector.mm; sourceTree = "<group>"; };
 		3A5654BD193778AD0085CC87 /* WordCorrector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordCorrector.h; sourceTree = "<group>"; };
@@ -523,6 +529,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		10A3AFD919743E7900C3B2B0 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				10A3AFDD197473CD00C3B2B0 /* languageSetting.h */,
+				10A3AFDE197473CD00C3B2B0 /* languageSetting.m */,
+				10A3AFDA19743E8A00C3B2B0 /* LocalizationSystem.h */,
+				10A3AFDB19743E8A00C3B2B0 /* LocalizationSystem.m */,
+			);
+			name = Localization;
+			sourceTree = "<group>";
+		};
 		3A014BFF1933C67000D06090 /* textDetection */ = {
 			isa = PBXGroup;
 			children = (
@@ -1070,6 +1087,7 @@
 		B8FA463018F9E954007DA680 = {
 			isa = PBXGroup;
 			children = (
+				10A3AFD919743E7900C3B2B0 /* Localization */,
 				3AAE595D196F03080006B469 /* Flurry */,
 				B8FA464218F9E954007DA680 /* HaoJsonDemo */,
 				B8FA466118F9E954007DA680 /* HaoJsonDemoTests */,
@@ -1396,6 +1414,7 @@
 				B8B61070195926D1005268D5 /* MKTransitionCoordinator.m in Sources */,
 				B8B6103719592369005268D5 /* JTSAnimatedGIFUtility.m in Sources */,
 				B8B61077195926E0005268D5 /* NSString+FontAwesome.m in Sources */,
+				10A3AFDC19743E8A00C3B2B0 /* LocalizationSystem.m in Sources */,
 				B8B6104D195924F2005268D5 /* CameraManager.m in Sources */,
 				ACDD6D5B195F4C3100AD51A7 /* FoodInfoView.m in Sources */,
 				B8B6105519592528005268D5 /* AsyncRequest.m in Sources */,
@@ -1406,6 +1425,7 @@
 				B8B60FF219591E60005268D5 /* EDImageCell.m in Sources */,
 				B8FA464D18F9E954007DA680 /* AppDelegate.m in Sources */,
 				3A6959651966FC8200FB21F9 /* TextDetector2.mm in Sources */,
+				10A3AFDF197473CD00C3B2B0 /* languageSetting.m in Sources */,
 				AC1E7760194F580800532F65 /* ShareData.m in Sources */,
 				B8B6104619592493005268D5 /* ControlPointView.m in Sources */,
 				B8D6953C193E71C200E504FA /* ED_Color.m in Sources */,

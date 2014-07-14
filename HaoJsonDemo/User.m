@@ -10,6 +10,7 @@
 #import "AsyncRequest.h"
 #import "edi_md5.h"
 #import "AppDelegate.h"
+#import "LocalizationSystem.h"
 
 @implementation User
 
@@ -243,10 +244,10 @@ static AsyncRequest *async;
         
         if([action isEqualToString:@"login"]){//login
 
-            [self configureError:NSLocalizedString(@"ERROR_LOGIN", nil)];
+            [self configureError:AMLocalizedString(@"ERROR_LOGIN", nil)];
         }
         else if([action isEqualToString:@"register"]){   //PS: bugs in server!! only show this
-            [self configureError:NSLocalizedString(@"ERROR_REGISTER", nil)];
+            [self configureError:AMLocalizedString(@"ERROR_REGISTER", nil)];
 
         }
         

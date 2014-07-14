@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "UIImage+ImageEffects.h"
+#import "LocalizationSystem.h"
 
 @interface IQFeedbackView ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -272,7 +273,7 @@
     UITextView * tv = (UITextView*)textViewFeedback;
     
     if(tv.text.length==0){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"OOPS", nil) message:NSLocalizedString(@"TEXT_NOT_NIL", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles: nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:AMLocalizedString(@"OOPS", nil) message:AMLocalizedString(@"TEXT_NOT_NIL", nil) delegate:nil cancelButtonTitle:AMLocalizedString(@"Cancel", nil) otherButtonTitles: nil];
         [alert show];
         return;
     }
