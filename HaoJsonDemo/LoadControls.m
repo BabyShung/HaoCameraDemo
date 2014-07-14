@@ -68,7 +68,7 @@
 }
 
 
-+(UIButton *)createRoundedButton_Image:(NSString *)imageName andTintColor:(UIColor *) color andImageInset:(UIEdgeInsets) edgeInset andCenter:(CGPoint)center{
++(UIButton *)createRoundedButton_Image:(NSString *)imageName andTintColor:(UIColor *) color andImageInset:(UIEdgeInsets) edgeInset andLeftBottomElseRightBottom:(BOOL)left{
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
 
@@ -83,8 +83,12 @@
         
     }
     
-    if(!CGPointEqualToPoint(center,CGPointZero)){
-        button.center = center;
+    CGFloat centerHeightToBottom = CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20;
+    
+    if(left){
+        button.center = CGPointMake(30, centerHeightToBottom);
+    }else{
+        button.center = CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds]) - 30, centerHeightToBottom);
     }
 
     button.layer.shouldRasterize = YES;
