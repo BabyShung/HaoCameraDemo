@@ -180,20 +180,20 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
         if ([action isEqualToString:@"get_review"]) {
             NSLog(@"+++ FOOD +++ : GET review failure");
             
-            dispatch_async(dispatch_get_main_queue(), ^{
+            //dispatch_async(dispatch_get_main_queue(), ^{
                 
                 _foodInfoCompletionBlock(error,NO);
                 _loadingComments = NO;
-            });
+           // });
         }
         else if([action isEqualToString:@"get_food"]){
             NSLog(@"+++ FOOD +++ : GET food failure");
             
-            dispatch_async(dispatch_get_main_queue(), ^{
+            //dispatch_async(dispatch_get_main_queue(), ^{
                 
                 _foodInfoCompletionBlock(error,NO);
                 _loadingFoodInfo = NO;
-            });
+            //});
             
         }
     }
@@ -222,10 +222,10 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
             
             if(resultArr.count ==0){
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
+                //dispatch_async(dispatch_get_main_queue(), ^{
                     _foodInfoCompletionBlock(nil,NO);
                     _loadingComments = NO;
-                });
+                //});
             }
             else{
                 NSDictionary *foodObj = resultArr[0];
@@ -258,11 +258,11 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 //                        NSLog(@"url: %@",self.photoNames[0]);
 //                }
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
+                //dispatch_async(dispatch_get_main_queue(), ^{
                     _foodInfoCompletionBlock(nil,YES);
                     _foodInfoComplete = YES;
                     _loadingFoodInfo = NO;
-                });
+                //});
             }
             
 
@@ -307,11 +307,11 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
             }
             
 
-            dispatch_async(dispatch_get_main_queue(), ^{
+            //dispatch_async(dispatch_get_main_queue(), ^{
                 _commentCompletionBlock(nil,YES);
                 //_commentLoaded = YES;
                 _loadingComments = NO;
-            });
+            //});
         }
         
 
@@ -322,19 +322,19 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
         if([action isEqualToString:@"get_food"]){   //food
             NSLog(@"+++ FOOD +++ : FAILURE - GET 0 FOOD RECORD!");
             
-            dispatch_async(dispatch_get_main_queue(), ^{
+            //dispatch_async(dispatch_get_main_queue(), ^{
                 _foodInfoCompletionBlock(nil,NO);
                 _loadingFoodInfo = NO;
-            });
+            //});
             
         }else if([action isEqualToString:@"get_reviews"]){        //comment
             
             NSLog(@"+++ FOOD +++ : FAILURE - GET 0 REVIEW RECORD!");
             
-            dispatch_async(dispatch_get_main_queue(), ^{
+            //dispatch_async(dispatch_get_main_queue(), ^{
                 _commentCompletionBlock(nil,NO);
                 _loadingComments = NO;
-            });
+            //});
         }
 
 

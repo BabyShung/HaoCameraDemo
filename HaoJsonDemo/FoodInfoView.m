@@ -269,7 +269,7 @@ const CGFloat CommentRateViewWidth = 260;
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    if (scrollView.contentOffset.y + scrollView.frame.size.height == scrollView.contentSize.height && !self.myFood.isLoadingComments) {
+    if (scrollView.contentOffset.y + scrollView.frame.size.height == scrollView.contentSize.height && !self.myFood.isLoadingComments && !self.photoCollectionView.isTracking) {
         //Request to server
         //Load more comments
         [self refreshComments];
@@ -296,6 +296,7 @@ const CGFloat CommentRateViewWidth = 260;
     //[cell.imageView cancelLoadingAllImagesAndLoaderName:self.imgLoaderName];
 
     //Load the new image
+    NSLog(@"++++++++++++++++ FIV ++++++++++++++++ IN %@ : LOADER %@ ",self.myFood.title,self.imgLoaderName);
     [cell.imageView loadImageFromURLAtAmazonAsync:[NSURL URLWithString:self.myFood.photoNames[indexPath.row]] withLoaderName:self.imgLoaderName completion:^(BOOL success, M13ImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
 
         //cell.imageView.image = nil;
@@ -446,7 +447,10 @@ const CGFloat CommentRateViewWidth = 260;
         
     }else{
         self.descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        self.loadingBtn.hidden = NO;
+        if (!self.myFood.isFoodInfoCompleted) {
+            self.loadingBtn.hidden = NO;
+        }
+        
     
     }
     
@@ -603,6 +607,7 @@ const CGFloat CommentRateViewWidth = 260;
     self.myFood = nil;
     self.myComment = nil;
     [self.countStr setString:@""];
+    self.imgLoaderName = @"";
     
     //
     [self resetData];
@@ -623,9 +628,9 @@ const CGFloat CommentRateViewWidth = 260;
 }
 
 -(void)fetchFoodInfo{
+    [self showLoadingBtnWithLoadingMsg];
     [self.myFood fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
         //NSLog(@"******************** !!!!!! setting food !!!!!!11 **********************");
-        [self showLoadingBtnWithLoadingMsg];
         if (success) {
             
             //NSLog(@"******************** !!!!!! setting food !!!!!!22 **********************");
@@ -676,6 +681,7 @@ const CGFloat CommentRateViewWidth = 260;
         //Assure title and translation are showed;
         [self setFoodInfo];
         self.imgLoaderName =[NSString stringWithFormat:@"%d",(int)cellNo];
+        
         //NSLog(@"******************** !!!!!! setting food !!!!!!00 **********************");
         //If food info is not completed, request it
         if (!self.myFood.isLoadingInfo && !self.myFood.isFoodInfoCompleted) {
@@ -901,9 +907,13 @@ const CGFloat CommentRateViewWidth = 260;
                     [self.commentView hideToastActivity];
                     [self.commentView close];
                     [self makeToast:AMLocalizedString(@"SUCCESS_COMMENT", nil) duration:0.8 position:@"bottom"];
+                    [self.myFood.comments removeAllObjects];
+                    [self.commentsTableView reloadData];
+                    [self refreshComments];
                 }
                 else{
-                    [self.commentView makeToast:AMLocalizedString(@"FAIL_COMMENT", nil) duration:0.8 position:@"bottom"] ;
+                    [self.commentView hideToastActivity];
+                    [self.commentView makeToast:AMLocalizedString(@"FAIL_COMMENT", nil) duration:0.8 position:@"center"];
                 }
             }];
         }
@@ -930,16 +940,16 @@ const CGFloat CommentRateViewWidth = 260;
 
 -(void)showLoadingBtnWithLoadingMsg{
         self.loadingBtn.enabled = NO;
+    NSLog(@"+++++++++++ FIV ++++++++++++ %@ : showloading button!!!!!!!!!!!!!!",self.myFood.title);
+    [self.loadingBtn setTitle:NSLocalizedString(@"FIV_LOADING_MSG", nil) forState:UIControlStateNormal];
 
-        [UIView animateWithDuration:0.5 animations:^{
-            [self.loadingBtn setTitle:NSLocalizedString(@"FIV_LOADING_MSG", nil) forState:UIControlStateNormal];
-            self.loadingBtn.alpha = 0.5;
-            
-        }];
+    self.loadingBtn.alpha = 0.5;
 }
 
 -(void)hideLoadingBtn{
+    NSLog(@"+++++++++++ FIV ++++++++++++ %@ : hideloading button!!!!!!!!!!!!!!",self.myFood.title);
         self.loadingBtn.alpha = 0.f;
+        self.loadingBtn.hidden  = YES;
         self.loadingBtn.enabled = NO;
         [self.loadingBtn setTitle:@"" forState:UIControlStateNormal];
 //        [UIView animateWithDuration:0.3 animations:^{
@@ -953,7 +963,7 @@ const CGFloat CommentRateViewWidth = 260;
 }
 
 -(void)showLoadingBtnWithFailureMsg{
-
+        NSLog(@"+++++++++++ FIV ++++++++++++ %@ : show failure button!!!!!!!!!!!!!!",self.myFood.title);
         self.loadingBtn.enabled = YES;
         [UIView animateWithDuration:0.5 animations:^{
             [self.loadingBtn setTitle:NSLocalizedString(@"FIV_LOADING_FAIL", nil) forState:UIControlStateNormal];

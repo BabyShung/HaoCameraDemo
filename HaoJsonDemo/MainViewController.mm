@@ -310,10 +310,10 @@ static NSString *CellIdentifier = @"Cell";
     
     
     /**********************************/
-    NSArray *localFoods = [dict localSearchOCRString:@"Romano and flatbread and roll and Romano Cheese"];
-//    NSLog(@"++++Main VC++++ : Local Foods: %d",(int)localFoods.count);
-    [self addFoodItems:localFoods];
-    [self showResultButtonsAndCollectionView];
+//    NSArray *localFoods = [dict localSearchOCRString:@"Romano and flatbread and roll and Romano Cheese"];
+////    NSLog(@"++++Main VC++++ : Local Foods: %d",(int)localFoods.count);
+//    [self addFoodItems:localFoods];
+//    [self showResultButtonsAndCollectionView];
 
 
 
@@ -360,51 +360,51 @@ static NSString *CellIdentifier = @"Cell";
 //    }
     
 
-//    if (image) {
-//        
-//        //PS: image variable is the original size image (2448*3264)
-//        UIImage *onScreenImage = [LoadControls scaleImage:image withScale:2.5f withRect:rect andCropSize:size];
-//        UIImage *originalImage = [UIImage imageWithCGImage:onScreenImage.CGImage];
-//        NSMutableArray *localFoods = [NSMutableArray array];
-//        self.imgArray = [self.textDetector2 findTextArea:originalImage];
-//        NSLog(@"+++ MAIN VC +++ : text areas %d",(int)self.imgArray.count);
-//        if ([_imgArray count] > 0)
-//        {
-//            for(UIImage *preImage in _imgArray){
-//                
-//                _tempMat= [preImage CVMat];
-//                
-//                // Step 3. put Mat into pre processor- Charlie
-//                _tempMat = [self.ipp processImage:_tempMat];
-//                NSString *ocrStr = [self recognizeImageWithTesseract:[UIImage imageWithCVMat:_tempMat]];
-//                NSLog(@" ++++++++++ MAIN VC +++++++++++ : TEESSACT REC: %@",ocrStr);
-//                
-//                
-//                NSArray *returnResultsFromDB = [dict localSearchOCRString:ocrStr];
-//                
-//                if(returnResultsFromDB){
-//                    
-//                    [localFoods addObjectsFromArray:returnResultsFromDB];
-//                    
-//                    //hao added
-//                    [self.camView stopLoadingAnimation];
-//                    
-//                    [self showResultButtonsAndCollectionView];
-//                    
-//                    [self addFoodItems:localFoods];
-//                    
-//                }
-//            }
-//            
-//            if(localFoods.count == 0){
-//                //can't search anything from DB
-//                [self stopAnimationAndShowErrorToast];
-//            }
-//        }else{
-//            //can't detect anything from textDetector
-//            [self stopAnimationAndShowErrorToast];
-//        }
-//    }
+    if (image) {
+        
+        //PS: image variable is the original size image (2448*3264)
+        UIImage *onScreenImage = [LoadControls scaleImage:image withScale:2.5f withRect:rect andCropSize:size];
+        UIImage *originalImage = [UIImage imageWithCGImage:onScreenImage.CGImage];
+        NSMutableArray *localFoods = [NSMutableArray array];
+        self.imgArray = [self.textDetector2 findTextArea:originalImage];
+        NSLog(@"+++ MAIN VC +++ : text areas %d",(int)self.imgArray.count);
+        if ([_imgArray count] > 0)
+        {
+            for(UIImage *preImage in _imgArray){
+                
+                _tempMat= [preImage CVMat];
+                
+                // Step 3. put Mat into pre processor- Charlie
+                _tempMat = [self.ipp processImage:_tempMat];
+                NSString *ocrStr = [self recognizeImageWithTesseract:[UIImage imageWithCVMat:_tempMat]];
+                NSLog(@" ++++++++++ MAIN VC +++++++++++ : TEESSACT REC: %@",ocrStr);
+                
+                
+                NSArray *returnResultsFromDB = [dict localSearchOCRString:ocrStr];
+                
+                if(returnResultsFromDB){
+                    
+                    [localFoods addObjectsFromArray:returnResultsFromDB];
+                    
+                    //hao added
+                    [self.camView stopLoadingAnimation];
+                    
+                    [self showResultButtonsAndCollectionView];
+                    
+                    [self addFoodItems:localFoods];
+                    
+                }
+            }
+            
+            if(localFoods.count == 0){
+                //can't search anything from DB
+                [self stopAnimationAndShowErrorToast];
+            }
+        }else{
+            //can't detect anything from textDetector
+            [self stopAnimationAndShowErrorToast];
+        }
+    }
 
     NSLog(@"******************!! !! PHOTO TAKEN  !! !!********************");
 }

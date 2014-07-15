@@ -35,12 +35,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-<<<<<<< HEAD
 
-=======
     //[self.userView startPulse];
->>>>>>> FETCH_HEAD
+
     
     //cache keyboard
     [UIResponder cacheKeyboard];
