@@ -180,7 +180,9 @@ static AsyncRequest *async;
 }
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
-
+    NSURLRequest *request = [connection currentRequest];
+    NSDictionary *bodyDict = [NSJSONSerialization JSONObjectWithData:[request HTTPBody] options:0 error:nil];
+    NSLog(@"``````````````````````````%@ fails!!!!!!!!!!",[bodyDict objectForKey:@"action"]);
     //also set things back
     if (CompletionBlock) {
         dispatch_async(dispatch_get_main_queue(), ^{

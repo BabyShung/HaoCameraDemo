@@ -50,6 +50,9 @@
 "NICE_WARNING_CONTEXT" = "If no results:\n1.Zoom in\n2.Open torch";
 "NICE_WARNING_TITLE" = "Tips";
 "EMPTY_COMMENT" = "Empty text!";
+"COMMENT_TOO_LONG" = "Comment Text Too Long";
+"FIV_LOADING_MSG" = "Loading...";
+"FIV_LOADING_FAIL" = "Oops! Touch To Try Again";
 "CAPTURE_BTN" = "Capture";
 "ABOUT_US"="We are the Edible Innovations!\n\nAward-winning menu translation app helps travelers order with confidence\n\nWhen we arrived in the United States as international students, we were fascinated by all the foods we had never seen before and were ready to start our delicious adventures. However, the difficulty of understanding menus caused by the language and cultural barriers resulted in many mistakes in our food ordering. Blue cheese was the particular item that had a beautiful name but a horrible taste. The experience of ordering blue cheese with my mouth-watering rib-eye steak inspired us to help other international travelers and students better understand menus and order with confidence.\n\nTo use our app, simply take a picture of menu items or type in the items’ names to get immediate translations. Clicking on the translation block presents the detailed descriptions and pictures of the items. We start with English to Chinese translation and will expand to other languages soon. This award-winning product was a finalist for the Prometheus Award of the Technology Association of Iowa and the first place winner in the Papajohn New Venture Competition.\n\nPlease also share stories about your food adventures on our online community: www.thebluecheese.com\n\nContact Blue Cheese: ceo@thebluecheese.com";
 "COMMENT_TOO_LONG" = "Comment Text Too Long";

@@ -25,6 +25,8 @@
 		3AC9FAF3196CA0F500153773 /* localDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 3AC9FAF2196CA0F500153773 /* localDB.db */; };
 		AC1E7760194F580800532F65 /* ShareData.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1E775F194F580800532F65 /* ShareData.m */; };
 		AC1E7764194F583100532F65 /* filterwords.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC1E7761194F583100532F65 /* filterwords.txt */; };
+		AC3FDCF91971F1AB0008D311 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = AC3FDCF81971F1AB0008D311 /* UIView+Toast.m */; };
+		AC3FDD0019742F470008D311 /* LoadingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC3FDCFF19742F470008D311 /* LoadingIndicatorView.m */; };
 		AC7491F8195A2C4F00D3CBBA /* TransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7491F7195A2C4F00D3CBBA /* TransitionController.m */; };
 		AC749201195A2D4300D3CBBA /* TransitionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC749200195A2D4300D3CBBA /* TransitionLayout.m */; };
 		AC8A357A19461E2100FC5465 /* SQLConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8A357619461E2100FC5465 /* SQLConnector.m */; };
@@ -232,6 +234,10 @@
 		3AC9FAF2196CA0F500153773 /* localDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = localDB.db; sourceTree = "<group>"; };
 		AC1E775F194F580800532F65 /* ShareData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareData.m; sourceTree = "<group>"; };
 		AC1E7761194F583100532F65 /* filterwords.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = filterwords.txt; sourceTree = "<group>"; };
+		AC3FDCF71971F1AB0008D311 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
+		AC3FDCF81971F1AB0008D311 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
+		AC3FDCFE19742F470008D311 /* LoadingIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingIndicatorView.h; sourceTree = "<group>"; };
+		AC3FDCFF19742F470008D311 /* LoadingIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingIndicatorView.m; sourceTree = "<group>"; };
 		AC7491F6195A2C4F00D3CBBA /* TransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionController.h; sourceTree = "<group>"; };
 		AC7491F7195A2C4F00D3CBBA /* TransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionController.m; sourceTree = "<group>"; };
 		AC7491FF195A2D4300D3CBBA /* TransitionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionLayout.h; sourceTree = "<group>"; };
@@ -557,6 +563,15 @@
 			name = Flurry;
 			sourceTree = "<group>";
 		};
+		AC3FDD0119742F560008D311 /* LoadingIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				AC3FDCFE19742F470008D311 /* LoadingIndicatorView.h */,
+				AC3FDCFF19742F470008D311 /* LoadingIndicatorView.m */,
+			);
+			name = LoadingIndicator;
+			sourceTree = "<group>";
+		};
 		AC8A356819461D3E00FC5465 /* LocalDB */ = {
 			isa = PBXGroup;
 			children = (
@@ -722,6 +737,7 @@
 			children = (
 				ACDD6D59195F4C3100AD51A7 /* FoodInfoView.h */,
 				ACDD6D5A195F4C3100AD51A7 /* FoodInfoView.m */,
+				AC3FDD0119742F560008D311 /* LoadingIndicator */,
 				B8CC9F57196897A400CCFE74 /* CommentView */,
 				B8B60FE919591E50005268D5 /* PhotoCollectionView */,
 				B8B60F9F19591416005268D5 /* ShimmerView */,
@@ -1406,6 +1422,7 @@
 				B803CFAD196F841C006080D0 /* IPDashedLineView.m in Sources */,
 				B8C8F363195F7773009F8F6E /* M13AsyncConnection.m in Sources */,
 				B8B6104819592493005268D5 /* ShadeView.m in Sources */,
+				AC3FDD0019742F470008D311 /* LoadingIndicatorView.m in Sources */,
 				B8B6103F1959243A005268D5 /* RQShineLabel.m in Sources */,
 				ACDD6D4F195F4AB800AD51A7 /* MainViewController.mm in Sources */,
 				B8B6103819592369005268D5 /* JTSImageInfo.m in Sources */,

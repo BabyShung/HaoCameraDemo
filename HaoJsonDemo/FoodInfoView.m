@@ -12,13 +12,11 @@
 #import "JTSImageInfo.h"
 #import "UIImageView+M13AsynchronousImageView.h"
 #import "CommentCell.h"
-#import "Comment.h"
 #import "LoadControls.h"
 #import "ED_Color.h"
 #import "User.h"
 #import "HATransparentView.h"
 #import "DXStarRatingView.h"
-#import "UIView+Toast.h"
 #import "LocalizationSystem.h"
 
 static NSString *CellIdentifier = @"Cell";
@@ -37,6 +35,8 @@ const CGFloat SeparatorViewHeight = 1.f;
 const CGFloat BelowShimmmerGap = 10.f;
 const CGFloat TranslateLabelHeight = 30.f;
 const CGFloat BelowTranslateGap = 10.f;
+const CGFloat StarImgViewWidth = 40.f;
+const CGFloat StarNumberLabelWidth = 40.f;
 const CGFloat DescriptionLabelHeight = 100.f;
 const CGFloat BelowDescriptionLabelGap = 1.f;
 const CGFloat TagViewHeight = 40.f;
@@ -48,7 +48,7 @@ const CGFloat LargeTitleFontSize = 25.f;
 const CGFloat LargeTextFontSize = 18.f;
 const CGFloat TagFontSize = 18.f;
 const CGFloat SmallTitleFontSize = 15.f;
-const CGFloat SmallTextFontSize = 10.f;
+const CGFloat SmallTextFontSize = 20.f;
 
 const CGFloat ViewAlphaRecreaseRate = 450.f;
 const NSInteger NumCommentsPerLoad = 5;
@@ -80,7 +80,7 @@ const CGFloat CommentRateViewWidth = 260;
 
 @property (strong,nonatomic) UILabel *countLabel;
 
-@property (strong,nonatomic) UIActivityIndicatorView *activityView;
+//@property (strong,nonatomic) UIActivityIndicatorView *activityView;
 
 @end
 
@@ -98,9 +98,9 @@ const CGFloat CommentRateViewWidth = 260;
         self.countStr =[NSMutableString stringWithString:@""];
         self.commentView = [[HATransparentView alloc] init];
         self.commentView.delegate = self;
-        self.activityView=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        //self.activityView=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         
-        self.activityView.center=self.center;
+        //self.activityView.center=self.center;
         //init all UI controls
         [self loadControls];
         
@@ -117,9 +117,9 @@ const CGFloat CommentRateViewWidth = 260;
         self.countStr =[NSMutableString stringWithString:@""];
         self.commentView = [[HATransparentView alloc] init];
         self.commentView.delegate = self;
-        self.activityView=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        //self.activityView=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         
-        self.activityView.center=self.center;
+        //self.activityView.center=self.center;
         //init all UI controls
         [self loadControls];
         
@@ -169,14 +169,26 @@ const CGFloat CommentRateViewWidth = 260;
 
     self.translateLabel = [[UILabel alloc] init];
     self.translateLabel.numberOfLines = 0;
-    //self.translateLabel.lineBreakMode =NSLineBreakByWordWrapping;
+    self.translateLabel.lineBreakMode =NSLineBreakByWordWrapping;
     self.translateLabel.text = @"";
     self.translateLabel.font = [UIFont fontWithName:PlainTextFontName size:LargeTitleFontSize];
     self.translateLabel.textColor = [UIColor blackColor];
     self.translateLabel.backgroundColor = [UIColor clearColor];
     [self.scrollview addSubview:self.translateLabel];
-    
+
+
 /*-------------------Following Views Will Be Hidden In Small Layout----------------------------*/
+    self.starImgView= [[UIImageView alloc]init];
+    self.starImgView.backgroundColor = [UIColor clearColor];
+    
+    self.starNumberLabel = [[UILabel alloc]init];
+    self.starNumberLabel.font = [UIFont fontWithName:PlainTextFontName size:LargeTitleFontSize];
+    self.starNumberLabel.textColor = [UIColor blackColor];
+    self.starNumberLabel.backgroundColor = [UIColor clearColor];
+    self.starNumberLabel.numberOfLines  = 1;
+    
+    [self.scrollview addSubview:self.starImgView];
+    [self.scrollview addSubview:self.starNumberLabel];
     
     self.descriptionLabel = [[RQShineLabel alloc] init];
     self.descriptionLabel.numberOfLines = 0;
@@ -230,6 +242,20 @@ const CGFloat CommentRateViewWidth = 260;
     [_commentBtn addTarget:self action:@selector(commentBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self hideCommentButton];
     [self addSubview:_commentBtn];
+    
+    
+    //Add loading indicator button
+    self.loadingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.loadingBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.loadingBtn setAlpha:0.5];
+    self.loadingBtn.titleLabel.font = [UIFont fontWithName:PlainTextFontName size:LargeTextFontSize];
+    self.loadingBtn.backgroundColor = [UIColor grayColor];
+    [self.loadingBtn addTarget:self action:@selector(loadingBtnPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self hideLoadingBtn];
+    
+    [self addSubview:self.loadingBtn];
+
+    
 
     
 }
@@ -243,7 +269,7 @@ const CGFloat CommentRateViewWidth = 260;
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    if (scrollView.contentOffset.y + scrollView.frame.size.height == scrollView.contentSize.height && !self.myFood.isLoadingComments) {
+    if (scrollView.contentOffset.y + scrollView.frame.size.height == scrollView.contentSize.height && !self.myFood.isLoadingComments && !self.photoCollectionView.isTracking) {
         //Request to server
         //Load more comments
         [self refreshComments];
@@ -270,6 +296,7 @@ const CGFloat CommentRateViewWidth = 260;
     //[cell.imageView cancelLoadingAllImagesAndLoaderName:self.imgLoaderName];
 
     //Load the new image
+    NSLog(@"++++++++++++++++ FIV ++++++++++++++++ IN %@ : LOADER %@ ",self.myFood.title,self.imgLoaderName);
     [cell.imageView loadImageFromURLAtAmazonAsync:[NSURL URLWithString:self.myFood.photoNames[indexPath.row]] withLoaderName:self.imgLoaderName completion:^(BOOL success, M13ImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
 
         //cell.imageView.image = nil;
@@ -394,9 +421,15 @@ const CGFloat CommentRateViewWidth = 260;
     CGFloat width = CGRectGetWidth(self.frame);
     CGFloat height = CGRectGetHeight(self.frame);
     
+    /*Resize loading button*/
+    
+    [self.loadingBtn setFrame:self.bounds];
+    self.loadingBtn.titleLabel.frame = self.loadingBtn.bounds;
+    
     /*Resize scrollview so that it still can scroll*/
     
     [self.scrollview setFrame:self.bounds];
+    
     
     
     /*Resize views in scroll view*/
@@ -409,15 +442,25 @@ const CGFloat CommentRateViewWidth = 260;
     self.separator.frame = CGRectMake(CLeftMargin, CGRectGetMaxY(self.titleLabel.frame), width-2*CLeftMargin, SeparatorViewHeight);
     
     if (self.frame.size.height < CGRectGetHeight([[UIScreen mainScreen] bounds])){
-        
+        self.loadingBtn.hidden = YES;
         self.descriptionLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+        
     }else{
-        self.translateLabel.lineBreakMode = NSLineBreakByWordWrapping;
         self.descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        if (!self.myFood.isFoodInfoCompleted) {
+            self.loadingBtn.hidden = NO;
+        }
+        
     
     }
     
-    self.translateLabel.frame = CGRectMake(CLeftMargin, TitleTopMargin + CGRectGetMaxY(self.titleLabel.frame), width, TranslateLabelHeight);
+    self.translateLabel.frame = CGRectMake(CLeftMargin, TitleTopMargin + CGRectGetMaxY(self.titleLabel.frame), width-2*CLeftMargin, TranslateLabelHeight);
+    [self.translateLabel setFont:[UIFont fontWithName:PlainTextFontName size:SmallTextFontSize + (LargeTitleFontSize-SmallTextFontSize)*sizeMultiplier]];
+    
+    self.starNumberLabel.frame =CGRectMake(width-CLeftMargin-StarNumberLabelWidth, self.translateLabel.frame.origin.y, StarNumberLabelWidth*(width/[[UIScreen mainScreen] bounds].size.width), CGRectGetHeight(self.translateLabel.frame));
+    [self.starNumberLabel setFont:[UIFont fontWithName:PlainTextFontName size:SmallTitleFontSize + (LargeTitleFontSize-SmallTitleFontSize)*sizeMultiplier]];
+    
+    self.starImgView.frame = CGRectMake(self.starNumberLabel.frame.origin.x-StarImgViewWidth, self.starNumberLabel.frame.origin.y,StarImgViewWidth*(width/[[UIScreen mainScreen] bounds].size.width), CGRectGetHeight(self.translateLabel.frame));
     
     self.descriptionLabel.frame = CGRectMake(CLeftMargin, CGRectGetMaxY(self.translateLabel.frame) + GAP, width - CLeftMargin*2, DescriptionLabelHeight);
     
@@ -436,6 +479,8 @@ const CGFloat CommentRateViewWidth = 260;
     self.tagview.alpha = newAlpha;
     self.commentsTableView.alpha = newAlpha;
     self.photoCollectionView.alpha = newAlpha;
+    self.starImgView.alpha = newAlpha;
+    self.starNumberLabel.alpha = newAlpha;
 
     NSLog(@"+++ FIV %@ +++  %d LAYOUT SUBVIEW: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.isScrollEnabled,self.scrollview.contentSize.height,self.scrollview.bounds.size.height);
 }
@@ -447,7 +492,10 @@ const CGFloat CommentRateViewWidth = 260;
     self.descriptionLabel.hidden = NO;
     self.tagview.hidden = NO;
     self.photoCollectionView.hidden = NO;
-     self.commentsTableView.hidden = NO;
+    self.commentsTableView.hidden = NO;
+    self.starImgView.hidden = NO;
+    self.starNumberLabel.hidden = NO;
+    //self.loadingBtn.hidden = NO;
 }
 
 -(void)setUpForSmallLayout{
@@ -455,7 +503,10 @@ const CGFloat CommentRateViewWidth = 260;
     self.descriptionLabel.hidden = YES;
     self.tagview.hidden = YES;
     self.photoCollectionView.hidden = YES;
-     self.commentsTableView.hidden = YES;
+    self.commentsTableView.hidden = YES;
+    self.starImgView.hidden = YES;
+    self.starNumberLabel.hidden = YES;
+    //self.loadingBtn.hidden = YES;
 }
 
 /*************** MEi **************/
@@ -470,6 +521,11 @@ const CGFloat CommentRateViewWidth = 260;
     self.titleLabel.text = self.myFood.title;
     self.translateLabel.text = self.myFood.transTitle;
     self.descriptionLabel.text = self.myFood.food_description;
+    if (self.myFood.rate >= 0.f) {
+        self.starImgView.contentMode =UIViewContentModeScaleAspectFill;
+        self.starImgView.image = [UIImage imageNamed:@"star_on.png"];
+        self.starNumberLabel.text = [NSString stringWithFormat:@"%.1f",self.myFood.rate];
+    }
 }
 
 //Load More comments
@@ -551,6 +607,7 @@ const CGFloat CommentRateViewWidth = 260;
     self.myFood = nil;
     self.myComment = nil;
     [self.countStr setString:@""];
+    self.imgLoaderName = @"";
     
     //
     [self resetData];
@@ -570,23 +627,52 @@ const CGFloat CommentRateViewWidth = 260;
 
 }
 
+-(void)fetchFoodInfo{
+    [self showLoadingBtnWithLoadingMsg];
+    [self.myFood fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
+        //NSLog(@"******************** !!!!!! setting food !!!!!!11 **********************");
+        if (success) {
+            
+            //NSLog(@"******************** !!!!!! setting food !!!!!!22 **********************");
+            [self setFoodInfo];
+            [self configPhotoAndTag];
+            if (self.myFood.comments.count==0) {
+                [self refreshComments];
+            }
+            //[self configCommentTable];
+            [self showCommentButton];
+            [self hideLoadingBtn];
+            
+            
+        }
+        else{
+            
+            [self showLoadingBtnWithFailureMsg];
+        }
+        
+    }];
+    
+}
+
 /******************************************************/
 /************  DISPLAY IN COLLECTION VIEW  ************/
 /******************************************************/
 
 // Fist time display, set up photoview delegate
--(void)configPhotoAndTagWithCellNo:(NSInteger)no{
+-(void)configPhotoAndTag{
     NSLog(@"test```");
-    self.imgLoaderName= [NSString stringWithFormat:@"%d",(int)no];
-    //NSLog(@"~~~~~~~~~~CONFIG PHOTO FOR %@ ~~~~~~~~~~~~%d",self.myFood.title,(int)self.myFood.photoNames.count);
-
-    self.photoCollectionView.dataSource = self;
-    self.photoCollectionView.delegate = self;
-    
-    [self.photoCollectionView reloadData];
-    
-    [_tagview addTags:self.myFood.tagNames];
-    self.descriptionLabel.textColor = [UIColor blackColor];
+    if (self.imgLoaderName && ![self.imgLoaderName isEqualToString:@""]) {
+        //NSLog(@"~~~~~~~~~~CONFIG PHOTO FOR %@ ~~~~~~~~~~~~%d",self.myFood.title,(int)self.myFood.photoNames.count);
+        
+        self.photoCollectionView.dataSource = self;
+        self.photoCollectionView.delegate = self;
+        
+        [self.photoCollectionView reloadData];
+        
+        [_tagview addTags:self.myFood.tagNames];
+        self.descriptionLabel.textColor = [UIColor blackColor];
+        
+    }
 }
 
 //Prepare data for first time display
@@ -594,32 +680,30 @@ const CGFloat CommentRateViewWidth = 260;
     if (self.myFood) {
         //Assure title and translation are showed;
         [self setFoodInfo];
+        self.imgLoaderName =[NSString stringWithFormat:@"%d",(int)cellNo];
+        
         //NSLog(@"******************** !!!!!! setting food !!!!!!00 **********************");
         //If food info is not completed, request it
         if (!self.myFood.isLoadingInfo && !self.myFood.isFoodInfoCompleted) {
-            
-            [self.myFood fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
-                //NSLog(@"******************** !!!!!! setting food !!!!!!11 **********************");
-                if (success) {
-                    
-                    //NSLog(@"******************** !!!!!! setting food !!!!!!22 **********************");
-                    [self setFoodInfo];
-                    [self configPhotoAndTagWithCellNo:cellNo];
-                    [self refreshComments];
-                    //[self configCommentTable];
-                    [self showCommentButton];
-             
-                    
-                    
-                }
-                
-            }];
+            [self fetchFoodInfo];
+//            [self.myFood fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
+//                if (success) {
+//                    [self setFoodInfo];
+//                    [self configPhotoAndTag];
+//                    [self refreshComments];
+//                    [self showCommentButton];
+//                    [self hideLoadingBtn];
+//                }
+//                else{
+//                    [self showLoadingBtnWithFailureMsg];
+//                }
+//                
+//            }];
+
         }
         else if(self.myFood.isFoodInfoCompleted){//Food info is complete, config at once;
-            //NSLog(@"******************** !!!!!! setting food !!!!!!333 **********************");
-            [self configPhotoAndTagWithCellNo:cellNo];
+            [self configPhotoAndTag];
             [self refreshComments];
-            //[self configCommentTable];
             [self showCommentButton];
         }
         
@@ -635,20 +719,25 @@ const CGFloat CommentRateViewWidth = 260;
     if (self.myFood) {
         //Assure title and translation are showed;
         [self setFoodInfo];
+        self.imgLoaderName  = @"Default";
         
         //If food info is not completed, request it
         if (!self.myFood.isLoadingInfo && !self.myFood.isFoodInfoCompleted) {
-            
-            [self.myFood fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
-                if (success) {
-                    [self setFoodInfo];
-                    [self configPhotoAndTag];
-                    [self refreshComments];
-                    //[self configCommentTable];
-                    [self showCommentButton];
-                }
-                
-            }];
+            [self fetchFoodInfo];
+//            [self.myFood fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
+//                if (success) {
+//                    [self setFoodInfo];
+//                    [self configPhotoAndTag];
+//                    [self refreshComments];
+//                    //[self configCommentTable];
+//                    [self showCommentButton];
+//                    [self hideLoadingBtn];
+//                }
+//                else{
+//                    [self showLoadingBtnWithFailureMsg];
+//                }
+//                
+//            }];
         }
         else if(self.myFood.isFoodInfoCompleted){//Food info is complete, config at once;
             [self configPhotoAndTag];
@@ -660,15 +749,6 @@ const CGFloat CommentRateViewWidth = 260;
     }
 }
 
-// Fist time display, set up photoview delegate
--(void)configPhotoAndTag{
-    NSLog(@"test```");
-    self.imgLoaderName = @"Default";
-    self.photoCollectionView.delegate = self;
-    self.photoCollectionView.dataSource = self;
-    [_tagview addTags:self.myFood.tagNames];
-    self.descriptionLabel.textColor = [UIColor blackColor];
-}
 
 -(void)shineDescription{
     if (self.descriptionLabel.text.length>0) {
@@ -686,17 +766,17 @@ const CGFloat CommentRateViewWidth = 260;
 - (void) commentBtnPressed:(id)sender {
     NSLog(@"++++ FIV ++++ : COMMENT BUTTON PRESSED");
 
-    [self.activityView startAnimating];
     
     
     if (![[User sharedInstance].lastComments objectForKey:[NSString stringWithFormat:@"%d",(int)self.myFood.fid]]) {
         
         NSLog(@"++++ FIV ++++ : REQUEST COMMENT ");
-        [self addSubview:self.activityView];
-        
+
+        [self makeToastActivity];
         [User fetchMyCommentOnFood:self.myFood.fid andCompletion:^(NSError *err, BOOL success) {
-            [self.activityView removeFromSuperview];
+            [self hideToastActivity];
             [self showCommentView];
+            
         }];
     }
     else{   //lastcomment has been loaded
@@ -743,7 +823,7 @@ const CGFloat CommentRateViewWidth = 260;
     self.countLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(textView.frame)-90, CGRectGetMaxY(textView.frame)-40, 80, 40)];
     self.countLabel.textColor = [UIColor lightGrayColor];
     [_countStr setString:@""];
-    [_countStr appendFormat:@"%d",(int)MaxCharNum-textView.text.length];
+    [_countStr appendFormat:@"%d",(int)(MaxCharNum-textView.text.length)];
     self.countLabel.text =_countStr;
     self.countLabel.textAlignment = NSTextAlignmentRight;
     
@@ -819,15 +899,21 @@ const CGFloat CommentRateViewWidth = 260;
             
             [[User sharedInstance].lastComments setObject:newComment forKey:[NSString stringWithFormat:@"%d",(int)self.myFood.fid]];
             NSLog(@"+++++++++++++++ FIV +++++WILL SEND COMMENT+++++++++++++++++++");
+            [self.commentView makeToastActivity];
             [User createComment:newComment andCompletion:^(NSError *err, BOOL success) {
                 if (success)
                 {
                     NSLog(@"+++++++++++++++ FIV +++++SEND COMMENT SUCCEED+++++++++++++++++++");
+                    [self.commentView hideToastActivity];
                     [self.commentView close];
                     [self makeToast:AMLocalizedString(@"SUCCESS_COMMENT", nil) duration:0.8 position:@"bottom"];
+                    [self.myFood.comments removeAllObjects];
+                    [self.commentsTableView reloadData];
+                    [self refreshComments];
                 }
                 else{
-                    [self.commentView makeToast:AMLocalizedString(@"FAIL_COMMENT", nil) duration:0.8 position:@"bottom"] ;
+                    [self.commentView hideToastActivity];
+                    [self.commentView makeToast:AMLocalizedString(@"FAIL_COMMENT", nil) duration:0.8 position:@"center"];
                 }
             }];
         }
@@ -848,6 +934,50 @@ const CGFloat CommentRateViewWidth = 260;
     
 }
 
+/************************************/
+/*****     Loading Indicator     ****/
+/************************************/
+
+-(void)showLoadingBtnWithLoadingMsg{
+        self.loadingBtn.enabled = NO;
+    NSLog(@"+++++++++++ FIV ++++++++++++ %@ : showloading button!!!!!!!!!!!!!!",self.myFood.title);
+    [self.loadingBtn setTitle:NSLocalizedString(@"FIV_LOADING_MSG", nil) forState:UIControlStateNormal];
+
+    self.loadingBtn.alpha = 0.5;
+}
+
+-(void)hideLoadingBtn{
+    NSLog(@"+++++++++++ FIV ++++++++++++ %@ : hideloading button!!!!!!!!!!!!!!",self.myFood.title);
+        self.loadingBtn.alpha = 0.f;
+        self.loadingBtn.hidden  = YES;
+        self.loadingBtn.enabled = NO;
+        [self.loadingBtn setTitle:@"" forState:UIControlStateNormal];
+//        [UIView animateWithDuration:0.3 animations:^{
+//            self.loadingBtn.alpha = 0.f;
+//            
+//        }completion:^(BOOL finished) {
+//            self.loadingBtn.hidden  = YES;
+//        }];
+
+    
+}
+
+-(void)showLoadingBtnWithFailureMsg{
+        NSLog(@"+++++++++++ FIV ++++++++++++ %@ : show failure button!!!!!!!!!!!!!!",self.myFood.title);
+        self.loadingBtn.enabled = YES;
+        [UIView animateWithDuration:0.5 animations:^{
+            [self.loadingBtn setTitle:NSLocalizedString(@"FIV_LOADING_FAIL", nil) forState:UIControlStateNormal];
+             self.loadingBtn.alpha = 0.5;
+        } ];
+    
+     
+}
+-(void)loadingBtnPressed{
+    NSLog(@"Loading btn pressed!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+    [self fetchFoodInfo];
+
+}
 
 
 @end

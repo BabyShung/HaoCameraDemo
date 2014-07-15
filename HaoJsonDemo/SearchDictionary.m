@@ -32,7 +32,7 @@ static SearchDictionary *sharedInstance = nil;
 }
 
 + (void)addSearchHistory:(Food*) food{
-    if(![sharedInstance.dict objectForKey:food.title]){
+    if(![sharedInstance.dict objectForKey:food.title]&& food){
         NSLog(@"********** SH: add search histroy ************!! %@",food);
         [sharedInstance.dict setObject:food forKey:food.title];
         NSLog(@"********** SH: add search histroy ************");
