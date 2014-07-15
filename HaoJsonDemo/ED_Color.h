@@ -22,4 +22,12 @@
 +(UIColor *)edibleBlueColor_DeepDark;
 
 +(UIColor *)edibleGreenColor;
+
++(UIColor *)cardLightBlue;
++(UIColor *)cardLightGreen;
++(UIColor *)cardLightYellow;
++(UIColor *)cardMediumBlue;
++(UIColor *)cardDeepBrown;
++(UIColor *)cardPink;
+
 @end

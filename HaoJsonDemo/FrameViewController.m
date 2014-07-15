@@ -16,8 +16,11 @@
 
 #import "MainViewController.h"
 
+#import "AppDelegate.h"
 
 @interface FrameViewController () <MainVCDelegate,SettingDelegate>
+
+
 
 // App view controllers
 @property (nonatomic,strong) UINavigationController *VC1;
@@ -94,9 +97,10 @@
  
     [self setupPageViewController];
 
+    //save reference in appDelegate for disabling pageviewcontroller
+    AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDlg.fvc = self;
 }
-
-
 
 -(void)setupPageViewController{
     // Create page view controller
@@ -114,6 +118,12 @@
     [self addChildViewController:_pageViewController];
     [self.view addSubview:_pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];
+    
+    
+}
+
+-(void)slideToCertainPage:(NSInteger)index{
+    [self.pageViewController setViewControllers:@[self.menu[index]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
 }
 
 /***********************************************************************
@@ -156,6 +166,11 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
+    NSLog(@"*******************  pageViewController before *******************");
+    if(self.disablePageViewController)
+        return nil;
+    
+    
     NSUInteger index = [self getVCIndex:viewController];
     
     if ((index == 0) || (index == NSNotFound)) {
@@ -168,6 +183,10 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
+    NSLog(@"*******************  pageViewController after *******************");
+    if(self.disablePageViewController)
+        return nil;
+    
     NSUInteger index = [self getVCIndex:viewController];
     
     if (index == NSNotFound) {

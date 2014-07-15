@@ -25,6 +25,8 @@
 #import "IPDashedLineView.h"
 #import "Flurry.h"
 #import "LocalizationSystem.h"
+#import "HATransparentView.h"
+#import "GeneralControl.h"
 
 #define CROPVIEW_HEIGHT iPhone5?360:300
 
@@ -36,11 +38,13 @@ const CGFloat TopMargin = 25.0f;
 static NSArray *colors;
 
 @interface CardsViewController () <UICollectionViewDataSource,
-UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
+UICollectionViewDelegate,HATransparentViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) MKTransitionCoordinator *menuInteractor;
 
 @property (nonatomic, weak) IBOutlet UICollectionView *bottomCollectionView;
+
+@property (strong,nonatomic) NSArray *languages;
 
 @property (strong,nonatomic) NSArray *settings;
 @property (strong,nonatomic) NSArray *settingsImages;
@@ -59,23 +63,28 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
 
 @property (strong, nonatomic) UIView * separatorLine;
 
+@property (strong, nonatomic) HATransparentView *transparentView;
+@property (nonatomic) NSInteger selected;
+
 @end
 
 @implementation CardsViewController
 - (void) doInits {
     
-    colors = @[[UIColor colorWithRed:(0/255.0) green:(181/255.0) blue:(239/255.0) alpha:1],
-               [UIColor colorWithRed:(150/255.0) green:(222/255.0) blue:(35/255.0) alpha:1],
-               [UIColor colorWithRed:(255/255.0) green:(216/255.0) blue:(0/255.0) alpha:1],
-               [UIColor colorWithRed:(0/255.0) green:(125/255.0) blue:(192/255.0) alpha:1],
-               [UIColor colorWithRed:(253/255.0) green:(91/255.0) blue:(159/255.0) alpha:1],
-               [UIColor colorWithRed:(233/255.0) green:(0/255.0) blue:(11/255.0) alpha:1]];
-    self.settings = [NSArray arrayWithObjects:AMLocalizedString(@"CARD_SEARCH", nil),AMLocalizedString(@"CARD_FEEDBACK", nil),AMLocalizedString(@"CARD_ABOUT", nil),AMLocalizedString(@"CARD_LOGOUT", nil), nil];
+    colors = @[[ED_Color cardLightGreen],[ED_Color cardLightBlue],[ED_Color cardLightYellow],[ED_Color cardMediumBlue],[ED_Color cardDeepBrown],[ED_Color cardPink]];
+    self.settings = [NSArray arrayWithObjects:AMLocalizedString(@"CARD_SEARCH", nil),AMLocalizedString(@"CARD_FEEDBACK", nil),AMLocalizedString(@"CARD_ABOUT", nil),AMLocalizedString(@"LANGUAGUE_SETTING", nil),AMLocalizedString(@"TUTORIAL_STRING", nil),AMLocalizedString(@"CARD_LOGOUT", nil), nil];
     self.settingsImages = [NSArray arrayWithObjects:
                            [UIImage imageNamed:@"ED_search.png"],
                            [UIImage imageNamed:@"ED_feedback.png"],
                            [UIImage imageNamed:@"ED_about.png"],
+                           [UIImage imageNamed:@"ED_about.png"],
+                           [UIImage imageNamed:@"ED_about.png"],
                            [UIImage imageNamed:@"ED_logout.png"], nil];
+    
+    self.languages = [NSArray arrayWithObjects:
+                      @"中文",
+                      @"English",
+                      nil];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -118,6 +127,7 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
         //show 
         self.descriptionLabel.text = AMLocalizedString(@"LOGGEDIN_CONTEXT_1", nil);
         self.descriptionLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:18];
+        
     }
     
     [self.descriptionLabel sizeToFit];
@@ -127,22 +137,20 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
     
     [User logout];
     
-    [self transitionToLoginVC];
+    [GeneralControl transitionToVC:self withToVCStoryboardId:@"Start" withDuration:0.4];
     
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    
-
     
     if(self.shimmeringView.shimmering){
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.shimmeringView.shimmering = NO;
         });
     }
-    
     [self.descriptionLabel shine];
     
+    //[GeneralControl disablePageViewControllerLeftRightScroll:NO andIndex:1];
 }
 
 -(void)loadControls{
@@ -160,10 +168,8 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
     [self.view addSubview:_previousPageBtn];
     
     
-    
     self.menuInteractor = [[MKTransitionCoordinator alloc] initWithParentViewController:self];
     self.menuInteractor.disableLeftEdgePan = YES;
-    self.menuInteractor.delegate = self;
     
     
     [self.bottomCollectionView registerClass:[CardsCollectionCell class] forCellWithReuseIdentifier:[collectionCellIdentity copy]];
@@ -171,7 +177,6 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
     self.bottomCollectionView.clipsToBounds = NO;
     
     //first show
-    
     
     CGRect titleRect = CGRectMake(LeftMargin, TopMargin, self.view.bounds.size.width, 30);
     self.shimmeringView = [[FBShimmeringView alloc] initWithFrame:titleRect];
@@ -187,8 +192,6 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
     //self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.backgroundColor = [UIColor clearColor];
     _shimmeringView.contentView = self.titleLabel;
-    
-    
     
     self.descriptionLabel = ({
         RQShineLabel *label = [[RQShineLabel alloc] initWithFrame:CGRectMake(LeftContextMargin, TopContextMargin, 270, 300)];
@@ -224,9 +227,7 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
 }
 
 - (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
-    
     return [self.settings count];
-    
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -240,6 +241,8 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    //[GeneralControl disablePageViewControllerLeftRightScroll:YES andIndex:1];
     
     _shouldSlideBack = YES;
     
@@ -292,6 +295,22 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
         [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"AboutUs"] animated:YES];
     }else if (index == 3){
         
+        _transparentView = [[HATransparentView alloc] init];
+        _transparentView.delegate = self;
+        [_transparentView open];
+        
+        // Add a tableView
+        UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 84, _transparentView.frame.size.width, _transparentView.frame.size.height - 84)];
+        tableView.delegate = self;
+        tableView.dataSource = self;
+        tableView.backgroundColor = [UIColor clearColor];
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+        [_transparentView addSubview:tableView];
+
+        
+    }else if (index == 4){
+        
         [Flurry logEvent:@"Index_3_Logout"];
         
         [self willLogout];
@@ -313,28 +332,13 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
         
         [User logout];
 
-        [self transitionToLoginVC];
+        [GeneralControl transitionToVC:self withToVCStoryboardId:@"Start" withDuration:0.4];
         
     }];
     
     [lrf show];
     
 }
-
--(void)transitionToLoginVC{
-    UIWindow *windooo = [[[UIApplication sharedApplication] delegate] window];
-    UIViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"Start"];
-    [UIView transitionWithView:windooo
-                      duration:0.3
-                       options:UIViewAnimationOptionCurveEaseOut
-                    animations:^{
-                        self.view.alpha = 0;
-                    }
-                    completion:^(BOOL success){
-                        windooo.rootViewController = fvc;
-                    }];
-}
-
 
 -(void)viewWillDisappear:(BOOL)animated{
     
@@ -345,12 +349,72 @@ UICollectionViewDelegate, MKTransitionCoordinatorDelegate>
     [self.bottomCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:(left?0:[self.settings count]-1) inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
 }
 
-#pragma mark - MKTransitionCoordinatorDelegate Methods
-- (UIViewController*) toViewControllerForInteractivePushFromPoint:(CGPoint)locationInWindow {
-    //In this example we don't care where the user is pushing from
-    NSLog(@"delegate get called");
-    return [self.storyboard instantiateViewControllerWithIdentifier:@"Register"];
+//#pragma mark - MKTransitionCoordinatorDelegate Methods
+//- (UIViewController*) toViewControllerForInteractivePushFromPoint:(CGPoint)locationInWindow {
+//    return [self.storyboard instantiateViewControllerWithIdentifier:@"Register"];
+//}
+
+
+#pragma mark - TableView Datasource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.languages.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell;
+    static NSString *cellId = @"cellId";
+    
+    cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+    }
+    
+    UIImageView *check = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"check"]];
+    
+    cell.textLabel.text = self.languages[indexPath.row];
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.backgroundColor = [UIColor clearColor];
+    cell.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+    cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:0.0 green:143/255.0 blue:213/255.0 alpha:1.0];
+    cell.accessoryView = (_selected == indexPath.row) ? check : nil;
+    
+    return cell;
 }
 
 
+#pragma mark - TableView Delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *lastCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:_selected inSection:0]];
+    lastCell.accessoryView = nil;
+    
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    UIImageView *check = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"check"]];
+    cell.accessoryView = check;
+    _selected = indexPath.row;
+    
+    // Remove
+    //[_transparentView close];
+}
+
+#pragma mark - HATransparentViewDelegate
+
+- (void)HATransparentViewDidClosed
+{
+    NSLog(@"Did close");
+}
 @end

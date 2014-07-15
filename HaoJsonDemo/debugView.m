@@ -25,11 +25,7 @@
         // Initialization code
         
         self.referenceVC = vc;
-        
         [self setup];
-        
-        
-        
     }
     return self;
 }

@@ -69,6 +69,10 @@ static NSString *CellIdentifier = @"Cell";
 
 - (void)viewDidLoad{
     
+    
+
+    
+    
     ScreenWidth = CGRectGetWidth([[UIScreen mainScreen] bounds]);
     ScreenHeight = CGRectGetHeight([[UIScreen mainScreen] bounds]);
     

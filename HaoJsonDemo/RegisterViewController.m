@@ -15,7 +15,7 @@
 #import "ED_Color.h"
 #import "UIAlertView+Blocks.h"
 #import "Flurry.h"
-#import "LocalizationSystem.h"
+#import "GeneralControl.h"
 
 @interface RegisterViewController () <UITextFieldDelegate>
 {
@@ -35,6 +35,10 @@
    
     //[self checkAndStartLoadingAnimation];
     
+    [self loadControls];
+}
+
+-(void)loadControls{
     [self.emailTextField setValue:[ED_Color lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
     [self.userTextField setValue:[ED_Color lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
     [self.pwdTextField setValue:[ED_Color lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
@@ -74,19 +78,7 @@
     [self validateAllInputs];
 }
 
--(void)transitionToFrameVC{
-    UIWindow *windooo = [[[UIApplication sharedApplication] delegate] window];
-    FrameViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"Frame"];
-    [UIView transitionWithView:windooo
-                      duration:0.8
-                       options:UIViewAnimationOptionCurveEaseOut
-                    animations:^{
-                        self.view.alpha = 0;
-                    }
-                    completion:^(BOOL success){
-                        windooo.rootViewController = fvc;
-                    }];
-}
+
 
 -(void)validateAllInputs{
     //trim
@@ -96,7 +88,6 @@
     [validate Email:trimmedEmail andUsername:self.userTextField.text andPwd:self.pwdTextField.text];
     
     if([validate isValid]){    //success
-        
         
         [Flurry logEvent:@"Read_To_Register"];
         
@@ -119,34 +110,23 @@
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 
                 //transition
-                [self transitionToFrameVC];
+                [GeneralControl transitionToVC:self withToVCStoryboardId:@"Frame"];
             }else{
                 
                 //email already register
                 self.signupBtn.enabled = YES;
                 [self.loadingImage stopAnimating];
-                [self showErrorMsg:[err localizedDescription] withTextField:self.emailTextField];
+                [GeneralControl showErrorMsg:[err localizedDescription] withTextField:self.emailTextField];
             }
         }];
         
     }else{  //failure
         NSString *errorString = [[validate errorMsg] componentsJoinedByString: @"\n"];
-        [self showErrorMsg:errorString withTextField:nil];
+        [GeneralControl showErrorMsg:errorString withTextField:nil];
     }
 }
 
--(void)showErrorMsg:(NSString *)msg withTextField:(UITextField *)textfield{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:AMLocalizedString(@"OOPS", nil) message:msg delegate:nil cancelButtonTitle:AMLocalizedString(@"Cancel", nil) otherButtonTitles: nil];
-    [alert showWithHandler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-        
-        if (buttonIndex == [alertView cancelButtonIndex]) {
-            if(textfield){
-                textfield.text = @"";
-                [textfield becomeFirstResponder];
-            }
-        }
-    }];
-}
+
 
 /********************************************
  
@@ -166,10 +146,8 @@
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
-    
-    if(!iPhone5){
-        
 
+    if(!iPhone5){
         if(self.signupBtn.center.y == signupBtnY){
             [UIView animateWithDuration:0.4f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 //signupBtnY -= 60;
@@ -197,6 +175,7 @@
 }
 
 -(void)checkAndStartLoadingAnimation{
+    
     //start animation
     if(!self.loadingImage){
         self.loadingImage = [[LoadingAnimation alloc] initWithStyle:RTSpinKitViewStyleWave color:[ED_Color edibleGreenColor]];

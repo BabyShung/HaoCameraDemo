@@ -53,6 +53,7 @@
 
 //get mobile phone current language
 -(NSString *)getAppLanguage{
+    NSLog(@"********* Mobile current language **** %@",LocalizationGetLanguage);
     return LocalizationGetLanguage;
 }
 

@@ -18,9 +18,7 @@
 #import "UIResponder+KeyboardCache.h"
 #import "UIAlertView+Blocks.h"
 #import "Flurry.h"
-#import "LocalizationSystem.h"
-#import <QuartzCore/QuartzCore.h>
-#import "UIView+ZKPulseView.h"
+#import "GeneralControl.h"
 
 @interface LoginViewController () <MKTransitionCoordinatorDelegate,UITextFieldDelegate>
 
@@ -36,11 +34,7 @@
 {
     [super viewDidLoad];
     
-<<<<<<< HEAD
-
-=======
     //[self.userView startPulse];
->>>>>>> FETCH_HEAD
     
     //cache keyboard
     [UIResponder cacheKeyboard];
@@ -51,13 +45,17 @@
     //[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentUser"];
     //[[NSUserDefaults standardUserDefaults] synchronize];
     
+    [self checkUserInNSUserDefaultPerformLogin];
     
+}
+
+-(void)checkUserInNSUserDefaultPerformLogin{
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentUser"]) {
         NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentUser"];
         //from dictionary to User instance
         [User fromDictionaryToUser:dict];
         
-        [self transitionToFrameVC_duration:0];
+        [GeneralControl transitionToVC:self withToVCStoryboardId:@"Frame" withDuration:0];
         
         NSLog(@"******************  Second Login: %@",[User sharedInstance]);
         
@@ -89,17 +87,17 @@
 
 #pragma mark - MKTransitionCoordinatorDelegate Methods
 - (UIViewController*) toViewControllerForInteractivePushFromPoint:(CGPoint)locationInWindow {
-
-    //[self MySingleTap:nil];
-    [self.view endEditing:YES];
+    [self endEditingAndStopPulseEffect];
     return [self.storyboard instantiateViewControllerWithIdentifier:@"Register"];
 }
 
 - (IBAction)clickedSignUp:(id)sender {
-    [self.view endEditing:YES];
+    [self endEditingAndStopPulseEffect];
     [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Register"] animated:YES];
-    
-    
+}
+
+-(void)endEditingAndStopPulseEffect{
+    [self.view endEditing:YES];
 }
 
 -(BOOL)prefersStatusBarHidden{
@@ -108,20 +106,6 @@
 
 - (IBAction)login:(id)sender {
     [self validateAllInputs];
-}
-
--(void)transitionToFrameVC_duration:(CGFloat) duration{
-    UIWindow *windooo = [[[UIApplication sharedApplication] delegate] window];
-    FrameViewController *fvc = [self.storyboard instantiateViewControllerWithIdentifier:@"Frame"];
-    [UIView transitionWithView:windooo
-                      duration:duration
-                       options:UIViewAnimationOptionCurveEaseOut
-                    animations:^{
-                        self.view.alpha = 0;
-                    }
-                    completion:^(BOOL success){
-                        windooo.rootViewController = fvc;
-                    }];
 }
 
 -(void)validateAllInputs{
@@ -156,33 +140,20 @@
 
                 
                 //transition
-                [self transitionToFrameVC_duration:0.5];
+                [GeneralControl transitionToVC:self withToVCStoryboardId:@"Frame" withDuration:0.5];
             }else{
                 self.loginBtn.enabled = YES;
                 [self.loadingImage stopAnimating];
-                [self showErrorMsg:[err localizedDescription] withTextField:self.pwdTextField];
+                [GeneralControl showErrorMsg:[err localizedDescription] withTextField:self.pwdTextField];
             }
         }];
         
     }else{  //validator failure
         NSString *errorString = [[validate errorMsg] componentsJoinedByString: @"\n"];
-        [self showErrorMsg:errorString withTextField:nil];
+        [GeneralControl showErrorMsg:errorString withTextField:nil];
     }
 }
 
-
--(void)showErrorMsg:(NSString *)msg withTextField:(UITextField *)textfield{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:AMLocalizedString(@"OOPS", nil) message:msg delegate:nil cancelButtonTitle:AMLocalizedString(@"Cancel", nil) otherButtonTitles: nil];
-    [alert showWithHandler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-        
-        if (buttonIndex == [alertView cancelButtonIndex]) {
-            if(textfield){
-                textfield.text = @"";
-                [textfield becomeFirstResponder];
-            }
-        }
-    }];
-}
 
 /********************************************
  
@@ -240,7 +211,6 @@
 
     [Flurry logEvent:@"Login_Skip"];
 
-    
     [User anonymousLogin];
     
     //User info already set
@@ -251,12 +221,11 @@
     
     NSLog(@"%@",[User sharedInstance]);
     
-    
     //resign keyboard if possible
     [self.view endEditing:YES];
     
     //transition
-    [self transitionToFrameVC_duration:0.5];
+    [GeneralControl transitionToVC:self withToVCStoryboardId:@"Frame" withDuration:0.5];
 
 }
 

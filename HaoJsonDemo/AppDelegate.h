@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "CameraView.h"
+#import "FrameViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -17,6 +18,8 @@
 @property (strong, nonatomic) CameraView *cameraView;
 
 @property (strong, nonatomic) UINavigationController *nvc;
+
+@property (strong, nonatomic) FrameViewController *fvc;
 
 
 -(CameraView *)getCamView;

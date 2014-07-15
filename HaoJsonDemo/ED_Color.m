@@ -50,4 +50,28 @@
     return [UIColor colorWithRed:69/255.0 green:164/255.0 blue:84/255.0 alpha:1];
 }
 
++(UIColor *)cardLightBlue{
+    return [UIColor colorWithRed:(0/255.0) green:(181/255.0) blue:(239/255.0) alpha:1];
+}
+
++(UIColor *)cardLightGreen{
+    return [UIColor colorWithRed:(150/255.0) green:(222/255.0) blue:(35/255.0) alpha:1];
+}
+
++(UIColor *)cardLightYellow{
+    return [UIColor colorWithRed:(255/255.0) green:(216/255.0) blue:(0/255.0) alpha:1];
+}
+
++(UIColor *)cardMediumBlue{
+    return [UIColor colorWithRed:(0/255.0) green:(125/255.0) blue:(192/255.0) alpha:1];
+}
+
++(UIColor *)cardDeepBrown{
+    return [UIColor colorWithRed:(232/255.0) green:(119/255.0) blue:(36/255.0) alpha:1];
+}
+
++(UIColor *)cardPink{
+    return [UIColor colorWithRed:(253/255.0) green:(91/255.0) blue:(159/255.0) alpha:1];
+}
+
 @end
