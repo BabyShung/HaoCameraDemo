@@ -240,7 +240,9 @@ const CGFloat CommentRateViewWidth = 260;
     //add comment button above scrollview
     _commentBtn = [LoadControls createRoundedButton_Image:@"ED_feedback_right.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andLeftBottomElseRightBottom:NO];
     [_commentBtn addTarget:self action:@selector(commentBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+
     [self hideCommentButton];
+
     [self addSubview:_commentBtn];
     
     
@@ -251,8 +253,9 @@ const CGFloat CommentRateViewWidth = 260;
     self.loadingBtn.titleLabel.font = [UIFont fontWithName:PlainTextFontName size:LargeTextFontSize];
     self.loadingBtn.backgroundColor = [UIColor grayColor];
     [self.loadingBtn addTarget:self action:@selector(loadingBtnPressed) forControlEvents:UIControlEventTouchUpInside];
+        NSLog(@"-------------------------FIV LOAD CONTROLLER ---------------------");
     [self hideLoadingBtn];
-    
+        NSLog(@"-------------------------FIV LOAD CONTROLLER ---------------------");
     [self addSubview:self.loadingBtn];
 
     
@@ -387,6 +390,7 @@ const CGFloat CommentRateViewWidth = 260;
     
     Comment *comment = (Comment *)[self.myFood.comments objectAtIndex:[indexPath row]];
     NSString *text = [NSString stringWithFormat:@"%@:\n%@",comment.byUser.Uname,comment.text];
+    NSLog(@"+++++++++++++++++ FIV +++++++++++++++++++ %@ : INSERT COMMENT TBL text = %@",self.myFood.title,text);
     
     CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"Cell %d", (int)indexPath.row]];
     if (!cell) {
@@ -531,9 +535,10 @@ const CGFloat CommentRateViewWidth = 260;
 //Load More comments
 -(void)refreshComments{
     if (!self.myFood.isLoadingComments) {
+        NSLog(@"+++++++++++++ FIV ++++++++++++++++ : refresh comments current count = %d",(int)self.myFood.comments.count);
         [self.myFood fetchLatestCommentsSize:NumCommentsPerLoad andSkip:self.myFood.comments.count completion:^(NSError *err, BOOL success) {
             if(success){
-                
+//                NSLog(@"                            Comment text %@",((Comment *)self.myFood.comments[0]).text);
                 [self updateCommentTableUI];
             }
         }];
@@ -585,8 +590,9 @@ const CGFloat CommentRateViewWidth = 260;
             [self configCommentTable];
         }
         else{
+            NSLog(@"++++++++++++ FIV +++++++++++++++ : COMMENTTABLE RELOAD WHEN UPDATING UI");
             [self.commentsTableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationFade];
-            [self.commentsTableView reloadData];
+            //[self.commentsTableView reloadData];
         }
         
         
@@ -628,7 +634,9 @@ const CGFloat CommentRateViewWidth = 260;
 }
 
 -(void)fetchFoodInfo{
+
     [self showLoadingBtnWithLoadingMsg];
+
     [self.myFood fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
         //NSLog(@"******************** !!!!!! setting food !!!!!!11 **********************");
         if (success) {
@@ -641,7 +649,9 @@ const CGFloat CommentRateViewWidth = 260;
             }
             //[self configCommentTable];
             [self showCommentButton];
+            NSLog(@"-------------------------FIV fetchFoodInfo ---------------------");
             [self hideLoadingBtn];
+            NSLog(@"-------------------------FIV fetchFoodInfo ---------------------");
             
             
         }

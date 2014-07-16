@@ -21,8 +21,6 @@
 		3AAE5960196F03FB0006B469 /* libFlurry_5.2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAE595F196F03FB0006B469 /* libFlurry_5.2.0.a */; };
 		3AAE5962196F04200006B469 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAE5961196F04200006B469 /* SystemConfiguration.framework */; };
 		3AAE5964196F04340006B469 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAE5963196F04340006B469 /* Security.framework */; };
-		3AC9FAF1196C3EBC00153773 /* localDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 3AC9FAF0196C3EBC00153773 /* localDB.db */; };
-		3AC9FAF3196CA0F500153773 /* localDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 3AC9FAF2196CA0F500153773 /* localDB.db */; };
 		AC1E7760194F580800532F65 /* ShareData.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1E775F194F580800532F65 /* ShareData.m */; };
 		AC1E7764194F583100532F65 /* filterwords.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC1E7761194F583100532F65 /* filterwords.txt */; };
 		AC3FDD0019742F470008D311 /* LoadingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC3FDCFF19742F470008D311 /* LoadingIndicatorView.m */; };
@@ -225,8 +223,6 @@
 		3AAE595F196F03FB0006B469 /* libFlurry_5.2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_5.2.0.a; sourceTree = "<group>"; };
 		3AAE5961196F04200006B469 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		3AAE5963196F04340006B469 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		3AC9FAF0196C3EBC00153773 /* localDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = localDB.db; sourceTree = "<group>"; };
-		3AC9FAF2196CA0F500153773 /* localDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = localDB.db; sourceTree = "<group>"; };
 		AC1E775F194F580800532F65 /* ShareData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareData.m; sourceTree = "<group>"; };
 		AC1E7761194F583100532F65 /* filterwords.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = filterwords.txt; sourceTree = "<group>"; };
 		AC3FDCFE19742F470008D311 /* LoadingIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingIndicatorView.h; sourceTree = "<group>"; };
@@ -1285,7 +1281,6 @@
 				B8C8F38A195F834B009F8F6E /* register_03.png in Resources */,
 				B8CC9F7F19689E6400CCFE74 /* default_selfie@2x.png in Resources */,
 				B8CC9F8A19689E6400CCFE74 /* ED_search.png in Resources */,
-				3AC9FAF1196C3EBC00153773 /* localDB.db in Resources */,
 				B8CC9FA81968A75900CCFE74 /* ED_feedback_right.png in Resources */,
 				B8B60FD719591E07005268D5 /* likeButtonToolbar_selected.png in Resources */,
 				B803CFB119705F17006080D0 /* indicate_1.jpg in Resources */,
@@ -1299,7 +1294,6 @@
 				B8CC9FA91968A75900CCFE74 /* ED_feedback_right@2x.png in Resources */,
 				3AAE594F196EDD990006B469 /* localDB.db in Resources */,
 				B8CC9F7E19689E6400CCFE74 /* default_selfie.png in Resources */,
-				3AC9FAF3196CA0F500153773 /* localDB.db in Resources */,
 				B8C8F331195E1EFF009F8F6E /* trained_classifierNM1.xml in Resources */,
 				3AAE5953196EDDD70006B469 /* foodlist_kw_en_5000.txt in Resources */,
 				B8B60FD819591E07005268D5 /* likeButtonToolbar_unselected.png in Resources */,
