@@ -32,7 +32,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-   
+    
     //[self checkAndStartLoadingAnimation];
     
     [self loadControls];
@@ -78,8 +78,6 @@
     [self validateAllInputs];
 }
 
-
-
 -(void)validateAllInputs{
     //trim
     NSString *trimmedEmail = [self.emailTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -95,19 +93,16 @@
         [self.view endEditing:YES];
         
         [self checkAndStartLoadingAnimation];
- 
+        
         //user register
         [User registerWithEmail:self.emailTextField.text andName:self.userTextField.text andPwd:self.pwdTextField.text andCompletion:^(NSError *err, BOOL success){
             
             if(success){//user info already set
                 
-        [Flurry logEvent:@"Register_Succeed"];
-
-                //User info already set
-                NSDictionary *dict = [User toDictionary];
-                //put info into nsuserdefault
-                [[NSUserDefaults standardUserDefaults] setObject:dict forKey:@"CurrentUser"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
+                [Flurry logEvent:@"Register_Succeed"];
+                
+                //save into NSUserDefault
+                [GeneralControl saveUserDictionaryIntoNSUserDefault_dict:[User toDictionary] andKey:@"CurrentUser"];
                 
                 //transition
                 [GeneralControl transitionToVC:self withToVCStoryboardId:@"Frame"];
@@ -125,8 +120,6 @@
         [GeneralControl showErrorMsg:errorString withTextField:nil];
     }
 }
-
-
 
 /********************************************
  
@@ -146,11 +139,10 @@
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
-
+    
     if(!iPhone5){
         if(self.signupBtn.center.y == signupBtnY){
             [UIView animateWithDuration:0.4f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                //signupBtnY -= 60;
                 self.signupBtn.center = CGPointMake(160, self.signupBtn.center.y-50);
                 
             } completion:nil];
@@ -166,7 +158,6 @@
     if(!iPhone5){
         if(self.signupBtn.center.y == signupBtnY - 50){
             [UIView animateWithDuration:0.4f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                //signupBtnY += 60;
                 self.signupBtn.center = CGPointMake(160, self.signupBtn.center.y+50);
             } completion:nil];
         }

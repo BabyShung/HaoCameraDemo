@@ -1,12 +1,10 @@
 //
-//  WCActionSheet.m
-//  WCActionSheet
+//  BlurActionSheet.m
+//  BlueCheese
 //
-//  Created by Wojciech Czekalski on 27.02.2014.
-//  Copyright (c) 2014 Wojciech Czekalski. All rights reserved.
+//  Created by Hao Zheng on 6/18/14.
+//  Copyright (c) 2014 Hao Zheng. All rights reserved.
 //
-
-
 
 /******************
 

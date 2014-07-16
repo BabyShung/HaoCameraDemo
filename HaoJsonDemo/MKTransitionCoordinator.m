@@ -19,6 +19,8 @@
 
 @property (nonatomic, strong) id<UIViewControllerContextTransitioning> transitionContext;
 
+@property (nonatomic, strong) UIScreenEdgePanGestureRecognizer *rightEdge;
+
 @end
 
 @implementation MKTransitionCoordinator
@@ -33,12 +35,16 @@
         
         
         //Add Gesture Recognizer, RIGHT
-        UIScreenEdgePanGestureRecognizer *gestureRecognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(userDidPanPush:)];
-        gestureRecognizer.edges = UIRectEdgeRight;
-        [_parentViewController.view addGestureRecognizer:gestureRecognizer];
+        self.rightEdge = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(userDidPanPush:)];
+        self.rightEdge.edges = UIRectEdgeRight;
+        [_parentViewController.view addGestureRecognizer:self.rightEdge];
         
     }
     return self;
+}
+
+-(void)setDisableRightEdgePan:(BOOL)disableRightEdgePan{
+    [_rightEdge setEnabled:NO];
 }
 
 -(void)userDidPanPush:(UIScreenEdgePanGestureRecognizer *)recognizer {
@@ -47,8 +53,6 @@
     CGPoint velocity = [recognizer velocityInView:[UIApplication sharedApplication].keyWindow];
     
     if (recognizer.state == UIGestureRecognizerStateBegan) {
-        
-        
         
         self.interactive = YES;
         

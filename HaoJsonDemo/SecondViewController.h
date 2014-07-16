@@ -10,6 +10,4 @@
 
 @interface SecondViewController : UICollectionViewController
 
-
-
 @end

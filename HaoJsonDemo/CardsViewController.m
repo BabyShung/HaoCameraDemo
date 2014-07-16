@@ -16,7 +16,6 @@
 #import "LoadControls.h"
 #import "MKTransitionCoordinator.h"
 #import "IQFeedbackView.h"
-#import "AppDelegate.h"
 #import "BlurActionSheet.h"
 #import "User.h"
 #import "UIView+Toast.h"
@@ -57,10 +56,6 @@ UICollectionViewDelegate,HATransparentViewDelegate,UITableViewDataSource,UITable
 
 @property (strong,nonatomic) NSString *tempFeedbackText;
 
-@property (nonatomic) NSUInteger assumedIndex;
-
-@property (nonatomic) BOOL shouldSlideBack;
-
 @property (strong, nonatomic) UIView * separatorLine;
 
 @property (strong, nonatomic) HATransparentView *transparentView;
@@ -69,9 +64,23 @@ UICollectionViewDelegate,HATransparentViewDelegate,UITableViewDataSource,UITable
 @end
 
 @implementation CardsViewController
+
+
+- (void)viewDidLoad {
+    
+    [super viewDidLoad];
+    
+    [self doInits];
+    
+    [self loadControls];
+    
+    [self checkUserStatusAtProfileBoard];
+
+}
+
 - (void) doInits {
     
-    colors = @[[ED_Color cardLightGreen],[ED_Color cardLightBlue],[ED_Color cardLightYellow],[ED_Color cardMediumBlue],[ED_Color cardDeepBrown],[ED_Color cardPink]];
+    colors = @[[ED_Color cardLightBlue],[ED_Color cardLightGreen],[ED_Color cardLightYellow],[ED_Color cardMediumBlue],[ED_Color cardDeepBrown],[ED_Color cardPink]];
     self.settings = [NSArray arrayWithObjects:AMLocalizedString(@"CARD_SEARCH", nil),AMLocalizedString(@"CARD_FEEDBACK", nil),AMLocalizedString(@"CARD_ABOUT", nil),AMLocalizedString(@"LANGUAGUE_SETTING", nil),AMLocalizedString(@"TUTORIAL_STRING", nil),AMLocalizedString(@"CARD_LOGOUT", nil), nil];
     self.settingsImages = [NSArray arrayWithObjects:
                            [UIImage imageNamed:@"ED_search.png"],
@@ -87,22 +96,7 @@ UICollectionViewDelegate,HATransparentViewDelegate,UITableViewDataSource,UITable
                       nil];
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
-    if (self = [super initWithCoder:aDecoder]) {
-        [self doInits];
-    }
-    return self;
-}
-
-- (void) previousPagePressed:(id)sender {
-    [self.settingDelegate slideToPreviousPage];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    [self loadControls];
-    
+-(void)checkUserStatusAtProfileBoard{
     User *user = [User sharedInstance];
     
     
@@ -119,18 +113,23 @@ UICollectionViewDelegate,HATransparentViewDelegate,UITableViewDataSource,UITable
         [registerBtn successStyle];
         [self.view addSubview:registerBtn];
         
-
+        
         
     }else{
         self.titleLabel.text = [NSString stringWithFormat: @"%@, %@",AMLocalizedString(@"Hello", nil),user.name];
         
-        //show 
+        //show
         self.descriptionLabel.text = AMLocalizedString(@"LOGGEDIN_CONTEXT_1", nil);
         self.descriptionLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:18];
         
     }
     
     [self.descriptionLabel sizeToFit];
+}
+
+
+- (void) previousPagePressed:(id)sender {
+    [self.settingDelegate slideToPreviousPage];
 }
 
 -(void)PressedRegisterButton:(id)stuff{
@@ -147,10 +146,11 @@ UICollectionViewDelegate,HATransparentViewDelegate,UITableViewDataSource,UITable
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.shimmeringView.shimmering = NO;
         });
+        [self.descriptionLabel shine];
     }
-    [self.descriptionLabel shine];
     
-    //[GeneralControl disablePageViewControllerLeftRightScroll:NO andIndex:1];
+    [GeneralControl setPageViewControllerScrollEnabled:YES];
+    
 }
 
 -(void)loadControls{
@@ -169,8 +169,8 @@ UICollectionViewDelegate,HATransparentViewDelegate,UITableViewDataSource,UITable
     
     
     self.menuInteractor = [[MKTransitionCoordinator alloc] initWithParentViewController:self];
-    self.menuInteractor.disableLeftEdgePan = YES;
-    
+    self.menuInteractor.disableLeftEdgePan = NO;
+    self.menuInteractor.disableRightEdgePan = YES;
     
     [self.bottomCollectionView registerClass:[CardsCollectionCell class] forCellWithReuseIdentifier:[collectionCellIdentity copy]];
     
@@ -208,19 +208,6 @@ UICollectionViewDelegate,HATransparentViewDelegate,UITableViewDataSource,UITable
     [self.view addSubview:self.descriptionLabel];
 }
 
-#pragma mark - UIScrollViewDelegate Methods
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView == self.bottomCollectionView) {
-        NSIndexPath *centerCellIndex = [self.bottomCollectionView indexPathForItemAtPoint:CGPointMake(CGRectGetMidX(self.bottomCollectionView.bounds) , CGRectGetMidY(self.bottomCollectionView.bounds))];
-        
-        if(centerCellIndex.row != _assumedIndex){
-            _assumedIndex = centerCellIndex.row;
-            
-            NSLog(@"did scroll to index: %d",(int)centerCellIndex.row);
-        }
-    }
-}
-
 #pragma mark - UICollectionViewDataSource Methods
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView*)collectionView {
     return 1;
@@ -242,21 +229,14 @@ UICollectionViewDelegate,HATransparentViewDelegate,UITableViewDataSource,UITable
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    //[GeneralControl disablePageViewControllerLeftRightScroll:YES andIndex:1];
     
-    _shouldSlideBack = YES;
+    [GeneralControl setPageViewControllerScrollEnabled:NO];
     
     NSUInteger index = indexPath.row;
     
     if(index == 0){
-        
         [Flurry logEvent:@"Index_0_Search"];
-
-        
         [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Search"] animated:YES];
-        
-
-        
     }else if(index == 1){
         
         [Flurry logEvent:@"Index_1_Feedback"];
@@ -311,6 +291,9 @@ UICollectionViewDelegate,HATransparentViewDelegate,UITableViewDataSource,UITable
         
     }else if (index == 4){
         
+    }
+    else if (index == 5){
+        
         [Flurry logEvent:@"Index_3_Logout"];
         
         [self willLogout];
@@ -322,11 +305,8 @@ UICollectionViewDelegate,HATransparentViewDelegate,UITableViewDataSource,UITable
 -(void)willLogout{
     //show a confirm dialog
     BlurActionSheet *lrf =  [[BlurActionSheet alloc] initWithDelegate_cancelButtonTitle:AMLocalizedString(@"Cancel", nil)];
-    
     lrf.blurRadius = 50.f;
-    
     [lrf addButtonWithTitle:AMLocalizedString(@"Log out", nil) actionBlock:^{
-        
         
         [Flurry logEvent:@"Logout_Confirm"];
         
@@ -335,25 +315,17 @@ UICollectionViewDelegate,HATransparentViewDelegate,UITableViewDataSource,UITable
         [GeneralControl transitionToVC:self withToVCStoryboardId:@"Start" withDuration:0.4];
         
     }];
-    
     [lrf show];
     
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    
     [self CardSlide:YES];
 }
 
 -(void)CardSlide:(BOOL)left{
     [self.bottomCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:(left?0:[self.settings count]-1) inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
 }
-
-//#pragma mark - MKTransitionCoordinatorDelegate Methods
-//- (UIViewController*) toViewControllerForInteractivePushFromPoint:(CGPoint)locationInWindow {
-//    return [self.storyboard instantiateViewControllerWithIdentifier:@"Register"];
-//}
-
 
 #pragma mark - TableView Datasource
 

@@ -17,7 +17,6 @@
 @class MainViewController;
 @class CameraView;
 
-
 @protocol MainVCDelegate
 @required
 //debug

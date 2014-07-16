@@ -26,4 +26,6 @@
 
 @property (nonatomic) BOOL disableLeftEdgePan;
 
+@property (nonatomic) BOOL disableRightEdgePan;
+
 @end

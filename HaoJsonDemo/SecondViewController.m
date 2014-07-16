@@ -9,10 +9,8 @@
 #import "SecondViewController.h"
 #import "TransitionLayout.h"
 #import "EDCollectionCell.h"
-#import "AppDelegate.h"
 #import "LoadControls.h"
 #import "ED_Color.h"
-
 #import "SearchDictionary.h"
 #import "User.h"
 #import "FrameViewController.h"
@@ -34,8 +32,6 @@
 
 @property (nonatomic) BOOL willSendComment;
 
-
-
 @end
 
 @implementation SecondViewController
@@ -44,11 +40,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [GeneralControl disablePageViewControllerLeftRightScroll:YES andIndex:0];
+    [GeneralControl setPageViewControllerScrollEnabled:NO];
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [GeneralControl disablePageViewControllerLeftRightScroll:NO andIndex:0];
+    [GeneralControl setPageViewControllerScrollEnabled:YES];
 }
 
 

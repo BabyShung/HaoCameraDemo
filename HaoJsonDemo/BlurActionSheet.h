@@ -1,4 +1,10 @@
-
+//
+//  BlurActionSheet.h
+//  BlueCheese
+//
+//  Created by Hao Zheng on 6/18/14.
+//  Copyright (c) 2014 Hao Zheng. All rights reserved.
+//
 
 #import <UIKit/UIKit.h>
 
@@ -6,11 +12,8 @@
 
 - (instancetype)initWithDelegate_cancelButtonTitle:(NSString *)cancelButtonTitle;
 
-
 - (NSInteger)addButtonWithTitle:(NSString *)title;    // returns index of button. 0 based.
 - (NSInteger)addButtonWithTitle:(NSString *)title actionBlock:(void (^)())actionBlock;
-
-
 
 @property(nonatomic) CGFloat blurRadius UI_APPEARANCE_SELECTOR;
 

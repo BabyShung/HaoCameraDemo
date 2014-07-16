@@ -10,7 +10,7 @@
 #import "LoadControls.h"
 #import "ED_Color.h"
 #import "AppDelegate.h"
-
+#import "LocalizationSystem.h"
 @interface AboutUsViewController ()
 
 @property (strong, nonatomic) UIButton *backBtn;
@@ -33,7 +33,7 @@
     [appDlg.cameraView pauseCamera];
     
     
-    self.textView.text = NSLocalizedString(@"ABOUT_US", nil);
+    self.textView.text = AMLocalizedString(@"ABOUT_US", nil);
     
 }
 

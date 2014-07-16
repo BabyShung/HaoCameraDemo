@@ -19,15 +19,15 @@
 + (UIColor *) edibleBlueColor;
 + (UIColor *) edibleBlueColor_Light;
 + (UIColor *) edibleBlueColor_Deep;
-+(UIColor *)edibleBlueColor_DeepDark;
++ (UIColor *)edibleBlueColor_DeepDark;
 
-+(UIColor *)edibleGreenColor;
++ (UIColor *)edibleGreenColor;
 
-+(UIColor *)cardLightBlue;
-+(UIColor *)cardLightGreen;
-+(UIColor *)cardLightYellow;
-+(UIColor *)cardMediumBlue;
-+(UIColor *)cardDeepBrown;
-+(UIColor *)cardPink;
++ (UIColor *)cardLightBlue;
++ (UIColor *)cardLightGreen;
++ (UIColor *)cardLightYellow;
++ (UIColor *)cardMediumBlue;
++ (UIColor *)cardDeepBrown;
++ (UIColor *)cardPink;
 
 @end

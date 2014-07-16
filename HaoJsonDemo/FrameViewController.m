@@ -20,8 +20,6 @@
 
 @interface FrameViewController () <MainVCDelegate,SettingDelegate>
 
-
-
 // App view controllers
 @property (nonatomic,strong) UINavigationController *VC1;
 @property (nonatomic,strong) UINavigationController *VC2;
@@ -34,7 +32,6 @@
 @property (strong, nonatomic) NSArray *menu;
 @property (strong, nonatomic) NSDictionary *dict;
 
-@property (nonatomic) BOOL statusBarHidden;
 @property (nonatomic) BOOL debugMode;
 
 @end
@@ -44,16 +41,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    
-
-    //_statusBarHidden = YES;
-    //[self setNeedsStatusBarAppearanceUpdate];
-
-    
 
     //_debugMode = YES;
     
+    [self loadAllViewControllers];
+ 
+    [self setupPageViewController];
+
+    //save reference in appDelegate for disabling pageviewcontroller
+    AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDlg.fvc = self;
+}
+
+-(void)loadAllViewControllers{
     //declare all the viewControllers
     
     UINavigationController *mainNVC = [self.storyboard instantiateViewControllerWithIdentifier:@"mainNVC"];
@@ -94,12 +94,6 @@
                      [NSNumber numberWithInt:1], settingNVC.restorationIdentifier,
                      nil];
     }
- 
-    [self setupPageViewController];
-
-    //save reference in appDelegate for disabling pageviewcontroller
-    AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    appDlg.fvc = self;
 }
 
 -(void)setupPageViewController{
@@ -119,6 +113,7 @@
     [self.view addSubview:_pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];
     
+    self.pageViewController.view.backgroundColor = [UIColor blackColor];
     
 }
 
@@ -153,11 +148,6 @@
 
 -(NSUInteger)getVCIndex:(UIViewController *) vc{
     NSUInteger index = [[self.dict objectForKey:vc.restorationIdentifier] integerValue];
-//    if(index == 0){
-//        [self showStatusBar:NO];
-//    }else{
-//        [self showStatusBar:YES];
-//    }
     return index;
 }
 
@@ -166,11 +156,6 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
-    NSLog(@"*******************  pageViewController before *******************");
-    if(self.disablePageViewController)
-        return nil;
-    
-    
     NSUInteger index = [self getVCIndex:viewController];
     
     if ((index == 0) || (index == NSNotFound)) {
@@ -183,10 +168,6 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
-    NSLog(@"*******************  pageViewController after *******************");
-    if(self.disablePageViewController)
-        return nil;
-    
     NSUInteger index = [self getVCIndex:viewController];
     
     if (index == NSNotFound) {
@@ -200,21 +181,8 @@
     return self.menu[index];
 }
 
-
-//status bar
-
 - (BOOL)prefersStatusBarHidden {
     return YES;
-    //return _statusBarHidden;
 }
 
-//- (void)showStatusBar:(BOOL)show {
-//    [UIView animateWithDuration:0.3 animations:^{
-//        _statusBarHidden = !show;
-//        [self setNeedsStatusBarAppearanceUpdate];
-//    }];
-//}
-//-(UIStatusBarStyle)preferredStatusBarStyle{
-//    return UIStatusBarStyleLightContent;
-//}
 @end

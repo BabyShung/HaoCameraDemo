@@ -489,11 +489,11 @@
 - (void) loadControls {
     
     //Hao added
-    CGFloat horizontalMargin_HalfBtnSize = 30;
-    CGFloat bottomMargin_HalfBtnSize = 28;
-    CGPoint torchStart = CGPointMake(-horizontalMargin_HalfBtnSize, screenHeight-bottomMargin_HalfBtnSize);
-    CGPoint captureStart = CGPointMake( screenWidth/2, screenHeight + bottomMargin_HalfBtnSize);
-    CGPoint nextStart = CGPointMake(screenWidth + horizontalMargin_HalfBtnSize, screenHeight -bottomMargin_HalfBtnSize);
+//    CGFloat horizontalMargin_HalfBtnSize = 30;
+//    CGFloat bottomMargin_HalfBtnSize = 28;
+//    CGPoint torchStart = CGPointMake(-horizontalMargin_HalfBtnSize, screenHeight-bottomMargin_HalfBtnSize);
+//    CGPoint captureStart = CGPointMake( screenWidth/2, screenHeight + bottomMargin_HalfBtnSize);
+//    CGPoint nextStart = CGPointMake(screenWidth + horizontalMargin_HalfBtnSize, screenHeight -bottomMargin_HalfBtnSize);
     
     
     // -- LOAD BUTTONS BEGIN -- //

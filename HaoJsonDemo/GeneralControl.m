@@ -13,15 +13,32 @@
 
 @implementation GeneralControl
 
-+(void)disablePageViewControllerLeftRightScroll:(BOOL)disable andIndex:(NSUInteger)index{
-    //save reference in appDelegate for disabling pageviewcontroller
+//+(void)disablePageViewControllerLeftRightScroll:(BOOL)disable andIndex:(NSUInteger)index{
+//    //save reference in appDelegate for disabling pageviewcontroller
+//    AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//    FrameViewController *fvc = appDlg.fvc;
+//    
+//    fvc.disablePageViewController = disable;
+//    //refresh views (just scroll)
+//    [fvc slideToCertainPage:index];
+//}
+
++(void)setPageViewControllerScrollEnabled:(BOOL)enabled{
+    
     AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     FrameViewController *fvc = appDlg.fvc;
     
-    fvc.disablePageViewController = disable;
-    //refresh views (just scroll)
-    [fvc slideToCertainPage:index];
+    for(UIView* view in fvc.pageViewController.view.subviews){
+        if([view isKindOfClass:[UIScrollView class]]){
+            UIScrollView* scrollView=(UIScrollView*)view;
+            if(enabled!=scrollView.scrollEnabled)
+                [scrollView setScrollEnabled:enabled];
+            return;
+        }
+    }
 }
+
+
 
 +(void)showErrorMsg:(NSString *)msg withTextField:(UITextField *)textfield{
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:AMLocalizedString(@"OOPS", nil) message:msg delegate:nil cancelButtonTitle:AMLocalizedString(@"Cancel", nil) otherButtonTitles: nil];
@@ -52,5 +69,10 @@
                     completion:^(BOOL success){
                         windooo.rootViewController = fvc;
                     }];
+}
+
++(void)saveUserDictionaryIntoNSUserDefault_dict:(NSDictionary *)dict andKey:(NSString *)key{
+    [[NSUserDefaults standardUserDefaults] setObject:dict forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 @end

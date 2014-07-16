@@ -16,7 +16,6 @@
 #import "LoadingAnimation.h"
 #import "ED_Color.h"
 #import "UIResponder+KeyboardCache.h"
-#import "UIAlertView+Blocks.h"
 #import "Flurry.h"
 #import "GeneralControl.h"
 
@@ -43,11 +42,11 @@
     //[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentUser"];
     //[[NSUserDefaults standardUserDefaults] synchronize];
     
-    [self checkUserInNSUserDefaultPerformLogin];
+    [self checkUserInNSUserDefaultAndPerformLogin];
     
 }
 
--(void)checkUserInNSUserDefaultPerformLogin{
+-(void)checkUserInNSUserDefaultAndPerformLogin{
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentUser"]) {
         NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentUser"];
         //from dictionary to User instance
@@ -75,7 +74,6 @@
         
         self.emailTextField.delegate = self;
         self.pwdTextField.delegate = self;
-        
         
         UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(MySingleTap:)];
         [self.view addGestureRecognizer:singleTap];
@@ -126,19 +124,16 @@
         [User loginWithEmail:trimmedEmail andPwd:self.pwdTextField.text andCompletion:^(NSError *err, BOOL success){
             if(success){//user info already set
                 
-                //User info already set
-                NSDictionary *dict = [User toDictionary];
-                //put info into nsuserdefault
-                [[NSUserDefaults standardUserDefaults] setObject:dict forKey:@"CurrentUser"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
+                //save into NSUserDefault
+                [GeneralControl saveUserDictionaryIntoNSUserDefault_dict:[User toDictionary] andKey:@"CurrentUser"];
                 
                 NSLog(@"%@",[User sharedInstance]);
                 
                 [Flurry logEvent:@"Login_Succeed"];
 
-                
                 //transition
                 [GeneralControl transitionToVC:self withToVCStoryboardId:@"Frame" withDuration:0.5];
+                
             }else{
                 self.loginBtn.enabled = YES;
                 [self.loadingImage stopAnimating];

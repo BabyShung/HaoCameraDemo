@@ -12,8 +12,6 @@
 
 @property (strong, nonatomic) UIPageViewController *pageViewController;
 
-@property (nonatomic) BOOL disablePageViewController;
-
 -(void)slideToCertainPage:(NSInteger)index;
 
 @end

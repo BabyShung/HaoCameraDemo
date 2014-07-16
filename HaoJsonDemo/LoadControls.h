@@ -21,7 +21,7 @@
 
 
 +(UIButton *)createUIButtonWithRect:(CGRect)rect;
-
+//camera button
 +(UIButton *)createNiceCameraButton;
 
 @end

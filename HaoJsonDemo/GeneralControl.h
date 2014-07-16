@@ -10,7 +10,7 @@
 
 @interface GeneralControl : NSObject
 
-+(void)disablePageViewControllerLeftRightScroll:(BOOL)disable andIndex:(NSUInteger)index;
+//+(void)disablePageViewControllerLeftRightScroll:(BOOL)disable andIndex:(NSUInteger)index;
 
 +(void)showErrorMsg:(NSString *)msg withTextField:(UITextField *)textfield;
 
@@ -18,5 +18,8 @@
 
 +(void)transitionToVC:(UIViewController *)vc withToVCStoryboardId:(NSString*)name withDuration:(CGFloat) duration;
 
++(void)saveUserDictionaryIntoNSUserDefault_dict:(NSDictionary *)dict andKey:(NSString *)key;
+
++(void)setPageViewControllerScrollEnabled:(BOOL)enabled;
 
 @end
