@@ -10,8 +10,8 @@
 #import <AWSRuntime/AWSRuntime.h>
 #import <AWSS3/AWSS3.h>
 
-#define ACCESS_KEY @"AKIAIAIIJQENWHME2RCA"
-#define SECRET_KEY @"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"
+#define ACCESS_KEY @"AKIAIUHZFMCZXRKMXF2Q"
+#define SECRET_KEY @"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"
 #define BUCKET_NAME @"blue-cheese-deployment"
 
 

@@ -136,10 +136,6 @@
 		B8C8F38B195F834B009F8F6E /* login_03.png in Resources */ = {isa = PBXBuildFile; fileRef = B8C8F389195F834B009F8F6E /* login_03.png */; };
 		B8C8F3901961E24F009F8F6E /* OtherUser.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C8F38F1961E24F009F8F6E /* OtherUser.m */; };
 		B8C8F3921962551F009F8F6E /* bluechesseLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = B8C8F3911962551F009F8F6E /* bluechesseLogo.png */; };
-		B8CC9F601968980100CCFE74 /* rating-star-off.png in Resources */ = {isa = PBXBuildFile; fileRef = B8CC9F581968980100CCFE74 /* rating-star-off.png */; };
-		B8CC9F611968980100CCFE74 /* rating-star-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8CC9F591968980100CCFE74 /* rating-star-off@2x.png */; };
-		B8CC9F621968980100CCFE74 /* rating-star-on.png in Resources */ = {isa = PBXBuildFile; fileRef = B8CC9F5A1968980100CCFE74 /* rating-star-on.png */; };
-		B8CC9F631968980100CCFE74 /* rating-star-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8CC9F5B1968980100CCFE74 /* rating-star-on@2x.png */; };
 		B8CC9F641968980100CCFE74 /* DXStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8CC9F5D1968980100CCFE74 /* DXStarRatingView.m */; };
 		B8CC9F651968980100CCFE74 /* HATransparentView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8CC9F5F1968980100CCFE74 /* HATransparentView.m */; };
 		B8CC9F7E19689E6400CCFE74 /* default_selfie.png in Resources */ = {isa = PBXBuildFile; fileRef = B8CC9F6619689E6300CCFE74 /* default_selfie.png */; };
@@ -415,10 +411,6 @@
 		B8C8F38E1961E24F009F8F6E /* OtherUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherUser.h; sourceTree = "<group>"; };
 		B8C8F38F1961E24F009F8F6E /* OtherUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherUser.m; sourceTree = "<group>"; };
 		B8C8F3911962551F009F8F6E /* bluechesseLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bluechesseLogo.png; sourceTree = "<group>"; };
-		B8CC9F581968980100CCFE74 /* rating-star-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rating-star-off.png"; sourceTree = "<group>"; };
-		B8CC9F591968980100CCFE74 /* rating-star-off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rating-star-off@2x.png"; sourceTree = "<group>"; };
-		B8CC9F5A1968980100CCFE74 /* rating-star-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rating-star-on.png"; sourceTree = "<group>"; };
-		B8CC9F5B1968980100CCFE74 /* rating-star-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rating-star-on@2x.png"; sourceTree = "<group>"; };
 		B8CC9F5C1968980100CCFE74 /* DXStarRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXStarRatingView.h; sourceTree = "<group>"; };
 		B8CC9F5D1968980100CCFE74 /* DXStarRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXStarRatingView.m; sourceTree = "<group>"; };
 		B8CC9F5E1968980100CCFE74 /* HATransparentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HATransparentView.h; sourceTree = "<group>"; };
@@ -615,6 +607,14 @@
 		B82353B8192BE2DF00D6BCAC /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				B8AB89CB196C7EA400F32E4F /* star_off.png */,
+				B8AB89CC196C7EA400F32E4F /* star_off@2x.png */,
+				B8AB89CD196C7EA400F32E4F /* star_on.png */,
+				B8AB89CE196C7EA400F32E4F /* star_on@2x.png */,
+				B8CC9F961968A5D600CCFE74 /* btn-close.png */,
+				B8CC9F971968A5D600CCFE74 /* btn-close@2x.png */,
+				B8CC9F981968A5D600CCFE74 /* btn-close-black.png */,
+				B8CC9F991968A5D600CCFE74 /* btn-close-black@2x.png */,
 				B8F1799F1974856A00A236B1 /* check@2x.png */,
 				B8F1794019742B2500A236B1 /* Camera_02.png */,
 				B8F1794119742B2500A236B1 /* Camera_02@2x.png */,
@@ -997,18 +997,6 @@
 		B8CC9F57196897A400CCFE74 /* CommentView */ = {
 			isa = PBXGroup;
 			children = (
-				B8AB89CB196C7EA400F32E4F /* star_off.png */,
-				B8AB89CC196C7EA400F32E4F /* star_off@2x.png */,
-				B8AB89CD196C7EA400F32E4F /* star_on.png */,
-				B8AB89CE196C7EA400F32E4F /* star_on@2x.png */,
-				B8CC9F961968A5D600CCFE74 /* btn-close.png */,
-				B8CC9F971968A5D600CCFE74 /* btn-close@2x.png */,
-				B8CC9F981968A5D600CCFE74 /* btn-close-black.png */,
-				B8CC9F991968A5D600CCFE74 /* btn-close-black@2x.png */,
-				B8CC9F581968980100CCFE74 /* rating-star-off.png */,
-				B8CC9F591968980100CCFE74 /* rating-star-off@2x.png */,
-				B8CC9F5A1968980100CCFE74 /* rating-star-on.png */,
-				B8CC9F5B1968980100CCFE74 /* rating-star-on@2x.png */,
 				B8CC9F5C1968980100CCFE74 /* DXStarRatingView.h */,
 				B8CC9F5D1968980100CCFE74 /* DXStarRatingView.m */,
 				B8CC9F5E1968980100CCFE74 /* HATransparentView.h */,
@@ -1264,11 +1252,9 @@
 				B8BBB02F1964FFA9007CE548 /* close-icon@2x.png in Resources */,
 				B8CC9F8619689E6400CCFE74 /* ED_feedback.png in Resources */,
 				B8AB89CA196C525100F32E4F /* user@2x.png in Resources */,
-				B8CC9F621968980100CCFE74 /* rating-star-on.png in Resources */,
 				B8B60FD919591E07005268D5 /* bluejay.jpg in Resources */,
 				B8BBB0311964FFA9007CE548 /* search-icon@2x.png in Resources */,
 				B8CC9F8019689E6400CCFE74 /* ED_about.png in Resources */,
-				B8CC9F631968980100CCFE74 /* rating-star-on@2x.png in Resources */,
 				B8AB89CF196C7EA400F32E4F /* star_off.png in Resources */,
 				B8B60FDA19591E07005268D5 /* moreButton.png in Resources */,
 				B8F179AC1975C29700A236B1 /* ED_back_2.png in Resources */,
@@ -1284,7 +1270,6 @@
 				B8AB89D1196C7EA400F32E4F /* star_on.png in Resources */,
 				B8B60FDB19591E07005268D5 /* secret.png in Resources */,
 				B8AB89C8196C525100F32E4F /* user.png in Resources */,
-				B8CC9F601968980100CCFE74 /* rating-star-off.png in Resources */,
 				B8B61145195A63DA005268D5 /* addImage.png in Resources */,
 				B8B610941959CFBC005268D5 /* CameraNext.png in Resources */,
 				B8CC9F8719689E6400CCFE74 /* ED_feedback@2x.png in Resources */,
@@ -1302,7 +1287,6 @@
 				B8CC9F8A19689E6400CCFE74 /* ED_search.png in Resources */,
 				3AC9FAF1196C3EBC00153773 /* localDB.db in Resources */,
 				B8CC9FA81968A75900CCFE74 /* ED_feedback_right.png in Resources */,
-				B8CC9F611968980100CCFE74 /* rating-star-off@2x.png in Resources */,
 				B8B60FD719591E07005268D5 /* likeButtonToolbar_selected.png in Resources */,
 				B803CFB119705F17006080D0 /* indicate_1.jpg in Resources */,
 				B8AB89D2196C7EA400F32E4F /* star_on@2x.png in Resources */,
