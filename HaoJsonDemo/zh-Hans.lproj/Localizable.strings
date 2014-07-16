@@ -59,3 +59,5 @@
 "COMMENT_TOO_LONG" = "评论太长了，亲";
 "LANGUAGUE_SETTING" = "语言设置";
 "TUTORIAL_STRING"="使用说明";
+"FIV_READ_MORE"="更多";
+"FIV_READ_LESS"="收起";

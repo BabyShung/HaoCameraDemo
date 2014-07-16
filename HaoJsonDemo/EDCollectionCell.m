@@ -91,6 +91,7 @@
     if (CGRectGetHeight(self.contentView.frame)< CGRectGetHeight([[UIScreen mainScreen] bounds])) {
         self.foodInfoView.commentBtn.alpha = .0f;
         self.foodInfoView.scrollview.scrollEnabled = NO;
+        self.foodInfoView.loadingBtn.hidden = YES;
     }
     else{
         [self.foodInfoView shineDescription];
@@ -98,6 +99,12 @@
         [UIView animateWithDuration:0.5 animations:^{
             self.foodInfoView.commentBtn.alpha = 1;
         }];
+        if (self.foodInfoView.myFood.isFoodInfoCompleted) {
+            self.foodInfoView.loadingBtn.hidden = YES;
+        }
+        else{
+            self.foodInfoView.loadingBtn.hidden = NO;
+        }
     }
     
 }

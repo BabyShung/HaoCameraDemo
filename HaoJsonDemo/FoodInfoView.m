@@ -37,7 +37,7 @@ const CGFloat TranslateLabelHeight = 30.f;
 const CGFloat BelowTranslateGap = 10.f;
 const CGFloat StarImgViewWidth = 40.f;
 const CGFloat StarNumberLabelWidth = 40.f;
-const CGFloat DescriptionLabelHeight = 100.f;
+const CGFloat DescriptionLabelHeight = 45.f;
 const CGFloat BelowDescriptionLabelGap = 1.f;
 const CGFloat TagViewHeight = 40.f;
 const CGFloat PhotoCollectionViewHeight = 200.f;
@@ -60,6 +60,9 @@ const CGFloat CloseBtnWidth = 60.f;
 const CGFloat CommentTitleHtight = 55.f;
 const CGFloat CommentRateViewHeight = 65;
 const CGFloat CommentRateViewWidth = 260;
+
+const CGFloat ReadMoreButtonWidth =60;
+const CGFloat ReadMoreButtonHeight =25;
 
 @interface FoodInfoView () <UICollectionViewDataSource,UICollectionViewDelegate,TagViewDelegate,UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,HATransparentViewDelegate,UITextViewDelegate>
 
@@ -187,19 +190,41 @@ const CGFloat CommentRateViewWidth = 260;
     self.starNumberLabel.backgroundColor = [UIColor clearColor];
     self.starNumberLabel.numberOfLines  = 1;
     
+    self.starImgView.alpha = 0;
+    self.starNumberLabel.alpha = 0;
+    
     [self.scrollview addSubview:self.starImgView];
     [self.scrollview addSubview:self.starNumberLabel];
     
     self.descriptionLabel = [[RQShineLabel alloc] init];
     self.descriptionLabel.numberOfLines = 0;
-    self.descriptionLabel.lineBreakMode =NSLineBreakByWordWrapping;
+    self.descriptionLabel.lineBreakMode =NSLineBreakByTruncatingTail;
     self.descriptionLabel.text = @"";
     self.descriptionLabel.font = [UIFont fontWithName:PlainTextFontName size:LargeTextFontSize];
     self.descriptionLabel.backgroundColor = [UIColor clearColor];
-
     self.descriptionLabel.textColor = [UIColor blackColor];
     
     [self.scrollview addSubview:self.descriptionLabel];
+    
+    self.readMoreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.readMoreBtn setTitle:NSLocalizedString(@"FIV_READ_MORE", nil) forState:UIControlStateNormal];
+    self.readMoreBtn.titleLabel.font = [UIFont fontWithName:PlainTextFontName size:SmallTitleFontSize];
+    [self.readMoreBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    self.readMoreBtn.backgroundColor = [UIColor clearColor];
+    self.readMoreBtn.enabled = YES;
+    [self.readMoreBtn addTarget:self action:@selector(readMoreBtnPressed) forControlEvents:UIControlEventTouchUpInside];
+    self.readMoreBtn.hidden = YES;
+    
+    [self.scrollview addSubview:self.readMoreBtn];
+    
+    self.descrpClearBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.descrpClearBtn.backgroundColor = [UIColor clearColor];
+    self.descrpClearBtn.enabled = YES;
+    [self.descrpClearBtn addTarget:self action:@selector(readMoreBtnPressed) forControlEvents:UIControlEventTouchUpInside];
+    self.descrpClearBtn.hidden = YES;
+    
+    [self.scrollview addSubview:self.descrpClearBtn];
+    
     
     _tagview = [[TagView alloc]initWithFrame:CGRectMake(0, BelowDescriptionLabelGap+CGRectGetMaxY(self.descriptionLabel.frame), width, TagViewHeight)];
     _tagview.allowToUseSingleSpace = YES;
@@ -390,15 +415,16 @@ const CGFloat CommentRateViewWidth = 260;
     
     Comment *comment = (Comment *)[self.myFood.comments objectAtIndex:[indexPath row]];
     NSString *text = [NSString stringWithFormat:@"%@:\n%@",comment.byUser.Uname,comment.text];
-    NSLog(@"+++++++++++++++++ FIV +++++++++++++++++++ %@ : INSERT COMMENT TBL text = %@",self.myFood.title,text);
+    //NSLog(@"+++++++++++++++++ FIV +++++++++++++++++++ %@ : INSERT COMMENT TBL text = %@",self.myFood.title,text);
     
     CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"Cell %d", (int)indexPath.row]];
     if (!cell) {
+    NSLog(@"+++++++++++++++++ FIV +++++++++++++++++++ %@ : INSERT COMMENT TBL text = %@",self.myFood.title,text);
         cell = [[CommentCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"Cell %d", (int)indexPath.row]];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.commentLabel.frame = (CGRect) {.origin = cell.commentLabel.frame.origin, .size = {CGRectGetMinX(cell.likeButton.frame) - CGRectGetMaxY(cell.iconView.frame) - kCommentPaddingFromLeft - kCommentPaddingFromRight,[self tableView:tableView heightForRowAtIndexPath:indexPath] - kCommentCellHeight}};
-        cell.commentLabel.text =text;
+
         cell.timeLabel.frame = (CGRect) {.origin = {CGRectGetMinX(cell.commentLabel.frame), CGRectGetMaxY(cell.commentLabel.frame)}};
         cell.timeLabel.text = @"1d ago";
         [cell.timeLabel sizeToFit];
@@ -408,6 +434,10 @@ const CGFloat CommentRateViewWidth = 260;
         cell.likeCountImageView.image = [UIImage imageNamed:@"like_greyIcon.png"];
         cell.likeCountLabel.frame = CGRectMake(CGRectGetMaxX(cell.likeCountImageView.frame) + 3, CGRectGetMinY(cell.timeLabel.frame), 0, CGRectGetHeight(cell.timeLabel.frame));
     }
+    
+    //set comment text
+    cell.commentLabel.text =text;
+    /***************** SET TIME OBJECT*******************/
 
 
     
@@ -445,20 +475,20 @@ const CGFloat CommentRateViewWidth = 260;
 
     self.separator.frame = CGRectMake(CLeftMargin, CGRectGetMaxY(self.titleLabel.frame), width-2*CLeftMargin, SeparatorViewHeight);
     
-    if (self.frame.size.height < CGRectGetHeight([[UIScreen mainScreen] bounds])){
-        self.loadingBtn.hidden = YES;
-        self.descriptionLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-        
-    }else{
-        self.descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        if (!self.myFood.isFoodInfoCompleted) {
-            self.loadingBtn.hidden = NO;
-        }
-        
+//    if (self.frame.size.height < CGRectGetHeight([[UIScreen mainScreen] bounds])){
+//        //self.loadingBtn.hidden = YES;
+//        self.descriptionLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+//        
+//    }else{
+//        self.descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
+////        if (!self.myFood.isFoodInfoCompleted) {
+////            self.loadingBtn.hidden = NO;
+////        }
+//        
+//    
+//    }
     
-    }
-    
-    self.translateLabel.frame = CGRectMake(CLeftMargin, TitleTopMargin + CGRectGetMaxY(self.titleLabel.frame), width-2*CLeftMargin, TranslateLabelHeight);
+    self.translateLabel.frame = CGRectMake(CLeftMargin, TitleTopMargin + CGRectGetMaxY(self.titleLabel.frame), width-2*CLeftMargin,  TranslateLabelHeight);
     [self.translateLabel setFont:[UIFont fontWithName:PlainTextFontName size:SmallTextFontSize + (LargeTitleFontSize-SmallTextFontSize)*sizeMultiplier]];
     
     self.starNumberLabel.frame =CGRectMake(width-CLeftMargin-StarNumberLabelWidth, self.translateLabel.frame.origin.y, StarNumberLabelWidth*(width/[[UIScreen mainScreen] bounds].size.width), CGRectGetHeight(self.translateLabel.frame));
@@ -466,9 +496,15 @@ const CGFloat CommentRateViewWidth = 260;
     
     self.starImgView.frame = CGRectMake(self.starNumberLabel.frame.origin.x-StarImgViewWidth, self.starNumberLabel.frame.origin.y,StarImgViewWidth*(width/[[UIScreen mainScreen] bounds].size.width), CGRectGetHeight(self.translateLabel.frame));
     
-    self.descriptionLabel.frame = CGRectMake(CLeftMargin, CGRectGetMaxY(self.translateLabel.frame) + GAP, width - CLeftMargin*2, DescriptionLabelHeight);
+    self.descriptionLabel.frame = CGRectMake(CLeftMargin, CGRectGetMaxY(self.translateLabel.frame) + GAP, width - CLeftMargin*2, self.descriptionLabel.frame.size.height);
     
-    self.tagview.frame = CGRectMake(0, BelowDescriptionLabelGap+CGRectGetMaxY(self.descriptionLabel.frame)+ GAP, width, TagViewHeight);
+    self.descrpClearBtn.frame = self.descriptionLabel.frame;
+    
+    //self.readMoreBtn.frame = self.descriptionLabel.frame;
+    self.readMoreBtn.frame = CGRectMake(CGRectGetMaxX(self.descriptionLabel.frame)-ReadMoreButtonWidth, CGRectGetMaxY(self.descriptionLabel.frame), ReadMoreButtonWidth, ReadMoreButtonHeight);
+    
+
+    self.tagview.frame = CGRectMake(0, CGRectGetMaxY(self.readMoreBtn.frame), width, TagViewHeight);
     
     self.photoCollectionView.frame = CGRectMake(0, CGRectGetMaxY(self.tagview.frame) + GAP, width, PhotoCollectionViewHeight);
 
@@ -485,6 +521,7 @@ const CGFloat CommentRateViewWidth = 260;
     self.photoCollectionView.alpha = newAlpha;
     self.starImgView.alpha = newAlpha;
     self.starNumberLabel.alpha = newAlpha;
+    self.readMoreBtn.alpha = newAlpha;
 
     NSLog(@"+++ FIV %@ +++  %d LAYOUT SUBVIEW: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.isScrollEnabled,self.scrollview.contentSize.height,self.scrollview.bounds.size.height);
 }
@@ -524,11 +561,15 @@ const CGFloat CommentRateViewWidth = 260;
 -(void)setFoodInfo{
     self.titleLabel.text = self.myFood.title;
     self.translateLabel.text = self.myFood.transTitle;
-    self.descriptionLabel.text = self.myFood.food_description;
+    [self changeDescriptionLabelText:self.myFood.food_description];
     if (self.myFood.rate >= 0.f) {
         self.starImgView.contentMode =UIViewContentModeScaleAspectFill;
         self.starImgView.image = [UIImage imageNamed:@"star_on.png"];
         self.starNumberLabel.text = [NSString stringWithFormat:@"%.1f",self.myFood.rate];
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            self.starImgView.alpha = 1.0f;
+            self.starNumberLabel.alpha = 1.0f;
+        } completion:nil];
     }
 }
 
@@ -600,12 +641,6 @@ const CGFloat CommentRateViewWidth = 260;
     
 }
 
-//If you want to change description label text, use this method instead
-//It will change the layout accordingly
--(void) changeDescriptionLabelText:(NSString *)newText{
-
-}
-
 //this method got called when cell preparing for reuse
 -(void)cleanUpForReuse{
     
@@ -615,7 +650,9 @@ const CGFloat CommentRateViewWidth = 260;
     [self.countStr setString:@""];
     self.imgLoaderName = @"";
     
-    //
+    self.starNumberLabel.alpha = 0.f;
+    self.starImgView.alpha = 0.f;
+    //self.loadingBtn.hidden = YES;
     [self resetData];
 }
 
@@ -917,8 +954,17 @@ const CGFloat CommentRateViewWidth = 260;
                     [self.commentView hideToastActivity];
                     [self.commentView close];
                     [self makeToast:AMLocalizedString(@"SUCCESS_COMMENT", nil) duration:0.8 position:@"bottom"];
+                    
+                    //Remove old data
                     [self.myFood.comments removeAllObjects];
                     [self.commentsTableView reloadData];
+                    
+                    //update related UI
+                    self.commentsTableView.frame = CGRectMake(self.commentsTableView.frame.origin.x, self.commentsTableView.frame.origin.y,self.commentsTableView.frame.size.width, 10);
+                    [self.scrollview setContentOffset:CGPointZero animated:YES];
+                    self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width,CGRectGetHeight(self.commentsTableView.frame)+10);
+                    
+                    //refresh comments
                     [self refreshComments];
                 }
                 else{
@@ -989,5 +1035,70 @@ const CGFloat CommentRateViewWidth = 260;
 
 }
 
+/************************************/
+/*****     Tap to Read More     ****/
+/************************************/
 
+//If you want to change description label text, use this method instead
+//It will change the layout accordingly
+-(void) changeDescriptionLabelText:(NSString *)newText{
+    CGFloat width = [[UIScreen mainScreen]bounds].size.width;
+    CGRect expectedRect = [newText boundingRectWithSize:CGSizeMake(width-2*CLeftMargin, MAXFLOAT)
+                       options:NSStringDrawingUsesLineFragmentOrigin
+                    attributes:@{NSFontAttributeName:[UIFont fontWithName:PlainTextFontName size:LargeTextFontSize]}
+                       context:nil];
+    
+    //Text too long, show read more button
+    if (expectedRect.size.height > DescriptionLabelHeight)
+    {
+        self.descrpClearBtn.hidden = NO;
+        self.readMoreBtn.hidden = NO;
+        self.descriptionLabel.frame = CGRectMake(self.descriptionLabel.frame.origin.x, self.descriptionLabel.frame.origin.y, self.descriptionLabel.frame.size.width, DescriptionLabelHeight);
+
+    }
+    else{
+         //Text can be showed in the constraint rect
+         //Change height accordingly
+        self.descrpClearBtn.hidden = YES;
+        self.readMoreBtn.hidden = YES;
+        self.descriptionLabel.frame = CGRectMake(self.descriptionLabel.frame.origin.x, self.descriptionLabel.frame.origin.y, self.descriptionLabel.frame.size.width, expectedRect.size.height);
+    
+    }
+    
+    self.descriptionLabel.text = newText;
+    
+    //update other ui blow description label
+    [self layoutSubviews];
+
+    //update contensize
+    self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width,MAX(CGRectGetHeight(self.commentsTableView.frame), self.frame.size.height)+10);
+}
+
+-(void)readMoreBtnPressed{
+    NSLog(@"ReadMoreButton Pressed  label TEXT = %@",self.descriptionLabel.text);
+    CGFloat width = [[UIScreen mainScreen]bounds].size.width;
+    CGRect expectedRect = [self.descriptionLabel.text boundingRectWithSize:CGSizeMake(width-2*CLeftMargin, MAXFLOAT)
+                                                options:NSStringDrawingUsesLineFragmentOrigin
+                                             attributes:@{NSFontAttributeName:[UIFont fontWithName:PlainTextFontName size:LargeTextFontSize]}
+                                                context:nil];
+    if ([self.readMoreBtn.titleLabel.text isEqualToString:NSLocalizedString(@"FIV_READ_MORE", nil)])
+    {
+        [self.readMoreBtn setTitle:NSLocalizedString(@"FIV_READ_LESS", nil) forState:UIControlStateNormal];
+
+        self.descriptionLabel.frame = CGRectMake(self.descriptionLabel.frame.origin.x, self.descriptionLabel.frame.origin.y, self.descriptionLabel.frame.size.width,expectedRect.size.height);
+
+
+    }else
+    {
+        [self.readMoreBtn setTitle:NSLocalizedString(@"FIV_READ_MORE", nil) forState:UIControlStateNormal];
+  
+        self.descriptionLabel.frame = CGRectMake(self.descriptionLabel.frame.origin.x, self.descriptionLabel.frame.origin.y, self.descriptionLabel.frame.size.width,DescriptionLabelHeight);
+
+
+    
+    }
+    [self layoutSubviews];
+    self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width,MAX(CGRectGetHeight(self.commentsTableView.frame), self.frame.size.height)+10);
+
+}
 @end

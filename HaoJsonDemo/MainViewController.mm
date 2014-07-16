@@ -206,8 +206,20 @@ static NSString *CellIdentifier = @"Cell";
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     EDCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+
     
     [cell configFIVForCell:indexPath.row withFood:self.foodArray[indexPath.row]];
+    
+    if (cell.frame.size.height == [[UIScreen mainScreen] bounds].size.height) {
+        if (cell.foodInfoView.myFood.isFoodInfoCompleted) {
+            cell.foodInfoView.loadingBtn.hidden = YES;
+        }
+        else{
+            cell.foodInfoView.loadingBtn.hidden = NO;
+        
+        }
+        //NSLog(@"============================================ large cell reused!!!!!!!!!!!!!!!!!!");
+    }
     
     return cell;
 }

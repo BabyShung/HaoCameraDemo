@@ -43,6 +43,9 @@
 
 @property (strong, nonatomic) UIButton * commentBtn;
 
+@property (strong, nonatomic) UIButton *readMoreBtn;
+@property (strong, nonatomic) UIButton *descrpClearBtn;
+
 //methods
 
 - (id)initWithFrame:(CGRect)frame andVC:(UIViewController *)vc;
