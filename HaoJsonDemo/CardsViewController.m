@@ -120,7 +120,7 @@ UICollectionViewDelegate,HATransparentViewDelegate,UITableViewDataSource,UITable
         
         //show
         self.descriptionLabel.text = AMLocalizedString(@"LOGGEDIN_CONTEXT_1", nil);
-        self.descriptionLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:18];
+        self.descriptionLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:20];
         
     }
     

@@ -90,6 +90,8 @@
 
 - (void) backBtnPressed:(id)sender;
 
+- (void) nextPagePressed:(id)sender;
+
 //loading animation
 -(void)startLoadingAnimation;
 

@@ -41,14 +41,18 @@
 {
     [super viewDidLoad];
     [GeneralControl setPageViewControllerScrollEnabled:NO];
+    
+    _backBtn = [LoadControls createRoundedButton_Image:@"ED_back_2.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andLeftBottomElseRightBottom:YES];
+    [_backBtn addTarget:self action:@selector(backBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    _backBtn.alpha = 0;
+    //_backBtn.hidden = YES;
+    [self.view insertSubview:_backBtn aboveSubview:self.collectionView];
+    
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
     [GeneralControl setPageViewControllerScrollEnabled:YES];
 }
-
-
-
 
 /***********************************/
 /*                                 */
@@ -71,27 +75,20 @@
 
 }
 
-
-//-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-//
-//}
-
 - (void) backBtnPressed:(id)sender {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 
 -(void)setupButtonAndAnimate{
-    _backBtn = [LoadControls createRoundedButton_Image:@"ED_back_2.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andLeftBottomElseRightBottom:YES];
-    [_backBtn addTarget:self action:@selector(backBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    _backBtn.alpha = 0;
-    //_backBtn.hidden = YES;
-    [self.view insertSubview:_backBtn aboveSubview:self.collectionView];
-    
-    [UIView animateWithDuration:.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+
+    //workaround
+    [UIView animateWithDuration:.5 delay:0.1 options:UIViewAnimationOptionCurveEaseOut animations:^{
         _backBtn.alpha = 1;
-        //_commentBtn.alpha = 1;
-    } completion:nil];
+        [self.view bringSubviewToFront:_backBtn];
+    } completion:^(BOOL finished){
+        [self.view bringSubviewToFront:_backBtn];
+    }];
     
 }
 

@@ -72,8 +72,13 @@
         self.userView.layer.cornerRadius = 5;
         self.pwdView.layer.cornerRadius = 5;
         
-        [self.emailTextField setValue:[ED_Color lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
-        [self.pwdTextField setValue:[ED_Color lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+        self.userView.layer.borderColor = [ED_Color lightGrayColor].CGColor;
+        self.userView.layer.borderWidth = 1.0f;
+        self.pwdView.layer.borderColor = [ED_Color lightGrayColor].CGColor;
+        self.pwdView.layer.borderWidth = 1.0f;
+        
+        [self.emailTextField setValue:[ED_Color mediumGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+        [self.pwdTextField setValue:[ED_Color mediumGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
         
         [self.emailTextField setKeyboardType:UIKeyboardTypeEmailAddress];
         self.pwdTextField.secureTextEntry = YES;
