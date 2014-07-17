@@ -38,6 +38,13 @@
     [self setBackgroundImage:[self buttonImageFromColor:[UIColor colorWithRed:51/255.0 green:119/255.0 blue:172/255.0 alpha:1]] forState:UIControlStateHighlighted];
 }
 
+-(void)blueCheeseStyle{
+    [self bootstrapStyle];
+    self.backgroundColor = [UIColor colorWithRed:25/255.0 green:173/255.0 blue:219/255.0 alpha:1];
+    self.layer.borderColor = [[UIColor colorWithRed:20/255.0 green:185/255.0 blue:224/255.0 alpha:1] CGColor];
+    [self setBackgroundImage:[self buttonImageFromColor:[UIColor colorWithRed:51/255.0 green:119/255.0 blue:172/255.0 alpha:1]] forState:UIControlStateHighlighted];
+}
+
 -(void)successStyle{
     [self bootstrapStyle];
     self.backgroundColor = [UIColor colorWithRed:92/255.0 green:184/255.0 blue:92/255.0 alpha:1];

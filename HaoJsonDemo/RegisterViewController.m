@@ -24,6 +24,7 @@
 
 @property (nonatomic,strong) LoadingAnimation *loadingImage;
 
+@property (weak, nonatomic) IBOutlet UIImageView *registerBGImageView;
 @end
 
 @implementation RegisterViewController
@@ -32,6 +33,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+        self.registerBGImageView.image = iPhone5?[UIImage imageNamed:@"register_ip5.png"]:[UIImage imageNamed:@"register_ip4.png"];
     
     //[self checkAndStartLoadingAnimation];
     

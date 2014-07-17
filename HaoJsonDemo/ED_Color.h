@@ -20,6 +20,7 @@
 + (UIColor *) edibleBlueColor_Light;
 + (UIColor *) edibleBlueColor_Deep;
 + (UIColor *)edibleBlueColor_DeepDark;
++(UIColor *)edibleBlueColor_CheeseHole;
 
 + (UIColor *)edibleGreenColor;
 

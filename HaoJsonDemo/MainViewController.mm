@@ -39,7 +39,7 @@ static NSString *CellIdentifier = @"Cell";
 }
 @property (strong, nonatomic) UIButton * clearBtn;
 
-@property (strong, nonatomic) UIButton * captureBtn;
+//@property (strong, nonatomic) UIButton * captureBtn;
 
 @property (strong,nonatomic) Tesseract *tesseract;
 
@@ -128,11 +128,11 @@ static NSString *CellIdentifier = @"Cell";
     _clearBtn.hidden = YES;
     [self.view insertSubview:_clearBtn aboveSubview:self.collectionView];
     
-    _captureBtn = [LoadControls createRoundedButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andLeftBottomElseRightBottom:NO];
-    [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    _captureBtn.alpha = 1;
-    _captureBtn.hidden = YES;
-    [self.view insertSubview:_captureBtn aboveSubview:self.collectionView];
+//    _captureBtn = [LoadControls createRoundedButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andLeftBottomElseRightBottom:NO];
+//    [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    _captureBtn.alpha = 1;
+//    _captureBtn.hidden = YES;
+//    [self.view insertSubview:_captureBtn aboveSubview:self.collectionView];
 }
 
 - (void) clearBtnPressed:(id)sender {
@@ -177,7 +177,7 @@ static NSString *CellIdentifier = @"Cell";
     //[self.camView startLoadingAnimation];
     
     [self.view bringSubviewToFront:_clearBtn];
-    [self.view bringSubviewToFront:_captureBtn];
+//    [self.view bringSubviewToFront:_captureBtn];
     
     //scroll DEspeed normal
     self.collectionView.decelerationRate = UIScrollViewDecelerationRateNormal;
@@ -455,11 +455,11 @@ static NSString *CellIdentifier = @"Cell";
         
         [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.clearBtn.alpha = 1;
-            self.captureBtn.alpha = 1;
+//            self.captureBtn.alpha = 1;
         } completion:^(BOOL finished) {
             if (finished) {
                 self.clearBtn.hidden = NO;
-                self.captureBtn.hidden = NO;
+//                self.captureBtn.hidden = NO;
             }
         }];
     }
@@ -474,12 +474,12 @@ static NSString *CellIdentifier = @"Cell";
                                       //alpha collection view and two buttons
                                       self.collectionView.alpha = 0;
                                       self.clearBtn.alpha = 0;
-                                      self.captureBtn.alpha = 0;
+//                                      self.captureBtn.alpha = 0;
                                   }
                                   completion:^(BOOL finished){
                                       //hide collection view and two buttons
                                       self.clearBtn.hidden = YES;
-                                      self.captureBtn.hidden = YES;
+//                                      self.captureBtn.hidden = YES;
                                       self.collectionView.hidden = YES;
                                   }];
     }

@@ -46,6 +46,10 @@
     return [UIColor colorWithRed:0.161 green:0.502 blue:0.725 alpha:1.0];
 }
 
++(UIColor *)edibleBlueColor_CheeseHole{
+    return [UIColor colorWithRed:18/255.0 green:160/255.0 blue:204/255.0 alpha:1];
+}
+
 +(UIColor *)edibleGreenColor{
     return [UIColor colorWithRed:69/255.0 green:164/255.0 blue:84/255.0 alpha:1];
 }

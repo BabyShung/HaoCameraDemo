@@ -19,11 +19,15 @@
 #import "Flurry.h"
 #import "GeneralControl.h"
 
+#define SCROLLVIEW_CONTENTOFF_WhenClickTextfield 105
+
 @interface LoginViewController () <MKTransitionCoordinatorDelegate,UITextFieldDelegate>
 
 @property (nonatomic, strong) MKTransitionCoordinator *menuInteractor;
 
 @property (nonatomic,strong) LoadingAnimation *loadingImage;
+
+@property (weak, nonatomic) IBOutlet UIImageView *loginBGImageView;
 
 @end
 
@@ -32,6 +36,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.loginBGImageView.image = iPhone5?[UIImage imageNamed:@"login_ip5.png"]:[UIImage imageNamed:@"login_ip4.png"];
     
     //cache keyboard
     [UIResponder cacheKeyboard];
@@ -61,7 +67,7 @@
         self.menuInteractor = [[MKTransitionCoordinator alloc] initWithParentViewController:self];
         self.menuInteractor.delegate = self;
         
-        [self.loginBtn primaryStyle];
+        [self.loginBtn blueCheeseStyle];
         
         self.userView.layer.cornerRadius = 5;
         self.pwdView.layer.cornerRadius = 5;
@@ -172,9 +178,9 @@
 }
 
 -(void)goUpAnimation{
-    if(self.bgScrollView.bounds.origin.y != 175){
+    if(self.bgScrollView.bounds.origin.y != SCROLLVIEW_CONTENTOFF_WhenClickTextfield){
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.bgScrollView setContentOffset:CGPointMake(0,175) animated:YES];
+            [self.bgScrollView setContentOffset:CGPointMake(0,SCROLLVIEW_CONTENTOFF_WhenClickTextfield) animated:YES];
         });
     }
 }
@@ -191,9 +197,9 @@
 -(void)checkAndStartLoadingAnimation{
     //start animation
     if(!self.loadingImage){
-        self.loadingImage = [[LoadingAnimation alloc] initWithStyle:RTSpinKitViewStyleWave color:[ED_Color edibleBlueColor_DeepDark]];
+        self.loadingImage = [[LoadingAnimation alloc] initWithStyle:RTSpinKitViewStyleWave color:[ED_Color edibleBlueColor_CheeseHole]];
         CGRect screenBounds = [[UIScreen mainScreen] bounds];
-        self.loadingImage.center = CGPointMake(CGRectGetMidX(screenBounds), iPhone5? screenBounds.size.height*0.7:screenBounds.size.height*0.82);
+        self.loadingImage.center = CGPointMake(CGRectGetMidX(screenBounds), iPhone5? screenBounds.size.height*0.64:screenBounds.size.height*0.82);
         [self.view addSubview:self.loadingImage];
     }
     [self.loadingImage startAnimating];
