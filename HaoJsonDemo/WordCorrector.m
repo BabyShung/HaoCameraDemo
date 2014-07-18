@@ -74,9 +74,7 @@
     
     
     NSMutableArray *arrayOfStringsToReplace = [NSMutableArray arrayWithObjects:
-                                               [NSArray arrayWithObjects:@"5",@"s",nil],
-                                               [NSArray arrayWithObjects:@"3",@"a",nil],
-                                               [NSArray arrayWithObjects:@"0",@"o",nil],
+                                               [NSArray arrayWithObjects:@"0",@"1",nil],
                                                [NSArray arrayWithObjects:@"a",@"1",nil],
                                                [NSArray arrayWithObjects:@"e",@"1",nil],
                                                [NSArray arrayWithObjects:@"c",@"1",nil],
