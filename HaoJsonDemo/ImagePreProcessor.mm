@@ -345,8 +345,8 @@ using namespace std;
     int sum_pixl = 0;
     int sum_outer_pixl = 0;
     
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
+    for (int i = 0; i < rows; i = i+2) {
+        for (int j = 0; j < cols; j = j+2) {
             uchar pixl = inputRectImg.at<uchar>(i,j);
             int pixl_int = pixl - '0';
             

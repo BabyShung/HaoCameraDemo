@@ -295,7 +295,7 @@ static NSString *CellIdentifier = @"Cell";
 
 -(void)loadTesseract{
     _tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];//langague package
-    [_tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz,." forKey:@"tessedit_char_whitelist"]; //limit search
+    [_tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz,.&-" forKey:@"tessedit_char_whitelist"]; //limit search
 }
 
 #pragma mark --------- Tesseract
