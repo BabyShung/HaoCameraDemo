@@ -19,6 +19,14 @@
     UITextChecker *checker = [[UITextChecker alloc] init];
     NSString *testString = input;
     NSString *output = testString;
+    
+    output = [output stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    output= [[output componentsSeparatedByCharactersInSet:
+              [NSCharacterSet newlineCharacterSet]]componentsJoinedByString:@" "];
+    output = [output stringByReplacingOccurrencesOfString:@"  " withString:@" "];//replace .
+    output = [output stringByReplacingOccurrencesOfString:@"," withString:@""];//replace ,
+    output = [output stringByReplacingOccurrencesOfString:@"." withString:@""];//replace .
+    
     int mark=0;
     
     NSRange checkRange = NSMakeRange(0, testString.length);
@@ -53,12 +61,9 @@
 
     }
     
-    if(output.length == 1){
-        return @"";
-    }
-    else{
-        return output;
-    }
+    
+    return output;
+    
     [Flurry logEvent:@"Word_Detector"];
 }
 
@@ -66,6 +71,7 @@
 -(NSString*)replaceWord: (NSString*)input{
     
     NSString *testString = input;
+    
     
     NSMutableArray *arrayOfStringsToReplace = [NSMutableArray arrayWithObjects:
                                                [NSArray arrayWithObjects:@"5",@"s",nil],
@@ -88,8 +94,10 @@
                                                [NSArray arrayWithObjects:@"Q",@"4",nil],
                                                [NSArray arrayWithObjects:@"n",@"6",nil],
                                                [NSArray arrayWithObjects:@"m",@"6",nil],
-                                               [NSArray arrayWithObjects:@"/",@"7",nil],
-                                               [NSArray arrayWithObjects:@" ",@"7",nil],
+                                               [NSArray arrayWithObjects:@"el",@"7",nil],
+                                               [NSArray arrayWithObjects:@"d",@"7",nil],
+                                               [NSArray arrayWithObjects:@"h",@"9",nil],
+                                               [NSArray arrayWithObjects:@"k",@"9",nil],
                                                nil];
     
     // For or while loop to Find and Replace strings
