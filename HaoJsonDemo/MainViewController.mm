@@ -210,16 +210,16 @@ static NSString *CellIdentifier = @"Cell";
     
     [cell configFIVForCell:indexPath.row withFood:self.foodArray[indexPath.row]];
     
-    if (cell.frame.size.height == [[UIScreen mainScreen] bounds].size.height) {
-        if (cell.foodInfoView.myFood.isFoodInfoCompleted) {
-            cell.foodInfoView.loadingBtn.hidden = YES;
-        }
-        else{
-            cell.foodInfoView.loadingBtn.hidden = NO;
-        
-        }
-        //NSLog(@"============================================ large cell reused!!!!!!!!!!!!!!!!!!");
-    }
+//    if (cell.frame.size.height == [[UIScreen mainScreen] bounds].size.height) {
+//        if (cell.foodInfoView.myFood.isFoodInfoCompleted) {
+//            cell.foodInfoView.loadingBtn.hidden = YES;
+//        }
+//        else{
+//            cell.foodInfoView.loadingBtn.hidden = NO;
+//        
+//        }
+//        //NSLog(@"============================================ large cell reused!!!!!!!!!!!!!!!!!!");
+//    }
     
     return cell;
 }
@@ -244,6 +244,10 @@ static NSString *CellIdentifier = @"Cell";
 - (UICollectionViewTransitionLayout *)collectionView:(UICollectionView *)collectionView
                         transitionLayoutForOldLayout:(UICollectionViewLayout *)fromLayout newLayout:(UICollectionViewLayout *)toLayout
 {
+    UIViewController *topVC = [self.navigationController topViewController];
+    if ([topVC class] ==[MainViewController class]) {
+        return nil;
+    }
     TransitionLayout *transitionLayout = [[TransitionLayout alloc] initWithCurrentLayout:fromLayout nextLayout:toLayout];
     return transitionLayout;
 }

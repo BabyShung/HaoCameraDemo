@@ -188,6 +188,48 @@
     return translations;
 }
 
+-(NSArray *)blurSearch:(NSString *)inputStr inLangTable:(TargetLang)lang
+{
+    NSMutableArray *foodDicts = [NSMutableArray array];
+    
+    if ([inputStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0) {
+
+        ShareData *sharedata = [ShareData shareData];
+        NSString *langTableName =[sharedata langTableName:lang];
+        [self.connector openDB];
+        
+        NSString *sql = [NSString stringWithFormat:@"SELECT DISTINCT Keyword.kwstr,%@.wstr FROM Keyword,%@ WHERE UPPER(Keyword.kwstr) LIKE UPPER('%@%%') AND Keyword.kwid=%@.wid;",langTableName,langTableName,[inputStr stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]],langTableName];
+        
+        //        NSString *sql =[NSString stringWithFormat:@"SELECT DISTINCT Keyword.kwstr,%@.wstr FROM %@,Keyword WHERE UPPER(Keyword.kwstr)=UPPER('%@') AND Keyword.kwid=%@.wid;",langTableName,langTableName,word,langTableName];
+        
+        NSLog(@"++++++++++++ DB SEARCH ++++++++++++  SQL = %@",sql);
+        
+        sqlite3_stmt *stmt = nil;
+        
+        //Prepare the statement
+        if (sqlite3_prepare_v2([self.connector database], [sql UTF8String], -1, &stmt, nil) != SQLITE_OK){
+            [self.connector closeDB];
+            NSString *reason = [NSString stringWithFormat:@"!Error: failed to prepare statement with message '%s'.", sqlite3_errmsg([self.connector database])];
+            [self throwDBOperationExceptionCausedBy:reason];
+            
+        }
+        else {
+            while (sqlite3_step(stmt) == SQLITE_ROW) {
+                char *tmpkword = (char*)sqlite3_column_text(stmt,0);
+                char *tmptrans = (char*)sqlite3_column_text(stmt,1);
+                NSDictionary *foodDict = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithUTF8String:tmpkword],@"keyword",[NSString stringWithUTF8String:tmptrans],@"translation",nil];
+                [foodDicts addObject:foodDict];
+            }
+            sqlite3_finalize(stmt);
+        }
+        
+        [self.connector closeDB];
+        
+    }
+    
+    return foodDicts;
+}
+
 -(NSArray *) getItemsInFileByFilePath:(NSString *) path{
     
     NSString *content=[NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
@@ -261,7 +303,7 @@
 
 
 -(void) throwDBOperationExceptionCausedBy:(NSString *)reason{
-    
+    NSLog(@"+++++++++++++ DBO +++++++++++++++++ ERROR :%@",reason);
     NSException* ex = [[NSException alloc]initWithName:@"DBOperationFailures" reason:reason userInfo:nil];
     @throw ex;
 

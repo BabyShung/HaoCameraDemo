@@ -17,7 +17,6 @@
 /*                             */
 /*   Lang table name: Chinese  */
 /*                             */
-/*  Dict table name: ToChinese */
 /*******************************/
 @interface DBOperation : NSObject
 
@@ -45,6 +44,9 @@
 
 //Found keywords will be saved in kwArray
 -(NSMutableArray *) searchWords:(NSArray *) wordsArray getKeywords:(NSMutableArray *)kwArray inLangTable:(TargetLang)lang;
+
+//Blur search a word in local DB, match from beginning
+-(NSArray *)blurSearch:(NSString *)inputStr inLangTable:(TargetLang)lang;
 
 //For Dictionary update
 //Download files from server

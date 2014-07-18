@@ -87,6 +87,23 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
     
 }
 
+-(NSArray *) localBlurSearchString:(NSString *)typeStr
+{
+    NSMutableArray *foods = [NSMutableArray array];
+    
+    NSArray *foodDicts = [self.operation blurSearch:typeStr inLangTable:self.lang];
+    
+    for (NSDictionary *foodDict in foodDicts) {
+
+            Food *food =[[Food alloc]initWithTitle:[foodDict objectForKey:@"keyword"] andTranslations:[foodDict objectForKey:@"translation"] andQueryTimes:0];
+        
+            [foods addObject:food];
+        
+    }
+    
+    return foods;
+}
+
 -(void) serverSearchOCRString:(NSString *)inputStr andCompletion:(void (^)(NSArray *results, BOOL success))block
 {
     _searchingFood = YES;
@@ -242,14 +259,13 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
     if(status){ //if we get food info back
         
             
-
+        
             
             NSArray *resultArr = [returnJSONtoNSdict objectForKey:@"result"];
-            
-            if(resultArr.count ==0){
-                return;
-            }
             NSMutableArray *foodArray = [NSMutableArray array];
+        
+            
+            
             
             for (NSDictionary *foodObj in resultArr) {
                 
@@ -258,8 +274,9 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
                 Food *food = [[Food alloc]initWithDictionary:foodObj];
                 [foodArray addObject:food];
                 
-
+                
             }
+
             
             //dispatch_async(dispatch_get_main_queue(), ^{
                 _searchingFood = NO;

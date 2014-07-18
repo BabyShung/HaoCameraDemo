@@ -62,7 +62,7 @@
     return 0.3;
 }
 -(BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds{
-    return  YES;
+    return  NO;
 }
 
 @end

@@ -174,7 +174,7 @@ const CGFloat ReadMoreButtonHeight =25;
     self.translateLabel.numberOfLines = 0;
     self.translateLabel.lineBreakMode =NSLineBreakByWordWrapping;
     self.translateLabel.text = @"";
-    self.translateLabel.font = [UIFont fontWithName:PlainTextFontName size:LargeTitleFontSize];
+    self.translateLabel.font = [UIFont fontWithName:PlainTextFontName size:SmallTextFontSize];
     self.translateLabel.textColor = [UIColor blackColor];
     self.translateLabel.backgroundColor = [UIColor clearColor];
     [self.scrollview addSubview:self.translateLabel];
@@ -188,6 +188,7 @@ const CGFloat ReadMoreButtonHeight =25;
     self.starNumberLabel.font = [UIFont fontWithName:PlainTextFontName size:LargeTitleFontSize];
     self.starNumberLabel.textColor = [UIColor blackColor];
     self.starNumberLabel.backgroundColor = [UIColor clearColor];
+    self.starNumberLabel.textAlignment = NSTextAlignmentCenter;
     self.starNumberLabel.numberOfLines  = 1;
     
     self.starImgView.alpha = 0;
@@ -273,6 +274,7 @@ const CGFloat ReadMoreButtonHeight =25;
     
     //Add loading indicator button
     self.loadingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.loadingBtn.frame = self.scrollview.bounds;
     [self.loadingBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.loadingBtn setAlpha:0.5];
     self.loadingBtn.titleLabel.font = [UIFont fontWithName:PlainTextFontName size:LargeTextFontSize];
@@ -455,15 +457,16 @@ const CGFloat ReadMoreButtonHeight =25;
     CGFloat width = CGRectGetWidth(self.frame);
     CGFloat height = CGRectGetHeight(self.frame);
     
-    /*Resize loading button*/
-    
-    [self.loadingBtn setFrame:self.bounds];
-    self.loadingBtn.titleLabel.frame = self.loadingBtn.bounds;
-    
     /*Resize scrollview so that it still can scroll*/
     
     [self.scrollview setFrame:self.bounds];
     
+    /*Resize loading button*/
+    
+    [self.loadingBtn setFrame:self.scrollview.bounds];
+    self.loadingBtn.titleLabel.frame = self.loadingBtn.bounds;
+    
+
     
     
     /*Resize views in scroll view*/
@@ -489,7 +492,7 @@ const CGFloat ReadMoreButtonHeight =25;
 //    }
     
     self.translateLabel.frame = CGRectMake(CLeftMargin, TitleTopMargin + CGRectGetMaxY(self.titleLabel.frame), width-2*CLeftMargin,  TranslateLabelHeight);
-    [self.translateLabel setFont:[UIFont fontWithName:PlainTextFontName size:SmallTextFontSize + (LargeTitleFontSize-SmallTextFontSize)*sizeMultiplier]];
+    //[self.translateLabel setFont:[UIFont fontWithName:PlainTextFontName size:SmallTextFontSize + (LargeTitleFontSize-SmallTextFontSize)*sizeMultiplier]];
     
     self.starNumberLabel.frame =CGRectMake(width-CLeftMargin-StarNumberLabelWidth, self.translateLabel.frame.origin.y, StarNumberLabelWidth*(width/[[UIScreen mainScreen] bounds].size.width), CGRectGetHeight(self.translateLabel.frame));
     [self.starNumberLabel setFont:[UIFont fontWithName:PlainTextFontName size:SmallTitleFontSize + (LargeTitleFontSize-SmallTitleFontSize)*sizeMultiplier]];
@@ -524,6 +527,7 @@ const CGFloat ReadMoreButtonHeight =25;
     self.readMoreBtn.alpha = newAlpha;
 
     NSLog(@"+++ FIV %@ +++  %d LAYOUT SUBVIEW: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.isScrollEnabled,self.scrollview.contentSize.height,self.scrollview.bounds.size.height);
+    
 }
 
 
@@ -547,7 +551,7 @@ const CGFloat ReadMoreButtonHeight =25;
     self.commentsTableView.hidden = YES;
     self.starImgView.hidden = YES;
     self.starNumberLabel.hidden = YES;
-    //self.loadingBtn.hidden = YES;
+    self.loadingBtn.hidden = YES;
 }
 
 /*************** MEi **************/
@@ -565,7 +569,12 @@ const CGFloat ReadMoreButtonHeight =25;
     if (self.myFood.rate >= 0.f) {
         self.starImgView.contentMode =UIViewContentModeScaleAspectFill;
         self.starImgView.image = [UIImage imageNamed:@"star_on.png"];
-        self.starNumberLabel.text = [NSString stringWithFormat:@"%.1f",self.myFood.rate];
+        if (self.myFood.rate>0.f) {
+            self.starNumberLabel.text = [NSString stringWithFormat:@"%.1f",self.myFood.rate];
+        }
+        else{
+            self.starNumberLabel.text = [NSString stringWithFormat:@"%.0f",self.myFood.rate];
+        }
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             self.starImgView.alpha = 1.0f;
             self.starNumberLabel.alpha = 1.0f;
@@ -650,9 +659,9 @@ const CGFloat ReadMoreButtonHeight =25;
     [self.countStr setString:@""];
     self.imgLoaderName = @"";
     
-    self.starNumberLabel.alpha = 0.f;
-    self.starImgView.alpha = 0.f;
-    //self.loadingBtn.hidden = YES;
+    self.starNumberLabel.text = @"";
+    self.starImgView.image = nil;
+    self.loadingBtn.hidden = YES;
     [self resetData];
 }
 
@@ -684,7 +693,6 @@ const CGFloat ReadMoreButtonHeight =25;
             if (self.myFood.comments.count==0) {
                 [self refreshComments];
             }
-            //[self configCommentTable];
             [self showCommentButton];
             NSLog(@"-------------------------FIV fetchFoodInfo ---------------------");
             [self hideLoadingBtn];
@@ -905,6 +913,7 @@ const CGFloat ReadMoreButtonHeight =25;
     //NSLog(@"didChangeRating: %@",newRating);
 }
 
+
 /*****************************/
 /* HATransparentView delegate*/
 /*****************************/
@@ -1068,10 +1077,10 @@ const CGFloat ReadMoreButtonHeight =25;
     self.descriptionLabel.text = newText;
     
     //update other ui blow description label
-    [self layoutSubviews];
+    //[self layoutSubviews];
 
     //update contensize
-    self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width,MAX(CGRectGetHeight(self.commentsTableView.frame), self.frame.size.height)+10);
+    //self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width,MAX(CGRectGetHeight(self.commentsTableView.frame), self.frame.size.height)+10);
 }
 
 -(void)readMoreBtnPressed{
@@ -1097,8 +1106,8 @@ const CGFloat ReadMoreButtonHeight =25;
 
     
     }
-    [self layoutSubviews];
-    self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width,MAX(CGRectGetHeight(self.commentsTableView.frame), self.frame.size.height)+10);
+    //[self layoutSubviews];
+    //self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width,MAX(CGRectGetHeight(self.commentsTableView.frame), self.frame.size.height)+10);
 
 }
 @end

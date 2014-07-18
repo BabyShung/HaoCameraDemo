@@ -9,8 +9,8 @@
             <objects>
                 <viewController storyboardIdentifier="debug" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vXZ-lx-hvc" customClass="DebugViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="EhY-0L-EPH"/>
-                        <viewControllerLayoutGuide type="bottom" id="mLk-hE-32D"/>
+                        <viewControllerLayoutGuide type="top" id="9Mu-zk-tMB"/>
+                        <viewControllerLayoutGuide type="bottom" id="R6i-tC-MF5"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -27,8 +27,8 @@
             <objects>
                 <viewController storyboardIdentifier="AboutUs" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gBt-sy-ge1" customClass="AboutUsViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="b2T-br-aeQ"/>
-                        <viewControllerLayoutGuide type="bottom" id="4cx-NW-Zkq"/>
+                        <viewControllerLayoutGuide type="top" id="3sc-0T-Yry"/>
+                        <viewControllerLayoutGuide type="bottom" id="b1y-Q4-QvR"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="do9-gH-qKc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -38,7 +38,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7T-zk-nD8">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7T-zk-nD8">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -47,10 +47,6 @@
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="4cx-NW-Zkq" firstAttribute="top" secondItem="F7T-zk-nD8" secondAttribute="bottom" id="DGb-A7-kSn"/>
-                            <constraint firstItem="F7T-zk-nD8" firstAttribute="top" secondItem="do9-gH-qKc" secondAttribute="top" id="hfB-zU-mEc"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="textView" destination="F7T-zk-nD8" id="J4o-O3-rtu"/>
@@ -65,8 +61,8 @@
             <objects>
                 <viewController id="yFF-N7-P39" customClass="TestViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Xb1-Ya-Js4"/>
-                        <viewControllerLayoutGuide type="bottom" id="RB9-1a-LjZ"/>
+                        <viewControllerLayoutGuide type="top" id="Bwg-e4-t8e"/>
+                        <viewControllerLayoutGuide type="bottom" id="hiy-fD-y53"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="l26-EX-Tuj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -121,7 +117,7 @@
         <scene sceneID="Tvc-Up-6fg">
             <objects>
                 <collectionViewController storyboardIdentifier="main" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gih-FX-9Wb" customClass="MainViewController" sceneMemberID="viewController">
-                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="LWc-Ae-tJP">
+                    <collectionView key="view" autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="LWc-Ae-tJP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <collectionViewLayout key="collectionViewLayout" id="5aW-8t-hdZ" customClass="smallLayout"/>
@@ -142,8 +138,8 @@
             <objects>
                 <viewController storyboardIdentifier="Frame" useStoryboardIdentifierAsRestorationIdentifier="YES" id="H9x-hn-dib" customClass="FrameViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="FIV-T1-TIJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="Gek-GU-Hre"/>
+                        <viewControllerLayoutGuide type="top" id="rDn-Cp-kCA"/>
+                        <viewControllerLayoutGuide type="bottom" id="rZV-48-qXr"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="VmU-fw-u5u">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -160,8 +156,8 @@
             <objects>
                 <viewController storyboardIdentifier="debug2" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9gv-S4-adj" customClass="EP_thirdViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="FkC-9q-BB0"/>
-                        <viewControllerLayoutGuide type="bottom" id="CNX-GC-b39"/>
+                        <viewControllerLayoutGuide type="top" id="sx4-cB-E4V"/>
+                        <viewControllerLayoutGuide type="bottom" id="iz1-sz-Fm8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="sms-bz-MeL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -205,8 +201,8 @@
             <objects>
                 <viewController id="shp-Wy-hYf" customClass="NetworkTestViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ZIg-Ak-0tk"/>
-                        <viewControllerLayoutGuide type="bottom" id="sLd-aG-8IR"/>
+                        <viewControllerLayoutGuide type="top" id="1aI-zr-D3X"/>
+                        <viewControllerLayoutGuide type="bottom" id="ukb-81-0e9"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="tJ8-DA-eZ4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -349,8 +345,8 @@
             <objects>
                 <viewController storyboardIdentifier="Tabs" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Bos-eE-Oap" customClass="CardsViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="rUb-3x-hto"/>
-                        <viewControllerLayoutGuide type="bottom" id="e33-wj-hKw"/>
+                        <viewControllerLayoutGuide type="top" id="dFJ-Gc-N4y"/>
+                        <viewControllerLayoutGuide type="bottom" id="jOz-Xd-Fbx"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="vcP-2V-pMD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -360,14 +356,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Bkf-yg-wl3" userLabel="Bottom Collection View">
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Bkf-yg-wl3" userLabel="Bottom Collection View">
                                 <rect key="frame" x="0.0" y="370" width="320" height="210"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="fAZ-KT-HG6"/>
-                                    <constraint firstAttribute="height" constant="210" id="svG-cR-XtZ"/>
-                                </constraints>
                                 <collectionViewLayout key="collectionViewLayout" id="Jk3-nz-VT3" customClass="CardFlowLayout"/>
                                 <cells/>
                                 <connections>
@@ -377,9 +369,6 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="Bkf-yg-wl3" secondAttribute="bottom" constant="-12" id="idy-sZ-6f2"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="1BD-SU-b2S"/>
                     <connections>
@@ -413,8 +402,8 @@
             <objects>
                 <viewController id="HHj-Jz-yl9" customClass="LoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="N8W-kw-hNN"/>
-                        <viewControllerLayoutGuide type="bottom" id="Pe8-rW-SwH"/>
+                        <viewControllerLayoutGuide type="top" id="hjL-Rh-Byl"/>
+                        <viewControllerLayoutGuide type="bottom" id="tQO-yN-c0B"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="6L0-aM-KHR">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -535,8 +524,8 @@
             <objects>
                 <viewController storyboardIdentifier="Register" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Sye-7v-QI9" customClass="RegisterViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Hl4-60-Xvf"/>
-                        <viewControllerLayoutGuide type="bottom" id="VKY-vS-9Ad"/>
+                        <viewControllerLayoutGuide type="top" id="4V9-av-LRk"/>
+                        <viewControllerLayoutGuide type="bottom" id="vVb-1c-bYc"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="lgd-Iw-4uF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -652,8 +641,8 @@
             <objects>
                 <viewController storyboardIdentifier="Search" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NFR-g0-wEF" customClass="SearchViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="BSv-uN-YTR"/>
-                        <viewControllerLayoutGuide type="bottom" id="s39-vy-9Uc"/>
+                        <viewControllerLayoutGuide type="top" id="6X2-DS-Vdr"/>
+                        <viewControllerLayoutGuide type="bottom" id="9BE-EQ-J1O"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="aAl-ct-V1j">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -663,12 +652,12 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FyW-vb-qEH" customClass="SSSearchBar">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FyW-vb-qEH" customClass="SSSearchBar">
                                 <rect key="frame" x="20" y="20" width="280" height="32"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gOq-nR-jqc">
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gOq-nR-jqc">
                                 <rect key="frame" x="0.0" y="74" width="320" height="494"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="yhQ-OF-axH">
@@ -713,16 +702,12 @@
                                             <outlet property="queryLabel" destination="mdU-Hv-qi0" id="vyg-0c-Ap1"/>
                                             <outlet property="titleLabel" destination="xpU-8i-cEC" id="7WL-qj-C0F"/>
                                             <outlet property="transLabel" destination="sUL-on-sk9" id="2cm-PN-v7L"/>
-                                            <segue destination="Etm-Qm-qcF" kind="modal" id="DLu-BF-jt6"/>
+                                            <segue destination="Etm-Qm-qcF" kind="modal" identifier="toSingleFoodSegue" id="DLu-BF-jt6"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
                         </subviews>
-                        <constraints>
-                            <constraint firstItem="s39-vy-9Uc" firstAttribute="top" secondItem="gOq-nR-jqc" secondAttribute="bottom" id="QQO-di-oNg"/>
-                            <constraint firstItem="gOq-nR-jqc" firstAttribute="top" secondItem="FyW-vb-qEH" secondAttribute="bottom" constant="22" id="R4t-hY-Ac7"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="gOq-nR-jqc" id="GxY-FN-hLw"/>
@@ -738,8 +723,8 @@
             <objects>
                 <viewController storyboardIdentifier="SingleFoodDetail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Etm-Qm-qcF" customClass="SingleFoodViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="eE5-qg-fEN"/>
-                        <viewControllerLayoutGuide type="bottom" id="2nu-eM-gg9"/>
+                        <viewControllerLayoutGuide type="top" id="qO1-ua-ZUa"/>
+                        <viewControllerLayoutGuide type="bottom" id="TAe-lS-1Od"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="GIc-p3-PG4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>

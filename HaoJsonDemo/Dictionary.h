@@ -31,12 +31,15 @@
 //Send search request to server
 -(void) serverSearchOCRString:(NSString *)inputStr andCompletion:(void (^)(NSArray *results, BOOL success))block;
 
+//Search locally, match the input string at the beginning
+-(NSArray *) localBlurSearchString:(NSString *)typeStr;
+
 //Dictionary update function
 //  1. download file from server;
 //  2. create table.
 //+(void)updateKeyword;
 //+(void)updateDictInLang:(TargetLang) lang;
 
--(NSArray *)splitAndFilterWordsFromString:(NSString *)str;
+//-(NSArray *)splitAndFilterWordsFromString:(NSString *)str;
 
 @end

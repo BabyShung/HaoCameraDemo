@@ -30,6 +30,7 @@
 -(void)setup{
     self.foodInfoView = [[FoodInfoView alloc] initWithFrame:self.bounds];
     [self.foodInfoView setUpForSmallLayout];
+
     [self.contentView addSubview:self.foodInfoView];
     self.backgroundColor = [UIColor whiteColor];
     self.layer.cornerRadius = 8.0f;
@@ -68,30 +69,45 @@
 /*                       */
 /**********MEI************/
 
-
 -(void)willTransitionFromLayout:(UICollectionViewLayout *)oldLayout
                        toLayout:(UICollectionViewLayout *)newLayout
 {
+
+    
+}
+-(void)didTransitionFromLayout:(UICollectionViewLayout *)oldLayout toLayout:(UICollectionViewLayout *)newLayout{
+    
     if ([newLayout class] == [smallLayout class]){
         
         [self.foodInfoView.scrollview setContentOffset:CGPointZero animated:NO];
         [self.foodInfoView setUpForSmallLayout];
+
     }
     else{
         [self.foodInfoView setUpForLargeLayout];
+        if (self.foodInfoView.myFood.isFoodInfoCompleted) {
+            self.foodInfoView.loadingBtn.hidden = YES;
+        }
+        else{
+            self.foodInfoView.loadingBtn.hidden = NO;
+        }
+        
     }
-    
+
+ 
 }
 
 -(void)layoutSubviews
 {
+    [super layoutSubviews];
+
+    [self.foodInfoView setFrame:self.contentView.bounds];
     
-    [self.foodInfoView setFrame:self.bounds];
     
     if (CGRectGetHeight(self.contentView.frame)< CGRectGetHeight([[UIScreen mainScreen] bounds])) {
         self.foodInfoView.commentBtn.alpha = .0f;
         self.foodInfoView.scrollview.scrollEnabled = NO;
-        self.foodInfoView.loadingBtn.hidden = YES;
+        //self.foodInfoView.loadingBtn.hidden = YES;
     }
     else{
         [self.foodInfoView shineDescription];
@@ -99,14 +115,9 @@
         [UIView animateWithDuration:0.5 animations:^{
             self.foodInfoView.commentBtn.alpha = 1;
         }];
-        if (self.foodInfoView.myFood.isFoodInfoCompleted) {
-            self.foodInfoView.loadingBtn.hidden = YES;
-        }
-        else{
-            self.foodInfoView.loadingBtn.hidden = NO;
-        }
+
     }
-    
+    NSLog(@"******************** CELL LAYOUT SUBVIEWS ************************");
 }
 -(void)prepareForReuse{
     NSLog(@"******************** preparing for reuse ************************");
