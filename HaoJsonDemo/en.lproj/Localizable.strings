@@ -44,7 +44,7 @@
 "DETECTOR_NO_RESULT" = "No results, please try again";
 "NOT_LOGIN_REGISTERED_TEXT" = "You are not logged in.\nWhy not register one?";
 "LOGIN_REGISTER_BUTTON_TEXT" = "Login/Register";
-"LOGGEDIN_CONTEXT_1" = "Thank you!\nAnd we love your feedbacks!\nMore features are coming soon!\n\n\n\n\n                    - BlueCheeseTeam";
+"LOGGEDIN_CONTEXT_1" = "Thank you!\nWe love your feedbacks!\nMore features are coming soon!\n\n\n\n\n               - BlueCheeseTeam";
 "NOT_REGISTERED_TEXT" = "You are not logged in\nWhy not register one?";
 "REGISTER_BUTTON_TEXT" = "Register";
 "NICE_WARNING_CONTEXT" = "If no results:\n1.Zoom in\n2.Open torch";
@@ -58,8 +58,9 @@
 "COMMENT_TOO_LONG" = "Comment Text Too Long";
 "LANGUAGUE_SETTING" = "Language";
 "TUTORIAL_STRING"="Tutorial";
-"FIV_READ_MORE"="Read More";
 "FIV_READ_LESS"="Collapse";
 "EMPTY_SEARCH_TERM"="Empty Search Term";
 "NO_SEARCH_RESULT"="No matched result";
 "SEARCH_FAILURE"="Oops! Please Retry";
+"FIV_READ_MORE"="More";
+"FIV_READ_LESS"="Collapse";

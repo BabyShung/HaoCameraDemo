@@ -16,6 +16,9 @@
 #import "UIAlertView+Blocks.h"
 #import "Flurry.h"
 #import "GeneralControl.h"
+#import "NSUserDefaultControls.h"
+
+#define SignupBTNMoving 60
 
 @interface RegisterViewController () <UITextFieldDelegate>
 {
@@ -24,6 +27,7 @@
 
 @property (nonatomic,strong) LoadingAnimation *loadingImage;
 
+@property (weak, nonatomic) IBOutlet UIImageView *registerBGImageView;
 @end
 
 @implementation RegisterViewController
@@ -33,18 +37,26 @@
 {
     [super viewDidLoad];
     
+        self.registerBGImageView.image = iPhone5?[UIImage imageNamed:@"register_ip5.png"]:[UIImage imageNamed:@"register_ip4.png"];
+    
     //[self checkAndStartLoadingAnimation];
     
     [self loadControls];
 }
 
 -(void)loadControls{
-    [self.emailTextField setValue:[ED_Color lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
-    [self.userTextField setValue:[ED_Color lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
-    [self.pwdTextField setValue:[ED_Color lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+    [self.emailTextField setValue:[ED_Color mediumGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+    [self.userTextField setValue:[ED_Color mediumGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+    [self.pwdTextField setValue:[ED_Color mediumGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
     self.userView.layer.cornerRadius = 5;
     self.pwdView.layer.cornerRadius = 5;
     self.emailView.layer.cornerRadius = 5;
+    self.userView.layer.borderColor = [ED_Color lightGrayColor].CGColor;
+    self.userView.layer.borderWidth = 1.0f;
+    self.pwdView.layer.borderColor = [ED_Color lightGrayColor].CGColor;
+    self.pwdView.layer.borderWidth = 1.0f;
+    self.emailView.layer.borderColor = [ED_Color lightGrayColor].CGColor;
+    self.emailView.layer.borderWidth = 1.0f;
     
     self.pwdTextField.secureTextEntry = YES;
     
@@ -59,7 +71,7 @@
     
     signupBtnY = self.signupBtn.center.y;
     
-    [self.signupBtn successStyle];
+    [self.signupBtn blueCheeseStyle_register];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -102,7 +114,7 @@
                 [Flurry logEvent:@"Register_Succeed"];
                 
                 //save into NSUserDefault
-                [GeneralControl saveUserDictionaryIntoNSUserDefault_dict:[User toDictionary] andKey:@"CurrentUser"];
+                [NSUserDefaultControls saveUserDictionaryIntoNSUserDefault_dict:[User toDictionary] andKey:@"CurrentUser"];
                 
                 //transition
                 [GeneralControl transitionToVC:self withToVCStoryboardId:@"Frame"];
@@ -143,7 +155,7 @@
     if(!iPhone5){
         if(self.signupBtn.center.y == signupBtnY){
             [UIView animateWithDuration:0.4f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                self.signupBtn.center = CGPointMake(160, self.signupBtn.center.y-50);
+                self.signupBtn.center = CGPointMake(160, self.signupBtn.center.y-SignupBTNMoving);
                 
             } completion:nil];
         }
@@ -156,9 +168,9 @@
 
 -(void)goDownAnimation{
     if(!iPhone5){
-        if(self.signupBtn.center.y == signupBtnY - 50){
+        if(self.signupBtn.center.y == signupBtnY - SignupBTNMoving){
             [UIView animateWithDuration:0.4f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                self.signupBtn.center = CGPointMake(160, self.signupBtn.center.y+50);
+                self.signupBtn.center = CGPointMake(160, self.signupBtn.center.y+SignupBTNMoving);
             } completion:nil];
         }
     }
@@ -171,7 +183,7 @@
     if(!self.loadingImage){
         self.loadingImage = [[LoadingAnimation alloc] initWithStyle:RTSpinKitViewStyleWave color:[ED_Color edibleGreenColor]];
         CGRect screenBounds = [[UIScreen mainScreen] bounds];
-        self.loadingImage.center = CGPointMake(CGRectGetMidX(screenBounds), iPhone5? screenBounds.size.height*0.4:screenBounds.size.height*0.6);
+        self.loadingImage.center = CGPointMake(CGRectGetMidX(screenBounds), iPhone5? screenBounds.size.height*0.38:screenBounds.size.height*0.83);
         [self.view addSubview:self.loadingImage];
     }
     [self.loadingImage startAnimating];

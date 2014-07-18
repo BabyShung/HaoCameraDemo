@@ -18,6 +18,11 @@
 
 #define DEFAULT_MASK_ALPHA 0.50
 
+#define BUTTON_MARGIN_LEFT_RIGHT 10
+
+#define BUTTON_MARGIN_DOWN 8
+
+
 #import "CameraView.h"
 #import "CameraManager.h"
 #import "ShadeView.h"
@@ -172,23 +177,19 @@
         // }
         return;
     }
-    static int offsetFromSide = 10;
     
     [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut  animations:^{
         
         if (UIInterfaceOrientationIsPortrait(self.iot)) {
             
-            CGFloat centerY = screenHeight - 8 - 20; // 8 is offset from bottom (portrait), 20 is half btn height
+            CGFloat centerY = screenHeight - _backBtn.bounds.size.height / 2 - BUTTON_MARGIN_DOWN;
             
-            _backBtn.center = CGPointMake(offsetFromSide + (_backBtn.bounds.size.width / 2), centerY);
+            _backBtn.center = CGPointMake(BUTTON_MARGIN_LEFT_RIGHT + (_backBtn.bounds.size.width / 2), centerY);
             _TorchBtn.center = _backBtn.center;
             
-            //_captureBtn.bounds = CGRectMake(0, 0, CAPTURE_BTN_WIDTH, CAPTURE_BTN_HEIGHT);
             _captureBtn.center = CGPointMake(screenWidth/2, screenHeight-(iPhone5?100:90));
             
-            // offset from backBTN is '20'
-            
-            _nextPageBtn.center = CGPointMake(screenWidth - offsetFromSide - (_backBtn.bounds.size.width / 2), centerY);
+            _nextPageBtn.center = CGPointMake(screenWidth - BUTTON_MARGIN_LEFT_RIGHT - (_backBtn.bounds.size.width / 2), centerY);
         }
         
         if (_capturedImageView.image) {
@@ -489,22 +490,24 @@
 - (void) loadControls {
     
     //Hao added
-//    CGFloat horizontalMargin_HalfBtnSize = 30;
-//    CGFloat bottomMargin_HalfBtnSize = 28;
-//    CGPoint torchStart = CGPointMake(-horizontalMargin_HalfBtnSize, screenHeight-bottomMargin_HalfBtnSize);
-//    CGPoint captureStart = CGPointMake( screenWidth/2, screenHeight + bottomMargin_HalfBtnSize);
-//    CGPoint nextStart = CGPointMake(screenWidth + horizontalMargin_HalfBtnSize, screenHeight -bottomMargin_HalfBtnSize);
+
+    CGFloat halfButtonSize = _backBtn.bounds.size.width/2;
+    
+    CGPoint torchStart = CGPointMake(halfButtonSize + BUTTON_MARGIN_LEFT_RIGHT,screenHeight+ halfButtonSize+ BUTTON_MARGIN_DOWN);
+    
+
+    CGPoint nextStart = CGPointMake(screenWidth - halfButtonSize - BUTTON_MARGIN_LEFT_RIGHT, screenHeight+ halfButtonSize+ BUTTON_MARGIN_DOWN);
     
     
     // -- LOAD BUTTONS BEGIN -- //
     _backBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andLeftBottomElseRightBottom:YES];
     [_backBtn addTarget:self action:@selector(backBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    _TorchBtn = [LoadControls createRoundedButton_Image:@"ED_torch.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(0, 0, 0, 0) andLeftBottomElseRightBottom:YES];
+    _TorchBtn = [LoadControls createRoundedButton_Image:@"ED_torch.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(0, 0, 0, 0) andLeftBottomElseRightBottom:YES andStartingPosition:torchStart];
     [_TorchBtn addTarget:self action:@selector(torchBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
 
     
-    _nextPageBtn = [LoadControls createRoundedButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 13, 9, 10) andLeftBottomElseRightBottom:NO];
+    _nextPageBtn = [LoadControls createRoundedButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 13, 9, 10) andLeftBottomElseRightBottom:NO andStartingPosition:nextStart];
     [_nextPageBtn addTarget:self action:@selector(nextPagePressed:) forControlEvents:UIControlEventTouchUpInside];
 
     
@@ -512,10 +515,6 @@
     [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     
 
-    
-    
-    
-    
     
     
     // -- LOAD BUTTONS END -- //

@@ -29,6 +29,8 @@
 #import "UIView+Toast.h"
 #import "Flurry.h"
 #import "LocalizationSystem.h"
+#import "NSUserDefaultControls.h"
+#import "HintView.h"
 
 static NSString *CellIdentifier = @"Cell";
 
@@ -39,7 +41,7 @@ static NSString *CellIdentifier = @"Cell";
 }
 @property (strong, nonatomic) UIButton * clearBtn;
 
-@property (strong, nonatomic) UIButton * captureBtn;
+@property (strong, nonatomic) UIButton * nextBtn;
 
 @property (strong,nonatomic) Tesseract *tesseract;
 
@@ -69,10 +71,6 @@ static NSString *CellIdentifier = @"Cell";
 
 - (void)viewDidLoad{
     
-    
-
-    
-    
     ScreenWidth = CGRectGetWidth([[UIScreen mainScreen] bounds]);
     ScreenHeight = CGRectGetHeight([[UIScreen mainScreen] bounds]);
     
@@ -85,17 +83,8 @@ static NSString *CellIdentifier = @"Cell";
     //init controls, *camera*
     [self loadControls];
     
-
     //set camView delegate to be DEBUG_VC
     [self.Maindelegate setCamDelegateFromMain:self];
-    
-    
-    //for debugging
-//    Food *food1 = [[Food alloc] initWithTitle:@"Blue cheese" andTranslations:@"蓝芝士"];
-//    Food *food2 = [[Food alloc] initWithTitle:@"Bacon" andTranslations:@"培根"];
-//    Food *food3 = [[Food alloc] initWithTitle:@"Onion" andTranslations:@"洋葱"];
-//    self.foodArray = [NSMutableArray arrayWithObjects:food1,food2,food3, nil];
-//    self.collectionView.hidden = NO;
     
 }
 
@@ -128,19 +117,17 @@ static NSString *CellIdentifier = @"Cell";
     _clearBtn.hidden = YES;
     [self.view insertSubview:_clearBtn aboveSubview:self.collectionView];
     
-    _captureBtn = [LoadControls createRoundedButton_Image:@"Camera_01.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andLeftBottomElseRightBottom:NO];
-    [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    _captureBtn.alpha = 1;
-    _captureBtn.hidden = YES;
-    [self.view insertSubview:_captureBtn aboveSubview:self.collectionView];
+    
+    _nextBtn = [LoadControls createRoundedButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 13, 9, 10) andLeftBottomElseRightBottom:NO];
+    [_nextBtn addTarget:self action:@selector(nextBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    _nextBtn.alpha = 1;
+    _nextBtn.hidden = YES;
+    [self.view insertSubview:_nextBtn aboveSubview:self.collectionView];
 }
 
 - (void) clearBtnPressed:(id)sender {
     
-    
     [Flurry logEvent:@"Clear_Btn_Pressed"];  
-    
-    
     
     //save searchHistory and clear
     [SearchDictionary saveSearchHistoryToLocalDB];
@@ -165,19 +152,29 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 //right bottom button
-- (void) captureBtnPressed:(id)sender {
-
-    //resume camera
-    [self.camView backBtnPressed:nil];
-    [self.camView resumeCamera];
+- (void) nextBtnPressed:(id)sender {
+    [self.camView nextPagePressed:nil];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
     
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        HintView *hv = [[HintView alloc] initWithFrame:self.view.frame];
+//        [self.view addSubview:hv];
+//        
+//        [hv updateSpotLightWithPoint:CGPointMake(250, 100)];
+//    });
+    
+
+    
+    
+    
+    
+    
     //[self.camView startLoadingAnimation];
     
     [self.view bringSubviewToFront:_clearBtn];
-    [self.view bringSubviewToFront:_captureBtn];
+    [self.view bringSubviewToFront:_nextBtn];
     
     //scroll DEspeed normal
     self.collectionView.decelerationRate = UIScrollViewDecelerationRateNormal;
@@ -207,7 +204,6 @@ static NSString *CellIdentifier = @"Cell";
     
     EDCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
 
-    
     [cell configFIVForCell:indexPath.row withFood:self.foodArray[indexPath.row]];
     
 //    if (cell.frame.size.height == [[UIScreen mainScreen] bounds].size.height) {
@@ -238,7 +234,6 @@ static NSString *CellIdentifier = @"Cell";
     viewController.useLayoutToLayoutNavigationTransitions = YES;
     [self.navigationController pushViewController:viewController animated:YES];
 }
-
 
 //delegate method, after calling startInteractiveTransition, will call this
 - (UICollectionViewTransitionLayout *)collectionView:(UICollectionView *)collectionView
@@ -299,7 +294,7 @@ static NSString *CellIdentifier = @"Cell";
 
 -(void)loadTesseract{
     _tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];//langague package
-    [_tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" forKey:@"tessedit_char_whitelist"]; //limit search
+    [_tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz,.&-" forKey:@"tessedit_char_whitelist"]; //limit search
 }
 
 #pragma mark --------- Tesseract
@@ -317,7 +312,6 @@ static NSString *CellIdentifier = @"Cell";
 
 - (void) EdibleCamera:(MainViewController *)simpleCam didFinishWithImage:(UIImage *)image withRect:(CGRect)rect andCropSize:(CGSize)size{
 
-    
     /****** OCR and Searching Components *****/
     
     Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
@@ -459,11 +453,11 @@ static NSString *CellIdentifier = @"Cell";
         
         [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.clearBtn.alpha = 1;
-            self.captureBtn.alpha = 1;
+            self.nextBtn.alpha = 1;
         } completion:^(BOOL finished) {
             if (finished) {
                 self.clearBtn.hidden = NO;
-                self.captureBtn.hidden = NO;
+                self.nextBtn.hidden = NO;
             }
         }];
     }
@@ -478,12 +472,12 @@ static NSString *CellIdentifier = @"Cell";
                                       //alpha collection view and two buttons
                                       self.collectionView.alpha = 0;
                                       self.clearBtn.alpha = 0;
-                                      self.captureBtn.alpha = 0;
+                                      self.nextBtn.alpha = 0;
                                   }
                                   completion:^(BOOL finished){
                                       //hide collection view and two buttons
                                       self.clearBtn.hidden = YES;
-                                      self.captureBtn.hidden = YES;
+                                      self.nextBtn.hidden = YES;
                                       self.collectionView.hidden = YES;
                                   }];
     }

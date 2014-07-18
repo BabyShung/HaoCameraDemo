@@ -18,12 +18,18 @@
 #import "UIResponder+KeyboardCache.h"
 #import "Flurry.h"
 #import "GeneralControl.h"
+#import "NSUserDefaultControls.h"
+
+
+#define SCROLLVIEW_CONTENTOFF_WhenClickTextfield 112
 
 @interface LoginViewController () <MKTransitionCoordinatorDelegate,UITextFieldDelegate>
 
 @property (nonatomic, strong) MKTransitionCoordinator *menuInteractor;
 
 @property (nonatomic,strong) LoadingAnimation *loadingImage;
+
+@property (weak, nonatomic) IBOutlet UIImageView *loginBGImageView;
 
 @end
 
@@ -32,6 +38,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.loginBGImageView.image = iPhone5?[UIImage imageNamed:@"login_ip5.png"]:[UIImage imageNamed:@"login_ip4.png"];
     
     //cache keyboard
     [UIResponder cacheKeyboard];
@@ -61,13 +69,18 @@
         self.menuInteractor = [[MKTransitionCoordinator alloc] initWithParentViewController:self];
         self.menuInteractor.delegate = self;
         
-        [self.loginBtn primaryStyle];
+        [self.loginBtn blueCheeseStyle_login];
         
         self.userView.layer.cornerRadius = 5;
         self.pwdView.layer.cornerRadius = 5;
         
-        [self.emailTextField setValue:[ED_Color lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
-        [self.pwdTextField setValue:[ED_Color lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+        self.userView.layer.borderColor = [ED_Color lightGrayColor].CGColor;
+        self.userView.layer.borderWidth = 1.0f;
+        self.pwdView.layer.borderColor = [ED_Color lightGrayColor].CGColor;
+        self.pwdView.layer.borderWidth = 1.0f;
+        
+        [self.emailTextField setValue:[ED_Color mediumGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+        [self.pwdTextField setValue:[ED_Color mediumGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
         
         [self.emailTextField setKeyboardType:UIKeyboardTypeEmailAddress];
         self.pwdTextField.secureTextEntry = YES;
@@ -125,7 +138,7 @@
             if(success){//user info already set
                 
                 //save into NSUserDefault
-                [GeneralControl saveUserDictionaryIntoNSUserDefault_dict:[User toDictionary] andKey:@"CurrentUser"];
+                [NSUserDefaultControls saveUserDictionaryIntoNSUserDefault_dict:[User toDictionary] andKey:@"CurrentUser"];
                 
                 NSLog(@"%@",[User sharedInstance]);
                 
@@ -172,9 +185,9 @@
 }
 
 -(void)goUpAnimation{
-    if(self.bgScrollView.bounds.origin.y != 175){
+    if(self.bgScrollView.bounds.origin.y != SCROLLVIEW_CONTENTOFF_WhenClickTextfield){
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.bgScrollView setContentOffset:CGPointMake(0,175) animated:YES];
+            [self.bgScrollView setContentOffset:CGPointMake(0,SCROLLVIEW_CONTENTOFF_WhenClickTextfield) animated:YES];
         });
     }
 }
@@ -191,9 +204,9 @@
 -(void)checkAndStartLoadingAnimation{
     //start animation
     if(!self.loadingImage){
-        self.loadingImage = [[LoadingAnimation alloc] initWithStyle:RTSpinKitViewStyleWave color:[ED_Color edibleBlueColor_DeepDark]];
+        self.loadingImage = [[LoadingAnimation alloc] initWithStyle:RTSpinKitViewStyleWave color:[ED_Color edibleBlueColor_CheeseHole]];
         CGRect screenBounds = [[UIScreen mainScreen] bounds];
-        self.loadingImage.center = CGPointMake(CGRectGetMidX(screenBounds), iPhone5? screenBounds.size.height*0.7:screenBounds.size.height*0.82);
+        self.loadingImage.center = CGPointMake(CGRectGetMidX(screenBounds), iPhone5? screenBounds.size.height*0.61:screenBounds.size.height*0.75);
         [self.view addSubview:self.loadingImage];
     }
     [self.loadingImage startAnimating];

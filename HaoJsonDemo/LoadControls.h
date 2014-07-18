@@ -19,6 +19,7 @@
 
 +(UIButton *)createRoundedButton_Image:(NSString *)imageName andTintColor:(UIColor *) color andImageInset:(UIEdgeInsets) edgeInset andLeftBottomElseRightBottom:(BOOL)left;
 
++(UIButton *)createRoundedButton_Image:(NSString *)imageName andTintColor:(UIColor *) color andImageInset:(UIEdgeInsets) edgeInset andLeftBottomElseRightBottom:(BOOL)left andStartingPosition:(CGPoint)startingpoint;
 
 +(UIButton *)createUIButtonWithRect:(CGRect)rect;
 //camera button

@@ -61,7 +61,7 @@ const CGFloat CommentTitleHtight = 55.f;
 const CGFloat CommentRateViewHeight = 65;
 const CGFloat CommentRateViewWidth = 260;
 
-const CGFloat ReadMoreButtonWidth =60;
+const CGFloat ReadMoreButtonWidth =65;
 const CGFloat ReadMoreButtonHeight =25;
 
 @interface FoodInfoView () <UICollectionViewDataSource,UICollectionViewDelegate,TagViewDelegate,UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,HATransparentViewDelegate,UITextViewDelegate>

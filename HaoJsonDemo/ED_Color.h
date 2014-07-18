@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ED_Color : NSObject
+@interface ED_Color : UIColor
 
 + (UIColor *) darkGreyColor;
 + (UIColor *) lightGrayColor;
++ (UIColor *) mediumGrayColor;
 + (UIColor *) redColor;
 + (UIColor *) greenColor;
 + (UIColor *) blueColor;
@@ -20,6 +21,7 @@
 + (UIColor *) edibleBlueColor_Light;
 + (UIColor *) edibleBlueColor_Deep;
 + (UIColor *)edibleBlueColor_DeepDark;
++(UIColor *)edibleBlueColor_CheeseHole;
 
 + (UIColor *)edibleGreenColor;
 
@@ -29,5 +31,7 @@
 + (UIColor *)cardMediumBlue;
 + (UIColor *)cardDeepBrown;
 + (UIColor *)cardPink;
+
++(UIColor *)edible_Gray;
 
 @end

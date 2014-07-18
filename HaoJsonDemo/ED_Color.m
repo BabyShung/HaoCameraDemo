@@ -20,6 +20,10 @@
     return [UIColor colorWithRed:199/255.0 green:199/255.0 blue:199/255.0 alpha:1];
 }
 
++ (UIColor *) mediumGrayColor {
+    return [UIColor colorWithRed:156/255.0 green:164/255.0 blue:162/255.0 alpha:1];
+}
+
 + (UIColor *) redColor {
     return [UIColor colorWithRed:1 green:0 blue:0.105670 alpha:.6];
 }
@@ -44,6 +48,14 @@
 
 +(UIColor *)edibleBlueColor_DeepDark{
     return [UIColor colorWithRed:0.161 green:0.502 blue:0.725 alpha:1.0];
+}
+
++(UIColor *)edibleBlueColor_CheeseHole{
+    return [UIColor colorWithRed:18/255.0 green:160/255.0 blue:204/255.0 alpha:1];
+}
+
++(UIColor *)edible_Gray{
+    return [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1];
 }
 
 +(UIColor *)edibleGreenColor{

@@ -14,6 +14,10 @@
 
 #define ButtonAvailableAlpha 0.6
 
+#define BUTTON_MARGIN_LEFT_RIGHT 10
+
+#define BUTTON_MARGIN_DOWN 8
+
 @implementation LoadControls
 
 
@@ -70,8 +74,13 @@
 
 +(UIButton *)createRoundedButton_Image:(NSString *)imageName andTintColor:(UIColor *) color andImageInset:(UIEdgeInsets) edgeInset andLeftBottomElseRightBottom:(BOOL)left{
     
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    return [self createRoundedButton_Image:imageName andTintColor:color andImageInset:edgeInset andLeftBottomElseRightBottom:left andStartingPosition:CGPointZero];
+}
 
++(UIButton *)createRoundedButton_Image:(NSString *)imageName andTintColor:(UIColor *) color andImageInset:(UIEdgeInsets) edgeInset andLeftBottomElseRightBottom:(BOOL)left andStartingPosition:(CGPoint)startingpoint{
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    
     button.bounds = CGRectMake(0, 0, 50, 50);
     button.backgroundColor = [UIColor colorWithWhite:1 alpha:.90];
     button.alpha = ButtonAvailableAlpha;
@@ -80,17 +89,24 @@
         [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
         [button setTintColor:color];
         [button setImageEdgeInsets:edgeInset];
-        
     }
     
-    CGFloat centerHeightToBottom = CGRectGetHeight([[UIScreen mainScreen] bounds])-8-20;
+    CGFloat centerHeightToBottom = CGRectGetHeight([[UIScreen mainScreen] bounds])-button.bounds.size.height/2 -BUTTON_MARGIN_DOWN;
     
-    if(left){
-        button.center = CGPointMake(30, centerHeightToBottom);
+    if(CGPointEqualToPoint(CGPointZero, startingpoint)){
+        if(left){
+            button.center = CGPointMake(button.bounds.size.width/2 + BUTTON_MARGIN_LEFT_RIGHT, centerHeightToBottom);
+        }else{
+            button.center = CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds]) - button.bounds.size.width/2 - BUTTON_MARGIN_LEFT_RIGHT, centerHeightToBottom);
+        }
     }else{
-        button.center = CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds]) - 30, centerHeightToBottom);
-    }
+        button.center = startingpoint;
 
+    }
+    
+    
+
+    
     button.layer.shouldRasterize = YES;
     button.layer.rasterizationScale = [UIScreen mainScreen].scale;
     button.layer.cornerRadius = smallBTNRadius;

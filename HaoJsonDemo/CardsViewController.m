@@ -120,7 +120,7 @@ UICollectionViewDelegate,HATransparentViewDelegate,UITableViewDataSource,UITable
         
         //show
         self.descriptionLabel.text = AMLocalizedString(@"LOGGEDIN_CONTEXT_1", nil);
-        self.descriptionLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:18];
+        self.descriptionLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:20];
         
     }
     
@@ -230,7 +230,7 @@ UICollectionViewDelegate,HATransparentViewDelegate,UITableViewDataSource,UITable
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     
-    [GeneralControl setPageViewControllerScrollEnabled:NO];
+    //[GeneralControl setPageViewControllerScrollEnabled:NO];
     
     NSUInteger index = indexPath.row;
     
@@ -318,6 +318,10 @@ UICollectionViewDelegate,HATransparentViewDelegate,UITableViewDataSource,UITable
     [lrf show];
     
 }
+
+//-(void)viewDidDisappear:(BOOL)animated{
+//    
+//}
 
 -(void)viewWillDisappear:(BOOL)animated{
     [self CardSlide:YES];

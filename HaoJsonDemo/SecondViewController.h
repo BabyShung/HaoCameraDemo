@@ -10,4 +10,6 @@
 
 @interface SecondViewController : UICollectionViewController
 
+@property (strong, nonatomic) UIButton * backBtn;
+
 @end
