@@ -174,7 +174,7 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
     //Generate all combination of remain words
     NSMutableString * tmpStr = [[NSMutableString alloc]init];
     NSUInteger numOfWords = words_corrected.count;
-    if(numOfWords < 7 && numOfWords >0){ // avoid latancy
+    if(numOfWords < 20 && numOfWords >0){ // avoid latancy
         for (int i=0; i<numOfWords-1; i++) {
             [tmpStr setString:words_corrected[i]];
             [tmpStr stringByReplacingOccurrencesOfString:@"\r\n"
