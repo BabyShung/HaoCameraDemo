@@ -111,6 +111,7 @@ English Muffins
 Flatbread
 Flatbreads
 Focaccia
+Focaccias
 Garlic Bread
 Garlic Breads
 Granola
@@ -203,6 +204,8 @@ Mexican Cheese
 Mexican Cheeses
 Milk
 Milks
+Cream
+Creams
 Sour cream
 Sour creams
 Smetana
@@ -425,6 +428,7 @@ Mango
 Mangos
 Melon
 Melons
+Lemon
 Lime
 Nectarine
 Nectarines
@@ -565,16 +569,14 @@ Couscous
 Couscouses
 Fried Rice
 Fried Rices
+Gnocco
 Gnocchi
-Gnocchis
 Jambalaya
 Jambalayas
 Lasagna
 Lasagnas
 Macaroni
 Macaronis
-Macaroni and Cheese
-Macaroni and Cheeses
 Noodle
 Noodles
 Paella
@@ -586,7 +588,7 @@ Pilafs
 Polenta
 Polentas
 Ravioli
-Raviolis
+Raviolo
 Rice
 Risotto
 Risottos
@@ -657,7 +659,6 @@ Oil
 Oils
 Olive Oil
 Olive Oils
-Rostada
 Pasta Sauce
 Pasta Sauces
 Peanut Butter
@@ -1026,8 +1027,6 @@ Nougat
 Nougats
 Nutrition Drink
 Nutrition Drinks
-Pate
-Pates
 Pecan Pie
 Pecan Pies
 Crust
@@ -1149,6 +1148,7 @@ Tomato Cream Sauce
 Tomato Cream Sauces
 Alfredo Sauce
 Alfredo Sauces
+Marinara
 Marinara Sauce
 Marinara Sauces
 Bacon & Cheese Sauce
