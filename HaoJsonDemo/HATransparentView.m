@@ -54,12 +54,12 @@
         
         switch (self.style) {
             case HAStyleLight: {
-                [close setImage:[UIImage imageNamed:@"btn-close"] forState:UIControlStateNormal];
+                [close setImage:[UIImage imageNamed:@"bold_cross"] forState:UIControlStateNormal];
                 [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
                 break;
             }
             case HAStyleBlack: {
-                [close setImage:[UIImage imageNamed:@"btn-close-black"] forState:UIControlStateNormal];
+                [close setImage:[UIImage imageNamed:@"bold_cross"] forState:UIControlStateNormal];
                 [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
                 break;
             }

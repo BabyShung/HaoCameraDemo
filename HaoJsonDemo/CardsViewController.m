@@ -80,14 +80,20 @@ UICollectionViewDelegate,HATransparentViewDelegate,UITableViewDataSource,UITable
 
 - (void) doInits {
     
-    colors = @[[ED_Color cardLightBlue],[ED_Color cardLightGreen],[ED_Color cardLightYellow],[ED_Color cardMediumBlue],[ED_Color cardDeepBrown],[ED_Color cardPink]];
-    self.settings = [NSArray arrayWithObjects:AMLocalizedString(@"CARD_SEARCH", nil),AMLocalizedString(@"CARD_FEEDBACK", nil),AMLocalizedString(@"CARD_ABOUT", nil),AMLocalizedString(@"LANGUAGUE_SETTING", nil),AMLocalizedString(@"TUTORIAL_STRING", nil),AMLocalizedString(@"CARD_LOGOUT", nil), nil];
+    colors = @[[ED_Color cardLightBlue],[ED_Color cardLightGreen],[ED_Color cardMediumBlue],[UIColor whiteColor],[ED_Color cardLightYellow],[ED_Color cardPink]];
+    self.settings = [NSArray arrayWithObjects:
+                     AMLocalizedString(@"CARD_SEARCH", nil),
+                     AMLocalizedString(@"CARD_FEEDBACK",nil),
+                     AMLocalizedString(@"LANGUAGUE_SETTING",nil),
+                     AMLocalizedString(@"TUTORIAL_STRING", nil),
+                     AMLocalizedString(@"CARD_ABOUT", nil),
+                     AMLocalizedString(@"CARD_LOGOUT", nil), nil];
     self.settingsImages = [NSArray arrayWithObjects:
                            [UIImage imageNamed:@"ED_search.png"],
                            [UIImage imageNamed:@"ED_feedback.png"],
+                           [UIImage imageNamed:@"ED_switchLanguage.png"],
                            [UIImage imageNamed:@"ED_about.png"],
-                           [UIImage imageNamed:@"ED_about.png"],
-                           [UIImage imageNamed:@"ED_about.png"],
+                           [UIImage imageNamed:@"ED_aboutUs.png"],
                            [UIImage imageNamed:@"ED_logout.png"], nil];
     
     self.languages = [NSArray arrayWithObjects:
@@ -270,11 +276,6 @@ UICollectionViewDelegate,HATransparentViewDelegate,UITableViewDataSource,UITable
         }];
     }else if (index == 2){
         
-        [Flurry logEvent:@"Index_2_About"];
-        
-        [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"AboutUs"] animated:YES];
-    }else if (index == 3){
-        
         _transparentView = [[HATransparentView alloc] init];
         _transparentView.delegate = self;
         [_transparentView open];
@@ -289,8 +290,13 @@ UICollectionViewDelegate,HATransparentViewDelegate,UITableViewDataSource,UITable
         [_transparentView addSubview:tableView];
 
         
+    }else if (index == 3){
+        
     }else if (index == 4){
         
+        [Flurry logEvent:@"Index_2_About"];
+        
+        [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"AboutUs"] animated:YES];
     }
     else if (index == 5){
         
