@@ -20,4 +20,5 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *bgScrollView;
 
+@property (weak, nonatomic) IBOutlet UIImageView *loginImageView;
 @end

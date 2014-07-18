@@ -409,7 +409,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_ip5.png" translatesAutoresizingMaskIntoConstraints="NO" id="6Nu-6h-1Ry">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="URL-H1-cqg" userLabel="loginBG">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -505,18 +505,18 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="6Nu-6h-1Ry" firstAttribute="top" secondItem="6L0-aM-KHR" secondAttribute="top" id="EKf-83-vM6"/>
-                            <constraint firstItem="Pe8-rW-SwH" firstAttribute="top" secondItem="6Nu-6h-1Ry" secondAttribute="bottom" id="N4x-nM-qKu"/>
-                            <constraint firstItem="6Nu-6h-1Ry" firstAttribute="leading" secondItem="6L0-aM-KHR" secondAttribute="leading" id="Zty-16-gT0"/>
-                            <constraint firstAttribute="trailing" secondItem="6Nu-6h-1Ry" secondAttribute="trailing" id="g2o-2g-6iq"/>
+                            <constraint firstItem="URL-H1-cqg" firstAttribute="top" secondItem="6L0-aM-KHR" secondAttribute="top" id="4Cb-TK-m52"/>
+                            <constraint firstItem="URL-H1-cqg" firstAttribute="leading" secondItem="6L0-aM-KHR" secondAttribute="leading" id="HyF-pb-KdJ"/>
+                            <constraint firstItem="tQO-yN-c0B" firstAttribute="top" secondItem="URL-H1-cqg" secondAttribute="bottom" id="tiN-Fk-WoZ"/>
+                            <constraint firstAttribute="trailing" secondItem="URL-H1-cqg" secondAttribute="trailing" id="y0K-Nq-11a"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="s1e-Sj-5uK"/>
                     <connections>
                         <outlet property="bgScrollView" destination="Rl0-YO-SyU" id="DBI-st-xze"/>
                         <outlet property="emailTextField" destination="sK0-As-kSb" id="EB8-9q-OHj"/>
-                        <outlet property="loginBGImageView" destination="6Nu-6h-1Ry" id="6Yx-vM-NA2"/>
                         <outlet property="loginBtn" destination="27J-mz-zxJ" id="u36-eA-01e"/>
+                        <outlet property="loginImageView" destination="URL-H1-cqg" id="UCN-OL-7lA"/>
                         <outlet property="pwdTextField" destination="xlg-F4-GJ2" id="wR3-ky-qs7"/>
                         <outlet property="pwdView" destination="qqL-t7-CPy" id="kvX-Iu-mHl"/>
                         <outlet property="userView" destination="PXb-dS-OGI" id="JHd-TY-3BI"/>
@@ -538,9 +538,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="register_ip5.png" translatesAutoresizingMaskIntoConstraints="NO" id="15i-LB-Y0z">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Od7-5j-vg5" userLabel="signupBG">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="elX-e3-hUj">
                                 <rect key="frame" x="63" y="308" width="195" height="47"/>
@@ -611,10 +611,10 @@
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="15i-LB-Y0z" firstAttribute="top" secondItem="lgd-Iw-4uF" secondAttribute="top" id="KtR-PT-XPz"/>
-                            <constraint firstAttribute="trailing" secondItem="15i-LB-Y0z" secondAttribute="trailing" id="R9h-Ag-E8y"/>
-                            <constraint firstItem="15i-LB-Y0z" firstAttribute="leading" secondItem="lgd-Iw-4uF" secondAttribute="leading" id="wwk-t4-RpZ"/>
-                            <constraint firstItem="VKY-vS-9Ad" firstAttribute="top" secondItem="15i-LB-Y0z" secondAttribute="bottom" id="xKE-gq-CXx"/>
+                            <constraint firstAttribute="trailing" secondItem="Od7-5j-vg5" secondAttribute="trailing" id="6jm-DP-kQd"/>
+                            <constraint firstItem="Od7-5j-vg5" firstAttribute="top" secondItem="lgd-Iw-4uF" secondAttribute="top" id="9Sh-2B-bdC"/>
+                            <constraint firstItem="vVb-1c-bYc" firstAttribute="top" secondItem="Od7-5j-vg5" secondAttribute="bottom" id="Cl7-j2-LZi"/>
+                            <constraint firstItem="Od7-5j-vg5" firstAttribute="leading" secondItem="lgd-Iw-4uF" secondAttribute="leading" id="Zul-JT-RbI"/>
                         </constraints>
                     </view>
                     <connections>
@@ -622,8 +622,8 @@
                         <outlet property="emailView" destination="wJ6-Lc-UxI" id="jy4-Gf-aRh"/>
                         <outlet property="pwdTextField" destination="ogZ-ar-is4" id="6Mb-zE-VGh"/>
                         <outlet property="pwdView" destination="yMK-yo-KYD" id="kgo-hq-moe"/>
-                        <outlet property="registerBGImageView" destination="15i-LB-Y0z" id="zuH-ee-cQo"/>
                         <outlet property="signupBtn" destination="6ic-ru-quV" id="s51-Kk-AR5"/>
+                        <outlet property="signupImageView" destination="Od7-5j-vg5" id="OYh-SM-5vu"/>
                         <outlet property="userTextField" destination="ZEa-vA-scu" id="cxe-xe-y1T"/>
                         <outlet property="userView" destination="6zP-I5-u8s" id="bfC-cC-HHY"/>
                     </connections>
@@ -755,8 +755,6 @@
         <image name="Login_logo_transparent.png" width="232" height="232"/>
         <image name="blackBG.JPG" width="542" height="960"/>
         <image name="lock.png" width="85" height="70"/>
-        <image name="login_ip5.png" width="640" height="1136"/>
-        <image name="register_ip5.png" width="640" height="1136"/>
         <image name="user.png" width="85" height="70"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
