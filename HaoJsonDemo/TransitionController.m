@@ -133,6 +133,18 @@
         self.transitionLayout = nil;
         self.context = nil;
         self.hasActiveInteraction = NO;
+        
+        
+//        SecondViewController *svc;
+//        
+//        if([toCollectionVC class] == [SecondViewController class]){
+//            
+//            svc = (SecondViewController *)toCollectionVC;
+//
+//            [svc.view bringSubviewToFront:svc.backBtn];
+//        }
+        
+        
     }];
 }
 

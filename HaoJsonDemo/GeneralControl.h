@@ -18,7 +18,7 @@
 
 +(void)transitionToVC:(UIViewController *)vc withToVCStoryboardId:(NSString*)name withDuration:(CGFloat) duration;
 
-+(void)saveUserDictionaryIntoNSUserDefault_dict:(NSDictionary *)dict andKey:(NSString *)key;
+
 
 +(void)setPageViewControllerScrollEnabled:(BOOL)enabled;
 

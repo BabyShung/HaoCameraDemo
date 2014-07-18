@@ -17,5 +17,6 @@
 -(void)infoStyle;
 -(void)warningStyle;
 -(void)dangerStyle;
--(void)blueCheeseStyle;
+-(void)blueCheeseStyle_login;
+-(void)blueCheeseStyle_register;
 @end

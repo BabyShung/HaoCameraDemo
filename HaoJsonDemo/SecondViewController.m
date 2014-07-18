@@ -18,7 +18,7 @@
 
 @interface SecondViewController ()
 
-@property (strong, nonatomic) UIButton * backBtn;
+
 
 @property (strong, nonatomic) UILabel *wordCountLabel;
 

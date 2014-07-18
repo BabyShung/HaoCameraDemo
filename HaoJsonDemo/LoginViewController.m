@@ -18,8 +18,10 @@
 #import "UIResponder+KeyboardCache.h"
 #import "Flurry.h"
 #import "GeneralControl.h"
+#import "NSUserDefaultControls.h"
 
-#define SCROLLVIEW_CONTENTOFF_WhenClickTextfield 105
+
+#define SCROLLVIEW_CONTENTOFF_WhenClickTextfield 112
 
 @interface LoginViewController () <MKTransitionCoordinatorDelegate,UITextFieldDelegate>
 
@@ -67,7 +69,7 @@
         self.menuInteractor = [[MKTransitionCoordinator alloc] initWithParentViewController:self];
         self.menuInteractor.delegate = self;
         
-        [self.loginBtn blueCheeseStyle];
+        [self.loginBtn blueCheeseStyle_login];
         
         self.userView.layer.cornerRadius = 5;
         self.pwdView.layer.cornerRadius = 5;
@@ -136,7 +138,7 @@
             if(success){//user info already set
                 
                 //save into NSUserDefault
-                [GeneralControl saveUserDictionaryIntoNSUserDefault_dict:[User toDictionary] andKey:@"CurrentUser"];
+                [NSUserDefaultControls saveUserDictionaryIntoNSUserDefault_dict:[User toDictionary] andKey:@"CurrentUser"];
                 
                 NSLog(@"%@",[User sharedInstance]);
                 
@@ -204,7 +206,7 @@
     if(!self.loadingImage){
         self.loadingImage = [[LoadingAnimation alloc] initWithStyle:RTSpinKitViewStyleWave color:[ED_Color edibleBlueColor_CheeseHole]];
         CGRect screenBounds = [[UIScreen mainScreen] bounds];
-        self.loadingImage.center = CGPointMake(CGRectGetMidX(screenBounds), iPhone5? screenBounds.size.height*0.64:screenBounds.size.height*0.82);
+        self.loadingImage.center = CGPointMake(CGRectGetMidX(screenBounds), iPhone5? screenBounds.size.height*0.61:screenBounds.size.height*0.75);
         [self.view addSubview:self.loadingImage];
     }
     [self.loadingImage startAnimating];

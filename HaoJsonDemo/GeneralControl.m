@@ -71,8 +71,5 @@
                     }];
 }
 
-+(void)saveUserDictionaryIntoNSUserDefault_dict:(NSDictionary *)dict andKey:(NSString *)key{
-    [[NSUserDefaults standardUserDefaults] setObject:dict forKey:key];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
+
 @end

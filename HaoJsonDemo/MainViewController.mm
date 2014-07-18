@@ -29,6 +29,8 @@
 #import "UIView+Toast.h"
 #import "Flurry.h"
 #import "LocalizationSystem.h"
+#import "NSUserDefaultControls.h"
+#import "HintView.h"
 
 static NSString *CellIdentifier = @"Cell";
 
@@ -155,6 +157,19 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 - (void) viewDidAppear:(BOOL)animated {
+    
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        HintView *hv = [[HintView alloc] initWithFrame:self.view.frame];
+//        [self.view addSubview:hv];
+//        
+//        [hv updateSpotLightWithPoint:CGPointMake(250, 100)];
+//    });
+    
+
+    
+    
+    
+    
     
     //[self.camView startLoadingAnimation];
     
