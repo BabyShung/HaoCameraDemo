@@ -38,7 +38,7 @@
 "TEXT_NOT_NIL"="Please type something : )";
 "TIME" = " time";
 "TIMES" = " times";
-"FIV_CMTV_TITLE" = "Comment on ";
+"FIV_CMTV_TITLE" = "Review";
 "SUCCESS_COMMENT" = "Comment sent";
 "FAIL_COMMENT" = "Sorry, please send again";
 "DETECTOR_NO_RESULT" = "No results, please try again";

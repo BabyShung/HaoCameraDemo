@@ -87,6 +87,10 @@
     [self setupInterface];
 }
 
+- (NSUInteger) currentStar{
+    return _stars;
+}
+
 - (void)setupInterface
 {
     if (_isInitialized) {

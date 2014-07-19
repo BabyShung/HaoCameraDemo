@@ -409,7 +409,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_ip5.png" translatesAutoresizingMaskIntoConstraints="NO" id="6Nu-6h-1Ry">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="login_ip5.png" translatesAutoresizingMaskIntoConstraints="NO" id="6Nu-6h-1Ry">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -506,7 +506,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="6Nu-6h-1Ry" firstAttribute="top" secondItem="6L0-aM-KHR" secondAttribute="top" id="EKf-83-vM6"/>
-                            <constraint firstItem="Pe8-rW-SwH" firstAttribute="top" secondItem="6Nu-6h-1Ry" secondAttribute="bottom" id="N4x-nM-qKu"/>
+                            <constraint firstAttribute="top" secondItem="6Nu-6h-1Ry" secondAttribute="bottom" id="N4x-nM-qKu"/>
                             <constraint firstItem="6Nu-6h-1Ry" firstAttribute="leading" secondItem="6L0-aM-KHR" secondAttribute="leading" id="Zty-16-gT0"/>
                             <constraint firstAttribute="trailing" secondItem="6Nu-6h-1Ry" secondAttribute="trailing" id="g2o-2g-6iq"/>
                         </constraints>
@@ -538,7 +538,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="register_ip5.png" translatesAutoresizingMaskIntoConstraints="NO" id="15i-LB-Y0z">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="register_ip5.png" translatesAutoresizingMaskIntoConstraints="NO" id="15i-LB-Y0z">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
@@ -614,7 +614,7 @@
                             <constraint firstItem="15i-LB-Y0z" firstAttribute="top" secondItem="lgd-Iw-4uF" secondAttribute="top" id="KtR-PT-XPz"/>
                             <constraint firstAttribute="trailing" secondItem="15i-LB-Y0z" secondAttribute="trailing" id="R9h-Ag-E8y"/>
                             <constraint firstItem="15i-LB-Y0z" firstAttribute="leading" secondItem="lgd-Iw-4uF" secondAttribute="leading" id="wwk-t4-RpZ"/>
-                            <constraint firstItem="VKY-vS-9Ad" firstAttribute="top" secondItem="15i-LB-Y0z" secondAttribute="bottom" id="xKE-gq-CXx"/>
+                            <constraint firstAttribute="top" secondItem="15i-LB-Y0z" secondAttribute="bottom" id="xKE-gq-CXx"/>
                         </constraints>
                     </view>
                     <connections>

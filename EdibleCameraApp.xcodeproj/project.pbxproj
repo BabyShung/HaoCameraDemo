@@ -24,6 +24,7 @@
 		AC1E7760194F580800532F65 /* ShareData.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1E775F194F580800532F65 /* ShareData.m */; };
 		AC1E7764194F583100532F65 /* filterwords.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC1E7761194F583100532F65 /* filterwords.txt */; };
 		AC3FDD0019742F470008D311 /* LoadingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC3FDCFF19742F470008D311 /* LoadingIndicatorView.m */; };
+		AC3FDD101979C5E60008D311 /* EDCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC3FDD0F1979C5E60008D311 /* EDCommentView.m */; };
 		AC7491F8195A2C4F00D3CBBA /* TransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7491F7195A2C4F00D3CBBA /* TransitionController.m */; };
 		AC749201195A2D4300D3CBBA /* TransitionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC749200195A2D4300D3CBBA /* TransitionLayout.m */; };
 		AC8A357A19461E2100FC5465 /* SQLConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8A357619461E2100FC5465 /* SQLConnector.m */; };
@@ -235,6 +236,8 @@
 		AC1E7761194F583100532F65 /* filterwords.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = filterwords.txt; sourceTree = "<group>"; };
 		AC3FDCFE19742F470008D311 /* LoadingIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingIndicatorView.h; sourceTree = "<group>"; };
 		AC3FDCFF19742F470008D311 /* LoadingIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingIndicatorView.m; sourceTree = "<group>"; };
+		AC3FDD0E1979C5E60008D311 /* EDCommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDCommentView.h; sourceTree = "<group>"; };
+		AC3FDD0F1979C5E60008D311 /* EDCommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDCommentView.m; sourceTree = "<group>"; };
 		AC7491F6195A2C4F00D3CBBA /* TransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionController.h; sourceTree = "<group>"; };
 		AC7491F7195A2C4F00D3CBBA /* TransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionController.m; sourceTree = "<group>"; };
 		AC7491FF195A2D4300D3CBBA /* TransitionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionLayout.h; sourceTree = "<group>"; };
@@ -1027,6 +1030,8 @@
 		B8CC9F57196897A400CCFE74 /* CommentView */ = {
 			isa = PBXGroup;
 			children = (
+				AC3FDD0E1979C5E60008D311 /* EDCommentView.h */,
+				AC3FDD0F1979C5E60008D311 /* EDCommentView.m */,
 				B8CC9F5C1968980100CCFE74 /* DXStarRatingView.h */,
 				B8CC9F5D1968980100CCFE74 /* DXStarRatingView.m */,
 				B8CC9F5E1968980100CCFE74 /* HATransparentView.h */,
@@ -1396,6 +1401,7 @@
 				3A5654BC1936838C0085CC87 /* TextDetector.mm in Sources */,
 				B8B6114E195A6B90005268D5 /* BlurActionSheet.m in Sources */,
 				B8B61076195926E0005268D5 /* UIButton+Bootstrap.m in Sources */,
+				AC3FDD101979C5E60008D311 /* EDCommentView.m in Sources */,
 				B8B6103C19592369005268D5 /* UIImage+JTSImageEffects.m in Sources */,
 				B8B6106C195926C0005268D5 /* RegisterViewController.m in Sources */,
 				B8B60FB5195914FB005268D5 /* debugView.m in Sources */,

@@ -110,7 +110,7 @@ static NSString *CellIdentifier = @"Cell";
     
     [self.searchBar resignFirstResponder];
     if ([self.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) {
-        [self.view makeToast:NSLocalizedString(@"EMPTY_SEARCH_TERM",nil) duration:0.3 position:@"center"];
+        [self.view makeToast:AMLocalizedString(@"EMPTY_SEARCH_TERM",nil) duration:0.3 position:@"center"];
     }
     else if (self.searchData.count > 0 && [((Food *)self.searchData[0]).title caseInsensitiveCompare:self.searchBar.text] == NSOrderedSame) {
         //Perfect match found locally
@@ -134,7 +134,7 @@ static NSString *CellIdentifier = @"Cell";
             
             if (success) {
                 if(results.count == 0){
-                    [self.view makeToast:NSLocalizedString(@"NO_SEARCH_RESULT", nil) duration:0.3 position:@"center"];
+                    [self.view makeToast:AMLocalizedString(@"NO_SEARCH_RESULT", nil) duration:0.3 position:@"center"];
                 }
                 else {
                     [self.searchData removeAllObjects];
@@ -152,7 +152,7 @@ static NSString *CellIdentifier = @"Cell";
                 }
             }
             else{
-                [self.view makeToast:NSLocalizedString(@"SEARCH_FAILURE", nil) duration:0.3 position:@"bottom"];
+                [self.view makeToast:AMLocalizedString(@"SEARCH_FAILURE", nil) duration:0.3 position:@"bottom"];
             }
         }];
         

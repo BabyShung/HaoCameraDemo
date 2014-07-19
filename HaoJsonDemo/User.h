@@ -20,6 +20,7 @@
 @property (nonatomic, retain) NSMutableDictionary *lastComments;
 
 typedef void (^edibleBlock)(NSError *err, BOOL success);
+typedef void (^edibleCommentPostBlock)(NSError *err, BOOL success,CGFloat newRate);
 
 typedef NS_ENUM(NSInteger, UserType){
     AnonymousUser = 1
@@ -42,7 +43,7 @@ typedef NS_ENUM(NSInteger, UserType){
 
 +(void)fetchMyCommentOnFood:(NSUInteger)fid andCompletion:(void (^)(NSError *err, BOOL success))block;
 
-+(void)createComment:(Comment *)comment andCompletion:(void (^)(NSError *err, BOOL success))block;
++(void)createComment:(Comment *)comment andCompletion:(void (^)(NSError *err, BOOL success,CGFloat newRate))block;
 
 +(NSDictionary*)toDictionary;
 

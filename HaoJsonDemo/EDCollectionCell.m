@@ -72,36 +72,25 @@
 -(void)willTransitionFromLayout:(UICollectionViewLayout *)oldLayout
                        toLayout:(UICollectionViewLayout *)newLayout
 {
-
-    
-}
--(void)didTransitionFromLayout:(UICollectionViewLayout *)oldLayout toLayout:(UICollectionViewLayout *)newLayout{
-    
     if ([newLayout class] == [smallLayout class]){
         
         [self.foodInfoView.scrollview setContentOffset:CGPointZero animated:NO];
         [self.foodInfoView setUpForSmallLayout];
-
+        
     }
     else{
         [self.foodInfoView setUpForLargeLayout];
-        if (self.foodInfoView.myFood.isFoodInfoCompleted) {
-            self.foodInfoView.loadingBtn.hidden = YES;
-        }
-        else{
-            self.foodInfoView.loadingBtn.hidden = NO;
-        }
-        
     }
 
- 
+    
 }
+
 
 -(void)layoutSubviews
 {
     [super layoutSubviews];
 
-    [self.foodInfoView setFrame:self.contentView.bounds];
+    [self.foodInfoView setFrame:self.bounds];
     
     
     if (CGRectGetHeight(self.contentView.frame)< CGRectGetHeight([[UIScreen mainScreen] bounds])) {

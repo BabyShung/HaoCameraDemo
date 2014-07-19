@@ -14,6 +14,7 @@
 #import "Food.h"
 #import "Comment.h"
 #import "UIView+Toast.h"
+#import "EDCommentView.h"
 
 
 
@@ -45,6 +46,9 @@
 
 @property (strong, nonatomic) UIButton *readMoreBtn;
 @property (strong, nonatomic) UIButton *descrpClearBtn;
+
+@property (strong,nonatomic) EDCommentView *commentView;
+
 
 //methods
 
