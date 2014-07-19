@@ -102,7 +102,7 @@ typedef vector<vector<cv::Point> > TContours;//global
     
     NSLog(@"TextDetector: noise counter: %d",counter_noise);
     
-    if(counter_noise < 500){
+    if(counter_noise < 520){
         //---remove insider rects
         vector<cv::Rect> outRect;
         outRect = [self removeInsider:boundRect];  
@@ -276,7 +276,7 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
             int distance_x = abs(br0.x-pl1.x);
             //int distance_y = abs(pl0.y-pl1.y);
             int distance_mid = abs(pl0.y+rects[index].height/2 - (pl1.y+rects[index_in].height/2));
-            int distance_threshold = (rects[index].height+rects[index_in].height)/4-3;
+            int distance_threshold = (rects[index].height)/2-3;
             if( distance_x <40 && distance_mid < distance_threshold && index != index_in){
                 //if two rects are close, then merge the insider to the current,
                 // counter dose not increas
