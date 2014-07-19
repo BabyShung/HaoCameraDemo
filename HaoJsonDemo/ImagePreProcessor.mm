@@ -62,14 +62,6 @@ using namespace std;
     }
     else if(backGround == 10){
         NSLog(@"ImagePrePro: Test mode 2");
-        //       inputImage = [self adaptiveThreshold:inputImage];
-        //       inputImage = [self erode:inputImage];
-        //       inputImage = [self dilate:inputImage];
-        NSMutableArray *imgUIArray;
-        imgUIArray = [self findContour:inputImage:inputImage];
-        UIImage* testUIImage = [imgUIArray objectAtIndex:1];
-        
-        inputImage = [testUIImage CVMat];
         
     }
     
@@ -344,25 +336,30 @@ using namespace std;
     //count the sum of the pixl for the whole rect img
     int sum_pixl = 0;
     int sum_outer_pixl = 0;
+    int counter_outer = 0;
     
-    for (int i = 0; i < rows; i = i+2) {
-        for (int j = 0; j < cols; j = j+2) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
             uchar pixl = inputRectImg.at<uchar>(i,j);
             int pixl_int = pixl - '0';
             
-            if(i < 2 || j < 2 ){
+            if(i <= 2 || j <= 2 ){
                 sum_outer_pixl = sum_outer_pixl + pixl_int;
+                counter_outer++;
+                
+            }
+            else{
+                sum_pixl = sum_pixl + pixl_int;
             }
             
-            sum_pixl = sum_pixl + pixl_int;
             
         }
     }
     //count the average of the pixels
-    int ave_pixl = sum_pixl/(rows*cols);
-    int ave_outer_pixl = sum_outer_pixl/(2*(rows+cols));
-    //NSLog(@"ImagePrePro: all: %d",ave_pixl);
-    //NSLog(@"ImagePrePro: out: %d",ave_outer_pixl);
+    int ave_pixl = sum_pixl/(rows*cols-counter_outer);
+    int ave_outer_pixl = sum_outer_pixl/counter_outer;
+    NSLog(@"ImagePrePro: all: %d",ave_pixl);
+    NSLog(@"ImagePrePro: out: %d",ave_outer_pixl);
     
     
     
@@ -501,230 +498,5 @@ using namespace std;
 
 //-------/remove back ground v2
 
-//-----------find contour
-
-typedef vector<vector<cv::Point> > TContours;
--(NSMutableArray*)findContour:(cv::Mat)inputImage :(cv::Mat)orgImage{
-    
-    cv::cvtColor( inputImage, inputImage, COLOR_BGR2GRAY );
-    
-    double high_thres = cv::threshold( inputImage, inputImage, 0, 255, THRESH_BINARY+THRESH_OTSU );
-    
-    cv::Mat canny_output;
-    //cv::vector<cv::vector<Point> > contours;
-    vector<cv::Vec4i> hierarchy;
-    
-    /// Detect edges using canny
-    Canny( inputImage, canny_output, high_thres/2, high_thres, 3 );
-    
-    //typedef cv::vector<cv::vector<cv::Point> > TContours;
-    TContours contours;
-    
-    
-    /// Find contours
-    findContours( canny_output, contours, hierarchy, RETR_LIST, CHAIN_APPROX_SIMPLE, cv::Point(0, 0) );
-    
-    
-    Mat drawing = Mat::zeros( canny_output.size(), CV_8UC3 );
-    
-    
-    /// Approximate contours to polygons + get bounding rects and circles
-    vector<vector<cv::Point> > contours_poly( contours.size() );
-    vector<cv::Rect> boundRect( contours.size() );
-    vector<Point2f>center( contours.size() );
-    vector<float>radius( contours.size() );
-    
-    
-    for( int i = 0; i < contours.size(); i++ )
-    {
-        drawContours( drawing, contours, i, Scalar(255,0,0), 1, 8, hierarchy, 0, cv::Point() );
-        approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
-        boundRect[i] = boundingRect( Mat(contours_poly[i]) );
-    }
-    
-    
-    //---remove insider rects
-    vector<cv::Rect> outRect;
-    outRect = [self removeInsider:boundRect];
-    
-    
-    //----merge near
-    vector<cv::Rect> merged_rects;
-    merged_rects = [self mergeNeighbors:outRect];
-    
-    
-    //----merge overlap
-    vector<cv::Rect> sigle_rects;
-    sigle_rects = [self removeOverlape:merged_rects];
-    
-    
-    
-    //---draw rects
-    NSMutableArray *UIRects = [[NSMutableArray alloc] init];
-    for(int i = 0; i< sigle_rects.size(); i++){
-        if(sigle_rects[i].tl().x > 0 && sigle_rects[i].tl().y > 0)
-        {//skip null
-            //rectangle(drawing, sigle_rects[i].tl(), sigle_rects[i].br(), Scalar(255,255,255), 1, 8, 0 );
-            
-            //convert to mat pointer and stored in NSarray
-            cv::Mat tmpMat;
-            
-            orgImage(sigle_rects[i]).copyTo(tmpMat);
-            
-            [UIRects addObject:[UIImage imageWithCVMat:tmpMat]];
-            
-        }
-        else{
-            //NSLog(@"nothing to draw: %d",i);
-        }
-    }
-    
-    return UIRects;
-    
-    
-}
-
-
--(vector<cv::Rect>)removeInsider:(vector<cv::Rect>)rects{
-    
-    cv::Rect bigRect; //temp
-    vector<cv::Rect> newRects(rects.size());
-    int newIndex = 0;
-    int flag;
-    
-    for( int i = 0; i< rects.size(); i++ )
-    {
-        flag = 0;
-        cv::Rect rect0 = rects[i]; //temp
-        
-        if(i == 0){
-            newRects[0] = rect0;
-        }
-        
-        for(int j = 0; j< rects.size(); j++){
-            if(i != j){
-                cv::Rect intersection = rect0 & rects[j];
-                
-                if(intersection == rect0 && (rect0.area()!=rects[j].area()))//current is insider
-                {
-                    flag += 1;
-                    //NSLog(@"j : %d",j);
-                    
-                }
-                else{
-                    //if current rect is not a insider, then add it to newRect
-                    flag += 0;
-                    
-                }
-            }
-        }
-        
-        if(flag == 0){
-            newRects[newIndex] = rect0;
-            newIndex ++;
-        }
-        
-    }
-    
-    return newRects;
-}
-
--(vector<cv::Rect>)removeOverlape:(vector<cv::Rect>)rects{
-    
-    cv::Rect bigRect; //temp
-    vector<cv::Rect> newRects(rects.size());
-    int newIndex = 0;
-    int flag;
-    
-    for( int i = 0; i< rects.size(); i++ )
-    {
-        flag = 0;
-        cv::Rect rect0 = rects[i]; //temp
-        
-        if(i == 0){
-            newRects[0] = rect0;
-        }
-        
-        for(int j = i+1; j< rects.size(); j++){
-            if(i != j){
-                cv::Rect intersection = rect0 & rects[j];
-                
-                if(intersection.area() > 0 )//current is overlaped with some
-                {
-                    flag += 1;
-                    rects[j] |= rect0;
-                    
-                    
-                }
-                else{
-                    flag += 0;
-                    
-                }
-            }
-        }
-        if(flag == 0){
-            //NSLog(@"newIndex: %d",newIndex);
-            newRects[newIndex] = rect0;
-            newIndex ++;
-        }
-    }
-    
-    return newRects;
-    
-    
-}
-
--(vector<cv::Rect>)mergeNeighbors:(vector<cv::Rect>)rects{
-    
-    int index = 0;
-    int newIndex = 0;
-    int flag = 0;
-    vector<cv::Rect> newRects(rects.size());
-    
-    for(index= 0; index<rects.size();index++){
-        
-        flag = 0;
-        cv::Rect tempRect = rects[index];
-        
-        for(int index_in=0;index_in<rects.size();index_in++){
-            
-            if(index == 0){//first rect
-                
-                newRects[0] = rects[0];
-            }
-            
-            //cv::Point pl0 = rects[index].tl();
-            cv::Point br0 = tempRect.br();
-            cv::Point pl1 = rects[index_in].tl();
-            //cv::Point br1 = rects[index_in].br();
-            int distance_x = abs(br0.x-pl1.x);
-            //int distance_y = abs(br0.y-pl1.y);
-            
-            
-            if( (distance_x < 8) && index != index_in)
-            {
-                //if two rects are close, then merge the insider to the current,
-                // counter dose not increas
-                
-                tempRect |= rects[index_in];
-                flag += 1;
-                
-            }
-            else{
-                //if current rect is far from the second rect, then count ++
-                flag +=0;
-                
-            }
-            
-        }
-        //NSLog(@"newIndex: %d",newIndex);
-        newRects[newIndex] = tempRect;
-        newIndex++;
-        
-    }
-    return newRects;
-}
-
-//-----------/find contour
 
 @end

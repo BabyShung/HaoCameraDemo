@@ -58,7 +58,9 @@ typedef vector<vector<cv::Point> > TContours;//global
 -(NSMutableArray*)findContour:(cv::Mat)inputImg :(cv::Mat)orgImage{
     
     cv::cvtColor( inputImg, inputImg, cv::COLOR_BGR2GRAY );
-
+    
+    //cv::fastNlMeansDenoising(inputImg, inputImg, 3.0f, 7, 21);
+    
     double high_thres = cv::threshold( inputImg, inputImg, 0, 255, THRESH_BINARY|THRESH_OTSU );
     
     cv::Mat canny_output;
@@ -86,23 +88,26 @@ typedef vector<vector<cv::Point> > TContours;//global
     vector<float>radius( contours.size() );
     
     int counter_noise = 0;
-    
-    for( int i = 0; i < contours.size(); i++ )
+    int counter_tempRect = 0;
+    for( int i = 0; i < contours.size();i++)
     {
         //drawContours( drawing, contours, i, Scalar(255,0,0), 1, 8, hierarchy, 0, cv::Point() );
         approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
         cv::Rect tempRect = boundingRect( Mat(contours_poly[i]));
-        if(tempRect.width < 3 || tempRect.height < 3){
+        
+        if(tempRect.width < 2 || tempRect.height < 2){
             counter_noise ++;
             continue;
-        }
+        }else{
         
-        boundRect[i] = tempRect;
+        boundRect[counter_tempRect] = tempRect;
+            counter_tempRect++;
+        }
     }
     
     NSLog(@"TextDetector: noise counter: %d",counter_noise);
     
-    if(counter_noise < 520){
+    if(counter_noise < 500){
         //---remove insider rects
         vector<cv::Rect> outRect;
         outRect = [self removeInsider:boundRect];  
@@ -270,14 +275,16 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
             }
             
             cv::Point pl0 = rects[index].tl();
-            cv::Point br0 = tempRect.br();
+            cv::Point br0 = rects[index].br();
             cv::Point pl1 = rects[index_in].tl();
-            //cv::Point br1 = rects[index_in].br();
+            cv::Point br1 = rects[index_in].br();
             int distance_x = abs(br0.x-pl1.x);
-            //int distance_y = abs(pl0.y-pl1.y);
             int distance_mid = abs(pl0.y+rects[index].height/2 - (pl1.y+rects[index_in].height/2));
-            int distance_threshold = (rects[index].height)/2-3;
-            if( distance_x <40 && distance_mid < distance_threshold && index != index_in){
+            int distance_threshold = (rects[index].height)/2-5;
+            //int distance_bottom = abs(br0.y - br1.y);
+            
+            if( distance_x <20 && distance_mid < distance_threshold
+               && index != index_in){
                 //if two rects are close, then merge the insider to the current,
                 // counter dose not increas
                 
