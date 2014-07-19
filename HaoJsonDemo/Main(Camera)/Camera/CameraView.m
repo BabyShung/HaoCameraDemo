@@ -119,18 +119,19 @@
 - (void)resumeCamera{
     dispatch_async(dispatch_get_main_queue(), ^{
         [_camManager startRunning];
-        [UIView animateWithDuration:0.3 animations:^{
+        //[UIView animateWithDuration:0.3 animations:^{
+            
             self.capturedImageView.backgroundColor = [UIColor clearColor];
-        }];
+        //}];
     });
 }
 
 - (void)pauseCamera{
     dispatch_async(dispatch_get_main_queue(), ^{
         [_camManager stopRunning];
-        [UIView animateWithDuration:0.3 animations:^{
+        //[UIView animateWithDuration:0.3 animations:^{
             self.capturedImageView.backgroundColor = [UIColor blackColor];
-        }];
+        //}];
     });
 }
 
@@ -259,11 +260,10 @@
     //start loading animation
     [self startLoadingAnimation];
     
-    self.captureBtn.hidden = YES;
-    
+    //self.captureBtn.hidden = YES;
+    self.captureBtn.enabled = NO;
     
     [self capturePhoto];
-    //[self photoCaptured];
 }
 
 - (void) captureBtnPressing:(id)sender {
@@ -272,17 +272,10 @@
     NSLog(@"*********************** is pressing *******************************");
 }
 
-
-- (void) saveBtnPressed:(id)sender {
-    [self photoCaptured];
-}
-
 - (void) torchBtnPressed:(id)sender {
     
     [Flurry logEvent:@"Torch_On"];
 
-    
-    
     [_camManager torchBtnPressed:_TorchBtn];
 }
 
@@ -294,6 +287,9 @@
     
     isRotateWaitingForResizedImage = NO;
     isSaveWaitingForResizedImage = NO;
+    
+    //relative to capture press
+    self.captureBtn.enabled = YES;
     
     [self drawControls];
     

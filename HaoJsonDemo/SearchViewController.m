@@ -19,6 +19,7 @@
 #import "LocalizationSystem.h"
 #import "Dictionary.h"
 #import "UIView+Toast.h"
+#import "GeneralControl.h"
 
 #define FETCH_SEARCH_NUMBER 20
 
@@ -56,6 +57,7 @@ static NSString *CellIdentifier = @"Cell";
     self.dict = [[Dictionary alloc]initDictInDefaultLang];
     
     
+    [GeneralControl setPageViewControllerScrollEnabled:NO];
     //also stop camera
     AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDlg.cameraView pauseCamera];
@@ -77,11 +79,14 @@ static NSString *CellIdentifier = @"Cell";
 
 - (void) previousPagePressed:(id)sender {
     [self.navigationController popToRootViewControllerAnimated:YES];
-    
-    
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
     //also resume camera
     AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDlg.cameraView resumeCamera];
+    
+    [GeneralControl setPageViewControllerScrollEnabled:YES];
 }
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{

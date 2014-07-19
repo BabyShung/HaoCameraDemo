@@ -11,6 +11,8 @@
 #import "ED_Color.h"
 #import "AppDelegate.h"
 #import "LocalizationSystem.h"
+#import "GeneralControl.h"
+
 @interface AboutUsViewController ()
 
 @property (strong, nonatomic) UIButton *backBtn;
@@ -23,6 +25,7 @@
 {
     [super viewDidLoad];
 
+    [GeneralControl setPageViewControllerScrollEnabled:NO];
     
     _backBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andLeftBottomElseRightBottom:YES];
     [_backBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -39,10 +42,14 @@
 
 - (void) previousPagePressed:(id)sender {
     [self.navigationController popToRootViewControllerAnimated:YES];
-    
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
     //also resume camera
     AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDlg.cameraView resumeCamera];
+    
+    [GeneralControl setPageViewControllerScrollEnabled:YES];
 }
 
 
