@@ -30,11 +30,17 @@
 #import "Flurry.h"
 #import "LocalizationSystem.h"
 #import "NSUserDefaultControls.h"
+
 #import "HintView.h"
+#import "EAIntroView.h"
+#import "SMPageControl.h"
+
+
+#define SCALE_FACTOR_IMAGE 2.5f
 
 static NSString *CellIdentifier = @"Cell";
 
-@interface MainViewController () <TransitionControllerDelegate,EdibleCameraDelegate>
+@interface MainViewController () <TransitionControllerDelegate,EdibleCameraDelegate,EAIntroDelegate>
 {
     CGFloat ScreenWidth;
     CGFloat ScreenHeight;
@@ -85,6 +91,13 @@ static NSString *CellIdentifier = @"Cell";
     
     //set camView delegate to be DEBUG_VC
     [self.Maindelegate setCamDelegateFromMain:self];
+    
+    //if first launch, show it
+    if([NSUserDefaultControls isFirstLaunch]){
+        [NSUserDefaultControls userFinishFirstLaunch];
+        
+        [self showIntroWithCrossDissolve];
+    }
     
 }
 
@@ -377,7 +390,7 @@ static NSString *CellIdentifier = @"Cell";
     if (image) {
         
         //PS: image variable is the original size image (2448*3264)
-        UIImage *onScreenImage = [LoadControls scaleImage:image withScale:2.5f withRect:rect andCropSize:size];
+        UIImage *onScreenImage = [LoadControls scaleImage:image withScale:SCALE_FACTOR_IMAGE withRect:rect andCropSize:size];
         UIImage *originalImage = [UIImage imageWithCGImage:onScreenImage.CGImage];
         NSMutableArray *localFoods = [NSMutableArray array];
         self.imgArray = [self.textDetector2 findTextArea:originalImage];
@@ -492,7 +505,51 @@ static NSString *CellIdentifier = @"Cell";
     
 }
 
+- (void)showIntroWithCrossDissolve {
+    
+    NSString *sampleDescription1 = @"aa";
+    NSString *sampleDescription2 = @"bb";
+    NSString *sampleDescription3 = @"cc";
+    NSString *sampleDescription4 = @"dd";
+    
+    EAIntroPage *page1 = [EAIntroPage page];
+    page1.title = @"Hello world";
+    page1.desc = sampleDescription1;
+    page1.bgImage = [UIImage imageNamed:@"bg1"];
+    page1.titleIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title1"]];
+    
+    EAIntroPage *page2 = [EAIntroPage page];
+    page2.title = @"This is page 2";
+    page2.desc = sampleDescription2;
+    page2.bgImage = [UIImage imageNamed:@"bg2"];
+    page2.titleIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title2"]];
+    
+    EAIntroPage *page3 = [EAIntroPage page];
+    page3.title = @"This is page 3";
+    page3.desc = sampleDescription3;
+    page3.bgImage = [UIImage imageNamed:@"bg3"];
+    page3.titleIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title3"]];
+    
+    EAIntroPage *page4 = [EAIntroPage page];
+    page4.title = @"This is page 4";
+    page4.desc = sampleDescription4;
+    page4.bgImage = [UIImage imageNamed:@"bg4"];
+    page4.titleIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title4"]];
+    
+    EAIntroView *intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1,page2,page3,page4]];
+    [intro setDelegate:self];
+    
+    [intro showInView:self.view animateDuration:0.3];
+}
 
+//introduction view delegate
+- (void)introDidFinish:(EAIntroView *)introView {
+    NSLog(@"*************** introDidFinish callback ***************");
+    HintView *hv = [[HintView alloc] initWithFrame:self.view.frame];
+    [self.view addSubview:hv];
+    [hv updateSpotLightWithPoint:CGPointMake(300, 189)];
+
+}
 
 // GETTERs
 -(ImagePreProcessor*)ipp{

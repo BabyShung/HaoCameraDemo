@@ -17,7 +17,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #define kDEFAULT_DURATION 0.3
 
 #define SpotlightStartRadius 0
-#define SpotlightEndRadius 350
+#define SpotlightEndRadius 100
 
 @implementation MLPSpotlight
 

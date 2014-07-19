@@ -12,4 +12,8 @@
 
 +(void)saveUserDictionaryIntoNSUserDefault_dict:(NSDictionary *)dict andKey:(NSString *)key;
 
++(BOOL)isFirstLaunch;
+
++(void)userFinishFirstLaunch;
+
 @end

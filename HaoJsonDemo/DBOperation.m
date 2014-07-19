@@ -163,7 +163,7 @@
     for (NSString *word in wordsArray) {
         
         NSString *sql =[NSString stringWithFormat:@"SELECT DISTINCT Keyword.kwstr,%@.wstr FROM %@,Keyword WHERE UPPER(Keyword.kwstr)=UPPER('%@') AND Keyword.kwid=%@.wid;",langTableName,langTableName,word,langTableName];
-        NSLog(@"++++++++++++ DB SEARCH ++++++++++++  WORD = %@",word);
+        //NSLog(@"++++++++++++ DB SEARCH ++++++++++++  WORD = %@",word);
         sqlite3_stmt *stmt = nil;
         
         //Prepare the statement

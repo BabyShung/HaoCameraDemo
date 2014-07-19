@@ -356,10 +356,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Bkf-yg-wl3" userLabel="Bottom Collection View">
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Bkf-yg-wl3" userLabel="Bottom Collection View">
                                 <rect key="frame" x="0.0" y="370" width="320" height="210"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="67d-ha-E9U"/>
+                                    <constraint firstAttribute="height" constant="210" id="i2K-XA-bsP"/>
+                                </constraints>
                                 <collectionViewLayout key="collectionViewLayout" id="Jk3-nz-VT3" customClass="CardFlowLayout"/>
                                 <cells/>
                                 <connections>
@@ -369,6 +373,9 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Bkf-yg-wl3" secondAttribute="bottom" constant="-12" id="cWe-NF-6A4"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="1BD-SU-b2S"/>
                     <connections>
@@ -409,7 +416,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="login_ip5.png" translatesAutoresizingMaskIntoConstraints="NO" id="6Nu-6h-1Ry">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="URL-H1-cqg" userLabel="loginBG">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -418,7 +425,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27J-mz-zxJ">
-                                        <rect key="frame" x="30" y="264" width="260" height="50"/>
+                                        <rect key="frame" x="40" y="264" width="240" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
                                         <state key="normal" title="Login">
@@ -429,7 +436,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x0f-2C-e8H">
-                                        <rect key="frame" x="201" y="327" width="105" height="40"/>
+                                        <rect key="frame" x="199" y="327" width="105" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="STHeitiTC-Medium" family="Heiti TC" pointSize="16"/>
                                         <state key="normal" title="Skip Login">
@@ -441,7 +448,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Nu-rV-biw">
-                                        <rect key="frame" x="5" y="327" width="103" height="40"/>
+                                        <rect key="frame" x="7" y="327" width="103" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="STHeitiTC-Medium" family="Heiti TC" pointSize="16"/>
                                         <state key="normal" title="Sign up">
@@ -453,36 +460,36 @@
                                         </connections>
                                     </button>
                                     <view alpha="0.80000000000000004" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qqL-t7-CPy" userLabel="pwdView">
-                                        <rect key="frame" x="30" y="211" width="260" height="45"/>
+                                        <rect key="frame" x="40" y="211" width="240" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xlg-F4-GJ2">
-                                                <rect key="frame" x="59" y="0.0" width="201" height="45"/>
+                                                <rect key="frame" x="59" y="0.0" width="175" height="45"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="textColor" red="0.1463500707" green="0.163991686" blue="0.16764987240000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="lock.png" translatesAutoresizingMaskIntoConstraints="NO" id="T4v-v9-4v7">
-                                                <rect key="frame" x="15" y="8" width="36" height="30"/>
+                                                <rect key="frame" x="13" y="8" width="36" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view alpha="0.80000000000000004" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PXb-dS-OGI" userLabel="userView">
-                                        <rect key="frame" x="30" y="158" width="260" height="45"/>
+                                        <rect key="frame" x="40" y="158" width="240" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="sK0-As-kSb">
-                                                <rect key="frame" x="59" y="0.0" width="201" height="45"/>
+                                                <rect key="frame" x="59" y="0.0" width="175" height="45"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="textColor" red="0.1463500707" green="0.163991686" blue="0.16764987240000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="user.png" translatesAutoresizingMaskIntoConstraints="NO" id="f8i-ye-EHg">
-                                                <rect key="frame" x="15" y="8" width="36" height="30"/>
+                                                <rect key="frame" x="13" y="8" width="36" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                         </subviews>
@@ -491,7 +498,7 @@
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Blue Cheese" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hjc-8M-qgO">
                                         <rect key="frame" x="0.0" y="109" width="320" height="52"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="STHeitiTC-Medium" family="Heiti TC" pointSize="27"/>
+                                        <fontDescription key="fontDescription" name="STHeitiTC-Medium" family="Heiti TC" pointSize="24"/>
                                         <color key="textColor" red="0.078431372549019607" green="0.72549019607843135" blue="0.8784313725490196" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -505,18 +512,18 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="6Nu-6h-1Ry" firstAttribute="top" secondItem="6L0-aM-KHR" secondAttribute="top" id="EKf-83-vM6"/>
-                            <constraint firstAttribute="top" secondItem="6Nu-6h-1Ry" secondAttribute="bottom" id="N4x-nM-qKu"/>
-                            <constraint firstItem="6Nu-6h-1Ry" firstAttribute="leading" secondItem="6L0-aM-KHR" secondAttribute="leading" id="Zty-16-gT0"/>
-                            <constraint firstAttribute="trailing" secondItem="6Nu-6h-1Ry" secondAttribute="trailing" id="g2o-2g-6iq"/>
+                            <constraint firstItem="URL-H1-cqg" firstAttribute="top" secondItem="6L0-aM-KHR" secondAttribute="top" id="4Cb-TK-m52"/>
+                            <constraint firstItem="URL-H1-cqg" firstAttribute="leading" secondItem="6L0-aM-KHR" secondAttribute="leading" id="HyF-pb-KdJ"/>
+                            <constraint firstItem="tQO-yN-c0B" firstAttribute="top" secondItem="URL-H1-cqg" secondAttribute="bottom" id="tiN-Fk-WoZ"/>
+                            <constraint firstAttribute="trailing" secondItem="URL-H1-cqg" secondAttribute="trailing" id="y0K-Nq-11a"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="s1e-Sj-5uK"/>
                     <connections>
                         <outlet property="bgScrollView" destination="Rl0-YO-SyU" id="DBI-st-xze"/>
                         <outlet property="emailTextField" destination="sK0-As-kSb" id="EB8-9q-OHj"/>
-                        <outlet property="loginBGImageView" destination="6Nu-6h-1Ry" id="6Yx-vM-NA2"/>
                         <outlet property="loginBtn" destination="27J-mz-zxJ" id="u36-eA-01e"/>
+                        <outlet property="loginImageView" destination="URL-H1-cqg" id="UCN-OL-7lA"/>
                         <outlet property="pwdTextField" destination="xlg-F4-GJ2" id="wR3-ky-qs7"/>
                         <outlet property="pwdView" destination="qqL-t7-CPy" id="kvX-Iu-mHl"/>
                         <outlet property="userView" destination="PXb-dS-OGI" id="JHd-TY-3BI"/>
@@ -538,12 +545,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="register_ip5.png" translatesAutoresizingMaskIntoConstraints="NO" id="15i-LB-Y0z">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Od7-5j-vg5" userLabel="signupBG">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="elX-e3-hUj">
-                                <rect key="frame" x="63" y="308" width="195" height="47"/>
+                                <rect key="frame" x="63" y="307" width="195" height="47"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="STHeitiTC-Medium" family="Heiti TC" pointSize="15"/>
                                 <state key="normal" title="back to login">
@@ -556,11 +563,11 @@
                                 </connections>
                             </button>
                             <view alpha="0.84999999999999998" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wJ6-Lc-UxI" userLabel="emailView">
-                                <rect key="frame" x="30" y="29" width="260" height="45"/>
+                                <rect key="frame" x="40" y="31" width="240" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="VcW-rA-udG">
-                                        <rect key="frame" x="20" y="0.0" width="235" height="45"/>
+                                        <rect key="frame" x="20" y="0.0" width="215" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.1463500707" green="0.163991686" blue="0.16764987240000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="16"/>
@@ -570,11 +577,11 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view alpha="0.84999999999999998" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6zP-I5-u8s" userLabel="userView">
-                                <rect key="frame" x="30" y="82" width="260" height="45"/>
+                                <rect key="frame" x="40" y="84" width="240" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="User name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ZEa-vA-scu">
-                                        <rect key="frame" x="20" y="0.0" width="235" height="45"/>
+                                        <rect key="frame" x="20" y="0.0" width="215" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.1463500707" green="0.163991686" blue="0.16764987240000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="16"/>
@@ -584,11 +591,11 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view alpha="0.84999999999999998" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yMK-yo-KYD" userLabel="pwdView">
-                                <rect key="frame" x="30" y="135" width="260" height="45"/>
+                                <rect key="frame" x="40" y="137" width="240" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ogZ-ar-is4">
-                                        <rect key="frame" x="20" y="0.0" width="235" height="45"/>
+                                        <rect key="frame" x="20" y="0.0" width="215" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" red="0.1463500707" green="0.163991686" blue="0.16764987240000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="16"/>
@@ -598,7 +605,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ic-ru-quV">
-                                <rect key="frame" x="30" y="248" width="260" height="50"/>
+                                <rect key="frame" x="40" y="250" width="240" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
                                 <state key="normal" title="Sign up">
@@ -611,10 +618,10 @@
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="15i-LB-Y0z" firstAttribute="top" secondItem="lgd-Iw-4uF" secondAttribute="top" id="KtR-PT-XPz"/>
-                            <constraint firstAttribute="trailing" secondItem="15i-LB-Y0z" secondAttribute="trailing" id="R9h-Ag-E8y"/>
-                            <constraint firstItem="15i-LB-Y0z" firstAttribute="leading" secondItem="lgd-Iw-4uF" secondAttribute="leading" id="wwk-t4-RpZ"/>
-                            <constraint firstAttribute="top" secondItem="15i-LB-Y0z" secondAttribute="bottom" id="xKE-gq-CXx"/>
+                            <constraint firstAttribute="trailing" secondItem="Od7-5j-vg5" secondAttribute="trailing" id="6jm-DP-kQd"/>
+                            <constraint firstItem="Od7-5j-vg5" firstAttribute="top" secondItem="lgd-Iw-4uF" secondAttribute="top" id="9Sh-2B-bdC"/>
+                            <constraint firstItem="vVb-1c-bYc" firstAttribute="top" secondItem="Od7-5j-vg5" secondAttribute="bottom" id="Cl7-j2-LZi"/>
+                            <constraint firstItem="Od7-5j-vg5" firstAttribute="leading" secondItem="lgd-Iw-4uF" secondAttribute="leading" id="Zul-JT-RbI"/>
                         </constraints>
                     </view>
                     <connections>
@@ -622,8 +629,8 @@
                         <outlet property="emailView" destination="wJ6-Lc-UxI" id="jy4-Gf-aRh"/>
                         <outlet property="pwdTextField" destination="ogZ-ar-is4" id="6Mb-zE-VGh"/>
                         <outlet property="pwdView" destination="yMK-yo-KYD" id="kgo-hq-moe"/>
-                        <outlet property="registerBGImageView" destination="15i-LB-Y0z" id="zuH-ee-cQo"/>
                         <outlet property="signupBtn" destination="6ic-ru-quV" id="s51-Kk-AR5"/>
+                        <outlet property="signupImageView" destination="Od7-5j-vg5" id="OYh-SM-5vu"/>
                         <outlet property="userTextField" destination="ZEa-vA-scu" id="cxe-xe-y1T"/>
                         <outlet property="userView" destination="6zP-I5-u8s" id="bfC-cC-HHY"/>
                     </connections>
@@ -755,8 +762,6 @@
         <image name="Login_logo_transparent.png" width="232" height="232"/>
         <image name="blackBG.JPG" width="542" height="960"/>
         <image name="lock.png" width="85" height="70"/>
-        <image name="login_ip5.png" width="640" height="1136"/>
-        <image name="register_ip5.png" width="640" height="1136"/>
         <image name="user.png" width="85" height="70"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

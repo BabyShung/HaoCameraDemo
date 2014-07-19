@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Hao Zheng. All rights reserved.
 //
 
-#define SCALE_FACTOR 1.5f
+#define SCALE_FACTOR 1.0f
 
-#define CROPVIEW_HEIGHT iPhone5?360:300
+#define CROPVIEW_HEIGHT iPhone5?342:282
 #define CROPFRAME_BOARDER_WIDTH 3
 #define CROPFRAME_FRAME_WIDTH 220
 #define CROPFRAME_FRAME_HEIGHT 80
@@ -33,9 +33,9 @@
 #import "LoadingAnimation.h"
 #import "IPDashedLineView.h"
 #import "Flurry.h"
+#import "ASValueTrackingSlider.h"
 
-
-@interface CameraView () <CameraManageCDelegate>
+@interface CameraView () <CameraManageCDelegate,ASValueTrackingSliderDataSource>
 {
     // Measurements
     CGFloat screenWidth;
@@ -58,6 +58,7 @@
 @property (strong, nonatomic) UIButton * TorchBtn;
 @property (strong, nonatomic) UIButton * nextPageBtn;
 
+@property (strong, nonatomic) ASValueTrackingSlider *scaleSlider;
 
 //previewLayer
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer * captureVideoPreviewLayer;
@@ -265,6 +266,13 @@
     //[self photoCaptured];
 }
 
+- (void) captureBtnPressing:(id)sender {
+    
+    
+    NSLog(@"*********************** is pressing *******************************");
+}
+
+
 - (void) saveBtnPressed:(id)sender {
     [self photoCaptured];
 }
@@ -445,10 +453,10 @@
     [_captureVideoPreviewLayer setAffineTransform:CGAffineTransformMakeScale(SCALE_FACTOR, SCALE_FACTOR)];
     [CATransaction commit];
     
-    [_camManager setScaleFactor:SCALE_FACTOR];
-    
 	[_StreamView.layer addSublayer:_captureVideoPreviewLayer];
     
+    
+    [_camManager setScaleFactor:SCALE_FACTOR];
 	[_camManager startRunning];//begin the stream
     
 }
@@ -514,26 +522,58 @@
     _captureBtn = [LoadControls createNiceCameraButton];
     [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-
+    [_captureBtn addTarget:self action:@selector(captureBtnPressing:) forControlEvents:UIControlEventTouchDown];
     
     
     // -- LOAD BUTTONS END -- //
     
     //separator line
-    IPDashedLineView *appearance = [IPDashedLineView appearance];
-    [appearance setLineColor:[UIColor whiteColor]];
-    [appearance setLengthPattern:@[@12, @4]];
-    IPDashedLineView *dash0 = [[IPDashedLineView alloc] initWithFrame:CGRectMake(10, CROPVIEW_HEIGHT, 300, 1)];
+//    IPDashedLineView *appearance = [IPDashedLineView appearance];
+//    [appearance setLineColor:[UIColor whiteColor]];
+//    [appearance setLengthPattern:@[@12, @4]];
+//    IPDashedLineView *dash0 = [[IPDashedLineView alloc] initWithFrame:CGRectMake(10, CROPVIEW_HEIGHT, 300, 1)];
     //[self addSubview:dash0];
     
+    self.scaleSlider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(30, CROPVIEW_HEIGHT, 260, 31)];
+    self.scaleSlider.maximumValue = 2.0;
+    self.scaleSlider.minimumValue = 1.0;
+    NSNumberFormatter *tf = [[NSNumberFormatter alloc] init];
+    [tf setPositivePrefix:@"Scale: "];
+    [self.scaleSlider setNumberFormatter:tf];
+    self.scaleSlider.popUpViewCornerRadius = 4.0;
+    [self.scaleSlider setMaxFractionDigitsDisplayed:1];
+    self.scaleSlider.popUpViewColor = [UIColor colorWithHue:0.55 saturation:0.8 brightness:0.9 alpha:0.7];
+    self.scaleSlider.font = [UIFont fontWithName:@"GillSans-Bold" size:22];
+    self.scaleSlider.textColor = [UIColor colorWithHue:0.55 saturation:1.0 brightness:0.5 alpha:1];
+    self.scaleSlider.dataSource = self;
+    self.scaleSlider.value = 1.0f;
     
-    for (UIButton * btn in @[_captureBtn, _backBtn, _TorchBtn, _nextPageBtn, dash0])  {
+    
+    
+    for (UIButton * btn in @[_captureBtn, _backBtn, _TorchBtn, _nextPageBtn, _scaleSlider])  {
         [self addSubview:btn];
     }
     
     // Draw camera controls
     [self drawControls];
 }
+
+#pragma mark - ASValueTrackingSliderDataSource
+
+- (NSString *)slider:(ASValueTrackingSlider *)slider stringForValue:(float)value;
+{
+    NSLog(@"value: %f",value);
+    
+    [CATransaction begin];
+    [CATransaction setAnimationDuration:.025];
+    [_captureVideoPreviewLayer setAffineTransform:CGAffineTransformMakeScale(value, value)];
+    [CATransaction commit];
+    
+    [_camManager setScaleFactor:value];
+    NSString *s;
+    return s;
+}
+
 
 #pragma mark STATUS BAR
 

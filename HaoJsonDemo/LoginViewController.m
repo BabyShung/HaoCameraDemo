@@ -29,7 +29,6 @@
 
 @property (nonatomic,strong) LoadingAnimation *loadingImage;
 
-@property (weak, nonatomic) IBOutlet UIImageView *loginBGImageView;
 
 @end
 
@@ -39,8 +38,9 @@
 {
     [super viewDidLoad];
     
-    self.loginBGImageView.image = iPhone5?[UIImage imageNamed:@"login_ip5.png"]:[UIImage imageNamed:@"login_ip4.png"];
     
+    
+    self.loginImageView.image = iPhone5?[UIImage imageNamed:@"login_ip5_final.png"]:[UIImage imageNamed:@"login_ip4_final.png"];
     //cache keyboard
     [UIResponder cacheKeyboard];
     
