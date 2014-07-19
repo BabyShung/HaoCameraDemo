@@ -189,6 +189,9 @@ using namespace std;
     cv::cvtColor(inputMat, img_threshold, cv::COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
     cv::split(img_threshold,channels); //split the image into channels
     
+    
+    cv::fastNlMeansDenoising(channels[0], channels[0], 3.0f, 7, 21);
+    
     //--Simple threshold, removing little noisy
     
     cv::Size size;
@@ -219,6 +222,9 @@ using namespace std;
     cv::Mat img_threshold;
     cv::cvtColor(inputMat, img_threshold, cv::COLOR_BGR2YCrCb); //change the color image from BGR to YCrCb format
     cv::split(img_threshold,channels); //split the image into channels
+    
+    
+    cv::fastNlMeansDenoising(channels[0], channels[0], 3.0f, 7, 21);
     
     //--Simple threshold, removing little noisy
     

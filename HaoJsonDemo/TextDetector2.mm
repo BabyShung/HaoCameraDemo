@@ -277,13 +277,13 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
             cv::Point pl0 = rects[index].tl();
             cv::Point br0 = rects[index].br();
             cv::Point pl1 = rects[index_in].tl();
-            cv::Point br1 = rects[index_in].br();
+            //cv::Point br1 = rects[index_in].br();
             int distance_x = abs(br0.x-pl1.x);
             int distance_mid = abs(pl0.y+rects[index].height/2 - (pl1.y+rects[index_in].height/2));
             int distance_threshold = (rects[index].height)/2-5;
             //int distance_bottom = abs(br0.y - br1.y);
             
-            if( distance_x <20 && distance_mid < distance_threshold
+            if( distance_x <35 && distance_mid < distance_threshold
                && index != index_in){
                 //if two rects are close, then merge the insider to the current,
                 // counter dose not increas
