@@ -16,6 +16,8 @@
 const CGFloat kCommentPaddingFromTop = 4.0f;
 const CGFloat kCommentPaddingFromLeft = 10.0f;
 const CGFloat kCommentPaddingFromRight = 8.0f;
+const CGFloat KCommentTextFontSize = 14.f;
+
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

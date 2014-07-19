@@ -8,7 +8,8 @@
 
 #import "EDCommentView.h"
 
-#define CommentMaxLength 15
+#define CommentMaxLength 150
+
 #define CommentTextViewHeight 165.f
 #define CommentViewTopMargin 26.f
 #define CommentCloseBtnWidth 60.f
@@ -56,12 +57,15 @@
         _textView.delegate = self;
         [_textView becomeFirstResponder];
         
+
         _countStr = [NSMutableString stringWithFormat:@"%d",(int)(CommentMaxLength-_textView.text.length)];
 
         _countLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_textView.frame)-CommentTextCountLabelWidth, CGRectGetMaxY(_textView.frame)-CommentTextCountLabelHeight, CommentTextCountLabelWidth, CommentTextCountLabelHeight)];
         _countLabel.textColor = [UIColor lightGrayColor];
         _countLabel.text =_countStr;
         _countLabel.textAlignment = NSTextAlignmentRight;
+        
+
         
         [self addSubview:_titleLabel];
         [self addSubview:_textView];
@@ -82,6 +86,7 @@
 - (void)setWithComment:(Comment *)comment{
     if (comment) {
         _textView.text = comment.text;
+        [self textViewDidChange:_textView];
         [_rateView setStars:(int)comment.rate];
     }else{
         [_rateView setStars:CommentDefaultStars];
@@ -94,17 +99,8 @@
 #pragma mark - TextView Delegate
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-    
-    return YES;
-}
-
--(void)textViewDidChange:(UITextView *)textView
-{
-    NSLog(@"+++++++++++++ EDCOMMENT ++++++++++++++++++ : Text Change to %@!",textView.text);
     //User press enter, send the comment
-    if ([_textView.text characterAtIndex:MAX((_textView.text.length-1), 0)] =='\n')
-    {
-        _textView.text = [_textView.text substringToIndex:MAX((_textView.text.length-1), 0)];
+    if ([text isEqualToString:@"\n"]) {
         if ([_textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length  == 0)
         {
             [self makeToast:AMLocalizedString(@"EMPTY_COMMENT", nil) duration:0.5 position:@"center"];
@@ -115,41 +111,38 @@
         }
         else{
             
-//            Comment *newComment = [[Comment alloc]initWithCommentID:0 andFid:_fid andRate:_starRate andComment:textView.text];
-            
-//            [[User sharedInstance].lastComments setObject:newComment forKey:[NSString stringWithFormat:@"%d",(int)_fid]];
             NSLog(@"+++++++++++++++ EDCOMMENT VIEW +++++++++++ : RETURNED");
             [self.delegate EDCommentView:self KeyboardReturnedWithStars:[_rateView currentStar]];
-//            [self makeToastActivity];
-//            [User createComment:newComment andCompletion:^(NSError *err, BOOL success) {
-//                if (success)
-//                {
-//                    NSLog(@"+++++++++++++++ FIV +++++SEND COMMENT SUCCEED+++++++++++++++++++");
-//                    [self.backgroundView hideToastActivity];
-//                    [self.backgroundView close];
-//                    [self makeToast:AMLocalizedString(@"SUCCESS_COMMENT", nil) duration:0.8 position:@"bottom"];
-//                    
-//                    //Remove old data
-//                    [self.myFood.comments removeAllObjects];
-//                    [self.commentsTableView reloadData];
-//                    
-//                    //update related UI
-//                    self.commentsTableView.frame = CGRectMake(self.commentsTableView.frame.origin.x, self.commentsTableView.frame.origin.y,self.commentsTableView.frame.size.width, 10);
-//                    [self.scrollview setContentOffset:CGPointZero animated:YES];
-//                    self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width,CGRectGetHeight(self.commentsTableView.frame)+10);
-//                    
-//                    //refresh comments
-//                    [self refreshComments];
-//                }
-//                else{
-//                    [self.commentView hideToastActivity];
-//                    [self.commentView makeToast:AMLocalizedString(@"FAIL_COMMENT", nil) duration:0.8 position:@"center"];
-//                }
-//            }];
         }
-        return;
-        
+        return NO;
     }
+    return YES;
+
+}
+
+-(void)textViewDidChange:(UITextView *)textView
+{
+    NSLog(@"+++++++++++++ EDCOMMENT ++++++++++++++++++ : Text Change to %@!",textView.text);
+
+//    if ([_textView.text characterAtIndex:MAX((_textView.text.length-1), 0)] =='\n')
+//    {
+//        _textView.text = [_textView.text substringToIndex:MAX((_textView.text.length-1), 0)];
+//        if ([_textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length  == 0)
+//        {
+//            [self makeToast:AMLocalizedString(@"EMPTY_COMMENT", nil) duration:0.5 position:@"center"];
+//        }
+//        else if(_textView.text.length > CommentMaxLength)
+//        {
+//            [self makeToast:AMLocalizedString(@"COMMENT_TOO_LONG", nil) duration:0.5 position:@"center"];
+//        }
+//        else{
+//            
+//            NSLog(@"+++++++++++++++ EDCOMMENT VIEW +++++++++++ : RETURNED");
+//            [self.delegate EDCommentView:self KeyboardReturnedWithStars:[_rateView currentStar]];
+//        }
+//        return;
+//        
+//    }
     if (textView.text.length<CommentMaxLength) {
         _countLabel.textColor = [UIColor lightGrayColor];
         

@@ -23,7 +23,7 @@ static NSString *CellIdentifier = @"Cell";
 
 const CGFloat ScrollViewContentSizeHeight = 1000.f;
 const CGFloat kCommentCellHeight = 50.0f;
-const CGFloat kCommentCellMaxHeight = 100.f;
+const CGFloat kCommentCellMaxHeight = 165.f;
 
 const CGFloat CLeftMargin = 15.0f;
 const CGFloat TitleTopMargin = 10.0f;
@@ -402,11 +402,12 @@ const CGFloat ReadMoreButtonHeight =25;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"---------------------------cell height called!!");
     Comment *comment = (Comment *)[self.myFood.comments objectAtIndex:[indexPath row]];
     NSString *text = [NSString stringWithFormat:@"%@:\n%@",comment.byUser.Uname,comment.text];
-    CGRect rect = [text boundingRectWithSize:(CGSize){225, kCommentCellMaxHeight}
+    CGRect rect = [text boundingRectWithSize:(CGSize){252, MAXFLOAT}
                                      options:NSStringDrawingUsesLineFragmentOrigin
-                                  attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16.f]}
+                                  attributes:@{NSFontAttributeName:[UIFont fontWithName:TagTextFontName size:KCommentTextFontSize]}
                                      context:nil];
     CGSize requiredSize = rect.size;
 
@@ -425,17 +426,19 @@ const CGFloat ReadMoreButtonHeight =25;
         cell = [[CommentCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"Cell %d", (int)indexPath.row]];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.commentLabel.frame = (CGRect) {.origin = cell.commentLabel.frame.origin, .size = {CGRectGetMinX(cell.likeButton.frame) - CGRectGetMaxY(cell.iconView.frame) - kCommentPaddingFromLeft - kCommentPaddingFromRight,[self tableView:tableView heightForRowAtIndexPath:indexPath] - kCommentCellHeight}};
 
-        cell.timeLabel.frame = (CGRect) {.origin = {CGRectGetMinX(cell.commentLabel.frame), CGRectGetMaxY(cell.commentLabel.frame)}};
-        cell.timeLabel.text = @"1d ago";
-        [cell.timeLabel sizeToFit];
-        
-        // Don't judge my magic numbers or my crappy assets!!!
-        cell.likeCountImageView.frame = CGRectMake(CGRectGetMaxX(cell.timeLabel.frame) + 7, CGRectGetMinY(cell.timeLabel.frame) + 3, 10, 10);
-        cell.likeCountImageView.image = [UIImage imageNamed:@"like_greyIcon.png"];
-        cell.likeCountLabel.frame = CGRectMake(CGRectGetMaxX(cell.likeCountImageView.frame) + 3, CGRectGetMinY(cell.timeLabel.frame), 0, CGRectGetHeight(cell.timeLabel.frame));
     }
+    
+    cell.commentLabel.frame = (CGRect) {.origin = cell.commentLabel.frame.origin, .size = {CGRectGetMaxX(cell.frame) - CGRectGetMaxX(cell.iconView.frame) - kCommentPaddingFromLeft - kCommentPaddingFromRight,[self tableView:tableView heightForRowAtIndexPath:indexPath] - kCommentCellHeight}};
+    NSLog(@"+++++++++++ FIV ++++++++++++++ :comment label width %f",cell.commentLabel.frame.size.width);
+    cell.timeLabel.frame = (CGRect) {.origin = {CGRectGetMinX(cell.commentLabel.frame), CGRectGetMaxY(cell.commentLabel.frame)}};
+    cell.timeLabel.text = @"1d ago";
+    [cell.timeLabel sizeToFit];
+    
+    // Don't judge my magic numbers or my crappy assets!!!
+    cell.likeCountImageView.frame = CGRectMake(CGRectGetMaxX(cell.timeLabel.frame) + 7, CGRectGetMinY(cell.timeLabel.frame) + 3, 10, 10);
+    cell.likeCountImageView.image = [UIImage imageNamed:@"like_greyIcon.png"];
+    cell.likeCountLabel.frame = CGRectMake(CGRectGetMaxX(cell.likeCountImageView.frame) + 3, CGRectGetMinY(cell.timeLabel.frame), 0, CGRectGetHeight(cell.timeLabel.frame));
     
     //set comment text
     cell.commentLabel.text =text;
@@ -618,9 +621,9 @@ const CGFloat ReadMoreButtonHeight =25;
             [insertIndexPaths addObject:newPath];
             Comment *comment = (Comment *)[self.myFood.comments objectAtIndex:oldCount+ind];
             NSString *text = [NSString stringWithFormat:@"%@:\n%@",comment.byUser.Uname,comment.text];
-            CGRect rect = [text boundingRectWithSize:(CGSize){225, kCommentCellMaxHeight}
+            CGRect rect = [text boundingRectWithSize:(CGSize){252, MAXFLOAT}
                                              options:NSStringDrawingUsesLineFragmentOrigin
-                                          attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16.f]}
+                                          attributes:@{NSFontAttributeName:[UIFont fontWithName:TagTextFontName size:KCommentTextFontSize]}
                                              context:nil];
             deltaHeight += (int)(CGRectGetHeight(rect)+kCommentCellHeight);
             

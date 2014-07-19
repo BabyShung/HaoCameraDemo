@@ -21,7 +21,7 @@
 
 @end
 
-@interface EDCommentView : HATransparentView <UITextViewDelegate>
+@interface EDCommentView : HATransparentView <UITextViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, assign) id<EDCommentViewDelegate> delegate;
 
@@ -29,11 +29,10 @@
 
 @property (strong,nonatomic) DXStarRatingView *rateView;
 
-@property (nonatomic,readonly,getter = getStars) NSUInteger stars;
+//@property (nonatomic,readonly,getter = getStars) NSUInteger stars;
 
 @property (strong,nonatomic) UITextView *textView;
 
-//@property (nonatomic) NSUInteger fid;
 
 - (id)initWithFrame:(CGRect)frame;
 
