@@ -33,9 +33,6 @@
         [self addGestureRecognizer:singleTap];
         
         
-
-        
-        
     }
     return self;
 }

@@ -88,14 +88,11 @@ UICollectionViewDelegate>
                            [UIImage imageNamed:@"ED_feedback.png"],
                            [UIImage imageNamed:@"ED_switchLanguage.png"],
                            [UIImage imageNamed:@"ED_logout.png"], nil];
-    
-
 }
 
 -(void)checkUserStatusAtProfileBoard{
     User *user = [User sharedInstance];
-    
-    
+ 
     if(user.Uid == AnonymousUser){
         
         self.titleLabel.text = [NSString stringWithFormat: @"%@",AMLocalizedString(@"ANONYMOUS_HELLO", nil)];
@@ -143,9 +140,6 @@ UICollectionViewDelegate>
         });
         [self.descriptionLabel shine];
     }
-    
-    [GeneralControl setPageViewControllerScrollEnabled:YES];
-    
 }
 
 -(void)loadControls{
@@ -224,9 +218,6 @@ UICollectionViewDelegate>
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    
-    //[GeneralControl setPageViewControllerScrollEnabled:NO];
-    
     NSUInteger index = indexPath.row;
     
     if(index == 0){
@@ -253,23 +244,18 @@ UICollectionViewDelegate>
                     }
                     
                 }];
-                
-                
             }else{
                 //temporary save the text
                 self.tempFeedbackText = message;
             }
-            
             [feedback dismiss];
         }];
     }else if (index == 2){
         [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Settings"] animated:YES];
     }else if (index == 3){
         [Flurry logEvent:@"Index_3_Logout"];
-        
         [self willLogout];
     }
-    
 }
 
 
@@ -278,16 +264,11 @@ UICollectionViewDelegate>
     BlurActionSheet *lrf =  [[BlurActionSheet alloc] initWithDelegate_cancelButtonTitle:AMLocalizedString(@"Cancel", nil)];
     lrf.blurRadius = 50.f;
     [lrf addButtonWithTitle:AMLocalizedString(@"Log out", nil) actionBlock:^{
-        
         [Flurry logEvent:@"Logout_Confirm"];
-        
         [User logout];
-
         [GeneralControl transitionToVC:self withToVCStoryboardId:@"Start" withDuration:0.4];
-        
     }];
     [lrf show];
-    
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -295,7 +276,9 @@ UICollectionViewDelegate>
 }
 
 -(void)CardSlide:(BOOL)left{
-    [self.bottomCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:(left?0:[self.profileOptions count]-1) inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+            [self.bottomCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:(left?0:[self.profileOptions count]-1) inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    });
 }
 
 

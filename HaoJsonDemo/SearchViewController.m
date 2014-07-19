@@ -78,15 +78,18 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 - (void) previousPagePressed:(id)sender {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}
-
--(void)viewDidDisappear:(BOOL)animated{
+    
     //also resume camera
     AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDlg.cameraView resumeCamera];
     
     [GeneralControl setPageViewControllerScrollEnabled:YES];
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+
 }
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
@@ -272,7 +275,7 @@ static NSString *CellIdentifier = @"Cell";
 //}
 
 -(void)loadControls{
-    _backBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andLeftBottomElseRightBottom:YES];
+    _backBtn = [LoadControls createRoundedBackButton];
     [_backBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_backBtn];
     

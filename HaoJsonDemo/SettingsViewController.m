@@ -12,13 +12,11 @@
 #import "introContainer.h"
 #import "GeneralControl.h"
 #import "LoadControls.h"
-#import "ED_Color.h"
+#import "AppDelegate.h"
 
 const NSString *settingCellIdentity = @"Cell";
 
 @interface SettingsViewController ()
-
-@property (strong, nonatomic) UIButton *backBtn;
 
 @property (strong,nonatomic) NSArray *settings;
 @property (strong,nonatomic) NSArray *settingsImages;
@@ -31,7 +29,10 @@ const NSString *settingCellIdentity = @"Cell";
 {
     [super viewDidLoad];
     
-    //[GeneralControl setPageViewControllerScrollEnabled:NO];
+    //also stop camera
+    AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDlg.cameraView pauseCamera];
+    [GeneralControl setPageViewControllerScrollEnabled:NO];
     
     self.settings = [NSArray arrayWithObjects:
                            AMLocalizedString(@"LANGUAGUE_SETTING",nil),
@@ -47,12 +48,18 @@ const NSString *settingCellIdentity = @"Cell";
 }
 
 -(void)loadControls{
-    _backBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andLeftBottomElseRightBottom:YES];
-    [_backBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view insertSubview:_backBtn aboveSubview:self.collectionView];
+    UIButton *btn = [LoadControls createRoundedBackButton];
+    [btn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view insertSubview:btn aboveSubview:self.collectionView];
 
 }
+
 - (void) previousPagePressed:(id)sender {
+    
+    AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDlg.cameraView resumeCamera];
+    [GeneralControl setPageViewControllerScrollEnabled:YES];
+    
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -76,12 +83,12 @@ const NSString *settingCellIdentity = @"Cell";
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    
-    
     NSUInteger index = indexPath.row;
     
     if (index == 0){
-        
+        UIViewController *auvc = [self.storyboard instantiateViewControllerWithIdentifier:@"languageVC"];
+        auvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self presentViewController:auvc animated:YES completion:nil];
         
     }else if (index == 1){
         
@@ -91,9 +98,10 @@ const NSString *settingCellIdentity = @"Cell";
         [ic showIntroWithCrossDissolve];
         
     }else if (index == 2){
-
+        UIViewController *auvc = [self.storyboard instantiateViewControllerWithIdentifier:@"AboutUs"];
+        auvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [self presentViewController:auvc animated:YES completion:nil];
     }
-    
     
 }
 
