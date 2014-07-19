@@ -15,4 +15,16 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
++(BOOL)isFirstLaunch{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"FirstLaunch"]?NO:YES;
+}
+
++(void)userFinishFirstLaunch{
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"FirstLaunch"])
+    {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"FirstLaunch"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
+
 @end

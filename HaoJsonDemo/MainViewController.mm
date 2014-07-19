@@ -90,8 +90,12 @@ static NSString *CellIdentifier = @"Cell";
     //set camView delegate to be DEBUG_VC
     [self.Maindelegate setCamDelegateFromMain:self];
     
-    
-    //[self showIntroWithCrossDissolve];
+    //if first launch, show it
+    if([NSUserDefaultControls isFirstLaunch]){
+        [NSUserDefaultControls userFinishFirstLaunch];
+        
+        [self showIntroWithCrossDissolve];
+    }
     
 }
 
