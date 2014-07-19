@@ -36,6 +36,8 @@
 #import "SMPageControl.h"
 
 
+#define SCALE_FACTOR_IMAGE 2.5f
+
 static NSString *CellIdentifier = @"Cell";
 
 @interface MainViewController () <TransitionControllerDelegate,EdibleCameraDelegate,EAIntroDelegate>
@@ -388,7 +390,7 @@ static NSString *CellIdentifier = @"Cell";
     if (image) {
         
         //PS: image variable is the original size image (2448*3264)
-        UIImage *onScreenImage = [LoadControls scaleImage:image withScale:2.5f withRect:rect andCropSize:size];
+        UIImage *onScreenImage = [LoadControls scaleImage:image withScale:SCALE_FACTOR_IMAGE withRect:rect andCropSize:size];
         UIImage *originalImage = [UIImage imageWithCGImage:onScreenImage.CGImage];
         NSMutableArray *localFoods = [NSMutableArray array];
         self.imgArray = [self.textDetector2 findTextArea:originalImage];

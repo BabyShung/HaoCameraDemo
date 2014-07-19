@@ -70,6 +70,8 @@
 		B8079CDB1979C83400D568EC /* login_ip4_final.png in Resources */ = {isa = PBXBuildFile; fileRef = B8079CD71979C83400D568EC /* login_ip4_final.png */; };
 		B8079CDC1979C83400D568EC /* register_ip4_final.png in Resources */ = {isa = PBXBuildFile; fileRef = B8079CD81979C83400D568EC /* register_ip4_final.png */; };
 		B8079CDD1979C83400D568EC /* register_ip5_final.png in Resources */ = {isa = PBXBuildFile; fileRef = B8079CD91979C83400D568EC /* register_ip5_final.png */; };
+		B8079CE2197A227D00D568EC /* ASValuePopUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8079CDF197A227D00D568EC /* ASValuePopUpView.m */; };
+		B8079CE3197A227D00D568EC /* ASValueTrackingSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = B8079CE1197A227D00D568EC /* ASValueTrackingSlider.m */; };
 		B81B18301970A808001C52F6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B81B182F1970A808001C52F6 /* QuartzCore.framework */; };
 		B82353C0192BE2F400D6BCAC /* CameraPrevious.png in Resources */ = {isa = PBXBuildFile; fileRef = B82353BC192BE2F400D6BCAC /* CameraPrevious.png */; };
 		B82353EE192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B82353ED192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib */; };
@@ -314,6 +316,10 @@
 		B8079CD71979C83400D568EC /* login_ip4_final.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_ip4_final.png; sourceTree = "<group>"; };
 		B8079CD81979C83400D568EC /* register_ip4_final.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = register_ip4_final.png; sourceTree = "<group>"; };
 		B8079CD91979C83400D568EC /* register_ip5_final.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = register_ip5_final.png; sourceTree = "<group>"; };
+		B8079CDE197A227D00D568EC /* ASValuePopUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASValuePopUpView.h; sourceTree = "<group>"; };
+		B8079CDF197A227D00D568EC /* ASValuePopUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASValuePopUpView.m; sourceTree = "<group>"; };
+		B8079CE0197A227D00D568EC /* ASValueTrackingSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASValueTrackingSlider.h; sourceTree = "<group>"; };
+		B8079CE1197A227D00D568EC /* ASValueTrackingSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASValueTrackingSlider.m; sourceTree = "<group>"; };
 		B81B182F1970A808001C52F6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B82353BC192BE2F400D6BCAC /* CameraPrevious.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CameraPrevious.png; sourceTree = "<group>"; };
 		B82353ED192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
@@ -1141,6 +1147,10 @@
 		B8D6953D193EBB9B00E504FA /* Camera */ = {
 			isa = PBXGroup;
 			children = (
+				B8079CDE197A227D00D568EC /* ASValuePopUpView.h */,
+				B8079CDF197A227D00D568EC /* ASValuePopUpView.m */,
+				B8079CE0197A227D00D568EC /* ASValueTrackingSlider.h */,
+				B8079CE1197A227D00D568EC /* ASValueTrackingSlider.m */,
 				B8F1793C19742B0000A236B1 /* CaptureButton */,
 				B8B61049195924F2005268D5 /* CameraManager.h */,
 				B8B6104A195924F2005268D5 /* CameraManager.m */,
@@ -1501,6 +1511,7 @@
 				B8C8F284195DEC85009F8F6E /* Comment.m in Sources */,
 				B8079CD41979C63000D568EC /* HintView.m in Sources */,
 				B8B61083195927A2005268D5 /* CardFlowLayout.m in Sources */,
+				B8079CE3197A227D00D568EC /* ASValueTrackingSlider.m in Sources */,
 				B8B60FF419591E60005268D5 /* UIImageView+M13AsynchronousImageView.m in Sources */,
 				B802C86A1971ECAB008EDC68 /* UIView+Toast.m in Sources */,
 				B8B6105A195925F2005268D5 /* Edible_S3.m in Sources */,
@@ -1519,6 +1530,7 @@
 				B8F1793F19742B1900A236B1 /* MRoundedButton.m in Sources */,
 				B8079B531978309600D568EC /* NSUserDefaultControls.m in Sources */,
 				ACDD6D5B195F4C3100AD51A7 /* FoodInfoView.m in Sources */,
+				B8079CE2197A227D00D568EC /* ASValuePopUpView.m in Sources */,
 				B8B6105519592528005268D5 /* AsyncRequest.m in Sources */,
 				B8B61024195922B5005268D5 /* FBShimmeringView.m in Sources */,
 				B8B6106B195926C0005268D5 /* LoginViewController.m in Sources */,
