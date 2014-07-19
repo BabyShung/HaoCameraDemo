@@ -8,7 +8,7 @@
 
 #define SCALE_FACTOR 1.0f
 
-#define CROPVIEW_HEIGHT iPhone5?342:300
+#define CROPVIEW_HEIGHT iPhone5?342:282
 #define CROPFRAME_BOARDER_WIDTH 3
 #define CROPFRAME_FRAME_WIDTH 220
 #define CROPFRAME_FRAME_HEIGHT 80
@@ -266,6 +266,13 @@
     //[self photoCaptured];
 }
 
+- (void) captureBtnPressing:(id)sender {
+    
+    
+    NSLog(@"*********************** is pressing *******************************");
+}
+
+
 - (void) saveBtnPressed:(id)sender {
     [self photoCaptured];
 }
@@ -515,7 +522,7 @@
     _captureBtn = [LoadControls createNiceCameraButton];
     [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-
+    [_captureBtn addTarget:self action:@selector(captureBtnPressing:) forControlEvents:UIControlEventTouchDown];
     
     
     // -- LOAD BUTTONS END -- //

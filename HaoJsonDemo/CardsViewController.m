@@ -27,7 +27,7 @@
 #import "HATransparentView.h"
 #import "GeneralControl.h"
 
-#define CROPVIEW_HEIGHT iPhone5?360:300
+#define CROPVIEW_HEIGHT iPhone5?358:298
 
 const NSString *collectionCellIdentity = @"Cell";
 const CGFloat LeftMargin = 15.0f;
