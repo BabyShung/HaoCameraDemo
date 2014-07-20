@@ -72,7 +72,7 @@
 }
 
 +(UIButton *)createRoundedBackButton{
-    return [self createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andLeftBottomElseRightBottom:YES];
+    return [self createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(8, 7, 8, 9) andLeftBottomElseRightBottom:YES];
 }
 
 
