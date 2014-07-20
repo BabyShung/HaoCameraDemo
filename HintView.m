@@ -33,9 +33,6 @@
         [self addGestureRecognizer:singleTap];
         
         
-
-        
-        
     }
     return self;
 }
@@ -64,7 +61,8 @@
 }
 
 - (void)MySingleTap:(UITapGestureRecognizer *)sender{
-    [self removeFromSuperview];
+    //[self removeFromSuperview];
+    [self.superview removeFromSuperview];
 }
 
 @end

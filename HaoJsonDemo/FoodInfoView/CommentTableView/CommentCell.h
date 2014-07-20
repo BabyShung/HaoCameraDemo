@@ -12,6 +12,7 @@
 
 extern const CGFloat kCommentPaddingFromLeft;
 extern const CGFloat kCommentPaddingFromRight;
+extern const CGFloat KCommentTextFontSize;
 
 @property (nonatomic, strong) UIImageView *iconView;
 @property (nonatomic, strong) UILabel *commentLabel;

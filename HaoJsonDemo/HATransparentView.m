@@ -91,7 +91,7 @@
     [[UIApplication sharedApplication] setStatusBarStyle:self.statusBarStyle];
     [self removeFromSuperview];
     
-    [self.delegate HATransparentViewDidClosed];
+    //[self.delegate HATransparentViewDidClosed];
 }
 
 @end

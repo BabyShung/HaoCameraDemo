@@ -25,38 +25,30 @@
     
     NSLog(@"%@",self.currentFood);
     
-    
-    //1.add foodInfoView
-    
-    
-    //2.add backBtn
     [self loadControls];
 }
-
 
 -(BOOL)prefersStatusBarHidden{
     return YES;
 }
 
 -(void)loadControls{
-
+    
+    //1.add foodInfoView
     self.foodInfoView = [[FoodInfoView alloc] initWithFrame:self.view.bounds andVC:self];
     self.foodInfoView.myFood = self.currentFood;
     [self.foodInfoView prepareForDisplay];
     [self.view addSubview:self.foodInfoView];
     
+    //2.add backBtn
     _backBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andLeftBottomElseRightBottom:YES];
     [_backBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_backBtn];
     
-    
-
-
 }
 
 - (void) previousPagePressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
 
 @end

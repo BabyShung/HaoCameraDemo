@@ -49,6 +49,6 @@ typedef void(^DXStarRatingViewCallBack)(NSNumber *newRating);
  * @return -
  */
 - (void)setStars:(int)stars callbackBlock:(DXStarRatingViewCallBack)callBackBlock;
-
+- (NSUInteger) currentStar;
 
 @end

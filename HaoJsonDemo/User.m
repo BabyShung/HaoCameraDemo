@@ -16,6 +16,7 @@
 
 
 static edibleBlock CompletionBlock;
+static edibleCommentPostBlock commentCompletionBlock;
 static NSMutableData *webdata;
 static NSString *password;
 static User *sharedInstance = nil;
@@ -115,8 +116,8 @@ static AsyncRequest *async;
     [async getReviews_fid:fid byUid:[User sharedInstance].Uid];
 }
 
-+(void)createComment:(Comment *)comment andCompletion:(void (^)(NSError *err, BOOL success))block{
-    CompletionBlock = block;
++(void)createComment:(Comment *)comment andCompletion:(void (^)(NSError *err, BOOL success,CGFloat newRate))block{
+    commentCompletionBlock = block;
     [async doComment:comment];
 }
 
@@ -184,6 +185,17 @@ static AsyncRequest *async;
     NSDictionary *bodyDict = [NSJSONSerialization JSONObjectWithData:[request HTTPBody] options:0 error:nil];
     NSLog(@"``````````````````````````%@ fails!!!!!!!!!!",[bodyDict objectForKey:@"action"]);
     //also set things back
+    if ([[bodyDict objectForKey:@"action"] isEqualToString:@"post_update_review"]){
+        
+        if (commentCompletionBlock) {
+            commentCompletionBlock(nil,NO, 0);
+        }
+        
+        return;
+        
+        
+    }
+    
     if (CompletionBlock) {
         dispatch_async(dispatch_get_main_queue(), ^{
             CompletionBlock(error,NO);
@@ -219,6 +231,12 @@ static AsyncRequest *async;
             
         }else if ([action isEqualToString:@"post_update_review"]){
             
+            if (commentCompletionBlock) {
+                commentCompletionBlock(nil,YES, [[returnJSONtoNSdict objectForKey:@"result"] floatValue] );
+            }
+
+            return;
+            
             
         }else if([action isEqualToString:@"post_feed_back"]){
             
@@ -252,6 +270,10 @@ static AsyncRequest *async;
         else if([action isEqualToString:@"user_error"]){   //PS: bugs in server!! only show this
             [self configureError:NSLocalizedString(@"ERROR_REGISTER", nil)];
 
+        }
+        else if([action isEqualToString:@"post_update_review"]){
+            commentCompletionBlock(nil,NO, 0);
+        
         }
     }
     

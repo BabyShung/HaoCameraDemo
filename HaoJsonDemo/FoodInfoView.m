@@ -23,7 +23,7 @@ static NSString *CellIdentifier = @"Cell";
 
 const CGFloat ScrollViewContentSizeHeight = 1000.f;
 const CGFloat kCommentCellHeight = 50.0f;
-const CGFloat kCommentCellMaxHeight = 100.f;
+const CGFloat kCommentCellMaxHeight = 165.f;
 
 const CGFloat CLeftMargin = 15.0f;
 const CGFloat TitleTopMargin = 10.0f;
@@ -64,7 +64,7 @@ const CGFloat CommentRateViewWidth = 260;
 const CGFloat ReadMoreButtonWidth =65;
 const CGFloat ReadMoreButtonHeight =25;
 
-@interface FoodInfoView () <UICollectionViewDataSource,UICollectionViewDelegate,TagViewDelegate,UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,HATransparentViewDelegate,UITextViewDelegate>
+@interface FoodInfoView () <UICollectionViewDataSource,UICollectionViewDelegate,TagViewDelegate,UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,EDCommentViewDelegate>
 
 
 
@@ -73,15 +73,15 @@ const CGFloat ReadMoreButtonHeight =25;
 
 @property (strong,nonatomic) NSString *imgLoaderName;
 
-@property (strong,nonatomic) Comment *myComment;
+//@property (strong,nonatomic) Comment *myComment;
 
-@property (strong,nonatomic) HATransparentView *commentView;
+//@property (strong,nonatomic) HATransparentView *commentView;
 
-@property (strong,nonatomic) NSMutableString *countStr;
+//@property (strong,nonatomic) NSMutableString *countStr;
 
-@property (nonatomic) NSUInteger currentStar;
+//@property (nonatomic) NSUInteger currentStar;
 
-@property (strong,nonatomic) UILabel *countLabel;
+//@property (strong,nonatomic) UILabel *countLabel;
 
 //@property (strong,nonatomic) UIActivityIndicatorView *activityView;
 
@@ -97,10 +97,10 @@ const CGFloat ReadMoreButtonHeight =25;
         
         self.currentVC = vc;
         self.myFood = nil;
-        self.myComment = nil;
-        self.countStr =[NSMutableString stringWithString:@""];
-        self.commentView = [[HATransparentView alloc] init];
-        self.commentView.delegate = self;
+        //self.myComment = nil;
+//        self.countStr =[NSMutableString stringWithString:@""];
+//        self.commentView = [[HATransparentView alloc] init];
+//        self.commentView.delegate = self;
         //self.activityView=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         
         //self.activityView.center=self.center;
@@ -116,10 +116,10 @@ const CGFloat ReadMoreButtonHeight =25;
     if (self) {
         self.currentVC = nil;
         self.myFood = nil;
-        self.myComment = nil;
-        self.countStr =[NSMutableString stringWithString:@""];
-        self.commentView = [[HATransparentView alloc] init];
-        self.commentView.delegate = self;
+        //self.myComment = nil;
+//        self.countStr =[NSMutableString stringWithString:@""];
+//        self.commentView = [[HATransparentView alloc] init];
+//        self.commentView.delegate = self;
         //self.activityView=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         
         //self.activityView.center=self.center;
@@ -208,7 +208,7 @@ const CGFloat ReadMoreButtonHeight =25;
     [self.scrollview addSubview:self.descriptionLabel];
     
     self.readMoreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.readMoreBtn setTitle:NSLocalizedString(@"FIV_READ_MORE", nil) forState:UIControlStateNormal];
+    [self.readMoreBtn setTitle:AMLocalizedString(@"FIV_READ_MORE", nil) forState:UIControlStateNormal];
     self.readMoreBtn.titleLabel.font = [UIFont fontWithName:PlainTextFontName size:SmallTitleFontSize];
     [self.readMoreBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     self.readMoreBtn.backgroundColor = [UIColor clearColor];
@@ -402,11 +402,12 @@ const CGFloat ReadMoreButtonHeight =25;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"---------------------------cell height called!!");
     Comment *comment = (Comment *)[self.myFood.comments objectAtIndex:[indexPath row]];
     NSString *text = [NSString stringWithFormat:@"%@:\n%@",comment.byUser.Uname,comment.text];
-    CGRect rect = [text boundingRectWithSize:(CGSize){225, kCommentCellMaxHeight}
+    CGRect rect = [text boundingRectWithSize:(CGSize){252, MAXFLOAT}
                                      options:NSStringDrawingUsesLineFragmentOrigin
-                                  attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16.f]}
+                                  attributes:@{NSFontAttributeName:[UIFont fontWithName:TagTextFontName size:KCommentTextFontSize]}
                                      context:nil];
     CGSize requiredSize = rect.size;
 
@@ -425,17 +426,19 @@ const CGFloat ReadMoreButtonHeight =25;
         cell = [[CommentCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"Cell %d", (int)indexPath.row]];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.commentLabel.frame = (CGRect) {.origin = cell.commentLabel.frame.origin, .size = {CGRectGetMinX(cell.likeButton.frame) - CGRectGetMaxY(cell.iconView.frame) - kCommentPaddingFromLeft - kCommentPaddingFromRight,[self tableView:tableView heightForRowAtIndexPath:indexPath] - kCommentCellHeight}};
 
-        cell.timeLabel.frame = (CGRect) {.origin = {CGRectGetMinX(cell.commentLabel.frame), CGRectGetMaxY(cell.commentLabel.frame)}};
-        cell.timeLabel.text = @"1d ago";
-        [cell.timeLabel sizeToFit];
-        
-        // Don't judge my magic numbers or my crappy assets!!!
-        cell.likeCountImageView.frame = CGRectMake(CGRectGetMaxX(cell.timeLabel.frame) + 7, CGRectGetMinY(cell.timeLabel.frame) + 3, 10, 10);
-        cell.likeCountImageView.image = [UIImage imageNamed:@"like_greyIcon.png"];
-        cell.likeCountLabel.frame = CGRectMake(CGRectGetMaxX(cell.likeCountImageView.frame) + 3, CGRectGetMinY(cell.timeLabel.frame), 0, CGRectGetHeight(cell.timeLabel.frame));
     }
+    
+    cell.commentLabel.frame = (CGRect) {.origin = cell.commentLabel.frame.origin, .size = {CGRectGetMaxX(cell.frame) - CGRectGetMaxX(cell.iconView.frame) - kCommentPaddingFromLeft - kCommentPaddingFromRight,[self tableView:tableView heightForRowAtIndexPath:indexPath] - kCommentCellHeight}};
+    NSLog(@"+++++++++++ FIV ++++++++++++++ :comment label width %f",cell.commentLabel.frame.size.width);
+    cell.timeLabel.frame = (CGRect) {.origin = {CGRectGetMinX(cell.commentLabel.frame), CGRectGetMaxY(cell.commentLabel.frame)}};
+    cell.timeLabel.text = @"1d ago";
+    [cell.timeLabel sizeToFit];
+    
+    // Don't judge my magic numbers or my crappy assets!!!
+    cell.likeCountImageView.frame = CGRectMake(CGRectGetMaxX(cell.timeLabel.frame) + 7, CGRectGetMinY(cell.timeLabel.frame) + 3, 10, 10);
+    cell.likeCountImageView.image = [UIImage imageNamed:@"like_greyIcon.png"];
+    cell.likeCountLabel.frame = CGRectMake(CGRectGetMaxX(cell.likeCountImageView.frame) + 3, CGRectGetMinY(cell.timeLabel.frame), 0, CGRectGetHeight(cell.timeLabel.frame));
     
     //set comment text
     cell.commentLabel.text =text;
@@ -478,18 +481,12 @@ const CGFloat ReadMoreButtonHeight =25;
 
     self.separator.frame = CGRectMake(CLeftMargin, CGRectGetMaxY(self.titleLabel.frame), width-2*CLeftMargin, SeparatorViewHeight);
     
-//    if (self.frame.size.height < CGRectGetHeight([[UIScreen mainScreen] bounds])){
-//        //self.loadingBtn.hidden = YES;
-//        self.descriptionLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-//        
-//    }else{
-//        self.descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
-////        if (!self.myFood.isFoodInfoCompleted) {
-////            self.loadingBtn.hidden = NO;
-////        }
-//        
-//    
-//    }
+    if (self.frame.size.height == CGRectGetHeight([[UIScreen mainScreen] bounds]) && self.myFood.isFoodInfoCompleted){
+        self.loadingBtn.hidden = YES;
+        
+    }else{
+        self.loadingBtn.hidden = NO;
+    }
     
     self.translateLabel.frame = CGRectMake(CLeftMargin, TitleTopMargin + CGRectGetMaxY(self.titleLabel.frame), width-2*CLeftMargin,  TranslateLabelHeight);
     //[self.translateLabel setFont:[UIFont fontWithName:PlainTextFontName size:SmallTextFontSize + (LargeTitleFontSize-SmallTextFontSize)*sizeMultiplier]];
@@ -573,7 +570,7 @@ const CGFloat ReadMoreButtonHeight =25;
             self.starNumberLabel.text = [NSString stringWithFormat:@"%.1f",self.myFood.rate];
         }
         else{
-            self.starNumberLabel.text = [NSString stringWithFormat:@"%.0f",self.myFood.rate];
+            self.starNumberLabel.text = @"0";
         }
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             self.starImgView.alpha = 1.0f;
@@ -624,9 +621,9 @@ const CGFloat ReadMoreButtonHeight =25;
             [insertIndexPaths addObject:newPath];
             Comment *comment = (Comment *)[self.myFood.comments objectAtIndex:oldCount+ind];
             NSString *text = [NSString stringWithFormat:@"%@:\n%@",comment.byUser.Uname,comment.text];
-            CGRect rect = [text boundingRectWithSize:(CGSize){225, kCommentCellMaxHeight}
+            CGRect rect = [text boundingRectWithSize:(CGSize){252, MAXFLOAT}
                                              options:NSStringDrawingUsesLineFragmentOrigin
-                                          attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16.f]}
+                                          attributes:@{NSFontAttributeName:[UIFont fontWithName:TagTextFontName size:KCommentTextFontSize]}
                                              context:nil];
             deltaHeight += (int)(CGRectGetHeight(rect)+kCommentCellHeight);
             
@@ -655,8 +652,8 @@ const CGFloat ReadMoreButtonHeight =25;
     
     //set the food object in foodInfoView(belonging to collection cell) to nil
     self.myFood = nil;
-    self.myComment = nil;
-    [self.countStr setString:@""];
+    //self.myComment = nil;
+    //[self.countStr setString:@""];
     self.imgLoaderName = @"";
     
     self.starNumberLabel.text = @"";
@@ -741,19 +738,7 @@ const CGFloat ReadMoreButtonHeight =25;
         //If food info is not completed, request it
         if (!self.myFood.isLoadingInfo && !self.myFood.isFoodInfoCompleted) {
             [self fetchFoodInfo];
-//            [self.myFood fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
-//                if (success) {
-//                    [self setFoodInfo];
-//                    [self configPhotoAndTag];
-//                    [self refreshComments];
-//                    [self showCommentButton];
-//                    [self hideLoadingBtn];
-//                }
-//                else{
-//                    [self showLoadingBtnWithFailureMsg];
-//                }
-//                
-//            }];
+
 
         }
         else if(self.myFood.isFoodInfoCompleted){//Food info is complete, config at once;
@@ -779,20 +764,7 @@ const CGFloat ReadMoreButtonHeight =25;
         //If food info is not completed, request it
         if (!self.myFood.isLoadingInfo && !self.myFood.isFoodInfoCompleted) {
             [self fetchFoodInfo];
-//            [self.myFood fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
-//                if (success) {
-//                    [self setFoodInfo];
-//                    [self configPhotoAndTag];
-//                    [self refreshComments];
-//                    //[self configCommentTable];
-//                    [self showCommentButton];
-//                    [self hideLoadingBtn];
-//                }
-//                else{
-//                    [self showLoadingBtnWithFailureMsg];
-//                }
-//                
-//            }];
+
         }
         else if(self.myFood.isFoodInfoCompleted){//Food info is complete, config at once;
             [self configPhotoAndTag];
@@ -822,72 +794,38 @@ const CGFloat ReadMoreButtonHeight =25;
     NSLog(@"++++ FIV ++++ : COMMENT BUTTON PRESSED");
 
     
+    EDCommentView *commentView = [[EDCommentView alloc]initWithFrame:self.frame];
+    commentView.delegate = self;
     
-    if (![[User sharedInstance].lastComments objectForKey:[NSString stringWithFormat:@"%d",(int)self.myFood.fid]]) {
+    Comment* lastcomment = [[User sharedInstance].lastComments objectForKey:[NSString stringWithFormat:@"%d",(int)self.myFood.fid]];
+    if (!lastcomment) {
         
         NSLog(@"++++ FIV ++++ : REQUEST COMMENT ");
 
         [self makeToastActivity];
         [User fetchMyCommentOnFood:self.myFood.fid andCompletion:^(NSError *err, BOOL success) {
+            
             [self hideToastActivity];
-            [self showCommentView];
+
+            [commentView setWithComment:[[User sharedInstance].lastComments objectForKey:[NSString stringWithFormat:@"%d",(int)self.myFood.fid]]];
+            
+            [commentView setTitleWithFood:self.myFood.title];
+            [commentView open];
+            
+            //[self showCommentView];
             
         }];
     }
     else{   //lastcomment has been loaded
-
-        [self showCommentView];
+            //open it immediately
+        [commentView setWithComment:lastcomment];
+        [commentView setTitleWithFood:self.myFood.title];
+        [commentView open];
     }
 
 }
 
--(void)showCommentView{
-    [_commentView open];
-    
-    // Add a title Label
-    
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(_commentView.frame.origin.x+CLeftMargin, _commentView.frame.origin.y+CommentViewTopMargin, CGRectGetWidth(_commentView.frame)-CloseBtnWidth, CommentTitleHtight)];
-    titleLabel.text = [NSString stringWithFormat:@"%@%@",AMLocalizedString(@"FIV_CMTV_TITLE", nil),self.myFood.title];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.font = [UIFont systemFontOfSize:20];
-    titleLabel.textColor = [UIColor whiteColor];
-    
-    //Add a rate View
-    DXStarRatingView *rateView = [[DXStarRatingView alloc] initWithFrame:CGRectMake((_commentView.frame.size.width - CommentRateViewWidth+CLeftMargin)/2, CGRectGetMaxY(titleLabel.frame), CommentRateViewWidth,CommentRateViewHeight)];
-    
-    // Add a textView
-    UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(CLeftMargin, CGRectGetMaxY(rateView.frame), _commentView.frame.size.width - CLeftMargin*2, CommentTextViewHeight)];
-    textView.textColor = [UIColor blackColor];
-    textView.editable = YES;
-    textView.font = [UIFont systemFontOfSize:LargeTextFontSize];
-    [textView setReturnKeyType:UIReturnKeySend];
-    textView.delegate = self;
-    [textView becomeFirstResponder];
 
-    
-    Comment* lastcomment = [[User sharedInstance].lastComments objectForKey:[NSString stringWithFormat:@"%d",(int)self.myFood.fid]];
-    if (lastcomment) {
-        textView.text = lastcomment.text;
-        [rateView setStars:(int)lastcomment.rate target:self callbackAction:@selector(didChangeRating:)];
-    }
-    else{
-        //textView.text = @"Please comment...";
-        [rateView setStars:3 target:self callbackAction:@selector(didChangeRating:)];
-    }
-    
-    self.countLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(textView.frame)-90, CGRectGetMaxY(textView.frame)-40, 80, 40)];
-    self.countLabel.textColor = [UIColor lightGrayColor];
-    [_countStr setString:@""];
-    [_countStr appendFormat:@"%d",(int)(MaxCharNum-textView.text.length)];
-    self.countLabel.text =_countStr;
-    self.countLabel.textAlignment = NSTextAlignmentRight;
-    
-    [_commentView addSubview:titleLabel];
-    [_commentView addSubview:textView];
-    [_commentView addSubview:rateView];
-    [_commentView addSubview:self.countLabel];
-
-}
 
 -(void)hideCommentButton{
     self.commentBtn.hidden = YES;
@@ -907,94 +845,55 @@ const CGFloat ReadMoreButtonHeight =25;
     
 }
 
-- (void)didChangeRating:(NSNumber*)newRating
-{
-    _currentStar = [newRating unsignedIntegerValue];
-    //NSLog(@"didChangeRating: %@",newRating);
-}
 
+#pragma mark - EDCommentView Delegate
 
-/*****************************/
-/* HATransparentView delegate*/
-/*****************************/
-
-- (void)HATransparentViewDidClosed
-{
+-(void)EDCommentView:(HATransparentView *)edCommentView KeyboardReturnedWithStars:(NSUInteger)stars{
     
-    NSLog(@"Did close");
+    //Comment should be sent!
     
-    self.countLabel = nil;
-}
-
-/********************/
-/* TextView delegate*/
-/********************/
--(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-
-    return YES;
-}
-
--(void)textViewDidChange:(UITextView *)textView
-{
-    NSLog(@"Text Change!");
-    //User press enter, send the comment
-    if ([textView.text characterAtIndex:MAX((textView.text.length-1), 0)] =='\n')
-    {
-        textView.text = [textView.text substringToIndex:MAX((textView.text.length-1), 0)];
-        if (textView.text.length  == 0)
+    EDCommentView *commentView = (EDCommentView *)edCommentView;
+    [commentView makeToastActivity];
+    
+    Comment *newComment = [[Comment alloc]initWithCommentID:0 andFid:self.myFood.fid andRate:stars andComment:commentView.textView.text];
+    
+    [[User sharedInstance].lastComments setObject:newComment forKey:[NSString stringWithFormat:@"%d",(int)self.myFood.fid]];
+    
+    NSLog(@"+++++++++++++++ FIV +++++WILL SEND COMMENT+++++++++++++++++++");
+    [User createComment:newComment andCompletion:^(NSError *err, BOOL success, CGFloat newRate) {
+        if (success)
         {
-            [self.commentView makeToast:AMLocalizedString(@"EMPTY_COMMENT", nil) duration:0.5 position:@"center"];
-        }
-        else if(textView.text.length > MaxCharNum)
-        {
-            [self.commentView makeToast:AMLocalizedString(@"COMMENT_TOO_LONG", nil) duration:0.5 position:@"center"];
+            NSLog(@"+++++++++++++++ FIV +++++SEND COMMENT SUCCEED+++++++++++++++++++");
+            [commentView hideToastActivity];
+            [commentView close];
+            
+            //Update rate labels;
+            if (newRate>0.f) {
+                self.starNumberLabel.text = [NSString stringWithFormat:@"%.1f",newRate];
+            }
+            else{
+                self.starNumberLabel.text = @"0";
+            }
+            
+            [self makeToast:AMLocalizedString(@"SUCCESS_COMMENT", nil) duration:0.8 position:@"bottom"];
+            
+            //Remove old comment data
+            [self.myFood.comments removeAllObjects];
+            [self.commentsTableView reloadData];
+            
+            //update related UI
+            self.commentsTableView.frame = CGRectMake(self.commentsTableView.frame.origin.x, self.commentsTableView.frame.origin.y,self.commentsTableView.frame.size.width, 10);
+            [self.scrollview setContentOffset:CGPointZero animated:YES];
+            self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width,CGRectGetHeight(self.commentsTableView.frame)+10);
+            
+            //refresh comments
+            [self refreshComments];
         }
         else{
-            
-            Comment *newComment = [[Comment alloc]initWithCommentID:0 andFid:self.myFood.fid andRate:_currentStar andComment:textView.text];
-            
-            [[User sharedInstance].lastComments setObject:newComment forKey:[NSString stringWithFormat:@"%d",(int)self.myFood.fid]];
-            NSLog(@"+++++++++++++++ FIV +++++WILL SEND COMMENT+++++++++++++++++++");
-            [self.commentView makeToastActivity];
-            [User createComment:newComment andCompletion:^(NSError *err, BOOL success) {
-                if (success)
-                {
-                    NSLog(@"+++++++++++++++ FIV +++++SEND COMMENT SUCCEED+++++++++++++++++++");
-                    [self.commentView hideToastActivity];
-                    [self.commentView close];
-                    [self makeToast:AMLocalizedString(@"SUCCESS_COMMENT", nil) duration:0.8 position:@"bottom"];
-                    
-                    //Remove old data
-                    [self.myFood.comments removeAllObjects];
-                    [self.commentsTableView reloadData];
-                    
-                    //update related UI
-                    self.commentsTableView.frame = CGRectMake(self.commentsTableView.frame.origin.x, self.commentsTableView.frame.origin.y,self.commentsTableView.frame.size.width, 10);
-                    [self.scrollview setContentOffset:CGPointZero animated:YES];
-                    self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width,CGRectGetHeight(self.commentsTableView.frame)+10);
-                    
-                    //refresh comments
-                    [self refreshComments];
-                }
-                else{
-                    [self.commentView hideToastActivity];
-                    [self.commentView makeToast:AMLocalizedString(@"FAIL_COMMENT", nil) duration:0.8 position:@"center"];
-                }
-            }];
+            [commentView hideToastActivity];
+            [commentView makeToast:AMLocalizedString(@"FAIL_COMMENT", nil) duration:0.8 position:@"center"];
         }
-        return;
-        
-    }
-    if (textView.text.length<MaxCharNum) {
-        self.countLabel.textColor = [UIColor lightGrayColor];
-        
-    }
-    else{
-        self.countLabel.textColor = [UIColor redColor];
-    }
-    [_countStr setString:@""];
-    [_countStr appendFormat:@"%i",(int)(MaxCharNum - textView.text.length)];
-    self.countLabel.text =_countStr;
+    }];
 
     
 }
@@ -1006,7 +905,7 @@ const CGFloat ReadMoreButtonHeight =25;
 -(void)showLoadingBtnWithLoadingMsg{
         self.loadingBtn.enabled = NO;
     NSLog(@"+++++++++++ FIV ++++++++++++ %@ : showloading button!!!!!!!!!!!!!!",self.myFood.title);
-    [self.loadingBtn setTitle:NSLocalizedString(@"FIV_LOADING_MSG", nil) forState:UIControlStateNormal];
+    [self.loadingBtn setTitle:AMLocalizedString(@"FIV_LOADING_MSG", nil) forState:UIControlStateNormal];
 
     self.loadingBtn.alpha = 0.5;
 }
@@ -1017,12 +916,6 @@ const CGFloat ReadMoreButtonHeight =25;
         self.loadingBtn.hidden  = YES;
         self.loadingBtn.enabled = NO;
         [self.loadingBtn setTitle:@"" forState:UIControlStateNormal];
-//        [UIView animateWithDuration:0.3 animations:^{
-//            self.loadingBtn.alpha = 0.f;
-//            
-//        }completion:^(BOOL finished) {
-//            self.loadingBtn.hidden  = YES;
-//        }];
 
     
 }
@@ -1031,7 +924,7 @@ const CGFloat ReadMoreButtonHeight =25;
         NSLog(@"+++++++++++ FIV ++++++++++++ %@ : show failure button!!!!!!!!!!!!!!",self.myFood.title);
         self.loadingBtn.enabled = YES;
         [UIView animateWithDuration:0.5 animations:^{
-            [self.loadingBtn setTitle:NSLocalizedString(@"FIV_LOADING_FAIL", nil) forState:UIControlStateNormal];
+            [self.loadingBtn setTitle:AMLocalizedString(@"FIV_LOADING_FAIL", nil) forState:UIControlStateNormal];
              self.loadingBtn.alpha = 0.5;
         } ];
     
@@ -1077,10 +970,10 @@ const CGFloat ReadMoreButtonHeight =25;
     self.descriptionLabel.text = newText;
     
     //update other ui blow description label
-    //[self layoutSubviews];
+    [self layoutSubviews];
 
     //update contensize
-    //self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width,MAX(CGRectGetHeight(self.commentsTableView.frame), self.frame.size.height)+10);
+    self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width,MAX(CGRectGetHeight(self.commentsTableView.frame), self.frame.size.height)+10);
 }
 
 -(void)readMoreBtnPressed{
@@ -1090,23 +983,23 @@ const CGFloat ReadMoreButtonHeight =25;
                                                 options:NSStringDrawingUsesLineFragmentOrigin
                                              attributes:@{NSFontAttributeName:[UIFont fontWithName:PlainTextFontName size:LargeTextFontSize]}
                                                 context:nil];
-    if ([self.readMoreBtn.titleLabel.text isEqualToString:NSLocalizedString(@"FIV_READ_MORE", nil)])
+    if ([self.readMoreBtn.titleLabel.text isEqualToString:AMLocalizedString(@"FIV_READ_MORE", nil)])
     {
-        [self.readMoreBtn setTitle:NSLocalizedString(@"FIV_READ_LESS", nil) forState:UIControlStateNormal];
+        [self.readMoreBtn setTitle:AMLocalizedString(@"FIV_READ_LESS", nil) forState:UIControlStateNormal];
 
         self.descriptionLabel.frame = CGRectMake(self.descriptionLabel.frame.origin.x, self.descriptionLabel.frame.origin.y, self.descriptionLabel.frame.size.width,expectedRect.size.height);
 
 
     }else
     {
-        [self.readMoreBtn setTitle:NSLocalizedString(@"FIV_READ_MORE", nil) forState:UIControlStateNormal];
+        [self.readMoreBtn setTitle:AMLocalizedString(@"FIV_READ_MORE", nil) forState:UIControlStateNormal];
   
         self.descriptionLabel.frame = CGRectMake(self.descriptionLabel.frame.origin.x, self.descriptionLabel.frame.origin.y, self.descriptionLabel.frame.size.width,DescriptionLabelHeight);
 
 
     
     }
-    //[self layoutSubviews];
+    [self layoutSubviews];
     //self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width,MAX(CGRectGetHeight(self.commentsTableView.frame), self.frame.size.height)+10);
 
 }

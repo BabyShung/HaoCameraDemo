@@ -19,6 +19,7 @@
 #import "LocalizationSystem.h"
 #import "Dictionary.h"
 #import "UIView+Toast.h"
+#import "GeneralControl.h"
 
 #define FETCH_SEARCH_NUMBER 20
 
@@ -56,6 +57,7 @@ static NSString *CellIdentifier = @"Cell";
     self.dict = [[Dictionary alloc]initDictInDefaultLang];
     
     
+    [GeneralControl setPageViewControllerScrollEnabled:NO];
     //also stop camera
     AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDlg.cameraView pauseCamera];
@@ -76,12 +78,18 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 - (void) previousPagePressed:(id)sender {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    
     
     //also resume camera
     AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDlg.cameraView resumeCamera];
+    
+    [GeneralControl setPageViewControllerScrollEnabled:YES];
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+
 }
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
@@ -110,7 +118,7 @@ static NSString *CellIdentifier = @"Cell";
     
     [self.searchBar resignFirstResponder];
     if ([self.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) {
-        [self.view makeToast:NSLocalizedString(@"EMPTY_SEARCH_TERM",nil) duration:0.3 position:@"center"];
+        [self.view makeToast:AMLocalizedString(@"EMPTY_SEARCH_TERM",nil) duration:0.3 position:@"center"];
     }
     else if (self.searchData.count > 0 && [((Food *)self.searchData[0]).title caseInsensitiveCompare:self.searchBar.text] == NSOrderedSame) {
         //Perfect match found locally
@@ -134,7 +142,7 @@ static NSString *CellIdentifier = @"Cell";
             
             if (success) {
                 if(results.count == 0){
-                    [self.view makeToast:NSLocalizedString(@"NO_SEARCH_RESULT", nil) duration:0.3 position:@"center"];
+                    [self.view makeToast:AMLocalizedString(@"NO_SEARCH_RESULT", nil) duration:0.3 position:@"center"];
                 }
                 else {
                     [self.searchData removeAllObjects];
@@ -152,7 +160,7 @@ static NSString *CellIdentifier = @"Cell";
                 }
             }
             else{
-                [self.view makeToast:NSLocalizedString(@"SEARCH_FAILURE", nil) duration:0.3 position:@"bottom"];
+                [self.view makeToast:AMLocalizedString(@"SEARCH_FAILURE", nil) duration:0.3 position:@"bottom"];
             }
         }];
         
@@ -267,7 +275,7 @@ static NSString *CellIdentifier = @"Cell";
 //}
 
 -(void)loadControls{
-    _backBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andLeftBottomElseRightBottom:YES];
+    _backBtn = [LoadControls createRoundedBackButton];
     [_backBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_backBtn];
     

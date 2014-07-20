@@ -38,7 +38,7 @@
 "TEXT_NOT_NIL"="Please type something : )";
 "TIME" = " time";
 "TIMES" = " times";
-"FIV_CMTV_TITLE" = "Comment on ";
+"FIV_CMTV_TITLE" = "Review";
 "SUCCESS_COMMENT" = "Comment sent";
 "FAIL_COMMENT" = "Sorry, please send again";
 "DETECTOR_NO_RESULT" = "No results, please try again";
@@ -64,3 +64,4 @@
 "SEARCH_FAILURE"="Oops! Please Retry";
 "FIV_READ_MORE"="More";
 "FIV_READ_LESS"="Collapse";
+"CARD_SETTING"="Settings";

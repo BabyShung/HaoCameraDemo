@@ -16,6 +16,8 @@
 const CGFloat kCommentPaddingFromTop = 4.0f;
 const CGFloat kCommentPaddingFromLeft = 10.0f;
 const CGFloat kCommentPaddingFromRight = 8.0f;
+const CGFloat KCommentTextFontSize = 14.f;
+
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -46,9 +48,11 @@ const CGFloat kCommentPaddingFromRight = 8.0f;
         
         //Hao
         self.likeButton = [self createLikeButton_frame:CGRectMake(250, CGRectGetMinY(self.commentLabel.frame) + 5, 18, 18) andTagNumber:1];
+        self.likeButton.hidden = YES;
         [self addSubview:self.likeButton];
         
         self.dislikeButton = [self createLikeButton_frame:CGRectMake(290, CGRectGetMinY(self.commentLabel.frame) + 5, 18, 18) andTagNumber:0];
+        self.dislikeButton.hidden = YES;
         [self addSubview:self.dislikeButton];
         
         self.likeCountLabel = [[UILabel alloc] init];
