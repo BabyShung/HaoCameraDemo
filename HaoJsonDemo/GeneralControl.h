@@ -18,7 +18,7 @@
 
 +(void)transitionToVC:(UIViewController *)vc withToVCStoryboardId:(NSString*)name withDuration:(CGFloat) duration;
 
-
++(void)enableBothCameraAndPageVCScroll:(BOOL)enable;
 
 +(void)setPageViewControllerScrollEnabled:(BOOL)enabled;
 

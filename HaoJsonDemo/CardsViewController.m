@@ -121,7 +121,12 @@ UICollectionViewDelegate>
 
 
 - (void) previousPagePressed:(id)sender {
-    [self.settingDelegate slideToPreviousPage];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
+                                        (unsigned long)NULL), ^(void) {
+      [self.settingDelegate slideToPreviousPage];
+    });
+
+    //[self.settingDelegate slideToPreviousPage];
 }
 
 -(void)PressedRegisterButton:(id)stuff{
@@ -134,12 +139,15 @@ UICollectionViewDelegate>
 
 -(void)viewDidAppear:(BOOL)animated{
     
-    if(self.shimmeringView.shimmering){
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            self.shimmeringView.shimmering = NO;
-        });
-        [self.descriptionLabel shine];
-    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
+                                             (unsigned long)NULL), ^(void) {
+        if(self.shimmeringView.shimmering){
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                self.shimmeringView.shimmering = NO;
+            });
+            [self.descriptionLabel shine];
+        }
+    });
 }
 
 -(void)loadControls{
@@ -152,7 +160,7 @@ UICollectionViewDelegate>
     [self.view addSubview:dash0];
     
     
-    _previousPageBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andLeftBottomElseRightBottom:YES];
+    _previousPageBtn = [LoadControls createRoundedBackButton];
     [_previousPageBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_previousPageBtn];
     
@@ -160,6 +168,7 @@ UICollectionViewDelegate>
     self.menuInteractor = [[MKTransitionCoordinator alloc] initWithParentViewController:self];
     self.menuInteractor.disableLeftEdgePan = NO;
     self.menuInteractor.disableRightEdgePan = YES;
+    self.menuInteractor.transitionInvolvingCamera = YES;
     
     [self.bottomCollectionView registerClass:[CardsCollectionCell class] forCellWithReuseIdentifier:[collectionCellIdentity copy]];
     
@@ -276,8 +285,13 @@ UICollectionViewDelegate>
 }
 
 -(void)CardSlide:(BOOL)left{
-    dispatch_async(dispatch_get_main_queue(), ^{
-            [self.bottomCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:(left?0:[self.profileOptions count]-1) inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.bottomCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:(left?0:[self.profileOptions count]-1) inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+//    });
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
+                                             (unsigned long)NULL), ^(void) {
+        [self.bottomCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:(left?0:[self.profileOptions count]-1) inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     });
 }
 

@@ -7,6 +7,7 @@
 //
 
 #import "MKTransitionCoordinator.h"
+#import "GeneralControl.h"
 
 @interface MKTransitionCoordinator ()
     <UIViewControllerAnimatedTransitioning,
@@ -110,6 +111,13 @@
         
         if (velocity.x > 0) {
             [self finishInteractiveTransition];
+            
+            if(self.transitionInvolvingCamera){
+                //pop
+                //enable pageVC scroll and also stop camera
+                [GeneralControl enableBothCameraAndPageVCScroll:YES];
+            }
+            
         } else {
             [self cancelInteractiveTransition];
         }

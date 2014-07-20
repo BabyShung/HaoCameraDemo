@@ -117,22 +117,26 @@
 }
 
 - (void)resumeCamera{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [_camManager startRunning];
-        //[UIView animateWithDuration:0.3 animations:^{
-            
-            self.capturedImageView.backgroundColor = [UIColor clearColor];
-        //}];
-    });
+    [_camManager startRunning];
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [_camManager startRunning];
+//    });
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
+//                                             (unsigned long)NULL), ^(void) {
+//        [_camManager startRunning];
+//        self.capturedImageView.backgroundColor = [UIColor clearColor];
+//    });
 }
 
 - (void)pauseCamera{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [_camManager stopRunning];
-        //[UIView animateWithDuration:0.3 animations:^{
-            self.capturedImageView.backgroundColor = [UIColor blackColor];
-        //}];
-    });
+    [_camManager stopRunning];
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [_camManager stopRunning];
+//    });
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
+//                                             (unsigned long)NULL), ^(void) {
+//        [_camManager stopRunning];
+//    });
 }
 
 -(BOOL)CameraIsOn{
@@ -504,14 +508,14 @@
     
     
     // -- LOAD BUTTONS BEGIN -- //
-    _backBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andLeftBottomElseRightBottom:YES];
+    _backBtn = [LoadControls createRoundedBackButton];
     [_backBtn addTarget:self action:@selector(backBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     _TorchBtn = [LoadControls createRoundedButton_Image:@"ED_torch.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(0, 0, 0, 0) andLeftBottomElseRightBottom:YES andStartingPosition:torchStart];
     [_TorchBtn addTarget:self action:@selector(torchBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
 
     
-    _nextPageBtn = [LoadControls createRoundedButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 13, 9, 10) andLeftBottomElseRightBottom:NO andStartingPosition:nextStart];
+    _nextPageBtn = [LoadControls createRoundedButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(8, 9, 8, 7) andLeftBottomElseRightBottom:NO andStartingPosition:nextStart];
     [_nextPageBtn addTarget:self action:@selector(nextPagePressed:) forControlEvents:UIControlEventTouchUpInside];
 
     
