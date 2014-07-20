@@ -31,27 +31,6 @@ using namespace std;
 }
 
 
-
-//------------Basic method
-
--(cv::Mat)toGrayMat:(UIImage *) inputImage{
-    
-    cv::Mat matImage = [inputImage CVGrayscaleMat];
-    return matImage;
-}
-
-
--(cv::Mat)sharpen:(cv::Mat)inputImage{
-    cv::Mat output;
-    cv::GaussianBlur(inputImage, output, cv::Size(0, 0), 10);
-    cv::addWeighted(inputImage, 1.5, output, -0.5, 0, output);
-    return output;
-}
-
-
-//------------/Basic method
-
-
 //-----------find contour
 
 typedef vector<vector<cv::Point> > TContours;//global
@@ -61,7 +40,7 @@ typedef vector<vector<cv::Point> > TContours;//global
     
     //cv::fastNlMeansDenoising(inputImg, inputImg, 3.0f, 7, 21);
     
-    double high_thres = cv::threshold( inputImg, inputImg, 0, 255, THRESH_BINARY|THRESH_OTSU );
+    double high_thres = cv::threshold( inputImg, inputImg, 0, 255, THRESH_BINARY+THRESH_OTSU );
     
     cv::Mat canny_output;
     NSMutableArray *UIRects = [[NSMutableArray alloc] init];
@@ -84,8 +63,8 @@ typedef vector<vector<cv::Point> > TContours;//global
     /// Approximate contours to polygons + get bounding rects and circles
     vector<vector<cv::Point> > contours_poly( contours.size() );
     vector<cv::Rect> boundRect(contours.size() );
-    vector<Point2f>center( contours.size() );
-    vector<float>radius( contours.size() );
+    vector<Point2f>center(contours.size() );
+    vector<float>radius(contours.size() );
     
     int counter_noise = 0;
     int counter_tempRect = 0;
@@ -186,6 +165,10 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
         flag = 0;
         cv::Rect rect0 = rects[i]; //temp
         
+        if(rect0.height==0 || rect0.width == 0){
+            break;
+        }
+        
         if(i == 0){
             newRects[0] = rect0;
         }
@@ -226,6 +209,10 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
         flag = 0;
         cv::Rect rect0 = rects[i]; //temp
         
+        if(rect0.height==0 || rect0.width == 0){
+            break;
+        }
+        
         if(i == 0){
             newRects[0] = rect0;
         }
@@ -264,8 +251,13 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
     
     for(index= 0; index<rects.size();index++){
         
+        
         flag = 0;
         cv::Rect tempRect = rects[index];
+        
+        if(tempRect.height==0 || tempRect.width == 0){
+            break;
+        }
         
         for(int index_in=0;index_in<rects.size();index_in++){
             
