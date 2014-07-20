@@ -200,7 +200,7 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
                                                withString:@""];
             numCombo = 0;
             for (int j = i+1; j < numOfWords ; j++) {
-                if(numCombo > 5){
+                if(numCombo > 4){
                     break; //avoid latency
                     NSLog(@"Dictionary: break!");
                 }
