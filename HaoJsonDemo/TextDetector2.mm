@@ -280,7 +280,7 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
             cv::Point br1 = rects[index_in].br();
             int distance_x = abs(br0.x-pl1.x);
             int distance_mid = abs(pl0.y+rects[index].height/2 - (pl1.y+rects[index_in].height/2));
-            int distance_threshold = (rects[index].height)/2-3;
+            int distance_threshold = (rects[index].height)/2;
             
             int diff_height = abs(rects[index].height - rects[index_in].height);
             

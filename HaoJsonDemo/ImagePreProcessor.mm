@@ -342,7 +342,8 @@ using namespace std;
     //count the sum of the pixl for the whole rect img
     int sum_pixl = 0;
     int sum_outer_pixl = 0;
-    int counter_outer = 0;
+    int counter_outer = 1;
+    int counter_inner = 1;
     
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
@@ -355,17 +356,18 @@ using namespace std;
                 
             }
             
-                sum_pixl = sum_pixl + pixl_int;
-            
+            sum_pixl = sum_pixl + pixl_int;
+            counter_inner++;
             
             
         }
     }
     //count the average of the pixels
-    int ave_pixl = sum_pixl/(rows*cols);
+    int ave_pixl = sum_pixl/counter_inner;
     int ave_outer_pixl = sum_outer_pixl/counter_outer;
-    NSLog(@"ImagePrePro: all: %d",ave_pixl);
-    NSLog(@"ImagePrePro: out: %d",ave_outer_pixl);
+    
+    NSLog(@"ImagePrePro: all: %u",ave_pixl);
+    NSLog(@"ImagePrePro: out: %u",ave_outer_pixl);
     
     
     
@@ -378,7 +380,7 @@ using namespace std;
         return 0;// black paper white words
     }
     else{
-        return 2;//test mode
+        return 1;//test mode
     }
     
 }

@@ -23,9 +23,10 @@
     output = [output stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     output= [[output componentsSeparatedByCharactersInSet:
               [NSCharacterSet newlineCharacterSet]]componentsJoinedByString:@" "];
+    output = [output stringByReplacingOccurrencesOfString:@"," withString:@" "];//replace \s
     output = [output stringByReplacingOccurrencesOfString:@"    " withString:@" "];//replace \s
     output = [output stringByReplacingOccurrencesOfString:@"   " withString:@" "];//replace \s
-    output = [output stringByReplacingOccurrencesOfString:@"," withString:@""];//replace \s
+
     
     int mark=0;
     
