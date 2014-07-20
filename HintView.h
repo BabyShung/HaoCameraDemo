@@ -12,4 +12,6 @@
 
 -(void)updateSpotLightWithPoint:(CGPoint)point;
 
+-(void)updateSpotLightWithPoint_alsoAddsDragStaff:(CGPoint)point;
+
 @end

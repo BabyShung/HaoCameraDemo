@@ -71,7 +71,7 @@
     if(self.shouldShowHint){
         HintView *hv = [[HintView alloc] initWithFrame:self.frame];
         [self addSubview:hv];
-        [hv updateSpotLightWithPoint:CGPointMake(300, 189)];
+        [hv updateSpotLightWithPoint_alsoAddsDragStaff:CGPointMake(300, 189)];
     }else{
         //must be clicking tutorial btn
         [self removeFromSuperview];

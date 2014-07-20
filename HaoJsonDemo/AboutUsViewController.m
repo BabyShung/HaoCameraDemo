@@ -13,6 +13,7 @@
 
 @interface AboutUsViewController ()
 
+@property (weak, nonatomic) IBOutlet UILabel *contactUsLabel;
 @end
 
 @implementation AboutUsViewController
@@ -21,6 +22,9 @@
 {
     [super viewDidLoad];
 
+    self.contactUsLabel.text = AMLocalizedString(@"CONTACT_US_ABOUT_US", nil);
+    
+    
     UIButton *btn = [LoadControls createRoundedBackButton];
     [btn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];

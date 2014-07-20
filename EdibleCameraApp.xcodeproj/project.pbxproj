@@ -43,6 +43,12 @@
 		B8032C3F197B505E001B9040 /* CameraPrevious@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8032C3D197B505E001B9040 /* CameraPrevious@2x.png */; };
 		B8032C40197B505E001B9040 /* CameraPrevious.png in Resources */ = {isa = PBXBuildFile; fileRef = B8032C3E197B505E001B9040 /* CameraPrevious.png */; };
 		B8032C42197B5111001B9040 /* draggable_Chinese.png in Resources */ = {isa = PBXBuildFile; fileRef = B8032C41197B5111001B9040 /* draggable_Chinese.png */; };
+		B8032C45197B6DAB001B9040 /* intro_arrow_right_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8032C43197B6DAB001B9040 /* intro_arrow_right_down@2x.png */; };
+		B8032C46197B6DAB001B9040 /* intro_arrow_right_down.png in Resources */ = {isa = PBXBuildFile; fileRef = B8032C44197B6DAB001B9040 /* intro_arrow_right_down.png */; };
+		B8032C49197B70D6001B9040 /* intro_arrow_left_down.png in Resources */ = {isa = PBXBuildFile; fileRef = B8032C47197B70D6001B9040 /* intro_arrow_left_down.png */; };
+		B8032C4A197B70D6001B9040 /* intro_arrow_left_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8032C48197B70D6001B9040 /* intro_arrow_left_down@2x.png */; };
+		B8032C4D197B7567001B9040 /* iowaCityMap.png in Resources */ = {isa = PBXBuildFile; fileRef = B8032C4B197B7567001B9040 /* iowaCityMap.png */; };
+		B8032C4E197B7567001B9040 /* aboutus_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B8032C4C197B7567001B9040 /* aboutus_logo.png */; };
 		B803CFAD196F841C006080D0 /* IPDashedLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = B803CFAC196F841C006080D0 /* IPDashedLineView.m */; };
 		B803CFB019705F17006080D0 /* indicate_1@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B803CFAE19705F17006080D0 /* indicate_1@2x.jpg */; };
 		B803CFB119705F17006080D0 /* indicate_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B803CFAF19705F17006080D0 /* indicate_1.jpg */; };
@@ -67,8 +73,8 @@
 		B8079C411979A55000D568EC /* title2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8079C361979A55000D568EC /* title2@2x.png */; };
 		B8079C421979A55000D568EC /* title3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8079C371979A55000D568EC /* title3@2x.png */; };
 		B8079C431979A55000D568EC /* title4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8079C381979A55000D568EC /* title4@2x.png */; };
-		B8079CC81979C06200D568EC /* intro_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8079CC61979C06200D568EC /* intro_arrow@2x.png */; };
-		B8079CC91979C06200D568EC /* intro_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = B8079CC71979C06200D568EC /* intro_arrow.png */; };
+		B8079CC81979C06200D568EC /* intro_arrow_right_up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8079CC61979C06200D568EC /* intro_arrow_right_up@2x.png */; };
+		B8079CC91979C06200D568EC /* intro_arrow_right_up.png in Resources */ = {isa = PBXBuildFile; fileRef = B8079CC71979C06200D568EC /* intro_arrow_right_up.png */; };
 		B8079CD41979C63000D568EC /* HintView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8079CD11979C63000D568EC /* HintView.m */; };
 		B8079CD51979C63000D568EC /* MLPSpotlight.m in Sources */ = {isa = PBXBuildFile; fileRef = B8079CD31979C63000D568EC /* MLPSpotlight.m */; };
 		B8079CDA1979C83400D568EC /* login_ip5_final.png in Resources */ = {isa = PBXBuildFile; fileRef = B8079CD61979C83400D568EC /* login_ip5_final.png */; };
@@ -297,6 +303,12 @@
 		B8032C3D197B505E001B9040 /* CameraPrevious@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraPrevious@2x.png"; sourceTree = "<group>"; };
 		B8032C3E197B505E001B9040 /* CameraPrevious.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CameraPrevious.png; sourceTree = "<group>"; };
 		B8032C41197B5111001B9040 /* draggable_Chinese.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = draggable_Chinese.png; sourceTree = "<group>"; };
+		B8032C43197B6DAB001B9040 /* intro_arrow_right_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "intro_arrow_right_down@2x.png"; sourceTree = "<group>"; };
+		B8032C44197B6DAB001B9040 /* intro_arrow_right_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = intro_arrow_right_down.png; sourceTree = "<group>"; };
+		B8032C47197B70D6001B9040 /* intro_arrow_left_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = intro_arrow_left_down.png; sourceTree = "<group>"; };
+		B8032C48197B70D6001B9040 /* intro_arrow_left_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "intro_arrow_left_down@2x.png"; sourceTree = "<group>"; };
+		B8032C4B197B7567001B9040 /* iowaCityMap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iowaCityMap.png; sourceTree = "<group>"; };
+		B8032C4C197B7567001B9040 /* aboutus_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aboutus_logo.png; sourceTree = "<group>"; };
 		B803CFAB196F841C006080D0 /* IPDashedLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPDashedLineView.h; sourceTree = "<group>"; };
 		B803CFAC196F841C006080D0 /* IPDashedLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPDashedLineView.m; sourceTree = "<group>"; };
 		B803CFAE19705F17006080D0 /* indicate_1@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "indicate_1@2x.jpg"; sourceTree = "<group>"; };
@@ -326,8 +338,8 @@
 		B8079C361979A55000D568EC /* title2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title2@2x.png"; sourceTree = "<group>"; };
 		B8079C371979A55000D568EC /* title3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title3@2x.png"; sourceTree = "<group>"; };
 		B8079C381979A55000D568EC /* title4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title4@2x.png"; sourceTree = "<group>"; };
-		B8079CC61979C06200D568EC /* intro_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "intro_arrow@2x.png"; sourceTree = "<group>"; };
-		B8079CC71979C06200D568EC /* intro_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = intro_arrow.png; sourceTree = "<group>"; };
+		B8079CC61979C06200D568EC /* intro_arrow_right_up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "intro_arrow_right_up@2x.png"; sourceTree = "<group>"; };
+		B8079CC71979C06200D568EC /* intro_arrow_right_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = intro_arrow_right_up.png; sourceTree = "<group>"; };
 		B8079CD01979C63000D568EC /* HintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HintView.h; sourceTree = "<group>"; };
 		B8079CD11979C63000D568EC /* HintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HintView.m; sourceTree = "<group>"; };
 		B8079CD21979C63000D568EC /* MLPSpotlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPSpotlight.h; sourceTree = "<group>"; };
@@ -697,14 +709,20 @@
 		B8079AFD1977766600D568EC /* overall */ = {
 			isa = PBXGroup;
 			children = (
+				B8032C4B197B7567001B9040 /* iowaCityMap.png */,
+				B8032C4C197B7567001B9040 /* aboutus_logo.png */,
 				B8032C37197B501C001B9040 /* draggable_English.png */,
 				B8032C41197B5111001B9040 /* draggable_Chinese.png */,
 				B8079CEE197B06ED00D568EC /* clear_trash.png */,
 				B8079CEF197B06ED00D568EC /* clear_trash@2x.png */,
 				B8079CEA197B06E000D568EC /* bold_cross.png */,
 				B8079CEB197B06E000D568EC /* bold_cross@2x.png */,
-				B8079CC61979C06200D568EC /* intro_arrow@2x.png */,
-				B8079CC71979C06200D568EC /* intro_arrow.png */,
+				B8032C44197B6DAB001B9040 /* intro_arrow_right_down.png */,
+				B8032C43197B6DAB001B9040 /* intro_arrow_right_down@2x.png */,
+				B8079CC61979C06200D568EC /* intro_arrow_right_up@2x.png */,
+				B8079CC71979C06200D568EC /* intro_arrow_right_up.png */,
+				B8032C47197B70D6001B9040 /* intro_arrow_left_down.png */,
+				B8032C48197B70D6001B9040 /* intro_arrow_left_down@2x.png */,
 				B8AB89CB196C7EA400F32E4F /* star_off.png */,
 				B8AB89CC196C7EA400F32E4F /* star_off@2x.png */,
 				B8AB89CD196C7EA400F32E4F /* star_on.png */,
@@ -1446,8 +1464,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8032C45197B6DAB001B9040 /* intro_arrow_right_down@2x.png in Resources */,
 				B8079C171979998000D568EC /* ED_switchLanguage.png in Resources */,
 				B8CC9F8119689E6400CCFE74 /* ED_about@2x.png in Resources */,
+				B8032C46197B6DAB001B9040 /* intro_arrow_right_down.png in Resources */,
 				B8079C191979998000D568EC /* ED_aboutUs.png in Resources */,
 				106FF1A2196B49670099B743 /* Localizable.strings in Resources */,
 				B8079CF5197B06FF00D568EC /* ED_tutorial@2x.png in Resources */,
@@ -1475,7 +1495,7 @@
 				B8032C40197B505E001B9040 /* CameraPrevious.png in Resources */,
 				B8079CF0197B06ED00D568EC /* clear_trash.png in Resources */,
 				B8B60FDA19591E07005268D5 /* moreButton.png in Resources */,
-				B8079CC91979C06200D568EC /* intro_arrow.png in Resources */,
+				B8079CC91979C06200D568EC /* intro_arrow_right_up.png in Resources */,
 				B8F179AC1975C29700A236B1 /* ED_back_2.png in Resources */,
 				B8079B641978CE7A00D568EC /* user@2x.png in Resources */,
 				B8C8F330195E1EFF009F8F6E /* trained_classifier_erGrouping.xml in Resources */,
@@ -1490,7 +1510,7 @@
 				B8CC9F8819689E6400CCFE74 /* ED_logout.png in Resources */,
 				B8F29C681932DC55008979A7 /* Camera_01.png in Resources */,
 				B8079C3D1979A55000D568EC /* bg2@2x.png in Resources */,
-				B8079CC81979C06200D568EC /* intro_arrow@2x.png in Resources */,
+				B8079CC81979C06200D568EC /* intro_arrow_right_up@2x.png in Resources */,
 				B8BBB02E1964FFA9007CE548 /* close-icon.png in Resources */,
 				B8AB89D1196C7EA400F32E4F /* star_on.png in Resources */,
 				B8032C3B197B5038001B9040 /* CameraNext@2x.png in Resources */,
@@ -1500,7 +1520,9 @@
 				B8CC9F8719689E6400CCFE74 /* ED_feedback@2x.png in Resources */,
 				AC1E7764194F583100532F65 /* filterwords.txt in Resources */,
 				B8079C421979A55000D568EC /* title3@2x.png in Resources */,
+				B8032C49197B70D6001B9040 /* intro_arrow_left_down.png in Resources */,
 				B8079B621978CE7A00D568EC /* lock.png in Resources */,
+				B8032C4E197B7567001B9040 /* aboutus_logo.png in Resources */,
 				B8079C1A1979998000D568EC /* ED_aboutUs@2x.png in Resources */,
 				B82353F0192CFC4C00D6BCAC /* tessdata in Resources */,
 				B8079AFC1977757200D568EC /* Login_logo_transparent.png in Resources */,
@@ -1519,6 +1541,7 @@
 				B8AB89D2196C7EA400F32E4F /* star_on@2x.png in Resources */,
 				B8F179AD1975C29700A236B1 /* ED_back_2@2x.png in Resources */,
 				B8CC9F8919689E6400CCFE74 /* ED_logout@2x.png in Resources */,
+				B8032C4A197B70D6001B9040 /* intro_arrow_left_down@2x.png in Resources */,
 				B8BBB0301964FFA9007CE548 /* search-icon.png in Resources */,
 				B8CC9F8519689E6400CCFE74 /* ED_cross@2x.png in Resources */,
 				B8FA464718F9E954007DA680 /* InfoPlist.strings in Resources */,
@@ -1537,6 +1560,7 @@
 				B8079C3E1979A55000D568EC /* bg3@2x.png in Resources */,
 				B8CC9F8B19689E6400CCFE74 /* ED_search@2x.png in Resources */,
 				B8FA465018F9E954007DA680 /* Main.storyboard in Resources */,
+				B8032C4D197B7567001B9040 /* iowaCityMap.png in Resources */,
 				B8B60FD419591E07005268D5 /* likeButton_highlighted.png in Resources */,
 				B8079C181979998000D568EC /* ED_switchLanguage@2x.png in Resources */,
 				B8F1794319742B2500A236B1 /* Camera_02@2x.png in Resources */,
