@@ -46,8 +46,12 @@
 		B8032C46197B6DAB001B9040 /* intro_arrow_right_down.png in Resources */ = {isa = PBXBuildFile; fileRef = B8032C44197B6DAB001B9040 /* intro_arrow_right_down.png */; };
 		B8032C49197B70D6001B9040 /* intro_arrow_left_down.png in Resources */ = {isa = PBXBuildFile; fileRef = B8032C47197B70D6001B9040 /* intro_arrow_left_down.png */; };
 		B8032C4A197B70D6001B9040 /* intro_arrow_left_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8032C48197B70D6001B9040 /* intro_arrow_left_down@2x.png */; };
-		B8032C4D197B7567001B9040 /* iowaCityMap.png in Resources */ = {isa = PBXBuildFile; fileRef = B8032C4B197B7567001B9040 /* iowaCityMap.png */; };
 		B8032C4E197B7567001B9040 /* aboutus_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = B8032C4C197B7567001B9040 /* aboutus_logo.png */; };
+		B8032C97197C1ADB001B9040 /* iowaCityMap.png in Resources */ = {isa = PBXBuildFile; fileRef = B8032C96197C1ADB001B9040 /* iowaCityMap.png */; };
+		B8032D09197C5477001B9040 /* MRTextLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B8032D02197C5477001B9040 /* MRTextLayer.m */; };
+		B8032D0A197C5477001B9040 /* MRImageLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B8032D04197C5477001B9040 /* MRImageLayer.m */; };
+		B8032D0B197C5477001B9040 /* MRoundedButtonAppearanceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8032D06197C5477001B9040 /* MRoundedButtonAppearanceManager.m */; };
+		B8032D0C197C5477001B9040 /* HaoCaptureButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B8032D08197C5477001B9040 /* HaoCaptureButton.m */; };
 		B803CFAD196F841C006080D0 /* IPDashedLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = B803CFAC196F841C006080D0 /* IPDashedLineView.m */; };
 		B803CFB019705F17006080D0 /* indicate_1@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B803CFAE19705F17006080D0 /* indicate_1@2x.jpg */; };
 		B803CFB119705F17006080D0 /* indicate_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B803CFAF19705F17006080D0 /* indicate_1.jpg */; };
@@ -199,7 +203,6 @@
 		B8CC9FA91968A75900CCFE74 /* ED_feedback_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8CC9FA31968A75900CCFE74 /* ED_feedback_right@2x.png */; };
 		B8D09A791948BCCF006C070D /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D09A761948BCCF006C070D /* User.m */; };
 		B8D6953C193E71C200E504FA /* ED_Color.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D6953B193E71C200E504FA /* ED_Color.m */; };
-		B8F1793F19742B1900A236B1 /* MRoundedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F1793E19742B1900A236B1 /* MRoundedButton.m */; };
 		B8F1794219742B2500A236B1 /* Camera_02.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F1794019742B2500A236B1 /* Camera_02.png */; };
 		B8F1794319742B2500A236B1 /* Camera_02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F1794119742B2500A236B1 /* Camera_02@2x.png */; };
 		B8F179A01974856A00A236B1 /* check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F1799F1974856A00A236B1 /* check@2x.png */; };
@@ -301,8 +304,16 @@
 		B8032C44197B6DAB001B9040 /* intro_arrow_right_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = intro_arrow_right_down.png; sourceTree = "<group>"; };
 		B8032C47197B70D6001B9040 /* intro_arrow_left_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = intro_arrow_left_down.png; sourceTree = "<group>"; };
 		B8032C48197B70D6001B9040 /* intro_arrow_left_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "intro_arrow_left_down@2x.png"; sourceTree = "<group>"; };
-		B8032C4B197B7567001B9040 /* iowaCityMap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iowaCityMap.png; sourceTree = "<group>"; };
 		B8032C4C197B7567001B9040 /* aboutus_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aboutus_logo.png; sourceTree = "<group>"; };
+		B8032C96197C1ADB001B9040 /* iowaCityMap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iowaCityMap.png; sourceTree = "<group>"; };
+		B8032D01197C5477001B9040 /* MRTextLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRTextLayer.h; sourceTree = "<group>"; };
+		B8032D02197C5477001B9040 /* MRTextLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRTextLayer.m; sourceTree = "<group>"; };
+		B8032D03197C5477001B9040 /* MRImageLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRImageLayer.h; sourceTree = "<group>"; };
+		B8032D04197C5477001B9040 /* MRImageLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRImageLayer.m; sourceTree = "<group>"; };
+		B8032D05197C5477001B9040 /* MRoundedButtonAppearanceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRoundedButtonAppearanceManager.h; sourceTree = "<group>"; };
+		B8032D06197C5477001B9040 /* MRoundedButtonAppearanceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRoundedButtonAppearanceManager.m; sourceTree = "<group>"; };
+		B8032D07197C5477001B9040 /* HaoCaptureButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HaoCaptureButton.h; sourceTree = "<group>"; };
+		B8032D08197C5477001B9040 /* HaoCaptureButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HaoCaptureButton.m; sourceTree = "<group>"; };
 		B803CFAB196F841C006080D0 /* IPDashedLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPDashedLineView.h; sourceTree = "<group>"; };
 		B803CFAC196F841C006080D0 /* IPDashedLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPDashedLineView.m; sourceTree = "<group>"; };
 		B803CFAE19705F17006080D0 /* indicate_1@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "indicate_1@2x.jpg"; sourceTree = "<group>"; };
@@ -530,8 +541,6 @@
 		B8D09A761948BCCF006C070D /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		B8D6953A193E71C200E504FA /* ED_Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ED_Color.h; sourceTree = "<group>"; };
 		B8D6953B193E71C200E504FA /* ED_Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ED_Color.m; sourceTree = "<group>"; };
-		B8F1793D19742B1900A236B1 /* MRoundedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRoundedButton.h; sourceTree = "<group>"; };
-		B8F1793E19742B1900A236B1 /* MRoundedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRoundedButton.m; sourceTree = "<group>"; };
 		B8F1794019742B2500A236B1 /* Camera_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Camera_02.png; sourceTree = "<group>"; };
 		B8F1794119742B2500A236B1 /* Camera_02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Camera_02@2x.png"; sourceTree = "<group>"; };
 		B8F1799F1974856A00A236B1 /* check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check@2x.png"; sourceTree = "<group>"; };
@@ -695,7 +704,7 @@
 		B8079AFD1977766600D568EC /* overall */ = {
 			isa = PBXGroup;
 			children = (
-				B8032C4B197B7567001B9040 /* iowaCityMap.png */,
+				B8032C96197C1ADB001B9040 /* iowaCityMap.png */,
 				B8032C4C197B7567001B9040 /* aboutus_logo.png */,
 				B8032C37197B501C001B9040 /* draggable_English.png */,
 				B8032C41197B5111001B9040 /* draggable_Chinese.png */,
@@ -1257,8 +1266,14 @@
 		B8F1793C19742B0000A236B1 /* CaptureButton */ = {
 			isa = PBXGroup;
 			children = (
-				B8F1793D19742B1900A236B1 /* MRoundedButton.h */,
-				B8F1793E19742B1900A236B1 /* MRoundedButton.m */,
+				B8032D01197C5477001B9040 /* MRTextLayer.h */,
+				B8032D02197C5477001B9040 /* MRTextLayer.m */,
+				B8032D03197C5477001B9040 /* MRImageLayer.h */,
+				B8032D04197C5477001B9040 /* MRImageLayer.m */,
+				B8032D05197C5477001B9040 /* MRoundedButtonAppearanceManager.h */,
+				B8032D06197C5477001B9040 /* MRoundedButtonAppearanceManager.m */,
+				B8032D07197C5477001B9040 /* HaoCaptureButton.h */,
+				B8032D08197C5477001B9040 /* HaoCaptureButton.m */,
 			);
 			name = CaptureButton;
 			sourceTree = "<group>";
@@ -1513,6 +1528,7 @@
 				B8CC9F8D19689E6400CCFE74 /* ED_torch@2x.png in Resources */,
 				B8079C401979A55000D568EC /* title1@2x.png in Resources */,
 				B8B60FD519591E07005268D5 /* likeButton_selected.png in Resources */,
+				B8032C97197C1ADB001B9040 /* iowaCityMap.png in Resources */,
 				B8C8F38A195F834B009F8F6E /* register_03.png in Resources */,
 				B8032C42197B5111001B9040 /* draggable_Chinese.png in Resources */,
 				B8079CF1197B06ED00D568EC /* clear_trash@2x.png in Resources */,
@@ -1543,7 +1559,6 @@
 				B8079C3E1979A55000D568EC /* bg3@2x.png in Resources */,
 				B8CC9F8B19689E6400CCFE74 /* ED_search@2x.png in Resources */,
 				B8FA465018F9E954007DA680 /* Main.storyboard in Resources */,
-				B8032C4D197B7567001B9040 /* iowaCityMap.png in Resources */,
 				B8B60FD419591E07005268D5 /* likeButton_highlighted.png in Resources */,
 				B8079C181979998000D568EC /* ED_switchLanguage@2x.png in Resources */,
 				B8F1794319742B2500A236B1 /* Camera_02@2x.png in Resources */,
@@ -1608,10 +1623,13 @@
 				B8B61083195927A2005268D5 /* CardFlowLayout.m in Sources */,
 				B8079CE3197A227D00D568EC /* ASValueTrackingSlider.m in Sources */,
 				B8B60FF419591E60005268D5 /* UIImageView+M13AsynchronousImageView.m in Sources */,
+				B8032D0B197C5477001B9040 /* MRoundedButtonAppearanceManager.m in Sources */,
 				B8079D04197B1FA300D568EC /* LanguageCell.m in Sources */,
 				B802C86A1971ECAB008EDC68 /* UIView+Toast.m in Sources */,
+				B8032D0C197C5477001B9040 /* HaoCaptureButton.m in Sources */,
 				B8B6105A195925F2005268D5 /* Edible_S3.m in Sources */,
 				ACDD6D58195F4BAD00AD51A7 /* DBOperation.m in Sources */,
+				B8032D09197C5477001B9040 /* MRTextLayer.m in Sources */,
 				AC8A357A19461E2100FC5465 /* SQLConnector.m in Sources */,
 				B8B61148195A63DA005268D5 /* DALinedTextView.m in Sources */,
 				B8B60FAC195914DF005268D5 /* largeLayout.m in Sources */,
@@ -1623,7 +1641,6 @@
 				B8B61077195926E0005268D5 /* NSString+FontAwesome.m in Sources */,
 				10A3AFDC19743E8A00C3B2B0 /* LocalizationSystem.m in Sources */,
 				B8B6104D195924F2005268D5 /* CameraManager.m in Sources */,
-				B8F1793F19742B1900A236B1 /* MRoundedButton.m in Sources */,
 				B8079B531978309600D568EC /* NSUserDefaultControls.m in Sources */,
 				ACDD6D5B195F4C3100AD51A7 /* FoodInfoView.m in Sources */,
 				B8079CE2197A227D00D568EC /* ASValuePopUpView.m in Sources */,
@@ -1634,6 +1651,7 @@
 				B8CC9F641968980100CCFE74 /* DXStarRatingView.m in Sources */,
 				B8AB89DB196F19C900F32E4F /* AboutUsViewController.m in Sources */,
 				B8B60FF219591E60005268D5 /* EDImageCell.m in Sources */,
+				B8032D0A197C5477001B9040 /* MRImageLayer.m in Sources */,
 				B8FA464D18F9E954007DA680 /* AppDelegate.m in Sources */,
 				3A6959651966FC8200FB21F9 /* TextDetector2.mm in Sources */,
 				10A3AFDF197473CD00C3B2B0 /* languageSetting.m in Sources */,

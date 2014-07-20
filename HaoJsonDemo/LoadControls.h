@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MRoundedButtonAppearanceManager.h"
 
 @interface LoadControls : NSObject
 

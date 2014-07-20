@@ -8,7 +8,8 @@
 
 #import "LoadControls.h"
 #import "ED_Color.h"
-#import "MRoundedButton.h"
+#import "HaoCaptureButton.h"
+
 
 #define smallBTNRadius 25
 
@@ -136,7 +137,7 @@
                                    0,
                                    320,
                                    iPhone5?218:180);
-    MRoundedButton *button = [[MRoundedButton alloc] initWithFrame:buttonRect
+    HaoCaptureButton *button = [[HaoCaptureButton alloc] initWithFrame:buttonRect
                                                        buttonStyle:MRoundedButtonImageWithSubtitle
                                               appearanceIdentifier:[NSString stringWithFormat:@"%d", 1]];
     button.center = CGPointMake(160, 300);

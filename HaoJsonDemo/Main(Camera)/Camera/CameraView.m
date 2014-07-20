@@ -71,6 +71,7 @@
 
 @property (nonatomic,strong) LoadingAnimation *loadingImage;
 
+
 @end
 
 @implementation CameraView
@@ -130,13 +131,6 @@
 
 - (void)pauseCamera{
     [_camManager stopRunning];
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [_camManager stopRunning];
-//    });
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
-//                                             (unsigned long)NULL), ^(void) {
-//        [_camManager stopRunning];
-//    });
 }
 
 -(BOOL)CameraIsOn{
@@ -259,6 +253,8 @@
 
 - (void) captureBtnPressed:(id)sender {
 
+    
+     NSLog(@"*********************** pressed *******************************");
     [Flurry logEvent:@"Photo_Taken"];
     
     //start loading animation
