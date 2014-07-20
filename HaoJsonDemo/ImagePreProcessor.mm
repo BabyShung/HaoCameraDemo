@@ -190,7 +190,7 @@ using namespace std;
     cv::split(img_threshold,channels); //split the image into channels
     
     
-    cv::fastNlMeansDenoising(channels[0], channels[0], 3.0f, 7, 21);
+    //cv::fastNlMeansDenoising(channels[0], channels[0], 3.0f, 7, 21);
     
     //--Simple threshold, removing little noisy
     
@@ -224,7 +224,7 @@ using namespace std;
     cv::split(img_threshold,channels); //split the image into channels
     
     
-    cv::fastNlMeansDenoising(channels[0], channels[0], 3.0f, 7, 21);
+    //cv::fastNlMeansDenoising(channels[0], channels[0], 3.0f, 7, 21);
     
     //--Simple threshold, removing little noisy
     
@@ -354,15 +354,15 @@ using namespace std;
                 counter_outer++;
                 
             }
-            else{
+            
                 sum_pixl = sum_pixl + pixl_int;
-            }
+            
             
             
         }
     }
     //count the average of the pixels
-    int ave_pixl = sum_pixl/(rows*cols-counter_outer);
+    int ave_pixl = sum_pixl/(rows*cols);
     int ave_outer_pixl = sum_outer_pixl/counter_outer;
     NSLog(@"ImagePrePro: all: %d",ave_pixl);
     NSLog(@"ImagePrePro: out: %d",ave_outer_pixl);

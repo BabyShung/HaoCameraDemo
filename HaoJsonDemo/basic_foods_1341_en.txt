@@ -189,6 +189,7 @@ Potato Dill Breads
 Ricotta Polentas
 Foccacia
 Foccacias
+Pumpernickel
 Pumpernickel Bread
 Pumpernickel Breads
 Half & Half
@@ -202,6 +203,8 @@ Margarine
 Margarines
 Mexican Cheese
 Mexican Cheeses
+gorgonzola cheese
+gorgonzola cheeses
 Milk
 Milks
 Cream
@@ -236,6 +239,10 @@ Sour Cream
 Sour Creams
 String Cheese
 String Cheeses
+Blue Cheese
+Bleu Cheese
+Blue Cheeses
+Bleu Cheeses
 Swiss Cheese
 Swiss Cheeses
 Roquefort
@@ -260,6 +267,7 @@ Gouda
 Goudas
 Taleggio
 Taleggios
+Parmigiano
 Parmigiano Reggiano
 Parmigiano Reggianos
 Manchego
@@ -313,6 +321,27 @@ Tostada
 Tostadas
 Veggie Burger
 Veggie Burgers
+Vermicelli
+Fusilli
+Orzo
+Ziti
+Penne
+Ruote
+Linguine
+Rigatoni
+Manicotti
+Jumbo Shells
+Farfalle
+Egg Noodles
+Ditalini
+Capellini
+Radiatore
+Tagliatelle
+Gnocchi
+Orecchiette
+fettuccine
+Conchiglie
+abalone
 Anchovy
 Anchovies
 Calamary
@@ -349,6 +378,7 @@ Lobsters
 Mackerel
 Mackerels
 Mahi Mahi
+Mahi-Mahi
 Mahi Mahis
 Mussel
 Mussels
@@ -429,7 +459,9 @@ Mangos
 Melon
 Melons
 Lemon
+Lemons
 Lime
+Limes
 Nectarine
 Nectarines
 Papaya
@@ -511,6 +543,7 @@ Pork Chop
 Pork Chops
 Rib
 Ribs
+scallopini
 Roast Beef
 Roast Beefs
 Roast Chicken
@@ -519,10 +552,20 @@ Roast Pork
 Roast Porks
 Roast Turkey
 Roast Turkeys
+Roasted Beef
+Roasted Beefs
+Roasted Chicken
+Roasted Chickens
+Roasted Pork
+Roasted Porks
+Roasted Turkey
+Roasted Turkeys
 Salami
 Salamis
 Sausage
 Sausages
+Italian Sausages
+prosciutto
 Steak
 Steaks
 Turkey
@@ -541,6 +584,7 @@ Cashew
 Cashews
 Chestnut
 Chestnuts
+Macadamia
 Macadamia Nut
 Macadamia Nuts
 Mixed Nut
@@ -559,6 +603,7 @@ Seed
 Seeds
 Soy Nut
 Soy Nuts
+Sunflower
 Sunflower Seed
 Sunflower Seeds
 Walnut
@@ -744,6 +789,8 @@ Chowder
 Chowders
 Gumbo
 Gumbos
+arugula
+arugula
 Miso Soup
 Miso Soups
 Noodle Soup
@@ -910,6 +957,9 @@ Zucchinis
 vanilla
 Alfalfa
 Alfalfas
+chard
+chards
+rhubarb
 Almond Butter
 Almond Butters
 Almond Milk

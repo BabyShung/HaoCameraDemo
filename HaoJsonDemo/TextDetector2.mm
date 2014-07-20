@@ -97,20 +97,20 @@ typedef vector<vector<cv::Point> > TContours;//global
         
         if(tempRect.width < 2 || tempRect.height < 2){
             counter_noise ++;
-            continue;
+            
         }else{
         
-        boundRect[counter_tempRect] = tempRect;
+            boundRect[counter_tempRect] = tempRect;
             counter_tempRect++;
         }
     }
     
     NSLog(@"TextDetector: noise counter: %d",counter_noise);
     
-    if(counter_noise < 500){
+    if(counter_noise < 520 || counter_tempRect < 3){
         //---remove insider rects
         vector<cv::Rect> outRect;
-        outRect = [self removeInsider:boundRect];  
+        outRect = [self removeInsider:boundRect];
     
         //----merge near
         vector<cv::Rect> merged_rects;
@@ -277,14 +277,15 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
             cv::Point pl0 = rects[index].tl();
             cv::Point br0 = rects[index].br();
             cv::Point pl1 = rects[index_in].tl();
-            //cv::Point br1 = rects[index_in].br();
+            cv::Point br1 = rects[index_in].br();
             int distance_x = abs(br0.x-pl1.x);
             int distance_mid = abs(pl0.y+rects[index].height/2 - (pl1.y+rects[index_in].height/2));
-            int distance_threshold = (rects[index].height)/2-5;
-            //int distance_bottom = abs(br0.y - br1.y);
+            int distance_threshold = (rects[index].height)/2-3;
             
-            if( distance_x <35 && distance_mid < distance_threshold
-               && index != index_in){
+            int diff_height = abs(rects[index].height - rects[index_in].height);
+            
+            if( distance_x < 35 && distance_mid < distance_threshold
+               && index != index_in && diff_height < (distance_threshold)){
                 //if two rects are close, then merge the insider to the current,
                 // counter dose not increas
                 
