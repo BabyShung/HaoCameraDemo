@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-
+@class ImageCropView;
 #import "MainViewController.h"
 /**************
  
@@ -44,9 +44,6 @@
 
 //Used if you'd like your pictures cropped to squareMode - defaults to NO (beta)
 @property BOOL isCropMode;
-
-//Allow to hide all controls (set to YES to show custom controls)
-@property (nonatomic) BOOL hideAllControls;
 
 //Allow to hide the capture button. You can take programmaticaly photo using method 'capturePhoto'
 @property (nonatomic) BOOL hideCaptureButton;
@@ -92,10 +89,15 @@
 
 - (void) nextPagePressed:(id)sender;
 
+- (void) captureBtnPressed:(id)sender;
+
 //loading animation
 -(void)startLoadingAnimation;
 
 -(void)stopLoadingAnimation;
 
+-(ImageCropView *)getCropView;
+
+-(void)getCameraFocus:(CGPoint)point;
 
 @end

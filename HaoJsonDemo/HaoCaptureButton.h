@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MRoundedButtonAppearanceManager.h"
+#import "CameraView.h"
 
 typedef NS_ENUM(NSInteger, MRoundedButtonStyle) {
     MRoundedButtonDefault,
@@ -37,14 +38,9 @@ extern CGFloat const MRoundedButtonMaxValue;
 @property (nonatomic, weak)     UIImageView                 *imageView;
 @property (nonatomic, assign)   UIEdgeInsets                contentEdgeInsets;
 
-+ (instancetype)buttonWithFrame:(CGRect)frame
-                    buttonStyle:(MRoundedButtonStyle)style
-           appearanceIdentifier:(NSString *)identifier;
-- (instancetype)initWithFrame:(CGRect)frame
-                  buttonStyle:(MRoundedButtonStyle)style;
-- (instancetype)initWithFrame:(CGRect)frame
-                  buttonStyle:(MRoundedButtonStyle)style
-         appearanceIdentifier:(NSString *)identifier;
+
+- (instancetype)initWithFrame:(CGRect)frame buttonStyle:(MRoundedButtonStyle)style
+         appearanceIdentifier:(NSString *)identifier andCameraView:(UIView *)camView;
 
 @end
 

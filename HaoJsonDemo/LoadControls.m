@@ -124,7 +124,7 @@
 }
 
 
-+(UIButton *)createNiceCameraButton{
++(UIControl *)createNiceCameraButton_withCameraView:(UIView *)view{
     NSDictionary *appearanceProxy1 = @{
                                        kMRoundedButtonCornerRadius : @4,
                                        kMRoundedButtonContentColor : [ED_Color edibleBlueColor_Deep],
@@ -139,7 +139,7 @@
                                    iPhone5?218:180);
     HaoCaptureButton *button = [[HaoCaptureButton alloc] initWithFrame:buttonRect
                                                        buttonStyle:MRoundedButtonImageWithSubtitle
-                                              appearanceIdentifier:[NSString stringWithFormat:@"%d", 1]];
+                                              appearanceIdentifier:[NSString stringWithFormat:@"%d", 1] andCameraView:view];
     button.center = CGPointMake(160, 300);
     
     button.backgroundColor = [UIColor clearColor];
@@ -148,7 +148,7 @@
     button.detailTextLabel.font = [UIFont systemFontOfSize:16];
     button.imageView.image = [UIImage imageNamed:@"Camera_02.png"];
     
-    return (UIButton *)button;
+    return button;
 }
 
 

@@ -10,6 +10,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MRTextLayer.h"
 #import "MRImageLayer.h"
+#import "ImageCropView.h"
+
 
 CGFloat const MRoundedButtonMaxValue = CGFLOAT_MAX;
 
@@ -48,16 +50,22 @@ static CGRect CGRectEdgeInset(CGRect rect, UIEdgeInsets insets){
 
 @property (nonatomic) BOOL usingLongPress;
 
+@property (strong,nonatomic) CameraView *camView;
+
+@property (nonatomic) CGPoint focusPoint;
+
 @end
 
 @implementation HaoCaptureButton
 
 - (instancetype)initWithFrame:(CGRect)frame buttonStyle:(MRoundedButtonStyle)style
-           appearanceIdentifier:(NSString *)identifier{
+         appearanceIdentifier:(NSString *)identifier andCameraView:(UIView *)camView{
     
     self = [super initWithFrame:frame];
     if (self)
     {
+        self.camView = (CameraView *)camView;
+        
         self.layer.masksToBounds = YES;
         
         _mr_buttonStyle = style;
@@ -107,12 +115,29 @@ static CGRect CGRectEdgeInset(CGRect rect, UIEdgeInsets insets){
         self.detailTextLabel.text = @"Focusing";
         
         
-        _focusTimer = [NSTimer timerWithTimeInterval:1.0f target:self selector:@selector(startFocusLoop) userInfo:nil repeats:YES];
+        _focusTimer = [NSTimer timerWithTimeInterval:3.0f target:self selector:@selector(startFocusLoop) userInfo:nil repeats:YES];
         [[NSRunLoop mainRunLoop] addTimer:_focusTimer forMode:NSRunLoopCommonModes];
         NSLog(@"enable timer");
         
         self.usingLongPress = YES;
         
+        ImageCropView *cropView = [self.camView getCropView];
+        
+        CGFloat focusCenterX = cropView.cropAreaInView.origin.x + cropView.cropAreaInView.size.width/2;
+        CGFloat focusCenterY = cropView.cropAreaInView.origin.y + cropView.cropAreaInView.size.height/2;
+        
+        self.focusPoint = CGPointMake(focusCenterX, focusCenterY);
+        
+//        NSLog(@"x %f",cropView.cropAreaInView.origin.x);
+//        NSLog(@"y %f",cropView.cropAreaInView.origin.y);
+//        NSLog(@"w %f",cropView.cropAreaInView.size.width);
+//        NSLog(@"h %f",cropView.cropAreaInView.size.height);
+        
+        NSLog(@"fx %f",focusCenterX);
+        NSLog(@"fy %f",focusCenterY);
+        
+        
+        [self.camView getCameraFocus:self.focusPoint];
     }
     else if (sender.state == UIGestureRecognizerStateChanged){
         
@@ -125,30 +150,26 @@ static CGRect CGRectEdgeInset(CGRect rect, UIEdgeInsets insets){
         self.detailTextLabel.text = @"Capture";
         
         self.usingLongPress = NO;
+        
+        [self.camView captureBtnPressed:nil];
+    }else if(sender.state == UIGestureRecognizerStateCancelled){
+        
+        [_focusTimer invalidate];
+        NSLog(@"invalidate timer");
+        self.selected = !self.selected;
+        
+        self.detailTextLabel.text = @"Capture";
+        
+        self.usingLongPress = NO;
     }
 }
 
 - (void)startFocusLoop
 {
-    NSLog(@"focusing");
+    NSLog(@"*** Focusing ***");
+    [self.camView getCameraFocus:self.focusPoint];
 }
 
-
-
-- (instancetype)initWithFrame:(CGRect)frame buttonStyle:(MRoundedButtonStyle)style{
-    
-    return [[HaoCaptureButton alloc] initWithFrame:frame buttonStyle:style appearanceIdentifier:nil];
-}
-
-- (instancetype)initWithFrame:(CGRect)frame{
-    
-    return [[HaoCaptureButton alloc] initWithFrame:frame buttonStyle:MRoundedButtonDefault appearanceIdentifier:nil];
-}
-
-+ (instancetype)buttonWithFrame:(CGRect)frame buttonStyle:(MRoundedButtonStyle)style appearanceIdentifier:(NSString *)identifier
-{
-    return [[HaoCaptureButton alloc] initWithFrame:frame buttonStyle:style appearanceIdentifier:identifier];
-}
 
 - (CGRect)boxingRect
 {

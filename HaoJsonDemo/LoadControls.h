@@ -26,6 +26,6 @@
 
 +(UIButton *)createUIButtonWithRect:(CGRect)rect;
 //camera button
-+(UIButton *)createNiceCameraButton;
++(UIControl *)createNiceCameraButton_withCameraView:(UIView *)view;
 
 @end

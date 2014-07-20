@@ -31,7 +31,6 @@
 #import "LoadControls.h"
 #import "AppDelegate.h"
 #import "LoadingAnimation.h"
-#import "IPDashedLineView.h"
 #import "Flurry.h"
 #import "ASValueTrackingSlider.h"
 
@@ -54,7 +53,7 @@
 
 // Controls
 @property (strong, nonatomic) UIButton * backBtn;
-@property (strong, nonatomic) UIButton * captureBtn;
+@property (strong, nonatomic) UIControl * captureBtn;
 @property (strong, nonatomic) UIButton * TorchBtn;
 @property (strong, nonatomic) UIButton * nextPageBtn;
 
@@ -76,7 +75,7 @@
 
 @implementation CameraView
 
-@synthesize hideAllControls = _hideAllControls, hideBackButton = _hideBackButton, hideCaptureButton = _hideCaptureButton;
+@synthesize hideBackButton = _hideBackButton, hideCaptureButton = _hideCaptureButton;
 
 - (instancetype)initWithFrame:(CGRect)frame andOrientation:(UIInterfaceOrientation)iot andAppliedVC:(MainViewController *)VC
 {
@@ -170,13 +169,6 @@
 #pragma mark CAMERA CONTROLS
 
 - (void) drawControls {
-    if (self.hideAllControls) {
-        // In case they want to hide after they've been displayed
-        // for (UIButton * btn in @[_backBtn, _captureBtn, _flashBtn, _switchCameraBtn, _saveBtn]) {
-        // btn.hidden = YES;
-        // }
-        return;
-    }
     
     [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut  animations:^{
         
@@ -266,12 +258,6 @@
     [self capturePhoto];
 }
 
-- (void) captureBtnPressing:(id)sender {
-    
-    
-    NSLog(@"*********************** is pressing *******************************");
-}
-
 - (void) torchBtnPressed:(id)sender {
     
     [Flurry logEvent:@"Torch_On"];
@@ -296,11 +282,7 @@
 }
 
 - (void) nextPagePressed:(id)sender {
-    
     [Flurry logEvent:@"Next_Page_Pressed"];
-
-    
-    
     [self.appliedVC.Maindelegate slideToNextPage];
 }
 
@@ -311,9 +293,13 @@
 #pragma mark TAP TO FOCUS
 
 - (void) tapSent:(UITapGestureRecognizer *)sender {
+    CGPoint aPoint = [sender locationInView:_StreamView];
+    [self getCameraFocus:aPoint];
+}
+
+-(void)getCameraFocus:(CGPoint)point{
     if (_capturedImageView.image == nil) {
-        CGPoint aPoint = [sender locationInView:_StreamView];
-        [_camManager focus:aPoint andFocusView:_StreamView];
+        [_camManager focus:point andFocusView:_StreamView];
     }
 }
 
@@ -515,20 +501,11 @@
     [_nextPageBtn addTarget:self action:@selector(nextPagePressed:) forControlEvents:UIControlEventTouchUpInside];
 
     
-    _captureBtn = [LoadControls createNiceCameraButton];
+    _captureBtn = [LoadControls createNiceCameraButton_withCameraView:self];
     [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [_captureBtn addTarget:self action:@selector(captureBtnPressing:) forControlEvents:UIControlEventTouchDown];
-    
     
     // -- LOAD BUTTONS END -- //
     
-    //separator line
-//    IPDashedLineView *appearance = [IPDashedLineView appearance];
-//    [appearance setLineColor:[UIColor whiteColor]];
-//    [appearance setLengthPattern:@[@12, @4]];
-//    IPDashedLineView *dash0 = [[IPDashedLineView alloc] initWithFrame:CGRectMake(10, CROPVIEW_HEIGHT, 300, 1)];
-    //[self addSubview:dash0];
     
     self.scaleSlider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(30, CROPVIEW_HEIGHT, 260, 31)];
     self.scaleSlider.maximumValue = 2.0;
@@ -579,15 +556,6 @@
 
 #pragma mark GETTERS | SETTERS
 
-- (void) setHideAllControls:(BOOL)hideAllControls {
-    _hideAllControls = hideAllControls;
-    // This way, hideAllControls can be used as a toggle.
-    [self drawControls];
-}
-- (BOOL) hideAllControls {
-    return _hideAllControls;
-}
-
 - (void) setHideBackButton:(BOOL)hideBackButton {
     _hideBackButton = hideBackButton;
     _backBtn.hidden = _hideBackButton;
@@ -602,6 +570,10 @@
 }
 - (BOOL) hideCaptureButton {
     return _hideCaptureButton;
+}
+
+-(ImageCropView *)getCropView{
+    return self.CropView;
 }
 
 @end
