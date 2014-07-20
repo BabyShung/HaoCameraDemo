@@ -57,10 +57,8 @@ static NSString *CellIdentifier = @"Cell";
     self.dict = [[Dictionary alloc]initDictInDefaultLang];
     
     
-    [GeneralControl setPageViewControllerScrollEnabled:NO];
-    //also stop camera
-    AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDlg.cameraView pauseCamera];
+    //disable pageVC scroll and also stop camera
+    [GeneralControl enableBothCameraAndPageVCScroll:NO];
 }
 
 
@@ -79,11 +77,8 @@ static NSString *CellIdentifier = @"Cell";
 
 - (void) previousPagePressed:(id)sender {
     
-    //also resume camera
-    AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDlg.cameraView resumeCamera];
-    
-    [GeneralControl setPageViewControllerScrollEnabled:YES];
+    //enable pageVC scroll and also stop camera
+    [GeneralControl enableBothCameraAndPageVCScroll:YES];
     
     [self.navigationController popToRootViewControllerAnimated:YES];
 }

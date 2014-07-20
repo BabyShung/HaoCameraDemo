@@ -13,15 +13,16 @@
 
 @implementation GeneralControl
 
-//+(void)disablePageViewControllerLeftRightScroll:(BOOL)disable andIndex:(NSUInteger)index{
-//    //save reference in appDelegate for disabling pageviewcontroller
-//    AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-//    FrameViewController *fvc = appDlg.fvc;
-//    
-//    fvc.disablePageViewController = disable;
-//    //refresh views (just scroll)
-//    [fvc slideToCertainPage:index];
-//}
++(void)enableBothCameraAndPageVCScroll:(BOOL)enable{
+    AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    if(enable){
+        [appDlg.cameraView resumeCamera];
+        [self setPageViewControllerScrollEnabled:YES];
+    }else{
+        [appDlg.cameraView pauseCamera];
+        [self setPageViewControllerScrollEnabled:NO];
+    }
+}
 
 +(void)setPageViewControllerScrollEnabled:(BOOL)enabled{
     

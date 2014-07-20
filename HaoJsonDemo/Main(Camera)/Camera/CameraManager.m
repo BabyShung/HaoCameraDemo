@@ -54,14 +54,21 @@
 - (void) startRunning{
     if(![_mySesh isRunning]){
         NSLog(@"***** Camera Manager Start running *****");
-        [_mySesh startRunning];
+        //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
+        //                                         (unsigned long)NULL), ^(void) {
+            [_mySesh startRunning];
+        //});
+        
     }
 }
 
 - (void) stopRunning{
     if([_mySesh isRunning]){
         NSLog(@"***** Camera Manager Stop running *****");
-        [_mySesh stopRunning];
+        //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
+       //                                          (unsigned long)NULL), ^(void) {
+            [_mySesh stopRunning];
+        //});
     }
 }
 

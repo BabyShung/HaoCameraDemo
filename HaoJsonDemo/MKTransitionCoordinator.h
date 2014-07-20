@@ -28,4 +28,6 @@
 
 @property (nonatomic) BOOL disableRightEdgePan;
 
+@property (nonatomic) BOOL transitionInvolvingCamera;
+
 @end

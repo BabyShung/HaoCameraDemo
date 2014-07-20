@@ -117,22 +117,26 @@
 }
 
 - (void)resumeCamera{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [_camManager startRunning];
-        //[UIView animateWithDuration:0.3 animations:^{
-            
-            self.capturedImageView.backgroundColor = [UIColor clearColor];
-        //}];
-    });
+    [_camManager startRunning];
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [_camManager startRunning];
+//    });
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
+//                                             (unsigned long)NULL), ^(void) {
+//        [_camManager startRunning];
+//        self.capturedImageView.backgroundColor = [UIColor clearColor];
+//    });
 }
 
 - (void)pauseCamera{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [_camManager stopRunning];
-        //[UIView animateWithDuration:0.3 animations:^{
-            self.capturedImageView.backgroundColor = [UIColor blackColor];
-        //}];
-    });
+    [_camManager stopRunning];
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [_camManager stopRunning];
+//    });
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
+//                                             (unsigned long)NULL), ^(void) {
+//        [_camManager stopRunning];
+//    });
 }
 
 -(BOOL)CameraIsOn{
