@@ -350,7 +350,7 @@ using namespace std;
             uchar pixl = inputRectImg.at<uchar>(i,j);
             int pixl_int = pixl - '0';
             
-            if(i <= 2 || j <= 2 ){
+            if(i < 3 || j < 3 || i > (rows-4) || j > (cols - 4)){
                 sum_outer_pixl = sum_outer_pixl + pixl_int;
                 counter_outer++;
                 

@@ -151,7 +151,7 @@
     
         
             
-            for(int i = 0; i<(self.imgArray.count-1);i++){
+            for(int i = 0; i<(self.imgArray.count);i++){
                 
                 
                 //NSLog(@"***** %@",_imgArray[i]);
@@ -183,7 +183,7 @@
             
             NSDate *trStart = [NSDate date];
             NSString *result = @"";
-            for (int i = 0; i<_imgArray.count-1; i++) {
+            for (int i = 0; i<_imgArray.count; i++) {
                 NSString *tmp = [self recognizeImageWithTesseract:[_imgArray objectAtIndex:i]];
                 result = [result stringByAppendingFormat:@"%d. %@\n",i, tmp];
                 //            NSLog(@"tmp %d: %@",i, tmp);

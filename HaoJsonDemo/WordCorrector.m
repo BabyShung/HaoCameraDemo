@@ -97,6 +97,7 @@
                                                [NSArray arrayWithObjects:@"d",@"7",nil],
                                                [NSArray arrayWithObjects:@"h",@"9",nil],
                                                [NSArray arrayWithObjects:@"k",@"9",nil],
+                                               
                                                nil];
     
     // For or while loop to Find and Replace strings
