@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 @interface Food : NSObject <NSURLConnectionDataDelegate>
 
 @property (nonatomic,readonly,getter = isFoodInfoCompleted) BOOL foodInfoComplete;
@@ -33,7 +32,6 @@
 
 //For Server search results
 -(instancetype) initWithDictionary:(NSDictionary *) dict;
-
 
 //fetch async food info
 -(void) fetchAsyncInfoCompletion:(void (^)(NSError *err, BOOL success))block;

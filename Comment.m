@@ -8,7 +8,6 @@
 
 #import "Comment.h"
 
-
 @implementation Comment
 
 -(instancetype)initWithCommentID:(NSUInteger)cid andFid:(NSUInteger )fid andRate:(NSUInteger)rate andComment:(NSString *)text{
@@ -24,7 +23,6 @@
         self.text = text;
         
     }
-    
     return self;
 }
 
@@ -47,7 +45,6 @@
         self.byUser = byUser;
         
     }
-    
     return self;
 }
 
@@ -72,7 +69,6 @@
         NSString *name = [creator objectForKey:@"name"];
         
         self.byUser = [[OtherUser alloc] initWithUid:uid andUname:name andUtype:privilege andUselfie:selfie];
-        
     }
     return self;
 }
@@ -81,9 +77,7 @@
 - (NSString *)description   //toString description
 {
     NSString *desc  = [NSString stringWithFormat:@"comment: %@",self.text];
-    
     return desc;
-    
 }
 
 @end

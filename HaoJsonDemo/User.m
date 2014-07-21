@@ -164,13 +164,11 @@ static AsyncRequest *async;
     [async sendFeedbackWithContent:content];
 }
 
-
 /****************************************
  
  delegate methods for networkConnection
  
  ****************************************/
-
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
     [webdata setLength:0];
@@ -190,16 +188,11 @@ static AsyncRequest *async;
         if (commentCompletionBlock) {
             commentCompletionBlock(nil,NO, 0);
         }
-        
         return;
-        
-        
     }
     
     if (CompletionBlock) {
-        //dispatch_async(dispatch_get_main_queue(), ^{
-            CompletionBlock(error,NO);
-        //});
+        CompletionBlock(error,NO);
     }
 
 }
@@ -254,9 +247,7 @@ static AsyncRequest *async;
         }
         //finally
         if (CompletionBlock) {
-            //dispatch_async(dispatch_get_main_queue(), ^{
                 CompletionBlock(nil,YES);
-            //});
         }
 
         
@@ -269,29 +260,22 @@ static AsyncRequest *async;
         }
         else if([action isEqualToString:@"user_error"]){   //PS: bugs in server!! only show this
             [self configureError:NSLocalizedString(@"ERROR_REGISTER", nil)];
-
         }
         else if([action isEqualToString:@"post_update_review"]){
             commentCompletionBlock(nil,NO, 0);
-        
         }
     }
-    
 }
 
 -(void)configureError:(NSString *)errMsg{
-    //dispatch_async(dispatch_get_main_queue(), ^{
         NSMutableDictionary* details = [NSMutableDictionary dictionary];
         NSString *log = errMsg;
         [details setValue:log forKey:NSLocalizedDescriptionKey];
         // populate the error object with the details
         NSError *error = [NSError errorWithDomain:@"LoginReg" code:200 userInfo:details];
         if (CompletionBlock) {
-            //dispatch_async(dispatch_get_main_queue(), ^{
                 CompletionBlock(error,NO);
-            //});
         }
-    //});
 }
 
 -(void)configureUser:(NSDictionary *)returnJSONtoNSdict{
@@ -326,8 +310,6 @@ static AsyncRequest *async;
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentUser"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    
-    
     NSLog(@"click log out");
 }
 @end

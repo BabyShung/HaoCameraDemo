@@ -26,7 +26,6 @@ typedef NS_ENUM(NSInteger, UserType){
     AnonymousUser = 1
 };
 
-
 + (User *)sharedInstance;
 
 + (User *)sharedInstanceWithUid:(NSUInteger)uid andEmail:(NSString*)email andUname:(NSString*)uname andUpwd:(NSString*)upwd andUtype:(NSUInteger)utype andUselfie:(NSString*)uselfie;

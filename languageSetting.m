@@ -62,7 +62,6 @@
         return Chinese;
     else
         return English;
-    
 }
 
 -(BOOL)setAppLanguage:(TargetLang)targetLanguage{
@@ -77,7 +76,6 @@
 -(BOOL)setAndSaveLanguageAndUpdateUI:(NSString *)lang{
     NSString *appLang = [[NSUserDefaults standardUserDefaults] stringForKey:@"appSettingLanguage"];
     if (![lang isEqualToString:appLang]){
-        
         [self saveLanguageIntoUserDefault:lang];
         [self setLanguage:lang];
         [GeneralControl updatingUI];

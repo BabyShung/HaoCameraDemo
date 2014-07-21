@@ -30,17 +30,13 @@
 
 @implementation HintView
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
         self.hintsNumber = 3;
-        
         self.backgroundColor = [UIColor clearColor];
-        
         UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(MySingleTap:)];
         [self addGestureRecognizer:singleTap];
-        
     }
     return self;
 }
@@ -56,7 +52,6 @@
         [MLPSpotlight removeSpotlightsInView:self];
     }
     [MLPSpotlight addSpotlightInView:self atPoint:point];
-
 }
 
 -(void)addHintArrowImage:(NSString*)arrowName andArrowCenter:(CGPoint)arrowCenter andAddPhotoName:(NSString *)photoname andImageViewCenter:(CGPoint)PhotoCenter{
@@ -78,31 +73,22 @@
 
 }
 
-
 - (void)MySingleTap:(UITapGestureRecognizer *)sender{
     
     if(self.hintsNumber == 3){
-        
         [self updateSpotLightWithPoint:CGPointMake(44, 358)];
         [self addHintArrowImage:@"intro_arrow_left_down.png" andArrowCenter:CGPointMake(SLIDER_ARROWCENTER_X, iPhone5?SLIDER_ARROWCENTER_Y_ip5:SLIDER_ARROWCENTER_Y_ip4) andAddPhotoName:AMLocalizedString(@"TUTORIAL_SLIDER_IMAGENAME", nil) andImageViewCenter:CGPointMake(SLIDER_ARROWCENTER_X+40, (iPhone5?SLIDER_ARROWCENTER_Y_ip5:SLIDER_ARROWCENTER_Y_ip4)-50)];
-        
-        
     }else if(self.hintsNumber == 2){
-        
         [self updateSpotLightWithPoint:CGPointMake(160, 470)];
         [self addHintArrowImage:@"intro_arrow_right_down.png" andArrowCenter:CGPointMake(CAPTURE_ARROWCENTER_X, iPhone5?CAPTURE_ARROWCENTER_Y_ip5:CAPTURE_ARROWCENTER_Y_ip4) andAddPhotoName:AMLocalizedString(@"TUTORIAL_CAPTUREBTN_IMAGENAME", nil) andImageViewCenter:CGPointMake(CAPTURE_ARROWCENTER_X+30, (iPhone5?CAPTURE_ARROWCENTER_Y_ip5:CAPTURE_ARROWCENTER_Y_ip4)-90)];
-        
+    
         UIImageView *dashCircle = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tutorial_dashcircle.png"]];
         dashCircle.center = CGPointMake(160, iPhone5? 465:400);
         [self addSubview:dashCircle];
-
-        
     }else{
         [self.superview removeFromSuperview];
         return;
     }
-    
     self.hintsNumber--;
 }
-
 @end

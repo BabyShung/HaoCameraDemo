@@ -242,7 +242,6 @@
     
     //transition
     [GeneralControl transitionToVC:self withToVCStoryboardId:@"Frame" withDuration:0.5];
-
 }
 
 @end

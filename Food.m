@@ -25,7 +25,6 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 
 @property (nonatomic,readwrite,getter = isFoodInfoCompleted) BOOL foodInfoComplete;
 @property (nonatomic,readwrite,getter = isLoadingInfo) BOOL loadingFoodInfo;
-//@property (nonatomic,readwrite,getter = isCommentLoaded) BOOL commentLoaded;
 @property (nonatomic,readwrite,getter = isLoadingComments) BOOL loadingComments;
 
 @property (nonatomic,strong) AsyncRequest *async;
@@ -43,7 +42,6 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
         self.loadingFoodInfo = NO;
         self.foodInfoComplete = NO;
         self.loadingComments = NO;
-        //self.commentLoaded = NO;
         
         self.title = [title capitalizedString] ;
         self.rate = -1;
@@ -70,7 +68,6 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
     self.loadingFoodInfo = NO;
     self.foodInfoComplete = YES;
     self.loadingComments = NO;
-    //self.commentLoaded = NO;
     _photoNames = [NSMutableArray array];
     _tagNames = [NSMutableArray array];
     _comments = [NSMutableArray array];
@@ -93,16 +90,6 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
         NSDictionary *photoObj = photoNameArr[i];
         [self.photoNames addObject: [photoObj objectForKey:@"url"]];
     }
-//    NSLog(@"fid: %d",(int)self.fid);
-//    for(NSString *str in self.tagNames){
-//        NSLog(@"tag....: %@",str);
-//    }
-//    
-//    NSLog(@"description: %@",self.food_description);
-//    if (photoNameArr.count>0) {
-//            NSLog(@"url: %@",self.photoNames[0]);
-//    }
-
     
     return self;
 }
@@ -119,33 +106,17 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
     _loadingFoodInfo = YES;
     _foodInfoCompletionBlock = block;
     [self.async getFoodInfo_byPost:self.title andLanguage:[[ShareData shareData]defaultTargetLang]];
-    
-    //[self.async getFoodInfo:self.title andLang:[[ShareData shareData] defaultTargetLang]];
-    
 }
 
-//fetch async comment
-//-(void) fetchCommentsCompletion:(void (^)(NSError *err, BOOL success))block
-//{
-//    _loadingComments = YES;
-//    _commentCompletionBlock = block;
-//    
-//    //NSLog(@"++++++++++++FOOD++++++++ : %d",self.fid);
-//   [self.async getReviews_fid:self.fid withLoadSize:5 andSkip:0];
-//    
-//}
 
 -(void) fetchLatestCommentsSize:(NSUInteger)size andSkip:(NSUInteger)skip completion:(void (^)(NSError *err, BOOL success))block {
     _loadingComments = YES;
     _commentCompletionBlock = block;
-    
-    //NSLog(@"++++++++++++FOOD++++++++ : %d",(int)self.fid);
     [self.async getReviews_fid:self.fid withLoadSize:size andSkip:skip];
 }
 
 
 -(void) throwFoodExceptionCausedBy:(NSString *)reason{
-    
     NSException* ex = [[NSException alloc]initWithName:@"FoodFailures" reason:reason userInfo:nil];
     @throw ex;
     
@@ -166,7 +137,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
 }
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
-
+    
     NSURLRequest *nowRequest = [connection currentRequest];
     
     if ([[nowRequest HTTPMethod] isEqualToString:@"POST"]) {
@@ -180,52 +151,40 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
         if ([action isEqualToString:@"get_review"]) {
             NSLog(@"+++ FOOD +++ : GET review failure");
             
-            //dispatch_async(dispatch_get_main_queue(), ^{
-                
-                _foodInfoCompletionBlock(error,NO);
-                _loadingComments = NO;
-           // });
+            _foodInfoCompletionBlock(error,NO);
+            _loadingComments = NO;
+            
         }
         else if([action isEqualToString:@"get_food"]){
             NSLog(@"+++ FOOD +++ : GET food failure");
             
-            //dispatch_async(dispatch_get_main_queue(), ^{
-                
-                _foodInfoCompletionBlock(error,NO);
-                _loadingFoodInfo = NO;
-            //});
+            _foodInfoCompletionBlock(error,NO);
+            _loadingFoodInfo = NO;
             
         }
     }
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{    //async
-
+    
     
     NSString *tmp = [[NSString alloc] initWithData:_webdata encoding:NSUTF8StringEncoding];
     NSLog(@"Return JSON: %@",tmp);
     
     //1.get food info
     NSDictionary *returnJSONtoNSdict = [NSJSONSerialization JSONObjectWithData:_webdata options:0 error:nil];
-
+    
     int status = [[returnJSONtoNSdict objectForKey:@"status"] intValue];
-
+    
     NSString *action = [returnJSONtoNSdict objectForKey:@"action"];
     
     if(status){ //if we get food info back
-
-        
         if([action isEqualToString:@"get_food"]){//food
-
-            
             NSArray *resultArr = [returnJSONtoNSdict objectForKey:@"result"];
-            
             if(resultArr.count ==0){
+                _foodInfoCompletionBlock(nil,NO);
+                _loadingComments = NO;
                 
-                //dispatch_async(dispatch_get_main_queue(), ^{
-                    _foodInfoCompletionBlock(nil,NO);
-                    _loadingComments = NO;
-                //});
             }
             else{
                 NSDictionary *foodObj = resultArr[0];
@@ -238,118 +197,45 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
                 if (![rawTagNams isEqualToString:@"N/A"]) {
                     self.tagNames = [rawTagNams componentsSeparatedByString: @";"];
                 }
-                
-
-    
                 NSArray *photoNameArr = [foodObj objectForKey:@"photos"];
                 for(int i = 0 ;i<photoNameArr.count;i++){
                     NSDictionary *photoObj = photoNameArr[i];
                     [self.photoNames addObject: [photoObj objectForKey:@"url"]];
                 }
-                
-                
-//                NSLog(@"fid: %d",(int)self.fid);
-//                for(NSString *str in self.tagNames){
-//                    NSLog(@"tag....: %@",str);
-//                }
-//                
-//                NSLog(@"description: %@",self.food_description);
-//                if (photoNameArr.count>0) {
-//                        NSLog(@"url: %@",self.photoNames[0]);
-//                }
-                
-                //dispatch_async(dispatch_get_main_queue(), ^{
-                    _foodInfoCompletionBlock(nil,YES);
-                    _foodInfoComplete = YES;
-                    _loadingFoodInfo = NO;
-                //});
+                _foodInfoCompletionBlock(nil,YES);
+                _foodInfoComplete = YES;
+                _loadingFoodInfo = NO;
             }
-            
-
-            
-            
         }else if([action isEqualToString:@"get_review"]){//comment
-
+            
             //create comment array data and assign to self.comments
             
             //....
             NSArray *resultArr = [returnJSONtoNSdict objectForKey:@"result"];
-            //NSLog(@"+++FOOD+++: I get %d comments for %@",(int)resultArr.count,self.title);
-            
             for(int i = 0 ;i<resultArr.count;i++){
-                
                 NSDictionary *commentsObj = resultArr[i];
-                
-                
-//                NSUInteger cid = [[commentsObj objectForKey:@"rid"] intValue];
-//                NSUInteger fid = [[commentsObj objectForKey:@"fid"] intValue];
-//                NSUInteger rate = [[commentsObj objectForKey:@"rate"] intValue];
-//                NSUInteger like = [[commentsObj objectForKey:@"likes"] intValue];
-//                NSUInteger dislike = [[commentsObj objectForKey:@"dislikes"] intValue];
-// 
-//                NSString *commentWord = [commentsObj objectForKey:@"comments"];
-//
-//                
-//                NSDictionary *creator = [commentsObj objectForKey:@"review_creater"];
-//                
-//                NSString *selfie = [creator objectForKey:@"selfie"];
-//                NSUInteger uid = [[creator objectForKey:@"uid"] intValue];
-//                NSUInteger privilege = [[creator objectForKey:@"privilege"] intValue];
-//                NSString *name = [creator objectForKey:@"name"];
-//                
-//                OtherUser *byUser = [[OtherUser alloc] initWithUid:uid andUname:name andUtype:privilege andUselfie:selfie];
-//                
-//                //init comment object
-//                Comment *com = [[Comment alloc] initWithCommentID:cid andFid:fid andRate:rate andLike:like andDisLike:dislike andComment:commentWord andByUser:byUser];
                 Comment *com = [[Comment alloc]initWithDict:commentsObj];
                 [self.comments addObject: com];
-
             }
-            
-
-            //dispatch_async(dispatch_get_main_queue(), ^{
-                _commentCompletionBlock(nil,YES);
-                //_commentLoaded = YES;
-                _loadingComments = NO;
-            //});
+            _commentCompletionBlock(nil,YES);
+            _loadingComments = NO;
         }
-        
-
-        
     }else{  //failed
-
-        
         if([action isEqualToString:@"get_food"]){   //food
             NSLog(@"+++ FOOD +++ : FAILURE - GET 0 FOOD RECORD!");
-            
-            //dispatch_async(dispatch_get_main_queue(), ^{
-                _foodInfoCompletionBlock(nil,NO);
-                _loadingFoodInfo = NO;
-            //});
-            
+            _foodInfoCompletionBlock(nil,NO);
+            _loadingFoodInfo = NO;
         }else if([action isEqualToString:@"get_reviews"]){        //comment
-            
             NSLog(@"+++ FOOD +++ : FAILURE - GET 0 REVIEW RECORD!");
-            
-            //dispatch_async(dispatch_get_main_queue(), ^{
-                _commentCompletionBlock(nil,NO);
-                _loadingComments = NO;
-            //});
+            _commentCompletionBlock(nil,NO);
+            _loadingComments = NO;
         }
-
-
     }
-    
 }
 
-
-
--(NSString *)description
-{
+-(NSString *)description{
     NSString *desc  = [NSString stringWithFormat:@"Title: %@, transTitle: %@, queryTimes: %d", self.title, self.transTitle,(int)self.queryTimes];
 	return desc;
 }
-
-
 
 @end

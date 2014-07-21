@@ -142,7 +142,6 @@ static NSString *CellIdentifier = @"Cell";
     NSLog(@"+++++++ MVC +++++++++ : clean up last comntes");
     [[User sharedInstance].lastComments removeAllObjects];
     
-    
     [self hideResultButtonsAndCollectionView];
 
     self.existingFood =nil;
@@ -190,22 +189,8 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
     EDCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-
     [cell configFIVForCell:indexPath.row withFood:self.foodArray[indexPath.row]];
-    
-//    if (cell.frame.size.height == [[UIScreen mainScreen] bounds].size.height) {
-//        if (cell.foodInfoView.myFood.isFoodInfoCompleted) {
-//            cell.foodInfoView.loadingBtn.hidden = YES;
-//        }
-//        else{
-//            cell.foodInfoView.loadingBtn.hidden = NO;
-//        
-//        }
-//        //NSLog(@"============================================ large cell reused!!!!!!!!!!!!!!!!!!");
-//    }
-    
     return cell;
 }
 
@@ -253,7 +238,6 @@ static NSString *CellIdentifier = @"Cell";
             if (![self.existingFood valueForKey:[food.title lowercaseString]]) {
                 [self.existingFood setValue:@"1" forKey:[food.title lowercaseString]];
                 [newIndexPaths addObject:[NSIndexPath indexPathForItem:(startIndex+i) inSection:0]];
-                
             }
             else{
                 [addItems removeObjectAtIndex:i];
@@ -261,8 +245,7 @@ static NSString *CellIdentifier = @"Cell";
                 count--;
             }
         }
-        // NSLog(@"+++ MAIN VC +++ : -newFoodItems.count: %d",(int)addItems.count);
-        
+
         [self.collectionView performBatchUpdates:^{
             [self.foodArray addObjectsFromArray:addItems];
             [self.collectionView insertItemsAtIndexPaths:newIndexPaths];
@@ -272,13 +255,8 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 //transitionVC delegate
-- (void)interactionBeganAtPoint:(CGPoint)point
-{
-    // NSLog(@"+++ MVC +++ : POP transition interaction will begin");
-    //    UIViewController *topVC = [self.navigationController topViewController];
-    //    if ([topVC class] != [MainViewController class]) {
+- (void)interactionBeganAtPoint:(CGPoint)point{
     [self.navigationController popViewControllerAnimated:YES];
-    //    }
 }
 
 -(void)loadTesseract{
@@ -304,64 +282,6 @@ static NSString *CellIdentifier = @"Cell";
     /****** OCR and Searching Components *****/
     
     Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
-//    //@"yeast bread with Worcestershire sauce and yogurt"
- //   [dict serverSearchOCRString:@"Romano and flatbread and roll and Romano Cheese" andCompletion:^(NSArray *results, BOOL success) {
-//        //NSLog(@"++++Main VC++++ : Server Foods: %d",(int)results.count);
-//        [self addFoodItems:results];
-//    }];
-    
-    
-    
-    /**********************************/
-//    NSArray *localFoods = [dict localSearchOCRString:@"Romano and flatbread and roll and Romano Cheese"];
-////    NSLog(@"++++Main VC++++ : Local Foods: %d",(int)localFoods.count);
-//    [self addFoodItems:localFoods];
-//    [self showResultButtonsAndCollectionView];
-
-
-
-    
-    //also add two btns, one cross:clear cell, and one capture:
-    //NSMutableArray *localFoods = [NSMutableArray array];
-    
-
-//    if (image) {
-//        
-//        
-//        //PS: image variable is the original size image (2448*3264)
-//        UIImage *onScreenImage = [LoadControls scaleImage:image withScale:2.5f withRect:rect andCropSize:size];
-//        UIImage *originalImage = [UIImage imageWithCGImage:onScreenImage.CGImage];
-//        NSMutableArray *localFoods = [NSMutableArray array];
-//        self.imgArray = [self.textDetector2 findTextArea:originalImage];
-//        NSLog(@"+++ MAIN VC +++ : text areas %d",(int)self.imgArray.count);
-//        if ([_imgArray count] > 0)
-//        {
-//            for(UIImage *preImage in _imgArray){
-//                
-//                _tempMat= [preImage CVMat];
-//                
-//                // Step 3. put Mat into pre processor- Charlie
-//                _tempMat = [self.ipp processImage:_tempMat];
-//                NSString *ocrStr = [self recognizeImageWithTesseract:[UIImage imageWithCVMat:_tempMat]];
-//                NSLog(@" ++++++++++ MAIN VC +++++++++++ : TEESSACT REC: %@",ocrStr);
-//                
-//                [localFoods addObjectsFromArray:[dict localSearchOCRString:ocrStr]];
-//            }
-//            //hao added
-//            [self.camView stopLoadingAnimation];
-//            
-//            [self showResultButtons];
-//            
-//            [self addFoodItems:localFoods];
-//            
-//        }else{
-//            //no image coming back, tell users to retake
-//            
-//            [self.view makeToast:AMLocalizedString(@"DETECTOR_NO_RESULT", nil)];
-//        }
-//        
-//    }
-    
 
     if (image) {
         
@@ -398,7 +318,6 @@ static NSString *CellIdentifier = @"Cell";
                     
                 }
             }
-            
             if(localFoods.count == 0){
                 //can't search anything from DB
                 [self stopAnimationAndShowErrorToast];
@@ -408,7 +327,6 @@ static NSString *CellIdentifier = @"Cell";
             [self stopAnimationAndShowErrorToast];
         }
     }
-
     NSLog(@"******************!! !! PHOTO TAKEN  !! !!********************");
 }
 
@@ -433,9 +351,7 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 -(void)showResultButtonsAndCollectionView{
-    
     self.counterForNoResult = 0;
-    
     if(self.collectionView.isHidden){
         self.collectionView.hidden = NO;
         self.collectionView.alpha = 1;
@@ -472,7 +388,6 @@ static NSString *CellIdentifier = @"Cell";
     }
 }
 
-
 // GETTERs
 -(ImagePreProcessor*)ipp{
     if(!_ipp){
@@ -501,6 +416,5 @@ static NSString *CellIdentifier = @"Cell";
     }
     return _existingFood;
 }
-
 
 @end

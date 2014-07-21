@@ -17,7 +17,6 @@
     return newSpotlight;
 }
 
-
 + (instancetype)addSpotlightInView:(UIView *)view atPoint:(CGPoint)centerPoint
 {
     return [[self class] addSpotlightInView:view atPoint:centerPoint withDuration:kDEFAULT_DURATION];
@@ -42,7 +41,6 @@
     
     return newSpotlight;
 }
-
 
 + (NSArray *)spotlightsInView:(UIView *)view
 {

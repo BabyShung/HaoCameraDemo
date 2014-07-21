@@ -18,8 +18,7 @@
 
 @implementation AppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     [Flurry setCrashReportingEnabled:YES];
     [Flurry startSession:@"BJKGTKRHXZGZC4VD3RZ9"];
     /*          MUST BE CALLED AT FIRST        */
@@ -36,20 +35,17 @@
     return YES;
 }
 							
-- (void)applicationWillResignActive:(UIApplication *)application
-{
+- (void)applicationWillResignActive:(UIApplication *)application{
     NSLog(@"will become inactive..");
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
+- (void)applicationDidEnterBackground:(UIApplication *)application{
     NSLog(@"************************* enter Background ***************************");
     [self.cameraView pauseCamera];
     NSLog(@"CameraIsOn??   %d" , [self.cameraView CameraIsOn]);
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
+- (void)applicationWillEnterForeground:(UIApplication *)application{
     if([[self.nvc topViewController] class] == [MainViewController class]){
         [self.cameraView resumeCamera];
         NSLog(@"top vc is main VC");
@@ -58,16 +54,13 @@
      NSLog(@"CameraIsOn??   %d" , [self.cameraView CameraIsOn]);
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
+- (void)applicationDidBecomeActive:(UIApplication *)application{
     NSLog(@"did become active..");
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application
-{
+- (void)applicationWillTerminate:(UIApplication *)application{
     //store all the query into searchHistory
     [SearchDictionary saveSearchHistoryToLocalDB];
-    
     [self closeCamera];
 }
 

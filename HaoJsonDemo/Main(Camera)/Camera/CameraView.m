@@ -420,10 +420,8 @@
     
 	[_StreamView.layer addSublayer:_captureVideoPreviewLayer];
     
-    
     [_camManager setScaleFactor:SCALE_FACTOR];
 	[_camManager startRunning];//begin the stream
-    
 }
 
 -(void)checkCropMode{
@@ -468,9 +466,7 @@
     
     CGPoint torchStart = CGPointMake(halfButtonSize + BUTTON_MARGIN_LEFT_RIGHT,screenHeight+ halfButtonSize+ BUTTON_MARGIN_DOWN);
     
-
     CGPoint nextStart = CGPointMake(screenWidth - halfButtonSize - BUTTON_MARGIN_LEFT_RIGHT, screenHeight+ halfButtonSize+ BUTTON_MARGIN_DOWN);
-    
     
     // -- LOAD BUTTONS BEGIN -- //
     _backBtn = [LoadControls createRoundedBackButton];
@@ -479,16 +475,13 @@
     _TorchBtn = [LoadControls createRoundedButton_Image:@"ED_torch.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(0, 0, 0, 0) andLeftBottomElseRightBottom:YES andStartingPosition:torchStart];
     [_TorchBtn addTarget:self action:@selector(torchBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
 
-    
     _nextPageBtn = [LoadControls createRoundedButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(8, 9, 8, 7) andLeftBottomElseRightBottom:NO andStartingPosition:nextStart];
     [_nextPageBtn addTarget:self action:@selector(nextPagePressed:) forControlEvents:UIControlEventTouchUpInside];
 
-    
     _captureBtn = [LoadControls createNiceCameraButton_withCameraView:self];
     [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     // -- LOAD BUTTONS END -- //
-    
     
     self.scaleSlider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(30, CROPVIEW_HEIGHT, 260, 31)];
     self.scaleSlider.maximumValue = 2.0;
@@ -503,7 +496,6 @@
     self.scaleSlider.textColor = [UIColor colorWithHue:0.55 saturation:1.0 brightness:0.5 alpha:1];
     self.scaleSlider.dataSource = self;
     self.scaleSlider.value = 1.0f;
-    
     
     for (UIButton * btn in @[_captureBtn, _backBtn, _TorchBtn, _nextPageBtn, _scaleSlider])  {
         [self addSubview:btn];
