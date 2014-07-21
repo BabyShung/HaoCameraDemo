@@ -92,12 +92,12 @@ static NSString *CellIdentifier = @"Cell";
     //if first launch, show it
     if([NSUserDefaultControls isFirstLaunch]){
         [NSUserDefaultControls userFinishFirstLaunch];
-        introContainer *ic = [[introContainer alloc] initWithFrame:self.view.bounds];
-        ic.shouldShowHint = YES;
-        [self.view addSubview:ic];
-        [ic showIntroWithCrossDissolve];
+
     }
-    
+    introContainer *ic = [[introContainer alloc] initWithFrame:self.view.bounds];
+    ic.shouldShowHint = YES;
+    [self.view addSubview:ic];
+    [ic showIntroWithCrossDissolve];
 }
 
 -(void)loadControls{

@@ -124,7 +124,7 @@
 }
 
 
-+(UIControl *)createNiceCameraButton_withCameraView:(UIView *)view{
++(HaoCaptureButton *)createNiceCameraButton_withCameraView:(UIView *)view{
     NSDictionary *appearanceProxy1 = @{
                                        kMRoundedButtonCornerRadius : @4,
                                        kMRoundedButtonContentColor : [ED_Color edibleBlueColor_Deep],

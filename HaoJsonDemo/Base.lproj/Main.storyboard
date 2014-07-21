@@ -487,8 +487,8 @@
                                             <action selector="login:" destination="HHj-Jz-yl9" eventType="touchUpInside" id="eIR-5D-k3P"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x0f-2C-e8H">
-                                        <rect key="frame" x="199" y="327" width="105" height="40"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x0f-2C-e8H">
+                                        <rect key="frame" x="195" y="327" width="85" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="STHeitiTC-Medium" family="Heiti TC" pointSize="16"/>
                                         <state key="normal" title="Skip Login">
@@ -499,8 +499,8 @@
                                             <action selector="SkipLogin:" destination="HHj-Jz-yl9" eventType="touchUpInside" id="iiC-9X-0aY"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Nu-rV-biw">
-                                        <rect key="frame" x="7" y="327" width="103" height="40"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Nu-rV-biw">
+                                        <rect key="frame" x="40" y="327" width="84" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="STHeitiTC-Medium" family="Heiti TC" pointSize="16"/>
                                         <state key="normal" title="Sign up">
@@ -547,15 +547,8 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Blue Cheese" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hjc-8M-qgO">
-                                        <rect key="frame" x="0.0" y="109" width="320" height="52"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="STHeitiTC-Medium" family="Heiti TC" pointSize="24"/>
-                                        <color key="textColor" red="0.078431372549019607" green="0.72549019607843135" blue="0.8784313725490196" alpha="1" colorSpace="deviceRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Login_logo_transparent.png" translatesAutoresizingMaskIntoConstraints="NO" id="5Yp-TS-z3v">
-                                        <rect key="frame" x="100" y="12" width="120" height="120"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Yp-TS-z3v">
+                                        <rect key="frame" x="91" y="20" width="139" height="139"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                     </imageView>
@@ -576,8 +569,11 @@
                         <outlet property="emailTextField" destination="sK0-As-kSb" id="EB8-9q-OHj"/>
                         <outlet property="loginBtn" destination="27J-mz-zxJ" id="u36-eA-01e"/>
                         <outlet property="loginImageView" destination="URL-H1-cqg" id="UCN-OL-7lA"/>
+                        <outlet property="loginLogoView" destination="5Yp-TS-z3v" id="WpV-Aq-H9n"/>
                         <outlet property="pwdTextField" destination="xlg-F4-GJ2" id="wR3-ky-qs7"/>
                         <outlet property="pwdView" destination="qqL-t7-CPy" id="kvX-Iu-mHl"/>
+                        <outlet property="signUpBtn" destination="9Nu-rV-biw" id="ZBz-4D-m6D"/>
+                        <outlet property="skipBtn" destination="x0f-2C-e8H" id="q0y-5a-vqI"/>
                         <outlet property="userView" destination="PXb-dS-OGI" id="JHd-TY-3BI"/>
                     </connections>
                 </viewController>
@@ -611,7 +607,6 @@
                                 </state>
                                 <connections>
                                     <action selector="backToLogin:" destination="Sye-7v-QI9" eventType="touchUpInside" id="LMX-nL-ceI"/>
-                                    <action selector="register:" destination="HHj-Jz-yl9" eventType="touchUpInside" id="m6l-4d-Yfr"/>
                                 </connections>
                             </button>
                             <view alpha="0.84999999999999998" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wJ6-Lc-UxI" userLabel="emailView">
@@ -677,6 +672,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backToLoginBtn" destination="elX-e3-hUj" id="RU9-Pi-SHC"/>
                         <outlet property="emailTextField" destination="VcW-rA-udG" id="bIN-vC-yrd"/>
                         <outlet property="emailView" destination="wJ6-Lc-UxI" id="jy4-Gf-aRh"/>
                         <outlet property="pwdTextField" destination="ogZ-ar-is4" id="6Mb-zE-VGh"/>
@@ -758,7 +754,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0mg-MV-viT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-232" y="1113"/>
+            <point key="canvasLocation" x="-234" y="1104"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="BTb-fk-NRs">
@@ -782,13 +778,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ivn-jw-FCc">
-                                            <rect key="frame" x="64" y="12" width="138" height="35"/>
+                                            <rect key="frame" x="81" y="10" width="129" height="40"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="STHeitiTC-Light" family="Heiti TC" pointSize="17"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D0j-iE-zAv">
-                                            <rect key="frame" x="12" y="12" width="35" height="35"/>
+                                            <rect key="frame" x="10" y="10" width="55" height="40"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                     </subviews>
@@ -809,7 +805,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="11A-k3-IHy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="164" y="1123"/>
+            <point key="canvasLocation" x="166" y="1104"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="69g-ca-8mO">
@@ -909,11 +905,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Iv8-jS-faW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1046" y="1104"/>
+            <point key="canvasLocation" x="1040" y="1104"/>
         </scene>
     </scenes>
     <resources>
-        <image name="Login_logo_transparent.png" width="232" height="232"/>
         <image name="aboutus_logo.png" width="210" height="210"/>
         <image name="blackBG.JPG" width="542" height="960"/>
         <image name="iowaCityMap.png" width="271" height="270"/>

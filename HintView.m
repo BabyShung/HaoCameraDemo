@@ -14,9 +14,11 @@
 #define DRAG_ARROWCENTER_X 255
 #define DRAG_ARROWCENTER_Y 225
 #define SLIDER_ARROWCENTER_X 95
-#define SLIDER_ARROWCENTER_Y iPhone5?315:255
+#define SLIDER_ARROWCENTER_Y_ip5 315
+#define SLIDER_ARROWCENTER_Y_ip4 255
 #define CAPTURE_ARROWCENTER_X 125
-#define CAPTURE_ARROWCENTER_Y iPhone5?394:355
+#define CAPTURE_ARROWCENTER_Y_ip5 394
+#define CAPTURE_ARROWCENTER_Y_ip4 315
 @interface HintView ()
 
 @property (nonatomic, strong) MLPSpotlight *spotLight;
@@ -87,13 +89,13 @@
     if(self.hintsNumber == 3){
         
         [self updateSpotLightWithPoint:CGPointMake(44, 358)];
-        [self addHintArrowImage:@"intro_arrow_left_down.png" andArrowCenter:CGPointMake(SLIDER_ARROWCENTER_X, SLIDER_ARROWCENTER_Y) andAddPhotoName:AMLocalizedString(@"TUTORIAL_SLIDER_IMAGENAME", nil) andImageViewCenter:CGPointMake(SLIDER_ARROWCENTER_X+40, SLIDER_ARROWCENTER_Y-40)];
+        [self addHintArrowImage:@"intro_arrow_left_down.png" andArrowCenter:CGPointMake(SLIDER_ARROWCENTER_X, iPhone5?SLIDER_ARROWCENTER_Y_ip5:SLIDER_ARROWCENTER_Y_ip4) andAddPhotoName:AMLocalizedString(@"TUTORIAL_SLIDER_IMAGENAME", nil) andImageViewCenter:CGPointMake(SLIDER_ARROWCENTER_X+40, (iPhone5?SLIDER_ARROWCENTER_Y_ip5:SLIDER_ARROWCENTER_Y_ip4)-50)];
         
         
     }else if(self.hintsNumber == 2){
         
         [self updateSpotLightWithPoint:CGPointMake(160, 470)];
-        [self addHintArrowImage:@"intro_arrow_right_down.png" andArrowCenter:CGPointMake(CAPTURE_ARROWCENTER_X, CAPTURE_ARROWCENTER_Y) andAddPhotoName:AMLocalizedString(@"TUTORIAL_CAPTUREBTN_IMAGENAME", nil) andImageViewCenter:CGPointMake(CAPTURE_ARROWCENTER_X+20, CAPTURE_ARROWCENTER_Y-70)];
+        [self addHintArrowImage:@"intro_arrow_right_down.png" andArrowCenter:CGPointMake(CAPTURE_ARROWCENTER_X, iPhone5?CAPTURE_ARROWCENTER_Y_ip5:CAPTURE_ARROWCENTER_Y_ip4) andAddPhotoName:AMLocalizedString(@"TUTORIAL_CAPTUREBTN_IMAGENAME", nil) andImageViewCenter:CGPointMake(CAPTURE_ARROWCENTER_X+20, (iPhone5?CAPTURE_ARROWCENTER_Y_ip5:CAPTURE_ARROWCENTER_Y_ip4)-70)];
     }else{
         [self.superview removeFromSuperview];
         return;

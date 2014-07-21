@@ -22,9 +22,6 @@
 #define DescFontFontSize 15
 
 @interface introContainer () <EAIntroDelegate>
-
-
-
 @end
 
 @implementation introContainer
@@ -33,7 +30,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
     }
     return self;
 }

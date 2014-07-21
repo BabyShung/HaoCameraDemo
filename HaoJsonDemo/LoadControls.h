@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MRoundedButtonAppearanceManager.h"
+#import "HaoCaptureButton.h"
 
 @interface LoadControls : NSObject
 
@@ -26,6 +27,6 @@
 
 +(UIButton *)createUIButtonWithRect:(CGRect)rect;
 //camera button
-+(UIControl *)createNiceCameraButton_withCameraView:(UIView *)view;
++(HaoCaptureButton *)createNiceCameraButton_withCameraView:(UIView *)view;
 
 @end

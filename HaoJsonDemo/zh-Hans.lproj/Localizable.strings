@@ -26,6 +26,10 @@
 "Email"="邮箱";
 "Username"="用户名";
 "Password"="密码";
+"BackToLogin"="返回";
+"SignUp"="注册";
+"Login"="登陆";
+"SkipLogin"="匿名登录";
 "Old password"="旧密码";
 "New password"="新密码";
 "Confirm New password"="确认新密码";
@@ -45,7 +49,7 @@
 "DETECTOR_NO_RESULT" = "无结果，再试一次亲";
 "NOT_LOGIN_REGISTERED_TEXT" = "您还没有登陆\n赶紧注册一个吧: )";
 "LOGIN_REGISTER_BUTTON_TEXT" = "登陆/注册";
-"LOGGEDIN_CONTEXT_1" = "感谢您的支持!\n请多多反馈!\n敬请期待新功能: )\n\n\n\n\n                         - 蓝芝士团队";
+"LOGGEDIN_CONTEXT_1" = "感谢您的支持!\n请多多反馈!\n敬请期待新功能: )\n\n\n                         - 蓝芝士团队";
 "NOT_REGISTERED_TEXT" = "您还没有登陆\n赶紧注册一个吧: )";
 "REGISTER_BUTTON_TEXT" = "注册";
 "NICE_WARNING_CONTEXT" = "当您无法返回结果:\n1.稍微移近字体\n2.打开灯光(左下角)\n";
@@ -82,4 +86,5 @@
 "T3_description_width"=230;
 "T4_description_width"=160;
 "LANGUAGE_SETTING_DONE"="语言更换成功！";
-
+"SLIDER_SCALE_TEXT"="缩放: ";
+"LOGIN_LOGO_WORD_PIC"="login_logo_chinese.png";

@@ -44,9 +44,9 @@ const NSString *settingCellIdentity = @"Cell";
                            AMLocalizedString(@"CARD_ABOUT", nil),
                      nil];
     self.settingsImages = [NSArray arrayWithObjects:
-                                 [UIImage imageNamed:@"ED_switchLanguage.png"],
-                                 [UIImage imageNamed:@"ED_tutorial.png"],
-                                 [UIImage imageNamed:@"ED_aboutUs.png"],
+                                 [UIImage imageNamed:@"EDB_language.png"],
+                                 [UIImage imageNamed:@"EDB_tutorial.png"],
+                                 [UIImage imageNamed:@"EDB_aboutus.png"],
                            nil];
     [self loadControls];
 }

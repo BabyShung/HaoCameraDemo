@@ -85,10 +85,10 @@ UICollectionViewDelegate>
                      AMLocalizedString(@"CARD_SETTING",nil),
                      AMLocalizedString(@"CARD_LOGOUT", nil), nil];
     self.profileOptionsImages = [NSArray arrayWithObjects:
-                           [UIImage imageNamed:@"ED_search.png"],
-                           [UIImage imageNamed:@"ED_feedback.png"],
-                           [UIImage imageNamed:@"ED_switchLanguage.png"],
-                           [UIImage imageNamed:@"ED_logout.png"], nil];
+                           [UIImage imageNamed:@"EDB_search.png"],
+                           [UIImage imageNamed:@"EDB_feedback.png"],
+                           [UIImage imageNamed:@"EDB_settings.png"],
+                           [UIImage imageNamed:@"EDB_logout.png"], nil];
 }
 
 -(void)checkUserStatusAtProfileBoard{

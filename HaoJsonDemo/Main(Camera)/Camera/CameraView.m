@@ -22,7 +22,6 @@
 
 #define BUTTON_MARGIN_DOWN 8
 
-
 #import "CameraView.h"
 #import "CameraManager.h"
 #import "ShadeView.h"
@@ -121,14 +120,6 @@
 
 - (void)resumeCamera{
     [_camManager startRunning];
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [_camManager startRunning];
-//    });
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
-//                                             (unsigned long)NULL), ^(void) {
-//        [_camManager startRunning];
-//        self.capturedImageView.backgroundColor = [UIColor clearColor];
-//    });
 }
 
 - (void)pauseCamera{
@@ -190,13 +181,6 @@
         if (_capturedImageView.image) {
             // Hide
             for (UIButton * btn in @[_captureBtn, _TorchBtn]) btn.hidden = YES;
-            // Show
-            //_saveBtn.hidden = NO;
-            
-            // Force User Preference
-            //_backBtn.hidden = _hideBackButton;
-            
-            //_backBtn.hidden = NO;
         }
         else {  // ELSE camera stream -- show capture controls / hide preview controls
             // Show
@@ -514,7 +498,7 @@
     self.scaleSlider.maximumValue = 2.0;
     self.scaleSlider.minimumValue = 1.0;
     NSNumberFormatter *tf = [[NSNumberFormatter alloc] init];
-    [tf setPositivePrefix:@"Scale: "];
+    [tf setPositivePrefix:AMLocalizedString(@"SLIDER_SCALE_TEXT", nil)];
     [self.scaleSlider setNumberFormatter:tf];
     self.scaleSlider.popUpViewCornerRadius = 4.0;
     [self.scaleSlider setMaxFractionDigitsDisplayed:1];
@@ -523,7 +507,6 @@
     self.scaleSlider.textColor = [UIColor colorWithHue:0.55 saturation:1.0 brightness:0.5 alpha:1];
     self.scaleSlider.dataSource = self;
     self.scaleSlider.value = 1.0f;
-    
     
     
     for (UIButton * btn in @[_captureBtn, _backBtn, _TorchBtn, _nextPageBtn, _scaleSlider])  {
@@ -549,7 +532,6 @@
     NSString *s;
     return s;
 }
-
 
 #pragma mark STATUS BAR
 
@@ -581,6 +563,11 @@
 
 -(void)updateUILanguage{
     self.captureBtn.detailTextLabel.text = AMLocalizedString(@"CAPTURE_BTN", nil);
+    NSNumberFormatter *tf = [[NSNumberFormatter alloc] init];
+    [tf setPositivePrefix:AMLocalizedString(@"SLIDER_SCALE_TEXT", nil)];
+    [self.scaleSlider setNumberFormatter:tf];
+    self.scaleSlider.popUpViewCornerRadius = 4.0;
+    [self.scaleSlider setMaxFractionDigitsDisplayed:1];
 }
 
 @end

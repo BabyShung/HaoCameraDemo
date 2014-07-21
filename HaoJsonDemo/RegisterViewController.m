@@ -17,6 +17,7 @@
 #import "Flurry.h"
 #import "GeneralControl.h"
 #import "NSUserDefaultControls.h"
+#import "LocalizationSystem.h"
 
 #define SignupBTNMoving 60
 
@@ -29,6 +30,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *signupImageView;
 
+@property (weak, nonatomic) IBOutlet UIButton *backToLoginBtn;
 @end
 
 @implementation RegisterViewController
@@ -38,11 +40,21 @@
 {
     [super viewDidLoad];
     
-        self.signupImageView.image = iPhone5?[UIImage imageNamed:@"register_ip5_final.png"]:[UIImage imageNamed:@"register_ip4_final.png"];
+    [self initUI];
     
     //[self checkAndStartLoadingAnimation];
     
     [self loadControls];
+}
+
+-(void)initUI{
+    self.emailTextField.placeholder = AMLocalizedString(@"Email", nil);
+    self.userTextField.placeholder = AMLocalizedString(@"Username", nil);
+    self.pwdTextField.placeholder = AMLocalizedString(@"Password", nil);
+    [self.signupBtn setTitle:AMLocalizedString(@"SignUp", nil) forState:UIControlStateNormal];
+    [self.backToLoginBtn setTitle:AMLocalizedString(@"BackToLogin", nil) forState:UIControlStateNormal];
+    
+    self.signupImageView.image = iPhone5?[UIImage imageNamed:@"register_ip5_final.png"]:[UIImage imageNamed:@"register_ip4_final.png"];
 }
 
 -(void)loadControls{
@@ -83,10 +95,6 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
--(BOOL)prefersStatusBarHidden{
-    return  YES;
-}
-
 - (IBAction)signUp:(id)sender {
     [self validateAllInputs];
 }
@@ -103,6 +111,7 @@
         [Flurry logEvent:@"Read_To_Register"];
         
         self.signupBtn.enabled = NO;
+        self.backToLoginBtn.enabled = NO;
         [self.view endEditing:YES];
         
         [self checkAndStartLoadingAnimation];
@@ -123,6 +132,7 @@
                 
                 //email already register
                 self.signupBtn.enabled = YES;
+                self.backToLoginBtn.enabled = YES;
                 [self.loadingImage stopAnimating];
                 [GeneralControl showErrorMsg:[err localizedDescription] withTextField:self.emailTextField];
             }
