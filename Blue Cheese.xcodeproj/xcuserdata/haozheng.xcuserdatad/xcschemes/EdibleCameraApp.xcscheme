@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B8FA463818F9E954007DA680"
-               BuildableName = "EdibleCameraApp.app"
+               BuildableName = "Blue Cheese.app"
                BlueprintName = "Blue Cheese"
                ReferencedContainer = "container:Blue Cheese.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B8FA465918F9E954007DA680"
-               BuildableName = "EdibleCameraAppTests.xctest"
+               BuildableName = "Blue CheeseTests.xctest"
                BlueprintName = "Blue CheeseTests"
                ReferencedContainer = "container:Blue Cheese.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B8FA463818F9E954007DA680"
-            BuildableName = "EdibleCameraApp.app"
+            BuildableName = "Blue Cheese.app"
             BlueprintName = "Blue Cheese"
             ReferencedContainer = "container:Blue Cheese.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B8FA463818F9E954007DA680"
-            BuildableName = "EdibleCameraApp.app"
+            BuildableName = "Blue Cheese.app"
             BlueprintName = "Blue Cheese"
             ReferencedContainer = "container:Blue Cheese.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B8FA463818F9E954007DA680"
-            BuildableName = "EdibleCameraApp.app"
+            BuildableName = "Blue Cheese.app"
             BlueprintName = "Blue Cheese"
             ReferencedContainer = "container:Blue Cheese.xcodeproj">
          </BuildableReference>
