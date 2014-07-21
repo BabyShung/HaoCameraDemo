@@ -3,7 +3,7 @@
 //
 //
 //  Created by CharlieGao on 6/30/14.
-//  Copyright (c) 2014 Edible Innovations. All rights reserved.
+//  Copyright (c) 2014 Edible Innovations LLC. All rights reserved.
 //
 #import "ImagePreProcessor.h"
 #import "opencv2/opencv.hpp"
@@ -27,14 +27,6 @@ using namespace std;
     if (backGround == 0) {
         NSLog(@"ImagePrePro: Black Backgroud");
         
-        //inputImage = [self increaseContrast:inputImage];
-        //inputImage = [self erode:inputImage];
-        //inputImage = [self dilate:inputImage];
-        /*
-         inputImage = [self removeBackgroundBlack:inputImage];
-         inputImage = [self erode:inputImage];
-         inputImage = [self dilate:inputImage];
-         */
         inputImage = [self adaptiveThresholdBlack:inputImage];
         inputImage = [self erode:inputImage];
         inputImage = [self dilate:inputImage];
@@ -43,12 +35,9 @@ using namespace std;
     else if(backGround == 1){
         NSLog(@"ImagePrePro: Normal Image");
         
-        //inputImage = [self increaseContrast:inputImage];
         inputImage = [self adaptiveThreshold:inputImage];
         inputImage = [self erode:inputImage];
         inputImage = [self dilate:inputImage];
-
-
         
     }
     else if(backGround == 2 ){
@@ -65,7 +54,11 @@ using namespace std;
         
     }
     
-    return inputImage;}
+    return inputImage;
+
+
+
+}
 
 
 
@@ -190,7 +183,7 @@ using namespace std;
     cv::split(img_threshold,channels); //split the image into channels
     
     
-    //cv::fastNlMeansDenoising(channels[0], channels[0], 3.0f, 7, 21);
+    cv::fastNlMeansDenoising(channels[0], channels[0], 3.0f, 7, 11);
     
     //--Simple threshold, removing little noisy
     
@@ -224,7 +217,7 @@ using namespace std;
     cv::split(img_threshold,channels); //split the image into channels
     
     
-    //cv::fastNlMeansDenoising(channels[0], channels[0], 3.0f, 7, 21);
+    cv::fastNlMeansDenoising(channels[0], channels[0], 3.0f, 7, 11);
     
     //--Simple threshold, removing little noisy
     

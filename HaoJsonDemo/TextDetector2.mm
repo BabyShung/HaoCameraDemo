@@ -3,7 +3,7 @@
 //  TestGray
 //
 //  Created by CharlieGao on 7/01/14.
-//  Copyright (c) 2014 Edible Innovations. All rights reserved.
+//  Copyright (c) 2014 Edible Innovations LLC. All rights reserved.
 //
 
 #import "TextDetector2.h"
@@ -255,11 +255,11 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
         flag = 0;
         cv::Rect tempRect = rects[index];
         
-        if(tempRect.height==0 || tempRect.width == 0){
+        if(tempRect.height == 0 || tempRect.width == 0){
             break;
         }
         
-        for(int index_in=0;index_in<rects.size();index_in++){
+        for(int index_in = 0;index_in < rects.size();index_in++){
             
             if(index == 0){//first rect
                 
@@ -269,7 +269,7 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
             cv::Point pl0 = rects[index].tl();
             cv::Point br0 = rects[index].br();
             cv::Point pl1 = rects[index_in].tl();
-            cv::Point br1 = rects[index_in].br();
+            //cv::Point br1 = rects[index_in].br();
             int distance_x = abs(br0.x-pl1.x);
             int distance_mid = abs(pl0.y+rects[index].height/2 - (pl1.y+rects[index_in].height/2));
             int distance_threshold = (rects[index].height)/2;
@@ -277,7 +277,7 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
             int diff_height = abs(rects[index].height - rects[index_in].height);
             
             if( distance_x < 35 && distance_mid < distance_threshold
-               && index != index_in && diff_height < (distance_threshold)){
+               && index != index_in && diff_height < (distance_threshold*1.5)){
                 //if two rects are close, then merge the insider to the current,
                 // counter dose not increas
                 
