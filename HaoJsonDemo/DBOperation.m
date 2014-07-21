@@ -226,7 +226,6 @@
         [self.connector closeDB];
         
     }
-    
     return foodDicts;
 }
 
@@ -265,7 +264,6 @@
     return result?YES:NO;
 
 }
-
 
 -(void) bulkTextInsertBySQL:(NSString *)sql andArray:(NSArray *)textArray{
     

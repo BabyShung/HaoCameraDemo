@@ -17,5 +17,4 @@
 
 - (instancetype)initWithUid:(NSUInteger)uid andUname:(NSString*)uname andUtype:(NSUInteger)utype andUselfie:(NSString*)uselfie;
 
-
 @end
