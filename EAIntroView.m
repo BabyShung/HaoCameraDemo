@@ -4,6 +4,7 @@
 //  Copyright (c) 2013-2014 Evgeny Aleksandrov. License: MIT.
 
 #import "EAIntroView.h"
+#import "LocalizationSystem.h"
 
 @interface EAIntroView()
 
@@ -345,7 +346,7 @@
     [self addSubview:self.pageControl];
     
     self.skipButton = [[UIButton alloc] initWithFrame:CGRectMake(self.scrollView.frame.size.width - 80, self.pageControl.frame.origin.y - ((30 - self.pageControl.frame.size.height)/2), 80, 30)];
-    [self.skipButton setTitle:NSLocalizedString(@"Skip", nil) forState:UIControlStateNormal];
+    [self.skipButton setTitle:AMLocalizedString(@"Skip_TEXT", nil) forState:UIControlStateNormal];
     [self.skipButton addTarget:self action:@selector(skipIntroduction) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.skipButton];
     

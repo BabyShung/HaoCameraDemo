@@ -83,8 +83,10 @@
 "T3_title_DESCRIPTION"="More details & pictures";
 "T4_title_DESCRIPTION"="Search & History review";
 "T1_description_width"=260;
+"T2_description_width"=260;
 "T3_description_width"=260;
 "T4_description_width"=200;
 "LANGUAGE_SETTING_DONE"="Language changed: )";
 "SLIDER_SCALE_TEXT"="Scale: ";
 "LOGIN_LOGO_WORD_PIC"="login_logo_eng.png";
+"Skip_TEXT"="Skip";

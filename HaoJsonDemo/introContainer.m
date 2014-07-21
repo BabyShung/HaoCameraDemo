@@ -64,7 +64,7 @@
     page2.desc = d2;
     page2.descPositionY = iPhone5?DescPositionY_ip5:DescPositionY_ip4;
     page2.descColor = [ED_Color darkGrayColor];
-    page2.descWidth = [AMLocalizedString(@"T1_description_width", nil) integerValue];
+    page2.descWidth = [AMLocalizedString(@"T2_description_width", nil) integerValue];
     page2.descFont = [UIFont fontWithName:@"Heiti TC" size:DescFontFontSize];
     page2.bgImage = [UIImage imageNamed:iPhone5?@"tutorial_2_ip5.png":@"tutorial_2_ip4.png"];
     
