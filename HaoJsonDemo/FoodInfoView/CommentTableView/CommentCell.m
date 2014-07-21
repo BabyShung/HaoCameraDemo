@@ -26,9 +26,12 @@ const CGFloat KCommentTextFontSize = 14.f;
         self.backgroundColor = [UIColor whiteColor];
         self.iconView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 15, 35, 35)];
         // Go Toronto!
-        self.iconView.image =[UIImage imageNamed:@"bluejay.jpg"];
+        self.contentMode = UIViewContentModeScaleAspectFill;
+        self.iconView.image =[UIImage imageNamed:@"default_selfie.png"];
         self.iconView.layer.cornerRadius = CGRectGetWidth(self.iconView.frame) / 2.0f;
         self.iconView.layer.masksToBounds = YES;
+        self.iconView.backgroundColor = [UIColor lightGrayColor];
+        
         [self addSubview:self.iconView];
         
         self.commentLabel = [[UILabel alloc] init];
@@ -112,6 +115,11 @@ const CGFloat KCommentTextFontSize = 14.f;
     [btn setImage:[UIImage imageNamed:@"likeButton_highlighted.png"] forState:UIControlStateHighlighted];
     [btn addTarget:self action:@selector(likeButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
     return btn;
+}
+
+-(void)layoutSubviews
+{
+//    self.commentLabel.frame = (CGRect){.origin = {CGRectGetMinX(self.iconView.frame) + CGRectGetWidth(self.iconView.frame) + kCommentPaddingFromLeft, CGRectGetMinY(self.iconView.frame) + kCommentPaddingFromTop}};
 }
 
 

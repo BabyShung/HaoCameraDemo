@@ -261,7 +261,7 @@ static AsyncRequest *async;
         else if([action isEqualToString:@"user_error"]){   //PS: bugs in server!! only show this
             [self configureError:NSLocalizedString(@"ERROR_REGISTER", nil)];
         }
-        else if([action isEqualToString:@"post_update_review"]){
+        else if([action isEqualToString:@"post_update_review"] ||[action isEqualToString:@"review_error"]){
             commentCompletionBlock(nil,NO, 0);
         }
     }

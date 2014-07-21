@@ -40,4 +40,6 @@
 
 -(void)config;
 
+-(void)resetData;
+
 @end

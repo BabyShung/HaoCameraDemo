@@ -61,7 +61,7 @@ static NSString *DescriptionFontName = @"HelveticaNeue-Light";
     _contentLabel.textColor = [UIColor blackColor];
     
     _readMoreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_readMoreBtn setTitle:AMLocalizedString(@"FIV_READ_MORE", nil) forState:UIControlStateNormal];
+//    [_readMoreBtn setTitle:AMLocalizedString(@"FIV_READ_MORE", nil) forState:UIControlStateNormal];
     _readMoreBtn.titleLabel.font = [UIFont fontWithName:DescriptionFontName size:DescriptionReadMoreFoneSize];
     [_readMoreBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     _readMoreBtn.titleLabel.textAlignment = NSTextAlignmentRight;
@@ -98,6 +98,7 @@ static NSString *DescriptionFontName = @"HelveticaNeue-Light";
     //Text too long, show read more button
     if (expectedRect.size.height > DescriptionContentLabelHeight)
     {
+        [_readMoreBtn setTitle:AMLocalizedString(@"FIV_READ_MORE", nil) forState:UIControlStateNormal];
         _transparentBtn.hidden = NO;
         _readMoreBtn.hidden = NO;
         self.frame = (CGRect){.origin = self.frame.origin, .size={self.frame.size.width, DescriptionContentLabelHeight+DescriptionReadMoreButtonHeight}};
@@ -171,6 +172,11 @@ static NSString *DescriptionFontName = @"HelveticaNeue-Light";
 -(void)config{
     _contentLabel.textColor = [UIColor blackColor];
 
+}
+
+-(void)resetData{
+    [_readMoreBtn setTitle:@"" forState:UIControlStateNormal];
+    _readMoreBtn.hidden = YES;
 }
 /*
 // Only override drawRect: if you perform custom drawing.

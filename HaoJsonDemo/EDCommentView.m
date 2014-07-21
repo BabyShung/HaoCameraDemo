@@ -54,6 +54,7 @@
         _textView.editable = YES;
         _textView.font = [UIFont systemFontOfSize:CommentTextFontSize];
         [_textView setReturnKeyType:UIReturnKeySend];
+        [_textView setKeyboardType:UIKeyboardTypeASCIICapable];
         _textView.delegate = self;
         [_textView becomeFirstResponder];
         

@@ -349,28 +349,34 @@ const CGFloat CommentRateViewWidth = 260;
     //NSLog(@"+++++++++++++++++ FIV +++++++++++++++++++ %@ : INSERT COMMENT TBL text = %@",self.myFood.title,text);
     
     CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"Cell %d", (int)indexPath.row]];
+
+
+    
     if (!cell) {
     NSLog(@"+++++++++++++++++ FIV +++++++++++++++++++ %@ : INSERT COMMENT TBL text = %@",self.myFood.title,text);
         cell = [[CommentCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"Cell %d", (int)indexPath.row]];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
+        cell.commentLabel.frame = (CGRect) {.origin = cell.commentLabel.frame.origin, .size = {CGRectGetMaxX(cell.frame) - CGRectGetMaxX(cell.iconView.frame) - kCommentPaddingFromLeft - kCommentPaddingFromRight,[self tableView:tableView heightForRowAtIndexPath:indexPath] - kCommentCellHeight}};
+        cell.timeLabel.frame = (CGRect) {.origin = {CGRectGetMinX(cell.commentLabel.frame), CGRectGetMaxY(cell.commentLabel.frame)+GAP}};
     }
     
-    cell.commentLabel.frame = (CGRect) {.origin = cell.commentLabel.frame.origin, .size = {CGRectGetMaxX(cell.frame) - CGRectGetMaxX(cell.iconView.frame) - kCommentPaddingFromLeft - kCommentPaddingFromRight,[self tableView:tableView heightForRowAtIndexPath:indexPath] - kCommentCellHeight}};
 
-    cell.timeLabel.frame = (CGRect) {.origin = {CGRectGetMinX(cell.commentLabel.frame), CGRectGetMaxY(cell.commentLabel.frame)+GAP}};
-    cell.timeLabel.text = [comment.createdTime stringFormatedForComment];
-    [cell.timeLabel sizeToFit];
-    
-    // Don't judge my magic numbers or my crappy assets!!!
-    cell.likeCountImageView.frame = CGRectMake(CGRectGetMaxX(cell.timeLabel.frame) + 7, CGRectGetMinY(cell.timeLabel.frame) + 3, 10, 10);
-    cell.likeCountImageView.image = [UIImage imageNamed:@"like_greyIcon.png"];
-    cell.likeCountLabel.frame = CGRectMake(CGRectGetMaxX(cell.likeCountImageView.frame) + 3, CGRectGetMinY(cell.timeLabel.frame), 0, CGRectGetHeight(cell.timeLabel.frame));
-    
-    //set comment text
+
     cell.commentLabel.text =text;
-    /***************** SET TIME OBJECT*******************/
+    
+
+    cell.timeLabel.text = [comment.createdTime stringFormatedForComment];
+   [cell.timeLabel sizeToFit];
+
+    
+//    // Don't judge my magic numbers or my crappy assets!!!
+//    cell.likeCountImageView.frame = CGRectMake(CGRectGetMaxX(cell.timeLabel.frame) + 7, CGRectGetMinY(cell.timeLabel.frame) + 3, 10, 10);
+//    cell.likeCountImageView.image = [UIImage imageNamed:@"like_greyIcon.png"];
+//    cell.likeCountLabel.frame = CGRectMake(CGRectGetMaxX(cell.likeCountImageView.frame) + 3, CGRectGetMinY(cell.timeLabel.frame), 0, CGRectGetHeight(cell.timeLabel.frame));
+    
+
 
 
     
@@ -589,11 +595,9 @@ const CGFloat CommentRateViewWidth = 260;
     self.starNumberLabel.text = @"";
     self.starImgView.image = nil;
     
+    [self.descripView resetData];
     self.noCommentLabel.hidden = YES;
-    [self resetData];
-}
-
--(void)resetData{
+    
     self.myFood.photoNames = nil;//datasource for food photos in bottomCollectionview
     self.photoCollectionView.delegate = nil;
     [self.photoCollectionView reloadData];
@@ -602,11 +606,24 @@ const CGFloat CommentRateViewWidth = 260;
     self.commentsTableView.delegate = nil;
     [self.commentsTableView reloadData];
     self.commentsTableView.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, CGRectGetWidth(self.commentsTableView.frame),  kCommentCellHeight);
-
-    [self.tagview clear];
     
-
+    [self.tagview clear];
 }
+
+//-(void)resetData{
+//    self.myFood.photoNames = nil;//datasource for food photos in bottomCollectionview
+//    self.photoCollectionView.delegate = nil;
+//    [self.photoCollectionView reloadData];
+//    
+//    self.myFood.comments = nil;//datasource for comment tableview
+//    self.commentsTableView.delegate = nil;
+//    [self.commentsTableView reloadData];
+//    self.commentsTableView.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, CGRectGetWidth(self.commentsTableView.frame),  kCommentCellHeight);
+//
+//    [self.tagview clear];
+//    
+//
+//}
 
 -(void)fetchFoodInfo{
     
