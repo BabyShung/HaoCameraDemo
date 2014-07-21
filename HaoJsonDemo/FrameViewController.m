@@ -16,6 +16,8 @@
 
 #import "SettingsViewController.h"
 
+#import "SecondViewController.h"
+
 @interface FrameViewController () <MainVCDelegate,SettingDelegate>
 
 // App view controllers

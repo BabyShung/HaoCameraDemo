@@ -71,6 +71,7 @@ static NSString *CellIdentifier = @"Cell";
 
 - (void)viewDidLoad{
     
+    
     ScreenWidth = CGRectGetWidth([[UIScreen mainScreen] bounds]);
     ScreenHeight = CGRectGetHeight([[UIScreen mainScreen] bounds]);
     
@@ -176,7 +177,10 @@ static NSString *CellIdentifier = @"Cell";
             }
         }
     }];
-    
+//    Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
+//    NSString* str = @"Sushi and Kale";
+//    [self addFoodItems:[dict localSearchOCRString:str]];
+//    [self showResultButtonsAndCollectionView];
 }
 
 /*******************************

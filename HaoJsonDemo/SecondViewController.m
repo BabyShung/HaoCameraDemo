@@ -111,4 +111,5 @@
     edCell.foodInfoView.commentBtn.alpha = .0f;
     edCell.foodInfoView.commentBtn.hidden = YES;
 }
+
 @end
