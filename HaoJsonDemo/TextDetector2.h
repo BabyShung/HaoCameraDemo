@@ -10,10 +10,6 @@
 
 @interface TextDetector2 : NSObject
 
--(cv::Mat)toGrayMat:(UIImage *) inputImage;
-
 -(NSMutableArray*)findTextArea: (UIImage*)inputImage; // main
-
--(cv::Mat)sharpen:(cv::Mat)inputImage;
 
 @end
