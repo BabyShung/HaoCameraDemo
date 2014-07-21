@@ -100,4 +100,6 @@
 
 -(void)getCameraFocus:(CGPoint)point;
 
+-(void)updateUILanguage;
+
 @end

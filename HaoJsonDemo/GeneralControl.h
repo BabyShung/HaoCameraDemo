@@ -22,4 +22,6 @@
 
 +(void)setPageViewControllerScrollEnabled:(BOOL)enabled;
 
++(void)updatingUI;
+
 @end

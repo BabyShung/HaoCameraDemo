@@ -11,7 +11,7 @@
 #import "MRTextLayer.h"
 #import "MRImageLayer.h"
 #import "ImageCropView.h"
-
+#import "LocalizationSystem.h"
 
 CGFloat const MRoundedButtonMaxValue = CGFLOAT_MAX;
 
@@ -112,7 +112,7 @@ static CGRect CGRectEdgeInset(CGRect rect, UIEdgeInsets insets){
     if (sender.state == UIGestureRecognizerStateBegan){
         
         //self.selected = !self.selected;
-        self.detailTextLabel.text = @"Focusing";
+        self.detailTextLabel.text = AMLocalizedString(@"CAPTURE_BTN_FOCUSWORD", nil);
         
         
         _focusTimer = [NSTimer timerWithTimeInterval:3.0f target:self selector:@selector(startFocusLoop) userInfo:nil repeats:YES];
@@ -147,7 +147,7 @@ static CGRect CGRectEdgeInset(CGRect rect, UIEdgeInsets insets){
         NSLog(@"invalidate timer");
         self.selected = !self.selected;
         
-        self.detailTextLabel.text = @"Capture";
+        self.detailTextLabel.text = AMLocalizedString(@"CAPTURE_BTN",nil);
         
         self.usingLongPress = NO;
         
@@ -158,7 +158,7 @@ static CGRect CGRectEdgeInset(CGRect rect, UIEdgeInsets insets){
         NSLog(@"invalidate timer");
         self.selected = !self.selected;
         
-        self.detailTextLabel.text = @"Capture";
+        self.detailTextLabel.text = AMLocalizedString(@"CAPTURE_BTN",nil);
         
         self.usingLongPress = NO;
     }

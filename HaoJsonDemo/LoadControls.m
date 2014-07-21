@@ -9,7 +9,7 @@
 #import "LoadControls.h"
 #import "ED_Color.h"
 #import "HaoCaptureButton.h"
-
+#import "LocalizationSystem.h"
 
 #define smallBTNRadius 25
 
@@ -144,7 +144,7 @@
     
     button.backgroundColor = [UIColor clearColor];
     
-    button.detailTextLabel.text = NSLocalizedString(@"CAPTURE_BTN", nil);
+    button.detailTextLabel.text = AMLocalizedString(@"CAPTURE_BTN", nil);
     button.detailTextLabel.font = [UIFont systemFontOfSize:16];
     button.imageView.image = [UIImage imageNamed:@"Camera_02.png"];
     

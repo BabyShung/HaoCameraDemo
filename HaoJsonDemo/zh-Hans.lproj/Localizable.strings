@@ -55,6 +55,7 @@
 "FIV_LOADING_MSG" = "努力加载中";
 "FIV_LOADING_FAIL" = "T^T 点我再试一次吧";
 "CAPTURE_BTN" = "拍照";
+"CAPTURE_BTN_FOCUSWORD"="对焦中";
 "ABOUT_US"="这是一款帮助您享受美食冒险的菜单翻译应用。与很多留学生和旅客一样，初到异国他乡时的我们时常面对各种陌生的美食。对于不认识的食物名称，我们感到既惊喜又迷惑。即使知道字面意思，也未必不了解它的味道。就像蓝芝士(Blue Cheese)一样，简单的文字勾起我们对美食的想象，可品尝之后却发现它的味道竟是刺激浓烈。海外的生活就像蓝芝士，虽不同与想象却别有翻难忘滋味。希望蓝芝士这款app能够帮助您尽情享受美食的冒险，发现异国的美味。";
 "COMMENT_TOO_LONG" = "评论太长了，亲";
 "LANGUAGUE_SETTING" = "语言设置";
@@ -80,3 +81,5 @@
 "T1_description_width"=180;
 "T3_description_width"=230;
 "T4_description_width"=160;
+"LANGUAGE_SETTING_DONE"="语言更换成功！";
+

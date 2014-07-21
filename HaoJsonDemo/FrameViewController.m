@@ -18,11 +18,16 @@
 
 #import "AppDelegate.h"
 
+#import "SettingsViewController.h"
+
 @interface FrameViewController () <MainVCDelegate,SettingDelegate>
 
 // App view controllers
 @property (nonatomic,strong) UINavigationController *VC1;
 @property (nonatomic,strong) UINavigationController *VC2;
+
+@property (nonatomic,strong) MainViewController *MVC;
+@property (nonatomic,strong) CardsViewController *CVC;
 
 // App debug VC
 @property (nonatomic,strong) DebugViewController *VC3;
@@ -57,14 +62,14 @@
     //declare all the viewControllers
     
     UINavigationController *mainNVC = [self.storyboard instantiateViewControllerWithIdentifier:@"mainNVC"];
-    MainViewController *mvcInDict = (MainViewController * )mainNVC.topViewController;
+    self.MVC = (MainViewController * )mainNVC.topViewController;
     //set delegate for DEBUG and slide
-    mvcInDict.Maindelegate = self;
+    self.MVC.Maindelegate = self;
     
     
     UINavigationController *settingNVC = [self.storyboard instantiateViewControllerWithIdentifier:@"settingNVC"];
-    CardsViewController *cvc = (CardsViewController *)settingNVC.topViewController;
-    cvc.settingDelegate = self;
+    self.CVC = (CardsViewController *)settingNVC.topViewController;
+    self.CVC.settingDelegate = self;
     
     self.VC1 = mainNVC;
     self.VC2 = settingNVC;
@@ -185,4 +190,11 @@
     return YES;
 }
 
+
+-(void)updateAllViewControllers{
+    NSLog(@"yeah yeah yeah ***********************");
+    [self.MVC.camView updateUILanguage];
+    [self.CVC updateUILanguage];
+    [(SettingsViewController *)self.VC2.topViewController updateUILanguage];
+}
 @end

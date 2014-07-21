@@ -42,6 +42,7 @@ UICollectionViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UICollectionView *bottomCollectionView;
 
+@property (nonatomic,strong) UIButton *registerBtn;
 
 @property (strong,nonatomic) NSArray *profileOptions;
 @property (strong,nonatomic) NSArray *profileOptionsImages;
@@ -100,11 +101,11 @@ UICollectionViewDelegate>
         //init view to indicate login
         self.descriptionLabel.text = AMLocalizedString(@"NOT_LOGIN_REGISTERED_TEXT", nil);
         
-        UIButton *registerBtn = [[UIButton alloc]initWithFrame:CGRectMake(LeftContextMargin, 190, 240, 50)];
-        [registerBtn addTarget:self action:@selector(PressedRegisterButton:) forControlEvents:UIControlEventTouchUpInside];
-        [registerBtn setTitle:AMLocalizedString(@"LOGIN_REGISTER_BUTTON_TEXT", nil) forState:UIControlStateNormal];
-        [registerBtn successStyle];
-        [self.view addSubview:registerBtn];
+       self.registerBtn = [[UIButton alloc]initWithFrame:CGRectMake(LeftContextMargin, 190, 240, 50)];
+        [self.registerBtn addTarget:self action:@selector(PressedRegisterButton:) forControlEvents:UIControlEventTouchUpInside];
+        [self.registerBtn setTitle:AMLocalizedString(@"LOGIN_REGISTER_BUTTON_TEXT", nil) forState:UIControlStateNormal];
+        [self.registerBtn successStyle];
+        [self.view addSubview:self.registerBtn];
         
         
     }else{
@@ -295,6 +296,68 @@ UICollectionViewDelegate>
     });
 }
 
+-(void)updateUILanguage{
+    NSLog(@"**************** card VC update UI language *********************");
+    self.profileOptions = [NSArray arrayWithObjects:
+                           AMLocalizedString(@"CARD_SEARCH", nil),
+                           AMLocalizedString(@"CARD_FEEDBACK",nil),
+                           AMLocalizedString(@"CARD_SETTING",nil),
+                           AMLocalizedString(@"CARD_LOGOUT", nil), nil];
+    [self.bottomCollectionView reloadData];
+    
+    User *user = [User sharedInstance];
+    
+    [self.shimmeringView removeFromSuperview];
+    
+    CGRect titleRect = CGRectMake(LeftMargin, TopMargin, self.view.bounds.size.width, 30);
+    self.shimmeringView = [[FBShimmeringView alloc] initWithFrame:titleRect];
+    self.shimmeringView.shimmering = YES;   //start shimmering
+    self.shimmeringView.shimmeringBeginFadeDuration = 0.2;
+    self.shimmeringView.shimmeringOpacity = 0.5;
+    self.shimmeringView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:self.shimmeringView];
+    _shimmeringView.contentView = self.titleLabel;
+    
+    
+    [self.descriptionLabel removeFromSuperview];
+    self.descriptionLabel = ({
+        RQShineLabel *label = [[RQShineLabel alloc] initWithFrame:CGRectMake(LeftContextMargin, TopContextMargin, 270, 300)];
+        label.numberOfLines = 0;
+        label.text = @"";
+        label.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:22.0];
+        label.backgroundColor = [UIColor clearColor];
+        //[label sizeToFit];
+        
+        //label.center = self.view.center;
+        label.textColor = [UIColor whiteColor];
+        label;
+    });
+    [self.view addSubview:self.descriptionLabel];
+    
+    
+    if(user.Uid == AnonymousUser){
+        
+        self.titleLabel.text = [NSString stringWithFormat: @"%@",AMLocalizedString(@"ANONYMOUS_HELLO", nil)];
+        
+        //init view to indicate login
+        self.descriptionLabel.text = AMLocalizedString(@"NOT_LOGIN_REGISTERED_TEXT", nil);
+        
+        [self.registerBtn setTitle:AMLocalizedString(@"LOGIN_REGISTER_BUTTON_TEXT", nil) forState:UIControlStateNormal];
+        
+        
+    }else{
+        self.titleLabel.text = [NSString stringWithFormat: @"%@, %@",AMLocalizedString(@"Hello", nil),user.name];
+        
+        //show
+        self.descriptionLabel.text = AMLocalizedString(@"LOGGEDIN_CONTEXT_1", nil);
+        self.descriptionLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:20];
+        
+    }
+    
+    [self.descriptionLabel sizeToFit];
+    
 
+    
+}
 
 @end

@@ -9,12 +9,22 @@
 #import "LanguageViewController.h"
 #import "LanguageCell.h"
 #import "LoadControls.h"
+#import "ShareData.h"
+#import "languageSetting.h"
+#import "UIView+Toast.h"
+#import "GeneralControl.h"
 
 const NSString *langCellIdentity = @"Cell";
 
 @interface LanguageViewController ()
 
 @property (strong,nonatomic) NSArray *languages;
+
+@property (nonatomic) TargetLang targetLanguage;
+
+@property (nonatomic,strong) UIImage *checkImage;
+
+@property (nonatomic,strong) languageSetting *langSettings;
 
 @end
 
@@ -35,6 +45,19 @@ const NSString *langCellIdentity = @"Cell";
                       nil];
     
     [self loadControls];
+    
+    self.langSettings = [[languageSetting alloc]init];
+    
+    //chinese 1, english 2
+    self.targetLanguage = [self.langSettings getAppLanguage] - 1;
+    
+    self.checkImage = [UIImage imageNamed:@"check_black.png"];
+    
+    
+    
+
+    
+    
 }
 
 -(void)loadControls{
@@ -60,13 +83,30 @@ const NSString *langCellIdentity = @"Cell";
     
     LanguageCell *cell = (LanguageCell *)[collectionView dequeueReusableCellWithReuseIdentifier:[langCellIdentity copy] forIndexPath:indexPath];
     cell.languageTitleLabel.text = [self.languages objectAtIndex:indexPath.row];
-    //cell.settingTitleImage.image = self.settingsImages[indexPath.row];
+    
+    if(self.targetLanguage==indexPath.row){
+        cell.languageCheckImageView.image = self.checkImage;
+    }else{
+        cell.languageCheckImageView.image = nil;
+    }
+    
     return cell;
     
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
  
+    
+    self.targetLanguage = indexPath.row;
+    
+    
+    if([self.langSettings setAppLanguage:self.targetLanguage+1]){
+        [self.view makeToast:AMLocalizedString(@"LANGUAGE_SETTING_DONE", nil)];
+    }
+    
+    
+    
+    [self.collectionView reloadData];
     
 }
 

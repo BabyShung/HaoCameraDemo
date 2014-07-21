@@ -107,5 +107,13 @@ const NSString *settingCellIdentity = @"Cell";
     
 }
 
-
+-(void)updateUILanguage{
+    NSLog(@"**************** settings VC update UI language *********************");
+    self.settings = [NSArray arrayWithObjects:
+                     AMLocalizedString(@"LANGUAGUE_SETTING",nil),
+                     AMLocalizedString(@"TUTORIAL_STRING", nil),
+                     AMLocalizedString(@"CARD_ABOUT", nil),
+                     nil];
+    [self.collectionView reloadData];
+}
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "languageSetting.h"
+#import "GeneralControl.h"
 
 @implementation languageSetting
 
@@ -25,25 +26,26 @@
     }
 }
 
+
+
 -(void)setAndSaveLanguage:(NSString *)lang{
-    [self saveLanguageIntoUserDefault:lang];
-    [self setLanguage:lang];
+    
+    NSString *appLang = [[NSUserDefaults standardUserDefaults] stringForKey:@"appSettingLanguage"];
+    if (![lang isEqualToString:appLang]){
+    
+        [self saveLanguageIntoUserDefault:lang];
+        [self setLanguage:lang];
+        
+    }
 }
 
 
 //save the language into NSUserDefault
 -(void)saveLanguageIntoUserDefault:(NSString *)lang{
-    
-    NSString *appLang = [[NSUserDefaults standardUserDefaults] stringForKey:@"appSettingLanguage"];
-    if (![lang isEqualToString:appLang]){
-        
-        //put info into nsuserdefault
+            //put info into nsuserdefault
         [[NSUserDefaults standardUserDefaults] setObject:lang forKey:@"appSettingLanguage"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         NSLog(@"*********saved with %@",lang);
-        
-        //also update all the other UI
-    }
 }
 
 //set run-time language
@@ -52,12 +54,41 @@
 }
 
 //get mobile phone current language
--(NSString *)getAppLanguage{
+-(NSString *)getDeviceLanguage{
     NSLog(@"********* Mobile current language **** %@",LocalizationGetLanguage);
     return LocalizationGetLanguage;
 }
 
+-(TargetLang)getAppLanguage{
+    NSString *appLang = [[NSUserDefaults standardUserDefaults] stringForKey:@"appSettingLanguage"];
+    
+    if([appLang isEqualToString:@"en"])
+        return English;
+    else if([appLang isEqualToString:@"zh-Hans"])
+        return Chinese;
+    else
+        return English;
+    
+}
 
+-(BOOL)setAppLanguage:(TargetLang)targetLanguage{
+    if(targetLanguage==Chinese){
+        return [self setAndSaveLanguageAndUpdateUI:@"zh-Hans"];
+    }else if(targetLanguage==English){
+        return [self setAndSaveLanguageAndUpdateUI:@"en"];
+    }
+    return false;
+}
 
-
+-(BOOL)setAndSaveLanguageAndUpdateUI:(NSString *)lang{
+    NSString *appLang = [[NSUserDefaults standardUserDefaults] stringForKey:@"appSettingLanguage"];
+    if (![lang isEqualToString:appLang]){
+        
+        [self saveLanguageIntoUserDefault:lang];
+        [self setLanguage:lang];
+        [GeneralControl updatingUI];
+        return true;
+    }
+    return false;
+}
 @end

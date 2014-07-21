@@ -10,4 +10,6 @@
 
 @interface SettingsViewController : UICollectionViewController
 
+-(void)updateUILanguage;
+
 @end

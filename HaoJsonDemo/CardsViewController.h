@@ -21,4 +21,6 @@
 
 @property (retain, nonatomic) id <SettingDelegate> settingDelegate;
 
+-(void)updateUILanguage;
+
 @end

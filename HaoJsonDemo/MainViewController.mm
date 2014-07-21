@@ -96,11 +96,8 @@ static NSString *CellIdentifier = @"Cell";
         ic.shouldShowHint = YES;
         [self.view addSubview:ic];
         [ic showIntroWithCrossDissolve];
-        
     }
     
-    
-
 }
 
 -(void)loadControls{
@@ -514,5 +511,6 @@ static NSString *CellIdentifier = @"Cell";
     }
     return _existingFood;
 }
+
 
 @end

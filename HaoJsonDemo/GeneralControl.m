@@ -73,4 +73,10 @@
 }
 
 
++(void)updatingUI{
+    
+    AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDlg.fvc updateAllViewControllers];
+}
+
 @end

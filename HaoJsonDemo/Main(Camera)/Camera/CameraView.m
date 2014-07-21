@@ -33,6 +33,9 @@
 #import "LoadingAnimation.h"
 #import "Flurry.h"
 #import "ASValueTrackingSlider.h"
+#import "HaoCaptureButton.h"
+#import "LocalizationSystem.h"
+
 
 @interface CameraView () <CameraManageCDelegate,ASValueTrackingSliderDataSource>
 {
@@ -53,7 +56,7 @@
 
 // Controls
 @property (strong, nonatomic) UIButton * backBtn;
-@property (strong, nonatomic) UIControl * captureBtn;
+@property (strong, nonatomic) HaoCaptureButton * captureBtn;
 @property (strong, nonatomic) UIButton * TorchBtn;
 @property (strong, nonatomic) UIButton * nextPageBtn;
 
@@ -574,6 +577,10 @@
 
 -(ImageCropView *)getCropView{
     return self.CropView;
+}
+
+-(void)updateUILanguage{
+    self.captureBtn.detailTextLabel.text = AMLocalizedString(@"CAPTURE_BTN", nil);
 }
 
 @end
