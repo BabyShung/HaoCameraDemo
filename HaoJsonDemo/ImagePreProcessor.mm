@@ -267,7 +267,7 @@ using namespace std;
             uchar pixl = inputRectImg.at<uchar>(i,j);
             int pixl_int = pixl - '0';
             
-            if(i < 3 || j < 3 || i > (rows-4) || j > (cols - 4)){
+            if(i < 3 || j < 3 || i > (rows - 4) || j > (cols - 4)){
                 sum_outer_pixl = sum_outer_pixl + pixl_int;
                 counter_outer++;
                 
@@ -287,8 +287,6 @@ using namespace std;
     NSLog(@"ImagePrePro: out: %u",ave_outer_pixl);
     
     
-    
-    
     if(ave_pixl <= ave_outer_pixl){
         
         return 1;// normal i.e. white paper black words
@@ -301,9 +299,5 @@ using namespace std;
     }
     
 }
-
-
-
-//-------below is remove back ground version 2  stable version
 
 @end

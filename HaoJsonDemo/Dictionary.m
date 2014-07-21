@@ -196,13 +196,14 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
     if(numOfWords != 0){
         for (int i=0; i<numOfWords-1; i++) {
             [tmpStr setString:words_corrected[i]];
-            [tmpStr stringByReplacingOccurrencesOfString:@"\r\n"
+            [tmpStr stringByReplacingOccurrencesOfString:@"\r"
                                                withString:@""];
+            [tmpStr stringByReplacingOccurrencesOfString:@"\n"
+                                              withString:@""];
             numCombo = 0;
             for (int j = i+1; j < numOfWords ; j++) {
                 if(numCombo > 4){
                     break; //avoid latency
-                    NSLog(@"Dictionary: break!");
                 }
                 [tmpStr appendFormat:@" %@",words_corrected[j]];
                 [words_corrected addObject:[NSString stringWithString:tmpStr]];
