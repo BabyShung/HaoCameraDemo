@@ -33,7 +33,8 @@ const CGFloat MiddleGAP = 10.0f;
 const CGFloat TitleLabelHeight = 40.f;
 const CGFloat SeparatorViewHeight = 1.f;
 const CGFloat BelowShimmmerGap = 10.f;
-const CGFloat TranslateLabelHeight = 30.f;
+const CGFloat LargeTranslateLabelHeight = 30.f;
+const CGFloat SmallTranslateLabelHeight = 100.f;
 const CGFloat BelowTranslateGap = 10.f;
 const CGFloat StarImgViewWidth = 40.f;
 const CGFloat StarNumberLabelWidth = 40.f;
@@ -138,6 +139,7 @@ const CGFloat CommentRateViewWidth = 260;
     self.translateLabel = [[UILabel alloc] init];
     self.translateLabel.numberOfLines = 0;
     self.translateLabel.lineBreakMode =NSLineBreakByWordWrapping;
+
     self.translateLabel.text = @"";
     self.translateLabel.font = [UIFont fontWithName:PlainTextFontName size:SmallTextFontSize];
     self.translateLabel.textColor = [UIColor blackColor];
@@ -404,7 +406,7 @@ const CGFloat CommentRateViewWidth = 260;
     
     /*Resize views in scroll view*/
     
-    CGFloat sizeMultiplier = (height-190)/( CGRectGetHeight([[UIScreen mainScreen] bounds])-190);
+    CGFloat sizeMultiplier = (height-(iPhone5? 185:155))/( CGRectGetHeight([[UIScreen mainScreen] bounds])-(iPhone5? 185:155));
     //self.shimmeringView.frame = CGRectMake(CLeftMargin, TitleTopMargin, width-CLeftMargin, ShimmmerViewHeight);
     self.titleLabel.frame = CGRectMake(CLeftMargin, TitleTopMargin, width-CLeftMargin, TitleLabelHeight);
     [self.titleLabel setFont:[UIFont fontWithName:PlainTextFontName size:SmallTitleFontSize + (LargeTitleFontSize-SmallTitleFontSize)*sizeMultiplier]];
@@ -412,7 +414,8 @@ const CGFloat CommentRateViewWidth = 260;
     self.separator.frame = CGRectMake(CLeftMargin, CGRectGetMaxY(self.titleLabel.frame), width-2*CLeftMargin, SeparatorViewHeight);
 
     
-    self.translateLabel.frame = CGRectMake(CLeftMargin, TitleTopMargin + CGRectGetMaxY(self.titleLabel.frame), width-2*CLeftMargin,  TranslateLabelHeight);
+    self.translateLabel.frame = CGRectMake(CLeftMargin, TitleTopMargin + CGRectGetMaxY(self.titleLabel.frame), width-2*CLeftMargin,  SmallTranslateLabelHeight - (SmallTranslateLabelHeight - LargeTranslateLabelHeight)*sizeMultiplier);//TranslateLabelHeight);
+    [self.translateLabel sizeToFit];
     //[self.translateLabel setFont:[UIFont fontWithName:PlainTextFontName size:SmallTextFontSize + (LargeTitleFontSize-SmallTextFontSize)*sizeMultiplier]];
     
     self.starNumberLabel.frame =CGRectMake(width-CLeftMargin-StarNumberLabelWidth, self.translateLabel.frame.origin.y, StarNumberLabelWidth*(width/[[UIScreen mainScreen] bounds].size.width), CGRectGetHeight(self.translateLabel.frame));

@@ -72,6 +72,5 @@
 
 -(void)cleanUpForReuse;
 
--(void)resetData;
 
 @end
