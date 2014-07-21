@@ -8,10 +8,6 @@
 
 #import "FrameViewController.h"
 
-#import "DebugViewController.h"
-
-#import "EP_thirdViewController.h"
-
 #import "CardsViewController.h"
 
 #import "MainViewController.h"
@@ -29,15 +25,9 @@
 @property (nonatomic,strong) MainViewController *MVC;
 @property (nonatomic,strong) CardsViewController *CVC;
 
-// App debug VC
-@property (nonatomic,strong) DebugViewController *VC3;
-@property (nonatomic,strong) EP_thirdViewController *VC4;
-
 //array to store VCs
 @property (strong, nonatomic) NSArray *menu;
 @property (strong, nonatomic) NSDictionary *dict;
-
-@property (nonatomic) BOOL debugMode;
 
 @end
 
@@ -46,8 +36,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    //_debugMode = YES;
     
     [self loadAllViewControllers];
  
@@ -73,32 +61,14 @@
     
     self.VC1 = mainNVC;
     self.VC2 = settingNVC;
+
+    self.menu = [NSArray arrayWithObjects:self.VC1, self.VC2, nil];
     
-    if(_debugMode){
-        self.VC3 = [self.storyboard instantiateViewControllerWithIdentifier:@"debug"];
-        self.VC4 = [self.storyboard instantiateViewControllerWithIdentifier:@"debug2"];
-        
-        //2. Delegate: set up VC4 as the delegate of debugVC
-        self.VC3.debugDelegate = self.VC4;
-        
-        self.menu = [NSArray arrayWithObjects:self.VC1, self.VC2,self.VC3,self.VC4, nil];
-        
-        //a dictionary that knows which index giving a class name of VC
-        self.dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                     [NSNumber numberWithInt:0], mainNVC.restorationIdentifier,
-                     [NSNumber numberWithInt:1], settingNVC.restorationIdentifier,
-                     [NSNumber numberWithInt:2], self.VC3.restorationIdentifier,
-                     [NSNumber numberWithInt:3], self.VC4.restorationIdentifier, nil];
-        
-    }else{
-        self.menu = [NSArray arrayWithObjects:self.VC1, self.VC2, nil];
-        
-        //a dictionary that knows which index giving a class name of VC
-        self.dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                     [NSNumber numberWithInt:0], mainNVC.restorationIdentifier,
-                     [NSNumber numberWithInt:1], settingNVC.restorationIdentifier,
-                     nil];
-    }
+    //a dictionary that knows which index giving a class name of VC
+    self.dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                 [NSNumber numberWithInt:0], mainNVC.restorationIdentifier,
+                 [NSNumber numberWithInt:1], settingNVC.restorationIdentifier,
+                 nil];
 }
 
 -(void)setupPageViewController{
@@ -145,17 +115,13 @@
 }
 
 - (void) setCamDelegateFromMain:(MainViewController *)camVC{
-    if(_debugMode)
-        camVC.camView.camDelegate = self.VC3;
-    else
-        camVC.camView.camDelegate = (id<EdibleCameraDelegate>) camVC;
+    camVC.camView.camDelegate = (id<EdibleCameraDelegate>) camVC;
 }
 
 -(NSUInteger)getVCIndex:(UIViewController *) vc{
     NSUInteger index = [[self.dict objectForKey:vc.restorationIdentifier] integerValue];
     return index;
 }
-
 
 #pragma mark - Page View Controller Data Source
 
@@ -166,7 +132,6 @@
     if ((index == 0) || (index == NSNotFound)) {
         return nil;
     }
-    
     index--;
     return self.menu[index];
 }
@@ -186,13 +151,7 @@
     return self.menu[index];
 }
 
-- (BOOL)prefersStatusBarHidden {
-    return YES;
-}
-
-
 -(void)updateAllViewControllers{
-    NSLog(@"yeah yeah yeah ***********************");
     [self.MVC.camView updateUILanguage];
     [self.CVC updateUILanguage];
     [(SettingsViewController *)self.VC2.topViewController updateUILanguage];

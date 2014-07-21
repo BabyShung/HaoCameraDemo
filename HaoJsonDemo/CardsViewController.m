@@ -126,16 +126,12 @@ UICollectionViewDelegate>
                                         (unsigned long)NULL), ^(void) {
       [self.settingDelegate slideToPreviousPage];
     });
-
-    //[self.settingDelegate slideToPreviousPage];
 }
 
 -(void)PressedRegisterButton:(id)stuff{
-    
+
     [User logout];
-    
     [GeneralControl transitionToVC:self withToVCStoryboardId:@"Start" withDuration:0.4];
-    
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -188,7 +184,6 @@ UICollectionViewDelegate>
     self.titleLabel = [[UILabel alloc] initWithFrame:_shimmeringView.bounds];
     self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:22];
     self.titleLabel.textColor = [UIColor whiteColor];
-    //self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.backgroundColor = [UIColor clearColor];
     _shimmeringView.contentView = self.titleLabel;
     
@@ -286,10 +281,6 @@ UICollectionViewDelegate>
 }
 
 -(void)CardSlide:(BOOL)left{
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.bottomCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:(left?0:[self.profileOptions count]-1) inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-//    });
-    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
                                              (unsigned long)NULL), ^(void) {
         [self.bottomCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:(left?0:[self.profileOptions count]-1) inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];

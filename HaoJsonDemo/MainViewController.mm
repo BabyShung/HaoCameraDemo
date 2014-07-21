@@ -8,7 +8,6 @@
 #import "MainViewController.h"
 #import "largeLayout.h"
 #import "TransitionController.h"
-#import "debugView.h"
 #import "EDCollectionCell.h"
 #import "TransitionLayout.h"
 #import "SecondViewController.h"
@@ -54,8 +53,6 @@ static NSString *CellIdentifier = @"Cell";
 
 @property (nonatomic) cv::Mat tempMat;
 
-@property (nonatomic,strong) debugView *debugV;
-
 @property (strong,nonatomic) NSMutableArray *foodArray;
 
 @property (strong,nonatomic) NSMutableDictionary *existingFood;
@@ -92,12 +89,12 @@ static NSString *CellIdentifier = @"Cell";
     //if first launch, show it
     if([NSUserDefaultControls isFirstLaunch]){
         [NSUserDefaultControls userFinishFirstLaunch];
-
+        introContainer *ic = [[introContainer alloc] initWithFrame:self.view.bounds];
+        ic.shouldShowHint = YES;
+        [self.view addSubview:ic];
+        [ic showIntroWithCrossDissolve];
     }
-    introContainer *ic = [[introContainer alloc] initWithFrame:self.view.bounds];
-    ic.shouldShowHint = YES;
-    [self.view addSubview:ic];
-    [ic showIntroWithCrossDissolve];
+
 }
 
 -(void)loadControls{
@@ -112,10 +109,6 @@ static NSString *CellIdentifier = @"Cell";
     //registering dequueue cell
     [self.collectionView registerClass:[EDCollectionCell class] forCellWithReuseIdentifier:CellIdentifier];
     
-    //debug view
-    //self.debugV = [[debugView alloc] initWithFrame:CGRectMake(0, 0, 320, 200) andReferenceCV:self];
-    //[self.view insertSubview:self.debugV aboveSubview:self.collectionView];
-    //NSLog(@"+++ MVC +++ : I init transition controller");
     
     self.transitionController = [[TransitionController alloc] initWithCollectionView:self.collectionView];
     self.transitionController.delegate = self;

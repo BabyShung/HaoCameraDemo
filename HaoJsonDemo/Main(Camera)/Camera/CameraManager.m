@@ -40,7 +40,6 @@
     
 }
 
-
 #pragma mark - Camera action
 
 -(AVCaptureVideoPreviewLayer *)createPreviewLayer{
@@ -192,7 +191,6 @@
     }
 }
 
-
 - (void) torchBtnPressed:(UIButton *)btn {
     if ([_myDevice isTorchAvailable]) {
         if (_myDevice.torchActive) {
@@ -211,7 +209,6 @@
     }
 }
 
-
 -(BOOL) torchAvailable{
     return _myDevice.torchAvailable;
 }
@@ -219,7 +216,6 @@
 -(BOOL) torchActive{
     return _myDevice.isTorchActive;
 }
-
 
 -(BOOL)torchToggle{
     if ([_myDevice isTorchAvailable]) {
@@ -253,7 +249,6 @@
         }
     }
 }
-
 
 -(void)focus:(CGPoint)aPoint andFocusView:(UIView *)view{
     if (_myDevice != nil) {
@@ -343,8 +338,6 @@
     NSDictionary * outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys: AVVideoCodecJPEG, AVVideoCodecKey, nil];
     [_stillImageOutput setOutputSettings:outputSettings];
     [_mySesh addOutput:_stillImageOutput];
-    
 }
-
 
 @end

@@ -26,8 +26,6 @@
     }
 }
 
-
-
 -(void)setAndSaveLanguage:(NSString *)lang{
     
     NSString *appLang = [[NSUserDefaults standardUserDefaults] stringForKey:@"appSettingLanguage"];
@@ -39,13 +37,11 @@
     }
 }
 
-
 //save the language into NSUserDefault
 -(void)saveLanguageIntoUserDefault:(NSString *)lang{
             //put info into nsuserdefault
         [[NSUserDefaults standardUserDefaults] setObject:lang forKey:@"appSettingLanguage"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        NSLog(@"*********saved with %@",lang);
 }
 
 //set run-time language
@@ -55,13 +51,11 @@
 
 //get mobile phone current language
 -(NSString *)getDeviceLanguage{
-    NSLog(@"********* Mobile current language **** %@",LocalizationGetLanguage);
     return LocalizationGetLanguage;
 }
 
 -(TargetLang)getAppLanguage{
     NSString *appLang = [[NSUserDefaults standardUserDefaults] stringForKey:@"appSettingLanguage"];
-    
     if([appLang isEqualToString:@"en"])
         return English;
     else if([appLang isEqualToString:@"zh-Hans"])

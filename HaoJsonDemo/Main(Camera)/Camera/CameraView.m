@@ -72,7 +72,6 @@
 
 @property (nonatomic,strong) LoadingAnimation *loadingImage;
 
-
 @end
 
 @implementation CameraView
@@ -87,15 +86,12 @@
         self.iot = iot;
         self.appliedVC = VC;
         [self setup];
-        
         //NSLog(@"************ before app delegate **************");
         //save reference of camView so that when enter BG will close, etc
         AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         
         appDlg.cameraView = self;
         appDlg.nvc = self.appliedVC.navigationController;
-        
-        
     }
     return self;
 }
