@@ -166,6 +166,7 @@ static NSString *CellIdentifier = @"Cell";
 
 //right bottom button
 - (void) nextBtnPressed:(id)sender {
+    
     [self.camView nextPagePressed:nil];
 }
 

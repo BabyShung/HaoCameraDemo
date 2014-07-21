@@ -15,6 +15,8 @@
 #import "Comment.h"
 #import "UIView+Toast.h"
 #import "EDCommentView.h"
+#import "LoadingIndicatorView.h"
+#import "DescriptionView.h"
 
 
 
@@ -26,7 +28,8 @@
 @property (strong,nonatomic) UILabel *translateLabel;
 @property (strong,nonatomic) UIImageView *starImgView;
 @property (strong,nonatomic) UILabel *starNumberLabel;
-@property (strong, nonatomic) RQShineLabel *descriptionLabel;
+@property (strong,nonatomic) DescriptionView *descripView;
+
 @property (nonatomic, strong) TagView *tagview;
 
 @property (nonatomic, strong) EDImageFlowLayout *photoLayout;
@@ -36,18 +39,15 @@
 @property (strong,nonatomic) UIScrollView *scrollview;
 @property (strong,nonatomic) UITableView *commentsTableView;
 
-@property (strong,nonatomic) UIButton *loadingBtn;
+@property (strong, nonatomic) UIButton * commentBtn;
+
+@property (strong,nonatomic) EDCommentView *commentView;
+
+@property (strong,nonatomic) LoadingIndicatorView *loadingIndicator;
 
 //rendering data
 @property (strong,nonatomic) Food *myFood;
 
-
-@property (strong, nonatomic) UIButton * commentBtn;
-
-@property (strong, nonatomic) UIButton *readMoreBtn;
-@property (strong, nonatomic) UIButton *descrpClearBtn;
-
-@property (strong,nonatomic) EDCommentView *commentView;
 
 
 //methods

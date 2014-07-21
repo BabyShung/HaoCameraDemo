@@ -62,5 +62,8 @@
 "EMPTY_SEARCH_TERM"="Empty Search Term";
 "NO_SEARCH_RESULT"="No matched result";
 "SEARCH_FAILURE"="Oops! Please Retry";
-"FIV_READ_MORE"="More";
+"FIV_READ_MORE"="Read More";
 "FIV_READ_LESS"="Collapse";
+"EDTIME_YEAR_AGO"="1 year ago";
+"EDTIME_YEARS_AGO"=" years ago";
+"FIV_NO_COMMENT"="Sign In to Review %@\nBe the First Foodie!"; 

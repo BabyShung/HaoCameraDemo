@@ -64,3 +64,6 @@
 "EMPTY_SEARCH_TERM"="唉呦，空关键字";
 "NO_SEARCH_RESULT"="T^T 没有找到";
 "SEARCH_FAILURE"="T^T 搜索失败";
+"EDTIME_YEAR_AGO"="1年前";
+"EDTIME_YEARS_AGO"="年前";
+"FIV_NO_COMMENT"="快登录评鉴%@\n作第一个美食家";

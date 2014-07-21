@@ -25,6 +25,8 @@
 		AC1E7764194F583100532F65 /* filterwords.txt in Resources */ = {isa = PBXBuildFile; fileRef = AC1E7761194F583100532F65 /* filterwords.txt */; };
 		AC3FDD0019742F470008D311 /* LoadingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC3FDCFF19742F470008D311 /* LoadingIndicatorView.m */; };
 		AC3FDD101979C5E60008D311 /* EDCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC3FDD0F1979C5E60008D311 /* EDCommentView.m */; };
+		AC3FDD17197CAD5E0008D311 /* EDTime.m in Sources */ = {isa = PBXBuildFile; fileRef = AC3FDD16197CAD5E0008D311 /* EDTime.m */; };
+		AC4685BF197D5F5A00297AB3 /* DescriptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4685BE197D5F5A00297AB3 /* DescriptionView.m */; };
 		AC7491F8195A2C4F00D3CBBA /* TransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7491F7195A2C4F00D3CBBA /* TransitionController.m */; };
 		AC749201195A2D4300D3CBBA /* TransitionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC749200195A2D4300D3CBBA /* TransitionLayout.m */; };
 		AC8A357A19461E2100FC5465 /* SQLConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8A357619461E2100FC5465 /* SQLConnector.m */; };
@@ -255,6 +257,10 @@
 		AC3FDCFF19742F470008D311 /* LoadingIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingIndicatorView.m; sourceTree = "<group>"; };
 		AC3FDD0E1979C5E60008D311 /* EDCommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDCommentView.h; sourceTree = "<group>"; };
 		AC3FDD0F1979C5E60008D311 /* EDCommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDCommentView.m; sourceTree = "<group>"; };
+		AC3FDD15197CAD5E0008D311 /* EDTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDTime.h; sourceTree = "<group>"; };
+		AC3FDD16197CAD5E0008D311 /* EDTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDTime.m; sourceTree = "<group>"; };
+		AC4685BD197D5F5A00297AB3 /* DescriptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescriptionView.h; sourceTree = "<group>"; };
+		AC4685BE197D5F5A00297AB3 /* DescriptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DescriptionView.m; sourceTree = "<group>"; };
 		AC7491F6195A2C4F00D3CBBA /* TransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionController.h; sourceTree = "<group>"; };
 		AC7491F7195A2C4F00D3CBBA /* TransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionController.m; sourceTree = "<group>"; };
 		AC7491FF195A2D4300D3CBBA /* TransitionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionLayout.h; sourceTree = "<group>"; };
@@ -620,6 +626,15 @@
 			name = LoadingIndicator;
 			sourceTree = "<group>";
 		};
+		AC4685BC197D5F3400297AB3 /* DescriptionView */ = {
+			isa = PBXGroup;
+			children = (
+				AC4685BD197D5F5A00297AB3 /* DescriptionView.h */,
+				AC4685BE197D5F5A00297AB3 /* DescriptionView.m */,
+			);
+			name = DescriptionView;
+			sourceTree = "<group>";
+		};
 		AC8A356819461D3E00FC5465 /* LocalDB */ = {
 			isa = PBXGroup;
 			children = (
@@ -854,6 +869,7 @@
 			children = (
 				ACDD6D59195F4C3100AD51A7 /* FoodInfoView.h */,
 				ACDD6D5A195F4C3100AD51A7 /* FoodInfoView.m */,
+				AC4685BC197D5F3400297AB3 /* DescriptionView */,
 				AC3FDD0119742F560008D311 /* LoadingIndicator */,
 				B8CC9F57196897A400CCFE74 /* CommentView */,
 				B8B60FE919591E50005268D5 /* PhotoCollectionView */,
@@ -1145,6 +1161,8 @@
 				B8C8F38F1961E24F009F8F6E /* OtherUser.m */,
 				ACDD6D50195F4AE800AD51A7 /* Dictionary.h */,
 				ACDD6D51195F4AE800AD51A7 /* Dictionary.m */,
+				AC3FDD15197CAD5E0008D311 /* EDTime.h */,
+				AC3FDD16197CAD5E0008D311 /* EDTime.m */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -1530,6 +1548,7 @@
 				B8F29C6319314357008979A7 /* DebugViewController.mm in Sources */,
 				B8B61070195926D1005268D5 /* MKTransitionCoordinator.m in Sources */,
 				B8B6103719592369005268D5 /* JTSAnimatedGIFUtility.m in Sources */,
+				AC4685BF197D5F5A00297AB3 /* DescriptionView.m in Sources */,
 				B8B61077195926E0005268D5 /* NSString+FontAwesome.m in Sources */,
 				10A3AFDC19743E8A00C3B2B0 /* LocalizationSystem.m in Sources */,
 				B8B6104D195924F2005268D5 /* CameraManager.m in Sources */,
@@ -1575,6 +1594,7 @@
 				B8BBB0261964FF51007CE548 /* SearchCell.m in Sources */,
 				B8C8F360195F76E7009F8F6E /* M13AsyncImageLoader.m in Sources */,
 				B8B6103A19592369005268D5 /* JTSSimpleImageDownloader.m in Sources */,
+				AC3FDD17197CAD5E0008D311 /* EDTime.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

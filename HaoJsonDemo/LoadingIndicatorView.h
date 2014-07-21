@@ -8,8 +8,30 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import "LocalizationSystem.h"
 
+@protocol LoadingIndicatorViewDelegate <NSObject>
+@required
+-(void) LoadingIndicatorFireReLoad;
+
+@end
 
 @interface LoadingIndicatorView : UIView
-@property (strong,nonatomic) UIButton *loading;
+
+@property (nonatomic, assign) id<LoadingIndicatorViewDelegate> delegate;
+
+@property (strong,nonatomic) UIButton *loadingBtn;
+
+@property (nonatomic,readonly) BOOL isLoading;
+
+@property (nonatomic,readonly) BOOL isFailed;
+
+@property (nonatomic,readonly) BOOL shouldBeHidden;
+
+-(void)showLoadingMsg;
+
+-(void)showFailureMsg;
+
+-(void)hide;
+
 @end

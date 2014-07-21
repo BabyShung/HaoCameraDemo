@@ -54,23 +54,24 @@
 -(instancetype)initWithDict:(NSDictionary *)dict
 {
     if (self = [super init]) {
-    self.cid = [[dict objectForKey:@"rid"] intValue];
-    self.fid = [[dict objectForKey:@"fid"] intValue];
-    self.rate = [[dict objectForKey:@"rate"] intValue];
-    self.like = [[dict objectForKey:@"likes"] intValue];
-    self.dislike = [[dict objectForKey:@"dislikes"] intValue];
-    
-    self.text = [dict objectForKey:@"comments"];
-    
-    
-    NSDictionary *creator = [dict objectForKey:@"review_creater"];
-    
-    NSString *selfie = [creator objectForKey:@"selfie"];
-    NSUInteger uid = [[creator objectForKey:@"uid"] intValue];
-    NSUInteger privilege = [[creator objectForKey:@"privilege"] intValue];
-    NSString *name = [creator objectForKey:@"name"];
-    
-    self.byUser = [[OtherUser alloc] initWithUid:uid andUname:name andUtype:privilege andUselfie:selfie];
+        self.cid = [[dict objectForKey:@"rid"] intValue];
+        self.fid = [[dict objectForKey:@"fid"] intValue];
+        self.rate = [[dict objectForKey:@"rate"] intValue];
+        self.like = [[dict objectForKey:@"likes"] intValue];
+        self.dislike = [[dict objectForKey:@"dislikes"] intValue];
+        
+        self.text = [dict objectForKey:@"comments"];
+        self.createdTime = [[EDTime alloc]initWithTimeIntervalSince1970:[[dict objectForKey:@"last_edit_time"] doubleValue]/1000];
+        
+        
+        NSDictionary *creator = [dict objectForKey:@"review_creater"];
+        
+        NSString *selfie = [creator objectForKey:@"selfie"];
+        NSUInteger uid = [[creator objectForKey:@"uid"] intValue];
+        NSUInteger privilege = [[creator objectForKey:@"privilege"] intValue];
+        NSString *name = [creator objectForKey:@"name"];
+        
+        self.byUser = [[OtherUser alloc] initWithUid:uid andUname:name andUtype:privilege andUselfie:selfie];
         
     }
     return self;

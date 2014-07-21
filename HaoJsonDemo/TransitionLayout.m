@@ -51,7 +51,7 @@ static NSString *kOffsetV = @"offsetV";
         CGFloat updateX =currentCenter.x + self.offset.horizontal;
         
         //Limit user's motion
-        CGFloat updateY = MIN(MAX([[UIScreen mainScreen] bounds].size.height/2, currentCenter.y + self.offset.vertical), [[UIScreen mainScreen] bounds].size.height-190/2) ;
+        CGFloat updateY = MIN(MAX([[UIScreen mainScreen] bounds].size.height/2, currentCenter.y + self.offset.vertical), [[UIScreen mainScreen] bounds].size.height-(iPhone5? 185:155)/2) ;
         currentAttribute.center = CGPointMake(updateX, updateY);
 
     }

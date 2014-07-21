@@ -202,6 +202,7 @@
     CGPoint point = [sender locationInView:sender.view];
     CGPoint velocity = [sender velocityInView:sender.view];
     CGPoint translate = [sender translationInView:sender.view];
+    CGFloat smallLayoutH = iPhone5 ?1.1:1.3;//iPhone5? 185:155;
     
     switch (sender.state) {
         default:
@@ -231,7 +232,9 @@
                 CGFloat distance = sqrt(translate.x*translate.x + translate.y*translate.y);
                 //CGFloat offsetX = translate.x;
                 CGFloat offsetX = 0;
-                CGFloat offsetY = translate.y - distance;
+                CGFloat offsetY = translate.y-distance;
+
+
                 CGFloat ratio =(point.y - self.initialPinchPoint.y)/(screenH-self.initialPinchPoint.y);
                 
                 UIOffset offsetToUse = UIOffsetMake(offsetX, offsetY);

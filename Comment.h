@@ -11,6 +11,7 @@
 #import "OtherUser.h"
 
 #import "Food.h"
+#import "EDTime.h"
 
 
 @interface Comment : NSObject
@@ -27,7 +28,11 @@
 
 @property (nonatomic, assign) NSUInteger fid;
 
+@property (nonatomic, strong) EDTime *createdTime;
+
+
 @property (nonatomic, strong) OtherUser *byUser;
+
 
 
 //for local user to post or update
