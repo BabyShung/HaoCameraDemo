@@ -143,6 +143,8 @@
             ((UITextView *)textViewFeedback).backgroundColor = [UIColor clearColor];
         }
         
+        [textViewFeedback setKeyboardType:UIKeyboardTypeASCIICapable];
+        
 		[textViewFeedback setDataDetectorTypes:(UIDataDetectorTypePhoneNumber|UIDataDetectorTypeLink)];
 		[textViewFeedback setAutoresizingMask:(UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight)];
 		[textViewFeedback setAutocorrectionType:UITextAutocorrectionTypeNo];
