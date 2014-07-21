@@ -87,6 +87,7 @@
 		B8032D82197D7A74001B9040 /* captureArea_Chinese@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8032D80197D7A74001B9040 /* captureArea_Chinese@2x.png */; };
 		B8032D85197D9962001B9040 /* go_back.png in Resources */ = {isa = PBXBuildFile; fileRef = B8032D83197D9962001B9040 /* go_back.png */; };
 		B8032D86197D9962001B9040 /* go_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8032D84197D9962001B9040 /* go_back@2x.png */; };
+		B8032D88197DA1D3001B9040 /* Blue CheeseTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8032D87197DA1D3001B9040 /* Blue CheeseTests-Info.plist */; };
 		B803CFAD196F841C006080D0 /* IPDashedLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = B803CFAC196F841C006080D0 /* IPDashedLineView.m */; };
 		B803CFB019705F17006080D0 /* indicate_1@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B803CFAE19705F17006080D0 /* indicate_1@2x.jpg */; };
 		B803CFB119705F17006080D0 /* indicate_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B803CFAF19705F17006080D0 /* indicate_1.jpg */; };
@@ -114,8 +115,6 @@
 		B8079CE6197AF03A00D568EC /* introContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = B8079CE5197AF03A00D568EC /* introContainer.m */; };
 		B8079CEC197B06E000D568EC /* bold_cross.png in Resources */ = {isa = PBXBuildFile; fileRef = B8079CEA197B06E000D568EC /* bold_cross.png */; };
 		B8079CED197B06E000D568EC /* bold_cross@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8079CEB197B06E000D568EC /* bold_cross@2x.png */; };
-		B8079CF0197B06ED00D568EC /* clear_trash.png in Resources */ = {isa = PBXBuildFile; fileRef = B8079CEE197B06ED00D568EC /* clear_trash.png */; };
-		B8079CF1197B06ED00D568EC /* clear_trash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8079CEF197B06ED00D568EC /* clear_trash@2x.png */; };
 		B8079CF8197B0F6B00D568EC /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8079CF7197B0F6B00D568EC /* SettingsViewController.m */; };
 		B8079CFB197B0F8900D568EC /* LanguageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8079CFA197B0F8900D568EC /* LanguageViewController.m */; };
 		B8079D01197B108B00D568EC /* SettingsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8079D00197B108B00D568EC /* SettingsCell.m */; };
@@ -215,7 +214,6 @@
 		B8D6953C193E71C200E504FA /* ED_Color.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D6953B193E71C200E504FA /* ED_Color.m */; };
 		B8F1794219742B2500A236B1 /* Camera_02.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F1794019742B2500A236B1 /* Camera_02.png */; };
 		B8F1794319742B2500A236B1 /* Camera_02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F1794119742B2500A236B1 /* Camera_02@2x.png */; };
-		B8F179A01974856A00A236B1 /* check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F1799F1974856A00A236B1 /* check@2x.png */; };
 		B8F179AC1975C29700A236B1 /* ED_back_2.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F179AA1975C29700A236B1 /* ED_back_2.png */; };
 		B8F179AD1975C29700A236B1 /* ED_back_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F179AB1975C29700A236B1 /* ED_back_2@2x.png */; };
 		B8F179B01975CF2500A236B1 /* GeneralControl.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F179AF1975CF2500A236B1 /* GeneralControl.m */; };
@@ -357,6 +355,7 @@
 		B8032D80197D7A74001B9040 /* captureArea_Chinese@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "captureArea_Chinese@2x.png"; sourceTree = "<group>"; };
 		B8032D83197D9962001B9040 /* go_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = go_back.png; sourceTree = "<group>"; };
 		B8032D84197D9962001B9040 /* go_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "go_back@2x.png"; sourceTree = "<group>"; };
+		B8032D87197DA1D3001B9040 /* Blue CheeseTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Blue CheeseTests-Info.plist"; sourceTree = "<group>"; };
 		B803CFAB196F841C006080D0 /* IPDashedLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPDashedLineView.h; sourceTree = "<group>"; };
 		B803CFAC196F841C006080D0 /* IPDashedLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPDashedLineView.m; sourceTree = "<group>"; };
 		B803CFAE19705F17006080D0 /* indicate_1@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "indicate_1@2x.jpg"; sourceTree = "<group>"; };
@@ -394,8 +393,6 @@
 		B8079CE5197AF03A00D568EC /* introContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = introContainer.m; path = HaoJsonDemo/introContainer.m; sourceTree = "<group>"; };
 		B8079CEA197B06E000D568EC /* bold_cross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bold_cross.png; sourceTree = "<group>"; };
 		B8079CEB197B06E000D568EC /* bold_cross@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bold_cross@2x.png"; sourceTree = "<group>"; };
-		B8079CEE197B06ED00D568EC /* clear_trash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clear_trash.png; sourceTree = "<group>"; };
-		B8079CEF197B06ED00D568EC /* clear_trash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clear_trash@2x.png"; sourceTree = "<group>"; };
 		B8079CF6197B0F6B00D568EC /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		B8079CF7197B0F6B00D568EC /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		B8079CF9197B0F8800D568EC /* LanguageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LanguageViewController.h; path = ../LanguageViewController.h; sourceTree = "<group>"; };
@@ -559,7 +556,6 @@
 		B8D6953B193E71C200E504FA /* ED_Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ED_Color.m; sourceTree = "<group>"; };
 		B8F1794019742B2500A236B1 /* Camera_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Camera_02.png; sourceTree = "<group>"; };
 		B8F1794119742B2500A236B1 /* Camera_02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Camera_02@2x.png"; sourceTree = "<group>"; };
-		B8F1799F1974856A00A236B1 /* check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check@2x.png"; sourceTree = "<group>"; };
 		B8F179AA1975C29700A236B1 /* ED_back_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ED_back_2.png; sourceTree = "<group>"; };
 		B8F179AB1975C29700A236B1 /* ED_back_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ED_back_2@2x.png"; sourceTree = "<group>"; };
 		B8F179AE1975CF2500A236B1 /* GeneralControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralControl.h; sourceTree = "<group>"; };
@@ -573,7 +569,6 @@
 		B8FA464418F9E954007DA680 /* Blue Cheese-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Blue Cheese-Info.plist"; sourceTree = "<group>"; };
 		B8FA464618F9E954007DA680 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B8FA464818F9E954007DA680 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		B8FA464A18F9E954007DA680 /* EdibleCameraApp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EdibleCameraApp-Prefix.pch"; sourceTree = "<group>"; };
 		B8FA464B18F9E954007DA680 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = HaoJsonDemo/AppDelegate.h; sourceTree = "<group>"; };
 		B8FA464C18F9E954007DA680 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = HaoJsonDemo/AppDelegate.m; sourceTree = "<group>"; };
 		B8FA464F18F9E954007DA680 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -773,15 +768,12 @@
 				B8032C4C197B7567001B9040 /* aboutus_logo.png */,
 				B8032D83197D9962001B9040 /* go_back.png */,
 				B8032D84197D9962001B9040 /* go_back@2x.png */,
-				B8079CEE197B06ED00D568EC /* clear_trash.png */,
-				B8079CEF197B06ED00D568EC /* clear_trash@2x.png */,
 				B8079CEA197B06E000D568EC /* bold_cross.png */,
 				B8079CEB197B06E000D568EC /* bold_cross@2x.png */,
 				B8AB89CB196C7EA400F32E4F /* star_off.png */,
 				B8AB89CC196C7EA400F32E4F /* star_off@2x.png */,
 				B8AB89CD196C7EA400F32E4F /* star_on.png */,
 				B8AB89CE196C7EA400F32E4F /* star_on@2x.png */,
-				B8F1799F1974856A00A236B1 /* check@2x.png */,
 				B8032D5C197CD169001B9040 /* check_black.png */,
 				B8032D5D197CD169001B9040 /* check_black@2x.png */,
 				B8F1794019742B2500A236B1 /* Camera_02.png */,
@@ -1392,7 +1384,7 @@
 				B8FA464418F9E954007DA680 /* Blue Cheese-Info.plist */,
 				B8FA464518F9E954007DA680 /* InfoPlist.strings */,
 				B8FA464818F9E954007DA680 /* main.m */,
-				B8FA464A18F9E954007DA680 /* EdibleCameraApp-Prefix.pch */,
+				B8032D87197DA1D3001B9040 /* Blue CheeseTests-Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1516,7 +1508,6 @@
 				B8BBB0311964FFA9007CE548 /* search-icon@2x.png in Resources */,
 				B8AB89CF196C7EA400F32E4F /* star_off.png in Resources */,
 				B8032C40197B505E001B9040 /* CameraPrevious.png in Resources */,
-				B8079CF0197B06ED00D568EC /* clear_trash.png in Resources */,
 				B8032D2D197CA144001B9040 /* touchdown_chinese.png in Resources */,
 				B8B60FDA19591E07005268D5 /* moreButton.png in Resources */,
 				B8079CC91979C06200D568EC /* intro_arrow_right_up.png in Resources */,
@@ -1556,7 +1547,6 @@
 				B8CC9F8D19689E6400CCFE74 /* ED_torch@2x.png in Resources */,
 				B8B60FD519591E07005268D5 /* likeButton_selected.png in Resources */,
 				B8032C97197C1ADB001B9040 /* iowaCityMap.png in Resources */,
-				B8079CF1197B06ED00D568EC /* clear_trash@2x.png in Resources */,
 				B8032D56197CB7C1001B9040 /* drag_chinese@2x.png in Resources */,
 				B8CC9F7F19689E6400CCFE74 /* default_selfie@2x.png in Resources */,
 				B8CC9FA81968A75900CCFE74 /* ED_feedback_right.png in Resources */,
@@ -1587,6 +1577,7 @@
 				B8B6106119592696005268D5 /* blackBG.JPG in Resources */,
 				B8079B611978CE7A00D568EC /* lock@2x.png in Resources */,
 				B8032D73197D70A2001B9040 /* EDB_tutorial.png in Resources */,
+				B8032D88197DA1D3001B9040 /* Blue CheeseTests-Info.plist in Resources */,
 				B8B60FD219591E07005268D5 /* commentButton.png in Resources */,
 				3A73D7AF197B53CF009FF402 /* basic_foods_1341_en.txt in Resources */,
 				B803CFB019705F17006080D0 /* indicate_1@2x.jpg in Resources */,
@@ -1600,7 +1591,6 @@
 				B8032D15197C7302001B9040 /* tutorial_4_ip5.png in Resources */,
 				B8F1794319742B2500A236B1 /* Camera_02@2x.png in Resources */,
 				B8032D75197D70A2001B9040 /* EDB_aboutus.png in Resources */,
-				B8F179A01974856A00A236B1 /* check@2x.png in Resources */,
 				B8032D72197D70A2001B9040 /* EDB_settings.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
