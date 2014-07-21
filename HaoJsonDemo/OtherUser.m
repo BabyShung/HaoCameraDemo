@@ -11,19 +11,12 @@
 @implementation OtherUser
 
 - (instancetype)initWithUid:(NSUInteger)uid andUname:(NSString*)uname andUtype:(NSUInteger)utype andUselfie:(NSString*)uselfie{
-    
     if (self = [super init]) {
-        
         self.Uid = uid;
-        
         self.Uname = uname;
-        
         self.Utype = utype;
-        
         self.Uselfie = uselfie ;
-        
     }
     return self;
 }
-
 @end

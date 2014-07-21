@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B8FA463818F9E954007DA680"
-            BuildableName = "EdibleCameraApp.app"
-            BlueprintName = "EdibleCameraApp"
-            ReferencedContainer = "container:EdibleCameraApp.xcodeproj">
+            BuildableName = "Blue Cheese.app"
+            BlueprintName = "Blue Cheese"
+            ReferencedContainer = "container:Blue Cheese.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B8FA463818F9E954007DA680"
-            BuildableName = "EdibleCameraApp.app"
-            BlueprintName = "EdibleCameraApp"
-            ReferencedContainer = "container:EdibleCameraApp.xcodeproj">
+            BuildableName = "Blue Cheese.app"
+            BlueprintName = "Blue Cheese"
+            ReferencedContainer = "container:Blue Cheese.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>

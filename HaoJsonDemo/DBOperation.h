@@ -28,8 +28,6 @@
 
 -(void) createSearchHistoryTable;
 
-
-
 /*******************************/
 /*!!!!    Search History   !!!!*/
 /*   1. upsertSearchHistory    */

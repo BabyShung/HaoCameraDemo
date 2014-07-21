@@ -66,7 +66,6 @@ static ShareData *_shareData = nil;
 
 //Read Only files path - in main bunble
 
-
 -(NSString *) readonlyKeywordFilePath
 {
     return [self readonlyPathByFileName:[self keywordFileName]];

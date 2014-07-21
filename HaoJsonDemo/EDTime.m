@@ -53,11 +53,6 @@
         default:
             return [NSString stringWithFormat:@"%d%@",(int)dateComp.year,AMLocalizedString(@"EDTIME_YEARS_AGO", nil)];
     }
-
-
-    
-    
-
 }
 
 @end

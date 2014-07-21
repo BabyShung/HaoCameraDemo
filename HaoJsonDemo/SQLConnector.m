@@ -15,7 +15,6 @@ static NSString *kSQLiteFileName = @"localDB.db";
 
 @synthesize database;
 
-
 + (instancetype)sharedInstance
 {
     // 1
