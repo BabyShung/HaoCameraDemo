@@ -14,9 +14,9 @@
 #define DRAG_ARROWCENTER_X 255
 #define DRAG_ARROWCENTER_Y 225
 #define SLIDER_ARROWCENTER_X 95
-#define SLIDER_ARROWCENTER_Y 315
+#define SLIDER_ARROWCENTER_Y iPhone5?315:255
 #define CAPTURE_ARROWCENTER_X 125
-#define CAPTURE_ARROWCENTER_Y 394
+#define CAPTURE_ARROWCENTER_Y iPhone5?394:355
 @interface HintView ()
 
 @property (nonatomic, strong) MLPSpotlight *spotLight;
@@ -49,7 +49,7 @@
 
 -(void)updateSpotLightWithPoint_alsoAddsDragStaff:(CGPoint)point{
     [self updateSpotLightWithPoint:point];
-    [self addHintArrowImage:@"intro_arrow_right_up.png" andArrowCenter:CGPointMake(DRAG_ARROWCENTER_X, DRAG_ARROWCENTER_Y) andAddPhotoName:AMLocalizedString(@"TUTORIAL_DRAG_IMAGENAME", nil) andImageViewCenter:CGPointMake(DRAG_ARROWCENTER_X-100, DRAG_ARROWCENTER_Y+70)];
+    [self addHintArrowImage:@"intro_arrow_right_up.png" andArrowCenter:CGPointMake(DRAG_ARROWCENTER_X, DRAG_ARROWCENTER_Y) andAddPhotoName:AMLocalizedString(@"TUTORIAL_D_IMAGENAME", nil) andImageViewCenter:CGPointMake(DRAG_ARROWCENTER_X-100, DRAG_ARROWCENTER_Y+70)];
 }
 
 -(void)updateSpotLightWithPoint:(CGPoint)point{
@@ -87,13 +87,13 @@
     if(self.hintsNumber == 3){
         
         [self updateSpotLightWithPoint:CGPointMake(44, 358)];
-        [self addHintArrowImage:@"intro_arrow_left_down.png" andArrowCenter:CGPointMake(SLIDER_ARROWCENTER_X, SLIDER_ARROWCENTER_Y) andAddPhotoName:AMLocalizedString(@"TUTORIAL_DRAG_IMAGENAME", nil) andImageViewCenter:CGPointMake(SLIDER_ARROWCENTER_X+40, SLIDER_ARROWCENTER_Y-40)];
+        [self addHintArrowImage:@"intro_arrow_left_down.png" andArrowCenter:CGPointMake(SLIDER_ARROWCENTER_X, SLIDER_ARROWCENTER_Y) andAddPhotoName:AMLocalizedString(@"TUTORIAL_SLIDER_IMAGENAME", nil) andImageViewCenter:CGPointMake(SLIDER_ARROWCENTER_X+40, SLIDER_ARROWCENTER_Y-40)];
         
         
     }else if(self.hintsNumber == 2){
         
         [self updateSpotLightWithPoint:CGPointMake(160, 470)];
-        [self addHintArrowImage:@"intro_arrow_right_down.png" andArrowCenter:CGPointMake(CAPTURE_ARROWCENTER_X, CAPTURE_ARROWCENTER_Y) andAddPhotoName:AMLocalizedString(@"TUTORIAL_DRAG_IMAGENAME", nil) andImageViewCenter:CGPointMake(CAPTURE_ARROWCENTER_X+20, CAPTURE_ARROWCENTER_Y-70)];
+        [self addHintArrowImage:@"intro_arrow_right_down.png" andArrowCenter:CGPointMake(CAPTURE_ARROWCENTER_X, CAPTURE_ARROWCENTER_Y) andAddPhotoName:AMLocalizedString(@"TUTORIAL_CAPTUREBTN_IMAGENAME", nil) andImageViewCenter:CGPointMake(CAPTURE_ARROWCENTER_X+20, CAPTURE_ARROWCENTER_Y-70)];
     }else{
         [self.superview removeFromSuperview];
         return;

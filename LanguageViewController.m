@@ -24,6 +24,11 @@ const NSString *langCellIdentity = @"Cell";
 {
     [super viewDidLoad];
     
+    UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    backgroundView.image = [UIImage imageNamed:@"blackBG.JPG"];
+    [self.view insertSubview:backgroundView belowSubview:self.collectionView];
+    self.collectionView.backgroundColor = [UIColor clearColor];
+    
     self.languages = [NSArray arrayWithObjects:
                       @"中文",
                       @"English",

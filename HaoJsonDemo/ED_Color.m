@@ -86,4 +86,8 @@
     return [UIColor colorWithRed:(253/255.0) green:(91/255.0) blue:(159/255.0) alpha:1];
 }
 
++(UIColor *)skip_Gray{
+    return [UIColor colorWithRed:182/255.0 green:182/255.0 blue:182/255.0 alpha:1];
+}
+
 @end

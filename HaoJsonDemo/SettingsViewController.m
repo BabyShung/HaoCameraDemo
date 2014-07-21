@@ -21,6 +21,7 @@ const NSString *settingCellIdentity = @"Cell";
 @property (strong,nonatomic) NSArray *settings;
 @property (strong,nonatomic) NSArray *settingsImages;
 
+
 @end
 
 @implementation SettingsViewController
@@ -28,6 +29,11 @@ const NSString *settingCellIdentity = @"Cell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    backgroundView.image = [UIImage imageNamed:@"blackBG.JPG"];
+    [self.view insertSubview:backgroundView belowSubview:self.collectionView];
+    self.collectionView.backgroundColor = [UIColor clearColor];
     
     //disable pageVC scroll and also stop camera
     [GeneralControl enableBothCameraAndPageVCScroll:NO];
