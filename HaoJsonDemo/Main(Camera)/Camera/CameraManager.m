@@ -40,7 +40,6 @@
     
 }
 
-
 #pragma mark - Camera action
 
 -(AVCaptureVideoPreviewLayer *)createPreviewLayer{
@@ -54,14 +53,21 @@
 - (void) startRunning{
     if(![_mySesh isRunning]){
         NSLog(@"***** Camera Manager Start running *****");
-        [_mySesh startRunning];
+        //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
+        //                                         (unsigned long)NULL), ^(void) {
+            [_mySesh startRunning];
+        //});
+        
     }
 }
 
 - (void) stopRunning{
     if([_mySesh isRunning]){
         NSLog(@"***** Camera Manager Stop running *****");
-        [_mySesh stopRunning];
+        //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
+       //                                          (unsigned long)NULL), ^(void) {
+            [_mySesh stopRunning];
+        //});
     }
 }
 
@@ -185,7 +191,6 @@
     }
 }
 
-
 - (void) torchBtnPressed:(UIButton *)btn {
     if ([_myDevice isTorchAvailable]) {
         if (_myDevice.torchActive) {
@@ -204,7 +209,6 @@
     }
 }
 
-
 -(BOOL) torchAvailable{
     return _myDevice.torchAvailable;
 }
@@ -212,7 +216,6 @@
 -(BOOL) torchActive{
     return _myDevice.isTorchActive;
 }
-
 
 -(BOOL)torchToggle{
     if ([_myDevice isTorchAvailable]) {
@@ -246,7 +249,6 @@
         }
     }
 }
-
 
 -(void)focus:(CGPoint)aPoint andFocusView:(UIView *)view{
     if (_myDevice != nil) {
@@ -336,8 +338,6 @@
     NSDictionary * outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys: AVVideoCodecJPEG, AVVideoCodecKey, nil];
     [_stillImageOutput setOutputSettings:outputSettings];
     [_mySesh addOutput:_stillImageOutput];
-    
 }
-
 
 @end

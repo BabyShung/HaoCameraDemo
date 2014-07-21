@@ -14,4 +14,6 @@
 
 -(void)slideToCertainPage:(NSInteger)index;
 
+-(void)updateAllViewControllers;
+
 @end

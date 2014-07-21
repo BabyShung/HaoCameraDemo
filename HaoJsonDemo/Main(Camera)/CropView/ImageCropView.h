@@ -41,7 +41,6 @@
 @property (nonatomic) CGFloat maskAlpha;
 @property (nonatomic, retain) UIColor* controlColor;
 
-@property (nonatomic, strong) UILabel* alignLabel;
 
 @end
 

@@ -8,7 +8,8 @@
 
 #import "LoadControls.h"
 #import "ED_Color.h"
-#import "MRoundedButton.h"
+#import "HaoCaptureButton.h"
+#import "LocalizationSystem.h"
 
 #define smallBTNRadius 25
 
@@ -71,6 +72,12 @@
     return button;
 }
 
++(UIButton *)createRoundedBackButton{
+    return [self createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(8, 7, 8, 9) andLeftBottomElseRightBottom:YES];
+}
+
+
+
 
 +(UIButton *)createRoundedButton_Image:(NSString *)imageName andTintColor:(UIColor *) color andImageInset:(UIEdgeInsets) edgeInset andLeftBottomElseRightBottom:(BOOL)left{
     
@@ -117,7 +124,7 @@
 }
 
 
-+(UIButton *)createNiceCameraButton{
++(HaoCaptureButton *)createNiceCameraButton_withCameraView:(UIView *)view{
     NSDictionary *appearanceProxy1 = @{
                                        kMRoundedButtonCornerRadius : @4,
                                        kMRoundedButtonContentColor : [ED_Color edibleBlueColor_Deep],
@@ -130,18 +137,18 @@
                                    0,
                                    320,
                                    iPhone5?218:180);
-    MRoundedButton *button = [[MRoundedButton alloc] initWithFrame:buttonRect
+    HaoCaptureButton *button = [[HaoCaptureButton alloc] initWithFrame:buttonRect
                                                        buttonStyle:MRoundedButtonImageWithSubtitle
-                                              appearanceIdentifier:[NSString stringWithFormat:@"%d", 1]];
+                                              appearanceIdentifier:[NSString stringWithFormat:@"%d", 1] andCameraView:view];
     button.center = CGPointMake(160, 300);
     
     button.backgroundColor = [UIColor clearColor];
     
-    button.detailTextLabel.text = NSLocalizedString(@"CAPTURE_BTN", nil);
+    button.detailTextLabel.text = AMLocalizedString(@"CAPTURE_BTN", nil);
     button.detailTextLabel.font = [UIFont systemFontOfSize:16];
     button.imageView.image = [UIImage imageNamed:@"Camera_02.png"];
     
-    return (UIButton *)button;
+    return button;
 }
 
 

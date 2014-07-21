@@ -197,9 +197,9 @@ static AsyncRequest *async;
     }
     
     if (CompletionBlock) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+        //dispatch_async(dispatch_get_main_queue(), ^{
             CompletionBlock(error,NO);
-        });
+        //});
     }
 
 }
@@ -254,9 +254,9 @@ static AsyncRequest *async;
         }
         //finally
         if (CompletionBlock) {
-            dispatch_async(dispatch_get_main_queue(), ^{
+            //dispatch_async(dispatch_get_main_queue(), ^{
                 CompletionBlock(nil,YES);
-            });
+            //});
         }
 
         
@@ -280,18 +280,18 @@ static AsyncRequest *async;
 }
 
 -(void)configureError:(NSString *)errMsg{
-    dispatch_async(dispatch_get_main_queue(), ^{
+    //dispatch_async(dispatch_get_main_queue(), ^{
         NSMutableDictionary* details = [NSMutableDictionary dictionary];
         NSString *log = errMsg;
         [details setValue:log forKey:NSLocalizedDescriptionKey];
         // populate the error object with the details
         NSError *error = [NSError errorWithDomain:@"LoginReg" code:200 userInfo:details];
         if (CompletionBlock) {
-            dispatch_async(dispatch_get_main_queue(), ^{
+            //dispatch_async(dispatch_get_main_queue(), ^{
                 CompletionBlock(error,NO);
-            });
+            //});
         }
-    });
+    //});
 }
 
 -(void)configureUser:(NSDictionary *)returnJSONtoNSdict{

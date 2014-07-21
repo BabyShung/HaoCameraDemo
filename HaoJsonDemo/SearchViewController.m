@@ -19,6 +19,7 @@
 #import "LocalizationSystem.h"
 #import "Dictionary.h"
 #import "UIView+Toast.h"
+#import "GeneralControl.h"
 
 #define FETCH_SEARCH_NUMBER 20
 
@@ -56,9 +57,8 @@ static NSString *CellIdentifier = @"Cell";
     self.dict = [[Dictionary alloc]initDictInDefaultLang];
     
     
-    //also stop camera
-    AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDlg.cameraView pauseCamera];
+    //disable pageVC scroll and also stop camera
+    [GeneralControl enableBothCameraAndPageVCScroll:NO];
 }
 
 
@@ -76,12 +76,15 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 - (void) previousPagePressed:(id)sender {
+    
+    //enable pageVC scroll and also stop camera
+    [GeneralControl enableBothCameraAndPageVCScroll:YES];
+    
     [self.navigationController popToRootViewControllerAnimated:YES];
-    
-    
-    //also resume camera
-    AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDlg.cameraView resumeCamera];
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+
 }
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
@@ -267,7 +270,7 @@ static NSString *CellIdentifier = @"Cell";
 //}
 
 -(void)loadControls{
-    _backBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andLeftBottomElseRightBottom:YES];
+    _backBtn = [LoadControls createRoundedBackButton];
     [_backBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_backBtn];
     

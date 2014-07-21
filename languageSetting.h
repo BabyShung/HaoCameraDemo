@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "LocalizationSystem.h"
+#import "ShareData.h"
 
 @interface languageSetting : NSObject
 
@@ -15,6 +16,10 @@
 
 -(void)setAndSaveLanguage:(NSString *)lang;
 
--(NSString *)getAppLanguage;
+-(NSString *)getDeviceLanguage;
+
+-(TargetLang)getAppLanguage;
+
+-(BOOL)setAppLanguage:(TargetLang)targetLanguage;
 
 @end

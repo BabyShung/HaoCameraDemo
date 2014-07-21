@@ -22,7 +22,6 @@
 
 #define BUTTON_MARGIN_DOWN 8
 
-
 #import "CameraView.h"
 #import "CameraManager.h"
 #import "ShadeView.h"
@@ -31,9 +30,11 @@
 #import "LoadControls.h"
 #import "AppDelegate.h"
 #import "LoadingAnimation.h"
-#import "IPDashedLineView.h"
 #import "Flurry.h"
 #import "ASValueTrackingSlider.h"
+#import "HaoCaptureButton.h"
+#import "LocalizationSystem.h"
+
 
 @interface CameraView () <CameraManageCDelegate,ASValueTrackingSliderDataSource>
 {
@@ -54,7 +55,7 @@
 
 // Controls
 @property (strong, nonatomic) UIButton * backBtn;
-@property (strong, nonatomic) UIButton * captureBtn;
+@property (strong, nonatomic) HaoCaptureButton * captureBtn;
 @property (strong, nonatomic) UIButton * TorchBtn;
 @property (strong, nonatomic) UIButton * nextPageBtn;
 
@@ -75,7 +76,7 @@
 
 @implementation CameraView
 
-@synthesize hideAllControls = _hideAllControls, hideBackButton = _hideBackButton, hideCaptureButton = _hideCaptureButton;
+@synthesize hideBackButton = _hideBackButton, hideCaptureButton = _hideCaptureButton;
 
 - (instancetype)initWithFrame:(CGRect)frame andOrientation:(UIInterfaceOrientation)iot andAppliedVC:(MainViewController *)VC
 {
@@ -85,15 +86,12 @@
         self.iot = iot;
         self.appliedVC = VC;
         [self setup];
-        
         //NSLog(@"************ before app delegate **************");
         //save reference of camView so that when enter BG will close, etc
         AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         
         appDlg.cameraView = self;
         appDlg.nvc = self.appliedVC.navigationController;
-        
-        
     }
     return self;
 }
@@ -117,21 +115,11 @@
 }
 
 - (void)resumeCamera{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [_camManager startRunning];
-        [UIView animateWithDuration:0.3 animations:^{
-            self.capturedImageView.backgroundColor = [UIColor clearColor];
-        }];
-    });
+    [_camManager startRunning];
 }
 
 - (void)pauseCamera{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [_camManager stopRunning];
-        [UIView animateWithDuration:0.3 animations:^{
-            self.capturedImageView.backgroundColor = [UIColor blackColor];
-        }];
-    });
+    [_camManager stopRunning];
 }
 
 -(BOOL)CameraIsOn{
@@ -171,13 +159,6 @@
 #pragma mark CAMERA CONTROLS
 
 - (void) drawControls {
-    if (self.hideAllControls) {
-        // In case they want to hide after they've been displayed
-        // for (UIButton * btn in @[_backBtn, _captureBtn, _flashBtn, _switchCameraBtn, _saveBtn]) {
-        // btn.hidden = YES;
-        // }
-        return;
-    }
     
     [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut  animations:^{
         
@@ -196,13 +177,6 @@
         if (_capturedImageView.image) {
             // Hide
             for (UIButton * btn in @[_captureBtn, _TorchBtn]) btn.hidden = YES;
-            // Show
-            //_saveBtn.hidden = NO;
-            
-            // Force User Preference
-            //_backBtn.hidden = _hideBackButton;
-            
-            //_backBtn.hidden = NO;
         }
         else {  // ELSE camera stream -- show capture controls / hide preview controls
             // Show
@@ -254,35 +228,23 @@
 
 - (void) captureBtnPressed:(id)sender {
 
+    
+     NSLog(@"*********************** pressed *******************************");
     [Flurry logEvent:@"Photo_Taken"];
     
     //start loading animation
     [self startLoadingAnimation];
     
-    self.captureBtn.hidden = YES;
-    
+    //self.captureBtn.hidden = YES;
+    self.captureBtn.enabled = NO;
     
     [self capturePhoto];
-    //[self photoCaptured];
-}
-
-- (void) captureBtnPressing:(id)sender {
-    
-    
-    NSLog(@"*********************** is pressing *******************************");
-}
-
-
-- (void) saveBtnPressed:(id)sender {
-    [self photoCaptured];
 }
 
 - (void) torchBtnPressed:(id)sender {
     
     [Flurry logEvent:@"Torch_On"];
 
-    
-    
     [_camManager torchBtnPressed:_TorchBtn];
 }
 
@@ -295,16 +257,15 @@
     isRotateWaitingForResizedImage = NO;
     isSaveWaitingForResizedImage = NO;
     
+    //relative to capture press
+    self.captureBtn.enabled = YES;
+    
     [self drawControls];
     
 }
 
 - (void) nextPagePressed:(id)sender {
-    
     [Flurry logEvent:@"Next_Page_Pressed"];
-
-    
-    
     [self.appliedVC.Maindelegate slideToNextPage];
 }
 
@@ -315,9 +276,13 @@
 #pragma mark TAP TO FOCUS
 
 - (void) tapSent:(UITapGestureRecognizer *)sender {
+    CGPoint aPoint = [sender locationInView:_StreamView];
+    [self getCameraFocus:aPoint];
+}
+
+-(void)getCameraFocus:(CGPoint)point{
     if (_capturedImageView.image == nil) {
-        CGPoint aPoint = [sender locationInView:_StreamView];
-        [_camManager focus:aPoint andFocusView:_StreamView];
+        [_camManager focus:point andFocusView:_StreamView];
     }
 }
 
@@ -508,37 +473,28 @@
     
     
     // -- LOAD BUTTONS BEGIN -- //
-    _backBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andLeftBottomElseRightBottom:YES];
+    _backBtn = [LoadControls createRoundedBackButton];
     [_backBtn addTarget:self action:@selector(backBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     _TorchBtn = [LoadControls createRoundedButton_Image:@"ED_torch.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(0, 0, 0, 0) andLeftBottomElseRightBottom:YES andStartingPosition:torchStart];
     [_TorchBtn addTarget:self action:@selector(torchBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
 
     
-    _nextPageBtn = [LoadControls createRoundedButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 13, 9, 10) andLeftBottomElseRightBottom:NO andStartingPosition:nextStart];
+    _nextPageBtn = [LoadControls createRoundedButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(8, 9, 8, 7) andLeftBottomElseRightBottom:NO andStartingPosition:nextStart];
     [_nextPageBtn addTarget:self action:@selector(nextPagePressed:) forControlEvents:UIControlEventTouchUpInside];
 
     
-    _captureBtn = [LoadControls createNiceCameraButton];
+    _captureBtn = [LoadControls createNiceCameraButton_withCameraView:self];
     [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [_captureBtn addTarget:self action:@selector(captureBtnPressing:) forControlEvents:UIControlEventTouchDown];
-    
     
     // -- LOAD BUTTONS END -- //
     
-    //separator line
-//    IPDashedLineView *appearance = [IPDashedLineView appearance];
-//    [appearance setLineColor:[UIColor whiteColor]];
-//    [appearance setLengthPattern:@[@12, @4]];
-//    IPDashedLineView *dash0 = [[IPDashedLineView alloc] initWithFrame:CGRectMake(10, CROPVIEW_HEIGHT, 300, 1)];
-    //[self addSubview:dash0];
     
     self.scaleSlider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(30, CROPVIEW_HEIGHT, 260, 31)];
     self.scaleSlider.maximumValue = 2.0;
     self.scaleSlider.minimumValue = 1.0;
     NSNumberFormatter *tf = [[NSNumberFormatter alloc] init];
-    [tf setPositivePrefix:@"Scale: "];
+    [tf setPositivePrefix:AMLocalizedString(@"SLIDER_SCALE_TEXT", nil)];
     [self.scaleSlider setNumberFormatter:tf];
     self.scaleSlider.popUpViewCornerRadius = 4.0;
     [self.scaleSlider setMaxFractionDigitsDisplayed:1];
@@ -547,7 +503,6 @@
     self.scaleSlider.textColor = [UIColor colorWithHue:0.55 saturation:1.0 brightness:0.5 alpha:1];
     self.scaleSlider.dataSource = self;
     self.scaleSlider.value = 1.0f;
-    
     
     
     for (UIButton * btn in @[_captureBtn, _backBtn, _TorchBtn, _nextPageBtn, _scaleSlider])  {
@@ -574,7 +529,6 @@
     return s;
 }
 
-
 #pragma mark STATUS BAR
 
 - (BOOL)prefersStatusBarHidden {
@@ -582,15 +536,6 @@
 }
 
 #pragma mark GETTERS | SETTERS
-
-- (void) setHideAllControls:(BOOL)hideAllControls {
-    _hideAllControls = hideAllControls;
-    // This way, hideAllControls can be used as a toggle.
-    [self drawControls];
-}
-- (BOOL) hideAllControls {
-    return _hideAllControls;
-}
 
 - (void) setHideBackButton:(BOOL)hideBackButton {
     _hideBackButton = hideBackButton;
@@ -606,6 +551,19 @@
 }
 - (BOOL) hideCaptureButton {
     return _hideCaptureButton;
+}
+
+-(ImageCropView *)getCropView{
+    return self.CropView;
+}
+
+-(void)updateUILanguage{
+    self.captureBtn.detailTextLabel.text = AMLocalizedString(@"CAPTURE_BTN", nil);
+    NSNumberFormatter *tf = [[NSNumberFormatter alloc] init];
+    [tf setPositivePrefix:AMLocalizedString(@"SLIDER_SCALE_TEXT", nil)];
+    [self.scaleSlider setNumberFormatter:tf];
+    self.scaleSlider.popUpViewCornerRadius = 4.0;
+    [self.scaleSlider setMaxFractionDigitsDisplayed:1];
 }
 
 @end

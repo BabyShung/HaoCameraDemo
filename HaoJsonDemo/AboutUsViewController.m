@@ -8,13 +8,12 @@
 
 #import "AboutUsViewController.h"
 #import "LoadControls.h"
-#import "ED_Color.h"
-#import "AppDelegate.h"
 #import "LocalizationSystem.h"
+#import "GeneralControl.h"
+
 @interface AboutUsViewController ()
 
-@property (strong, nonatomic) UIButton *backBtn;
-
+@property (weak, nonatomic) IBOutlet UILabel *contactUsLabel;
 @end
 
 @implementation AboutUsViewController
@@ -23,27 +22,19 @@
 {
     [super viewDidLoad];
 
+    self.contactUsLabel.text = AMLocalizedString(@"CONTACT_US_ABOUT_US", nil);
     
-    _backBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andLeftBottomElseRightBottom:YES];
-    [_backBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_backBtn];
     
-    //also stop camera
-    AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDlg.cameraView pauseCamera];
-    
+    UIButton *btn = [LoadControls createRoundedBackButton];
+    [btn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
     
     self.textView.text = AMLocalizedString(@"ABOUT_US", nil);
     
 }
 
 - (void) previousPagePressed:(id)sender {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-    
-    //also resume camera
-    AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDlg.cameraView resumeCamera];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
-
 
 @end

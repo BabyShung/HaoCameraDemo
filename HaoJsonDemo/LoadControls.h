@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MRoundedButtonAppearanceManager.h"
+#import "HaoCaptureButton.h"
 
 @interface LoadControls : NSObject
 
@@ -17,12 +19,14 @@
 +(UILabel *)createLabelWithRect:(CGRect)rect andTextAlignment:(NSTextAlignment)ta andFont:(UIFont*)font andTextColor:(UIColor*)color;
 +(UITextView *)createTextViewWithRect:(CGRect)rect;
 
++(UIButton *)createRoundedBackButton;
+
 +(UIButton *)createRoundedButton_Image:(NSString *)imageName andTintColor:(UIColor *) color andImageInset:(UIEdgeInsets) edgeInset andLeftBottomElseRightBottom:(BOOL)left;
 
 +(UIButton *)createRoundedButton_Image:(NSString *)imageName andTintColor:(UIColor *) color andImageInset:(UIEdgeInsets) edgeInset andLeftBottomElseRightBottom:(BOOL)left andStartingPosition:(CGPoint)startingpoint;
 
 +(UIButton *)createUIButtonWithRect:(CGRect)rect;
 //camera button
-+(UIButton *)createNiceCameraButton;
++(HaoCaptureButton *)createNiceCameraButton_withCameraView:(UIView *)view;
 
 @end

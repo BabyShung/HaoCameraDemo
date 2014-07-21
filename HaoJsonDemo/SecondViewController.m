@@ -18,8 +18,6 @@
 
 @interface SecondViewController ()
 
-
-
 @property (strong, nonatomic) UILabel *wordCountLabel;
 
 @property (strong, nonatomic) NSMutableString *wordStr;
@@ -60,12 +58,10 @@
 /*                                 */
 /***********************************/
 
-
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
 
         NSIndexPath *centerCellIndex = [self.collectionView indexPathForItemAtPoint:self.collectionView.contentOffset];
         EDCollectionCell *cell = (EDCollectionCell *)[self.collectionView cellForItemAtIndexPath:centerCellIndex];
-    NSLog(@"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~++++++++++++++++++ %d",(int)centerCellIndex.row);
         //wherever scroll to another cell, check and save food into dict
         [SearchDictionary addSearchHistory:cell.foodInfoView.myFood];
 
@@ -78,7 +74,6 @@
 - (void) backBtnPressed:(id)sender {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
-
 
 -(void)setupButtonAndAnimate{
 

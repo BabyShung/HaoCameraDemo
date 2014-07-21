@@ -34,4 +34,5 @@
 
 +(UIColor *)edible_Gray;
 
++(UIColor *)skip_Gray;
 @end

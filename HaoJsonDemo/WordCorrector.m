@@ -3,7 +3,7 @@
 //  EdibleCameraApp
 //
 //  Created by CharlieGao on 5/26/14.
-//  Copyright (c) 2014 Hao Zheng. All rights reserved.
+//  Copyright (c) 2014 Edible Innovations LLC. All rights reserved.
 //
 
 #import "WordCorrector.h"
@@ -23,9 +23,10 @@
     output = [output stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     output= [[output componentsSeparatedByCharactersInSet:
               [NSCharacterSet newlineCharacterSet]]componentsJoinedByString:@" "];
+    output = [output stringByReplacingOccurrencesOfString:@"," withString:@" "];//replace \s
     output = [output stringByReplacingOccurrencesOfString:@"    " withString:@" "];//replace \s
     output = [output stringByReplacingOccurrencesOfString:@"   " withString:@" "];//replace \s
-    output = [output stringByReplacingOccurrencesOfString:@"," withString:@""];//replace \s
+
     
     int mark=0;
     
@@ -61,10 +62,10 @@
 
     }
     
-    
+    [Flurry logEvent:@"Word_Detector"];
     return output;
     
-    [Flurry logEvent:@"Word_Detector"];
+    
 }
 
 
@@ -79,6 +80,8 @@
                                                [NSArray arrayWithObjects:@"e",@"1",nil],
                                                [NSArray arrayWithObjects:@"c",@"1",nil],
                                                [NSArray arrayWithObjects:@"o",@"1",nil],
+                                               [NSArray arrayWithObjects:@"p",@"1",nil],
+                                               [NSArray arrayWithObjects:@"q",@"1",nil],
                                                [NSArray arrayWithObjects:@"u",@"1",nil],
                                                [NSArray arrayWithObjects:@"v",@"1",nil],
                                                [NSArray arrayWithObjects:@"i",@"2",nil],
@@ -96,6 +99,7 @@
                                                [NSArray arrayWithObjects:@"d",@"7",nil],
                                                [NSArray arrayWithObjects:@"h",@"9",nil],
                                                [NSArray arrayWithObjects:@"k",@"9",nil],
+                                               
                                                nil];
     
     // For or while loop to Find and Replace strings

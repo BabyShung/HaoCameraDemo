@@ -19,7 +19,7 @@
 #import "Flurry.h"
 #import "GeneralControl.h"
 #import "NSUserDefaultControls.h"
-
+#import "LocalizationSystem.h"
 
 #define SCROLLVIEW_CONTENTOFF_WhenClickTextfield 112
 
@@ -29,7 +29,10 @@
 
 @property (nonatomic,strong) LoadingAnimation *loadingImage;
 
+@property (weak, nonatomic) IBOutlet UIImageView *loginLogoView;
 
+@property (weak, nonatomic) IBOutlet UIButton *signUpBtn;
+@property (weak, nonatomic) IBOutlet UIButton *skipBtn;
 @end
 
 @implementation LoginViewController
@@ -38,20 +41,26 @@
 {
     [super viewDidLoad];
     
+    [self initUI];
     
     
-    self.loginImageView.image = iPhone5?[UIImage imageNamed:@"login_ip5_final.png"]:[UIImage imageNamed:@"login_ip4_final.png"];
     //cache keyboard
     [UIResponder cacheKeyboard];
     
     //[self checkAndStartLoadingAnimation];
-
-    //[[NSUserDefaults standardUserDefaults] setObject:dict forKey:@"CurrentUser"];
-    //[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"CurrentUser"];
-    //[[NSUserDefaults standardUserDefaults] synchronize];
     
     [self checkUserInNSUserDefaultAndPerformLogin];
     
+}
+
+-(void)initUI{
+    self.emailTextField.placeholder = AMLocalizedString(@"Email", nil);
+    self.pwdTextField.placeholder = AMLocalizedString(@"Password", nil);
+    [self.loginBtn setTitle:AMLocalizedString(@"Login", nil) forState:UIControlStateNormal];
+    [self.signUpBtn setTitle:AMLocalizedString(@"SignUp", nil) forState:UIControlStateNormal];
+    [self.skipBtn setTitle:AMLocalizedString(@"SkipLogin", nil) forState:UIControlStateNormal];
+    self.loginImageView.image = iPhone5?[UIImage imageNamed:@"login_ip5_final.png"]:[UIImage imageNamed:@"login_ip4_final.png"];
+    self.loginLogoView.image = [UIImage imageNamed:AMLocalizedString(@"LOGIN_LOGO_WORD_PIC", nil)];
 }
 
 -(void)checkUserInNSUserDefaultAndPerformLogin{
@@ -109,10 +118,6 @@
     [self.view endEditing:YES];
 }
 
--(BOOL)prefersStatusBarHidden{
-    return  YES;
-}
-
 - (IBAction)login:(id)sender {
     [self validateAllInputs];
 }
@@ -129,10 +134,12 @@
         [Flurry logEvent:@"Read_TO_Login"];
         
         self.loginBtn.enabled = NO;
+        self.signUpBtn.enabled = NO;
+        self.skipBtn.enabled = NO;
         [self.view endEditing:YES];
         [self checkAndStartLoadingAnimation];
         
-        //************************************* user login ************************************************
+        //********************* user login *******************************
         
         [User loginWithEmail:trimmedEmail andPwd:self.pwdTextField.text andCompletion:^(NSError *err, BOOL success){
             if(success){//user info already set
@@ -148,7 +155,10 @@
                 [GeneralControl transitionToVC:self withToVCStoryboardId:@"Frame" withDuration:0.5];
                 
             }else{
+                //not success
                 self.loginBtn.enabled = YES;
+                self.signUpBtn.enabled = YES;
+                self.skipBtn.enabled = YES;
                 [self.loadingImage stopAnimating];
                 [GeneralControl showErrorMsg:[err localizedDescription] withTextField:self.pwdTextField];
             }

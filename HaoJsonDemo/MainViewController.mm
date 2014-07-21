@@ -8,7 +8,6 @@
 #import "MainViewController.h"
 #import "largeLayout.h"
 #import "TransitionController.h"
-#import "debugView.h"
 #import "EDCollectionCell.h"
 #import "TransitionLayout.h"
 #import "SecondViewController.h"
@@ -30,17 +29,14 @@
 #import "Flurry.h"
 #import "LocalizationSystem.h"
 #import "NSUserDefaultControls.h"
-
-#import "HintView.h"
-#import "EAIntroView.h"
-#import "SMPageControl.h"
+#import "introContainer.h"
 
 
 #define SCALE_FACTOR_IMAGE 2.5f
 
 static NSString *CellIdentifier = @"Cell";
 
-@interface MainViewController () <TransitionControllerDelegate,EdibleCameraDelegate,EAIntroDelegate>
+@interface MainViewController () <TransitionControllerDelegate,EdibleCameraDelegate>
 {
     CGFloat ScreenWidth;
     CGFloat ScreenHeight;
@@ -56,8 +52,6 @@ static NSString *CellIdentifier = @"Cell";
 @property (strong,nonatomic) ImagePreProcessor *ipp;
 
 @property (nonatomic) cv::Mat tempMat;
-
-@property (nonatomic,strong) debugView *debugV;
 
 @property (strong,nonatomic) NSMutableArray *foodArray;
 
@@ -95,10 +89,12 @@ static NSString *CellIdentifier = @"Cell";
     //if first launch, show it
     if([NSUserDefaultControls isFirstLaunch]){
         [NSUserDefaultControls userFinishFirstLaunch];
-        
-        [self showIntroWithCrossDissolve];
+
     }
-    
+    introContainer *ic = [[introContainer alloc] initWithFrame:self.view.bounds];
+    ic.shouldShowHint = YES;
+    [self.view addSubview:ic];
+    [ic showIntroWithCrossDissolve];
 }
 
 -(void)loadControls{
@@ -113,10 +109,6 @@ static NSString *CellIdentifier = @"Cell";
     //registering dequueue cell
     [self.collectionView registerClass:[EDCollectionCell class] forCellWithReuseIdentifier:CellIdentifier];
     
-    //debug view
-    //self.debugV = [[debugView alloc] initWithFrame:CGRectMake(0, 0, 320, 200) andReferenceCV:self];
-    //[self.view insertSubview:self.debugV aboveSubview:self.collectionView];
-    //NSLog(@"+++ MVC +++ : I init transition controller");
     
     self.transitionController = [[TransitionController alloc] initWithCollectionView:self.collectionView];
     self.transitionController.delegate = self;
@@ -124,7 +116,7 @@ static NSString *CellIdentifier = @"Cell";
     
     //add in collectionView
     
-    _clearBtn = [LoadControls createRoundedButton_Image:@"ED_cross.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(10, 10, 10, 10) andLeftBottomElseRightBottom:YES];
+    _clearBtn = [LoadControls createRoundedButton_Image:@"clear_trash.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(6, 6, 6, 6) andLeftBottomElseRightBottom:YES];
     [_clearBtn addTarget:self action:@selector(clearBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     _clearBtn.alpha = 1;
     _clearBtn.hidden = YES;
@@ -171,19 +163,6 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 - (void) viewDidAppear:(BOOL)animated {
-    
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        HintView *hv = [[HintView alloc] initWithFrame:self.view.frame];
-//        [self.view addSubview:hv];
-//        
-//        [hv updateSpotLightWithPoint:CGPointMake(250, 100)];
-//    });
-    
-
-    
-    
-    
-    
     
     //[self.camView startLoadingAnimation];
     
@@ -497,60 +476,6 @@ static NSString *CellIdentifier = @"Cell";
     }
 }
 
-//View did load in SimpleCam VC
-- (void) EdibleCameraDidLoadCameraIntoView:(MainViewController *)simpleCam {
-    NSLog(@"Camera loaded ... ");
-    
-    
-    //pop up introduction view
-    
-}
-
-- (void)showIntroWithCrossDissolve {
-    
-    NSString *sampleDescription1 = @"aa";
-    NSString *sampleDescription2 = @"bb";
-    NSString *sampleDescription3 = @"cc";
-    NSString *sampleDescription4 = @"dd";
-    
-    EAIntroPage *page1 = [EAIntroPage page];
-    page1.title = @"Hello world";
-    page1.desc = sampleDescription1;
-    page1.bgImage = [UIImage imageNamed:@"bg1"];
-    page1.titleIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title1"]];
-    
-    EAIntroPage *page2 = [EAIntroPage page];
-    page2.title = @"This is page 2";
-    page2.desc = sampleDescription2;
-    page2.bgImage = [UIImage imageNamed:@"bg2"];
-    page2.titleIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title2"]];
-    
-    EAIntroPage *page3 = [EAIntroPage page];
-    page3.title = @"This is page 3";
-    page3.desc = sampleDescription3;
-    page3.bgImage = [UIImage imageNamed:@"bg3"];
-    page3.titleIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title3"]];
-    
-    EAIntroPage *page4 = [EAIntroPage page];
-    page4.title = @"This is page 4";
-    page4.desc = sampleDescription4;
-    page4.bgImage = [UIImage imageNamed:@"bg4"];
-    page4.titleIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title4"]];
-    
-    EAIntroView *intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1,page2,page3,page4]];
-    [intro setDelegate:self];
-    
-    [intro showInView:self.view animateDuration:0.3];
-}
-
-//introduction view delegate
-- (void)introDidFinish:(EAIntroView *)introView {
-    NSLog(@"*************** introDidFinish callback ***************");
-    HintView *hv = [[HintView alloc] initWithFrame:self.view.frame];
-    [self.view addSubview:hv];
-    [hv updateSpotLightWithPoint:CGPointMake(300, 189)];
-
-}
 
 // GETTERs
 -(ImagePreProcessor*)ipp{
@@ -580,5 +505,6 @@ static NSString *CellIdentifier = @"Cell";
     }
     return _existingFood;
 }
+
 
 @end
