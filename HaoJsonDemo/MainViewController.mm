@@ -115,14 +115,13 @@ static NSString *CellIdentifier = @"Cell";
     
     //add in collectionView
     
-    _clearBtn = [LoadControls createRoundedButton_Image:@"clear_trash.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(6, 6, 6, 6) andLeftBottomElseRightBottom:YES];
+    _clearBtn = [LoadControls createRoundedButton_Image:@"go_back.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(6, 4, 6, 6) andLeftBottomElseRightBottom:YES];
     [_clearBtn addTarget:self action:@selector(clearBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     _clearBtn.alpha = 1;
     _clearBtn.hidden = YES;
     [self.view insertSubview:_clearBtn aboveSubview:self.collectionView];
     
-    
-    _nextBtn = [LoadControls createRoundedButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 13, 9, 10) andLeftBottomElseRightBottom:NO];
+    _nextBtn = [LoadControls createRoundedButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(8, 7, 8, 9) andLeftBottomElseRightBottom:NO];
     [_nextBtn addTarget:self action:@selector(nextBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     _nextBtn.alpha = 1;
     _nextBtn.hidden = YES;
