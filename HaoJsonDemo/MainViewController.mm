@@ -89,12 +89,11 @@ static NSString *CellIdentifier = @"Cell";
     //if first launch, show it
     if([NSUserDefaultControls isFirstLaunch]){
         [NSUserDefaultControls userFinishFirstLaunch];
-
+        introContainer *ic = [[introContainer alloc] initWithFrame:self.view.bounds];
+        ic.shouldShowHint = YES;
+        [self.view addSubview:ic];
+        [ic showIntroWithCrossDissolve];
     }
-    introContainer *ic = [[introContainer alloc] initWithFrame:self.view.bounds];
-    ic.shouldShowHint = YES;
-    [self.view addSubview:ic];
-    [ic showIntroWithCrossDissolve];
 }
 
 -(void)loadControls{
@@ -152,13 +151,11 @@ static NSString *CellIdentifier = @"Cell";
     [self.foodArray removeAllObjects];
     [self.collectionView reloadData];
     
-    
     //[M13AsyncImageLoader cleanupLoaderAll];
 }
 
 //right bottom button
 - (void) nextBtnPressed:(id)sender {
-    
     [self.camView nextPagePressed:nil];
 }
 

@@ -562,11 +562,11 @@
 		B8F179AF1975CF2500A236B1 /* GeneralControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralControl.m; sourceTree = "<group>"; };
 		B8F29C4919311A5C008979A7 /* FrameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameViewController.h; sourceTree = "<group>"; };
 		B8F29C4A19311A5C008979A7 /* FrameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrameViewController.m; sourceTree = "<group>"; };
-		B8FA463918F9E954007DA680 /* EdibleCameraApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EdibleCameraApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8FA463918F9E954007DA680 /* Blue Cheese.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blue Cheese.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8FA463C18F9E954007DA680 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B8FA463E18F9E954007DA680 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		B8FA464018F9E954007DA680 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		B8FA464418F9E954007DA680 /* EdibleCameraApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "EdibleCameraApp-Info.plist"; sourceTree = "<group>"; };
+		B8FA464418F9E954007DA680 /* Blue Cheese-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Blue Cheese-Info.plist"; sourceTree = "<group>"; };
 		B8FA464618F9E954007DA680 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B8FA464818F9E954007DA680 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B8FA464A18F9E954007DA680 /* EdibleCameraApp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EdibleCameraApp-Prefix.pch"; sourceTree = "<group>"; };
@@ -574,9 +574,9 @@
 		B8FA464C18F9E954007DA680 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = HaoJsonDemo/AppDelegate.m; sourceTree = "<group>"; };
 		B8FA464F18F9E954007DA680 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B8FA465418F9E954007DA680 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		B8FA465A18F9E954007DA680 /* EdibleCameraAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EdibleCameraAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8FA465A18F9E954007DA680 /* Blue CheeseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Blue CheeseTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8FA465B18F9E954007DA680 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		B8FA466318F9E954007DA680 /* EdibleCameraAppTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "EdibleCameraAppTests-Info.plist"; sourceTree = "<group>"; };
+		B8FA466318F9E954007DA680 /* Blue CheeseTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Blue CheeseTests-Info.plist"; sourceTree = "<group>"; };
 		B8FA466518F9E954007DA680 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B8FA466718F9E954007DA680 /* HaoJsonDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HaoJsonDemoTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1329,8 +1329,8 @@
 		B8FA463A18F9E954007DA680 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B8FA463918F9E954007DA680 /* EdibleCameraApp.app */,
-				B8FA465A18F9E954007DA680 /* EdibleCameraAppTests.xctest */,
+				B8FA463918F9E954007DA680 /* Blue Cheese.app */,
+				B8FA465A18F9E954007DA680 /* Blue CheeseTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1383,7 +1383,7 @@
 			children = (
 				B82353EF192CFC4C00D6BCAC /* tessdata */,
 				3AAE595D196F03080006B469 /* Flurry */,
-				B8FA464418F9E954007DA680 /* EdibleCameraApp-Info.plist */,
+				B8FA464418F9E954007DA680 /* Blue Cheese-Info.plist */,
 				B8FA464518F9E954007DA680 /* InfoPlist.strings */,
 				B8FA464818F9E954007DA680 /* main.m */,
 				B8FA464A18F9E954007DA680 /* EdibleCameraApp-Prefix.pch */,
@@ -1403,7 +1403,7 @@
 		B8FA466218F9E954007DA680 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B8FA466318F9E954007DA680 /* EdibleCameraAppTests-Info.plist */,
+				B8FA466318F9E954007DA680 /* Blue CheeseTests-Info.plist */,
 				B8FA466418F9E954007DA680 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -1412,9 +1412,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B8FA463818F9E954007DA680 /* EdibleCameraApp */ = {
+		B8FA463818F9E954007DA680 /* Blue Cheese */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B8FA466B18F9E954007DA680 /* Build configuration list for PBXNativeTarget "EdibleCameraApp" */;
+			buildConfigurationList = B8FA466B18F9E954007DA680 /* Build configuration list for PBXNativeTarget "Blue Cheese" */;
 			buildPhases = (
 				B8FA463518F9E954007DA680 /* Sources */,
 				B8FA463618F9E954007DA680 /* Frameworks */,
@@ -1424,14 +1424,14 @@
 			);
 			dependencies = (
 			);
-			name = EdibleCameraApp;
+			name = "Blue Cheese";
 			productName = HaoJsonDemo;
-			productReference = B8FA463918F9E954007DA680 /* EdibleCameraApp.app */;
+			productReference = B8FA463918F9E954007DA680 /* Blue Cheese.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B8FA465918F9E954007DA680 /* EdibleCameraAppTests */ = {
+		B8FA465918F9E954007DA680 /* Blue CheeseTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B8FA466E18F9E954007DA680 /* Build configuration list for PBXNativeTarget "EdibleCameraAppTests" */;
+			buildConfigurationList = B8FA466E18F9E954007DA680 /* Build configuration list for PBXNativeTarget "Blue CheeseTests" */;
 			buildPhases = (
 				B8FA465618F9E954007DA680 /* Sources */,
 				B8FA465718F9E954007DA680 /* Frameworks */,
@@ -1442,9 +1442,9 @@
 			dependencies = (
 				B8FA466018F9E954007DA680 /* PBXTargetDependency */,
 			);
-			name = EdibleCameraAppTests;
+			name = "Blue CheeseTests";
 			productName = HaoJsonDemoTests;
-			productReference = B8FA465A18F9E954007DA680 /* EdibleCameraAppTests.xctest */;
+			productReference = B8FA465A18F9E954007DA680 /* Blue CheeseTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -1464,7 +1464,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B8FA463418F9E954007DA680 /* Build configuration list for PBXProject "EdibleCameraApp" */;
+			buildConfigurationList = B8FA463418F9E954007DA680 /* Build configuration list for PBXProject "Blue Cheese" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1478,8 +1478,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B8FA463818F9E954007DA680 /* EdibleCameraApp */,
-				B8FA465918F9E954007DA680 /* EdibleCameraAppTests */,
+				B8FA463818F9E954007DA680 /* Blue Cheese */,
+				B8FA465918F9E954007DA680 /* Blue CheeseTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1729,7 +1729,7 @@
 /* Begin PBXTargetDependency section */
 		B8FA466018F9E954007DA680 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B8FA463818F9E954007DA680 /* EdibleCameraApp */;
+			target = B8FA463818F9E954007DA680 /* Blue Cheese */;
 			targetProxy = B8FA465F18F9E954007DA680 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1860,8 +1860,8 @@
 					"$(PROJECT_DIR)/openCV3",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "HaoJsonDemo/EdibleCameraApp-Prefix.pch";
-				INFOPLIST_FILE = "HaoJsonDemo/EdibleCameraApp-Info.plist";
+				GCC_PREFIX_HEADER = "HaoJsonDemo/Blue Cheese-Prefix.pch";
+				INFOPLIST_FILE = "HaoJsonDemo/Blue Cheese-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1869,7 +1869,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				"OTHER_LDFLAGS[arch=*]" = "";
-				PRODUCT_NAME = EdibleCameraApp;
+				PRODUCT_NAME = "Blue Cheese";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1889,15 +1889,15 @@
 					"$(PROJECT_DIR)/openCV3",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "HaoJsonDemo/EdibleCameraApp-Prefix.pch";
-				INFOPLIST_FILE = "HaoJsonDemo/EdibleCameraApp-Info.plist";
+				GCC_PREFIX_HEADER = "HaoJsonDemo/Blue Cheese-Prefix.pch";
+				INFOPLIST_FILE = "HaoJsonDemo/Blue Cheese-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = EdibleCameraApp;
+				PRODUCT_NAME = "Blue Cheese";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1918,8 +1918,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "HaoJsonDemoTests/EdibleCameraAppTests-Info.plist";
-				PRODUCT_NAME = EdibleCameraAppTests;
+				INFOPLIST_FILE = "HaoJsonDemoTests/Blue CheeseTests-Info.plist";
+				PRODUCT_NAME = "Blue CheeseTests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1936,8 +1936,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HaoJsonDemo/HaoJsonDemo-Prefix.pch";
-				INFOPLIST_FILE = "HaoJsonDemoTests/EdibleCameraAppTests-Info.plist";
-				PRODUCT_NAME = EdibleCameraAppTests;
+				INFOPLIST_FILE = "HaoJsonDemoTests/Blue CheeseTests-Info.plist";
+				PRODUCT_NAME = "Blue CheeseTests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1946,7 +1946,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B8FA463418F9E954007DA680 /* Build configuration list for PBXProject "EdibleCameraApp" */ = {
+		B8FA463418F9E954007DA680 /* Build configuration list for PBXProject "Blue Cheese" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B8FA466918F9E954007DA680 /* Debug */,
@@ -1955,7 +1955,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B8FA466B18F9E954007DA680 /* Build configuration list for PBXNativeTarget "EdibleCameraApp" */ = {
+		B8FA466B18F9E954007DA680 /* Build configuration list for PBXNativeTarget "Blue Cheese" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B8FA466C18F9E954007DA680 /* Debug */,
@@ -1964,7 +1964,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B8FA466E18F9E954007DA680 /* Build configuration list for PBXNativeTarget "EdibleCameraAppTests" */ = {
+		B8FA466E18F9E954007DA680 /* Build configuration list for PBXNativeTarget "Blue CheeseTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B8FA466F18F9E954007DA680 /* Debug */,
