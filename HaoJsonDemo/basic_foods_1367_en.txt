@@ -71,6 +71,29 @@ Sprite
 Sprites
 Beer
 Beers
+highball
+martini
+margarita
+vodka
+gin
+scotch
+Irish
+rye
+bourbon
+tequila
+kahlua
+Triple Sec
+Amaretto
+Baileys
+Martini vermouth
+creme de cocao
+creme de menthe
+pepermint
+peach schnapp
+creme de banana
+blue curacao
+Melon liqueu
+Grand Marnie
 Soda
 Sodas
 Soy Milk
@@ -258,6 +281,8 @@ Fetas
 Fetta
 Fettas
 Mozzarella
+Mozzarella Stick
+Mozzarella Sticks
 Mozzarellas
 Emmantal
 Emmentals
@@ -564,6 +589,7 @@ Salami
 Salamis
 Sausage
 Sausages
+Italian Sausage
 Italian Sausages
 prosciutto
 Steak
@@ -790,7 +816,7 @@ Chowders
 Gumbo
 Gumbos
 arugula
-arugula
+arugulas
 Miso Soup
 Miso Soups
 Noodle Soup
