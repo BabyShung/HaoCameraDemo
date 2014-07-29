@@ -51,10 +51,6 @@
 //Allow to hide the back button. Used if you want to programmatically control the view flow
 @property (nonatomic) BOOL hideBackButton;
 
-//Don't show the preview phase of the photo acquisition
-@property (nonatomic) BOOL disablePhotoPreview;
-
-
 @property (strong, nonatomic) UIView * StreamView;//bottom view
 
 @property (strong, nonatomic) MainViewController *appliedVC;
@@ -78,8 +74,11 @@
 - (instancetype)initWithFrame:(CGRect)frame andOrientation:(UIInterfaceOrientation)iot andAppliedVC:(MainViewController *)VC;
 
 - (void)resumeCamera;
+- (void)resumeCameraWithBlocking;
+- (void)resumeCameraAndEnterForeground;
 
 - (void)pauseCamera;
+- (void)pauseCameraAndEnterBackground;
 
 -(BOOL)CameraIsOn;
 

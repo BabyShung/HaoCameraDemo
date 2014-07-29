@@ -122,10 +122,7 @@ UICollectionViewDelegate>
 
 
 - (void) previousPagePressed:(id)sender {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
-                                        (unsigned long)NULL), ^(void) {
-      [self.settingDelegate slideToPreviousPage];
-    });
+    [self.settingDelegate slideToPreviousPage];
 }
 
 -(void)PressedRegisterButton:(id)stuff{

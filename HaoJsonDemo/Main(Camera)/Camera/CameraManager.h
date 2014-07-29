@@ -26,6 +26,7 @@
 
 //session
 - (void) startRunning;
+- (void) startRunningWithBlocking;
 - (void) stopRunning;
 -(BOOL)isSessionRunning;
 

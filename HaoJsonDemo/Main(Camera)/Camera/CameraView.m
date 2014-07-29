@@ -17,9 +17,8 @@
 #define CAPTURE_BTN_HEIGHT 70
 
 #define DEFAULT_MASK_ALPHA 0.50
-
 #define BUTTON_MARGIN_LEFT_RIGHT 10
-
+#define BUTTON_Starting_MARGIN_LEFT_RIGHT 30
 #define BUTTON_MARGIN_DOWN 8
 
 #import "CameraView.h"
@@ -35,41 +34,32 @@
 #import "HaoCaptureButton.h"
 #import "LocalizationSystem.h"
 
-
 @interface CameraView () <CameraManageCDelegate,ASValueTrackingSliderDataSource>
 {
-    // Measurements
     CGFloat screenWidth;
     CGFloat screenHeight;
-    
     // Resize Toggles
     BOOL isSaveWaitingForResizedImage;
     BOOL isRotateWaitingForResizedImage;
-    
     // Capture Toggle
     BOOL isCapturingImage;
 }
 
 // Crop View
 @property (strong, nonatomic) ImageCropView * CropView;
-
 // Controls
 @property (strong, nonatomic) UIButton * backBtn;
 @property (strong, nonatomic) HaoCaptureButton * captureBtn;
 @property (strong, nonatomic) UIButton * TorchBtn;
 @property (strong, nonatomic) UIButton * nextPageBtn;
-
+//slider
 @property (strong, nonatomic) ASValueTrackingSlider *scaleSlider;
-
 //previewLayer
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer * captureVideoPreviewLayer;
 
 // View Properties
-
 @property (strong, nonatomic) CameraManager *camManager;
-
 @property (nonatomic) UIInterfaceOrientation iot;
-
 @property (nonatomic,strong) LoadingAnimation *loadingImage;
 
 @end
@@ -86,10 +76,8 @@
         self.iot = iot;
         self.appliedVC = VC;
         [self setup];
-        //NSLog(@"************ before app delegate **************");
-        //save reference of camView so that when enter BG will close, etc
+        //save cameraView reference
         AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        
         appDlg.cameraView = self;
         appDlg.nvc = self.appliedVC.navigationController;
     }
@@ -114,11 +102,30 @@
     [self.loadingImage stopAnimating];
 }
 
+-(void)resumeCameraWithBlocking{
+    //this method is for clicking the back btn in MainVC
+    [_camManager startRunningWithBlocking];
+}
+
 - (void)resumeCamera{
     [_camManager startRunning];
 }
 
+- (void)resumeCameraAndEnterForeground{
+    [UIView animateWithDuration:0.3 animations:^{
+        self.capturedImageView.backgroundColor = [UIColor clearColor];
+    }];
+    [_camManager startRunning];
+}
+
+- (void)pauseCameraAndEnterBackground{
+    //setting transition bg
+    self.capturedImageView.backgroundColor = [UIColor blackColor];
+    [_camManager stopRunning];
+}
+
 - (void)pauseCamera{
+    //setting transition bg
     [_camManager stopRunning];
 }
 
@@ -181,7 +188,7 @@
         else {  // ELSE camera stream -- show capture controls / hide preview controls
             // Show
             for (UIButton * btn in @[_TorchBtn]) btn.hidden = NO;
-
+            
             
             // Force User Preference
             _captureBtn.hidden = _hideCaptureButton;
@@ -195,56 +202,38 @@
     } completion:nil];
 }
 
-/******************
- 
- Capture a photo
- 
- ***************/
-- (void) capturePhoto {
-    [_camManager capturePhoto:self.iot];
-}
-
-
 //delegate method from CameraManager
 -(void)imageDidCaptured:(UIImage *)image{
-    
     _capturedImageView.image = image;
-    _disablePhotoPreview? [self photoCaptured] : [self drawControls];
+    [self drawControls];
     [self photoCaptured];
 }
 
 - (void) photoCaptured {
     NSLog(@"****************** photoCaptured ********************");
-  
     isSaveWaitingForResizedImage = YES;
-    [self resizeImage];
-
-    
     //turn torch off if it is on
     [_camManager turnOffTorch:_TorchBtn];
+    [self resizeImage];
+
 }
 
 #pragma mark BUTTON EVENTS
 
 - (void) captureBtnPressed:(id)sender {
-
-    
-     NSLog(@"*********************** pressed *******************************");
+    NSLog(@"*********************** pressed *******************************");
     [Flurry logEvent:@"Photo_Taken"];
     
     //start loading animation
     [self startLoadingAnimation];
     
-    //self.captureBtn.hidden = YES;
     self.captureBtn.enabled = NO;
     
-    [self capturePhoto];
+    [_camManager capturePhoto:self.iot];
 }
 
 - (void) torchBtnPressed:(id)sender {
-    
     [Flurry logEvent:@"Torch_On"];
-
     [_camManager torchBtnPressed:_TorchBtn];
 }
 
@@ -402,7 +391,6 @@
 -(void)loadCamera{
     
     _camManager = [[CameraManager alloc]init];
-    
     _camManager.imageDelegate = self;
     
     /**************************************************
@@ -421,7 +409,7 @@
 	[_StreamView.layer addSublayer:_captureVideoPreviewLayer];
     
     [_camManager setScaleFactor:SCALE_FACTOR];
-	[_camManager startRunning];//begin the stream
+	[_camManager startRunningWithBlocking];//begin the stream
 }
 
 -(void)checkCropMode{
@@ -461,12 +449,10 @@
 - (void) loadControls {
     
     //Hao added
-
+    
     CGFloat halfButtonSize = _backBtn.bounds.size.width/2;
-    
-    CGPoint torchStart = CGPointMake(halfButtonSize + BUTTON_MARGIN_LEFT_RIGHT,screenHeight+ halfButtonSize+ BUTTON_MARGIN_DOWN);
-    
-    CGPoint nextStart = CGPointMake(screenWidth - halfButtonSize - BUTTON_MARGIN_LEFT_RIGHT, screenHeight+ halfButtonSize+ BUTTON_MARGIN_DOWN);
+    CGPoint torchStart = CGPointMake(-BUTTON_Starting_MARGIN_LEFT_RIGHT,screenHeight+ halfButtonSize+ BUTTON_MARGIN_DOWN);
+    CGPoint nextStart = CGPointMake(screenWidth + BUTTON_Starting_MARGIN_LEFT_RIGHT, screenHeight+ halfButtonSize+ BUTTON_MARGIN_DOWN);
     
     // -- LOAD BUTTONS BEGIN -- //
     _backBtn = [LoadControls createRoundedBackButton];
@@ -474,15 +460,14 @@
     
     _TorchBtn = [LoadControls createRoundedButton_Image:@"ED_torch.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(0, 0, 0, 0) andLeftBottomElseRightBottom:YES andStartingPosition:torchStart];
     [_TorchBtn addTarget:self action:@selector(torchBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-
+    
     _nextPageBtn = [LoadControls createRoundedButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(8, 9, 8, 7) andLeftBottomElseRightBottom:NO andStartingPosition:nextStart];
     [_nextPageBtn addTarget:self action:@selector(nextPagePressed:) forControlEvents:UIControlEventTouchUpInside];
-
+    
     _captureBtn = [LoadControls createNiceCameraButton_withCameraView:self];
     [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     // -- LOAD BUTTONS END -- //
-    
     self.scaleSlider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(30, CROPVIEW_HEIGHT, 260, 31)];
     self.scaleSlider.maximumValue = 2.0;
     self.scaleSlider.minimumValue = 1.0;
@@ -500,7 +485,6 @@
     for (UIButton * btn in @[_captureBtn, _backBtn, _TorchBtn, _nextPageBtn, _scaleSlider])  {
         [self addSubview:btn];
     }
-    
     // Draw camera controls
     [self drawControls];
 }

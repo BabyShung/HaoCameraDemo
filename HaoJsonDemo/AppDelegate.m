@@ -41,13 +41,13 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application{
     NSLog(@"************************* enter Background ***************************");
-    [self.cameraView pauseCamera];
+    [self.cameraView pauseCameraAndEnterBackground];
     NSLog(@"CameraIsOn??   %d" , [self.cameraView CameraIsOn]);
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application{
     if([[self.nvc topViewController] class] == [MainViewController class]){
-        [self.cameraView resumeCamera];
+        [self.cameraView resumeCameraAndEnterForeground];
         NSLog(@"top vc is main VC");
     }
     NSLog(@"*************************** enter Foreground!  ***************************");

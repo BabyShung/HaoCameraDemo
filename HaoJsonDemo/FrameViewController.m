@@ -40,9 +40,9 @@
     [super viewDidLoad];
     
     [self loadAllViewControllers];
- 
+    
     [self setupPageViewController];
-
+    
     //save reference in appDelegate for disabling pageviewcontroller
     AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     appDlg.fvc = self;
@@ -63,7 +63,7 @@
     
     self.VC1 = mainNVC;
     self.VC2 = settingNVC;
-
+    
     self.menu = [NSArray arrayWithObjects:self.VC1, self.VC2, nil];
     
     //a dictionary that knows which index giving a class name of VC
@@ -104,11 +104,17 @@
  
  **********************************************************************/
 -(void)slideToPreviousPage{
-    [self.pageViewController setViewControllers:@[self.menu[0]] direction:UIPageViewControllerNavigationDirectionReverse animated:YES completion:nil];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
+                                             (unsigned long)NULL), ^(void) {
+        [self.pageViewController setViewControllers:@[self.menu[0]] direction:UIPageViewControllerNavigationDirectionReverse animated:YES completion:nil];
+    });
 }
 
 -(void)slideToNextPage{
-    [self.pageViewController setViewControllers:@[self.menu[1]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
+                                             (unsigned long)NULL), ^(void) {
+        [self.pageViewController setViewControllers:@[self.menu[1]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+    });
 }
 
 //for debug

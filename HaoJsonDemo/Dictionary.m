@@ -94,10 +94,10 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
     NSArray *foodDicts = [self.operation blurSearch:typeStr inLangTable:self.lang];
     
     for (NSDictionary *foodDict in foodDicts) {
-
-            Food *food =[[Food alloc]initWithTitle:[foodDict objectForKey:@"keyword"] andTranslations:[foodDict objectForKey:@"translation"] andQueryTimes:0];
         
-            [foods addObject:food];
+        Food *food =[[Food alloc]initWithTitle:[foodDict objectForKey:@"keyword"] andTranslations:[foodDict objectForKey:@"translation"] andQueryTimes:0];
+        
+        [foods addObject:food];
         
     }
     
@@ -120,9 +120,9 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
     if ([keywords count]!=0) {
         [keywords removeAllObjects];
     }
-
+    
     NSMutableArray *translations= [self.operation searchWords:[self splitAndFilterWordsFromString:inputStr] getKeywords:keywords inLangTable:self.lang];
-
+    
     
     //Exclude keywords which are substrings of other keywords
     NSInteger count = keywords.count;
@@ -149,7 +149,7 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
     }
     
     return translations;
-
+    
 }
 
 
@@ -170,24 +170,24 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
     }
     
     //Get filter words as a string
-//    NSError *err;
-//    ShareData *sharedata = [ShareData shareData];
-//    NSString *filter=[NSString stringWithContentsOfFile:[sharedata writableFilterWordsFilePath] encoding:NSUTF8StringEncoding error:&err];
-//    if (!err) {
-//        [self throwDictExceptionCausedBy:@"Fail to read filter words"];
-//    }
-//       
+    //    NSError *err;
+    //    ShareData *sharedata = [ShareData shareData];
+    //    NSString *filter=[NSString stringWithContentsOfFile:[sharedata writableFilterWordsFilePath] encoding:NSUTF8StringEncoding error:&err];
+    //    if (!err) {
+    //        [self throwDictExceptionCausedBy:@"Fail to read filter words"];
+    //    }
+    //
     
     //Exclude filter words from string
-//    for (int i = 0; i<numOfWords; i++) {
-//        NSString *word = words[i];
-//        if ([filter rangeOfString:[word lowercaseString]].location != NSNotFound) {
-//            [words removeObjectAtIndex:i];
-//            i--;
-//            numOfWords--;
-//        }
-//    }
-//
+    //    for (int i = 0; i<numOfWords; i++) {
+    //        NSString *word = words[i];
+    //        if ([filter rangeOfString:[word lowercaseString]].location != NSNotFound) {
+    //            [words removeObjectAtIndex:i];
+    //            i--;
+    //            numOfWords--;
+    //        }
+    //    }
+    //
     //Generate all combination of remain words
     NSMutableString * tmpStr = [[NSMutableString alloc]init];
     NSUInteger numOfWords = words_corrected.count;
@@ -197,7 +197,7 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
         for (int i=0; i<numOfWords-1; i++) {
             [tmpStr setString:words_corrected[i]];
             [tmpStr stringByReplacingOccurrencesOfString:@"\r"
-                                               withString:@""];
+                                              withString:@""];
             [tmpStr stringByReplacingOccurrencesOfString:@"\n"
                                               withString:@""];
             numCombo = 0;
@@ -212,10 +212,7 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
             
         }
     }
-    
-    
     return words_corrected;
-    
 }
 
 
@@ -225,13 +222,11 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
     @throw ex;
 }
 
-
 /****************************************
  
  delegate methods for networkConnection
  
  ****************************************/
-
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
     [_webdata setLength:0];
@@ -242,17 +237,11 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
 }
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
-    
-    //dispatch_async(dispatch_get_main_queue(), ^{
-        _searchingFood = NO;
-        _searchCompletionBlock(nil,NO);
-    //});
-    
-    
+    _searchingFood = NO;
+    _searchCompletionBlock(nil,NO);
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{    //async
-    
     
     NSString *tmp = [[NSString alloc] initWithData:_webdata encoding:NSUTF8StringEncoding];
     NSLog(@"Return JSON: %@",tmp);
@@ -266,43 +255,23 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
     
     if(status){ //if we get food info back
         
-            
+        NSArray *resultArr = [returnJSONtoNSdict objectForKey:@"result"];
+        NSMutableArray *foodArray = [NSMutableArray array];
         
-            
-            NSArray *resultArr = [returnJSONtoNSdict objectForKey:@"result"];
-            NSMutableArray *foodArray = [NSMutableArray array];
+        for (NSDictionary *foodObj in resultArr) {
+            //NSDictionary *foodObj = resultArr[0];
+            Food *food = [[Food alloc]initWithDictionary:foodObj];
+            [foodArray addObject:food];
+        }
+        _searchingFood = NO;
+        _searchCompletionBlock(foodArray,YES);
         
-            
-            
-            
-            for (NSDictionary *foodObj in resultArr) {
-                
-                
-                //NSDictionary *foodObj = resultArr[0];
-                Food *food = [[Food alloc]initWithDictionary:foodObj];
-                [foodArray addObject:food];
-                
-                
-            }
-
-            
-            //dispatch_async(dispatch_get_main_queue(), ^{
-                _searchingFood = NO;
-                _searchCompletionBlock(foodArray,YES);
-            //});
-                
-            
-            
         
-
     }else{  //failed
-
-            //dispatch_async(dispatch_get_main_queue(), ^{
-                _searchingFood = NO;
-                _searchCompletionBlock(nil,NO);
-            //});
-
+        _searchingFood = NO;
+        _searchCompletionBlock(nil,NO);
+        
     }
-
+    
 }
 @end

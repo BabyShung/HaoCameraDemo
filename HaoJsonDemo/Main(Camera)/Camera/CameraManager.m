@@ -9,7 +9,6 @@
 #define ButtonUnavailableAlpha 0.2
 
 #import "CameraManager.h"
-
 #import "ED_Color.h"
 
 @interface CameraManager ()
@@ -18,9 +17,7 @@
 @property (strong, nonatomic) AVCaptureSession * mySesh;
 @property (strong, nonatomic) AVCaptureStillImageOutput *stillImageOutput;//for still image
 @property (strong, nonatomic) AVCaptureDevice * myDevice;
-
 @property (nonatomic) CGFloat scaleFactor;
-
 @property (strong,nonatomic) UIImage *captureImage;
 
 @end
@@ -30,14 +27,10 @@
 -(instancetype)init{
     self = [super init];
     if(self){
-        NSLog(@"setting up");
-        
         [self setup];
-        
         _scaleFactor = 1.0f;
     }
     return self;
-    
 }
 
 #pragma mark - Camera action
@@ -50,24 +43,28 @@
     return [_mySesh isRunning];
 }
 
+-(void)startRunningWithBlocking{
+    [_mySesh startRunning];
+}
+
 - (void) startRunning{
     if(![_mySesh isRunning]){
-        NSLog(@"***** Camera Manager Start running *****");
-        //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
-        //                                         (unsigned long)NULL), ^(void) {
-            [_mySesh startRunning];
-        //});
+        NSLog(@"************ Camera Manager Start running ************");
         
+        dispatch_queue_t layerQ = dispatch_queue_create("layerQ", NULL);
+        dispatch_async(layerQ, ^{
+            [_mySesh startRunning];
+        });
     }
 }
 
 - (void) stopRunning{
     if([_mySesh isRunning]){
-        NSLog(@"***** Camera Manager Stop running *****");
-        //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
-       //                                          (unsigned long)NULL), ^(void) {
+        NSLog(@"*********** Camera Manager Stop running ***********");
+        dispatch_queue_t layerE = dispatch_queue_create("layerE", NULL);
+        dispatch_async(layerE, ^{
             [_mySesh stopRunning];
-        //});
+        });
     }
 }
 
@@ -79,11 +76,7 @@
  Capture
  *******************/
 - (void)capturePhoto:(UIInterfaceOrientation)interfaceOrientation{
-    
     AVCaptureConnection *videoConnection = nil;
-    
-    
-    
     for (AVCaptureConnection *connection in _stillImageOutput.connections)
     {
         for (AVCaptureInputPort *port in [connection inputPorts])
@@ -96,7 +89,6 @@
         }
         if (videoConnection) { break; }
     }
-    
     [videoConnection setVideoScaleAndCropFactor:_scaleFactor];
     
     /********************
@@ -134,7 +126,6 @@
                  else if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft)
                      capturedImage = [UIImage imageWithCGImage:capturedImage.CGImage scale:capturedImage.scale orientation:UIImageOrientationUpMirrored];
              }
-             
          }
          //call delegate
          [self.imageDelegate imageDidCaptured:capturedImage];
@@ -224,7 +215,6 @@
                 _myDevice.torchMode = AVCaptureTorchModeOff;
                 [_myDevice unlockForConfiguration];
                 return NO;
-                
             }
         }
         else {
@@ -234,7 +224,6 @@
                 return YES;
             }
         }
-        
     }
     return NO;
 }
@@ -282,7 +271,6 @@
             }
         }
     }
-    
 }
 
 -(void)clearResource{
@@ -305,9 +293,7 @@
     
     if([[AVCaptureDevice devices] count] == 0)//if no device, return
         return;
-    
     _myDevice = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo][0];
-    
     
     /******************
      Torch light
@@ -326,7 +312,6 @@
     
 	if (!input) {// Handle the error appropriately.
 		NSLog(@"SC: ERROR: trying to open camera: %@", error);
-        //[self.camDelegate EdibleCamera:self didFinishWithImage:_capturedImageView.image andImageViewSize:_capturedImageView.image.size];
 	}
 	[_mySesh addInput:input];
     

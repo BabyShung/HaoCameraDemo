@@ -41,7 +41,7 @@
     [self.view addSubview:self.foodInfoView];
     
     //2.add backBtn
-    _backBtn = [LoadControls createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(9, 10, 9, 13) andLeftBottomElseRightBottom:YES];
+    _backBtn = [LoadControls createRoundedBackButton];
     [_backBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_backBtn];
     

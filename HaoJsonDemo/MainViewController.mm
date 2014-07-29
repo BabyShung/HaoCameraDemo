@@ -42,35 +42,27 @@ static NSString *CellIdentifier = @"Cell";
     CGFloat ScreenHeight;
 }
 @property (strong, nonatomic) UIButton * clearBtn;
-
 @property (strong, nonatomic) UIButton * nextBtn;
 
 @property (strong,nonatomic) Tesseract *tesseract;
 
 @property (strong,nonatomic) NSMutableArray *imgArray;
-
 @property (strong,nonatomic) ImagePreProcessor *ipp;
-
 @property (nonatomic) cv::Mat tempMat;
 
 @property (strong,nonatomic) NSMutableArray *foodArray;
-
 @property (strong,nonatomic) NSMutableDictionary *existingFood;
 
 @property (strong,nonatomic) TransitionController *transitionController;
-
 @property (strong,nonatomic) TextDetector2 *textDetector2;
 
 @property (nonatomic) NSUInteger counterForNoResult;
-
 
 @end
 
 @implementation MainViewController
 
-
 - (void)viewDidLoad{
-    
     
     ScreenWidth = CGRectGetWidth([[UIScreen mainScreen] bounds]);
     ScreenHeight = CGRectGetHeight([[UIScreen mainScreen] bounds]);
@@ -135,9 +127,9 @@ static NSString *CellIdentifier = @"Cell";
     
     //save searchHistory and clear
     [SearchDictionary saveSearchHistoryToLocalDB];
-    
-    [self.camView resumeCamera];
     [self.camView backBtnPressed:nil];
+    [self.camView resumeCameraWithBlocking];
+    
     
     //Clean up cached comments of different foods
     NSLog(@"+++++++ MVC +++++++++ : clean up last comntes");
@@ -315,9 +307,7 @@ static NSString *CellIdentifier = @"Cell";
                     
                     //hao added
                     [self.camView stopLoadingAnimation];
-                    
                     [self showResultButtonsAndCollectionView];
-                    
                     [self addFoodItems:localFoods];
                     
                 }

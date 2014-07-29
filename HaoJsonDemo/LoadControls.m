@@ -12,15 +12,11 @@
 #import "LocalizationSystem.h"
 
 #define smallBTNRadius 25
-
 #define ButtonAvailableAlpha 0.6
-
 #define BUTTON_MARGIN_LEFT_RIGHT 10
-
 #define BUTTON_MARGIN_DOWN 8
 
 @implementation LoadControls
-
 
 +(UIImage *) scaleImage:(UIImage *)image withScale:(CGFloat)scale withRect:(CGRect)rect andCropSize:(CGSize)size{
     
@@ -76,9 +72,6 @@
     return [self createRoundedButton_Image:@"CameraPrevious.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(8, 7, 8, 9) andLeftBottomElseRightBottom:YES];
 }
 
-
-
-
 +(UIButton *)createRoundedButton_Image:(NSString *)imageName andTintColor:(UIColor *) color andImageInset:(UIEdgeInsets) edgeInset andLeftBottomElseRightBottom:(BOOL)left{
     
     return [self createRoundedButton_Image:imageName andTintColor:color andImageInset:edgeInset andLeftBottomElseRightBottom:left andStartingPosition:CGPointZero];
@@ -110,10 +103,6 @@
         button.center = startingpoint;
 
     }
-    
-    
-
-    
     button.layer.shouldRasterize = YES;
     button.layer.rasterizationScale = [UIScreen mainScreen].scale;
     button.layer.cornerRadius = smallBTNRadius;
@@ -140,14 +129,11 @@
     HaoCaptureButton *button = [[HaoCaptureButton alloc] initWithFrame:buttonRect
                                                        buttonStyle:MRoundedButtonImageWithSubtitle
                                               appearanceIdentifier:[NSString stringWithFormat:@"%d", 1] andCameraView:view];
-    button.center = CGPointMake(160, 300);
-    
+    button.center = CGPointMake(160, 600);
     button.backgroundColor = [UIColor clearColor];
-    
     button.detailTextLabel.text = AMLocalizedString(@"CAPTURE_BTN", nil);
     button.detailTextLabel.font = [UIFont systemFontOfSize:16];
     button.imageView.image = [UIImage imageNamed:@"Camera_02.png"];
-    
     return button;
 }
 

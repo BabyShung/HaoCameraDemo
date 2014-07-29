@@ -76,15 +76,10 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 - (void) previousPagePressed:(id)sender {
-    
-    //enable pageVC scroll and also stop camera
+
+    //enable pageVC scroll and also start camera
     [GeneralControl enableBothCameraAndPageVCScroll:YES];
-    
     [self.navigationController popToRootViewControllerAnimated:YES];
-}
-
--(void)viewDidDisappear:(BOOL)animated{
-
 }
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
@@ -121,9 +116,6 @@ static NSString *CellIdentifier = @"Cell";
         
         [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionTop];
         [self performSegueWithIdentifier:@"toSingleFoodSegue" sender:self];
-        
-        
-        
         
     }else{
         
