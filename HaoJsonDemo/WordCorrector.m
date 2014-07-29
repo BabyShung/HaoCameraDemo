@@ -25,8 +25,9 @@
               [NSCharacterSet newlineCharacterSet]]componentsJoinedByString:@" "];
     output = [output stringByReplacingOccurrencesOfString:@"," withString:@" "];//replace \s
     output = [output stringByReplacingOccurrencesOfString:@"-" withString:@" "];//replace \s
-    output = [output stringByReplacingOccurrencesOfString:@"    " withString:@" "];//replace \s
+    output = [output stringByReplacingOccurrencesOfString:@"     " withString:@" "];//replace \s
     output = [output stringByReplacingOccurrencesOfString:@"   " withString:@" "];//replace \s
+    output = [output stringByReplacingOccurrencesOfString:@"  " withString:@" "];//replace \s
 
     
     int mark=0;
@@ -78,26 +79,32 @@
     NSMutableArray *arrayOfStringsToReplace = [NSMutableArray arrayWithObjects:
                                                [NSArray arrayWithObjects:@"0",@"1",nil],
                                                [NSArray arrayWithObjects:@"a",@"1",nil],
+                                               [NSArray arrayWithObjects:@"d",@"1",nil],
+                                               [NSArray arrayWithObjects:@"b",@"1",nil],
                                                [NSArray arrayWithObjects:@"e",@"1",nil],
                                                [NSArray arrayWithObjects:@"c",@"1",nil],
                                                [NSArray arrayWithObjects:@"o",@"1",nil],
                                                [NSArray arrayWithObjects:@"p",@"1",nil],
                                                [NSArray arrayWithObjects:@"q",@"1",nil],
-                                               [NSArray arrayWithObjects:@"u",@"1",nil],
-                                               [NSArray arrayWithObjects:@"v",@"1",nil],
+                                              
                                                [NSArray arrayWithObjects:@"i",@"2",nil],
                                                [NSArray arrayWithObjects:@"j",@"2",nil],
                                                [NSArray arrayWithObjects:@"I",@"2",nil],
                                                [NSArray arrayWithObjects:@"J",@"2",nil],
                                                [NSArray arrayWithObjects:@"L",@"2",nil],
+                                               
                                                [NSArray arrayWithObjects:@"t",@"6",nil],
                                                [NSArray arrayWithObjects:@"l",@"6",nil],
+                                               
                                                [NSArray arrayWithObjects:@"O",@"4",nil],
                                                [NSArray arrayWithObjects:@"Q",@"4",nil],
-                                               [NSArray arrayWithObjects:@"n",@"6",nil],
-                                               [NSArray arrayWithObjects:@"m",@"6",nil],
-                                               [NSArray arrayWithObjects:@"el",@"7",nil],
-                                               [NSArray arrayWithObjects:@"d",@"7",nil],
+                                               
+                                               [NSArray arrayWithObjects:@"u",@"7",nil],
+                                               [NSArray arrayWithObjects:@"v",@"7",nil],
+                                               
+                                               [NSArray arrayWithObjects:@"n",@"8",nil],
+                                               [NSArray arrayWithObjects:@"m",@"8",nil],
+                                               
                                                [NSArray arrayWithObjects:@"h",@"9",nil],
                                                [NSArray arrayWithObjects:@"k",@"9",nil],
                                                
