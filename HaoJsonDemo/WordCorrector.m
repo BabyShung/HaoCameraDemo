@@ -96,6 +96,7 @@
                                                [NSArray arrayWithObjects:@"t",@"6",nil],
                                                [NSArray arrayWithObjects:@"l",@"6",nil],
                                                
+                                               [NSArray arrayWithObjects:@"0",@"4",nil],
                                                [NSArray arrayWithObjects:@"O",@"4",nil],
                                                [NSArray arrayWithObjects:@"Q",@"4",nil],
                                                

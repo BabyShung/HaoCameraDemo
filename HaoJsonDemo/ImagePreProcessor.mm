@@ -183,7 +183,7 @@ using namespace std;
     cv::split(img_threshold,channels); //split the image into channels
     
     
-    cv::fastNlMeansDenoising(channels[0], channels[0], 3.0f, 7, 11);
+    //cv::fastNlMeansDenoising(channels[0], channels[0], 3.0f, 7, 11);
     
     //--Simple threshold, removing little noisy
     
@@ -217,7 +217,7 @@ using namespace std;
     cv::split(img_threshold,channels); //split the image into channels
     
     
-    cv::fastNlMeansDenoising(channels[0], channels[0], 3.0f, 7, 11);
+    //cv::fastNlMeansDenoising(channels[0], channels[0], 3.0f, 7, 11);
     
     //--Simple threshold, removing little noisy
     
