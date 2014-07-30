@@ -162,10 +162,10 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
     NSMutableArray *words_corrected = [NSMutableArray array];
     for(NSString *word in words){
         NSString *correctedWord = [_wordCorrector correctWord:word];
-        [correctedWord stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        [correctedWord stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+        correctedWord = [correctedWord stringByTrimmingCharactersInSet:[NSCharacterSet  whitespaceAndNewlineCharacterSet]];
+        
         if (![correctedWord isEqual:@""] && ![correctedWord isEqual:@" "] && correctedWord.length > 1){
-            [words_corrected addObject: [_wordCorrector correctWord:word]];
+            [words_corrected addObject: correctedWord];
         }
     }
     
