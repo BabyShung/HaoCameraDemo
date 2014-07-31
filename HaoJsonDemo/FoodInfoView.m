@@ -147,7 +147,9 @@ const CGFloat CommentRateViewWidth = 260;
     [self.scrollview addSubview:self.translateLabel];
 
 
-/*-------------------Following Views Will Be Hidden In Small Layout----------------------------*/
+/*--------------Following Views Will Be Hidden In Small Layout------------------*/
+    
+    //Stars(Rating) view
     self.starImgView= [[UIImageView alloc]init];
     self.starImgView.backgroundColor = [UIColor clearColor];
     
@@ -164,12 +166,13 @@ const CGFloat CommentRateViewWidth = 260;
     [self.scrollview addSubview:self.starImgView];
     [self.scrollview addSubview:self.starNumberLabel];
     
+    //Description View
     self.descripView = [[DescriptionView alloc]init];
     self.descripView.boundedContentWidth = [[UIScreen mainScreen]bounds].size.width-2*CLeftMargin;
     self.descripView.delegate =self;
     [self.scrollview addSubview:self.descripView];
     
-    
+    //Tag View
     _tagview = [[TagView alloc]initWithFrame:CGRectMake(0, BelowDescriptionLabelGap+CGRectGetMaxY(self.descripView.frame), width, TagViewHeight)];
     _tagview.allowToUseSingleSpace = YES;
     _tagview.delegate = self;
@@ -847,7 +850,13 @@ const CGFloat CommentRateViewWidth = 260;
         }
         else{
             [commentView hideToastActivity];
-            [commentView makeToast:AMLocalizedString(@"FAIL_COMMENT", nil) duration:0.8 position:@"center"];
+            if (!err) {
+                [commentView makeToast:AMLocalizedString(@"FAIL_COMMENT", nil) duration:0.8 position:@"center"];
+            }
+            else{
+                [commentView makeToast:AMLocalizedString(@"FAIL_COMMENT_EMOJI", nil) duration:0.8 position:@"center"];
+            }
+            
         }
     }];
 

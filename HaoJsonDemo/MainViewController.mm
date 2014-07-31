@@ -170,7 +170,7 @@ static NSString *CellIdentifier = @"Cell";
         }
     }];
 //    Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
-//    NSString* str = @"Sushi and Kale";
+//    NSString* str = @"Sushi and caper";
 //    [self addFoodItems:[dict localSearchOCRString:str]];
 //    [self showResultButtonsAndCollectionView];
 }

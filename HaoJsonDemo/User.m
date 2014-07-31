@@ -261,8 +261,13 @@ static AsyncRequest *async;
         else if([action isEqualToString:@"user_error"]){   //PS: bugs in server!! only show this
             [self configureError:NSLocalizedString(@"ERROR_REGISTER", nil)];
         }
-        else if([action isEqualToString:@"post_update_review"] ||[action isEqualToString:@"review_error"]){
+        else if([action isEqualToString:@"post_update_review"] ){
             commentCompletionBlock(nil,NO, 0);
+        }
+        else if ([action isEqualToString:@"review_error"]) {
+            NSError *err = [NSError errorWithDomain:@"emoji" code:100 userInfo:nil];
+            commentCompletionBlock(err,NO,0);
+        
         }
     }
 }

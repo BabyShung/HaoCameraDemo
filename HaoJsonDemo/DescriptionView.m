@@ -61,7 +61,6 @@ static NSString *DescriptionFontName = @"HelveticaNeue-Light";
     _contentLabel.textColor = [UIColor blackColor];
     
     _readMoreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [_readMoreBtn setTitle:AMLocalizedString(@"FIV_READ_MORE", nil) forState:UIControlStateNormal];
     _readMoreBtn.titleLabel.font = [UIFont fontWithName:DescriptionFontName size:DescriptionReadMoreFoneSize];
     [_readMoreBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     _readMoreBtn.titleLabel.textAlignment = NSTextAlignmentRight;
@@ -91,7 +90,7 @@ static NSString *DescriptionFontName = @"HelveticaNeue-Light";
 -(void) setContentText:(NSString *)contentText{
 
     CGRect expectedRect = [contentText boundingRectWithSize:CGSizeMake(_boundedContentWidth, MAXFLOAT)
-                                                options:NSStringDrawingUsesLineFragmentOrigin
+                                                options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
                                              attributes:@{NSFontAttributeName:[UIFont fontWithName:DescriptionFontName size:DescriptionFontSize]}
                                                 context:nil];
     
@@ -143,7 +142,7 @@ static NSString *DescriptionFontName = @"HelveticaNeue-Light";
 -(void)readMoreBtnPressed
 {
     CGRect expectedRect = [self.contentText boundingRectWithSize:CGSizeMake(_boundedContentWidth, MAXFLOAT)
-                                                    options:NSStringDrawingUsesLineFragmentOrigin
+                                                    options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
                                                  attributes:@{NSFontAttributeName:[UIFont fontWithName:DescriptionFontName size:DescriptionFontSize]}
                                                     context:nil];
     if ([self.readMoreBtn.titleLabel.text isEqualToString:AMLocalizedString(@"FIV_READ_MORE", nil)])
