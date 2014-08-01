@@ -12,8 +12,8 @@
 #define DescriptionContentLabelHeight 45
 #define DescriptionFontSize 18
 #define DescriptionReadMoreFoneSize 15
-#define DescriptionReadMoreButtonWidth 80
-#define DescriptionReadMoreButtonHeight 25
+#define DescriptionReadMoreButtonWidth 100
+#define DescriptionReadMoreButtonHeight 40
 
 static NSString *DescriptionFontName = @"HelveticaNeue-Light";
 
