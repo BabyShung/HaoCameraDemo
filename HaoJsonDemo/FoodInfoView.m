@@ -419,20 +419,12 @@ const CGFloat CommentRateViewWidth = 260;
     
     self.translateLabel.frame = CGRectMake(CLeftMargin, TitleTopMargin + CGRectGetMaxY(self.titleLabel.frame), width-2*CLeftMargin,  SmallTranslateLabelHeight - (SmallTranslateLabelHeight - LargeTranslateLabelHeight)*sizeMultiplier);//TranslateLabelHeight);
     [self.translateLabel sizeToFit];
-    //[self.translateLabel setFont:[UIFont fontWithName:PlainTextFontName size:SmallTextFontSize + (LargeTitleFontSize-SmallTextFontSize)*sizeMultiplier]];
     
     self.starNumberLabel.frame =CGRectMake(width-CLeftMargin-StarNumberLabelWidth, self.translateLabel.frame.origin.y, StarNumberLabelWidth*(width/[[UIScreen mainScreen] bounds].size.width), CGRectGetHeight(self.translateLabel.frame));
     [self.starNumberLabel setFont:[UIFont fontWithName:PlainTextFontName size:SmallTitleFontSize + (LargeTitleFontSize-SmallTitleFontSize)*sizeMultiplier]];
     
     self.starImgView.frame = CGRectMake(self.starNumberLabel.frame.origin.x-StarImgViewWidth, self.starNumberLabel.frame.origin.y,StarImgViewWidth*(width/[[UIScreen mainScreen] bounds].size.width), CGRectGetHeight(self.translateLabel.frame));
     self.descripView.frame = CGRectMake(CLeftMargin, CGRectGetMaxY(self.translateLabel.frame) + GAP, width - CLeftMargin*2, self.descripView.frame.size.height);
-    
-    //self.descriptionLabel.frame = CGRectMake(CLeftMargin, CGRectGetMaxY(self.translateLabel.frame) + GAP, width - CLeftMargin*2, self.descriptionLabel.frame.size.height);
-    
-    //self.descrpClearBtn.frame = self.descriptionLabel.frame;
-    
-    //self.readMoreBtn.frame = self.descriptionLabel.frame;
-    //self.readMoreBtn.frame = CGRectMake(CGRectGetMaxX(self.descriptionLabel.frame)-ReadMoreButtonWidth, CGRectGetMaxY(self.descriptionLabel.frame), ReadMoreButtonWidth, ReadMoreButtonHeight);
     
 
     self.tagview.frame = CGRectMake(0, CGRectGetMaxY(self.descripView.frame), width, TagViewHeight);
@@ -518,9 +510,24 @@ const CGFloat CommentRateViewWidth = 260;
 -(void)refreshComments{
     if (!self.myFood.isLoadingComments) {
         NSLog(@"+++++++++++++ FIV ++++++++++++++++ : refresh comments current count = %d",(int)self.myFood.comments.count);
+        if (self.myFood.comments.count == 0){
+            _noCommentLabel.text= AMLocalizedString(@"COMMENT_LOADING_MSG", nil);
+            _noCommentLabel.hidden = NO;
+        }
         [self.myFood fetchLatestCommentsSize:NumCommentsPerLoad andSkip:self.myFood.comments.count completion:^(NSError *err, BOOL success) {
             if(success){
-//                NSLog(@"                            Comment text %@",((Comment *)self.myFood.comments[0]).text);
+                if (self.myFood.comments.count == 0) {
+                    if ([User sharedInstance].Uid == AnonymousUser) {
+                        _noCommentLabel.text = [NSString stringWithFormat:AMLocalizedString(@"FIV_NO_COMMENT", nil),self.myFood.title];
+                    }
+                    else{
+                        _noCommentLabel.text = [NSString stringWithFormat:AMLocalizedString(@"FIV_NO_COMMENT_LOGINUSR", nil),[User sharedInstance].name,self.myFood.title];
+                    }
+                    _noCommentLabel.hidden = NO;
+                }else {
+                    _noCommentLabel.text = @"";
+                    _noCommentLabel.hidden = YES;
+                }
                 [self updateCommentTableUI];
             }
         }];
@@ -541,13 +548,7 @@ const CGFloat CommentRateViewWidth = 260;
     //NSLog(@"+++FIV+++:update comment table");
     NSInteger newCount = self.myFood.comments.count;
     NSInteger oldCount = [self.commentsTableView numberOfRowsInSection:0];
-    if (newCount == 0) {
-        _noCommentLabel.text = [NSString stringWithFormat:AMLocalizedString(@"FIV_NO_COMMENT", nil),self.myFood.title];
-        _noCommentLabel.hidden = NO;
-    }else {
-        _noCommentLabel.text = @"";
-        _noCommentLabel.hidden = YES;
-    }
+
     
     if (newCount>oldCount){
         NSLog(@"+++ FIV +++ : I refreshed and get %d comments!",(int)(newCount-oldCount));
@@ -602,6 +603,7 @@ const CGFloat CommentRateViewWidth = 260;
     self.starImgView.image = nil;
     
     [self.descripView resetData];
+    self.noCommentLabel.text = @"";
     self.noCommentLabel.hidden = YES;
     
     self.myFood.photoNames = nil;//datasource for food photos in bottomCollectionview

@@ -71,7 +71,8 @@
 "FIV_READ_LESS"="Collapse";
 "EDTIME_YEAR_AGO"="1 year ago";
 "EDTIME_YEARS_AGO"=" years ago";
-"FIV_NO_COMMENT"="LogIn User Can Review %@\nBe the First Foodie!";
+"FIV_NO_COMMENT"="Sign In and Review %@\nBe the First Foodie!";
+"FIV_NO_COMMENT_LOGINUSR"="%@, Leave Your Review on %@\nBe the First Foodie!";
 "FIV_READ_LESS"="Collapse";
 "CARD_SETTING"="Settings";
 "CONTACT_US_ABOUT_US"="Contact us:";
@@ -95,3 +96,4 @@
 "LOGIN_LOGO_WORD_PIC"="login_logo_eng.png";
 "Skip_TEXT"="Skip";
 "FAIL_COMMENT_EMOJI"="Please delete emoji and resend";
+"COMMENT_LOADING_MSG"="Loading Comments...";

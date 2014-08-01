@@ -22,6 +22,7 @@
 typedef void (^edibleBlock)(NSError *err, BOOL success);
 typedef void (^edibleCommentPostBlock)(NSError *err, BOOL success,CGFloat newRate);
 
+//Instead of type, use Uid to judge an Anonym user.
 typedef NS_ENUM(NSInteger, UserType){
     AnonymousUser = 1
 };

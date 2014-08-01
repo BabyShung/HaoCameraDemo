@@ -36,7 +36,6 @@
 "Feedback"="反馈";
 "Log out"="注销";
 "Search food"="寻找食物";
-
 "DIGIT"="位";
 "SUCCESS_FEEDBACK" = "谢谢亲 : )";
 "FAIL_FEEDBACK" = "抱歉亲，请重发";
@@ -71,7 +70,8 @@
 "SEARCH_FAILURE"="T^T 搜索失败";
 "EDTIME_YEAR_AGO"="1年前";
 "EDTIME_YEARS_AGO"="年前";
-"FIV_NO_COMMENT"="登录用户快评鉴%@\n做第一个美食家吧";
+"FIV_NO_COMMENT"="快登录评论%@\n做第一个美食家吧";
+"FIV_NO_COMMENT_LOGINUSR"="%@, 快评论%@\n做第一个美食家吧";
 "CARD_SETTING"="设置";
 "CONTACT_US_ABOUT_US"="联系我们:";
 "TUTORIAL_D_IMAGENAME" = "drag_chinese.png";
@@ -94,3 +94,4 @@
 "LOGIN_LOGO_WORD_PIC"="login_logo_chinese.png";
 "Skip_TEXT"="跳过";
 "FAIL_COMMENT_EMOJI"="亲，暂不支持发送表情";
+"COMMENT_LOADING_MSG"="评论加载中...";
