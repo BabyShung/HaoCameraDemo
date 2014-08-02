@@ -163,7 +163,7 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
     for( int i = 0; i< rects.size(); i++ )
     {
         flag = 0;
-        cv::Rect rect0 = rects[i]; //temp
+        cv::Rect rect0 = rects[i]; //temp Rect
         
         if(rect0.height==0 || rect0.width == 0){
             break;
