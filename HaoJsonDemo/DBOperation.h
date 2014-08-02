@@ -44,7 +44,7 @@
 -(NSMutableArray *) searchWords:(NSArray *) wordsArray getKeywords:(NSMutableArray *)kwArray inLangTable:(TargetLang)lang;
 
 //Blur search a word in local DB, match from beginning
--(NSArray *)blurSearch:(NSString *)inputStr inLangTable:(TargetLang)lang;
+-(NSArray *)blurSearch:(NSString *)inputStr toLang:(TargetLang)lang;
 
 //For Dictionary update
 //Download files from server

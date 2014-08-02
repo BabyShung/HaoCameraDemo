@@ -219,10 +219,14 @@ const CGFloat CommentRateViewWidth = 260;
  
  ************************/
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    if (scrollView.contentOffset.y + scrollView.frame.size.height == scrollView.contentSize.height && !self.myFood.isLoadingComments && !self.photoCollectionView.isTracking) {
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    //User is not scrolling photo collection view
+    //AND the FIV reaches end
+    if (scrollView.contentOffset.y + scrollView.frame.size.height == scrollView.contentSize.height && !self.myFood.isLoadingComments && scrollView.frame.size.height != PhotoCollectionViewHeight) {
         //Request to server
         //Load more comments
+
         [self refreshComments];
     }
 }

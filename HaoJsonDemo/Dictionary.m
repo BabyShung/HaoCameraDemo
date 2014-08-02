@@ -84,7 +84,8 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
 
 -(NSArray *) localBlurSearchString:(NSString *)typeStr{
     NSMutableArray *foods = [NSMutableArray array];
-    NSArray *foodDicts = [self.operation blurSearch:typeStr inLangTable:self.lang];
+
+    NSArray *foodDicts = [self.operation blurSearch:typeStr toLang:self.lang];
     
     for (NSDictionary *foodDict in foodDicts) {
         Food *food =[[Food alloc]initWithTitle:[foodDict objectForKey:@"keyword"] andTranslations:[foodDict objectForKey:@"translation"] andQueryTimes:0];
