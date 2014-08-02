@@ -11,7 +11,6 @@
 
 @implementation SearchDictionary
 
-
 static SearchDictionary *sharedInstance = nil;
 
 
@@ -21,7 +20,6 @@ static SearchDictionary *sharedInstance = nil;
 
 + (SearchDictionary *)initSharedInstance
 {
-    
     static dispatch_once_t oncePredicate;
     
     dispatch_once(&oncePredicate, ^{
@@ -54,7 +52,6 @@ static SearchDictionary *sharedInstance = nil;
     }
     //remove all objects for dict
     [self removeAllSearchHistory];
-    
 }
 
 - (NSString *)description   //toString description

@@ -10,18 +10,14 @@
 #import "SSSearchBar.h"
 #import "SearchCell.h"
 #import "LoadControls.h"
-#import "ED_Color.h"
-#import "DBOperation.h"
-#import "Food.h"
 #import "SingleFoodViewController.h"
 #import "DBOperation.h"
-#import "AppDelegate.h"
-#import "LocalizationSystem.h"
 #import "Dictionary.h"
-#import "UIView+Toast.h"
 #import "GeneralControl.h"
 
 #define FETCH_SEARCH_NUMBER 20
+
+#define BackBtn_offset 215
 
 static NSString *CellIdentifier = @"Cell";
 
@@ -41,6 +37,8 @@ static NSString *CellIdentifier = @"Cell";
 
 @property (nonatomic) DBOperation *dbo;
 
+@property (nonatomic) CGFloat backBtn_Y;
+
 @end
 
 @implementation SearchViewController
@@ -48,13 +46,14 @@ static NSString *CellIdentifier = @"Cell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     [self loadControls];
     
     self.dbo = [[DBOperation alloc] init];
     self.foodData = [self.dbo fetchSearchHistoryByOrder_withLimitNumber:FETCH_SEARCH_NUMBER];
     self.searchData = [NSMutableArray arrayWithArray:self.foodData];
     self.dict = [[Dictionary alloc]initDictInDefaultLang];
+    
     
     
     //disable pageVC scroll and also stop camera
@@ -65,25 +64,32 @@ static NSString *CellIdentifier = @"Cell";
 
 -(void)viewDidAppear:(BOOL)animated{
     [self.searchBar becomeFirstResponder];
-    
-    [UIView animateWithDuration:.5 delay:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        _backBtn.center = CGPointMake(_backBtn.center.x, iPhone5? 320: 200);
-    } completion:^(BOOL finished) {
-        if (finished) {
-
-        }
-    }];
 }
 
 - (void) previousPagePressed:(id)sender {
-
+    
     //enable pageVC scroll and also start camera
     [GeneralControl enableBothCameraAndPageVCScroll:YES];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+-(BOOL)searchBarShouldBeginEditing:(SSSearchBar *)searchBar{
+    if(self.backBtn.center.y == self.backBtn_Y){
+        [UIView animateWithDuration:.5 delay:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            _backBtn.center = CGPointMake(_backBtn.center.x, _backBtn.center.y - BackBtn_offset);
+        } completion:nil];
+    }
+    return YES;
+}
+
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     [self resignKeyboard];
+    
+    if(self.backBtn.center.y == self.backBtn_Y - BackBtn_offset){
+        [UIView animateWithDuration:.5 delay:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            _backBtn.center = CGPointMake(_backBtn.center.x, _backBtn.center.y + BackBtn_offset);
+        } completion:nil];
+    }
 }
 
 -(void)resignKeyboard{
@@ -91,8 +97,8 @@ static NSString *CellIdentifier = @"Cell";
         [self.searchBar resignFirstResponder];
     }
 }
-#pragma mark - SSSearchBarDelegate
 
+#pragma mark - SSSearchBarDelegate
 - (void)searchBarCancelButtonClicked:(SSSearchBar *)searchBar {
     NSLog(@"++++++++++++++SEARCH VC++++++++++++++++++: CANCEL SEARCH PRESSED");
     self.searchBar.text = @"";
@@ -139,10 +145,8 @@ static NSString *CellIdentifier = @"Cell";
                     if([((Food *)results[0]).title caseInsensitiveCompare:self.searchBar.text] == NSOrderedSame){
                         
                         //Server return a perfect matched result!
-                        
                         [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionTop];
                         [self performSegueWithIdentifier:@"toSingleFoodSegue" sender:self];
-                        
                     }
                 }
             }
@@ -150,20 +154,9 @@ static NSString *CellIdentifier = @"Cell";
                 [self.view makeToast:AMLocalizedString(@"SEARCH_FAILURE", nil) duration:0.3 position:@"bottom"];
             }
         }];
-        
-        
     }
-//    if (self.searchBar.text.length > 0) {
-//        self.dict serverSearchOCRString:_searchBar.text andCompletion:^(NSArray *results, BOOL success) {
-//            if (success) {
-//                
-//            }
-//            else{
-//                self.view makeToast:NSLocalizedString(<#key#>, <#comment#>);
-//            }
-//        }
-//    }
 }
+
 - (void)searchBar:(SSSearchBar *)searchBar textDidChange:(NSString *)searchText {
     //[self filterTableViewWithText:searchText];
     [self.searchData removeAllObjects];
@@ -172,17 +165,12 @@ static NSString *CellIdentifier = @"Cell";
         //Terms in search bar is empty, show search history
         
         [self.searchData addObjectsFromArray:[self.dbo fetchSearchHistoryByOrder_withLimitNumber:FETCH_SEARCH_NUMBER]];
-        
-        
     }
     else{
-        
         [self.searchData addObjectsFromArray:[self.dict localBlurSearchString:searchText]];
     }
     [self.collectionView reloadData];
-    
 }
-
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
@@ -206,7 +194,7 @@ static NSString *CellIdentifier = @"Cell";
     else{
         cell.queryLabel.text = @"";
     }
-
+    
     return cell;
 }
 
@@ -230,18 +218,11 @@ static NSString *CellIdentifier = @"Cell";
             
             sfvc.currentFood = selectedFood;
             
+            DBOperation *dbo = [[DBOperation alloc] init];
+            [dbo upsertSearchHistory:selectedFood];
             
-            //dispatch_async(dispatch_get_main_queue(), ^{
-                //also save this query to searchHistory
-                DBOperation *dbo = [[DBOperation alloc] init];
-                [dbo upsertSearchHistory:selectedFood];
-//                
-//                self.foodData = [dbo fetchSearchHistoryByOrder_withLimitNumber:FETCH_SEARCH_NUMBER];
-//                [self.searchData removeAllObjects];
-//                [self.searchData addObjectsFromArray:self.foodData];
-//                [self.collectionView reloadData];
-            //});
-            
+            //finally manually click clear btn
+            [self searchBarCancelButtonClicked:nil];
         }
     }
 }
@@ -249,27 +230,19 @@ static NSString *CellIdentifier = @"Cell";
 
 #pragma mark - Helper Methods
 
-//- (void)filterTableViewWithText:(NSString *)searchText {
-//    if ([searchText isEqualToString:@""]) {
-//        self.searchData = self.foodData;
-//    }
-//    else {
-//        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.title CONTAINS[cd] %@", searchText];
-//        self.searchData = [self.foodData filteredArrayUsingPredicate:predicate];
-//    }
-//    
-//    [self.collectionView reloadData];
-//}
-
 -(void)loadControls{
     _backBtn = [LoadControls createRoundedBackButton];
     [_backBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.backBtn_Y = self.backBtn.center.y;
+    
     [self.view addSubview:_backBtn];
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.backgroundColor = [UIColor clearColor];
-    
+    //it can scroll even when the height is less than frame height
+    self.collectionView.alwaysBounceVertical = YES;
     
     self.searchBar.cancelButtonHidden = NO;
     self.searchBar.placeholder = AMLocalizedString(@"Search food", nil);

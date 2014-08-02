@@ -8,7 +8,6 @@
 
 #import "SingleFoodViewController.h"
 #import "LoadControls.h"
-#import "ED_Color.h"
 
 @interface SingleFoodViewController ()
 
@@ -17,7 +16,6 @@
 @end
 
 @implementation SingleFoodViewController
-
 
 - (void)viewDidLoad
 {
@@ -44,7 +42,6 @@
     _backBtn = [LoadControls createRoundedBackButton];
     [_backBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_backBtn];
-    
 }
 
 - (void) previousPagePressed:(id)sender {
