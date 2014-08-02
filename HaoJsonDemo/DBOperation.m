@@ -188,17 +188,23 @@
     return translations;
 }
 
--(NSArray *)blurSearch:(NSString *)inputStr toLang:(TargetLang)lang
+-(NSArray *)blurSearch:(NSString *)inputStr inLang:(TargetLang)inlang toLang:(TargetLang)tolang;
 {
     NSMutableArray *foodDicts = [NSMutableArray array];
     
     if ([inputStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0) {
 
         ShareData *sharedata = [ShareData shareData];
-        NSString *langTableName =[sharedata langTableName:lang];
+        NSString *tolangTableName =[sharedata langTableName:tolang];
+        NSString *inlangTableName =[sharedata langTableName:inlang];
         [self.connector openDB];
-        
-        NSString *sql = [NSString stringWithFormat:@"SELECT DISTINCT Keyword.kwstr,%@.wstr FROM Keyword,%@ WHERE UPPER(Keyword.kwstr) LIKE UPPER('%@%%') AND Keyword.kwid=%@.wid;",langTableName,langTableName,[inputStr stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]],langTableName];
+        NSString *sql;
+        if (inlang == English) {
+            sql = [NSString stringWithFormat:@"SELECT DISTINCT Keyword.kwstr,%@.wstr FROM Keyword,%@ WHERE UPPER(Keyword.kwstr) LIKE UPPER('%@%%') AND Keyword.kwid=%@.wid ORDER BY LENGTH(Keyword.kwstr);",tolangTableName,tolangTableName,[inputStr stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]],tolangTableName];
+        }else if(inlang == Chinese){
+            sql = [NSString stringWithFormat:@"SELECT DISTINCT Keyword.kwstr,%@.wstr FROM Keyword,%@ WHERE %@.wstr LIKE '%@%%' AND Keyword.kwid=%@.wid ORDER BY LENGTH(%@.wstr);",inlangTableName,inlangTableName,inlangTableName,[inputStr stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]],inlangTableName,inlangTableName];
+        }
+
         
         //        NSString *sql =[NSString stringWithFormat:@"SELECT DISTINCT Keyword.kwstr,%@.wstr FROM %@,Keyword WHERE UPPER(Keyword.kwstr)=UPPER('%@') AND Keyword.kwid=%@.wid;",langTableName,langTableName,word,langTableName];
         

@@ -29,10 +29,10 @@
 //-(NSArray *) lookupOCRString:(NSString *)inputStr foundKeywords:(NSMutableArray *)keywords;
 
 //Send search request to server
--(void) serverSearchOCRString:(NSString *)inputStr andCompletion:(void (^)(NSArray *results, BOOL success))block;
+-(void) serverSearchOCRString:(NSString *)inputStr inLang:(TargetLang)inlang andCompletion:(void (^)(NSArray *results, BOOL success))block;
 
 //Search locally, match the input string at the beginning
--(NSArray *) localBlurSearchString:(NSString *)typeStr;
+-(NSArray *) localBlurSearchString:(NSString *)typeStr inLang:(TargetLang)inlang toLang:(TargetLang)tolang;
 
 //Dictionary update function
 //  1. download file from server;

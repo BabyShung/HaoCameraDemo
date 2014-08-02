@@ -308,7 +308,7 @@ static NSString *CellIdentifier = @"Cell";
                     
                 }
                 
-                [dict serverSearchOCRString:ocrStr andCompletion:^(NSArray *results, BOOL success) {
+                [dict serverSearchOCRString:ocrStr inLang:English andCompletion:^(NSArray *results, BOOL success) {
                     if (results.count > 0){
                         NSLog(@"++++++++++++ MVC +++++++++++++ : SERVER RETURNED %d  food results - - - - - - - - - - - - - ",results.count);
                         [serverFoods addObjectsFromArray:results];

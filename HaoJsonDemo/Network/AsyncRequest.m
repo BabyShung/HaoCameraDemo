@@ -125,7 +125,12 @@
     NSURL *url = [NSURL URLWithString:FOOD_POST_URL];
     [self performAsyncTask_Dictionary:dict andURL:url];
 }
+-(void)getFoodByName:(NSString*)foodname{
 
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:foodname, @"name",@"CN", @"lang", @"get_food_by_name",@"action", nil];
+    NSURL *url = [NSURL URLWithString:FOOD_POST_URL];
+    [self performAsyncTask_Dictionary:dict andURL:url];
+}
 
 /******************
  

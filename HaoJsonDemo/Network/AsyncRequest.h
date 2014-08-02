@@ -41,6 +41,8 @@
 
 -(void)getFoodInfo_byPost:(NSString*)foodname andLanguage:(TargetLang)lang;
 
+-(void)getFoodByName:(NSString*)foodname;
+
 -(instancetype)initWithDelegate:(id)selfy;
 
 @end

@@ -60,8 +60,12 @@ static NSString *CellIdentifier = @"Cell";
 
 -(void)viewDidAppear:(BOOL)animated{
     [self.searchBar becomeFirstResponder];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMode:) name:UITextInputCurrentInputModeDidChangeNotification object:nil];
 }
 
+-(void) changeMode:(NSNotification *)notification{
+    NSLog(@"######################### CURRENT LANG = %@",[UITextInputMode currentInputMode].primaryLanguage);
+}
 - (void) previousPagePressed:(id)sender {
     
     //enable pageVC scroll and also start camera
@@ -96,6 +100,7 @@ static NSString *CellIdentifier = @"Cell";
 
 #pragma mark - SSSearchBarDelegate
 - (void)searchBarCancelButtonClicked:(SSSearchBar *)searchBar {
+    //NSLog(@"################## Cancel search");
     self.searchBar.text = @"";
     [self.searchData removeAllObjects];
     [self.searchData addObjectsFromArray:[self.dbo fetchSearchHistoryByOrder_withLimitNumber:FETCH_SEARCH_NUMBER]];
@@ -109,9 +114,9 @@ static NSString *CellIdentifier = @"Cell";
     
     [self.searchBar resignFirstResponder];
     if ([self.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) {
-        [self.view makeToast:AMLocalizedString(@"EMPTY_SEARCH_TERM",nil) duration:0.3 position:@"center"];
+        [self.view makeToast:AMLocalizedString(@"EMPTY_SEARCH_TERM",nil) duration:0.8 position:@"center"];
     }
-    else if (self.searchData.count > 0 && [((Food *)self.searchData[0]).title caseInsensitiveCompare:self.searchBar.text] == NSOrderedSame) {
+    else if (self.searchData.count > 0 && ([((Food *)self.searchData[0]).title caseInsensitiveCompare:self.searchBar.text] == NSOrderedSame||[((Food *)self.searchData[0]).transTitle caseInsensitiveCompare:self.searchBar.text] == NSOrderedSame)) {
         //Perfect match found locally
         //Open detailed FIV immediately
         
@@ -123,21 +128,25 @@ static NSString *CellIdentifier = @"Cell";
         //NO Pergect Matched result in localDB
         //Send search terms to Server
         [self.view makeToastActivity];
+        TargetLang inlang = Chinese;
+        if ([[UITextInputMode currentInputMode].primaryLanguage hasPrefix:@"en"]){
+            inlang = English;
+        }
         
-        [self.dict serverSearchOCRString:self.searchBar.text andCompletion:^(NSArray *results, BOOL success) {
+        [self.dict serverSearchOCRString:self.searchBar.text inLang:inlang andCompletion:^(NSArray *results, BOOL success) {
             
             [self.view hideToastActivity];
             
             if (success) {
                 if(results.count == 0){
-                    [self.view makeToast:AMLocalizedString(@"NO_SEARCH_RESULT", nil) duration:0.3 position:@"center"];
+                    [self.view makeToast:AMLocalizedString(@"NO_SEARCH_RESULT", nil) duration:0.8 position:@"center"];
                 }
                 else {
                     [self.searchData removeAllObjects];
                     [self.searchData addObjectsFromArray:results];
                     [self.collectionView reloadData];
                     
-                    if([((Food *)results[0]).title caseInsensitiveCompare:self.searchBar.text] == NSOrderedSame){
+                    if([((Food *)results[0]).title caseInsensitiveCompare:self.searchBar.text] == NSOrderedSame ||[((Food *)results[0]).transTitle caseInsensitiveCompare:self.searchBar.text] == NSOrderedSame){
                         
                         //Server return a perfect matched result!
                         [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionTop];
@@ -146,7 +155,7 @@ static NSString *CellIdentifier = @"Cell";
                 }
             }
             else{
-                [self.view makeToast:AMLocalizedString(@"SEARCH_FAILURE", nil) duration:0.3 position:@"bottom"];
+                [self.view makeToast:AMLocalizedString(@"SEARCH_FAILURE", nil) duration:0.8 position:@"bottom"];
             }
         }];
     }
@@ -162,7 +171,17 @@ static NSString *CellIdentifier = @"Cell";
         [self.searchData addObjectsFromArray:[self.dbo fetchSearchHistoryByOrder_withLimitNumber:FETCH_SEARCH_NUMBER]];
     }
     else{
-        [self.searchData addObjectsFromArray:[self.dict localBlurSearchString:searchText]];
+        //int count = [UITextInputMode activeInputModes].count;
+        //UITextInputMode *inputMode = [UITextInputMode activeInputModes][count -1];
+        NSString *langStr = [UITextInputMode currentInputMode].primaryLanguage;
+//        NSLog(@"!!#!$#$#$#^$^*#^$!#$!#$ CURRENT LANG = %@",[UITextInputMode currentInputMode].primaryLanguage);
+        TargetLang inlang=Chinese,tolang=English;
+        if ([langStr hasPrefix:@"en"]) {
+            NSLog(@"#################USER INPUT ENG");
+            inlang = English;
+            tolang = Chinese;
+        }
+        [self.searchData addObjectsFromArray:[self.dict localBlurSearchString:searchText inLang:inlang toLang:tolang]];
     }
     [self.collectionView reloadData];
 }

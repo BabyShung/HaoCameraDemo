@@ -87,11 +87,11 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
     
 }
 
--(NSArray *) localBlurSearchString:(NSString *)typeStr
+-(NSArray *) localBlurSearchString:(NSString *)typeStr inLang:(TargetLang)inlang toLang:(TargetLang)tolang
 {
     NSMutableArray *foods = [NSMutableArray array];
     
-    NSArray *foodDicts = [self.operation blurSearch:typeStr toLang:self.lang];
+    NSArray *foodDicts = [self.operation blurSearch:typeStr inLang:inlang toLang:tolang];
     
     for (NSDictionary *foodDict in foodDicts) {
         
@@ -104,11 +104,17 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
     return foods;
 }
 
--(void) serverSearchOCRString:(NSString *)inputStr andCompletion:(void (^)(NSArray *results, BOOL success))block
+-(void) serverSearchOCRString:(NSString *)inputStr inLang:(TargetLang)inlang andCompletion:(void (^)(NSArray *results, BOOL success))block
 {
     _searchingFood = YES;
     _searchCompletionBlock = block;
-    [self.async getFoodInfo:inputStr andLang:self.lang];
+    if (inlang ==English) {
+        [self.async getFoodInfo:inputStr andLang:self.lang];
+    }
+    else if (inlang == Chinese){
+        [self.async getFoodByName:inputStr];
+    }
+    
 }
 
 //Local search an ocr string
