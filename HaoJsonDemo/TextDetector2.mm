@@ -74,7 +74,7 @@ typedef vector<vector<cv::Point> > TContours;//global
         approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
         cv::Rect tempRect = boundingRect( Mat(contours_poly[i]));
         
-        if(tempRect.width < 3 || tempRect.height < 3){
+        if(tempRect.width < 2 || tempRect.height < 3){
             counter_noise ++;
             
         }else{
