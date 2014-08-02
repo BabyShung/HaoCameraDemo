@@ -107,8 +107,6 @@
 		B8079CD41979C63000D568EC /* HintView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8079CD11979C63000D568EC /* HintView.m */; };
 		B8079CD51979C63000D568EC /* MLPSpotlight.m in Sources */ = {isa = PBXBuildFile; fileRef = B8079CD31979C63000D568EC /* MLPSpotlight.m */; };
 		B8079CDA1979C83400D568EC /* login_ip5_final.png in Resources */ = {isa = PBXBuildFile; fileRef = B8079CD61979C83400D568EC /* login_ip5_final.png */; };
-		B8079CDB1979C83400D568EC /* login_ip4_final.png in Resources */ = {isa = PBXBuildFile; fileRef = B8079CD71979C83400D568EC /* login_ip4_final.png */; };
-		B8079CDC1979C83400D568EC /* register_ip4_final.png in Resources */ = {isa = PBXBuildFile; fileRef = B8079CD81979C83400D568EC /* register_ip4_final.png */; };
 		B8079CDD1979C83400D568EC /* register_ip5_final.png in Resources */ = {isa = PBXBuildFile; fileRef = B8079CD91979C83400D568EC /* register_ip5_final.png */; };
 		B8079CE2197A227D00D568EC /* ASValuePopUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8079CDF197A227D00D568EC /* ASValuePopUpView.m */; };
 		B8079CE3197A227D00D568EC /* ASValueTrackingSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = B8079CE1197A227D00D568EC /* ASValueTrackingSlider.m */; };
@@ -122,6 +120,8 @@
 		B81B18301970A808001C52F6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B81B182F1970A808001C52F6 /* QuartzCore.framework */; };
 		B82353EE192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B82353ED192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib */; };
 		B82353F0192CFC4C00D6BCAC /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = B82353EF192CFC4C00D6BCAC /* tessdata */; };
+		B89988C7198B436C00EA351F /* login_ip4_final.png in Resources */ = {isa = PBXBuildFile; fileRef = B89988C5198B436C00EA351F /* login_ip4_final.png */; };
+		B89988C8198B436C00EA351F /* register_ip4_final.png in Resources */ = {isa = PBXBuildFile; fileRef = B89988C6198B436C00EA351F /* register_ip4_final.png */; };
 		B8AB89C2196AEF1C00F32E4F /* SearchDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = B8AB89C1196AEF1C00F32E4F /* SearchDictionary.m */; };
 		B8AB89CF196C7EA400F32E4F /* star_off.png in Resources */ = {isa = PBXBuildFile; fileRef = B8AB89CB196C7EA400F32E4F /* star_off.png */; };
 		B8AB89D0196C7EA400F32E4F /* star_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8AB89CC196C7EA400F32E4F /* star_off@2x.png */; };
@@ -382,8 +382,6 @@
 		B8079CD21979C63000D568EC /* MLPSpotlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPSpotlight.h; sourceTree = "<group>"; };
 		B8079CD31979C63000D568EC /* MLPSpotlight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPSpotlight.m; sourceTree = "<group>"; };
 		B8079CD61979C83400D568EC /* login_ip5_final.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_ip5_final.png; sourceTree = "<group>"; };
-		B8079CD71979C83400D568EC /* login_ip4_final.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_ip4_final.png; sourceTree = "<group>"; };
-		B8079CD81979C83400D568EC /* register_ip4_final.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = register_ip4_final.png; sourceTree = "<group>"; };
 		B8079CD91979C83400D568EC /* register_ip5_final.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = register_ip5_final.png; sourceTree = "<group>"; };
 		B8079CDE197A227D00D568EC /* ASValuePopUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASValuePopUpView.h; sourceTree = "<group>"; };
 		B8079CDF197A227D00D568EC /* ASValuePopUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASValuePopUpView.m; sourceTree = "<group>"; };
@@ -404,6 +402,8 @@
 		B81B182F1970A808001C52F6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B82353ED192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
 		B82353EF192CFC4C00D6BCAC /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
+		B89988C5198B436C00EA351F /* login_ip4_final.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_ip4_final.png; sourceTree = "<group>"; };
+		B89988C6198B436C00EA351F /* register_ip4_final.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = register_ip4_final.png; sourceTree = "<group>"; };
 		B8AB89C0196AEF1C00F32E4F /* SearchDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchDictionary.h; sourceTree = "<group>"; };
 		B8AB89C1196AEF1C00F32E4F /* SearchDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchDictionary.m; sourceTree = "<group>"; };
 		B8AB89CB196C7EA400F32E4F /* star_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_off.png; sourceTree = "<group>"; };
@@ -1109,11 +1109,11 @@
 		B8B6105B1959268B005268D5 /* LoginRegister */ = {
 			isa = PBXGroup;
 			children = (
+				B89988C5198B436C00EA351F /* login_ip4_final.png */,
+				B89988C6198B436C00EA351F /* register_ip4_final.png */,
 				B8032D68197D67B3001B9040 /* login_logo_eng.png */,
 				B8032D69197D67B3001B9040 /* login_logo_chinese.png */,
 				B8079CD61979C83400D568EC /* login_ip5_final.png */,
-				B8079CD71979C83400D568EC /* login_ip4_final.png */,
-				B8079CD81979C83400D568EC /* register_ip4_final.png */,
 				B8079CD91979C83400D568EC /* register_ip5_final.png */,
 				B8079AFB1977757200D568EC /* Login_logo_transparent.png */,
 				B8B6105C19592696005268D5 /* blackBG.JPG */,
@@ -1497,7 +1497,6 @@
 				B8AB89D0196C7EA400F32E4F /* star_off@2x.png in Resources */,
 				B8032D86197D9962001B9040 /* go_back@2x.png in Resources */,
 				B8079CED197B06E000D568EC /* bold_cross@2x.png in Resources */,
-				B8079CDC1979C83400D568EC /* register_ip4_final.png in Resources */,
 				B8032D46197CB438001B9040 /* tutorial_1_ip4.png in Resources */,
 				B8BBB02F1964FFA9007CE548 /* close-icon@2x.png in Resources */,
 				B8032D6B197D67B3001B9040 /* login_logo_chinese.png in Resources */,
@@ -1516,6 +1515,7 @@
 				B8079B641978CE7A00D568EC /* user@2x.png in Resources */,
 				B8079CDA1979C83400D568EC /* login_ip5_final.png in Resources */,
 				B8032D7E197D7A6B001B9040 /* tutorial_dashcircle@2x.png in Resources */,
+				B89988C8198B436C00EA351F /* register_ip4_final.png in Resources */,
 				B8F1794219742B2500A236B1 /* Camera_02.png in Resources */,
 				B8032D77197D70A2001B9040 /* EDB_search.png in Resources */,
 				B8B60FD319591E07005268D5 /* like_greyIcon.png in Resources */,
@@ -1540,6 +1540,7 @@
 				B8032D65197D64C1001B9040 /* captureArea_Chinese.png in Resources */,
 				B8032D14197C7302001B9040 /* tutorial_1_ip5.png in Resources */,
 				B8032C49197B70D6001B9040 /* intro_arrow_left_down.png in Resources */,
+				B89988C7198B436C00EA351F /* login_ip4_final.png in Resources */,
 				B8079B621978CE7A00D568EC /* lock.png in Resources */,
 				B8032C4E197B7567001B9040 /* aboutus_logo.png in Resources */,
 				B82353F0192CFC4C00D6BCAC /* tessdata in Resources */,
@@ -1582,7 +1583,6 @@
 				B8B60FD219591E07005268D5 /* commentButton.png in Resources */,
 				B803CFB019705F17006080D0 /* indicate_1@2x.jpg in Resources */,
 				B8032D30197CA144001B9040 /* touchdown_eng@2x.png in Resources */,
-				B8079CDB1979C83400D568EC /* login_ip4_final.png in Resources */,
 				B8FA465018F9E954007DA680 /* Main.storyboard in Resources */,
 				B8B60FD419591E07005268D5 /* likeButton_highlighted.png in Resources */,
 				B8032D67197D64C1001B9040 /* captureArea_eng.png in Resources */,
