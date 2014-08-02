@@ -29,13 +29,11 @@ static NSMutableDictionary *loaders;
 
 @implementation M13AsyncImageLoader
 
-+ (M13AsyncImageLoader *)defaultLoader
-{
++ (M13AsyncImageLoader *)defaultLoader{
     return [M13AsyncImageLoader loaderWithName:@"Default"];
 }
 
-+ (M13AsyncImageLoader *)loaderWithName:(NSString *)name
-{
++ (M13AsyncImageLoader *)loaderWithName:(NSString *)name{
     return [M13AsyncImageLoader loaderWithName:name cleanup:NO];
 }
 
@@ -201,6 +199,10 @@ static NSMutableDictionary *loaders;
     [_connectionQueue removeObjectsInArray:objectsToRemove];
     [_activeConnections removeObjectsInArray:objectsToRemove];
     [self updateConnections];
+//    dispatch_queue_t layerQ = dispatch_queue_create("ImageQueue", NULL);
+//    dispatch_async(layerQ, ^{
+//        [self updateConnections];
+//    });
 }
 
 //entry point

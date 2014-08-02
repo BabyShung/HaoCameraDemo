@@ -93,7 +93,6 @@ const CGFloat CommentRateViewWidth = 260;
 
         //init all UI controls
         [self loadControls];
-        
     }
     return self;
 }
@@ -137,7 +136,6 @@ const CGFloat CommentRateViewWidth = 260;
     self.translateLabel.textColor = [UIColor blackColor];
     self.translateLabel.backgroundColor = [UIColor clearColor];
     [self.scrollview addSubview:self.translateLabel];
-
 
 /*--------------Following Views Will Be Hidden In Small Layout------------------*/
     
@@ -219,8 +217,7 @@ const CGFloat CommentRateViewWidth = 260;
  
  ************************/
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     //User is not scrolling photo collection view
     //AND the FIV reaches end
     if (scrollView.contentOffset.y + scrollView.frame.size.height == scrollView.contentSize.height && !self.myFood.isLoadingComments && scrollView.frame.size.height != PhotoCollectionViewHeight) {
@@ -334,7 +331,7 @@ const CGFloat CommentRateViewWidth = 260;
     CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"Cell %d", (int)indexPath.row]];
 
     if (!cell) {
-    NSLog(@"+++++++++++++++++ FIV +++++++++++++++++++ %@ : INSERT COMMENT TBL text = %@",self.myFood.title,text);
+    //NSLog(@"+++++++++++++++++ FIV +++++++++++++++++++ %@ : INSERT COMMENT TBL text = %@",self.myFood.title,text);
         cell = [[CommentCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"Cell %d", (int)indexPath.row]];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -407,7 +404,7 @@ const CGFloat CommentRateViewWidth = 260;
     //self.readMoreBtn.alpha = newAlpha;
     self.noCommentLabel.alpha = newAlpha;
 
-    NSLog(@"+++ FIV %@ +++  %d LAYOUT SUBVIEW: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.isScrollEnabled,self.scrollview.contentSize.height,self.scrollview.bounds.size.height);
+    //NSLog(@"+++ FIV %@ +++  %d LAYOUT SUBVIEW: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.isScrollEnabled,self.scrollview.contentSize.height,self.scrollview.bounds.size.height);
     
 }
 
@@ -462,7 +459,7 @@ const CGFloat CommentRateViewWidth = 260;
 //Load More comments
 -(void)refreshComments{
     if (!self.myFood.isLoadingComments) {
-        NSLog(@"+++++++++++++ FIV ++++++++++++++++ : refresh comments current count = %d",(int)self.myFood.comments.count);
+        //NSLog(@"+++++++++++++ FIV ++++++++++++++++ : refresh comments current count = %d",(int)self.myFood.comments.count);
         if (self.myFood.comments.count == 0){
             _noCommentLabel.text= AMLocalizedString(@"COMMENT_LOADING_MSG", nil);
             _noCommentLabel.hidden = NO;
@@ -502,7 +499,7 @@ const CGFloat CommentRateViewWidth = 260;
     NSInteger oldCount = [self.commentsTableView numberOfRowsInSection:0];
 
     if (newCount>oldCount){
-        NSLog(@"+++ FIV +++ : I refreshed and get %d comments!",(int)(newCount-oldCount));
+        //NSLog(@"+++ FIV +++ : I refreshed and get %d comments!",(int)(newCount-oldCount));
         
         CGFloat deltaHeight = 0;
         
@@ -524,12 +521,12 @@ const CGFloat CommentRateViewWidth = 260;
         self.commentsTableView.frame =  CGRectMake(self.commentsTableView.frame.origin.x, self.commentsTableView.frame.origin.y, self.commentsTableView.frame.size.width, self.commentsTableView.frame.size.height + deltaHeight);
         //self.scrollview.frame =CGRectMake(self.scrollview.frame.origin.x, self.scrollview.frame.origin.y, self.scrollview.frame.size.width, self.scrollview.frame.size.height + deltaHeight);
 
-        NSLog(@"+++ FIV %@ +++ UPD CMT UI: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.contentSize.height,self.scrollview.frame.size.height);
+        //NSLog(@"+++ FIV %@ +++ UPD CMT UI: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.contentSize.height,self.scrollview.frame.size.height);
         if (!self.commentsTableView.delegate) {
             [self configCommentTable];
         }
         else{
-            NSLog(@"++++++++++++ FIV +++++++++++++++ : COMMENTTABLE RELOAD WHEN UPDATING UI");
+            //NSLog(@"++++++++++++ FIV +++++++++++++++ : COMMENTTABLE RELOAD WHEN UPDATING UI");
             [self.commentsTableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationFade];
             
         }
