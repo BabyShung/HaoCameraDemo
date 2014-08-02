@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "LocalizationSystem.h"
 
-
 @protocol DescriptionViewDelegate <NSObject>
 
 //Content text change fires this delegate

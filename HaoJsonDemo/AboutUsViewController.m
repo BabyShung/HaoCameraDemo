@@ -9,7 +9,6 @@
 #import "AboutUsViewController.h"
 #import "LoadControls.h"
 #import "LocalizationSystem.h"
-#import "GeneralControl.h"
 
 @interface AboutUsViewController ()
 
@@ -24,13 +23,11 @@
 
     self.contactUsLabel.text = AMLocalizedString(@"CONTACT_US_ABOUT_US", nil);
     
-    
     UIButton *btn = [LoadControls createRoundedBackButton];
     [btn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
     
     self.textView.text = AMLocalizedString(@"ABOUT_US", nil);
-    
 }
 
 - (void) previousPagePressed:(id)sender {

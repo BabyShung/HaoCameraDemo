@@ -12,7 +12,6 @@
 #import "ShareData.h"
 #import "languageSetting.h"
 #import "UIView+Toast.h"
-#import "GeneralControl.h"
 
 const NSString *langCellIdentity = @"Cell";
 
@@ -52,12 +51,6 @@ const NSString *langCellIdentity = @"Cell";
     self.targetLanguage = [self.langSettings getAppLanguage] - 1;
     
     self.checkImage = [UIImage imageNamed:@"check_black.png"];
-    
-    
-    
-
-    
-    
 }
 
 -(void)loadControls{
@@ -96,20 +89,13 @@ const NSString *langCellIdentity = @"Cell";
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
  
-    
     self.targetLanguage = indexPath.row;
-    
     
     if([self.langSettings setAppLanguage:self.targetLanguage+1]){
         [self.view makeToast:AMLocalizedString(@"LANGUAGE_SETTING_DONE", nil)];
     }
-    
-    
-    
     [self.collectionView reloadData];
     
 }
-
-
 
 @end

@@ -32,7 +32,6 @@
 
 @interface CameraView : UIView
 
-
 /******************
  
  Camera properties
@@ -67,9 +66,6 @@
 - (void) closeWithCompletion:(void (^)(void))completion;
 
 - (void) closeWithCompletionWithoutDismissing:(void (^)(void))completion ;
-
-//Use this method for programmatically acquire a photo
-- (void) capturePhoto;
 
 - (instancetype)initWithFrame:(CGRect)frame andOrientation:(UIInterfaceOrientation)iot andAppliedVC:(MainViewController *)VC;
 

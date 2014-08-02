@@ -19,7 +19,6 @@
 #import "Flurry.h"
 #import "GeneralControl.h"
 #import "NSUserDefaultControls.h"
-#import "LocalizationSystem.h"
 
 #define SCROLLVIEW_CONTENTOFF_WhenClickTextfield 112
 
@@ -37,14 +36,14 @@
 
 @implementation LoginViewController
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     [self initUI];
     
-    
-    //cache keyboard
+        //cache keyboard
     [UIResponder cacheKeyboard];
     
     //[self checkAndStartLoadingAnimation];
@@ -61,7 +60,9 @@
     [self.skipBtn setTitle:AMLocalizedString(@"SkipLogin", nil) forState:UIControlStateNormal];
     self.loginImageView.image = iPhone5?[UIImage imageNamed:@"login_ip5_final.png"]:[UIImage imageNamed:@"login_ip4_final.png"];
     self.loginLogoView.image = [UIImage imageNamed:AMLocalizedString(@"LOGIN_LOGO_WORD_PIC", nil)];
+    
 }
+
 
 -(void)checkUserInNSUserDefaultAndPerformLogin{
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentUser"]) {
@@ -72,7 +73,6 @@
         [GeneralControl transitionToVC:self withToVCStoryboardId:@"Frame" withDuration:0];
         
         NSLog(@"******************  Second Login: %@",[User sharedInstance]);
-        
         
     }else{
         self.menuInteractor = [[MKTransitionCoordinator alloc] initWithParentViewController:self];
@@ -101,7 +101,6 @@
         [self.view addGestureRecognizer:singleTap];
     }
 }
-
 
 #pragma mark - MKTransitionCoordinatorDelegate Methods
 - (UIViewController*) toViewControllerForInteractivePushFromPoint:(CGPoint)locationInWindow {

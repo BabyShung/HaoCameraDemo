@@ -22,9 +22,7 @@
 #import "UIButton+Bootstrap.h"
 #import "IPDashedLineView.h"
 #import "Flurry.h"
-#import "LocalizationSystem.h"
 #import "GeneralControl.h"
-#import "introContainer.h"
 
 #define CROPVIEW_HEIGHT iPhone5?358:298
 
@@ -119,7 +117,6 @@ UICollectionViewDelegate>
     
     [self.descriptionLabel sizeToFit];
 }
-
 
 - (void) previousPagePressed:(id)sender {
     [self.settingDelegate slideToPreviousPage];

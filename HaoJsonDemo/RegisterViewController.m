@@ -17,7 +17,6 @@
 #import "Flurry.h"
 #import "GeneralControl.h"
 #import "NSUserDefaultControls.h"
-#import "LocalizationSystem.h"
 
 #define SignupBTNMoving 60
 

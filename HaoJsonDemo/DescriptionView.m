@@ -29,11 +29,8 @@ static NSString *DescriptionFontName = @"HelveticaNeue-Light";
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self)
-    {
+    if (self){
         [self loadControls];
-
-        
     }
     return self;
 }
@@ -41,8 +38,7 @@ static NSString *DescriptionFontName = @"HelveticaNeue-Light";
 -(id)init
 {
     self = [super init];
-    if (self)
-    {
+    if (self){
         [self loadControls];
     }
     return self;
@@ -102,7 +98,6 @@ static NSString *DescriptionFontName = @"HelveticaNeue-Light";
         _readMoreBtn.hidden = NO;
         self.frame = (CGRect){.origin = self.frame.origin, .size={self.frame.size.width, DescriptionContentLabelHeight+DescriptionReadMoreButtonHeight}};
 
-        
     }
     else{
         //Text can be showed in the constraint rect
@@ -111,16 +106,9 @@ static NSString *DescriptionFontName = @"HelveticaNeue-Light";
         _readMoreBtn.hidden = YES;
         self.frame = (CGRect){.origin = self.frame.origin, .size={self.frame.size.width, expectedRect.size.height+DescriptionReadMoreButtonHeight}};
 
-        
-        
-        
     }
-    
     _contentLabel.text = contentText;
     [self.delegate DesciprionViewTextDidChanged];
-    
-
-
     
 }
 
@@ -135,9 +123,7 @@ static NSString *DescriptionFontName = @"HelveticaNeue-Light";
     _readMoreBtn.frame = CGRectMake(CGRectGetMaxX(_contentLabel.frame)-DescriptionReadMoreButtonWidth, CGRectGetMaxY(_contentLabel.frame), DescriptionReadMoreButtonWidth, DescriptionReadMoreButtonHeight);
     _transparentBtn.frame = _contentLabel.frame;
 
-    
 }
-
 
 -(void)readMoreBtnPressed
 {

@@ -14,10 +14,8 @@
 #import "CommentCell.h"
 #import "LoadControls.h"
 #import "ED_Color.h"
-#import "User.h"
 #import "HATransparentView.h"
 #import "DXStarRatingView.h"
-#import "LocalizationSystem.h"
 
 static NSString *CellIdentifier = @"Cell";
 
