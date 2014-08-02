@@ -19,10 +19,8 @@
 @implementation LoadControls
 
 +(UIImage *) scaleImage:(UIImage *)image withScale:(CGFloat)scale withRect:(CGRect)rect andCropSize:(CGSize)size{
-    
     //Crop View image, size is just the one on screen, CGImage is the original one
     // START CONTEXT
-    //UIGraphicsBeginImageContext(size);
     UIImage *result;
     UIGraphicsBeginImageContextWithOptions(size, YES, scale);//this size is just cropView size,2.0 is for retina resolution !!!!!! important
     [image drawInRect:rect];
@@ -136,7 +134,5 @@
     button.imageView.image = [UIImage imageNamed:@"Camera_02.png"];
     return button;
 }
-
-
 
 @end

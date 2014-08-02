@@ -310,7 +310,6 @@
     }
     if (isRotateWaitingForResizedImage == YES)
         _capturedImageView.contentMode = UIViewContentModeScaleAspectFit;
-    
 }
 
 #pragma mark CLOSE
@@ -324,7 +323,6 @@
         [self clearResourse:completion];
         
         [self.appliedVC removeFromParentViewController];
-        
     }];
 }
 
@@ -357,7 +355,6 @@
     
     self.camDelegate = nil;
 }
-
 
 /******************
  
@@ -491,8 +488,7 @@
 
 #pragma mark - ASValueTrackingSliderDataSource
 
-- (NSString *)slider:(ASValueTrackingSlider *)slider stringForValue:(float)value;
-{
+- (NSString *)slider:(ASValueTrackingSlider *)slider stringForValue:(float)value;{
     NSLog(@"value: %f",value);
     
     [CATransaction begin];

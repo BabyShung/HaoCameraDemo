@@ -39,8 +39,6 @@
     }
 }
 
-
-
 +(void)showErrorMsg:(NSString *)msg withTextField:(UITextField *)textfield{
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:AMLocalizedString(@"OOPS", nil) message:msg delegate:nil cancelButtonTitle:AMLocalizedString(@"Cancel", nil) otherButtonTitles: nil];
     [alert showWithHandler:^(UIAlertView *alertView, NSInteger buttonIndex) {
@@ -72,9 +70,7 @@
                     }];
 }
 
-
 +(void)updatingUI{
-    
     AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDlg.fvc updateAllViewControllers];
 }

@@ -35,8 +35,7 @@
 
 @implementation EDCommentView
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
         //_fid = fid;
@@ -57,7 +56,6 @@
         //[_textView setKeyboardType:UIKeyboardTypeASCIICapable];
         _textView.delegate = self;
         [_textView becomeFirstResponder];
-        
 
         _countStr = [NSMutableString stringWithFormat:@"%d",(int)(CommentMaxLength-_textView.text.length)];
 
@@ -66,15 +64,12 @@
         _countLabel.text =_countStr;
         _countLabel.textAlignment = NSTextAlignmentRight;
         
-
-        
         [self addSubview:_titleLabel];
         [self addSubview:_textView];
         [self addSubview:_rateView];
         [self addSubview:_countLabel];
         
     }
-    
     return self;
 }
 
@@ -124,26 +119,6 @@
 -(void)textViewDidChange:(UITextView *)textView
 {
     NSLog(@"+++++++++++++ EDCOMMENT ++++++++++++++++++ : Text Change to %@!",textView.text);
-
-//    if ([_textView.text characterAtIndex:MAX((_textView.text.length-1), 0)] =='\n')
-//    {
-//        _textView.text = [_textView.text substringToIndex:MAX((_textView.text.length-1), 0)];
-//        if ([_textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length  == 0)
-//        {
-//            [self makeToast:AMLocalizedString(@"EMPTY_COMMENT", nil) duration:0.5 position:@"center"];
-//        }
-//        else if(_textView.text.length > CommentMaxLength)
-//        {
-//            [self makeToast:AMLocalizedString(@"COMMENT_TOO_LONG", nil) duration:0.5 position:@"center"];
-//        }
-//        else{
-//            
-//            NSLog(@"+++++++++++++++ EDCOMMENT VIEW +++++++++++ : RETURNED");
-//            [self.delegate EDCommentView:self KeyboardReturnedWithStars:[_rateView currentStar]];
-//        }
-//        return;
-//        
-//    }
     if (textView.text.length<CommentMaxLength) {
         _countLabel.textColor = [UIColor lightGrayColor];
         
@@ -158,9 +133,8 @@
     
     
 }
+
 -(void)close{
-    
-    
     /*******     Clean Up all controllers!!!!! *******/
     [_titleLabel removeFromSuperview];
     [_rateView removeFromSuperview];
@@ -168,20 +142,6 @@
     [_countLabel removeFromSuperview];
     
     [super close];
-    //[self removeFromSuperview];
-    
-    //[self.delegate EDCommentViewDidClosed];
-    
 }
-
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

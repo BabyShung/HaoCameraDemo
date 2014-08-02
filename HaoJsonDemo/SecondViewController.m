@@ -32,7 +32,6 @@
 
 @implementation SecondViewController
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -41,9 +40,7 @@
     _backBtn = [LoadControls createRoundedButton_Image:@"ED_back_2.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andLeftBottomElseRightBottom:YES];
     [_backBtn addTarget:self action:@selector(backBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     _backBtn.alpha = 0;
-    //_backBtn.hidden = YES;
     [self.view insertSubview:_backBtn aboveSubview:self.collectionView];
-    
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
@@ -89,7 +86,6 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    
     //set up buttons
     [self setupButtonAndAnimate];
     

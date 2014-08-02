@@ -1833,7 +1833,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "Blue Cheese";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "3E7E473F-9513-4741-A6BB-7D9EA81F00FE";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Distribution;
@@ -1954,7 +1954,7 @@
 				OTHER_LDFLAGS = "";
 				"OTHER_LDFLAGS[arch=*]" = "";
 				PRODUCT_NAME = "Blue Cheese";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "3E7E473F-9513-4741-A6BB-7D9EA81F00FE";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1982,7 +1982,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "Blue Cheese";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "3E7E473F-9513-4741-A6BB-7D9EA81F00FE";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -12,11 +12,9 @@ static NSString *LoadingBtnTextFont = @"HelveticaNeue-Light";
 
 #define LoadingBtnFontSize 18
 
-
 @implementation LoadingIndicatorView
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
         _loadingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -31,15 +29,14 @@ static NSString *LoadingBtnTextFont = @"HelveticaNeue-Light";
     return self;
 }
 
--(BOOL)isLoading
-{
+-(BOOL)isLoading{
     if ([_loadingBtn.titleLabel.text isEqualToString:AMLocalizedString(@"FIV_LOADING_MSG", nil)]) {
         return YES;
     }
     return NO;
 }
--(BOOL)isFailed
-{
+
+-(BOOL)isFailed{
     if ([_loadingBtn.titleLabel.text isEqualToString:AMLocalizedString(@"FIV_LOADING_FAIL", nil)]) {
         return YES;
     }
@@ -53,25 +50,18 @@ static NSString *LoadingBtnTextFont = @"HelveticaNeue-Light";
     return YES;
 }
 
--(void)showLoadingMsg
-{
+-(void)showLoadingMsg{
     self.loadingBtn.enabled = NO;
-    
     [self.loadingBtn setTitle:AMLocalizedString(@"FIV_LOADING_MSG", nil) forState:UIControlStateNormal];
-    
 }
 
--(void)showFailureMsg
-{
+-(void)showFailureMsg{
     self.loadingBtn.enabled = YES;
-
     [self.loadingBtn setTitle:AMLocalizedString(@"FIV_LOADING_FAIL", nil) forState:UIControlStateNormal];
-
 }
 
 -(void)hide{
     [self.loadingBtn setTitle:@"" forState:UIControlStateNormal];
-    NSLog(@"_____________________________Loading indicator hide");
     self.loadingBtn.enabled = NO;
     self.loadingBtn.hidden = YES;
     self.hidden = YES;
@@ -79,17 +69,12 @@ static NSString *LoadingBtnTextFont = @"HelveticaNeue-Light";
 
 -(void)loadingBtnPressed{
     [self.delegate LoadingIndicatorFireReLoad];
-
 }
 
 
--(void)layoutSubviews
-{
+-(void)layoutSubviews{
     [super layoutSubviews];
-    
     self.loadingBtn.frame = self.frame;
-    NSLog(@"++++++++++++ LOADING INDICATOR ++++++++++++++ : should hide %i",self.shouldBeHidden);
-    
     if (self.frame.size.height < [[UIScreen mainScreen] bounds].size.height ) {
         self.loadingBtn.hidden = YES;
         self.hidden = YES;
@@ -105,14 +90,5 @@ static NSString *LoadingBtnTextFont = @"HelveticaNeue-Light";
 
     [super removeFromSuperview];
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

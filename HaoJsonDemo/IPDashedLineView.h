@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Intrepid Pursuits. All rights reserved.
 //
 
-
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger, IPDashedLineViewDirection) {
@@ -16,7 +15,6 @@ typedef NS_ENUM(NSInteger, IPDashedLineViewDirection) {
     IPDashedLineViewDirectionVerticalFromTop,
     IPDashedLineViewDirectionVerticalFromBottom,
 };
-
 
 /**
  UIView with a customizable dashed look, generally used for dashed lines.

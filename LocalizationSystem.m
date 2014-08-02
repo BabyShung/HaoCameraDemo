@@ -16,8 +16,7 @@ static LocalizationSystem *_sharedLocalSystem = nil;
 //Current application bungle to get the languages.
 static NSBundle *bundle = nil;
 
-+ (LocalizationSystem *)sharedLocalSystem
-{
++ (LocalizationSystem *)sharedLocalSystem{
 	@synchronized([LocalizationSystem class])
 	{
 		if (!_sharedLocalSystem){
@@ -29,8 +28,7 @@ static NSBundle *bundle = nil;
 	return nil;
 }
 
-+(id)alloc
-{
++(id)alloc{
 	@synchronized([LocalizationSystem class])
 	{
 		NSAssert(_sharedLocalSystem == nil, @"Attempted to allocate a second instance of a singleton.");
@@ -41,9 +39,7 @@ static NSBundle *bundle = nil;
 	return nil;
 }
 
-
-- (id)init
-{
+- (id)init{
     if ((self = [super init])) 
     {
 		//empty.
@@ -56,11 +52,9 @@ static NSBundle *bundle = nil;
 //
 // example calls:
 // AMLocalizedString(@"Text to localize",@"Alternative text, in case hte other is not find");
-- (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)comment
-{
+- (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)comment{
 	return [bundle localizedStringForKey:key value:comment table:nil];
 }
-
 
 // Sets the desired language of the ones you have.
 // example calls:
@@ -103,6 +97,5 @@ static NSBundle *bundle = nil;
 {
 	bundle = [NSBundle mainBundle];
 }
-
 
 @end

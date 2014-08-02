@@ -26,7 +26,6 @@
 #import "NSUserDefaultControls.h"
 #import "introContainer.h"
 
-
 #define SCALE_FACTOR_IMAGE 2.5f
 
 static NSString *CellIdentifier = @"Cell";
@@ -136,8 +135,6 @@ static NSString *CellIdentifier = @"Cell";
     
     [self.foodArray removeAllObjects];
     [self.collectionView reloadData];
-    
-    //[M13AsyncImageLoader cleanupLoaderAll];
 }
 
 //right bottom button
@@ -257,8 +254,7 @@ static NSString *CellIdentifier = @"Cell";
 
 #pragma mark --------- Tesseract
 //tesseract processing
--(NSString *)recognizeImageWithTesseract:(UIImage *)img
-{
+-(NSString *)recognizeImageWithTesseract:(UIImage *)img{
     [_tesseract setImage:img]; //image to check
     [_tesseract recognize];//processing
     NSString *recognizedText = [_tesseract recognizedText];
@@ -282,8 +278,7 @@ static NSString *CellIdentifier = @"Cell";
         NSMutableArray *localFoods = [NSMutableArray array];
         self.imgArray = [self.textDetector2 findTextArea:originalImage];
         NSLog(@"+++ MAIN VC +++ : text areas %d",(int)self.imgArray.count);
-        if ([_imgArray count] > 0)
-        {
+        if ([_imgArray count] > 0){
             for(UIImage *preImage in _imgArray){
                 
                 _tempMat= [preImage CVMat];

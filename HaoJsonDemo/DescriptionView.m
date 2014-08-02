@@ -23,11 +23,9 @@ static NSString *DescriptionFontName = @"HelveticaNeue-Light";
 
 @end
 
-
 @implementation DescriptionView
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self){
         [self loadControls];
@@ -35,8 +33,7 @@ static NSString *DescriptionFontName = @"HelveticaNeue-Light";
     return self;
 }
 
--(id)init
-{
+-(id)init{
     self = [super init];
     if (self){
         [self loadControls];
@@ -44,8 +41,7 @@ static NSString *DescriptionFontName = @"HelveticaNeue-Light";
     return self;
 }
 
--(void)loadControls
-{
+-(void)loadControls{
     _boundedContentWidth = [[UIScreen mainScreen] bounds].size.width;
     
     _contentLabel = [[RQShineLabel alloc] init];
@@ -91,15 +87,13 @@ static NSString *DescriptionFontName = @"HelveticaNeue-Light";
                                                 context:nil];
     
     //Text too long, show read more button
-    if (expectedRect.size.height > DescriptionContentLabelHeight)
-    {
+    if (expectedRect.size.height > DescriptionContentLabelHeight){
         [_readMoreBtn setTitle:AMLocalizedString(@"FIV_READ_MORE", nil) forState:UIControlStateNormal];
         _transparentBtn.hidden = NO;
         _readMoreBtn.hidden = NO;
         self.frame = (CGRect){.origin = self.frame.origin, .size={self.frame.size.width, DescriptionContentLabelHeight+DescriptionReadMoreButtonHeight}};
 
-    }
-    else{
+    }else{
         //Text can be showed in the constraint rect
         //Change height accordingly
         _transparentBtn.hidden = YES;
@@ -112,11 +106,8 @@ static NSString *DescriptionFontName = @"HelveticaNeue-Light";
     
 }
 
-
-
 -(void)setFrame:(CGRect)frame{
-    
-    NSLog(@"~~~~~~~~~~~~~+++++++++++++ DESCRIPTION SET FRAME+++++++++++++++~~~~~~~~~~~~~");
+    //NSLog(@"~~~~~~~~~~~~~+++++++++++++ DESCRIPTION SET FRAME+++++++++++++++~~~~~~~~~~~~~");
     [super setFrame:(CGRect){.origin =frame.origin, .size ={frame.size.width, MAX(DescriptionContentLabelHeight+DescriptionReadMoreButtonHeight, frame.size.height) } }];
     
     _contentLabel.frame = (CGRect){.origin =self.bounds.origin, .size ={self.frame.size.width, self.frame.size.height-DescriptionReadMoreButtonHeight} };
@@ -125,29 +116,23 @@ static NSString *DescriptionFontName = @"HelveticaNeue-Light";
 
 }
 
--(void)readMoreBtnPressed
-{
+-(void)readMoreBtnPressed{
     CGRect expectedRect = [self.contentText boundingRectWithSize:CGSizeMake(_boundedContentWidth, MAXFLOAT)
                                                     options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
                                                  attributes:@{NSFontAttributeName:[UIFont fontWithName:DescriptionFontName size:DescriptionFontSize]}
                                                     context:nil];
-    if ([self.readMoreBtn.titleLabel.text isEqualToString:AMLocalizedString(@"FIV_READ_MORE", nil)])
-    {
+    if ([self.readMoreBtn.titleLabel.text isEqualToString:AMLocalizedString(@"FIV_READ_MORE", nil)]){
         [self.readMoreBtn setTitle:AMLocalizedString(@"FIV_READ_LESS", nil) forState:UIControlStateNormal];
         
         self.frame = (CGRect){.origin = self.frame.origin, .size={self.frame.size.width, expectedRect.size.height+DescriptionReadMoreButtonHeight}};
         
         
-    }else
-    {
+    }else{
         [self.readMoreBtn setTitle:AMLocalizedString(@"FIV_READ_MORE", nil) forState:UIControlStateNormal];
         
         self.frame = (CGRect){.origin = self.frame.origin, .size={self.frame.size.width, DescriptionContentLabelHeight+DescriptionReadMoreButtonHeight}};
-
-        
     }
     [self.delegate DesciprionViewReadMoreFired];
-
 }
 
 -(void)shine{
@@ -156,20 +141,11 @@ static NSString *DescriptionFontName = @"HelveticaNeue-Light";
 
 -(void)config{
     _contentLabel.textColor = [UIColor blackColor];
-
 }
 
 -(void)resetData{
     [_readMoreBtn setTitle:@"" forState:UIControlStateNormal];
     _readMoreBtn.hidden = YES;
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end
