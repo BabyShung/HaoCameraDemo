@@ -188,7 +188,7 @@
     return translations;
 }
 
--(NSArray *)blurSearch:(NSString *)inputStr inLangTable:(TargetLang)lang
+-(NSArray *)blurSearch:(NSString *)inputStr toLang:(TargetLang)lang
 {
     NSMutableArray *foodDicts = [NSMutableArray array];
     

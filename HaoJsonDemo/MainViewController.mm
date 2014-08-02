@@ -285,6 +285,7 @@ static NSString *CellIdentifier = @"Cell";
         UIImage *onScreenImage = [LoadControls scaleImage:image withScale:SCALE_FACTOR_IMAGE withRect:rect andCropSize:size];
         UIImage *originalImage = [UIImage imageWithCGImage:onScreenImage.CGImage];
         NSMutableArray *localFoods = [NSMutableArray array];
+        NSMutableArray *serverFoods = [NSMutableArray array];
         self.imgArray = [self.textDetector2 findTextArea:originalImage];
         NSLog(@"+++ MAIN VC +++ : text areas %d",(int)self.imgArray.count);
         if ([_imgArray count] > 0)
@@ -311,8 +312,16 @@ static NSString *CellIdentifier = @"Cell";
                     [self addFoodItems:localFoods];
                     
                 }
+                
+                [dict serverSearchOCRString:ocrStr andCompletion:^(NSArray *results, BOOL success) {
+                    if (results.count > 0){
+                        NSLog(@"++++++++++++ MVC +++++++++++++ : SERVER RETURNED %d  food results - - - - - - - - - - - - - ",results.count);
+                        [serverFoods addObjectsFromArray:results];
+                        [self addFoodItems:results];
+                    }
+                }];
             }
-            if(localFoods.count == 0){
+            if(localFoods.count+serverFoods.count == 0){
                 //can't search anything from DB
                 [self stopAnimationAndShowErrorToast];
             }
