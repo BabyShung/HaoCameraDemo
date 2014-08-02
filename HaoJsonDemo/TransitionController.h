@@ -6,13 +6,11 @@
 //  Copyright (c) 2014 Heberti Almeida. All rights reserved.
 //
 
-
 @protocol TransitionControllerDelegate <NSObject>
 
 - (void)interactionBeganAtPoint:(CGPoint)point;
 
 @end
-
 
 @interface TransitionController : NSObject  <UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning, UIGestureRecognizerDelegate,UINavigationControllerDelegate>
 

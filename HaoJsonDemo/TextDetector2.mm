@@ -74,7 +74,7 @@ typedef vector<vector<cv::Point> > TContours;//global
         approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
         cv::Rect tempRect = boundingRect( Mat(contours_poly[i]));
         
-        if(tempRect.width < 3 || tempRect.height < 3){
+        if(tempRect.width < 2 || tempRect.height < 3){
             counter_noise ++;
             
         }else{
@@ -163,7 +163,7 @@ bool compareLoc(const cv::Rect &a,const cv::Rect &b){
     for( int i = 0; i< rects.size(); i++ )
     {
         flag = 0;
-        cv::Rect rect0 = rects[i]; //temp
+        cv::Rect rect0 = rects[i]; //temp Rect
         
         if(rect0.height==0 || rect0.width == 0){
             break;

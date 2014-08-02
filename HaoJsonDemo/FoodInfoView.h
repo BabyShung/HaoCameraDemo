@@ -18,10 +18,7 @@
 #import "LoadingIndicatorView.h"
 #import "DescriptionView.h"
 
-
-
 @interface FoodInfoView : UIView
-
 
 //components
 @property (strong,nonatomic) UILabel *titleLabel;
@@ -47,8 +44,6 @@
 
 //rendering data
 @property (strong,nonatomic) Food *myFood;
-
-
 
 //methods
 

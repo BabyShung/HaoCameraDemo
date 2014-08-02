@@ -21,7 +21,6 @@
 
 @property (strong, nonatomic) FrameViewController *fvc;
 
-
 -(CameraView *)getCamView;
 -(void)closeCamera;
 

@@ -117,11 +117,6 @@
     });
 }
 
-//for debug
--(void)slideToDebugPage{
-    [self.pageViewController setViewControllers:@[self.menu[2]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-}
-
 - (void) setCamDelegateFromMain:(MainViewController *)camVC{
     camVC.camView.camDelegate = (id<EdibleCameraDelegate>) camVC;
 }
@@ -133,8 +128,8 @@
 
 #pragma mark - Page View Controller Data Source
 
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
-{
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
+    
     NSUInteger index = [self getVCIndex:viewController];
     
     if ((index == 0) || (index == NSNotFound)) {
@@ -144,8 +139,8 @@
     return self.menu[index];
 }
 
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
-{
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
+    
     NSUInteger index = [self getVCIndex:viewController];
     
     if (index == NSNotFound) {

@@ -10,7 +10,6 @@
 #import "TransitionLayout.h"
 #import "largeLayout.h"
 #import "EDCollectionCell.h"
-#import "SecondViewController.h"
 
 @interface TransitionController () 
 
@@ -202,7 +201,7 @@
     CGPoint point = [sender locationInView:sender.view];
     CGPoint velocity = [sender velocityInView:sender.view];
     CGPoint translate = [sender translationInView:sender.view];
-    CGFloat smallLayoutH = iPhone5 ?1.1:1.3;//iPhone5? 185:155;
+    //CGFloat smallLayoutH = iPhone5 ?1.1:1.3;//iPhone5? 185:155;
     
     switch (sender.state) {
         default:

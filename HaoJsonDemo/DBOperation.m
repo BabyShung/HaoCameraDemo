@@ -72,7 +72,7 @@
         NSString *translate = [NSString stringWithUTF8String:(char *)sqlite3_column_text(stm, 1)];
         NSUInteger queryTimes = sqlite3_column_int(stm, 2);
         Food *tmp = [[Food alloc]initWithTitle:title andTranslations:translate andQueryTimes:queryTimes];
-        NSLog(@"%@",tmp);
+        //NSLog(@"%@",tmp);
         [foods addObject:tmp];
     }
     sqlite3_finalize(stm);

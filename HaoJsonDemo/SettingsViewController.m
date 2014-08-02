@@ -12,7 +12,6 @@
 #import "introContainer.h"
 #import "GeneralControl.h"
 #import "LoadControls.h"
-#import "AppDelegate.h"
 
 const NSString *settingCellIdentity = @"Cell";
 

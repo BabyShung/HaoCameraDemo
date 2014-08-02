@@ -12,8 +12,6 @@
 #import "LoadControls.h"
 #import "ED_Color.h"
 #import "SearchDictionary.h"
-#import "User.h"
-#import "FrameViewController.h"
 #import "GeneralControl.h"
 
 @interface SecondViewController ()

@@ -18,13 +18,11 @@
     NSMutableData *imageData;
 }
 
-- (void)setCompletionBlock:(M13CompletionBlock)completionBlock
-{
+- (void)setCompletionBlock:(M13CompletionBlock)completionBlock{
     _completionBlock = completionBlock;
 }
 
-- (void)startLoading
-{
+- (void)startLoading{
     //If we are loading, or have finished, return
     if (loading || finished) {
         return;
@@ -48,8 +46,7 @@
     
 }
 
-- (void)cancelLoading
-{
+- (void)cancelLoading{
     canceled = YES;
     
     //Check to see if we are doing anything.
@@ -67,13 +64,11 @@
     imageData = nil;
 }
 
-- (BOOL)isLoading
-{
+- (BOOL)isLoading{
     return loading;
 }
 
-- (BOOL)finishedLoading
-{
+- (BOOL)finishedLoading{
     return finished;
 }
 
@@ -94,8 +89,7 @@
     [imageData appendData:data];
 }
 
--(void)request:(AmazonServiceRequest *)request didCompleteWithResponse:(AmazonServiceResponse *)response
-{
+-(void)request:(AmazonServiceRequest *)request didCompleteWithResponse:(AmazonServiceResponse *)response{
     
     NSLog(@"************** S3 ********************************************** S3 ********");
     //Canceled, no need to process image.
@@ -128,6 +122,7 @@
                 loading = NO;
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    NSLog(@"&&&&&&&&&&&&&&&&&&&&&&&&& bb");
                     _completionBlock(YES, M13LoadedLocationExternalFile, image, _fileURL, _target);
                 });
                 
@@ -146,10 +141,7 @@
     }
 }
 
-
-
--(void)request:(AmazonServiceRequest *)request didFailWithError:(NSError *)error
-{
+-(void)request:(AmazonServiceRequest *)request didFailWithError:(NSError *)error{
     //Connection failed, failed to load image.
     imageData = nil;
     imageConnection = nil;
@@ -163,7 +155,6 @@
         _completionBlock(NO, M13LoadedLocationExternalFile, nil, _fileURL, _target);
     });
 }
-
 
 @end
 
