@@ -8,8 +8,6 @@
 
 #import "EDImageCell.h"
 #import "LoadControls.h"
-#import "UIImageView+M13AsynchronousImageView.h"
-
 
 @interface EDImageCell ()
 
@@ -17,11 +15,9 @@
 
 @implementation EDImageCell
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        
         //self.backgroundColor = [UIColor grayColor];
         
         //add imageView
@@ -32,17 +28,13 @@
         self.activityView=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         self.activityView.center=self.contentView.center;
         [self.contentView addSubview:self.activityView];
-
-        
     }
     return self;
     
 }
 
--(void)prepareForReuse
-{
+-(void)prepareForReuse{
     [super prepareForReuse];
-    
     
     //[self.imageView cancelLoadingAllImagesAndLoaderName:self.imgLoaderName];
     self.imageView.image = nil;

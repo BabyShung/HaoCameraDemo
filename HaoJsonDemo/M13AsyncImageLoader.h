@@ -9,14 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "M13Async.h"
 
-/*************************************
- 
- ImageLoader Class
- 
- *************************************/
-
 @interface M13AsyncImageLoader : NSObject
-
 
 + (M13AsyncImageLoader *)defaultLoader;
 

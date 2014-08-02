@@ -59,10 +59,7 @@ const CGFloat CommentTitleHtight = 55.f;
 const CGFloat CommentRateViewHeight = 65;
 const CGFloat CommentRateViewWidth = 260;
 
-
 @interface FoodInfoView () <UICollectionViewDataSource,UICollectionViewDelegate,TagViewDelegate,UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,EDCommentViewDelegate,LoadingIndicatorViewDelegate,DescriptionViewDelegate>
-
-
 
 /*current cv must be set up when view appear*/
 @property (strong,nonatomic) UIViewController *currentVC;
@@ -75,9 +72,7 @@ const CGFloat CommentRateViewWidth = 260;
 
 @implementation FoodInfoView
 
-
-- (id)initWithFrame:(CGRect)frame andVC:(UIViewController *)vc
-{
+- (id)initWithFrame:(CGRect)frame andVC:(UIViewController *)vc{
     self = [super initWithFrame:frame];
     if (self) {
         
@@ -208,9 +203,7 @@ const CGFloat CommentRateViewWidth = 260;
     _noCommentLabel.hidden = YES;
     
     [self.scrollview addSubview:_noCommentLabel];
-    
-    
-    
+ 
     //add comment button above scrollview
     _commentBtn = [LoadControls createRoundedButton_Image:@"ED_feedback_right.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andLeftBottomElseRightBottom:NO];
     [_commentBtn addTarget:self action:@selector(commentBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -221,15 +214,13 @@ const CGFloat CommentRateViewWidth = 260;
     
 }
 
-
 /**********************************
  
  scrollview delegate
  
  ************************/
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     if (scrollView.contentOffset.y + scrollView.frame.size.height == scrollView.contentSize.height && !self.myFood.isLoadingComments && !self.photoCollectionView.isTracking) {
         //Request to server
         //Load more comments
@@ -244,27 +235,22 @@ const CGFloat CommentRateViewWidth = 260;
  collectionView delegate
  
  ************************/
--(UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+-(UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     //NSLog(@"~~~~~~%@~~~~~~~~Cell %d~~~~~~~ SHOW ~~~~PHOTO %@ ~~~~~~~~~~~~~~~~~~~~~~",self.myFood.title,(int)indexPath.row,self.myFood.photoNames[indexPath.row]);
     EDImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
     cell.activityView.hidden = NO;
     [cell.activityView startAnimating];
 
-    
     //Cancel any other previous downloads for the image view.
     //[cell.imageView cancelLoadingAllImagesAndLoaderName:self.imgLoaderName];
 
     //Load the new image
     NSLog(@"++++++++++++++++ FIV ++++++++++++++++ IN %@ : LOADER %@ ",self.myFood.title,self.imgLoaderName);
     [cell.imageView loadImageFromURLAtAmazonAsync:[NSURL URLWithString:self.myFood.photoNames[indexPath.row]] withLoaderName:self.imgLoaderName completion:^(BOOL success, M13ImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
-
-        //cell.imageView.image = nil;
         
         cell.activityView.hidden = YES;
         [cell.activityView stopAnimating];
-        
         
         //Set the image if loaded
         if (success) {

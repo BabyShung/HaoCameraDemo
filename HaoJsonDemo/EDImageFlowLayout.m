@@ -10,8 +10,7 @@
 
 @implementation EDImageFlowLayout
 
-- (id)init
-{
+- (id)init{
     if (!(self = [super init])) return nil;
     
     self.itemSize = CGSizeMake(280, 254);//original 320
@@ -24,13 +23,12 @@
     return self;
 }
 
-- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)oldBounds
-{
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)oldBounds{
     return YES;
 }
 
-- (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity
-{
+- (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity{
+    
     CGFloat rawPageValue = self.collectionView.contentOffset.x / self.pageWidth;
     CGFloat currentPage = (velocity.x > 0.0) ? floor(rawPageValue) : ceil(rawPageValue);
     CGFloat nextPage = (velocity.x > 0.0) ? ceil(rawPageValue) : floor(rawPageValue);

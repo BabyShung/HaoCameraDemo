@@ -14,6 +14,4 @@
 @property (nonatomic, strong) UIImageView *imageView;
 @property (strong,nonatomic) UIActivityIndicatorView *activityView;
 
-
-
 @end

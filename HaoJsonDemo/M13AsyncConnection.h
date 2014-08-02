@@ -11,15 +11,7 @@
 #import <AWSRuntime/AWSRuntime.h>
 #import "M13Async.h"
 
-/*********************************
- 
- Connection class
- 
- *********************************/
 @interface M13AsyncConnection : NSObject <NSURLConnectionDelegate, NSURLConnectionDataDelegate,AmazonServiceRequestDelegate>
-
-//is loading from Amazon
-@property (nonatomic) BOOL fromAmazon;
 
 //The URL of the file to load.
 @property (nonatomic, strong) NSURL *fileURL;

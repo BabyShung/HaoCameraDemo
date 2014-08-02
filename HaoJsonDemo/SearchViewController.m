@@ -54,13 +54,9 @@ static NSString *CellIdentifier = @"Cell";
     self.searchData = [NSMutableArray arrayWithArray:self.foodData];
     self.dict = [[Dictionary alloc]initDictInDefaultLang];
     
-    
-    
     //disable pageVC scroll and also stop camera
     [GeneralControl enableBothCameraAndPageVCScroll:NO];
 }
-
-
 
 -(void)viewDidAppear:(BOOL)animated{
     [self.searchBar becomeFirstResponder];
@@ -100,7 +96,6 @@ static NSString *CellIdentifier = @"Cell";
 
 #pragma mark - SSSearchBarDelegate
 - (void)searchBarCancelButtonClicked:(SSSearchBar *)searchBar {
-    NSLog(@"++++++++++++++SEARCH VC++++++++++++++++++: CANCEL SEARCH PRESSED");
     self.searchBar.text = @"";
     [self.searchData removeAllObjects];
     [self.searchData addObjectsFromArray:[self.dbo fetchSearchHistoryByOrder_withLimitNumber:FETCH_SEARCH_NUMBER]];
@@ -198,10 +193,6 @@ static NSString *CellIdentifier = @"Cell";
     return cell;
 }
 
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"click %d",(int)indexPath.row);
-}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([segue.destinationViewController isKindOfClass:[SingleFoodViewController class]]) {
@@ -226,7 +217,6 @@ static NSString *CellIdentifier = @"Cell";
         }
     }
 }
-
 
 #pragma mark - Helper Methods
 

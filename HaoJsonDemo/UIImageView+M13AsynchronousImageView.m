@@ -18,8 +18,8 @@
 @implementation UIImageView (M13AsynchronousImageView)
 
 //load image with different loader
-- (void)loadImageFromURLAtAmazonAsync:(NSURL *)url withLoaderName:(NSString *)name completion:(M13CompletionBlock)completion
-{
+- (void)loadImageFromURLAtAmazonAsync:(NSURL *)url withLoaderName:(NSString *)name completion:(M13CompletionBlock)completion{
+    
     [[M13AsyncImageLoader loaderWithName:name] loadImageAtURLAtAmazon:url target:self completion:^(BOOL success, M13ImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
 
         //Run the completion
@@ -27,9 +27,7 @@
     }];
 }
 
-
-- (void)cancelLoadingAllImages
-{
+- (void)cancelLoadingAllImages{
     //need to change
     [[M13AsyncImageLoader defaultLoader] cancelLoadingImagesForTarget:self];
 }
@@ -38,9 +36,7 @@
     [[M13AsyncImageLoader loaderWithName:loaderName] cancelLoadingImagesForTarget:self];
 }
 
-
-- (void)cancelLoadingImageAtURL:(NSURL *)url
-{
+- (void)cancelLoadingImageAtURL:(NSURL *)url{
     //need to change
     [[M13AsyncImageLoader defaultLoader] cancelLoadingImageAtURL:url target:self];
 }
