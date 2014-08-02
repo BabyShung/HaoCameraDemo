@@ -29,10 +29,7 @@
 
 @property (strong,nonatomic) DXStarRatingView *rateView;
 
-//@property (nonatomic,readonly,getter = getStars) NSUInteger stars;
-
 @property (strong,nonatomic) UITextView *textView;
-
 
 - (id)initWithFrame:(CGRect)frame;
 

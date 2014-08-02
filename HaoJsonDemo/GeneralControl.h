@@ -10,8 +10,6 @@
 
 @interface GeneralControl : NSObject
 
-//+(void)disablePageViewControllerLeftRightScroll:(BOOL)disable andIndex:(NSUInteger)index;
-
 +(void)showErrorMsg:(NSString *)msg withTextField:(UITextField *)textfield;
 
 +(void)transitionToVC:(UIViewController *)vc withToVCStoryboardId:(NSString*)name;

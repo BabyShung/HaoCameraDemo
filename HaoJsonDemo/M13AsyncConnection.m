@@ -42,8 +42,6 @@
     //input fileURL to Amazon
     Edible_S3 *s3 = [[Edible_S3 alloc]init];
     [s3 getImageFromS3Async:[_fileURL absoluteString]  andSelfy:self];
-    
-    
 }
 
 - (void)cancelLoading{

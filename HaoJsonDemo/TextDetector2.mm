@@ -86,7 +86,7 @@ typedef vector<vector<cv::Point> > TContours;//global
     
     NSLog(@"TextDetector: noise counter: %d",counter_noise);
     
-    if(counter_noise < 800){
+    if(counter_noise < 1500){
         //---remove insider rects
         vector<cv::Rect> outRect;
         outRect = [self removeInsider:boundRect];

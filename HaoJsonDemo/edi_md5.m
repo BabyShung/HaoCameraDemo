@@ -10,7 +10,6 @@
 #import <CommonCrypto/CommonDigest.h>
 @implementation edi_md5
 
-
 - (NSString *) md5:(NSString *) input
 {
     const char *cStr = [input UTF8String];

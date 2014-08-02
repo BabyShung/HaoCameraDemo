@@ -29,15 +29,13 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
 
 @property (nonatomic,strong)WordCorrector *wordCorrector;
 
-
 @property (nonatomic,readwrite,getter = isSearchingFood) BOOL searchingFood;
 
 @end
 
 @implementation Dictionary
 
--(instancetype) initDictInLang:(TargetLang) lang
-{
+-(instancetype) initDictInLang:(TargetLang) lang{
     self = [super init];
     self.searchingFood = NO;
     self.lang = lang;
@@ -58,16 +56,14 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
     return self;
 }
 
--(DBOperation *)operation
-{
+-(DBOperation *)operation{
     if (!_operation) {
         _operation = [[DBOperation alloc] init];
     }
     return _operation;
 }
 
--(NSArray *) localSearchOCRString:(NSString *)inputStr
-{
+-(NSArray *) localSearchOCRString:(NSString *)inputStr{
     NSMutableArray *keywords,*foods;
     keywords = [[NSMutableArray alloc]init];
     foods = [[NSMutableArray alloc]init];
@@ -84,8 +80,8 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
     else{
         return nil;
     }
-    
 }
+
 
 -(NSArray *) localBlurSearchString:(NSString *)typeStr inLang:(TargetLang)inlang toLang:(TargetLang)tolang
 {
@@ -94,15 +90,13 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
     NSArray *foodDicts = [self.operation blurSearch:typeStr inLang:inlang toLang:tolang];
     
     for (NSDictionary *foodDict in foodDicts) {
-        
         Food *food =[[Food alloc]initWithTitle:[foodDict objectForKey:@"keyword"] andTranslations:[foodDict objectForKey:@"translation"] andQueryTimes:0];
-        
         [foods addObject:food];
-        
     }
     
     return foods;
 }
+
 
 -(void) serverSearchOCRString:(NSString *)inputStr inLang:(TargetLang)inlang andCompletion:(void (^)(NSArray *results, BOOL success))block
 {
@@ -118,8 +112,7 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
 }
 
 //Local search an ocr string
--(NSArray *) lookupOCRString:(NSString *)inputStr foundKeywords:(NSMutableArray *)keywords
-{
+-(NSArray *) lookupOCRString:(NSString *)inputStr foundKeywords:(NSMutableArray *)keywords{
     if (!keywords) {
         [self throwDictExceptionCausedBy:@"MutableArray Keywords NOT init"];
     }
@@ -128,7 +121,6 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
     }
     
     NSMutableArray *translations= [self.operation searchWords:[self splitAndFilterWordsFromString:inputStr] getKeywords:keywords inLangTable:self.lang];
-    
     
     //Exclude keywords which are substrings of other keywords
     NSInteger count = keywords.count;
@@ -153,14 +145,11 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
             i--;
         }
     }
-    
     return translations;
-    
 }
 
 
--(NSArray *)splitAndFilterWordsFromString:(NSString *)str
-{
+-(NSArray *)splitAndFilterWordsFromString:(NSString *)str{
     //Devide string into words and exclude newline characters
     NSMutableArray *words = [NSMutableArray arrayWithArray:[[str stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsSeparatedByCharactersInSet:
                                                             [NSCharacterSet whitespaceCharacterSet]]] ;
@@ -215,15 +204,12 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
                 [words_corrected addObject:[NSString stringWithString:tmpStr]];
                 numCombo++;
             }
-            
         }
     }
     return words_corrected;
 }
 
-
--(void)throwDictExceptionCausedBy:(NSString *)reason
-{
+-(void)throwDictExceptionCausedBy:(NSString *)reason{
     NSException* ex = [[NSException alloc]initWithName:@"DictionaryFailures" reason:reason userInfo:nil];
     @throw ex;
 }
@@ -271,13 +257,9 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
         }
         _searchingFood = NO;
         _searchCompletionBlock(foodArray,YES);
-        
-        
     }else{  //failed
         _searchingFood = NO;
         _searchCompletionBlock(nil,NO);
-        
     }
-    
 }
 @end

@@ -36,7 +36,6 @@
 
 @implementation LoginViewController
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -62,7 +61,6 @@
     self.loginLogoView.image = [UIImage imageNamed:AMLocalizedString(@"LOGIN_LOGO_WORD_PIC", nil)];
     
 }
-
 
 -(void)checkUserInNSUserDefaultAndPerformLogin{
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentUser"]) {
@@ -168,7 +166,6 @@
         [GeneralControl showErrorMsg:errorString withTextField:nil];
     }
 }
-
 
 /********************************************
  

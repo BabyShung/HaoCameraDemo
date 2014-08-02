@@ -10,12 +10,7 @@
 #import "Flurry.h"
 @implementation WordCorrector: NSObject
 
-
-
 -(NSString*)correctWord: (NSString*)input{
-    
-    
-
     UITextChecker *checker = [[UITextChecker alloc] init];
     NSString *testString = input;
     NSString *output = testString;
@@ -33,7 +28,6 @@
     output = [output stringByReplacingOccurrencesOfString:@"   " withString:@" "];//replace \s
     output = [output stringByReplacingOccurrencesOfString:@"  " withString:@" "];//replace \s
     
-    
     int mark=0;
     
     NSRange checkRange = NSMakeRange(0, testString.length);
@@ -46,13 +40,11 @@
     
     if ((NSNull *)arrGuessed == [NSNull null]){
         //donothing
-    }else
-    {
+    }else{
         int count = (int)[arrGuessed count];
         if (count > 20){
             count = 20;
         }
-        
         testString = [self replaceWord:testString];
         
         for (int i=0; i<count; i++) {
@@ -67,19 +59,13 @@
         }
 
     }
-    
     [Flurry logEvent:@"Word_Detector"];
     return output;
-    
-    
 }
 
 
 -(NSString*)replaceWord: (NSString*)input{
-    
     NSString *testString = input;
-    
-    
     NSMutableArray *arrayOfStringsToReplace = [NSMutableArray arrayWithObjects:
                                                [NSArray arrayWithObjects:@"0",@"1",nil],
                                                [NSArray arrayWithObjects:@"a",@"1",nil],
@@ -116,15 +102,12 @@
                                                nil];
     
     // For or while loop to Find and Replace strings
-    
     while ([arrayOfStringsToReplace count] >= 1) {
         testString = [testString stringByReplacingOccurrencesOfString:[[arrayOfStringsToReplace objectAtIndex:0] objectAtIndex:0]
                                                            withString:[[arrayOfStringsToReplace objectAtIndex:0] objectAtIndex:1]];
         [arrayOfStringsToReplace removeObjectAtIndex:0];
     }
-
     return testString;
-    
 }
 
 

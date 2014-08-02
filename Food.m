@@ -9,7 +9,6 @@
 #import "Food.h"
 #import "AsyncRequest.h"
 #import "Comment.h"
-#import "OtherUser.h"
 #import "User.h"
 
 const NSString *title = @"Title";

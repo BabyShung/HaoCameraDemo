@@ -27,7 +27,6 @@
 
 - (void)cancelLoadingImageAtURL:(NSURL *)url target:(id)target;
 
-
 //The cache the image loader will use to cache the images.
 @property (nonatomic, strong) NSCache *imageCache;
 
@@ -37,8 +36,6 @@
 //The length of time to try and load an image before stopping.
 @property (nonatomic, assign) NSTimeInterval loadingTimeout;
 
-
 - (void)loadImageAtURLAtAmazon:(NSURL *)url target:(id)target completion:(M13CompletionBlock)completion;
-
 
 @end

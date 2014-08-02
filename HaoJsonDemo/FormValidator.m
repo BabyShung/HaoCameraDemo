@@ -31,7 +31,6 @@
  
  *******************************/
 - (void) Email:(NSString *) email andUsername: (NSString *) username andPwd: (NSString *)pwd{
-    
     //----pass the textFields
     [self Required:email FieldName:AMLocalizedString(@"Email", nil)];
     //----register case
@@ -50,14 +49,13 @@
         
     }
     [self MaxLength:20 textField:pwd FieldName:AMLocalizedString(@"Password", nil)];
-    
 }
 
 - (void) OldPwd:(NSString *) oldpwd andNextPwd: (NSString *) nextpwd andConfirmPwd: (NSString *)confirmpwd{
     [self Required:oldpwd FieldName:AMLocalizedString(@"Old password", nil)];
     [self Required:nextpwd FieldName:AMLocalizedString(@"New password", nil)];
     [self Required:confirmpwd FieldName:AMLocalizedString(@"Confirm New password", nil)];
-    
+
     [self MinLength:6 textField:nextpwd FieldName:AMLocalizedString(@"New password", nil)];
     [self MaxLength:20 textField:nextpwd FieldName:AMLocalizedString(@"New password", nil)];
     
@@ -67,7 +65,6 @@
 - (void) updateOneField:(NSString *) textfield andFieldName:(NSString*)fieldname{
     [self Required:textfield FieldName:fieldname];
     [self LettersNumbersOnly:textfield FieldName:fieldname];
-    
 }
 
 /***************
@@ -76,7 +73,6 @@
  
  *************/
 -(void) Email: (NSString *) emailAddress FieldName: (NSString *) textFieldName{
-    
     NSString *emailRegEx = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
     NSString *msg = AMLocalizedString(@"ERROR_EMAIL", nil);
@@ -95,8 +91,6 @@
  
  *****************************/
 -(void) LettersNumbersOnly: (NSString *) textField FieldName: (NSString *) textFieldName {
-    
-    
     //NSString *lettersSpaceRegex = @"^[a-zA-Z0-9]+$";
     NSString *lettersSpaceRegex = @"[a-zA-Z0-9_][a-zA-Z0-9_ ]*";
     NSPredicate *lettersSpaceTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", lettersSpaceRegex];
@@ -117,7 +111,6 @@
  
  *****************/
 -(void) Required: (NSString *) textField FieldName: (NSString *) textFieldName {
-    
     if (textField.length == 0) {//empty
         self.requiredError = YES;
         NSString *msg = [NSString stringWithFormat:@"%@%@.",AMLocalizedString(@"PLEASE_ENTER", nil),textFieldName];
@@ -134,15 +127,12 @@
  
  ***********************************/
 -(void) SameCheck: (NSString *) textField1 andConfirm:(NSString *) textField2 {
-    
     if (![textField1 isEqualToString:textField2]) {//not equal
         self.samePwdError = YES;
         NSString *msg = AMLocalizedString(@"ERROR_PASSWORD_NOT_SAME", nil);
         [self.samePwdErrorMsg addObject:msg];
         return ;
-    }else{
-        return ;
-    }
+    }else return ;
 }
 
 /*******************
@@ -179,7 +169,6 @@
     }
 }
 
-
 /*************************************
  
  Check If TextFields Are Valid
@@ -187,59 +176,45 @@
  ***********************************/
 
 -(BOOL) isValid {
-    
-    
     if(self.requiredError){
         for(NSString *msg in self.requiredErrorMsg){
             [self.errorMsg addObject:msg];
         }
         return NO;
-        
     }
-    
     if(self.emailError) {
         for(NSString *msg in self.emailErrorMsg){
             [self.errorMsg addObject:msg];
         }
         return NO;
     }
-    
-    
-    
     if(self.minLengthError){
         for(NSString *msg in self.minLengthErrorMsg){
             [self.errorMsg addObject:msg];
         }
         return NO;
-        
     }
-    
     if(self.lettersNumbersOnly){
         for(NSString *msg in self.lettersNumbersOnlyMsg){
             [self.errorMsg addObject:msg];
         }
         return NO;
-        
     }
-    
     if(self.maxLengthError){
         for(NSString *msg in self.maxLengthErrorMsg){
             [self.errorMsg addObject:msg];
         }
         return NO;
     }
-    
     if(self.samePwdError){
         for(NSString *msg in self.samePwdErrorMsg){
             [self.errorMsg addObject:msg];
         }
         return NO;
     }
-    
     //add passed, valid it true
     self.textFieldIsValid = TRUE;
     return self.textFieldIsValid;
 }
-
 
 @end

@@ -73,7 +73,6 @@ static NSString *kHandlerAssociatedKey = @"kHandlerAssociatedKey";
                                                    delegate:nil
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
-    
     [alert showWithHandler:handler];
 }
 
@@ -88,7 +87,6 @@ static NSString *kHandlerAssociatedKey = @"kHandlerAssociatedKey";
                                                    delegate:nil
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
-    
     [alert showWithHandler:handler];
 }
 

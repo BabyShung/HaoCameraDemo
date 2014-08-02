@@ -101,11 +101,7 @@
     
     NSString *finalString = [NSString stringWithString:foodString];
     
-    
-    
     [self performGETAsyncTaskwithURLString:finalString];
-    
-    
 }
 
 -(void)getFoodInfo_byPost:(NSString*)foodname andLanguage:(TargetLang)lang{
@@ -224,7 +220,6 @@
     [self performAsyncTask_Dictionary:dict andURL:url];
 }
 
-
 /************************
  
  Shared method (get)
@@ -240,12 +235,10 @@
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:20.f];
 
-    
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:_selfy];
     
     [conn start];
 }
-
 
 /************************
  

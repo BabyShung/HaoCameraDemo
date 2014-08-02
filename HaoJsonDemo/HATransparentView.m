@@ -16,13 +16,11 @@
 
 @end
 
-
 @implementation HATransparentView
 
 #pragma mark - Initialization
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
         self.frame = [[UIScreen mainScreen] bounds];
@@ -35,8 +33,7 @@
 
 #pragma mark - Open Transparent View
 
-- (void)open
-{
+- (void)open{
     // Get main window reference
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     if (!window)
@@ -65,22 +62,13 @@
             }
         }
     }
-    
-    // Animation
-//    CATransition *viewIn = [CATransition animation];
-//    [viewIn setDuration:0.4];
-//    [viewIn setType:kCATransitionReveal];
-//    [viewIn setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
-//    [[self layer] addAnimation:viewIn forKey:kCATransitionReveal];
-    
     [[[window subviews] objectAtIndex:0] addSubview:self];
 }
 
 
 #pragma mark - Close Transparent View
 
-- (void)close
-{
+- (void)close{
     // Animation
     CATransition *viewOut = [CATransition animation];
     [viewOut setDuration:0.3];

@@ -25,10 +25,6 @@
 //slide VC in PageViewController
 - (void) slideToNextPage;
 
-//for debug
-@optional
-- (void) slideToDebugPage;
-
 @end
 
 @interface MainViewController : UICollectionViewController

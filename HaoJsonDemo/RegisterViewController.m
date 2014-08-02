@@ -34,7 +34,6 @@
 
 @implementation RegisterViewController
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];

@@ -17,7 +17,7 @@
 
 #define FETCH_SEARCH_NUMBER 20
 
-#define BackBtn_offset 215
+#define BackBtn_offset 248
 
 static NSString *CellIdentifier = @"Cell";
 
