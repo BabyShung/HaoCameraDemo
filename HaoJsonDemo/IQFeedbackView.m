@@ -141,9 +141,10 @@
         else{
             textViewFeedback = [[UITextView alloc] initWithFrame:CGRectMake(5, 49, 205, 150)];
             ((UITextView *)textViewFeedback).backgroundColor = [UIColor clearColor];
-        }
-        
-        [textViewFeedback setKeyboardType:UIKeyboardTypeASCIICapable];
+            
+                    }
+        //Hao modified
+        [textViewFeedback setKeyboardType:UIKeyboardTypeDefault];
         
 		[textViewFeedback setDataDetectorTypes:(UIDataDetectorTypePhoneNumber|UIDataDetectorTypeLink)];
 		[textViewFeedback setAutoresizingMask:(UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight)];
