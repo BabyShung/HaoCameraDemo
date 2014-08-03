@@ -94,6 +94,9 @@
     [intro setDelegate:self];
     intro.tapToNext = YES;
     
+//    intro.pageControl.hidden = YES;
+//    intro.skipButton.hidden = YES;
+    
     intro.pageControl.currentPageIndicatorTintColor = [ED_Color darkGrayColor];
     intro.pageControl.pageIndicatorTintColor = [ED_Color lightGrayColor];
     //intro.pageControlY = 60;
