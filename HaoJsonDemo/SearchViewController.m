@@ -60,12 +60,9 @@ static NSString *CellIdentifier = @"Cell";
 
 -(void)viewDidAppear:(BOOL)animated{
     [self.searchBar becomeFirstResponder];
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeMode:) name:UITextInputCurrentInputModeDidChangeNotification object:nil];
 }
 
--(void) changeMode:(NSNotification *)notification{
-    NSLog(@"######################### CURRENT LANG = %@",[UITextInputMode currentInputMode].primaryLanguage);
-}
+
 - (void) previousPagePressed:(id)sender {
     
     //enable pageVC scroll and also start camera
@@ -100,13 +97,12 @@ static NSString *CellIdentifier = @"Cell";
 
 #pragma mark - SSSearchBarDelegate
 - (void)searchBarCancelButtonClicked:(SSSearchBar *)searchBar {
-    //NSLog(@"################## Cancel search");
+
     self.searchBar.text = @"";
     [self.searchData removeAllObjects];
     [self.searchData addObjectsFromArray:[self.dbo fetchSearchHistoryByOrder_withLimitNumber:FETCH_SEARCH_NUMBER]];
     
     [self.collectionView reloadData];
-    //[self filterTableViewWithText:self.searchBar.text];
 }
 - (void)searchBarSearchButtonClicked:(SSSearchBar *)searchBar {
     
@@ -171,10 +167,8 @@ static NSString *CellIdentifier = @"Cell";
         [self.searchData addObjectsFromArray:[self.dbo fetchSearchHistoryByOrder_withLimitNumber:FETCH_SEARCH_NUMBER]];
     }
     else{
-        //int count = [UITextInputMode activeInputModes].count;
-        //UITextInputMode *inputMode = [UITextInputMode activeInputModes][count -1];
         NSString *langStr = [UITextInputMode currentInputMode].primaryLanguage;
-//        NSLog(@"!!#!$#$#$#^$^*#^$!#$!#$ CURRENT LANG = %@",[UITextInputMode currentInputMode].primaryLanguage);
+
         TargetLang inlang=Chinese,tolang=English;
         if ([langStr hasPrefix:@"en"]) {
             NSLog(@"#################USER INPUT ENG");
