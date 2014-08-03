@@ -39,7 +39,7 @@
 "DIGIT" = " digits";
 "SUCCESS_FEEDBACK" = "Thank you : )";
 "FAIL_FEEDBACK" = "Sorry, please send again";
-"TEXT_NOT_NIL"="Please type something : )";
+"TEXT_NOT_NIL"="Please type something";
 "TIME" = " time";
 "TIMES" = " times";
 "FIV_CMTV_TITLE" = "Review";
@@ -91,7 +91,7 @@
 "T2_description_width"=260;
 "T3_description_width"=260;
 "T4_description_width"=200;
-"LANGUAGE_SETTING_DONE"="Language changed: )";
+"LANGUAGE_SETTING_DONE"="Language changed";
 "SLIDER_SCALE_TEXT"="Scale: ";
 "LOGIN_LOGO_WORD_PIC"="login_logo_eng.png";
 "Skip_TEXT"="Skip";

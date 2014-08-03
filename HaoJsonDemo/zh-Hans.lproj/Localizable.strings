@@ -37,7 +37,7 @@
 "Log out"="注销";
 "Search food"="寻找食物";
 "DIGIT"="位";
-"SUCCESS_FEEDBACK" = "谢谢亲 : )";
+"SUCCESS_FEEDBACK" = "谢谢亲";
 "FAIL_FEEDBACK" = "抱歉亲，请重发";
 "TEXT_NOT_NIL"="亲，请写些东西";
 "TIME" = "次";
@@ -46,7 +46,7 @@
 "SUCCESS_COMMENT" = "发送成功";
 "FAIL_COMMENT" = "亲，请重发";
 "DETECTOR_NO_RESULT" = "无结果，再试一次亲";
-"NOT_LOGIN_REGISTERED_TEXT" = "您还没有登陆\n赶紧注册一个吧: )";
+"NOT_LOGIN_REGISTERED_TEXT" = "您还没有登陆\n赶紧注册一个吧";
 "LOGIN_REGISTER_BUTTON_TEXT" = "登陆/注册";
 "LOGGEDIN_CONTEXT_1" = "感谢您的支持!\n请多多反馈!\n敬请期待新功能: )\n\n\n                         - 蓝芝士团队";
 "NOT_REGISTERED_TEXT" = "您还没有登陆\n赶紧注册一个吧: )";
@@ -56,7 +56,7 @@
 "EMPTY_COMMENT" = "唉呦，空评论~";
 "COMMENT_TOO_LONG" = "评论太长了，亲";
 "FIV_LOADING_MSG" = "努力加载中";
-"FIV_LOADING_FAIL" = "T^T 点我再试一次吧";
+"FIV_LOADING_FAIL" = "点我再试一次吧";
 "CAPTURE_BTN" = "拍照";
 "CAPTURE_BTN_FOCUSWORD"="对焦中";
 "ABOUT_US"="这是一款帮助您享受美食冒险的菜单翻译应用。与很多留学生和旅客一样，初到异国他乡时的我们时常面对各种陌生的美食。对于不认识的食物名称，我们感到既惊喜又迷惑。即使知道字面意思，也未必了解它的味道。就像蓝芝士(Blue Cheese)一样，简单的文字勾起我们对美食的想象，可品尝之后却发现它的味道竟是刺激浓烈。海外的生活就像蓝芝士，虽不同与想象却别有番难忘滋味。希望蓝芝士这款app能够帮助您尽情享受美食的冒险，发现异国的美味。";
@@ -66,8 +66,8 @@
 "FIV_READ_MORE"="更多";
 "FIV_READ_LESS"="收起";
 "EMPTY_SEARCH_TERM"="唉呦，空关键字";
-"NO_SEARCH_RESULT"="T^T 没有找到";
-"SEARCH_FAILURE"="T^T 搜索失败";
+"NO_SEARCH_RESULT"="没有找到哦亲";
+"SEARCH_FAILURE"="搜索失败";
 "EDTIME_YEAR_AGO"="1年前";
 "EDTIME_YEARS_AGO"="年前";
 "FIV_NO_COMMENT"="快登录评论%@\n做第一个美食家吧";
