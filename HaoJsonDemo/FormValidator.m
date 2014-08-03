@@ -43,7 +43,7 @@
     if(username){
         
         [self MinLength:6 textField:pwd FieldName:AMLocalizedString(@"Password", nil)];
-        [self LettersNumbersOnly:username FieldName:AMLocalizedString(@"Username", nil)];
+        //[self LettersNumbersOnly:username FieldName:AMLocalizedString(@"Username", nil)];
         
         [self MaxLength:20 textField:username FieldName:AMLocalizedString(@"Username", nil)];
         
