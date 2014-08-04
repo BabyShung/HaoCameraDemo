@@ -122,6 +122,7 @@
 		B82353F0192CFC4C00D6BCAC /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = B82353EF192CFC4C00D6BCAC /* tessdata */; };
 		B89988C7198B436C00EA351F /* login_ip4_final.png in Resources */ = {isa = PBXBuildFile; fileRef = B89988C5198B436C00EA351F /* login_ip4_final.png */; };
 		B89988C8198B436C00EA351F /* register_ip4_final.png in Resources */ = {isa = PBXBuildFile; fileRef = B89988C6198B436C00EA351F /* register_ip4_final.png */; };
+		B8A420C5198FD4AD00D77DFB /* FormValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A420C3198FD4AD00D77DFB /* FormValidator.m */; };
 		B8AB89C2196AEF1C00F32E4F /* SearchDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = B8AB89C1196AEF1C00F32E4F /* SearchDictionary.m */; };
 		B8AB89CF196C7EA400F32E4F /* star_off.png in Resources */ = {isa = PBXBuildFile; fileRef = B8AB89CB196C7EA400F32E4F /* star_off.png */; };
 		B8AB89D0196C7EA400F32E4F /* star_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8AB89CC196C7EA400F32E4F /* star_off@2x.png */; };
@@ -196,7 +197,6 @@
 		B8C8F287195DED0B009F8F6E /* Food.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C8F286195DED0B009F8F6E /* Food.m */; };
 		B8C8F336195F494A009F8F6E /* TesseractOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C8F335195F494A009F8F6E /* TesseractOCR.framework */; };
 		B8C8F339195F4BD5009F8F6E /* edi_md5.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C8F338195F4BD5009F8F6E /* edi_md5.m */; };
-		B8C8F33C195F4F08009F8F6E /* FormValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C8F33B195F4F08009F8F6E /* FormValidator.m */; };
 		B8C8F360195F76E7009F8F6E /* M13AsyncImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C8F35F195F76E7009F8F6E /* M13AsyncImageLoader.m */; };
 		B8C8F363195F7773009F8F6E /* M13AsyncConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C8F362195F7773009F8F6E /* M13AsyncConnection.m */; };
 		B8C8F3901961E24F009F8F6E /* OtherUser.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C8F38F1961E24F009F8F6E /* OtherUser.m */; };
@@ -404,6 +404,8 @@
 		B82353EF192CFC4C00D6BCAC /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		B89988C5198B436C00EA351F /* login_ip4_final.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_ip4_final.png; sourceTree = "<group>"; };
 		B89988C6198B436C00EA351F /* register_ip4_final.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = register_ip4_final.png; sourceTree = "<group>"; };
+		B8A420C3198FD4AD00D77DFB /* FormValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormValidator.m; sourceTree = "<group>"; };
+		B8A420C4198FD4AD00D77DFB /* FormValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormValidator.h; sourceTree = "<group>"; };
 		B8AB89C0196AEF1C00F32E4F /* SearchDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchDictionary.h; sourceTree = "<group>"; };
 		B8AB89C1196AEF1C00F32E4F /* SearchDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchDictionary.m; sourceTree = "<group>"; };
 		B8AB89CB196C7EA400F32E4F /* star_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_off.png; sourceTree = "<group>"; };
@@ -529,8 +531,6 @@
 		B8C8F335195F494A009F8F6E /* TesseractOCR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TesseractOCR.framework; sourceTree = "<group>"; };
 		B8C8F337195F4BD5009F8F6E /* edi_md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = edi_md5.h; sourceTree = "<group>"; };
 		B8C8F338195F4BD5009F8F6E /* edi_md5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = edi_md5.m; sourceTree = "<group>"; };
-		B8C8F33A195F4F08009F8F6E /* FormValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormValidator.h; sourceTree = "<group>"; };
-		B8C8F33B195F4F08009F8F6E /* FormValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormValidator.m; sourceTree = "<group>"; };
 		B8C8F35E195F76E7009F8F6E /* M13AsyncImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13AsyncImageLoader.h; sourceTree = "<group>"; };
 		B8C8F35F195F76E7009F8F6E /* M13AsyncImageLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13AsyncImageLoader.m; sourceTree = "<group>"; };
 		B8C8F361195F7773009F8F6E /* M13AsyncConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13AsyncConnection.h; sourceTree = "<group>"; };
@@ -1133,8 +1133,8 @@
 				B8B6106D195926C8005268D5 /* TransitionLR */,
 				B8BBAFD619630B24007CE548 /* LoadingAnimation.h */,
 				B8BBAFD719630B24007CE548 /* LoadingAnimation.m */,
-				B8C8F33A195F4F08009F8F6E /* FormValidator.h */,
-				B8C8F33B195F4F08009F8F6E /* FormValidator.m */,
+				B8A420C4198FD4AD00D77DFB /* FormValidator.h */,
+				B8A420C3198FD4AD00D77DFB /* FormValidator.m */,
 				B8B61067195926C0005268D5 /* LoginViewController.h */,
 				B8B61068195926C0005268D5 /* LoginViewController.m */,
 				B8B61069195926C0005268D5 /* RegisterViewController.h */,
@@ -1685,13 +1685,13 @@
 				B8B6104619592493005268D5 /* ControlPointView.m in Sources */,
 				B8D6953C193E71C200E504FA /* ED_Color.m in Sources */,
 				B8B61147195A63DA005268D5 /* IQFeedbackView.m in Sources */,
-				B8C8F33C195F4F08009F8F6E /* FormValidator.m in Sources */,
 				B8AB89C2196AEF1C00F32E4F /* SearchDictionary.m in Sources */,
 				ACA1726B1939209A005E7D51 /* LoadControls.m in Sources */,
 				B8CC9F651968980100CCFE74 /* HATransparentView.m in Sources */,
 				B803CFAD196F841C006080D0 /* IPDashedLineView.m in Sources */,
 				B8C8F363195F7773009F8F6E /* M13AsyncConnection.m in Sources */,
 				B8B6104819592493005268D5 /* ShadeView.m in Sources */,
+				B8A420C5198FD4AD00D77DFB /* FormValidator.m in Sources */,
 				AC3FDD0019742F470008D311 /* LoadingIndicatorView.m in Sources */,
 				B8B6103F1959243A005268D5 /* RQShineLabel.m in Sources */,
 				B8079D01197B108B00D568EC /* SettingsCell.m in Sources */,

@@ -34,8 +34,7 @@
 
 @implementation RegisterViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
     
     [self initUI];
