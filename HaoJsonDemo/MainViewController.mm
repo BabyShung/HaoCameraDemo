@@ -25,6 +25,8 @@
 #import "Flurry.h"
 #import "NSUserDefaultControls.h"
 #import "introContainer.h"
+#import "debugView.h"
+
 
 #define SCALE_FACTOR_IMAGE 2.5f
 
@@ -51,6 +53,8 @@ static NSString *CellIdentifier = @"Cell";
 @property (strong,nonatomic) TextDetector2 *textDetector2;
 
 @property (nonatomic) NSUInteger counterForNoResult;
+
+@property (nonatomic,strong) debugView *debugV;
 
 @end
 
@@ -81,38 +85,6 @@ static NSString *CellIdentifier = @"Cell";
         [self.view addSubview:ic];
         [ic showIntroWithCrossDissolve];
     }
-}
-
--(void)loadControls{
-    self.camView = [[CameraView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) andOrientation:self.interfaceOrientation andAppliedVC:self];
-    [self.view insertSubview:self.camView belowSubview:self.collectionView];
-    
-    /*REQUIRED FOR DEBUGGING ANIMATION*/
-    
-    self.collectionView.hidden = YES;
-    self.collectionView.backgroundColor = [UIColor clearColor];
-    
-    //registering dequueue cell
-    [self.collectionView registerClass:[EDCollectionCell class] forCellWithReuseIdentifier:CellIdentifier];
-    
-    
-    self.transitionController = [[TransitionController alloc] initWithCollectionView:self.collectionView];
-    self.transitionController.delegate = self;
-    self.navigationController.delegate = self.transitionController;
-    
-    //add in collectionView
-    
-    _clearBtn = [LoadControls createRoundedButton_Image:@"go_back.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(6, 4, 6, 6) andLeftBottomElseRightBottom:YES];
-    [_clearBtn addTarget:self action:@selector(clearBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    _clearBtn.alpha = 1;
-    _clearBtn.hidden = YES;
-    [self.view insertSubview:_clearBtn aboveSubview:self.collectionView];
-    
-    _nextBtn = [LoadControls createRoundedButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(8, 7, 8, 9) andLeftBottomElseRightBottom:NO];
-    [_nextBtn addTarget:self action:@selector(nextBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    _nextBtn.alpha = 1;
-    _nextBtn.hidden = YES;
-    [self.view insertSubview:_nextBtn aboveSubview:self.collectionView];
 }
 
 - (void) clearBtnPressed:(id)sender {
@@ -161,8 +133,10 @@ static NSString *CellIdentifier = @"Cell";
             }
         }
     }];
+    
+    
 //    Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
-//    NSString* str = @"Sushi and caper";
+//    NSString* str = @"apple banana pear orange Sushi and caper and cilantro";
 //    [self addFoodItems:[dict localSearchOCRString:str]];
 //    [self showResultButtonsAndCollectionView];
 }
@@ -209,33 +183,47 @@ static NSString *CellIdentifier = @"Cell";
     return transitionLayout;
 }
 
+
+//-(void)addItem
+//{
+//    [self.collectionView performBatchUpdates:^{
+//        //self.cellCount = self.cellCount + 1;
+//        Food *food = [[Food alloc]initWithTitle:@"123" andTranslations:@"qwe"];
+//        [self.foodArray insertObject:food atIndex:0];
+//        [self.collectionView insertItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
+//        
+//    } completion:nil];
+//}
+
 //Add new items into collection view
 //This method will exclude duplicates results
 -(void)addFoodItems:(NSArray *) newFoodItems
 {
     if (newFoodItems.count>0) {
         
-        NSInteger startIndex = self.foodArray.count;
+        //NSInteger startIndex = self.foodArray.count;
         
         NSMutableArray *newIndexPaths = [[NSMutableArray alloc]init];
         NSMutableArray *addItems = [[NSMutableArray alloc]initWithArray:newFoodItems];
         
         int count = (int)addItems.count;
-        for (int i =0; i<count; i++){
+        for (int i = count-1; i>= 0; i--){
             Food *food = addItems[i];
             if (![self.existingFood valueForKey:[food.title lowercaseString]]) {
                 [self.existingFood setValue:@"1" forKey:[food.title lowercaseString]];
-                [newIndexPaths addObject:[NSIndexPath indexPathForItem:(startIndex+i) inSection:0]];
+                [newIndexPaths addObject:[NSIndexPath indexPathForItem:0 inSection:0]];
             }
             else{
                 [addItems removeObjectAtIndex:i];
-                i--;
+                
                 count--;
             }
         }
 
         [self.collectionView performBatchUpdates:^{
-            [self.foodArray addObjectsFromArray:addItems];
+            //[self.foodArray addObjectsFromArray:addItems];
+            [self.foodArray replaceObjectsInRange:NSMakeRange(0,0)
+                            withObjectsFromArray:addItems];
             [self.collectionView insertItemsAtIndexPaths:newIndexPaths];
             
         } completion:nil];
@@ -280,6 +268,12 @@ static NSString *CellIdentifier = @"Cell";
         self.imgArray = [self.textDetector2 findTextArea:originalImage];
         NSLog(@"+++ MAIN VC +++ : text areas %d",(int)self.imgArray.count);
         if ([_imgArray count] > 0){
+            
+            //hao added
+            [self.camView stopLoadingAnimation];
+            [self showResultButtonsAndCollectionView];
+            
+            
             for(UIImage *preImage in _imgArray){
                 
                 _tempMat= [preImage CVMat];
@@ -295,10 +289,8 @@ static NSString *CellIdentifier = @"Cell";
                 if(returnResultsFromDB){
                     
                     [localFoods addObjectsFromArray:returnResultsFromDB];
+                    //[localFoods insertObjects:returnResultsFromDB atIndexes:@[@0]];
                     
-                    //hao added
-                    [self.camView stopLoadingAnimation];
-                    [self showResultButtonsAndCollectionView];
                     [self addFoodItems:localFoods];
                     
                 }
@@ -311,6 +303,7 @@ static NSString *CellIdentifier = @"Cell";
                     }
                 }];
             }
+            
             if(localFoods.count+serverFoods.count == 0){
                 //can't search anything from DB
                 [self stopAnimationAndShowErrorToast];
@@ -379,6 +372,43 @@ static NSString *CellIdentifier = @"Cell";
                                       self.collectionView.hidden = YES;
                                   }];
     }
+}
+
+-(void)loadControls{
+    self.camView = [[CameraView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) andOrientation:self.interfaceOrientation andAppliedVC:self];
+    [self.view insertSubview:self.camView belowSubview:self.collectionView];
+    
+    /*REQUIRED FOR DEBUGGING ANIMATION*/
+    
+    self.collectionView.hidden = YES;
+    self.collectionView.backgroundColor = [UIColor clearColor];
+    
+    //registering dequueue cell
+    [self.collectionView registerClass:[EDCollectionCell class] forCellWithReuseIdentifier:CellIdentifier];
+    
+    
+    self.transitionController = [[TransitionController alloc] initWithCollectionView:self.collectionView];
+    self.transitionController.delegate = self;
+    self.navigationController.delegate = self.transitionController;
+    
+    //self.debugV = [[debugView alloc] initWithFrame:CGRectMake(0, 0, 320, 200) andReferenceCV:self];
+    //[self.view insertSubview:self.debugV aboveSubview:self.collectionView];
+    
+    
+    
+    //add in collectionView
+    
+    _clearBtn = [LoadControls createRoundedButton_Image:@"go_back.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(6, 4, 6, 6) andLeftBottomElseRightBottom:YES];
+    [_clearBtn addTarget:self action:@selector(clearBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    _clearBtn.alpha = 1;
+    _clearBtn.hidden = YES;
+    [self.view insertSubview:_clearBtn aboveSubview:self.collectionView];
+    
+    _nextBtn = [LoadControls createRoundedButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(8, 7, 8, 9) andLeftBottomElseRightBottom:NO];
+    [_nextBtn addTarget:self action:@selector(nextBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    _nextBtn.alpha = 1;
+    _nextBtn.hidden = YES;
+    [self.view insertSubview:_nextBtn aboveSubview:self.collectionView];
 }
 
 // GETTERs

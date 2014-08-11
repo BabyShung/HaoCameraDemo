@@ -129,6 +129,7 @@
 		B8AB89D1196C7EA400F32E4F /* star_on.png in Resources */ = {isa = PBXBuildFile; fileRef = B8AB89CD196C7EA400F32E4F /* star_on.png */; };
 		B8AB89D2196C7EA400F32E4F /* star_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8AB89CE196C7EA400F32E4F /* star_on@2x.png */; };
 		B8AB89DB196F19C900F32E4F /* AboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8AB89DA196F19C900F32E4F /* AboutUsViewController.m */; };
+		B8B2B4DE19985D0C002B8A7B /* debugView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B2B4DD19985D0C002B8A7B /* debugView.m */; };
 		B8B60FAB195914DF005268D5 /* smallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FA8195914DF005268D5 /* smallLayout.m */; };
 		B8B60FAC195914DF005268D5 /* largeLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FAA195914DF005268D5 /* largeLayout.m */; };
 		B8B60FBB19591605005268D5 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FBA19591605005268D5 /* SecondViewController.m */; };
@@ -414,6 +415,8 @@
 		B8AB89CE196C7EA400F32E4F /* star_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_on@2x.png"; sourceTree = "<group>"; };
 		B8AB89D9196F19C900F32E4F /* AboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsViewController.h; sourceTree = "<group>"; };
 		B8AB89DA196F19C900F32E4F /* AboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsViewController.m; sourceTree = "<group>"; };
+		B8B2B4DC19985D0C002B8A7B /* debugView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debugView.h; sourceTree = "<group>"; };
+		B8B2B4DD19985D0C002B8A7B /* debugView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = debugView.m; sourceTree = "<group>"; };
 		B8B60FA7195914DF005268D5 /* smallLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smallLayout.h; sourceTree = "<group>"; };
 		B8B60FA8195914DF005268D5 /* smallLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smallLayout.m; sourceTree = "<group>"; };
 		B8B60FA9195914DF005268D5 /* largeLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = largeLayout.h; sourceTree = "<group>"; };
@@ -956,6 +959,8 @@
 		B8B60F9E195913FF005268D5 /* Main(Camera) */ = {
 			isa = PBXGroup;
 			children = (
+				B8B2B4DC19985D0C002B8A7B /* debugView.h */,
+				B8B2B4DD19985D0C002B8A7B /* debugView.m */,
 				ACDD6D4D195F4AB800AD51A7 /* MainViewController.h */,
 				ACDD6D4E195F4AB800AD51A7 /* MainViewController.mm */,
 				B8B60FB919591605005268D5 /* SecondViewController.h */,
@@ -1638,6 +1643,7 @@
 				B8079CE6197AF03A00D568EC /* introContainer.m in Sources */,
 				B8B61076195926E0005268D5 /* UIButton+Bootstrap.m in Sources */,
 				AC3FDD101979C5E60008D311 /* EDCommentView.m in Sources */,
+				B8B2B4DE19985D0C002B8A7B /* debugView.m in Sources */,
 				B8B6103C19592369005268D5 /* UIImage+JTSImageEffects.m in Sources */,
 				B8B6106C195926C0005268D5 /* RegisterViewController.m in Sources */,
 				AC7491F8195A2C4F00D3CBBA /* TransitionController.m in Sources */,
@@ -1833,7 +1839,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "Blue Cheese";
-				PROVISIONING_PROFILE = "DB8EF745-5AEC-4F71-B64D-62DAC357C373";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Distribution;
@@ -1954,7 +1960,7 @@
 				OTHER_LDFLAGS = "";
 				"OTHER_LDFLAGS[arch=*]" = "";
 				PRODUCT_NAME = "Blue Cheese";
-				PROVISIONING_PROFILE = "DB8EF745-5AEC-4F71-B64D-62DAC357C373";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1982,7 +1988,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "Blue Cheese";
-				PROVISIONING_PROFILE = "DB8EF745-5AEC-4F71-B64D-62DAC357C373";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

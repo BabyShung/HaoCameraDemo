@@ -42,7 +42,7 @@
     
     [self initUI];
     
-        //cache keyboard
+    //cache keyboard
     [UIResponder cacheKeyboard];
     
     //[self checkAndStartLoadingAnimation];
@@ -52,6 +52,7 @@
 }
 
 -(void)initUI{
+    //particularlly for in-app language change
     self.emailTextField.placeholder = AMLocalizedString(@"Email", nil);
     self.pwdTextField.placeholder = AMLocalizedString(@"Password", nil);
     [self.loginBtn setTitle:AMLocalizedString(@"Login", nil) forState:UIControlStateNormal];
