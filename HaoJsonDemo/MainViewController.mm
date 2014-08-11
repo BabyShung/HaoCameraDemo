@@ -139,6 +139,11 @@ static NSString *CellIdentifier = @"Cell";
 //    NSString* str = @"apple banana pear orange Sushi and caper and cilantro";
 //    [self addFoodItems:[dict localSearchOCRString:str]];
 //    [self showResultButtonsAndCollectionView];
+//    [dict serverSearchOCRString:str inLang:English andCompletion:^(NSArray *results, BOOL success) {
+//        [self addFoodItems:results];
+//    }];
+    
+    
 }
 
 /*******************************
@@ -242,11 +247,13 @@ static NSString *CellIdentifier = @"Cell";
 #pragma mark CAMERA DELEGATE
 
 - (void) EdibleCamera:(MainViewController *)simpleCam didFinishWithImage:(UIImage *)image withRect:(CGRect)rect andCropSize:(CGSize)size{
-
+    
+    NSLog(@"******************!! !! PHOTO TAKEN  !! !!********************");
+    
     /****** OCR and Searching Components *****/
     
     Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
-
+    
     if (image) {
         
         //PS: image variable is the original size image (2448*3264)
@@ -256,79 +263,64 @@ static NSString *CellIdentifier = @"Cell";
         NSMutableArray *serverFoods = [NSMutableArray array];
         self.imgArray = [self.textDetector2 findTextArea:originalImage];
         NSLog(@"+++ MAIN VC +++ : text areas %d",(int)self.imgArray.count);
-        if ([_imgArray count] > 0){
+        
+        NSMutableString *serverInputStr= [NSMutableString stringWithString:@""];
+        
+        for(UIImage *preImage in _imgArray){
             
+            _tempMat= [preImage CVMat];
             
+            // Step 3. put Mat into pre processor- Charlie
+            _tempMat = [self.ipp processImage:_tempMat];
+            NSString *ocrStr = [self recognizeImageWithTesseract:[UIImage imageWithCVMat:_tempMat]];
             
+            NSLog(@" ++++++++++ MAIN VC +++++++++++ : TEESSACT REC: %@",ocrStr);
+            [serverInputStr appendFormat:@" %@",ocrStr];
             
+            NSArray *returnResultsFromDB = [dict localSearchOCRString:ocrStr];
             
-            for(UIImage *preImage in _imgArray){
-                
-                _tempMat= [preImage CVMat];
-                
-                // Step 3. put Mat into pre processor- Charlie
-                _tempMat = [self.ipp processImage:_tempMat];
-                NSString *ocrStr = [self recognizeImageWithTesseract:[UIImage imageWithCVMat:_tempMat]];
-                NSLog(@" ++++++++++ MAIN VC +++++++++++ : TEESSACT REC: %@",ocrStr);
-                
-                
-                NSArray *returnResultsFromDB = [dict localSearchOCRString:ocrStr];
-                
-                if(returnResultsFromDB){
-                    
-                    
-                    
-                    
-                    [localFoods addObjectsFromArray:returnResultsFromDB];
-                    
-                    [self addFoodItems:localFoods];
-                    
-                    
-                    //hao added
-                    [self.camView stopLoadingAnimation];
-                    [self showResultButtonsAndCollectionView];
-                    
-                }
-                
-                
-                /********* Warning *******
-                 Xinmei,
-                 every time we get a region will send a request, maybe we should process all the strings
-                 and general only one long string and send it to the server
-                 
-                 *******/
-                [dict serverSearchOCRString:ocrStr inLang:English andCompletion:^(NSArray *results, BOOL success) {
-                    if (results.count > 0){
-                        NSLog(@"++++++++++++ MVC +++++++++++++ : SERVER RETURNED %d  food results - - - - - - - - - - - - - ",results.count);
-                        
-                        [self showResultButtonsAndCollectionView];
-                        
-                        [serverFoods addObjectsFromArray:results];
-                        [self addFoodItems:results];
-                        
-                        
-                        
-                    }else if(localFoods.count+serverFoods.count == 0){//hao modified, fix this bug
-                        //can't search anything from DB
-                        
-                        [self stopAnimationAndShowErrorToast];
-                        
-                        NSLog(@"what .....???!!!");
-                    }
-                }];
-            }
-            
-            if(localFoods.count==0){
-                [self.camView backBtnPressed:nil];
-            }
+            if(returnResultsFromDB){
 
-        }else{
-            NSLog(@"what .....@@@@@@");
-            //can't detect anything from textDetector
-            [self stopAnimationAndShowErrorToast];
+                [localFoods addObjectsFromArray:returnResultsFromDB];
+                
+                [self addFoodItems:localFoods];
+                
+                
+                //hao added
+                [self.camView stopLoadingAnimation];
+                
+                
+            }
         }
+        
+        [self showResultButtonsAndCollectionView];
+
+        [dict serverSearchOCRString:serverInputStr inLang:English andCompletion:^(NSArray *results, BOOL success) {
+            
+            if (results.count > 0){
+                //stop loading result indicator
+                [self.camView stopLoadingAnimation];
+                
+                NSLog(@"++++++++++++ MVC +++++++++++++ : SERVER RETURNED %d  food results - - - - - - - - - - - - - ",results.count);
+                
+                [self showResultButtonsAndCollectionView];
+                
+                [serverFoods addObjectsFromArray:results];
+                [self addFoodItems:results];
+                
+                
+                
+            }else if(self.foodArray.count == 0){
+                //local and server return nothing
+                
+                [self stopAnimationAndShowErrorToast];
+                
+                NSLog(@"what .....???!!!");
+            }
+        }];
+        
     }
-    NSLog(@"******************!! !! PHOTO TAKEN  !! !!********************");
+    
 }
 
 
