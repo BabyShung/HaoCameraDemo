@@ -10,12 +10,12 @@
 		106FF1A2196B49670099B743 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 106FF1A4196B49670099B743 /* Localizable.strings */; };
 		10A3AFDC19743E8A00C3B2B0 /* LocalizationSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 10A3AFDB19743E8A00C3B2B0 /* LocalizationSystem.m */; };
 		10A3AFDF197473CD00C3B2B0 /* languageSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 10A3AFDE197473CD00C3B2B0 /* languageSetting.m */; };
+		3A1DB59019983A210087CE37 /* localDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 3A1DB58F19983A210087CE37 /* localDB.db */; };
+		3A1DB59319983A3B0087CE37 /* basic_foods_2894_en.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3A1DB59119983A3B0087CE37 /* basic_foods_2894_en.txt */; };
+		3A1DB59419983A3B0087CE37 /* basic_foods_2894_zh.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3A1DB59219983A3B0087CE37 /* basic_foods_2894_zh.txt */; };
 		3A6959651966FC8200FB21F9 /* TextDetector2.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A6959641966FC8200FB21F9 /* TextDetector2.mm */; };
 		3A6959681966FCBE00FB21F9 /* ImagePreProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A6959671966FCBE00FB21F9 /* ImagePreProcessor.mm */; };
 		3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */; };
-		3AA4B484198D62FA00C133A7 /* localDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 3AA4B483198D62FA00C133A7 /* localDB.db */; };
-		3AA4B487198D630D00C133A7 /* basic_foods_1575_en.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3AA4B485198D630D00C133A7 /* basic_foods_1575_en.txt */; };
-		3AA4B488198D630D00C133A7 /* basic_foods_1575_zh.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3AA4B486198D630D00C133A7 /* basic_foods_1575_zh.txt */; };
 		3AAE5960196F03FB0006B469 /* libFlurry_5.2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAE595F196F03FB0006B469 /* libFlurry_5.2.0.a */; };
 		3AAE5962196F04200006B469 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAE5961196F04200006B469 /* SystemConfiguration.framework */; };
 		3AAE5964196F04340006B469 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAE5963196F04340006B469 /* Security.framework */; };
@@ -254,6 +254,9 @@
 		10A3AFDB19743E8A00C3B2B0 /* LocalizationSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizationSystem.m; sourceTree = "<group>"; };
 		10A3AFDD197473CD00C3B2B0 /* languageSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = languageSetting.h; sourceTree = "<group>"; };
 		10A3AFDE197473CD00C3B2B0 /* languageSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = languageSetting.m; sourceTree = "<group>"; };
+		3A1DB58F19983A210087CE37 /* localDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = localDB.db; sourceTree = "<group>"; };
+		3A1DB59119983A3B0087CE37 /* basic_foods_2894_en.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_foods_2894_en.txt; sourceTree = "<group>"; };
+		3A1DB59219983A3B0087CE37 /* basic_foods_2894_zh.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_foods_2894_zh.txt; sourceTree = "<group>"; };
 		3A5654BD193778AD0085CC87 /* WordCorrector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordCorrector.h; sourceTree = "<group>"; };
 		3A6959631966FC8200FB21F9 /* TextDetector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDetector2.h; sourceTree = "<group>"; };
 		3A6959641966FC8200FB21F9 /* TextDetector2.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextDetector2.mm; sourceTree = "<group>"; };
@@ -261,9 +264,6 @@
 		3A6959671966FCBE00FB21F9 /* ImagePreProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImagePreProcessor.mm; sourceTree = "<group>"; };
 		3AA1BD8B192FA282002729BC /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
 		3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
-		3AA4B483198D62FA00C133A7 /* localDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = localDB.db; sourceTree = "<group>"; };
-		3AA4B485198D630D00C133A7 /* basic_foods_1575_en.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_foods_1575_en.txt; sourceTree = "<group>"; };
-		3AA4B486198D630D00C133A7 /* basic_foods_1575_zh.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_foods_1575_zh.txt; sourceTree = "<group>"; };
 		3AAE595E196F03FB0006B469 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		3AAE595F196F03FB0006B469 /* libFlurry_5.2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_5.2.0.a; sourceTree = "<group>"; };
 		3AAE5961196F04200006B469 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -675,9 +675,9 @@
 		AC8A356819461D3E00FC5465 /* LocalDB */ = {
 			isa = PBXGroup;
 			children = (
-				3AA4B483198D62FA00C133A7 /* localDB.db */,
-				3AA4B485198D630D00C133A7 /* basic_foods_1575_en.txt */,
-				3AA4B486198D630D00C133A7 /* basic_foods_1575_zh.txt */,
+				3A1DB59119983A3B0087CE37 /* basic_foods_2894_en.txt */,
+				3A1DB59219983A3B0087CE37 /* basic_foods_2894_zh.txt */,
+				3A1DB58F19983A210087CE37 /* localDB.db */,
 				AC1E7761194F583100532F65 /* filterwords.txt */,
 				AC8A357519461E2100FC5465 /* SQLConnector.h */,
 				AC8A357619461E2100FC5465 /* SQLConnector.m */,
@@ -1490,7 +1490,6 @@
 				B8032C45197B6DAB001B9040 /* intro_arrow_right_down@2x.png in Resources */,
 				B8079C171979998000D568EC /* ED_switchLanguage.png in Resources */,
 				B8032C46197B6DAB001B9040 /* intro_arrow_right_down.png in Resources */,
-				3AA4B484198D62FA00C133A7 /* localDB.db in Resources */,
 				106FF1A2196B49670099B743 /* Localizable.strings in Resources */,
 				B8032D2F197CA144001B9040 /* touchdown_eng.png in Resources */,
 				B8032C3C197B5038001B9040 /* CameraNext.png in Resources */,
@@ -1506,7 +1505,7 @@
 				B8B60FD919591E07005268D5 /* bluejay.jpg in Resources */,
 				B8032C3F197B505E001B9040 /* CameraPrevious@2x.png in Resources */,
 				B8BBB0311964FFA9007CE548 /* search-icon@2x.png in Resources */,
-				3AA4B488198D630D00C133A7 /* basic_foods_1575_zh.txt in Resources */,
+				3A1DB59019983A210087CE37 /* localDB.db in Resources */,
 				B8AB89CF196C7EA400F32E4F /* star_off.png in Resources */,
 				B8032C40197B505E001B9040 /* CameraPrevious.png in Resources */,
 				B8032D2D197CA144001B9040 /* touchdown_chinese.png in Resources */,
@@ -1524,6 +1523,7 @@
 				B8CC9F8C19689E6400CCFE74 /* ED_torch.png in Resources */,
 				B8FA465518F9E954007DA680 /* Images.xcassets in Resources */,
 				B8032D12197C7302001B9040 /* tutorial_2_ip5.png in Resources */,
+				3A1DB59419983A3B0087CE37 /* basic_foods_2894_zh.txt in Resources */,
 				B8079CC81979C06200D568EC /* intro_arrow_right_up@2x.png in Resources */,
 				B8BBB02E1964FFA9007CE548 /* close-icon.png in Resources */,
 				B8AB89D1196C7EA400F32E4F /* star_on.png in Resources */,
@@ -1561,6 +1561,7 @@
 				B8F179AD1975C29700A236B1 /* ED_back_2@2x.png in Resources */,
 				B8032D47197CB438001B9040 /* tutorial_2_ip4.png in Resources */,
 				B8032C4A197B70D6001B9040 /* intro_arrow_left_down@2x.png in Resources */,
+				3A1DB59319983A3B0087CE37 /* basic_foods_2894_en.txt in Resources */,
 				B8BBB0301964FFA9007CE548 /* search-icon.png in Resources */,
 				B8032D2E197CA144001B9040 /* touchdown_chinese@2x.png in Resources */,
 				B8032D13197C7302001B9040 /* tutorial_3_ip5.png in Resources */,
@@ -1572,7 +1573,6 @@
 				B8B60FD619591E07005268D5 /* likeButton_unselected.png in Resources */,
 				B8CC9FA91968A75900CCFE74 /* ED_feedback_right@2x.png in Resources */,
 				B8079CEC197B06E000D568EC /* bold_cross.png in Resources */,
-				3AA4B487198D630D00C133A7 /* basic_foods_1575_en.txt in Resources */,
 				B8CC9F7E19689E6400CCFE74 /* default_selfie.png in Resources */,
 				B8B60FD819591E07005268D5 /* likeButtonToolbar_unselected.png in Resources */,
 				B8032D57197CB7C1001B9040 /* drag_eng.png in Resources */,
@@ -1833,7 +1833,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "Blue Cheese";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "FAEEED3D-302C-4CA8-A56B-7A8E783B3AE6";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Distribution;
@@ -1954,7 +1954,7 @@
 				OTHER_LDFLAGS = "";
 				"OTHER_LDFLAGS[arch=*]" = "";
 				PRODUCT_NAME = "Blue Cheese";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "FAEEED3D-302C-4CA8-A56B-7A8E783B3AE6";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1982,7 +1982,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "Blue Cheese";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "FAEEED3D-302C-4CA8-A56B-7A8E783B3AE6";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
