@@ -25,7 +25,6 @@
 #import "Flurry.h"
 #import "NSUserDefaultControls.h"
 #import "introContainer.h"
-#import "debugView.h"
 
 
 #define SCALE_FACTOR_IMAGE 2.5f
@@ -39,6 +38,7 @@ static NSString *CellIdentifier = @"Cell";
 }
 @property (strong, nonatomic) UIButton * clearBtn;
 @property (strong, nonatomic) UIButton * nextBtn;
+@property (strong, nonatomic) UILabel *friendlyResultLabel;
 
 @property (strong,nonatomic) Tesseract *tesseract;
 
@@ -53,8 +53,6 @@ static NSString *CellIdentifier = @"Cell";
 @property (strong,nonatomic) TextDetector2 *textDetector2;
 
 @property (nonatomic) NSUInteger counterForNoResult;
-
-@property (nonatomic,strong) debugView *debugV;
 
 @end
 
@@ -107,6 +105,8 @@ static NSString *CellIdentifier = @"Cell";
     
     [self.foodArray removeAllObjects];
     [self.collectionView reloadData];
+    
+    _friendlyResultLabel.text = @"";
 }
 
 //right bottom button
@@ -183,18 +183,6 @@ static NSString *CellIdentifier = @"Cell";
     return transitionLayout;
 }
 
-
-//-(void)addItem
-//{
-//    [self.collectionView performBatchUpdates:^{
-//        //self.cellCount = self.cellCount + 1;
-//        Food *food = [[Food alloc]initWithTitle:@"123" andTranslations:@"qwe"];
-//        [self.foodArray insertObject:food atIndex:0];
-//        [self.collectionView insertItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
-//        
-//    } completion:nil];
-//}
-
 //Add new items into collection view
 //This method will exclude duplicates results
 -(void)addFoodItems:(NSArray *) newFoodItems
@@ -224,6 +212,7 @@ static NSString *CellIdentifier = @"Cell";
             //[self.foodArray addObjectsFromArray:addItems];
             [self.foodArray replaceObjectsInRange:NSMakeRange(0,0)
                             withObjectsFromArray:addItems];
+            [self updateFriendlyResultLabel:self.foodArray.count];
             [self.collectionView insertItemsAtIndexPaths:newIndexPaths];
             
         } completion:nil];
@@ -269,9 +258,8 @@ static NSString *CellIdentifier = @"Cell";
         NSLog(@"+++ MAIN VC +++ : text areas %d",(int)self.imgArray.count);
         if ([_imgArray count] > 0){
             
-            //hao added
-            [self.camView stopLoadingAnimation];
-            [self showResultButtonsAndCollectionView];
+            
+            
             
             
             for(UIImage *preImage in _imgArray){
@@ -288,32 +276,70 @@ static NSString *CellIdentifier = @"Cell";
                 
                 if(returnResultsFromDB){
                     
+                    
+                    
+                    
                     [localFoods addObjectsFromArray:returnResultsFromDB];
-                    //[localFoods insertObjects:returnResultsFromDB atIndexes:@[@0]];
                     
                     [self addFoodItems:localFoods];
                     
+                    
+                    //hao added
+                    [self.camView stopLoadingAnimation];
+                    [self showResultButtonsAndCollectionView];
+                    
                 }
                 
+                
+                /********* Warning *******
+                 Xinmei,
+                 every time we get a region will send a request, maybe we should process all the strings
+                 and general only one long string and send it to the server
+                 
+                 *******/
                 [dict serverSearchOCRString:ocrStr inLang:English andCompletion:^(NSArray *results, BOOL success) {
                     if (results.count > 0){
                         NSLog(@"++++++++++++ MVC +++++++++++++ : SERVER RETURNED %d  food results - - - - - - - - - - - - - ",results.count);
+                        
+                        [self showResultButtonsAndCollectionView];
+                        
                         [serverFoods addObjectsFromArray:results];
                         [self addFoodItems:results];
+                        
+                        
+                        
+                    }else if(localFoods.count+serverFoods.count == 0){//hao modified, fix this bug
+                        //can't search anything from DB
+                        
+                        [self stopAnimationAndShowErrorToast];
+                        
+                        NSLog(@"what .....???!!!");
                     }
                 }];
             }
             
-            if(localFoods.count+serverFoods.count == 0){
-                //can't search anything from DB
-                [self stopAnimationAndShowErrorToast];
+            if(localFoods.count==0){
+                [self.camView backBtnPressed:nil];
             }
+
         }else{
+            NSLog(@"what .....@@@@@@");
             //can't detect anything from textDetector
             [self stopAnimationAndShowErrorToast];
         }
     }
     NSLog(@"******************!! !! PHOTO TAKEN  !! !!********************");
+}
+
+
+-(void)updateFriendlyResultLabel:(int)number{
+    NSString *showString;
+    if(number == 1){
+        showString = AMLocalizedString(@"FRIENDLY_RESULT_TEXT_single", nil);
+    }else{
+        showString = AMLocalizedString(@"FRIENDLY_RESULT_TEXT_plural", nil);
+    }
+    _friendlyResultLabel.text = [NSString stringWithFormat:@"%d%@",number,showString];
 }
 
 -(void)stopAnimationAndShowErrorToast{
@@ -391,11 +417,6 @@ static NSString *CellIdentifier = @"Cell";
     self.transitionController.delegate = self;
     self.navigationController.delegate = self.transitionController;
     
-    //self.debugV = [[debugView alloc] initWithFrame:CGRectMake(0, 0, 320, 200) andReferenceCV:self];
-    //[self.view insertSubview:self.debugV aboveSubview:self.collectionView];
-    
-    
-    
     //add in collectionView
     
     _clearBtn = [LoadControls createRoundedButton_Image:@"go_back.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(6, 4, 6, 6) andLeftBottomElseRightBottom:YES];
@@ -409,6 +430,12 @@ static NSString *CellIdentifier = @"Cell";
     _nextBtn.alpha = 1;
     _nextBtn.hidden = YES;
     [self.view insertSubview:_nextBtn aboveSubview:self.collectionView];
+    
+    
+    _friendlyResultLabel = [LoadControls createLabelWithRect:CGRectMake(0, 0, 260, 50) andTextAlignment:NSTextAlignmentCenter andFont:[UIFont fontWithName:@"Heiti TC" size:16] andTextColor:[ED_Color edibleBlueColor_doubleBlue]];
+    _friendlyResultLabel.text = @"";
+    _friendlyResultLabel.center = CGPointMake(160, ScreenHeight - 35);
+    [self.view addSubview:_friendlyResultLabel];
 }
 
 // GETTERs

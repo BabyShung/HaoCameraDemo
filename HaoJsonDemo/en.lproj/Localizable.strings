@@ -97,3 +97,5 @@
 "Skip_TEXT"="Skip";
 "FAIL_COMMENT_EMOJI"="Please delete emoji and resend";
 "COMMENT_LOADING_MSG"="Loading Comments...";
+"FRIENDLY_RESULT_TEXT_single"=" result";
+"FRIENDLY_RESULT_TEXT_plural"=" results";

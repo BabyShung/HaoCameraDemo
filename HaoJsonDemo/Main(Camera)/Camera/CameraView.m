@@ -463,6 +463,7 @@
     
     _captureBtn = [LoadControls createNiceCameraButton_withCameraView:self];
     [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+
     
     // -- LOAD BUTTONS END -- //
     self.scaleSlider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(30, CROPVIEW_HEIGHT, 260, 31)];

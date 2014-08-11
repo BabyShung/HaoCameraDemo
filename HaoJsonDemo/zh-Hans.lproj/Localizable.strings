@@ -95,3 +95,5 @@
 "Skip_TEXT"="跳过";
 "FAIL_COMMENT_EMOJI"="亲，暂不支持发送表情";
 "COMMENT_LOADING_MSG"="评论加载中...";
+"FRIENDLY_RESULT_TEXT_single"="个结果";
+"FRIENDLY_RESULT_TEXT_plural"="个结果";
