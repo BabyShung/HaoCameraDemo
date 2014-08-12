@@ -78,11 +78,13 @@ static NSString *CellIdentifier = @"Cell";
     //if first launch, show it
     if([NSUserDefaultControls isFirstLaunch]){
         [NSUserDefaultControls userFinishFirstLaunch];
-        introContainer *ic = [[introContainer alloc] initWithFrame:self.view.bounds];
-        ic.shouldShowHint = YES;
-        [self.view addSubview:ic];
-        [ic showIntroWithCrossDissolve];
+ 
     }
+    
+    introContainer *ic = [[introContainer alloc] initWithFrame:self.view.bounds];
+    ic.shouldShowHint = YES;
+    [self.view addSubview:ic];
+    [ic showIntroWithCrossDissolve];
 }
 
 - (void) clearBtnPressed:(id)sender {
@@ -258,6 +260,8 @@ static NSString *CellIdentifier = @"Cell";
     
     if (image) {
         
+        [self showResultButtonsAndCollectionView];
+        
         //PS: image variable is the original size image (2448*3264)
         UIImage *onScreenImage = [LoadControls scaleImage:image withScale:SCALE_FACTOR_IMAGE withRect:rect andCropSize:size];
         UIImage *originalImage = [UIImage imageWithCGImage:onScreenImage.CGImage];
@@ -266,27 +270,37 @@ static NSString *CellIdentifier = @"Cell";
         self.imgArray = [self.textDetector2 findTextArea:originalImage];
         NSLog(@"+++ MAIN VC +++ : text areas %d",(int)self.imgArray.count);
         
+        //string to be sent to server
         NSMutableString *serverInputStr= [NSMutableString stringWithString:@""];
         
+        //for each the region image
         for(UIImage *preImage in _imgArray){
             
             _tempMat= [preImage CVMat];
             
             // Step 3. put Mat into pre processor- Charlie
             _tempMat = [self.ipp processImage:_tempMat];
+            
+            //get the string from Tesseract
             NSString *ocrStr = [self recognizeImageWithTesseract:[UIImage imageWithCVMat:_tempMat]];
             
             NSLog(@" ++++++++++ MAIN VC +++++++++++ : TEESSACT REC: %@",ocrStr);
+            
             [serverInputStr appendFormat:@" %@",ocrStr];
             
             NSArray *returnResultsFromDB = [dict localSearchOCRString:ocrStr];
-            
+//            NSLog(@"************outputing before ******** ");
+//            NSLog(@"************returnResultsFromDB count ********  %d",returnResultsFromDB.count);
             if(returnResultsFromDB){
 
                 [localFoods addObjectsFromArray:returnResultsFromDB];
                 
                 [self addFoodItems:localFoods];
                 
+//                NSLog(@"************outputing count ********  %d",localFoods.count);
+//                for(Food *food in localFoods){
+//                    NSLog(@"************outputing ********  %@",food);
+//                }
                 
                 //hao added
                 [self.camView stopLoadingAnimation];
@@ -295,7 +309,7 @@ static NSString *CellIdentifier = @"Cell";
             }
         }
         
-        [self showResultButtonsAndCollectionView];
+        
 
         [dict serverSearchOCRString:serverInputStr inLang:English andCompletion:^(NSArray *results, BOOL success) {
             

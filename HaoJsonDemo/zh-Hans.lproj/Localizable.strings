@@ -28,7 +28,7 @@
 "Password"="密码";
 "BackToLogin"="返回";
 "SignUp"="注册";
-"Login"="登陆";
+"Login"="登录";
 "SkipLogin"="匿名登录";
 "Old password"="旧密码";
 "New password"="新密码";
@@ -46,10 +46,10 @@
 "SUCCESS_COMMENT" = "发送成功";
 "FAIL_COMMENT" = "亲，请重发";
 "DETECTOR_NO_RESULT" = "无结果，再试一次亲";
-"NOT_LOGIN_REGISTERED_TEXT" = "您还没有登陆\n赶紧注册一个吧";
-"LOGIN_REGISTER_BUTTON_TEXT" = "登陆/注册";
+"NOT_LOGIN_REGISTERED_TEXT" = "您还没有登录\n赶紧注册一个吧";
+"LOGIN_REGISTER_BUTTON_TEXT" = "登录/注册";
 "LOGGEDIN_CONTEXT_1" = "感谢您的支持!\n请多多反馈!\n敬请期待新功能: )\n\n\n                         - 蓝芝士团队";
-"NOT_REGISTERED_TEXT" = "您还没有登陆\n赶紧注册一个吧: )";
+"NOT_REGISTERED_TEXT" = "您还没有登录\n赶紧注册一个吧: )";
 "REGISTER_BUTTON_TEXT" = "注册";
 "NICE_WARNING_CONTEXT" = "当您无法返回结果:\n1.稍微移近字体\n2.打开灯光(左下角)\n";
 "NICE_WARNING_TITLE" = "温馨提示";

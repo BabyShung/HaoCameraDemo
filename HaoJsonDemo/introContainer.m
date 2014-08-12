@@ -57,6 +57,16 @@
     page1.descFont = [UIFont fontWithName:@"Heiti TC" size:DescFontFontSize];
     page1.bgImage = [UIImage imageNamed:iPhone5?@"tutorial_1_ip5.png":@"tutorial_1_ip4.png"];
     
+//    UIView *viewForPage2 = [[UIView alloc] initWithFrame:self.bounds];
+//    UILabel *labelForPage2 = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, 100, 30)];
+//    labelForPage2.text = @"Some custom view";
+//    labelForPage2.font = [UIFont systemFontOfSize:22];
+//    labelForPage2.textColor = [UIColor whiteColor];
+//    labelForPage2.backgroundColor = [UIColor clearColor];
+//    [viewForPage2 addSubview:labelForPage2];
+//    
+//    EAIntroPage *page2 = [EAIntroPage pageWithCustomView:viewForPage2];
+    
     EAIntroPage *page2 = [EAIntroPage page];
     page2.title = t2;
     page2.titleFont = [UIFont fontWithName:@"Heiti TC" size:TitleFontSize];
@@ -100,6 +110,7 @@
     intro.pageControl.currentPageIndicatorTintColor = [ED_Color darkGrayColor];
     intro.pageControl.pageIndicatorTintColor = [ED_Color lightGrayColor];
     //intro.pageControlY = 60;
+    //intro.useMotionEffects = NO;
     [intro.skipButton setTitleColor:[ED_Color skip_Gray] forState:UIControlStateNormal];
     [intro showInView:self animateDuration:0.3];
 }
