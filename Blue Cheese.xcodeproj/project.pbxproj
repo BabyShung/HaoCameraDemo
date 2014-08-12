@@ -10,10 +10,11 @@
 		106FF1A2196B49670099B743 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 106FF1A4196B49670099B743 /* Localizable.strings */; };
 		10A3AFDC19743E8A00C3B2B0 /* LocalizationSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 10A3AFDB19743E8A00C3B2B0 /* LocalizationSystem.m */; };
 		10A3AFDF197473CD00C3B2B0 /* languageSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 10A3AFDE197473CD00C3B2B0 /* languageSetting.m */; };
-		3A1DB59319983A3B0087CE37 /* basic_foods_2894_en.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3A1DB59119983A3B0087CE37 /* basic_foods_2894_en.txt */; };
-		3A1DB59419983A3B0087CE37 /* basic_foods_2894_zh.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3A1DB59219983A3B0087CE37 /* basic_foods_2894_zh.txt */; };
 		3A6959651966FC8200FB21F9 /* TextDetector2.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A6959641966FC8200FB21F9 /* TextDetector2.mm */; };
 		3A6959681966FCBE00FB21F9 /* ImagePreProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A6959671966FCBE00FB21F9 /* ImagePreProcessor.mm */; };
+		3A87E60B199A7C7C0094154F /* basic_foods_2726_cn.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3A87E608199A7C7C0094154F /* basic_foods_2726_cn.txt */; };
+		3A87E60C199A7C7C0094154F /* basic_foods_2726_en.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3A87E609199A7C7C0094154F /* basic_foods_2726_en.txt */; };
+		3A87E616199A884B0094154F /* localDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 3A87E615199A884B0094154F /* localDB.db */; };
 		3AA1BD8D192FA282002729BC /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */; };
 		3AAE5960196F03FB0006B469 /* libFlurry_5.2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAE595F196F03FB0006B469 /* libFlurry_5.2.0.a */; };
 		3AAE5962196F04200006B469 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AAE5961196F04200006B469 /* SystemConfiguration.framework */; };
@@ -27,7 +28,6 @@
 		AC4685BF197D5F5A00297AB3 /* DescriptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4685BE197D5F5A00297AB3 /* DescriptionView.m */; };
 		AC7491F8195A2C4F00D3CBBA /* TransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7491F7195A2C4F00D3CBBA /* TransitionController.m */; };
 		AC749201195A2D4300D3CBBA /* TransitionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC749200195A2D4300D3CBBA /* TransitionLayout.m */; };
-		AC804A861999BB8A006E31AB /* localDB.db in Resources */ = {isa = PBXBuildFile; fileRef = AC804A851999BB8A006E31AB /* localDB.db */; };
 		AC804A871999BB8A006E31AB /* localDB.db in Resources */ = {isa = PBXBuildFile; fileRef = AC804A851999BB8A006E31AB /* localDB.db */; };
 		AC8A357A19461E2100FC5465 /* SQLConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8A357619461E2100FC5465 /* SQLConnector.m */; };
 		AC8A357C1946202400FC5465 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AC8A357B1946202300FC5465 /* libsqlite3.0.dylib */; };
@@ -255,13 +255,14 @@
 		10A3AFDB19743E8A00C3B2B0 /* LocalizationSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizationSystem.m; sourceTree = "<group>"; };
 		10A3AFDD197473CD00C3B2B0 /* languageSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = languageSetting.h; sourceTree = "<group>"; };
 		10A3AFDE197473CD00C3B2B0 /* languageSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = languageSetting.m; sourceTree = "<group>"; };
-		3A1DB59119983A3B0087CE37 /* basic_foods_2894_en.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_foods_2894_en.txt; sourceTree = "<group>"; };
-		3A1DB59219983A3B0087CE37 /* basic_foods_2894_zh.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_foods_2894_zh.txt; sourceTree = "<group>"; };
 		3A5654BD193778AD0085CC87 /* WordCorrector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordCorrector.h; sourceTree = "<group>"; };
 		3A6959631966FC8200FB21F9 /* TextDetector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDetector2.h; sourceTree = "<group>"; };
 		3A6959641966FC8200FB21F9 /* TextDetector2.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextDetector2.mm; sourceTree = "<group>"; };
 		3A6959661966FCBE00FB21F9 /* ImagePreProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePreProcessor.h; sourceTree = "<group>"; };
 		3A6959671966FCBE00FB21F9 /* ImagePreProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImagePreProcessor.mm; sourceTree = "<group>"; };
+		3A87E608199A7C7C0094154F /* basic_foods_2726_cn.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_foods_2726_cn.txt; sourceTree = "<group>"; };
+		3A87E609199A7C7C0094154F /* basic_foods_2726_en.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_foods_2726_en.txt; sourceTree = "<group>"; };
+		3A87E615199A884B0094154F /* localDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = localDB.db; sourceTree = "<group>"; };
 		3AA1BD8B192FA282002729BC /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
 		3AA1BD8C192FA282002729BC /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
 		3AAE595E196F03FB0006B469 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
@@ -676,9 +677,9 @@
 		AC8A356819461D3E00FC5465 /* LocalDB */ = {
 			isa = PBXGroup;
 			children = (
-				3A1DB59119983A3B0087CE37 /* basic_foods_2894_en.txt */,
-				AC804A851999BB8A006E31AB /* localDB.db */,
-				3A1DB59219983A3B0087CE37 /* basic_foods_2894_zh.txt */,
+				3A87E615199A884B0094154F /* localDB.db */,
+				3A87E608199A7C7C0094154F /* basic_foods_2726_cn.txt */,
+				3A87E609199A7C7C0094154F /* basic_foods_2726_en.txt */,
 				AC1E7761194F583100532F65 /* filterwords.txt */,
 				AC8A357519461E2100FC5465 /* SQLConnector.h */,
 				AC8A357619461E2100FC5465 /* SQLConnector.m */,
@@ -1490,8 +1491,10 @@
 			files = (
 				B8B2B4ED199957C6002B8A7B /* tutorial_4_ip4.png in Resources */,
 				B8032C45197B6DAB001B9040 /* intro_arrow_right_down@2x.png in Resources */,
+				3A87E60C199A7C7C0094154F /* basic_foods_2726_en.txt in Resources */,
+				3A87E616199A884B0094154F /* localDB.db in Resources */,
+				3A87E60B199A7C7C0094154F /* basic_foods_2726_cn.txt in Resources */,
 				B8079C171979998000D568EC /* ED_switchLanguage.png in Resources */,
-				AC804A861999BB8A006E31AB /* localDB.db in Resources */,
 				B8032C46197B6DAB001B9040 /* intro_arrow_right_down.png in Resources */,
 				106FF1A2196B49670099B743 /* Localizable.strings in Resources */,
 				B8032D2F197CA144001B9040 /* touchdown_eng.png in Resources */,
@@ -1523,7 +1526,6 @@
 				B8B60FE419591E2E005268D5 /* btn_tag_delete.png in Resources */,
 				B8CC9F8C19689E6400CCFE74 /* ED_torch.png in Resources */,
 				B8FA465518F9E954007DA680 /* Images.xcassets in Resources */,
-				3A1DB59419983A3B0087CE37 /* basic_foods_2894_zh.txt in Resources */,
 				B8079CC81979C06200D568EC /* intro_arrow_right_up@2x.png in Resources */,
 				B8BBB02E1964FFA9007CE548 /* close-icon.png in Resources */,
 				B8B2B4EA199957C6002B8A7B /* tutorial_2_ip5.png in Resources */,
@@ -1558,7 +1560,6 @@
 				B8032D82197D7A74001B9040 /* captureArea_Chinese@2x.png in Resources */,
 				B8F179AD1975C29700A236B1 /* ED_back_2@2x.png in Resources */,
 				B8032C4A197B70D6001B9040 /* intro_arrow_left_down@2x.png in Resources */,
-				3A1DB59319983A3B0087CE37 /* basic_foods_2894_en.txt in Resources */,
 				B8BBB0301964FFA9007CE548 /* search-icon.png in Resources */,
 				B8032D2E197CA144001B9040 /* touchdown_chinese@2x.png in Resources */,
 				B8CC9F8519689E6400CCFE74 /* ED_cross@2x.png in Resources */,
