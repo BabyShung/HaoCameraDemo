@@ -183,11 +183,12 @@
         
         if (_capturedImageView.image) {
             // Hide
-            for (UIButton * btn in @[_captureBtn, _TorchBtn]) btn.hidden = YES;
+            for (UIButton * btn in @[_captureBtn, _TorchBtn, _nextPageBtn]) btn.hidden = YES;
+            
         }
         else {  // ELSE camera stream -- show capture controls / hide preview controls
             // Show
-            for (UIButton * btn in @[_TorchBtn]) btn.hidden = NO;
+            for (UIButton * btn in @[_TorchBtn,_nextPageBtn]) btn.hidden = NO;
             
             
             // Force User Preference
@@ -205,8 +206,14 @@
 //delegate method from CameraManager
 -(void)imageDidCaptured:(UIImage *)image{
     _capturedImageView.image = image;
+    
     [self drawControls];
-    [self photoCaptured];
+    
+    //don't know why it has to add a little delay, otherwise it will just not show the image first
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self photoCaptured];
+    });
 }
 
 - (void) photoCaptured {
@@ -214,6 +221,8 @@
     isSaveWaitingForResizedImage = YES;
     //turn torch off if it is on
     [_camManager turnOffTorch:_TorchBtn];
+    
+    //sending back the image back to MVC, the delegate
     [self resizeImage];
 
 }

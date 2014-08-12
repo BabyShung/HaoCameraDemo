@@ -101,6 +101,7 @@ static NSString *CellIdentifier = @"Cell";
     NSLog(@"+++++++ MVC +++++++++ : clean up last comntes");
     [[User sharedInstance].lastComments removeAllObjects];
     
+    //MVC components
     [self hideResultButtonsAndCollectionView];
 
     self.existingFood =nil;
@@ -122,6 +123,8 @@ static NSString *CellIdentifier = @"Cell";
     
     [self.view bringSubviewToFront:_clearBtn];
     [self.view bringSubviewToFront:_nextBtn];
+    [self.view bringSubviewToFront:self.friendlyResultLabel];
+    //[self updateFriendlyResultLabel:self.foodArray.count];
     
     //scroll DEspeed normal
     self.collectionView.decelerationRate = UIScrollViewDecelerationRateNormal;
@@ -260,13 +263,15 @@ static NSString *CellIdentifier = @"Cell";
     
     if (image) {
         
-        [self showResultButtonsAndCollectionView];
+        
         
         //PS: image variable is the original size image (2448*3264)
         UIImage *onScreenImage = [LoadControls scaleImage:image withScale:SCALE_FACTOR_IMAGE withRect:rect andCropSize:size];
         UIImage *originalImage = [UIImage imageWithCGImage:onScreenImage.CGImage];
         NSMutableArray *localFoods = [NSMutableArray array];
         NSMutableArray *serverFoods = [NSMutableArray array];
+        
+        //text detector to return an array of images
         self.imgArray = [self.textDetector2 findTextArea:originalImage];
         NSLog(@"+++ MAIN VC +++ : text areas %d",(int)self.imgArray.count);
         
@@ -289,58 +294,72 @@ static NSString *CellIdentifier = @"Cell";
             [serverInputStr appendFormat:@" %@",ocrStr];
             
             NSArray *returnResultsFromDB = [dict localSearchOCRString:ocrStr];
-//            NSLog(@"************outputing before ******** ");
-//            NSLog(@"************returnResultsFromDB count ********  %d",returnResultsFromDB.count);
             if(returnResultsFromDB){
 
                 [localFoods addObjectsFromArray:returnResultsFromDB];
                 
+                [self showCollectionView];
+                
+                
                 [self addFoodItems:localFoods];
-                
-//                NSLog(@"************outputing count ********  %d",localFoods.count);
-//                for(Food *food in localFoods){
-//                    NSLog(@"************outputing ********  %@",food);
-//                }
-                
+            
                 //hao added
                 [self.camView stopLoadingAnimation];
-                
                 
             }
         }
         
+        if(self.foodArray.count!=0){
+            [self showClearAndNextButton];
+        }else{
+            //self.camView.capturedImageView.image = nil;
+        }
         
-
-        [dict serverSearchOCRString:serverInputStr inLang:English andCompletion:^(NSArray *results, BOOL success) {
+        
+        //check serverInputStr before sending to server
+        NSCharacterSet *charSet = [NSCharacterSet whitespaceCharacterSet];
+        NSString *trimmedString = [serverInputStr stringByTrimmingCharactersInSet:charSet];
+        if ([trimmedString isEqualToString:@""]) {
+            // it's empty or contains only white spaces
+            [self stopAnimationAndShowErrorToast];
             
-            if (results.count > 0){
-                //stop loading result indicator
-                [self.camView stopLoadingAnimation];
+        }else{//can send to server
+            
+            [dict serverSearchOCRString:serverInputStr inLang:English andCompletion:^(NSArray *results, BOOL success) {
                 
-                NSLog(@"++++++++++++ MVC +++++++++++++ : SERVER RETURNED %d  food results - - - - - - - - - - - - - ",results.count);
+                //[NSThread sleepForTimeInterval:2.f];
                 
-                [self showResultButtonsAndCollectionView];
-                
-                [serverFoods addObjectsFromArray:results];
-                [self addFoodItems:results];
-                
-                
-                
-            }else if(self.foodArray.count == 0){
-                //local and server return nothing
-                
-                [self stopAnimationAndShowErrorToast];
-                
-                NSLog(@"what .....???!!!");
-            }
-        }];
-        
+                if (results.count > 0){
+                    //stop loading result indicator
+                    [self.camView stopLoadingAnimation];
+                    
+                    NSLog(@"++++++++++++ MVC +++++++++++++ : SERVER RETURNED %d  food results - - - - - - - - - - - - - ",results.count);
+                    
+                    [self showClearAndNextButton];
+                    [self showCollectionView];
+                    
+                    [serverFoods addObjectsFromArray:results];
+                    [self addFoodItems:results];
+                    
+                    
+                }else if(self.foodArray.count == 0){
+                    //local and server return nothing
+                    
+                    //[self hideResultButtonsAndCollectionView];
+                    [self stopAnimationAndShowErrorToast];
+                    
+                    NSLog(@"what .....???!!!");
+                }
+            }];
+        }
     }
     
 }
 
 
 -(void)updateFriendlyResultLabel:(int)number{
+    if(number == 0)
+        return;
     NSString *showString;
     if(number == 1){
         showString = AMLocalizedString(@"FRIENDLY_RESULT_TEXT_single", nil);
@@ -370,15 +389,20 @@ static NSString *CellIdentifier = @"Cell";
     [self.view makeToast_ForCamera:AMLocalizedString(@"DETECTOR_NO_RESULT", nil)];
 }
 
--(void)showResultButtonsAndCollectionView{
-    self.counterForNoResult = 0;
+-(void)showCollectionView{
+    
     if(self.collectionView.isHidden){
         self.collectionView.hidden = NO;
         self.collectionView.alpha = 1;
-        
+    }
+}
+
+-(void)showClearAndNextButton{
+    self.counterForNoResult = 0;
+    if(self.clearBtn.isHidden){
         [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            self.clearBtn.alpha = 1;
-            self.nextBtn.alpha = 1;
+            self.clearBtn.alpha = .95;
+            self.nextBtn.alpha = .95;
         } completion:^(BOOL finished) {
             if (finished) {
                 self.clearBtn.hidden = NO;
@@ -387,6 +411,7 @@ static NSString *CellIdentifier = @"Cell";
         }];
     }
 }
+
 
 -(void)hideResultButtonsAndCollectionView{
     if(!self.collectionView.isHidden){
@@ -429,13 +454,11 @@ static NSString *CellIdentifier = @"Cell";
     
     _clearBtn = [LoadControls createRoundedButton_Image:@"go_back.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(6, 4, 6, 6) andLeftBottomElseRightBottom:YES];
     [_clearBtn addTarget:self action:@selector(clearBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    _clearBtn.alpha = 1;
     _clearBtn.hidden = YES;
     [self.view insertSubview:_clearBtn aboveSubview:self.collectionView];
     
     _nextBtn = [LoadControls createRoundedButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(8, 7, 8, 9) andLeftBottomElseRightBottom:NO];
     [_nextBtn addTarget:self action:@selector(nextBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    _nextBtn.alpha = 1;
     _nextBtn.hidden = YES;
     [self.view insertSubview:_nextBtn aboveSubview:self.collectionView];
     
