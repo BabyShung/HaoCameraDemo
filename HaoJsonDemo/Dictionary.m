@@ -131,7 +131,7 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
                 continue;
             }
             //check if i is a substring of j
-            if ([keywords[j] rangeOfString:keywords[i]].location != NSNotFound) {
+            if ([[keywords[j] lowercaseString] rangeOfString:[keywords[i] lowercaseString]].location != NSNotFound) {
                 
                 //i is a substring of j,mark it
                 isASubstring = TRUE;
