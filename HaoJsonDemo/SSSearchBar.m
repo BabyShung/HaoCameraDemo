@@ -30,7 +30,7 @@
 #define kXMargin 8
 #define kYMargin 4
 #define kIconSize 16
-
+#define kCancelIconSize 32
 #define kSearchBarHeight 32
 
 
@@ -81,10 +81,11 @@
     [self addSubview:self.textField];
     
     //Cancel Button
-    self.cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kIconSize+50, kIconSize+20)];
+    self.cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kCancelIconSize, kCancelIconSize)];
     [self.cancelButton setImage:[UIImage imageNamed:@"close-icon"] forState:UIControlStateNormal];
+    [self.cancelButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -10.0, 0.0, 10.0)];
     self.cancelButton.contentMode = UIViewContentModeScaleAspectFit;
-    self.cancelButton.center = CGPointMake(boundsWidth - (kIconSize/2 + kXMargin), CGRectGetMidY(self.bounds));
+    self.cancelButton.center = CGPointMake(boundsWidth - (kIconSize/2 + 4), CGRectGetMidY(self.bounds));
     [self.cancelButton addTarget:self action:@selector(pressedCancel:) forControlEvents:UIControlEventTouchUpInside];
     
     [self addSubview:self.cancelButton];
