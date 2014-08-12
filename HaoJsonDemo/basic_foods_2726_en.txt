@@ -30,7 +30,6 @@ Albumin
 alcaline
 Alcohol
 Ale
-ale
 Alewife
 Alfalfa
 Alfalfas
@@ -83,7 +82,6 @@ Apples
 Applesauce
 Applesauces
 Apricot
-apricot
 Apricots
 Aquaculture
 Arctium
@@ -118,7 +116,6 @@ Baby Carrot
 Baby Carrots
 Babybel
 Bacon
-bacon
 Bacon & Cheese Sauce
 Bacon & Cheese Sauces
 Bacons
@@ -142,16 +139,14 @@ Baklava
 balsam pear
 Balsamic vinegar
 Bamboo shoot
-bamboo shoot
 Banana
-banana
 Banana split
 Bananas
 bancha
 Bangerz
 bantu beer
 Baptists
-Bar-le-Duc
+Bar le Duc
 Barack Obama
 Barbecue
 Barbecue Sauce
@@ -160,7 +155,6 @@ Barcelona
 Bard
 Barista
 Barley
-barley
 barley bree
 Barleys
 barm
@@ -175,19 +169,16 @@ Bastet
 Basting
 Battle of Crécy
 Baumkuchen
-Bay leaf
 Bay Leaf
 Bay Leafs
 Beadlet anemone
 Bean
 Bean sprout
-bean sprout
 Beans
 Beard
 Beaujolais
 Béchamel sauce
 Beef
-beef
 Beef Wellington
 Beefs
 Beer
@@ -206,7 +197,7 @@ Bergamot orange
 Berries
 Berry
 Besançon
-Beta-Carotene
+BetaCarotene
 Betty White
 Beverage
 Beverages
@@ -219,14 +210,12 @@ Biotechnology
 Bird
 Biryani
 Biscuit
-biscuit
 Bishop
 Bison
 Bisons
 Bisque
 Bisques
 Bitter orange
-bitter orange
 Bivalvia
 Black Bean
 Black Beans
@@ -236,9 +225,7 @@ Black Forest cake
 Black pepper
 Black sea bass
 Blackberries
-BlackBerry
 Blackberry
-blackberry
 Blanche of Castile
 Blanched
 Blender
@@ -250,13 +237,11 @@ Blood
 Blood orange
 Blood sausage
 Bloody Mary
-Blue cheese
 Blue Cheese
 Blue Cheeses
 blue curacao
 Blueberries
 Blueberry
-blueberry
 Blueberry Pie
 Blueberry Pies
 Bluefish
@@ -292,9 +277,7 @@ Bran
 Brandy
 Brassica juncea
 Bratwurst
-Brazil nut
 Brazil Nut
-brazil nut
 Brazil Nuts
 Bread
 Bread Crumb
@@ -322,26 +305,20 @@ Broths
 Brown
 Brown Bread
 Brown Breads
-Brown rice
 Brown Rice
 Brown Rices
 Brown sauce
 Brown sauces
-Brown sugar
 Brown Sugar
-brown sugar
 Brown Sugars
 Brownies
 Browny
 Bruise
 Brunch
 Brunost
-Brussels sprout
 Brussels Sprout
 Brussels Sprouts
-brut
 Bubble
-Bubble tea
 Bubble Tea
 Bubbles
 Buckwheat
@@ -372,7 +349,6 @@ Buttermilk
 Buttermilks
 Butyric acid
 Cabbage
-cabbage
 Cabbages
 Cabernet Franc
 Cabernet Sauvignon
@@ -380,7 +356,6 @@ Cabrales
 Cactus
 Caesar Dressing
 Caesar Dressings
-Caesar salad
 Caesar Salad
 Caesar Salads
 Café au lait
@@ -440,11 +415,9 @@ Carnegie Hall
 Carom billiards
 Carotene
 Carp
-carp
 Carps
 Carrageenan
 Carrot
-carrot
 Carrot Cake
 Carrot Cakes
 Carrots
@@ -456,7 +429,7 @@ Casserole
 Casseroles
 Cassis
 Cassoulet
-Cast-iron cookware
+Cast iron cookware
 Castagnaro
 Catfish
 Catfishes
@@ -467,11 +440,11 @@ Cavatappi
 Caviar
 Celeries
 Celery
-celery
 celery cabbage
 Celery Seed
 Celery Seeds
 celery sticks
+Cellophane
 Cellophane noodles
 Celsius
 Century egg
@@ -494,8 +467,6 @@ Chapatti
 Chapattis
 Chapel
 Chard
-chard
-Chardonnay
 chards
 charnu
 Chayote
@@ -504,7 +475,6 @@ Cheddar cheese
 Cheddar sauce
 Cheddar sauces
 Cheddars
-Cheek
 Cheese
 Cheese analogue
 Cheese Pizza
@@ -519,7 +489,6 @@ Chennai
 Cherimoya
 Cherries
 Cherry
-cherry
 Cherry Pie
 Cherry Pies
 Cherry plum
@@ -527,7 +496,6 @@ Cherry Tomato
 Cherry Tomatoes
 Cheshire cheese
 Chestnut
-chestnut
 Chestnuts
 Chevre
 Chevres
@@ -599,7 +567,6 @@ Ciabattas
 Cicely
 Cider
 Cinnamon
-cinnamon
 Cinnamons
 citrange
 Citric acid
@@ -610,7 +577,6 @@ Civet
 Clabber
 Clabbers
 Clam
-clam
 Clam chowder
 Clamart
 Clams
@@ -630,7 +596,6 @@ Cocktail
 Cocoa butter
 Cocoa solids
 Coconut
-coconut
 Coconut milk
 Coconut oil
 Coconuts
@@ -642,7 +607,6 @@ Coffee Creamers
 coffee mate
 Coffeehouse
 Cognac
-cognac
 Cointreau
 Coke
 Cokes
@@ -669,7 +633,6 @@ Cone
 Cones
 Confectionery
 Congee
-congee
 Consommé
 Continental Army
 Cookie
@@ -684,7 +647,6 @@ Coriander
 Corn
 Corn Chip
 Corn Chips
-Corn dog
 Corn Dog
 Corn Dogs
 Corn oil
@@ -695,7 +657,6 @@ Corn starch
 Corn syrup
 Cornbread
 Cornbreads
-Corned beef
 Corned Beef
 Corned Beefs
 Cornet
@@ -716,19 +677,16 @@ Couscouses
 Coux-et-Bigaroque
 Cowpea
 Crab
-crab
 crab claws
 crabapple
 Crabs
 Cracker
-cracker
 Crackers
 Cranberries
 Cranberry
 Crawfish
 Crawfishes
 Crayfish
-crayfish
 Cream
 Cream cheese
 Cream tea
@@ -757,7 +715,6 @@ Crust
 Crustacean
 Cube
 Cucumber
-cucumber
 Cucumbers
 Cucumis metuliferus
 Cucurbita
@@ -778,7 +735,6 @@ Curd
 Curds
 Curries
 Curry
-curry
 Curry tree
 cushaw
 Cushitic languages
@@ -849,7 +805,6 @@ Drainage basin
 Draught beer
 Drawing
 Dress
-Dried fruit
 Dried Fruit
 Dried Fruits
 Drinking water
@@ -874,14 +829,13 @@ Earl Grey tea
 Eccles cake
 Edamame
 Edamames
-Edible bird's nest
+Edible birds nest
 Eel
 Eels
 Egg
 Egg drop soup
 Egg foo young
 Egg Noodles
-Egg roll
 Egg Roll
 Egg Rolls
 Egg Salad
@@ -890,7 +844,6 @@ Egg white
 Eggnog
 Eggnogs
 Eggplant
-eggplant
 Eggplants
 Eggs Benedict
 Elk
@@ -938,7 +891,6 @@ Fatty acid
 Fava Bean
 Fava Beans
 Fennel
-fennel
 fennel oil
 Fenugreek
 ferme
@@ -949,7 +901,6 @@ Fetta
 Fettas
 fettuccine
 Fig
-fig
 Figs
 Figure skating
 filbert
@@ -972,7 +923,6 @@ Florence
 Flounder
 Flounders
 Flour
-flour
 Flours
 Flute
 Flying fish
@@ -1000,11 +950,9 @@ Freeganism
 Freeze-drying
 French Dressing
 French Dressings
-French fries
 French Fries
 French Fry
 French language
-French toast
 French Toast
 French Toasts
 Fresco
@@ -1012,18 +960,15 @@ Freshwater drum
 Fribourg
 Fried Chicken
 Fried Chickens
-Fried rice
 Fried Rice
 Fried Rices
 Fries
-Friesland
 Frill-necked lizard
 Frittata
 Fritter
 Fritters
 Frog legs
 Frogfish
-Fromager
 Frost
 Frosting
 Frostings
@@ -1038,7 +983,6 @@ Fruit Breads
 Fruit Cocktail
 Fruit Cocktails
 Fruit preserves
-Fruit salad
 Fruit Salad
 Fruit Salads
 Fruitarianism
@@ -1064,7 +1008,6 @@ garden bean
 Garden Salad
 Garden Salads
 Garlic
-garlic
 Garlic Bread
 Garlic Breads
 Garlic Powder
@@ -1082,15 +1025,11 @@ Germany
 Ghee
 Giant sea bass
 Gin
-gin
 Ginger
-ginger
 Gingerbread
 Ginkgo biloba
 Ginseng
-Gioachino Rossini
 Girdling
-Giuseppe Garibaldi
 Glazing
 Gloucester
 Gloucester cheese
@@ -1111,7 +1050,6 @@ Gold leaf
 Goma
 Goose
 Gooseberry
-gooseberry
 Goosefish
 Gorgonzola
 gorgonzola cheese
@@ -1135,7 +1073,6 @@ Granola Bars
 Granolas
 granulated sugar
 Grape
-grape
 Grape Juice
 Grape Juices
 Grapefruit
@@ -1155,7 +1092,6 @@ Great Northern Beans
 Greek cuisine
 Greek Salad
 Greek Salads
-Green bean
 Green Bean
 Green Beans
 Green Pea
@@ -1188,7 +1124,6 @@ Guacamoles
 Guanciale
 Guar gum
 Guava
-guava
 Gugelhupf
 Guineafowl
 Gum
@@ -1220,7 +1155,6 @@ Hare
 Harissa
 Hash Brown
 Hash browns
-Hash Browns
 Havarti
 Havarti Cheese
 Havarti Cheeses
@@ -1243,12 +1177,10 @@ Herve
 Hexagrammidae
 Hickory
 Highball
-highball
 highland barley
 Hogfish
 Hoisin sauce
 Hollandaise sauce
-hollandaise sauce
 hollandaise sauces
 Hominies
 Hominy
@@ -1258,7 +1190,7 @@ Honeydew Melon
 Honeydew Melons
 Honeys
 Horchata
-Hors d'oeuvre
+Hors doeuvre
 Horseradish
 Horseradish sauce
 Horseradish sauces
@@ -1267,7 +1199,6 @@ Horseshoe crab
 Hot and sour soup
 Hot Chocolate
 Hot Chocolates
-Hot dog
 Hot Dog
 Hot Dogs
 Hot pot
@@ -1279,9 +1210,7 @@ Hunan cuisine
 Hydrogenation
 Hydroponics
 Ice
-Ice cream
 Ice Cream
-ice cream
 Ice Cream Cone
 Ice Cream Cones
 Ice Creams
@@ -1308,9 +1237,7 @@ Italian Dressing
 Italian Dressings
 Italian Sausage
 Italian Sausages
-Italian unification
 Jackfruit
-jackfruit
 Jägermeister
 Jaggery
 Jalapeno
@@ -1326,7 +1253,6 @@ Japanese amberjack
 Jelly bean
 Jelly Roll Morton
 Jellyfish
-jellyfish
 Jerkies
 Jerky
 Jeroboam
@@ -1358,7 +1284,6 @@ Kefir
 Kefirs
 Kelp
 Ketchup
-ketchup
 Ketchups
 Key lime
 Key lime pie
@@ -1376,7 +1301,6 @@ Kiribati
 Kiss
 Kitchen knife
 Kiwi
-kiwi
 Kiwifruit
 Kiwifruits
 Knife
@@ -1391,14 +1315,13 @@ Kumis
 Kumquat
 Kung Pao chicken
 Kuy teav
-L'Abbaye
+LAbbaye
 Laaber
 Lactic acid
 Lactose
 Lactose intolerance
 Lager
 Lamb
-lamb
 Lamb and mutton
 Lamb Chop
 Lamb Chops
@@ -1425,7 +1348,6 @@ Leavening agent
 Lebkuchen
 Lecithin
 Leek
-leek
 Leeks
 Legume
 Leicester
@@ -1434,10 +1356,8 @@ Lemon
 Lemonade
 Lemons
 Lentil
-lentil
 Lentils
 Lettuce
-lettuce
 Lettuces
 Levant
 Licorice
@@ -1457,22 +1377,17 @@ Liquid oxygen
 Liquid smoke
 Liquorice
 Litchi
-litchi
 Litchis
 Literature
 Liver
 Liverwurst
-Lo mein
 Lo Mein
 Lo Meins
 Lobster
-lobster
 Lobsters
 Longan
-longan
 Lophius
 Loquat
-loquat
 Lottery
 Lotus Cars
 lotus root
@@ -1483,7 +1398,6 @@ Lumpsucker
 Lupinus
 Lutefisk
 Lychee
-lychee
 lychees
 Lycium barbarum
 Macadamia
@@ -1502,7 +1416,6 @@ Mafalda
 Magdalena Maleeva
 Mahi Mahi
 Mahi Mahis
-Mahi-mahi
 Mahi-Mahi
 maigreur
 maigris
@@ -1519,12 +1432,10 @@ Malus
 Mamee Double-Decker
 Manchego
 Manchegos
-Mandarin orange
 Mandarin Orange
 Mandarin Oranges
 Mandelbrot set
 Mango
-mango
 Mangos
 Manhattan
 Manicotti
@@ -1532,7 +1443,6 @@ Manilkara zapota
 Mannitol
 Manzanilla
 Maple sugar
-Maple syrup
 Maple Syrup
 Maple Syrups
 Maraschino cherry
@@ -1540,7 +1450,6 @@ marble chocolate
 Margarine
 Margarines
 Margarita
-margarita
 Marie Rose sauce
 Marie Rose sauces
 Marinaded
@@ -1590,7 +1499,6 @@ Medal
 medlar
 Melissa officinalis
 Melon
-melon
 Melon liqueu
 melon seed
 Melons
@@ -1677,9 +1585,7 @@ Multigrain Bread
 Multigrain Breads
 Mumbo sauce
 Mumbo sauces
-Mung bean
 Mung Bean
-mung bean
 Mung Beans
 Munster
 Münster
@@ -1687,7 +1593,6 @@ murs
 Muscat
 Muscovy duck
 Mushroom
-mushroom
 Mushroom Sauce
 Mushroom Sauces
 Mushrooms
@@ -1716,7 +1621,6 @@ Nebbiolo
 Nebuchadnezzar II
 Nectar
 Nectarine
-nectarine
 Nectarines
 Nectars
 needle mushroom
@@ -1726,7 +1630,6 @@ Nephrops norvegicus
 Nicolas Poussin
 Non-dairy creamer
 Noodle
-noodle
 Noodle Soup
 Noodle Soups
 Noodles
@@ -1743,7 +1646,6 @@ Nutrition Bars
 Nutrition Drink
 Nutrition Drinks
 Nuts
-nuts
 Oat
 Oatmeal
 Oatmeals
@@ -1758,20 +1660,17 @@ Oil
 Oils
 Okara District
 Okra
-okra
 Okras
 Oliva
 Olive
 Olive Bread
 Olive Breads
-Olive oil
 Olive Oil
 Olive Oils
 Olives
 Omelette
 onctueux
 Onion
-onion
 Onion gravies
 Onion gravy
 Onion Powder
@@ -1783,7 +1682,6 @@ Oolong
 Opah
 Opuntia
 Orange
-orange
 Orange Bowl
 Orange Juice
 Orange Juices
@@ -1800,9 +1698,7 @@ Oxalic acid
 Oxford sauce
 Oxford sauces
 Oyster
-oyster
 Oyster sauce
-oyster sauce
 Oysters
 Ozonide
 Pachyrhizus erosus
@@ -1810,7 +1706,6 @@ Pacific oyster
 Pad Thai
 Paella
 Paellas
-Pain
 Pale ale
 Pale lager
 Palm oil
@@ -1826,7 +1721,6 @@ Panini
 Panna district
 Papain
 Papaya
-papaya
 Papayas
 Paprika
 Paratha
@@ -1862,14 +1756,10 @@ Patty
 Pavel Vízner
 pawpaw
 Pea
-pea
 Peach
-peach
 peach schnapp
 Peaches
 Peanut
-peanut
-Peanut butter
 Peanut Butter
 Peanut Butters
 Peanut oil
@@ -1877,10 +1767,9 @@ Peanut Sauce
 Peanut Sauces
 Peanuts
 Pear
-pear
 Pears
 Peas
-Peasants' Revolt
+Peasants Revolt
 Pecan
 Pecan Pie
 Pecan Pies
@@ -1892,7 +1781,6 @@ Peking duck
 Penne
 pepermint
 Pepper
-pepper
 pepper jack
 pepper jacks
 Pepper steak
@@ -1929,7 +1817,7 @@ Pie Crust
 Pie Crusts
 Pierogi
 Pies
-Pig's trotters
+Pigs trotters
 Pigeon pea
 Pigs in blankets
 Pike
@@ -1937,11 +1825,9 @@ Pilaf
 Pilafs
 Pilsner
 Pinch hitter
-Pine nut
 Pine Nut
 Pine Nuts
 Pineapple
-pineapple
 Pineapples
 Pinga
 Pink salmon
@@ -1967,23 +1853,19 @@ plein
 Pleurotus
 Pleurotus ostreatus
 Plum
-plum
 Plums
-Po' boy
+Po boy
 Poached
 Pohang Steelers
 Point and click
 Poison
-Poivres
 Polenta
 Polentas
 Polonaise
 Polyunsaturated fat
 Pomace
 Pomegranate
-pomegranate
 Pomelo
-pomelo
 Pomerania
 Pomfret
 pommade
@@ -1993,7 +1875,6 @@ Popcorn
 Popcorns
 Poppy seed
 Pork
-pork
 Pork Chop
 Pork Chops
 pork joint
@@ -2008,10 +1889,8 @@ Pot roast
 Pot-au-feu
 Potassium nitrate
 Potato
-potato
 Potato Bread
 Potato Breads
-Potato chip
 Potato Chip
 Potato Chips
 Potato Dill Bread
@@ -2037,20 +1916,17 @@ Pretzel
 Pretzels
 Profiterole
 Prosciutto
-prosciutto
 Protein
 Protein Powder
 Protein Powders
 Provolone
 Prune
-prune
 Prunes
 Prunus
 Prunus cerasus
 Prunus mume
 Prunus spinosa
 Pudding
-pudding
 Puddings
 Puff pastry
 Puffball
@@ -2059,7 +1935,6 @@ Pumpernickel
 Pumpernickel Bread
 Pumpernickel Breads
 Pumpkin
-pumpkin
 Pumpkins
 Pungency
 Pureed
@@ -2080,13 +1955,11 @@ Rabbit
 Raclette
 Radiatore
 Radish
-radish
 Radishes
 raide
 Rainbow runner
 Rainbow trout
 Raisin
-raisin
 Raisin Bran
 Raisin Brans
 Raisin Bread
@@ -2133,12 +2006,10 @@ René Magritte
 Rennet
 Reuben sandwich
 Rhubarb
-rhubarb
 Rib
 Ribbon
 Ribs
 Rice
-rice
 Rice Cake
 Rice Cakes
 rice crust
@@ -2194,7 +2065,6 @@ Romaine lettuce
 Romaines
 Romano Prodi
 rondeur
-Root beer
 Root Beer
 Root Beers
 Roquefort
@@ -2220,7 +2090,6 @@ Rutabaga
 rye
 Rye Bread
 Rye Breads
-Sabayon Linux
 Sable
 Sablefish
 Saccharin
@@ -2253,7 +2122,6 @@ Salsa
 Salsa music
 Salsas
 Salt
-salt
 Salt-cured meat
 Salts
 salty
@@ -2291,7 +2159,6 @@ Sautéing
 Sauvignon blanc
 Scallion
 Scallop
-scallop
 scallopini
 Scallops
 Scissors
@@ -2308,7 +2175,6 @@ Screwdriver
 Scup
 Sea anemone
 Sea cucumber
-sea cucumber
 sea ear
 Sea robin
 Sea salt
@@ -2336,7 +2202,6 @@ Shabu-shabu
 shaddock
 Shahe fen
 Shallot
-shallot
 Shallots
 Shaoxing wine
 Sharia
@@ -2349,7 +2214,6 @@ Shelf life
 Sherbet
 Sherbets
 Sherry
-sherry
 Shichimi
 Shiitake
 Shiraz
@@ -2389,7 +2253,6 @@ Smetana
 Smetanas
 Smoke point
 Smoked
-Smoked salmon
 Smoked Salmon
 Smoked Salmons
 Smoking
@@ -2439,14 +2302,11 @@ Sous-vide
 soy
 Soy Bean
 Soy Beans
-Soy milk
 Soy Milk
 Soy Milks
 Soy Nut
 Soy Nuts
-Soy sauce
 Soy Sauce
-soy sauce
 Soy Sauces
 Soy Yogurt
 Soy Yogurts
@@ -2466,7 +2326,6 @@ spicy
 Spicy Marinara Sauce
 Spicy Marinara Sauces
 Spinach
-spinach
 Spinaches
 Spiny dogfish
 Spiny lobster
@@ -2480,17 +2339,13 @@ Sponge cake
 Spread
 Spreads
 Spring onions
-Spring roll
 Spring Roll
-spring roll
 Spring Rolls
-Spring rolls
 Sprite
 Sprites
 Squash
 Squashes
 Squid
-squid
 squids
 Sriracha sauce
 Stachys affinis
@@ -2500,7 +2355,6 @@ Steak tartare
 Steaks
 Steamed
 Steamed Bread
-steamed bread
 Steamed Breads
 Steaming
 Steel
@@ -2520,7 +2374,6 @@ Stracchino
 Strain
 Strawberries
 Strawberry
-strawberry
 String Cheese
 String Cheeses
 Strip steak
@@ -2531,7 +2384,6 @@ Strong flour
 Strudel
 Strudels
 Stuffing
-stuffing
 Stuffings
 Sturgeon
 Submarine sandwich
@@ -2541,7 +2393,6 @@ sucker
 Sucralose
 Sucrose
 Sugar
-sugar
 sugar cane
 Sugar substitute
 Sugar-apple
@@ -2557,7 +2408,6 @@ Sun Dried Tomatoes
 Sundae
 Sundaes
 Sunflower
-Sunflower seed
 Sunflower Seed
 Sunflower Seeds
 Supplement
@@ -2571,9 +2421,7 @@ sweet
 Sweet corn
 Sweet Peppers Sauce
 Sweet Peppers Sauces
-Sweet potato
 Sweet Potato
-sweet potato
 Sweet Potatoes
 Sweet Roll
 Sweet Rolls
@@ -2610,13 +2458,11 @@ Tamarine Tanasugarn
 Tambaqui
 Tandoor
 Tangerine
-tangerine
 Tannin
 Taquito
 Taquitos
 Taraxacum
 Taro
-taro
 Tarragon
 Tarragons
 Tart
@@ -2632,10 +2478,8 @@ Temperature
 Tempura
 Tempuras
 Tendon
-tendon
 tendre
 Tequila
-tequila
 Teriyaki
 Teriyaki Sauce
 Teriyaki Sauces
@@ -2671,13 +2515,11 @@ Tom and Jerry
 Tom Collins
 Tomatillo
 Tomato
-tomato
 Tomato & Basil Sauce
 Tomato & Basil Sauces
 Tomato Cream Sauce
 Tomato Cream Sauces
 Tomato purée
-Tomato sauce
 Tomato Sauce
 Tomato Sauces
 Tomato Soup
@@ -2733,7 +2575,6 @@ Turnips
 Turnover
 Turnovers
 Turtle
-turtle
 Tuscan Herb Sauce
 Tuscan Herb Sauces
 Udon
@@ -2756,7 +2597,6 @@ Vegemite
 Vegetable
 Vegetable Juice
 Vegetable Juices
-Vegetable oil
 Vegetable Oil
 Vegetable Oils
 Vegetables
@@ -2775,12 +2615,10 @@ Video on demand
 Vinaigrette
 Vinaigrettes
 Vinegar
-vinegar
 Vinegars
 Viticulture
 Vitreous enamel
 Vodka
-vodka
 Vodkas
 Wafer
 Wafers
@@ -2797,11 +2635,9 @@ Walnuts
 Wasabi
 Water
 Water Chestnut
-water chestnut
 Water Chestnuts
 Watercress
 Watermelon
-watermelon
 Watermelons
 Waterzooi
 Wax apple
@@ -2812,7 +2648,6 @@ Weisswurst
 Welsh rarebit
 Werewolf
 Wheat
-wheat
 Wheat beer
 Wheat Bread
 Wheat Breads
@@ -2850,7 +2685,6 @@ Whole Wheat Breads
 Wiener Neustadt
 Wiener Schnitzel
 wild pepper
-Wild rice
 Wild Rice
 Wild Rices
 Williams pear
@@ -2872,11 +2706,9 @@ Xanthan gum
 Xylitol
 Yakitori
 Yam
-yam
 Yamaha Corporation
 Yams
 Yeast
-yeast
 yellow croaker
 Yellow pepper
 Yellowfin tuna
