@@ -60,6 +60,7 @@ static NSString *CellIdentifier = @"Cell";
 
 -(void)viewDidAppear:(BOOL)animated{
     [self.searchBar becomeFirstResponder];
+    
 }
 
 

@@ -27,8 +27,8 @@
 		AC4685BF197D5F5A00297AB3 /* DescriptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4685BE197D5F5A00297AB3 /* DescriptionView.m */; };
 		AC7491F8195A2C4F00D3CBBA /* TransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7491F7195A2C4F00D3CBBA /* TransitionController.m */; };
 		AC749201195A2D4300D3CBBA /* TransitionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC749200195A2D4300D3CBBA /* TransitionLayout.m */; };
-		AC804A831999B667006E31AB /* localDB.db in Resources */ = {isa = PBXBuildFile; fileRef = AC804A821999B667006E31AB /* localDB.db */; };
-		AC804A841999B667006E31AB /* localDB.db in Resources */ = {isa = PBXBuildFile; fileRef = AC804A821999B667006E31AB /* localDB.db */; };
+		AC804A861999BB8A006E31AB /* localDB.db in Resources */ = {isa = PBXBuildFile; fileRef = AC804A851999BB8A006E31AB /* localDB.db */; };
+		AC804A871999BB8A006E31AB /* localDB.db in Resources */ = {isa = PBXBuildFile; fileRef = AC804A851999BB8A006E31AB /* localDB.db */; };
 		AC8A357A19461E2100FC5465 /* SQLConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8A357619461E2100FC5465 /* SQLConnector.m */; };
 		AC8A357C1946202400FC5465 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AC8A357B1946202300FC5465 /* libsqlite3.0.dylib */; };
 		ACA1724C19368BFB005E7D51 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACA1724B19368BFB005E7D51 /* opencv2.framework */; };
@@ -283,7 +283,7 @@
 		AC7491F7195A2C4F00D3CBBA /* TransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionController.m; sourceTree = "<group>"; };
 		AC7491FF195A2D4300D3CBBA /* TransitionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionLayout.h; sourceTree = "<group>"; };
 		AC749200195A2D4300D3CBBA /* TransitionLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionLayout.m; sourceTree = "<group>"; };
-		AC804A821999B667006E31AB /* localDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = localDB.db; sourceTree = "<group>"; };
+		AC804A851999BB8A006E31AB /* localDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = localDB.db; sourceTree = "<group>"; };
 		AC8A357319461E2100FC5465 /* ShareData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareData.h; sourceTree = "<group>"; };
 		AC8A357519461E2100FC5465 /* SQLConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLConnector.h; sourceTree = "<group>"; };
 		AC8A357619461E2100FC5465 /* SQLConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLConnector.m; sourceTree = "<group>"; };
@@ -677,9 +677,9 @@
 			isa = PBXGroup;
 			children = (
 				3A1DB59119983A3B0087CE37 /* basic_foods_2894_en.txt */,
+				AC804A851999BB8A006E31AB /* localDB.db */,
 				3A1DB59219983A3B0087CE37 /* basic_foods_2894_zh.txt */,
 				AC1E7761194F583100532F65 /* filterwords.txt */,
-				AC804A821999B667006E31AB /* localDB.db */,
 				AC8A357519461E2100FC5465 /* SQLConnector.h */,
 				AC8A357619461E2100FC5465 /* SQLConnector.m */,
 				AC8A357319461E2100FC5465 /* ShareData.h */,
@@ -1491,8 +1491,8 @@
 				B8B2B4ED199957C6002B8A7B /* tutorial_4_ip4.png in Resources */,
 				B8032C45197B6DAB001B9040 /* intro_arrow_right_down@2x.png in Resources */,
 				B8079C171979998000D568EC /* ED_switchLanguage.png in Resources */,
+				AC804A861999BB8A006E31AB /* localDB.db in Resources */,
 				B8032C46197B6DAB001B9040 /* intro_arrow_right_down.png in Resources */,
-				AC804A831999B667006E31AB /* localDB.db in Resources */,
 				106FF1A2196B49670099B743 /* Localizable.strings in Resources */,
 				B8032D2F197CA144001B9040 /* touchdown_eng.png in Resources */,
 				B8032C3C197B5038001B9040 /* CameraNext.png in Resources */,
@@ -1601,7 +1601,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8FA466618F9E954007DA680 /* InfoPlist.strings in Resources */,
-				AC804A841999B667006E31AB /* localDB.db in Resources */,
+				AC804A871999BB8A006E31AB /* localDB.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
