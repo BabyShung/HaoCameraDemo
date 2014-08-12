@@ -138,6 +138,7 @@ static NSString *CellIdentifier = @"Cell";
 //    Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
 //    NSString* str = @"apple banana pear orange Sushi and caper and cilantro";
 //    [self addFoodItems:[dict localSearchOCRString:str]];
+//    
 //    [self showResultButtonsAndCollectionView];
 //    [dict serverSearchOCRString:str inLang:English andCompletion:^(NSArray *results, BOOL success) {
 //        [self addFoodItems:results];
@@ -192,6 +193,7 @@ static NSString *CellIdentifier = @"Cell";
 //This method will exclude duplicates results
 -(void)addFoodItems:(NSArray *) newFoodItems
 {
+    //NSLog(@"++++++++++  MVC ++++++++++++: %d foods wait to be add!!!!!!",newFoodItems.count);
     if (newFoodItems.count>0) {
         
         //NSInteger startIndex = self.foodArray.count;
@@ -212,7 +214,7 @@ static NSString *CellIdentifier = @"Cell";
                 count--;
             }
         }
-
+        //NSLog(@"++++++++++  MVC ++++++++++++: %d foods will be added!!!!!!",addItems.count);
         [self.collectionView performBatchUpdates:^{
             //[self.foodArray addObjectsFromArray:addItems];
             [self.foodArray replaceObjectsInRange:NSMakeRange(0,0)

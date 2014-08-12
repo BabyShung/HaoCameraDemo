@@ -10,7 +10,6 @@
 		106FF1A2196B49670099B743 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 106FF1A4196B49670099B743 /* Localizable.strings */; };
 		10A3AFDC19743E8A00C3B2B0 /* LocalizationSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 10A3AFDB19743E8A00C3B2B0 /* LocalizationSystem.m */; };
 		10A3AFDF197473CD00C3B2B0 /* languageSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 10A3AFDE197473CD00C3B2B0 /* languageSetting.m */; };
-		3A1DB59019983A210087CE37 /* localDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 3A1DB58F19983A210087CE37 /* localDB.db */; };
 		3A1DB59319983A3B0087CE37 /* basic_foods_2894_en.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3A1DB59119983A3B0087CE37 /* basic_foods_2894_en.txt */; };
 		3A1DB59419983A3B0087CE37 /* basic_foods_2894_zh.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3A1DB59219983A3B0087CE37 /* basic_foods_2894_zh.txt */; };
 		3A6959651966FC8200FB21F9 /* TextDetector2.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3A6959641966FC8200FB21F9 /* TextDetector2.mm */; };
@@ -28,6 +27,8 @@
 		AC4685BF197D5F5A00297AB3 /* DescriptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4685BE197D5F5A00297AB3 /* DescriptionView.m */; };
 		AC7491F8195A2C4F00D3CBBA /* TransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7491F7195A2C4F00D3CBBA /* TransitionController.m */; };
 		AC749201195A2D4300D3CBBA /* TransitionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AC749200195A2D4300D3CBBA /* TransitionLayout.m */; };
+		AC804A831999B667006E31AB /* localDB.db in Resources */ = {isa = PBXBuildFile; fileRef = AC804A821999B667006E31AB /* localDB.db */; };
+		AC804A841999B667006E31AB /* localDB.db in Resources */ = {isa = PBXBuildFile; fileRef = AC804A821999B667006E31AB /* localDB.db */; };
 		AC8A357A19461E2100FC5465 /* SQLConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8A357619461E2100FC5465 /* SQLConnector.m */; };
 		AC8A357C1946202400FC5465 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AC8A357B1946202300FC5465 /* libsqlite3.0.dylib */; };
 		ACA1724C19368BFB005E7D51 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACA1724B19368BFB005E7D51 /* opencv2.framework */; };
@@ -254,7 +255,6 @@
 		10A3AFDB19743E8A00C3B2B0 /* LocalizationSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizationSystem.m; sourceTree = "<group>"; };
 		10A3AFDD197473CD00C3B2B0 /* languageSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = languageSetting.h; sourceTree = "<group>"; };
 		10A3AFDE197473CD00C3B2B0 /* languageSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = languageSetting.m; sourceTree = "<group>"; };
-		3A1DB58F19983A210087CE37 /* localDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = localDB.db; sourceTree = "<group>"; };
 		3A1DB59119983A3B0087CE37 /* basic_foods_2894_en.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_foods_2894_en.txt; sourceTree = "<group>"; };
 		3A1DB59219983A3B0087CE37 /* basic_foods_2894_zh.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basic_foods_2894_zh.txt; sourceTree = "<group>"; };
 		3A5654BD193778AD0085CC87 /* WordCorrector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordCorrector.h; sourceTree = "<group>"; };
@@ -283,6 +283,7 @@
 		AC7491F7195A2C4F00D3CBBA /* TransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionController.m; sourceTree = "<group>"; };
 		AC7491FF195A2D4300D3CBBA /* TransitionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionLayout.h; sourceTree = "<group>"; };
 		AC749200195A2D4300D3CBBA /* TransitionLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionLayout.m; sourceTree = "<group>"; };
+		AC804A821999B667006E31AB /* localDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = localDB.db; sourceTree = "<group>"; };
 		AC8A357319461E2100FC5465 /* ShareData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareData.h; sourceTree = "<group>"; };
 		AC8A357519461E2100FC5465 /* SQLConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLConnector.h; sourceTree = "<group>"; };
 		AC8A357619461E2100FC5465 /* SQLConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLConnector.m; sourceTree = "<group>"; };
@@ -677,8 +678,8 @@
 			children = (
 				3A1DB59119983A3B0087CE37 /* basic_foods_2894_en.txt */,
 				3A1DB59219983A3B0087CE37 /* basic_foods_2894_zh.txt */,
-				3A1DB58F19983A210087CE37 /* localDB.db */,
 				AC1E7761194F583100532F65 /* filterwords.txt */,
+				AC804A821999B667006E31AB /* localDB.db */,
 				AC8A357519461E2100FC5465 /* SQLConnector.h */,
 				AC8A357619461E2100FC5465 /* SQLConnector.m */,
 				AC8A357319461E2100FC5465 /* ShareData.h */,
@@ -1491,6 +1492,7 @@
 				B8032C45197B6DAB001B9040 /* intro_arrow_right_down@2x.png in Resources */,
 				B8079C171979998000D568EC /* ED_switchLanguage.png in Resources */,
 				B8032C46197B6DAB001B9040 /* intro_arrow_right_down.png in Resources */,
+				AC804A831999B667006E31AB /* localDB.db in Resources */,
 				106FF1A2196B49670099B743 /* Localizable.strings in Resources */,
 				B8032D2F197CA144001B9040 /* touchdown_eng.png in Resources */,
 				B8032C3C197B5038001B9040 /* CameraNext.png in Resources */,
@@ -1505,7 +1507,6 @@
 				B8B60FD919591E07005268D5 /* bluejay.jpg in Resources */,
 				B8032C3F197B505E001B9040 /* CameraPrevious@2x.png in Resources */,
 				B8BBB0311964FFA9007CE548 /* search-icon@2x.png in Resources */,
-				3A1DB59019983A210087CE37 /* localDB.db in Resources */,
 				B8AB89CF196C7EA400F32E4F /* star_off.png in Resources */,
 				B8032C40197B505E001B9040 /* CameraPrevious.png in Resources */,
 				B8032D2D197CA144001B9040 /* touchdown_chinese.png in Resources */,
@@ -1600,6 +1601,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8FA466618F9E954007DA680 /* InfoPlist.strings in Resources */,
+				AC804A841999B667006E31AB /* localDB.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
