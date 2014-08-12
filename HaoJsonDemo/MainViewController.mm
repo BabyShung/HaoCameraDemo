@@ -140,11 +140,11 @@ static NSString *CellIdentifier = @"Cell";
     }];
     
     
-    Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
-    NSString* str = @"Potato starch";
-    [self addFoodItems:[dict localSearchOCRString:str]];
+    //Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
+    //NSString* str = @"Potato starch";
+    //[self addFoodItems:[dict localSearchOCRString:str]];
     
-    [self showResultButtonsAndCollectionView];
+   // [self showResultButtonsAndCollectionView];
 //    [dict serverSearchOCRString:str inLang:English andCompletion:^(NSArray *results, BOOL success) {
 //        [self addFoodItems:results];
 //    }];
