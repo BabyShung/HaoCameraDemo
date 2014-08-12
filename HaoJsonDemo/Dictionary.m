@@ -131,7 +131,7 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
                 continue;
             }
             //check if i is a substring of j
-            if ([keywords[j] rangeOfString:keywords[i]].location != NSNotFound) {
+            if ([[keywords[j] lowercaseString] rangeOfString:[keywords[i] lowercaseString]].location != NSNotFound) {
                 
                 //i is a substring of j,mark it
                 isASubstring = TRUE;
@@ -145,6 +145,7 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
             i--;
         }
     }
+    NSLog(@"~~~~~~~~~~~~localDB return %d results",translations.count);
     return translations;
 }
 
@@ -183,29 +184,29 @@ typedef void (^edibleBlock)(NSArray *results, BOOL success);
     //        }
     //    }
     //
-    //Generate all combination of remain words
+    //Generate all combinations of remaining words
     NSMutableString * tmpStr = [[NSMutableString alloc]init];
     NSUInteger numOfWords = words_corrected.count;
-    
-    int numCombo = 0;
+    //int numCombo = 0;
     if(numOfWords != 0){
         for (int i=0; i<numOfWords-1; i++) {
             [tmpStr setString:words_corrected[i]];
-            [tmpStr stringByReplacingOccurrencesOfString:@"\r"
-                                              withString:@""];
-            [tmpStr stringByReplacingOccurrencesOfString:@"\n"
-                                              withString:@""];
-            numCombo = 0;
+//            [tmpStr stringByReplacingOccurrencesOfString:@"\r"
+//                                              withString:@""];
+//            [tmpStr stringByReplacingOccurrencesOfString:@"\n"
+//                                              withString:@""];
+            //numCombo = 0;
             for (int j = i+1; j < numOfWords ; j++) {
-                if(numCombo > 4){
-                    break; //avoid latency
-                }
+//                if(numCombo > 4){
+//                    break; //avoid latency
+//                }
                 [tmpStr appendFormat:@" %@",words_corrected[j]];
                 [words_corrected addObject:[NSString stringWithString:tmpStr]];
-                numCombo++;
+                //numCombo++;
             }
         }
     }
+    NSLog(@"~~~~~~~~~~~~~ %d search terms for local DB",words_corrected.count);
     return words_corrected;
 }
 

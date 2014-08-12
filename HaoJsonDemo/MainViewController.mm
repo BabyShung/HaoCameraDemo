@@ -26,6 +26,7 @@
 #import "NSUserDefaultControls.h"
 #import "introContainer.h"
 
+
 #define SCALE_FACTOR_IMAGE 2.5f
 
 static NSString *CellIdentifier = @"Cell";
@@ -37,6 +38,7 @@ static NSString *CellIdentifier = @"Cell";
 }
 @property (strong, nonatomic) UIButton * clearBtn;
 @property (strong, nonatomic) UIButton * nextBtn;
+@property (strong, nonatomic) UILabel *friendlyResultLabel;
 
 @property (strong,nonatomic) Tesseract *tesseract;
 
@@ -81,38 +83,8 @@ static NSString *CellIdentifier = @"Cell";
         [self.view addSubview:ic];
         [ic showIntroWithCrossDissolve];
     }
-}
+    
 
--(void)loadControls{
-    self.camView = [[CameraView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) andOrientation:self.interfaceOrientation andAppliedVC:self];
-    [self.view insertSubview:self.camView belowSubview:self.collectionView];
-    
-    /*REQUIRED FOR DEBUGGING ANIMATION*/
-    
-    self.collectionView.hidden = YES;
-    self.collectionView.backgroundColor = [UIColor clearColor];
-    
-    //registering dequueue cell
-    [self.collectionView registerClass:[EDCollectionCell class] forCellWithReuseIdentifier:CellIdentifier];
-    
-    
-    self.transitionController = [[TransitionController alloc] initWithCollectionView:self.collectionView];
-    self.transitionController.delegate = self;
-    self.navigationController.delegate = self.transitionController;
-    
-    //add in collectionView
-    
-    _clearBtn = [LoadControls createRoundedButton_Image:@"go_back.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(6, 4, 6, 6) andLeftBottomElseRightBottom:YES];
-    [_clearBtn addTarget:self action:@selector(clearBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    _clearBtn.alpha = 1;
-    _clearBtn.hidden = YES;
-    [self.view insertSubview:_clearBtn aboveSubview:self.collectionView];
-    
-    _nextBtn = [LoadControls createRoundedButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(8, 7, 8, 9) andLeftBottomElseRightBottom:NO];
-    [_nextBtn addTarget:self action:@selector(nextBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    _nextBtn.alpha = 1;
-    _nextBtn.hidden = YES;
-    [self.view insertSubview:_nextBtn aboveSubview:self.collectionView];
 }
 
 - (void) clearBtnPressed:(id)sender {
@@ -129,12 +101,15 @@ static NSString *CellIdentifier = @"Cell";
     NSLog(@"+++++++ MVC +++++++++ : clean up last comntes");
     [[User sharedInstance].lastComments removeAllObjects];
     
+    //MVC components
     [self hideResultButtonsAndCollectionView];
 
     self.existingFood =nil;
     
     [self.foodArray removeAllObjects];
     [self.collectionView reloadData];
+    
+    _friendlyResultLabel.text = @"";
 }
 
 //right bottom button
@@ -148,6 +123,8 @@ static NSString *CellIdentifier = @"Cell";
     
     [self.view bringSubviewToFront:_clearBtn];
     [self.view bringSubviewToFront:_nextBtn];
+    [self.view bringSubviewToFront:self.friendlyResultLabel];
+    //[self updateFriendlyResultLabel:self.foodArray.count];
     
     //scroll DEspeed normal
     self.collectionView.decelerationRate = UIScrollViewDecelerationRateNormal;
@@ -161,10 +138,18 @@ static NSString *CellIdentifier = @"Cell";
             }
         }
     }];
-//    Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
-//    NSString* str = @"Sushi and caper";
-//    [self addFoodItems:[dict localSearchOCRString:str]];
-//    [self showResultButtonsAndCollectionView];
+    
+    
+    Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
+    NSString* str = @"Potato starch";
+    [self addFoodItems:[dict localSearchOCRString:str]];
+    
+    [self showResultButtonsAndCollectionView];
+//    [dict serverSearchOCRString:str inLang:English andCompletion:^(NSArray *results, BOOL success) {
+//        [self addFoodItems:results];
+//    }];
+    
+    
 }
 
 /*******************************
@@ -213,29 +198,33 @@ static NSString *CellIdentifier = @"Cell";
 //This method will exclude duplicates results
 -(void)addFoodItems:(NSArray *) newFoodItems
 {
+    //NSLog(@"++++++++++  MVC ++++++++++++: %d foods wait to be add!!!!!!",newFoodItems.count);
     if (newFoodItems.count>0) {
         
-        NSInteger startIndex = self.foodArray.count;
+        //NSInteger startIndex = self.foodArray.count;
         
         NSMutableArray *newIndexPaths = [[NSMutableArray alloc]init];
         NSMutableArray *addItems = [[NSMutableArray alloc]initWithArray:newFoodItems];
         
         int count = (int)addItems.count;
-        for (int i =0; i<count; i++){
+        for (int i = count-1; i>= 0; i--){
             Food *food = addItems[i];
             if (![self.existingFood valueForKey:[food.title lowercaseString]]) {
                 [self.existingFood setValue:@"1" forKey:[food.title lowercaseString]];
-                [newIndexPaths addObject:[NSIndexPath indexPathForItem:(startIndex+i) inSection:0]];
+                [newIndexPaths addObject:[NSIndexPath indexPathForItem:0 inSection:0]];
             }
             else{
                 [addItems removeObjectAtIndex:i];
-                i--;
+                
                 count--;
             }
         }
-
+        //NSLog(@"++++++++++  MVC ++++++++++++: %d foods will be added!!!!!!",addItems.count);
         [self.collectionView performBatchUpdates:^{
-            [self.foodArray addObjectsFromArray:addItems];
+            //[self.foodArray addObjectsFromArray:addItems];
+            [self.foodArray replaceObjectsInRange:NSMakeRange(0,0)
+                            withObjectsFromArray:addItems];
+            [self updateFriendlyResultLabel:self.foodArray.count];
             [self.collectionView insertItemsAtIndexPaths:newIndexPaths];
             
         } completion:nil];
@@ -265,62 +254,119 @@ static NSString *CellIdentifier = @"Cell";
 #pragma mark CAMERA DELEGATE
 
 - (void) EdibleCamera:(MainViewController *)simpleCam didFinishWithImage:(UIImage *)image withRect:(CGRect)rect andCropSize:(CGSize)size{
-
+    
+    NSLog(@"******************!! !! PHOTO TAKEN  !! !!********************");
+    
     /****** OCR and Searching Components *****/
     
     Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
-
+    
     if (image) {
+        
+        
         
         //PS: image variable is the original size image (2448*3264)
         UIImage *onScreenImage = [LoadControls scaleImage:image withScale:SCALE_FACTOR_IMAGE withRect:rect andCropSize:size];
         UIImage *originalImage = [UIImage imageWithCGImage:onScreenImage.CGImage];
         NSMutableArray *localFoods = [NSMutableArray array];
         NSMutableArray *serverFoods = [NSMutableArray array];
+        
+        //text detector to return an array of images
         self.imgArray = [self.textDetector2 findTextArea:originalImage];
         NSLog(@"+++ MAIN VC +++ : text areas %d",(int)self.imgArray.count);
-        if ([_imgArray count] > 0){
-            for(UIImage *preImage in _imgArray){
+        
+        //string to be sent to server
+        NSMutableString *serverInputStr= [NSMutableString stringWithString:@""];
+        
+        //for each the region image
+        for(UIImage *preImage in _imgArray){
+            
+            _tempMat= [preImage CVMat];
+            
+            // Step 3. put Mat into pre processor- Charlie
+            _tempMat = [self.ipp processImage:_tempMat];
+            
+            //get the string from Tesseract
+            NSString *ocrStr = [self recognizeImageWithTesseract:[UIImage imageWithCVMat:_tempMat]];
+            
+            NSLog(@" ++++++++++ MAIN VC +++++++++++ : TEESSACT REC: %@",ocrStr);
+            
+            [serverInputStr appendFormat:@" %@",ocrStr];
+            
+            NSArray *returnResultsFromDB = [dict localSearchOCRString:ocrStr];
+            if(returnResultsFromDB){
+
+                [localFoods addObjectsFromArray:returnResultsFromDB];
                 
-                _tempMat= [preImage CVMat];
-                
-                // Step 3. put Mat into pre processor- Charlie
-                _tempMat = [self.ipp processImage:_tempMat];
-                NSString *ocrStr = [self recognizeImageWithTesseract:[UIImage imageWithCVMat:_tempMat]];
-                NSLog(@" ++++++++++ MAIN VC +++++++++++ : TEESSACT REC: %@",ocrStr);
+                [self showCollectionView];
                 
                 
-                NSArray *returnResultsFromDB = [dict localSearchOCRString:ocrStr];
+                [self addFoodItems:localFoods];
+            
+                //hao added
+                [self.camView stopLoadingAnimation];
                 
-                if(returnResultsFromDB){
-                    
-                    [localFoods addObjectsFromArray:returnResultsFromDB];
-                    
-                    //hao added
-                    [self.camView stopLoadingAnimation];
-                    [self showResultButtonsAndCollectionView];
-                    [self addFoodItems:localFoods];
-                    
-                }
-                
-                [dict serverSearchOCRString:ocrStr inLang:English andCompletion:^(NSArray *results, BOOL success) {
-                    if (results.count > 0){
-                        NSLog(@"++++++++++++ MVC +++++++++++++ : SERVER RETURNED %d  food results - - - - - - - - - - - - - ",results.count);
-                        [serverFoods addObjectsFromArray:results];
-                        [self addFoodItems:results];
-                    }
-                }];
             }
-            if(localFoods.count+serverFoods.count == 0){
-                //can't search anything from DB
-                [self stopAnimationAndShowErrorToast];
-            }
+        }
+        
+        if(self.foodArray.count!=0){
+            [self showClearAndNextButton];
         }else{
-            //can't detect anything from textDetector
+            //self.camView.capturedImageView.image = nil;
+        }
+        
+        
+        //check serverInputStr before sending to server
+        NSCharacterSet *charSet = [NSCharacterSet whitespaceCharacterSet];
+        NSString *trimmedString = [serverInputStr stringByTrimmingCharactersInSet:charSet];
+        if ([trimmedString isEqualToString:@""]) {
+            // it's empty or contains only white spaces
             [self stopAnimationAndShowErrorToast];
+            
+        }else{//can send to server
+            
+            [dict serverSearchOCRString:serverInputStr inLang:English andCompletion:^(NSArray *results, BOOL success) {
+                
+                //[NSThread sleepForTimeInterval:2.f];
+                
+                if (results.count > 0){
+                    //stop loading result indicator
+                    [self.camView stopLoadingAnimation];
+                    
+                    NSLog(@"++++++++++++ MVC +++++++++++++ : SERVER RETURNED %d  food results - - - - - - - - - - - - - ",results.count);
+                    
+                    [self showClearAndNextButton];
+                    [self showCollectionView];
+                    
+                    [serverFoods addObjectsFromArray:results];
+                    [self addFoodItems:results];
+                    
+                    
+                }else if(self.foodArray.count == 0){
+                    //local and server return nothing
+                    
+                    //[self hideResultButtonsAndCollectionView];
+                    [self stopAnimationAndShowErrorToast];
+                    
+                    NSLog(@"what .....???!!!");
+                }
+            }];
         }
     }
-    NSLog(@"******************!! !! PHOTO TAKEN  !! !!********************");
+    
+}
+
+
+-(void)updateFriendlyResultLabel:(int)number{
+    if(number == 0)
+        return;
+    NSString *showString;
+    if(number == 1){
+        showString = AMLocalizedString(@"FRIENDLY_RESULT_TEXT_single", nil);
+    }else{
+        showString = AMLocalizedString(@"FRIENDLY_RESULT_TEXT_plural", nil);
+    }
+    _friendlyResultLabel.text = [NSString stringWithFormat:@"%d%@",number,showString];
 }
 
 -(void)stopAnimationAndShowErrorToast{
@@ -343,15 +389,20 @@ static NSString *CellIdentifier = @"Cell";
     [self.view makeToast_ForCamera:AMLocalizedString(@"DETECTOR_NO_RESULT", nil)];
 }
 
--(void)showResultButtonsAndCollectionView{
-    self.counterForNoResult = 0;
+-(void)showCollectionView{
+    
     if(self.collectionView.isHidden){
         self.collectionView.hidden = NO;
         self.collectionView.alpha = 1;
-        
+    }
+}
+
+-(void)showClearAndNextButton{
+    self.counterForNoResult = 0;
+    if(self.clearBtn.isHidden){
         [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            self.clearBtn.alpha = 1;
-            self.nextBtn.alpha = 1;
+            self.clearBtn.alpha = .95;
+            self.nextBtn.alpha = .95;
         } completion:^(BOOL finished) {
             if (finished) {
                 self.clearBtn.hidden = NO;
@@ -360,6 +411,7 @@ static NSString *CellIdentifier = @"Cell";
         }];
     }
 }
+
 
 -(void)hideResultButtonsAndCollectionView{
     if(!self.collectionView.isHidden){
@@ -379,6 +431,42 @@ static NSString *CellIdentifier = @"Cell";
                                       self.collectionView.hidden = YES;
                                   }];
     }
+}
+
+-(void)loadControls{
+    self.camView = [[CameraView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) andOrientation:self.interfaceOrientation andAppliedVC:self];
+    [self.view insertSubview:self.camView belowSubview:self.collectionView];
+    
+    /*REQUIRED FOR DEBUGGING ANIMATION*/
+    
+    self.collectionView.hidden = YES;
+    self.collectionView.backgroundColor = [UIColor clearColor];
+    
+    //registering dequueue cell
+    [self.collectionView registerClass:[EDCollectionCell class] forCellWithReuseIdentifier:CellIdentifier];
+    
+    
+    self.transitionController = [[TransitionController alloc] initWithCollectionView:self.collectionView];
+    self.transitionController.delegate = self;
+    self.navigationController.delegate = self.transitionController;
+    
+    //add in collectionView
+    
+    _clearBtn = [LoadControls createRoundedButton_Image:@"go_back.png" andTintColor:[ED_Color redColor] andImageInset:UIEdgeInsetsMake(6, 4, 6, 6) andLeftBottomElseRightBottom:YES];
+    [_clearBtn addTarget:self action:@selector(clearBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    _clearBtn.hidden = YES;
+    [self.view insertSubview:_clearBtn aboveSubview:self.collectionView];
+    
+    _nextBtn = [LoadControls createRoundedButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(8, 7, 8, 9) andLeftBottomElseRightBottom:NO];
+    [_nextBtn addTarget:self action:@selector(nextBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    _nextBtn.hidden = YES;
+    [self.view insertSubview:_nextBtn aboveSubview:self.collectionView];
+    
+    
+    _friendlyResultLabel = [LoadControls createLabelWithRect:CGRectMake(0, 0, 260, 50) andTextAlignment:NSTextAlignmentCenter andFont:[UIFont fontWithName:@"Heiti TC" size:16] andTextColor:[ED_Color edibleBlueColor_doubleBlue]];
+    _friendlyResultLabel.text = @"";
+    _friendlyResultLabel.center = CGPointMake(160, ScreenHeight - 35);
+    [self.view addSubview:_friendlyResultLabel];
 }
 
 // GETTERs

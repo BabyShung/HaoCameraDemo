@@ -38,6 +38,7 @@ static NSString *CellIdentifier = @"Cell";
 @property (nonatomic) DBOperation *dbo;
 
 @property (nonatomic) CGFloat backBtn_Y;
+@property (strong,nonatomic) NSMutableCharacterSet *westernCharacterSet;
 
 @end
 
@@ -54,12 +55,16 @@ static NSString *CellIdentifier = @"Cell";
     self.searchData = [NSMutableArray arrayWithArray:self.foodData];
     self.dict = [[Dictionary alloc]initDictInDefaultLang];
     
+    self.westernCharacterSet = [NSMutableCharacterSet alphanumericCharacterSet];
+    [self.westernCharacterSet formUnionWithCharacterSet:[NSCharacterSet whitespaceCharacterSet]];
+    [self.westernCharacterSet formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
     //disable pageVC scroll and also stop camera
     [GeneralControl enableBothCameraAndPageVCScroll:NO];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [self.searchBar becomeFirstResponder];
+    
 }
 
 
@@ -125,9 +130,14 @@ static NSString *CellIdentifier = @"Cell";
         //Send search terms to Server
         [self.view makeToastActivity];
         TargetLang inlang = Chinese;
-        if ([[UITextInputMode currentInputMode].primaryLanguage hasPrefix:@"en"]){
+        
+        if (self.searchBar.text.length ==[self.searchBar.text lengthOfBytesUsingEncoding:NSUTF8StringEncoding]){//[[UITextInputMode currentInputMode].primaryLanguage hasPrefix:@"en"]
+            //NSLog(@"~~~~~~~~~~~~~~~~~~~~~~ INPUT IS ENGLISH");
             inlang = English;
         }
+//        else{
+//            NSLog(@"~~~~~~~~~~~~~~~~~~~~input is Chinese");
+//        }
         
         [self.dict serverSearchOCRString:self.searchBar.text inLang:inlang andCompletion:^(NSArray *results, BOOL success) {
             
@@ -160,22 +170,26 @@ static NSString *CellIdentifier = @"Cell";
 - (void)searchBar:(SSSearchBar *)searchBar textDidChange:(NSString *)searchText {
     //[self filterTableViewWithText:searchText];
     [self.searchData removeAllObjects];
+    NSLog(@"SEARCH TERM CHANGED TO %@",searchText);
     
-    if ([searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length == 0) {
+    if ([[searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
         //Terms in search bar is empty, show search history
         
         [self.searchData addObjectsFromArray:[self.dbo fetchSearchHistoryByOrder_withLimitNumber:FETCH_SEARCH_NUMBER]];
     }
     else{
-        NSString *langStr = [UITextInputMode currentInputMode].primaryLanguage;
-
-        TargetLang inlang=Chinese,tolang=English;
-        if ([langStr hasPrefix:@"en"]) {
-            NSLog(@"#################USER INPUT ENG");
-            inlang = English;
-            tolang = Chinese;
+        
+        NSLog(@"!!!!!!!!!!!!NEW LOCAL SEARCH!!!!!!!!!!!!!!!");
+//        TargetLang inlang=Chinese,tolang=English;
+//        if ([[searchText stringByTrimmingCharactersInSet:self.westernCharacterSet] isEqualToString:@""]) {
+//            NSLog(@"#################USER INPUT ENG");
+//            inlang = English;
+//            tolang = Chinese;
+//        }
+        [self.searchData addObjectsFromArray:[self.dict localBlurSearchString:searchText inLang:English toLang:Chinese]];
+        if (self.searchData.count == 0) {
+            [self.searchData addObjectsFromArray:[self.dict localBlurSearchString:searchText inLang:Chinese toLang:English]];
         }
-        [self.searchData addObjectsFromArray:[self.dict localBlurSearchString:searchText inLang:inlang toLang:tolang]];
     }
     [self.collectionView reloadData];
 }

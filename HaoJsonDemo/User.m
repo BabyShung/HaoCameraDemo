@@ -86,7 +86,6 @@ static AsyncRequest *async;
 
 +(void)loginWithEmail:(NSString *) email andPwd:(NSString *)pwd andCompletion:(void (^)(NSError *err, BOOL success))block{
     
-    
     //use md5 here
     edi_md5 *edimd5 = [[edi_md5 alloc]init];
     password = [edimd5 md5:pwd];
@@ -190,7 +189,6 @@ static AsyncRequest *async;
         }
         return;
     }
-    
     if (CompletionBlock) {
         CompletionBlock(error,NO);
     }

@@ -81,7 +81,7 @@
     [self addSubview:self.textField];
     
     //Cancel Button
-    self.cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kIconSize, kIconSize)];
+    self.cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kIconSize+50, kIconSize+20)];
     [self.cancelButton setImage:[UIImage imageNamed:@"close-icon"] forState:UIControlStateNormal];
     self.cancelButton.contentMode = UIViewContentModeScaleAspectFit;
     self.cancelButton.center = CGPointMake(boundsWidth - (kIconSize/2 + kXMargin), CGRectGetMidY(self.bounds));

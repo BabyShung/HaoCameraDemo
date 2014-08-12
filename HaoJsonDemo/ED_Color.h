@@ -22,6 +22,7 @@
 + (UIColor *) edibleBlueColor_Deep;
 + (UIColor *)edibleBlueColor_DeepDark;
 +(UIColor *)edibleBlueColor_CheeseHole;
++(UIColor *)edibleBlueColor_doubleBlue;
 
 + (UIColor *)edibleGreenColor;
 

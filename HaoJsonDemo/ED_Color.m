@@ -54,6 +54,10 @@
     return [UIColor colorWithRed:18/255.0 green:160/255.0 blue:204/255.0 alpha:1];
 }
 
++(UIColor *)edibleBlueColor_doubleBlue{
+    return [UIColor colorWithRed:71/255.0 green:190/255.0 blue:235/255.0 alpha:1];
+}
+
 +(UIColor *)edible_Gray{
     return [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1];
 }
