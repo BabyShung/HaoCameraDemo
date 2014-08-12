@@ -83,7 +83,7 @@ static NSString *CellIdentifier = @"Cell";
         [self.view addSubview:ic];
         [ic showIntroWithCrossDissolve];
     }
-    
+
 
 }
 

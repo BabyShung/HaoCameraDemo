@@ -110,6 +110,8 @@
 		B8079CFB197B0F8900D568EC /* LanguageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8079CFA197B0F8900D568EC /* LanguageViewController.m */; };
 		B8079D01197B108B00D568EC /* SettingsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8079D00197B108B00D568EC /* SettingsCell.m */; };
 		B8079D04197B1FA300D568EC /* LanguageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8079D03197B1FA300D568EC /* LanguageCell.m */; };
+		B817C35D199ABB0100FCBFE3 /* tutorial_4_ip4.png in Resources */ = {isa = PBXBuildFile; fileRef = B817C35B199ABB0100FCBFE3 /* tutorial_4_ip4.png */; };
+		B817C35E199ABB0100FCBFE3 /* tutorial_4_ip5.png in Resources */ = {isa = PBXBuildFile; fileRef = B817C35C199ABB0100FCBFE3 /* tutorial_4_ip5.png */; };
 		B81B18301970A808001C52F6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B81B182F1970A808001C52F6 /* QuartzCore.framework */; };
 		B82353EE192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B82353ED192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib */; };
 		B82353F0192CFC4C00D6BCAC /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = B82353EF192CFC4C00D6BCAC /* tessdata */; };
@@ -128,8 +130,6 @@
 		B8B2B4EA199957C6002B8A7B /* tutorial_2_ip5.png in Resources */ = {isa = PBXBuildFile; fileRef = B8B2B4E2199957C6002B8A7B /* tutorial_2_ip5.png */; };
 		B8B2B4EB199957C6002B8A7B /* tutorial_3_ip4.png in Resources */ = {isa = PBXBuildFile; fileRef = B8B2B4E3199957C6002B8A7B /* tutorial_3_ip4.png */; };
 		B8B2B4EC199957C6002B8A7B /* tutorial_3_ip5.png in Resources */ = {isa = PBXBuildFile; fileRef = B8B2B4E4199957C6002B8A7B /* tutorial_3_ip5.png */; };
-		B8B2B4ED199957C6002B8A7B /* tutorial_4_ip4.png in Resources */ = {isa = PBXBuildFile; fileRef = B8B2B4E5199957C6002B8A7B /* tutorial_4_ip4.png */; };
-		B8B2B4EE199957C6002B8A7B /* tutorial_4_ip5.png in Resources */ = {isa = PBXBuildFile; fileRef = B8B2B4E6199957C6002B8A7B /* tutorial_4_ip5.png */; };
 		B8B60FAB195914DF005268D5 /* smallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FA8195914DF005268D5 /* smallLayout.m */; };
 		B8B60FAC195914DF005268D5 /* largeLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FAA195914DF005268D5 /* largeLayout.m */; };
 		B8B60FBB19591605005268D5 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B60FBA19591605005268D5 /* SecondViewController.m */; };
@@ -393,6 +393,8 @@
 		B8079D00197B108B00D568EC /* SettingsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsCell.m; sourceTree = "<group>"; };
 		B8079D02197B1FA300D568EC /* LanguageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageCell.h; sourceTree = "<group>"; };
 		B8079D03197B1FA300D568EC /* LanguageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageCell.m; sourceTree = "<group>"; };
+		B817C35B199ABB0100FCBFE3 /* tutorial_4_ip4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial_4_ip4.png; sourceTree = "<group>"; };
+		B817C35C199ABB0100FCBFE3 /* tutorial_4_ip5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial_4_ip5.png; sourceTree = "<group>"; };
 		B81B182F1970A808001C52F6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B82353ED192CFB5B00D6BCAC /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
 		B82353EF192CFC4C00D6BCAC /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
@@ -414,8 +416,6 @@
 		B8B2B4E2199957C6002B8A7B /* tutorial_2_ip5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial_2_ip5.png; sourceTree = "<group>"; };
 		B8B2B4E3199957C6002B8A7B /* tutorial_3_ip4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial_3_ip4.png; sourceTree = "<group>"; };
 		B8B2B4E4199957C6002B8A7B /* tutorial_3_ip5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial_3_ip5.png; sourceTree = "<group>"; };
-		B8B2B4E5199957C6002B8A7B /* tutorial_4_ip4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial_4_ip4.png; sourceTree = "<group>"; };
-		B8B2B4E6199957C6002B8A7B /* tutorial_4_ip5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial_4_ip5.png; sourceTree = "<group>"; };
 		B8B60FA7195914DF005268D5 /* smallLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smallLayout.h; sourceTree = "<group>"; };
 		B8B60FA8195914DF005268D5 /* smallLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smallLayout.m; sourceTree = "<group>"; };
 		B8B60FA9195914DF005268D5 /* largeLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = largeLayout.h; sourceTree = "<group>"; };
@@ -757,8 +757,8 @@
 				B8B2B4E2199957C6002B8A7B /* tutorial_2_ip5.png */,
 				B8B2B4E3199957C6002B8A7B /* tutorial_3_ip4.png */,
 				B8B2B4E4199957C6002B8A7B /* tutorial_3_ip5.png */,
-				B8B2B4E5199957C6002B8A7B /* tutorial_4_ip4.png */,
-				B8B2B4E6199957C6002B8A7B /* tutorial_4_ip5.png */,
+				B817C35B199ABB0100FCBFE3 /* tutorial_4_ip4.png */,
+				B817C35C199ABB0100FCBFE3 /* tutorial_4_ip5.png */,
 			);
 			name = Tutorial;
 			sourceTree = "<group>";
@@ -1489,7 +1489,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8B2B4ED199957C6002B8A7B /* tutorial_4_ip4.png in Resources */,
+				B817C35D199ABB0100FCBFE3 /* tutorial_4_ip4.png in Resources */,
 				B8032C45197B6DAB001B9040 /* intro_arrow_right_down@2x.png in Resources */,
 				3A87E60C199A7C7C0094154F /* basic_foods_2726_en.txt in Resources */,
 				3A87E616199A884B0094154F /* localDB.db in Resources */,
@@ -1567,7 +1567,7 @@
 				B8032D7A197D70FB001B9040 /* EDB_feedback.png in Resources */,
 				B8032D55197CB7C1001B9040 /* drag_chinese.png in Resources */,
 				B8032D74197D70A2001B9040 /* EDB_language.png in Resources */,
-				B8B2B4EE199957C6002B8A7B /* tutorial_4_ip5.png in Resources */,
+				B817C35E199ABB0100FCBFE3 /* tutorial_4_ip5.png in Resources */,
 				B8FA464718F9E954007DA680 /* InfoPlist.strings in Resources */,
 				B8B60FD619591E07005268D5 /* likeButton_unselected.png in Resources */,
 				B8CC9FA91968A75900CCFE74 /* ED_feedback_right@2x.png in Resources */,

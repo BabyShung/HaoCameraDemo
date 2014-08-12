@@ -369,7 +369,7 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     [self checkIndexForScrollView:scrollView];
-    if ([(id)self.delegate respondsToSelector:@selector(intro:pageEndScrolling:withIndex:)]) {
+    if ([(id)self.delegate respondsToSelector:@selector(intro:pageEndScrolling:withIndex:)]&&self.currentPageIndex<self.pages.count) {
         [self.delegate intro:self pageEndScrolling:_pages[self.currentPageIndex] withIndex:self.currentPageIndex];
     }
 }
@@ -676,6 +676,12 @@ float easeOutValue(float value) {
         [self hideWithFadeOutDuration:0.3];
     } else {
         [self setCurrentPageIndex:self.currentPageIndex + 1 animated:YES];
+        
+        //Hao added
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.delegate intro:nil pageEndScrolling:_pages[self.currentPageIndex+1] withIndex:self.currentPageIndex+1];
+        });
+        
     }
 }
 

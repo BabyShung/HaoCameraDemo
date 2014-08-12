@@ -99,3 +99,5 @@
 "COMMENT_LOADING_MSG"="Loading Comments...";
 "FRIENDLY_RESULT_TEXT_single"=" result";
 "FRIENDLY_RESULT_TEXT_plural"=" results";
+"TUTORIAL_SCALE_TEXT"="Scale";
+"TUTORIAL_DRAG_TEXT"="Draggable";

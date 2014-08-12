@@ -12,7 +12,7 @@
 #import "SMPageControl.h"
 #import "LocalizationSystem.h"
 #import "ED_Color.h"
-
+#import "LoadControls.h"
 
 #define TitlePositionY_ip5 524
 #define TitlePositionY_ip4 445
@@ -22,6 +22,11 @@
 #define DescFontFontSize 15
 
 @interface introContainer () <EAIntroDelegate>
+
+@property (nonatomic,strong) UILabel *scaleLabel;
+@property (nonatomic,strong) UILabel *draggableLabel;
+@property (nonatomic,strong) UILabel *draggableLabel2;
+
 @end
 
 @implementation introContainer
@@ -30,9 +35,60 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
+        [self setupLocalizedLabels];
+        
     }
     return self;
 }
+
+-(void)setupLocalizedLabels{
+    CGRect scaleRect = iPhone5?CGRectMake(22, 200, 50, 30):CGRectMake(35, 169, 50, 30);
+    CGRect drag1Rect = iPhone5?CGRectMake(228, 209, 80, 30):CGRectMake(210, 178, 80, 30);
+    CGRect drag2Rect = iPhone5?CGRectMake(203, 140, 80, 30):CGRectMake(190, 119, 80, 30);
+    
+    CGFloat dragFontSize = iPhone5?14:12;
+    
+    _scaleLabel = [LoadControls createLabelWithRect:scaleRect andTextAlignment:NSTextAlignmentCenter andFont:[UIFont boldSystemFontOfSize:14] andTextColor:[UIColor whiteColor]];
+    _scaleLabel.text = AMLocalizedString(@"TUTORIAL_SCALE_TEXT", nil);
+    
+    _draggableLabel = [LoadControls createLabelWithRect:drag1Rect andTextAlignment:NSTextAlignmentCenter andFont:[UIFont boldSystemFontOfSize:dragFontSize] andTextColor:[UIColor whiteColor]];
+    _draggableLabel.text = AMLocalizedString(@"TUTORIAL_DRAG_TEXT", nil);
+    
+    _draggableLabel2 = [LoadControls createLabelWithRect:drag2Rect andTextAlignment:NSTextAlignmentCenter andFont:[UIFont boldSystemFontOfSize:dragFontSize] andTextColor:[UIColor whiteColor]];
+    _draggableLabel2.text = AMLocalizedString(@"TUTORIAL_DRAG_TEXT", nil);
+    
+    _scaleLabel.hidden = YES;
+    _draggableLabel.hidden = YES;
+    _draggableLabel2.hidden = YES;
+    
+    [self addSubview:_scaleLabel];
+    [self addSubview:_draggableLabel];
+    [self addSubview:_draggableLabel2];
+}
+
+-(void)hideLabelsOrNot:(BOOL)show{
+    
+    for (UILabel * label in @[_scaleLabel, _draggableLabel, _draggableLabel2]) {
+        label.hidden = show;
+        if(show){
+            [self bringSubviewToFront:label];
+        }
+    }
+}
+
+-(void)showScaleAndDraggableLabel{
+    for (UILabel * label in @[_scaleLabel, _draggableLabel]) {
+        label.hidden = NO;
+        [self bringSubviewToFront:label];
+    }
+}
+
+-(void)showDraggableLabel{
+    _draggableLabel2.hidden = NO;
+    [self bringSubviewToFront:_draggableLabel2];
+}
+
 
 - (void)showIntroWithCrossDissolve {
     
@@ -64,7 +120,7 @@
 //    labelForPage2.textColor = [UIColor whiteColor];
 //    labelForPage2.backgroundColor = [UIColor clearColor];
 //    [viewForPage2 addSubview:labelForPage2];
-//    
+//
 //    EAIntroPage *page2 = [EAIntroPage pageWithCustomView:viewForPage2];
     
     EAIntroPage *page2 = [EAIntroPage page];
@@ -126,6 +182,28 @@
         //must be clicking tutorial btn
         [self removeFromSuperview];
     }
+}
+
+-(void)intro:(EAIntroView *)introView pageStartScrolling:(EAIntroPage *)page withIndex:(NSInteger)pageIndex{
+    [self hideLabelsOrNot:YES];
+}
+
+-(void)intro:(EAIntroView *)introView pageEndScrolling:(EAIntroPage *)page withIndex:(NSInteger)pageIndex{
+    if(!introView)
+        [self hideLabelsOrNot:YES];
+    
+    if(pageIndex == 0){
+    }
+    else if(pageIndex == 1){
+        [self showScaleAndDraggableLabel];
+        
+        
+    }else if(pageIndex == 2){
+        [self showDraggableLabel];
+        
+    }else if(pageIndex == 3){
+    }
+    
 }
 
 @end
