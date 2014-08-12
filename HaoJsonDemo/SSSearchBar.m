@@ -29,7 +29,7 @@
 
 #define kXMargin 8
 #define kYMargin 4
-#define kIconSize 16
+#define kIconSize 36
 
 #define kSearchBarHeight 32
 
