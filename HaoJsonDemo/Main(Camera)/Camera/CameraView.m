@@ -209,6 +209,9 @@
     
     [self drawControls];
     
+    //start loading animation
+    [self startLoadingAnimation];
+    
     //don't know why it has to add a little delay, otherwise it will just not show the image first
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
@@ -232,9 +235,6 @@
 - (void) captureBtnPressed:(id)sender {
     NSLog(@"*********************** pressed *******************************");
     [Flurry logEvent:@"Photo_Taken"];
-    
-    //start loading animation
-    [self startLoadingAnimation];
     
     self.captureBtn.enabled = NO;
     

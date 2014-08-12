@@ -59,6 +59,7 @@
         
         if (location.x > CGRectGetMidX(recognizer.view.bounds)) {
             if (!self.delegate) {
+                NSLog(@".................You.............*******");
                 abort(); //Delegate needs to be set
             }
             UIViewController *viewController = [self.delegate toViewControllerForInteractivePushFromPoint:location];
@@ -126,10 +127,12 @@
 
 #pragma mark - UINavigationControllerDelegate Methods
 - (id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController {
-    
+    NSLog(@"A");
     if (self.interactive) {
+        NSLog(@"AA");
         return self;
     }
+    NSLog(@"AB");
     return nil;
 }
 
@@ -140,12 +143,13 @@
     } else {
         self.presenting = YES;
     }
+    NSLog(@"XXXXXXXXX");
     return self;
 }
 
 #pragma mark - UIViewControllerAnimatedTransitioning Methods
 - (void)animationEnded:(BOOL)transitionCompleted {
-    
+    NSLog(@"C");
     // Reset to our default state
     self.interactive = NO;
     self.transitionContext = nil;
@@ -158,7 +162,7 @@
 
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
 
-    NSLog(@"click");
+    NSLog(@"B");
     
     if (self.interactive) {
         // nop as per documentation

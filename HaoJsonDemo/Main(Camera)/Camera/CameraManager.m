@@ -12,6 +12,9 @@
 #import "ED_Color.h"
 
 @interface CameraManager ()
+{
+    dispatch_queue_t layerQ;
+}
 
 // AVFoundation Properties
 @property (strong, nonatomic) AVCaptureSession * mySesh;
@@ -19,6 +22,7 @@
 @property (strong, nonatomic) AVCaptureDevice * myDevice;
 @property (nonatomic) CGFloat scaleFactor;
 @property (strong,nonatomic) UIImage *captureImage;
+
 
 @end
 
@@ -29,6 +33,7 @@
     if(self){
         [self setup];
         _scaleFactor = 1.0f;
+        layerQ = dispatch_queue_create("layerQ", NULL);
     }
     return self;
 }
@@ -51,7 +56,7 @@
     if(![_mySesh isRunning]){
         NSLog(@"************ Camera Manager Start running ************");
         
-        dispatch_queue_t layerQ = dispatch_queue_create("layerQ", NULL);
+        //dispatch_queue_t layerQ = dispatch_queue_create("layerQ", NULL);
         dispatch_async(layerQ, ^{
             [_mySesh startRunning];
         });
@@ -61,10 +66,13 @@
 - (void) stopRunning{
     if([_mySesh isRunning]){
         NSLog(@"*********** Camera Manager Stop running ***********");
-        dispatch_queue_t layerE = dispatch_queue_create("layerE", NULL);
-        dispatch_async(layerE, ^{
+        //dispatch_queue_t layerE = dispatch_queue_create("layerQ", NULL);
+        dispatch_async(layerQ, ^{
+            NSLog(@"*********** Camera Manager Stop running 1 ***********");
             [_mySesh stopRunning];
+            NSLog(@"*********** Camera Manager Stop running 1.1 ***********");
         });
+        NSLog(@"*********** Camera Manager Stop running 2 ***********");
     }
 }
 

@@ -140,11 +140,11 @@ static NSString *CellIdentifier = @"Cell";
     }];
     
     
-    Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
-    NSString* str = @"Potato starch";
-    [self addFoodItems:[dict localSearchOCRString:str]];
-    
-    [self showResultButtonsAndCollectionView];
+//    Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
+//    NSString* str = @"Potato starch";
+//    [self addFoodItems:[dict localSearchOCRString:str]];
+//    
+//    [self showResultButtonsAndCollectionView];
 //    [dict serverSearchOCRString:str inLang:English andCompletion:^(NSArray *results, BOOL success) {
 //        [self addFoodItems:results];
 //    }];
@@ -196,35 +196,67 @@ static NSString *CellIdentifier = @"Cell";
 
 //Add new items into collection view
 //This method will exclude duplicates results
+//-(void)addFoodItems:(NSArray *) newFoodItems
+//{
+//    //NSLog(@"++++++++++  MVC ++++++++++++: %d foods wait to be add!!!!!!",newFoodItems.count);
+//    if (newFoodItems.count>0) {
+//        
+//        //NSInteger startIndex = self.foodArray.count;
+//        
+//        NSMutableArray *newIndexPaths = [[NSMutableArray alloc]init];
+//        NSMutableArray *addItems = [[NSMutableArray alloc]initWithArray:newFoodItems];
+//        
+//        int count = (int)addItems.count;
+//        for (int i = count-1; i>= 0; i--){
+//            Food *food = addItems[i];
+//            if (![self.existingFood valueForKey:[food.title lowercaseString]]) {
+//                [self.existingFood setValue:@"1" forKey:[food.title lowercaseString]];
+//                [newIndexPaths addObject:[NSIndexPath indexPathForItem:0 inSection:0]];
+//            }
+//            else{
+//                [addItems removeObjectAtIndex:i];
+//                
+//                count--;
+//            }
+//        }
+//        //NSLog(@"++++++++++  MVC ++++++++++++: %d foods will be added!!!!!!",addItems.count);
+//        [self.collectionView performBatchUpdates:^{
+//            //[self.foodArray addObjectsFromArray:addItems];
+//            [self.foodArray replaceObjectsInRange:NSMakeRange(0,0)
+//                            withObjectsFromArray:addItems];
+//            [self updateFriendlyResultLabel:self.foodArray.count];
+//            [self.collectionView insertItemsAtIndexPaths:newIndexPaths];
+//            
+//        } completion:nil];
+//    }
+//}
+
+
 -(void)addFoodItems:(NSArray *) newFoodItems
 {
-    //NSLog(@"++++++++++  MVC ++++++++++++: %d foods wait to be add!!!!!!",newFoodItems.count);
     if (newFoodItems.count>0) {
         
-        //NSInteger startIndex = self.foodArray.count;
+        NSInteger startIndex = self.foodArray.count;
         
         NSMutableArray *newIndexPaths = [[NSMutableArray alloc]init];
         NSMutableArray *addItems = [[NSMutableArray alloc]initWithArray:newFoodItems];
         
         int count = (int)addItems.count;
-        for (int i = count-1; i>= 0; i--){
+        for (int i =0; i<count; i++){
             Food *food = addItems[i];
             if (![self.existingFood valueForKey:[food.title lowercaseString]]) {
                 [self.existingFood setValue:@"1" forKey:[food.title lowercaseString]];
-                [newIndexPaths addObject:[NSIndexPath indexPathForItem:0 inSection:0]];
+                [newIndexPaths addObject:[NSIndexPath indexPathForItem:(startIndex+i) inSection:0]];
             }
             else{
                 [addItems removeObjectAtIndex:i];
-                
+                i--;
                 count--;
             }
         }
-        //NSLog(@"++++++++++  MVC ++++++++++++: %d foods will be added!!!!!!",addItems.count);
+        
         [self.collectionView performBatchUpdates:^{
-            //[self.foodArray addObjectsFromArray:addItems];
-            [self.foodArray replaceObjectsInRange:NSMakeRange(0,0)
-                            withObjectsFromArray:addItems];
-            [self updateFriendlyResultLabel:self.foodArray.count];
+            [self.foodArray addObjectsFromArray:addItems];
             [self.collectionView insertItemsAtIndexPaths:newIndexPaths];
             
         } completion:nil];
