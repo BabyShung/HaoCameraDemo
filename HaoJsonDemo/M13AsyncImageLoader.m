@@ -107,7 +107,7 @@ static NSMutableDictionary *loaders;
     [connection setCompletionBlock:^(BOOL success, M13ImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
         //Add the image to the cache
         if (success) {
-            if(![self.imageCache objectForKey:url])
+            if(![self.imageCache objectForKey:url]&&image)
                 [self.imageCache setObject:image forKey:url];
         }
         

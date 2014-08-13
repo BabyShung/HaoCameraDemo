@@ -76,10 +76,12 @@
         
         [self.foodInfoView.scrollview setContentOffset:CGPointZero animated:NO];
         [self.foodInfoView setUpForSmallLayout];
+        NSLog(@"~~~~~~~~~~~~~~~~ %@ setup for SMALL LAYOUT", self.foodInfoView.titleLabel.text);
         
     }
     else{
         [self.foodInfoView setUpForLargeLayout];
+        NSLog(@"~~~~~~~~~~~~~~~~ %@ setup for LARGE LAYOUT", self.foodInfoView.titleLabel.text);
     }
 
     

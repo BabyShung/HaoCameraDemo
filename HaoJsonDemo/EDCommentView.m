@@ -75,7 +75,7 @@
 
 
 -(NSUInteger)getStars{
-    NSLog(@"+++++++++ EDCOMMENT ++++++++++++++ GET %d stars",(int)[_rateView currentStar]);
+    //NSLog(@"+++++++++ EDCOMMENT ++++++++++++++ GET %d stars",(int)[_rateView currentStar]);
     return [_rateView currentStar];
 }
 
@@ -107,7 +107,7 @@
         }
         else{
             
-            NSLog(@"+++++++++++++++ EDCOMMENT VIEW +++++++++++ : RETURNED");
+            //NSLog(@"+++++++++++++++ EDCOMMENT VIEW +++++++++++ : RETURNED");
             [self.delegate EDCommentView:self KeyboardReturnedWithStars:[_rateView currentStar]];
         }
         return NO;
@@ -118,7 +118,7 @@
 
 -(void)textViewDidChange:(UITextView *)textView
 {
-    NSLog(@"+++++++++++++ EDCOMMENT ++++++++++++++++++ : Text Change to %@!",textView.text);
+    //NSLog(@"+++++++++++++ EDCOMMENT ++++++++++++++++++ : Text Change to %@!",textView.text);
     if (textView.text.length<CommentMaxLength) {
         _countLabel.textColor = [UIColor lightGrayColor];
         
@@ -128,7 +128,7 @@
     }
     [_countStr setString:@""];
     [_countStr appendFormat:@"%i",(int)(CommentMaxLength - textView.text.length)];
-    NSLog(@"+++++++++++ EDCOMMENT ++++++++++++++ : WORD COUNT %@",_countStr);
+    //NSLog(@"+++++++++++ EDCOMMENT ++++++++++++++ : WORD COUNT %@",_countStr);
     _countLabel.text =_countStr;
     
     

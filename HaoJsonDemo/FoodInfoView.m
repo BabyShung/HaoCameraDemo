@@ -612,16 +612,23 @@ const CGFloat CommentRateViewWidth = 260;
         //Assure title and translation are showed;
         [self setFoodInfo];
         self.imgLoaderName =[NSString stringWithFormat:@"%d",(int)cellNo];
-        //NSLog(@"******************** !!!!!! setting food !!!!!!00 **********************");
-        //If food info is not completed, request it
-        if (!self.myFood.isLoadingInfo && !self.myFood.isFoodInfoCompleted) {
+
+        if (self.myFood.isFoodInfoCompleted) {
+            NSLog(@"%@'s info is COMPLETE ...............",self.myFood.title);
+        }else if (self.myFood.isLoadingInfo == NO){
+            NSLog(@"%@ WILL request info ...............",self.myFood.title);
             [self fetchFoodInfo];
         }
-        else if(self.myFood.isFoodInfoCompleted){//Food info is complete, config at once;
-            [self configPhotoAndTag];
-            [self refreshComments];
-            [self showCommentButton];
-        }
+//        //If food info is not completed, request it
+//        
+//        if (!self.myFood.isLoadingInfo && !self.myFood.isFoodInfoCompleted) {
+//            [self fetchFoodInfo];
+//        }
+//        else if(self.myFood.isFoodInfoCompleted){//Food info is complete, config at once;
+//            [self configPhotoAndTag];
+//            [self refreshComments];
+//            [self showCommentButton];
+//        }
     }
 }
 
@@ -638,6 +645,7 @@ const CGFloat CommentRateViewWidth = 260;
         
         //If food info is not completed, request it
         if (!self.myFood.isLoadingInfo && !self.myFood.isFoodInfoCompleted) {
+            NSLog(@"------------------- %@ WILL REQUEST FOOD INFO",self.myFood.title);
             [self fetchFoodInfo];
 
         }
