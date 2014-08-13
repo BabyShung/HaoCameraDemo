@@ -248,7 +248,7 @@
                 if (!cell.foodInfoView.photoCollectionView.isTracking) {
                     //NSLog(@"+++++++++ TC ++++++++++++ : USER IS SCROLLING");
                     //NSLog(@")))))))))))))))))))))))))))) %@",cell.foodInfoView.myFood.title);
-                    cell.foodInfoView.commentBtn.alpha = 1-fabsf(translate.x/100);
+                   // cell.foodInfoView.commentBtn.alpha = 1-fabsf(translate.x/100);
                 }
 
             

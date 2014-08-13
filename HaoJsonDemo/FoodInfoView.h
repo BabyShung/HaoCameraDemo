@@ -36,7 +36,7 @@
 @property (strong,nonatomic) UIScrollView *scrollview;
 @property (strong,nonatomic) UITableView *commentsTableView;
 
-@property (strong, nonatomic) UIButton * commentBtn;
+//@property (strong, nonatomic) UIButton * commentBtn;
 
 @property (strong,nonatomic) EDCommentView *commentView;
 

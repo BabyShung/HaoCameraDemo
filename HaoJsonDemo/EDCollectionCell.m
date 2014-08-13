@@ -72,6 +72,8 @@
 -(void)willTransitionFromLayout:(UICollectionViewLayout *)oldLayout
                        toLayout:(UICollectionViewLayout *)newLayout
 {
+    NSLog(@"***************** willTransitionFromLayout **************************");
+    
     if ([newLayout class] == [smallLayout class]){
         
         [self.foodInfoView.scrollview setContentOffset:CGPointZero animated:NO];
@@ -94,7 +96,7 @@
     
     
     if (CGRectGetHeight(self.contentView.frame)< CGRectGetHeight([[UIScreen mainScreen] bounds])) {
-        self.foodInfoView.commentBtn.alpha = .0f;
+        //self.foodInfoView.commentBtn.alpha = .0f;
         self.foodInfoView.scrollview.scrollEnabled = NO;
         //self.foodInfoView.loadingBtn.hidden = YES;
     }
@@ -102,7 +104,7 @@
         [self.foodInfoView shineDescription];
         self.foodInfoView.scrollview.scrollEnabled = YES;
         [UIView animateWithDuration:0.5 animations:^{
-            self.foodInfoView.commentBtn.alpha = 1;
+        //self.foodInfoView.commentBtn.alpha = 1;
         }];
 
     }

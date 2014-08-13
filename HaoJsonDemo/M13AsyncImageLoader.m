@@ -16,6 +16,8 @@
  *********************************/
 
 static NSMutableDictionary *loaders;
+static dispatch_queue_t layerForM13;
+
 
 @interface M13AsyncImageLoader ()
 
@@ -107,7 +109,7 @@ static NSMutableDictionary *loaders;
     [connection setCompletionBlock:^(BOOL success, M13ImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
         //Add the image to the cache
         if (success) {
-            if(![self.imageCache objectForKey:url])
+            if(![self.imageCache objectForKey:url]&&image)
                 [self.imageCache setObject:image forKey:url];
         }
         
@@ -116,8 +118,16 @@ static NSMutableDictionary *loaders;
         
         //Hao added
         //Update the connections
-        dispatch_queue_t layerQ = dispatch_queue_create("ImageQueue", NULL);
-        dispatch_async(layerQ, ^{
+//        dispatch_queue_t layerQ = dispatch_queue_create("ImageQueue", NULL);
+//        dispatch_async(layerQ, ^{
+//            [self updateConnections];
+//        });
+        
+        if(!layerForM13){
+            layerForM13 = dispatch_queue_create("ImageQueue", NULL);
+        }
+        //dispatch_queue_t layerQ = dispatch_queue_create("ImageQueue", NULL);
+        dispatch_async(layerForM13, ^{
             [self updateConnections];
         });
         

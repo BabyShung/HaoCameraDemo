@@ -59,7 +59,7 @@ const CGFloat CommentTitleHtight = 55.f;
 const CGFloat CommentRateViewHeight = 65;
 const CGFloat CommentRateViewWidth = 260;
 
-@interface FoodInfoView () <UICollectionViewDataSource,UICollectionViewDelegate,TagViewDelegate,UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,EDCommentViewDelegate,LoadingIndicatorViewDelegate,DescriptionViewDelegate>
+@interface FoodInfoView () <UICollectionViewDataSource,UICollectionViewDelegate,TagViewDelegate,UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate,LoadingIndicatorViewDelegate,DescriptionViewDelegate>
 
 /*current cv must be set up when view appear*/
 @property (strong,nonatomic) UIViewController *currentVC;
@@ -202,12 +202,12 @@ const CGFloat CommentRateViewWidth = 260;
     [self.scrollview addSubview:_noCommentLabel];
  
     //add comment button above scrollview
-    _commentBtn = [LoadControls createRoundedButton_Image:@"ED_feedback_right.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andLeftBottomElseRightBottom:NO];
-    [_commentBtn addTarget:self action:@selector(commentBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-
-    [self hideCommentButton];
-
-    [self addSubview:_commentBtn];
+//    _commentBtn = [LoadControls createRoundedButton_Image:@"ED_feedback_right.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(7, 7, 7, 7) andLeftBottomElseRightBottom:NO];
+//    [_commentBtn addTarget:self action:@selector(commentBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+//
+//    [self hideCommentButton];
+//
+//    [self addSubview:_commentBtn];
     
 }
 
@@ -570,7 +570,7 @@ const CGFloat CommentRateViewWidth = 260;
     [_loadingIndicator showLoadingMsg];
 
     [self.myFood fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
-        //NSLog(@"******************** !!!!!! setting food !!!!!!11 **********************");
+        NSLog(@"******************** !!!!!! setting food !!!!!!112222 **********************");
         if (success) {
             
             [self.loadingIndicator removeFromSuperview];
@@ -580,7 +580,7 @@ const CGFloat CommentRateViewWidth = 260;
             if (self.myFood.comments.count==0) {
                 [self refreshComments];
             }
-            [self showCommentButton];
+            //[self showCommentButton];
         }
         else{
             [_loadingIndicator showFailureMsg];
@@ -620,7 +620,7 @@ const CGFloat CommentRateViewWidth = 260;
         else if(self.myFood.isFoodInfoCompleted){//Food info is complete, config at once;
             [self configPhotoAndTag];
             [self refreshComments];
-            [self showCommentButton];
+            //[self showCommentButton];
         }
     }
 }
@@ -645,7 +645,7 @@ const CGFloat CommentRateViewWidth = 260;
             [self configPhotoAndTag];
             [self refreshComments];
             //[self configCommentTable];
-            [self showCommentButton];
+            //[self showCommentButton];
         }
     }
 }
@@ -661,99 +661,99 @@ const CGFloat CommentRateViewWidth = 260;
 /*                            */
 /******************************/
 
-- (void) commentBtnPressed:(id)sender {
-    NSLog(@"++++ FIV ++++ : COMMENT BUTTON PRESSED");
+//- (void) commentBtnPressed:(id)sender {
+//    NSLog(@"++++ FIV ++++ : COMMENT BUTTON PRESSED");
+//
+//    EDCommentView *commentView = [[EDCommentView alloc]initWithFrame:self.frame];
+//    commentView.delegate = self;
+//    
+//    Comment* lastcomment = [[User sharedInstance].lastComments objectForKey:[NSString stringWithFormat:@"%d",(int)self.myFood.fid]];
+//    if (!lastcomment) {
+//        
+//        NSLog(@"++++ FIV ++++ : REQUEST COMMENT ");
+//
+//        [self makeToastActivity];
+//        [User fetchMyCommentOnFood:self.myFood.fid andCompletion:^(NSError *err, BOOL success) {
+//            [self hideToastActivity];
+//            [commentView setWithComment:[[User sharedInstance].lastComments objectForKey:[NSString stringWithFormat:@"%d",(int)self.myFood.fid]]];
+//            [commentView setTitleWithFood:self.myFood.title];
+//            [commentView open];
+//        }];
+//    }
+//    else{   //lastcomment has been loaded
+//            //open it immediately
+//        [commentView setWithComment:lastcomment];
+//        [commentView setTitleWithFood:self.myFood.title];
+//        [commentView open];
+//    }
+//
+//}
 
-    EDCommentView *commentView = [[EDCommentView alloc]initWithFrame:self.frame];
-    commentView.delegate = self;
-    
-    Comment* lastcomment = [[User sharedInstance].lastComments objectForKey:[NSString stringWithFormat:@"%d",(int)self.myFood.fid]];
-    if (!lastcomment) {
-        
-        NSLog(@"++++ FIV ++++ : REQUEST COMMENT ");
+//-(void)hideCommentButton{
+//    self.commentBtn.hidden = YES;
+//    _commentBtn.alpha = .0f;
+//}
+//
+//-(void)showCommentButton{
+//    if ([User sharedInstance].Uid != AnonymousUser) {
+//        [UIView animateWithDuration:0.5 animations:^{
+//            self.commentBtn.hidden = NO;
+//            self.commentBtn.alpha = 1;
+//        }];
+//    }
+//}
 
-        [self makeToastActivity];
-        [User fetchMyCommentOnFood:self.myFood.fid andCompletion:^(NSError *err, BOOL success) {
-            [self hideToastActivity];
-            [commentView setWithComment:[[User sharedInstance].lastComments objectForKey:[NSString stringWithFormat:@"%d",(int)self.myFood.fid]]];
-            [commentView setTitleWithFood:self.myFood.title];
-            [commentView open];
-        }];
-    }
-    else{   //lastcomment has been loaded
-            //open it immediately
-        [commentView setWithComment:lastcomment];
-        [commentView setTitleWithFood:self.myFood.title];
-        [commentView open];
-    }
-
-}
-
--(void)hideCommentButton{
-    self.commentBtn.hidden = YES;
-    _commentBtn.alpha = .0f;
-}
-
--(void)showCommentButton{
-    if ([User sharedInstance].Uid != AnonymousUser) {
-        [UIView animateWithDuration:0.5 animations:^{
-            self.commentBtn.hidden = NO;
-            self.commentBtn.alpha = 1;
-        }];
-    }
-}
-
-#pragma mark - EDCommentView Delegate
-
--(void)EDCommentView:(HATransparentView *)edCommentView KeyboardReturnedWithStars:(NSUInteger)stars{
-    
-    //Comment should be sent!
-    EDCommentView *commentView = (EDCommentView *)edCommentView;
-    [commentView makeToastActivity];
-    
-    Comment *newComment = [[Comment alloc]initWithCommentID:0 andFid:self.myFood.fid andRate:stars andComment:commentView.textView.text];
-    
-    [[User sharedInstance].lastComments setObject:newComment forKey:[NSString stringWithFormat:@"%d",(int)self.myFood.fid]];
-    
-    NSLog(@"+++++++++++++++ FIV +++++WILL SEND COMMENT+++++++++++++++++++");
-    [User createComment:newComment andCompletion:^(NSError *err, BOOL success, CGFloat newRate) {
-        if (success)
-        {
-            NSLog(@"+++++++++++++++ FIV +++++SEND COMMENT SUCCEED+++++++++++++++++++");
-            [commentView hideToastActivity];
-            [commentView close];
-            
-            //Update rate labels;
-            if (newRate>0.f) {
-                self.starNumberLabel.text = [NSString stringWithFormat:@"%.1f",newRate];
-            }
-            
-            [self makeToast:AMLocalizedString(@"SUCCESS_COMMENT", nil) duration:0.8 position:@"bottom"];
-            
-            //Remove old comment data
-            [self.myFood.comments removeAllObjects];
-            [self.commentsTableView reloadData];
-            
-            //update related UI
-            self.commentsTableView.frame = CGRectMake(self.commentsTableView.frame.origin.x, self.commentsTableView.frame.origin.y,self.commentsTableView.frame.size.width, kCommentCellHeight);
-            [self.scrollview setContentOffset:CGPointZero animated:NO];
-            self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width,MAX( CGRectGetMaxY(self.commentsTableView.frame),self.scrollview.frame.size.height)+10);
-            
-            //refresh comments
-            [self refreshComments];
-        }
-        else{
-            [commentView hideToastActivity];
-            if (!err) {
-                [commentView makeToast:AMLocalizedString(@"FAIL_COMMENT", nil) duration:0.8 position:@"center"];
-            }
-            else{
-                [commentView makeToast:AMLocalizedString(@"FAIL_COMMENT_EMOJI", nil) duration:0.8 position:@"center"];
-            }
-            
-        }
-    }];
-}
+//#pragma mark - EDCommentView Delegate
+//
+//-(void)EDCommentView:(HATransparentView *)edCommentView KeyboardReturnedWithStars:(NSUInteger)stars{
+//    
+//    //Comment should be sent!
+//    EDCommentView *commentView = (EDCommentView *)edCommentView;
+//    [commentView makeToastActivity];
+//    
+//    Comment *newComment = [[Comment alloc]initWithCommentID:0 andFid:self.myFood.fid andRate:stars andComment:commentView.textView.text];
+//    
+//    [[User sharedInstance].lastComments setObject:newComment forKey:[NSString stringWithFormat:@"%d",(int)self.myFood.fid]];
+//    
+//    NSLog(@"+++++++++++++++ FIV +++++WILL SEND COMMENT+++++++++++++++++++");
+//    [User createComment:newComment andCompletion:^(NSError *err, BOOL success, CGFloat newRate) {
+//        if (success)
+//        {
+//            NSLog(@"+++++++++++++++ FIV +++++SEND COMMENT SUCCEED+++++++++++++++++++");
+//            [commentView hideToastActivity];
+//            [commentView close];
+//            
+//            //Update rate labels;
+//            if (newRate>0.f) {
+//                self.starNumberLabel.text = [NSString stringWithFormat:@"%.1f",newRate];
+//            }
+//            
+//            [self makeToast:AMLocalizedString(@"SUCCESS_COMMENT", nil) duration:0.8 position:@"bottom"];
+//            
+//            //Remove old comment data
+//            [self.myFood.comments removeAllObjects];
+//            [self.commentsTableView reloadData];
+//            
+//            //update related UI
+//            self.commentsTableView.frame = CGRectMake(self.commentsTableView.frame.origin.x, self.commentsTableView.frame.origin.y,self.commentsTableView.frame.size.width, kCommentCellHeight);
+//            [self.scrollview setContentOffset:CGPointZero animated:NO];
+//            self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width,MAX( CGRectGetMaxY(self.commentsTableView.frame),self.scrollview.frame.size.height)+10);
+//            
+//            //refresh comments
+//            [self refreshComments];
+//        }
+//        else{
+//            [commentView hideToastActivity];
+//            if (!err) {
+//                [commentView makeToast:AMLocalizedString(@"FAIL_COMMENT", nil) duration:0.8 position:@"center"];
+//            }
+//            else{
+//                [commentView makeToast:AMLocalizedString(@"FAIL_COMMENT_EMOJI", nil) duration:0.8 position:@"center"];
+//            }
+//            
+//        }
+//    }];
+//}
 
 /************************************/
 /*****     Loading Indicator     ****/

@@ -83,8 +83,6 @@ static NSString *CellIdentifier = @"Cell";
         [self.view addSubview:ic];
         [ic showIntroWithCrossDissolve];
     }
-
-
 }
 
 - (void) clearBtnPressed:(id)sender {
@@ -95,7 +93,6 @@ static NSString *CellIdentifier = @"Cell";
     [SearchDictionary saveSearchHistoryToLocalDB];
     [self.camView backBtnPressed:nil];
     [self.camView resumeCameraWithBlocking];
-    
     
     //Clean up cached comments of different foods
     NSLog(@"+++++++ MVC +++++++++ : clean up last comntes");
@@ -138,8 +135,6 @@ static NSString *CellIdentifier = @"Cell";
             }
         }
     }];
-    
-    
 
     //Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
     //NSString* str = @"Potato starch";
@@ -197,72 +192,71 @@ static NSString *CellIdentifier = @"Cell";
 
 //Add new items into collection view
 //This method will exclude duplicates results
-//-(void)addFoodItems:(NSArray *) newFoodItems
-//{
-//    //NSLog(@"++++++++++  MVC ++++++++++++: %d foods wait to be add!!!!!!",newFoodItems.count);
-//    if (newFoodItems.count>0) {
-//        
-//        //NSInteger startIndex = self.foodArray.count;
-//        
-//        NSMutableArray *newIndexPaths = [[NSMutableArray alloc]init];
-//        NSMutableArray *addItems = [[NSMutableArray alloc]initWithArray:newFoodItems];
-//        
-//        int count = (int)addItems.count;
-//        for (int i = count-1; i>= 0; i--){
-//            Food *food = addItems[i];
-//            if (![self.existingFood valueForKey:[food.title lowercaseString]]) {
-//                [self.existingFood setValue:@"1" forKey:[food.title lowercaseString]];
-//                [newIndexPaths addObject:[NSIndexPath indexPathForItem:0 inSection:0]];
-//            }
-//            else{
-//                [addItems removeObjectAtIndex:i];
-//                
-//                count--;
-//            }
-//        }
-//        //NSLog(@"++++++++++  MVC ++++++++++++: %d foods will be added!!!!!!",addItems.count);
-//        [self.collectionView performBatchUpdates:^{
-//            //[self.foodArray addObjectsFromArray:addItems];
-//            [self.foodArray replaceObjectsInRange:NSMakeRange(0,0)
-//                            withObjectsFromArray:addItems];
-//            [self updateFriendlyResultLabel:self.foodArray.count];
-//            [self.collectionView insertItemsAtIndexPaths:newIndexPaths];
-//            
-//        } completion:nil];
-//    }
-//}
-
-
--(void)addFoodItems:(NSArray *) newFoodItems
-{
+-(void)addFoodItems:(NSArray *) newFoodItems{
+    
+    //NSLog(@"++++++++++  MVC ++++++++++++: %d foods wait to be add!!!!!!",newFoodItems.count);
     if (newFoodItems.count>0) {
         
-        NSInteger startIndex = self.foodArray.count;
+        //NSInteger startIndex = self.foodArray.count;
         
         NSMutableArray *newIndexPaths = [[NSMutableArray alloc]init];
         NSMutableArray *addItems = [[NSMutableArray alloc]initWithArray:newFoodItems];
         
         int count = (int)addItems.count;
-        for (int i =0; i<count; i++){
+        for (int i = count-1; i>= 0; i--){
             Food *food = addItems[i];
             if (![self.existingFood valueForKey:[food.title lowercaseString]]) {
                 [self.existingFood setValue:@"1" forKey:[food.title lowercaseString]];
-                [newIndexPaths addObject:[NSIndexPath indexPathForItem:(startIndex+i) inSection:0]];
+                [newIndexPaths addObject:[NSIndexPath indexPathForItem:0 inSection:0]];
             }
             else{
                 [addItems removeObjectAtIndex:i];
-                i--;
+                
                 count--;
             }
         }
-        
+        //NSLog(@"++++++++++  MVC ++++++++++++: %d foods will be added!!!!!!",addItems.count);
         [self.collectionView performBatchUpdates:^{
-            [self.foodArray addObjectsFromArray:addItems];
+            //[self.foodArray addObjectsFromArray:addItems];
+            [self.foodArray replaceObjectsInRange:NSMakeRange(0,0)
+                            withObjectsFromArray:addItems];
+            [self updateFriendlyResultLabel:self.foodArray.count];
             [self.collectionView insertItemsAtIndexPaths:newIndexPaths];
             
         } completion:nil];
     }
 }
+
+//-(void)addFoodItems:(NSArray *) newFoodItems
+//{
+//    if (newFoodItems.count>0) {
+//        
+//        NSInteger startIndex = self.foodArray.count;
+//        
+//        NSMutableArray *newIndexPaths = [[NSMutableArray alloc]init];
+//        NSMutableArray *addItems = [[NSMutableArray alloc]initWithArray:newFoodItems];
+//        
+//        int count = (int)addItems.count;
+//        for (int i =0; i<count; i++){
+//            Food *food = addItems[i];
+//            if (![self.existingFood valueForKey:[food.title lowercaseString]]) {
+//                [self.existingFood setValue:@"1" forKey:[food.title lowercaseString]];
+//                [newIndexPaths addObject:[NSIndexPath indexPathForItem:(startIndex+i) inSection:0]];
+//            }
+//            else{
+//                [addItems removeObjectAtIndex:i];
+//                i--;
+//                count--;
+//            }
+//        }
+//        
+//        [self.collectionView performBatchUpdates:^{
+//            [self.foodArray addObjectsFromArray:addItems];
+//            [self.collectionView insertItemsAtIndexPaths:newIndexPaths];
+//            
+//        } completion:nil];
+//    }
+//}
 
 //transitionVC delegate
 - (void)interactionBeganAtPoint:(CGPoint)point{
@@ -295,8 +289,6 @@ static NSString *CellIdentifier = @"Cell";
     Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
     
     if (image) {
-        
-        
         
         //PS: image variable is the original size image (2448*3264)
         UIImage *onScreenImage = [LoadControls scaleImage:image withScale:SCALE_FACTOR_IMAGE withRect:rect andCropSize:size];
@@ -348,7 +340,6 @@ static NSString *CellIdentifier = @"Cell";
             //self.camView.capturedImageView.image = nil;
         }
         
-        
         //check serverInputStr before sending to server
         NSCharacterSet *charSet = [NSCharacterSet whitespaceCharacterSet];
         NSString *trimmedString = [serverInputStr stringByTrimmingCharactersInSet:charSet];
@@ -366,7 +357,7 @@ static NSString *CellIdentifier = @"Cell";
                     //stop loading result indicator
                     [self.camView stopLoadingAnimation];
                     
-                    NSLog(@"++++++++++++ MVC +++++++++++++ : SERVER RETURNED %d  food results - - - - - - - - - - - - - ",results.count);
+                    NSLog(@"++++++++++++ MVC +++++++++++++ : SERVER RETURNED %d  food results - - - - - - - - - - - - - ",(int)results.count);
                     
                     [self showClearAndNextButton];
                     [self showCollectionView];
@@ -386,11 +377,9 @@ static NSString *CellIdentifier = @"Cell";
             }];
         }
     }
-    
 }
 
-
--(void)updateFriendlyResultLabel:(int)number{
+-(void)updateFriendlyResultLabel:(NSUInteger)number{
     if(number == 0)
         return;
     NSString *showString;
@@ -399,7 +388,7 @@ static NSString *CellIdentifier = @"Cell";
     }else{
         showString = AMLocalizedString(@"FRIENDLY_RESULT_TEXT_plural", nil);
     }
-    _friendlyResultLabel.text = [NSString stringWithFormat:@"%d%@",number,showString];
+    _friendlyResultLabel.text = [NSString stringWithFormat:@"%d%@",(int)number,showString];
 }
 
 -(void)stopAnimationAndShowErrorToast{
@@ -445,7 +434,6 @@ static NSString *CellIdentifier = @"Cell";
     }
 }
 
-
 -(void)hideResultButtonsAndCollectionView{
     if(!self.collectionView.isHidden){
         [UICollectionView transitionWithView:self.collectionView
@@ -478,7 +466,6 @@ static NSString *CellIdentifier = @"Cell";
     //registering dequueue cell
     [self.collectionView registerClass:[EDCollectionCell class] forCellWithReuseIdentifier:CellIdentifier];
     
-    
     self.transitionController = [[TransitionController alloc] initWithCollectionView:self.collectionView];
     self.transitionController.delegate = self;
     self.navigationController.delegate = self.transitionController;
@@ -494,7 +481,6 @@ static NSString *CellIdentifier = @"Cell";
     [_nextBtn addTarget:self action:@selector(nextBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     _nextBtn.hidden = YES;
     [self.view insertSubview:_nextBtn aboveSubview:self.collectionView];
-    
     
     _friendlyResultLabel = [LoadControls createLabelWithRect:CGRectMake(0, 0, 260, 50) andTextAlignment:NSTextAlignmentCenter andFont:[UIFont fontWithName:@"Heiti TC" size:16] andTextColor:[ED_Color edibleBlueColor_doubleBlue]];
     _friendlyResultLabel.text = @"";

@@ -11,5 +11,6 @@
 @interface SecondViewController : UICollectionViewController
 
 @property (strong, nonatomic) UIButton * backBtn;
+@property (strong, nonatomic) UIButton * commentBtn;
 
 @end
