@@ -40,10 +40,10 @@
 
 @property (strong,nonatomic) EDCommentView *commentView;
 
-@property (strong,nonatomic) LoadingIndicatorView *loadingIndicator;
+//@property (strong,nonatomic) LoadingIndicatorView *loadingIndicator;
 
 //rendering data
-@property (strong,nonatomic) Food *myFood;
+@property (strong,nonatomic,setter = setFood:) Food *myFood;
 
 //methods
 
@@ -51,7 +51,7 @@
 
 //-(void)configPhotoAndTagWithCellNo:(NSInteger)no;
 
--(void)configCommentTable;
+//-(void)configCommentTable;
 
 -(void)setVC:(UIViewController *)vc;
 

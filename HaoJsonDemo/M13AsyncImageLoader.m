@@ -132,8 +132,8 @@ static NSMutableDictionary *loaders;
 
 - (void)updateConnections{
     
-    NSLog(@"***************** before _connectionQueue.count: %d *********************",_connectionQueue.count);
-    NSLog(@"***************** _activeConnections.count: %d *********************",_activeConnections.count);
+    //NSLog(@"***************** before _connectionQueue.count: %d *********************",_connectionQueue.count);
+    //NSLog(@"***************** _activeConnections.count: %d *********************",_activeConnections.count);
     //First check if any of the active connections are finished.
     NSMutableArray *completedConnections = [NSMutableArray array];
     for (M13AsyncConnection *connection in _activeConnections) {
@@ -148,7 +148,7 @@ static NSMutableDictionary *loaders;
     //Check our queue to see if a completed connection loaded an image a connection in the queue is requesting. If so, mark it as completed, and remove it from the queue
     NSMutableArray *completedByProxyConnections = [NSMutableArray array];
     
-    NSLog(@"***************** _connectionQueue.count: %d *********************",_connectionQueue.count);
+    //NSLog(@"***************** _connectionQueue.count: %d *********************",_connectionQueue.count);
     
     for (M13AsyncConnection *queuedConnection in _connectionQueue) {
         for (M13AsyncConnection *completedConnection in completedConnections) {
@@ -182,7 +182,7 @@ static NSMutableDictionary *loaders;
             }
         }
     }
-    NSLog(@"***************** after _activeConnections.count: %d *********************",_activeConnections.count);
+    //NSLog(@"***************** after _activeConnections.count: %d *********************",_activeConnections.count);
 }
 
 - (void)cancelLoadingImageAtURL:(NSURL *)url{

@@ -142,7 +142,7 @@ static NSString *CellIdentifier = @"Cell";
     
 
 //    Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
-//    NSString* str = @"Potato starch";
+//    NSString* str = @"caper cilantro cheese";
 //    [self addFoodItems:[dict localSearchOCRString:str]];
 //    
 //    [self showClearAndNextButton];
@@ -165,7 +165,16 @@ static NSString *CellIdentifier = @"Cell";
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     EDCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-    [cell configFIVForCell:indexPath.row withFood:self.foodArray[indexPath.row]];
+    Food *food = [self.foodArray objectAtIndex:indexPath.row];
+    NSLog(@"+++++++++++++++++ MVC +++++++++++++++++++ : %@ WILL PASS INTO CELL %d",food.title,indexPath.row);
+    [cell configFIVForCell:indexPath.row withFood: food];
+    if (food.isFoodInfoCompleted == NO && food.isLoadingInfo == NO) {
+        NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ %@ WILL REQUEST details",food.title);
+        [food fetchAsyncInfoCompletion:^(NSError *err, BOOL success){
+            NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ %@ Finish loading WIll reload data",food.title);
+            [self.collectionView reloadData];
+        }];
+    }
     return cell;
 }
 
@@ -200,32 +209,23 @@ static NSString *CellIdentifier = @"Cell";
 //This method will exclude duplicates results
 -(void)addFoodItems:(NSArray *) newFoodItems
 {
-    //NSLog(@"++++++++++  MVC ++++++++++++: %d foods wait to be add!!!!!!",newFoodItems.count);
     if (newFoodItems.count>0) {
-        
-        //NSInteger startIndex = self.foodArray.count;
-        
         NSMutableArray *newIndexPaths = [[NSMutableArray alloc]init];
         NSMutableArray *addItems = [[NSMutableArray alloc]initWithArray:newFoodItems];
         
-        int count = (int)addItems.count;
-        for (int i = count-1; i>= 0; i--){
+        for (int i = addItems.count-1,j = 0; i>= 0; i--){
             Food *food = addItems[i];
             if (![self.existingFood valueForKey:[food.title lowercaseString]]) {
                 [self.existingFood setValue:@"1" forKey:[food.title lowercaseString]];
-                [newIndexPaths addObject:[NSIndexPath indexPathForItem:0 inSection:0]];
+                [newIndexPaths addObject:[NSIndexPath indexPathForItem:j inSection:0]];
+                j++;
             }
             else{
                 [addItems removeObjectAtIndex:i];
-                
-                count--;
             }
         }
-        //NSLog(@"++++++++++  MVC ++++++++++++: %d foods will be added!!!!!!",addItems.count);
         [self.collectionView performBatchUpdates:^{
-            //[self.foodArray addObjectsFromArray:addItems];
-            [self.foodArray replaceObjectsInRange:NSMakeRange(0,0)
-                            withObjectsFromArray:addItems];
+            [self.foodArray replaceObjectsInRange:NSMakeRange(0,0) withObjectsFromArray:addItems];
             [self updateFriendlyResultLabel:self.foodArray.count];
             [self.collectionView insertItemsAtIndexPaths:newIndexPaths];
             
@@ -261,7 +261,33 @@ static NSString *CellIdentifier = @"Cell";
 //            [self.foodArray addObjectsFromArray:addItems];
 //            [self.collectionView insertItemsAtIndexPaths:newIndexPaths];
 //            
-//        } completion:nil];
+//        } completion:^(BOOL finished){
+////            //NSLog(@"++++++++++  MVC ++++++++++++: After addinglen = %d",self.foodArray.count);
+////            int tmpcount = self.foodArray.count-count;
+////            int len = self.foodArray.count;
+////            for (int i = tmpcount; i <len; i++) {
+////                NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ i = %d; array count = %d; count = %d",i,(int)tmpcount,len);
+////                Food *food = [self.foodArray objectAtIndex:i];
+////                //This food's info is not completed
+////                if (food.isFoodInfoCompleted == NO) {
+////                    
+////                    //This food should fetch details
+////                    NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ %@ WILL REQUEST details",food.title);
+////                    [food fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
+////                        if (success) {
+////                            
+////                            
+////                            //All info is ready, reload collection view
+////                            NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ %@ Finish loading WIll reload data",food.title);
+////                            //[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:[self.foodArray indexOfObject:food] inSection:0]];
+////                            
+////                            
+////                        }
+////                        
+////                    }];
+////               }
+////            }
+//        }];
 //    }
 //}
 
@@ -296,8 +322,6 @@ static NSString *CellIdentifier = @"Cell";
     Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
     
     if (image) {
-        
-        
         
         //PS: image variable is the original size image (2448*3264)
         UIImage *onScreenImage = [LoadControls scaleImage:image withScale:SCALE_FACTOR_IMAGE withRect:rect andCropSize:size];
@@ -345,14 +369,14 @@ static NSString *CellIdentifier = @"Cell";
         
         if(self.foodArray.count!=0){
             [self showClearAndNextButton];
+
         }else{
             //self.camView.capturedImageView.image = nil;
         }
         
         
         //check serverInputStr before sending to server
-        NSCharacterSet *charSet = [NSCharacterSet whitespaceCharacterSet];
-        NSString *trimmedString = [serverInputStr stringByTrimmingCharactersInSet:charSet];
+        NSString *trimmedString = [serverInputStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         if ([trimmedString isEqualToString:@""]) {
             // it's empty or contains only white spaces
             [self stopAnimationAndShowErrorToast];
@@ -367,7 +391,7 @@ static NSString *CellIdentifier = @"Cell";
                     //stop loading result indicator
                     [self.camView stopLoadingAnimation];
                     
-                    NSLog(@"++++++++++++ MVC +++++++++++++ : SERVER RETURNED %d  food results - - - - - - - - - - - - - ",results.count);
+                    NSLog(@"++++++++++++ MVC +++++++++++++ : SERVER RETURNED %d  food results - - - - - - - - - - - - - ",(int)results.count);
                     
                     [self showClearAndNextButton];
                     [self showCollectionView];
