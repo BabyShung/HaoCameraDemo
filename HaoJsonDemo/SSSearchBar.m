@@ -24,6 +24,7 @@
  */
 
 #import "SSSearchBar.h"
+#import "ED_Color.h"
 
 //I like these values; Feel free to play around though :-)
 
@@ -221,7 +222,7 @@
 
 - (void)drawRect:(CGRect)rect {
     CGContextRef contextRef = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(contextRef, [UIColor whiteColor].CGColor);
+    CGContextSetFillColorWithColor(contextRef, [ED_Color cellBlackColor].CGColor);
     UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:18];
     [path fill];
 }

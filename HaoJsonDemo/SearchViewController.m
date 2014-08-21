@@ -248,6 +248,9 @@ static NSString *CellIdentifier = @"Cell";
 #pragma mark - Helper Methods
 
 -(void)loadControls{
+    
+    self.backgroundImageView.image = [UIImage imageNamed:iPhone5?@"cards_next_ip5.png":@"cards_next_ip4.png"];
+    
     _backBtn = [LoadControls createRoundedBackButton];
     [_backBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -261,6 +264,7 @@ static NSString *CellIdentifier = @"Cell";
     //it can scroll even when the height is less than frame height
     self.collectionView.alwaysBounceVertical = YES;
     
+    //self.searchBar.backg.backgroundColor = [UIColor redColor];
     self.searchBar.cancelButtonHidden = NO;
     self.searchBar.placeholder = AMLocalizedString(@"Search food", nil);
     self.searchBar.delegate = self;

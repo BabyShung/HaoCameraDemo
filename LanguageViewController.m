@@ -34,7 +34,7 @@ const NSString *langCellIdentity = @"Cell";
     [super viewDidLoad];
     
     UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    backgroundView.image = [UIImage imageNamed:@"blackBG.JPG"];
+    backgroundView.image = [UIImage imageNamed:iPhone5?@"cards_next_ip5.png":@"cards_next_ip4.png"];
     [self.view insertSubview:backgroundView belowSubview:self.collectionView];
     self.collectionView.backgroundColor = [UIColor clearColor];
     

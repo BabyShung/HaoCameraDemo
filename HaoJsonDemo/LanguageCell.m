@@ -7,7 +7,7 @@
 //
 
 #import "LanguageCell.h"
-
+#import "ED_Color.h"
 @implementation LanguageCell
 
 - (id)initWithFrame:(CGRect)frame
@@ -29,6 +29,7 @@
 
 -(void)setup{
     self.layer.cornerRadius = 4;
+    self.backgroundColor = [ED_Color cellBlackColor];
 }
 
 

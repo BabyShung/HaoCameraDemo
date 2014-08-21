@@ -10,6 +10,10 @@
 
 @interface ED_Color : UIColor
 
++ (UIColor *) cellBlackColor;
++ (UIColor *) cardsGreyColor;
++ (UIColor *) dashlineGreyColor;
+
 + (UIColor *) darkGreyColor;
 + (UIColor *) lightGrayColor;
 + (UIColor *) mediumGrayColor;

@@ -20,6 +20,7 @@
 
 @property (retain, nonatomic) id <SettingDelegate> settingDelegate;
 
+//@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 -(void)updateUILanguage;
 
 @end

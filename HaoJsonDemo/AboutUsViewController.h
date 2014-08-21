@@ -11,4 +11,5 @@
 @interface AboutUsViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 @end

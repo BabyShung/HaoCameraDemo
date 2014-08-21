@@ -197,72 +197,63 @@ static NSString *CellIdentifier = @"Cell";
 
 //Add new items into collection view
 //This method will exclude duplicates results
-//-(void)addFoodItems:(NSArray *) newFoodItems
-//{
-//    //NSLog(@"++++++++++  MVC ++++++++++++: %d foods wait to be add!!!!!!",newFoodItems.count);
-//    if (newFoodItems.count>0) {
-//        
-//        //NSInteger startIndex = self.foodArray.count;
-//        
-//        NSMutableArray *newIndexPaths = [[NSMutableArray alloc]init];
-//        NSMutableArray *addItems = [[NSMutableArray alloc]initWithArray:newFoodItems];
-//        
-//        int count = (int)addItems.count;
-//        for (int i = count-1; i>= 0; i--){
-//            Food *food = addItems[i];
-//            if (![self.existingFood valueForKey:[food.title lowercaseString]]) {
-//                [self.existingFood setValue:@"1" forKey:[food.title lowercaseString]];
-//                [newIndexPaths addObject:[NSIndexPath indexPathForItem:0 inSection:0]];
-//            }
-//            else{
-//                [addItems removeObjectAtIndex:i];
-//                
-//                count--;
-//            }
-//        }
-//        //NSLog(@"++++++++++  MVC ++++++++++++: %d foods will be added!!!!!!",addItems.count);
-//        [self.collectionView performBatchUpdates:^{
-//            //[self.foodArray addObjectsFromArray:addItems];
-//            [self.foodArray replaceObjectsInRange:NSMakeRange(0,0)
-//                            withObjectsFromArray:addItems];
-//            [self updateFriendlyResultLabel:self.foodArray.count];
-//            [self.collectionView insertItemsAtIndexPaths:newIndexPaths];
-//            
-//        } completion:nil];
-//    }
-//}
-
-
 -(void)addFoodItems:(NSArray *) newFoodItems
 {
     if (newFoodItems.count>0) {
-        
-        NSInteger startIndex = self.foodArray.count;
-        
         NSMutableArray *newIndexPaths = [[NSMutableArray alloc]init];
         NSMutableArray *addItems = [[NSMutableArray alloc]initWithArray:newFoodItems];
         
-        int count = (int)addItems.count;
-        for (int i =0; i<count; i++){
+        for (int i = addItems.count-1,j = 0; i>= 0; i--){
             Food *food = addItems[i];
             if (![self.existingFood valueForKey:[food.title lowercaseString]]) {
                 [self.existingFood setValue:@"1" forKey:[food.title lowercaseString]];
-                [newIndexPaths addObject:[NSIndexPath indexPathForItem:(startIndex+i) inSection:0]];
+                [newIndexPaths addObject:[NSIndexPath indexPathForItem:j inSection:0]];
+                j++;
             }
             else{
                 [addItems removeObjectAtIndex:i];
-                i--;
-                count--;
             }
         }
-        
         [self.collectionView performBatchUpdates:^{
-            [self.foodArray addObjectsFromArray:addItems];
+            [self.foodArray replaceObjectsInRange:NSMakeRange(0,0) withObjectsFromArray:addItems];
+            [self updateFriendlyResultLabel:self.foodArray.count];
             [self.collectionView insertItemsAtIndexPaths:newIndexPaths];
             
         } completion:nil];
     }
 }
+
+
+//-(void)addFoodItems:(NSArray *) newFoodItems
+//{
+//    if (newFoodItems.count>0) {
+//        
+//        NSInteger startIndex = self.foodArray.count;
+//        
+//        NSMutableArray *newIndexPaths = [[NSMutableArray alloc]init];
+//        NSMutableArray *addItems = [[NSMutableArray alloc]initWithArray:newFoodItems];
+//        
+//        int count = (int)addItems.count;
+//        for (int i =0; i<count; i++){
+//            Food *food = addItems[i];
+//            if (![self.existingFood valueForKey:[food.title lowercaseString]]) {
+//                [self.existingFood setValue:@"1" forKey:[food.title lowercaseString]];
+//                [newIndexPaths addObject:[NSIndexPath indexPathForItem:(startIndex+i) inSection:0]];
+//            }
+//            else{
+//                [addItems removeObjectAtIndex:i];
+//                i--;
+//                count--;
+//            }
+//        }
+//        
+//        [self.collectionView performBatchUpdates:^{
+//            [self.foodArray addObjectsFromArray:addItems];
+//            [self.collectionView insertItemsAtIndexPaths:newIndexPaths];
+//            
+//        } completion:nil];
+//    }
+//}
 
 //transitionVC delegate
 - (void)interactionBeganAtPoint:(CGPoint)point{
@@ -295,8 +286,6 @@ static NSString *CellIdentifier = @"Cell";
     Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
     
     if (image) {
-        
-        
         
         //PS: image variable is the original size image (2448*3264)
         UIImage *onScreenImage = [LoadControls scaleImage:image withScale:SCALE_FACTOR_IMAGE withRect:rect andCropSize:size];

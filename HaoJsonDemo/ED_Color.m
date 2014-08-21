@@ -12,6 +12,19 @@
 
 #pragma mark COLORS
 
++ (UIColor *) cellBlackColor {
+    return [UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:.1];
+}
+
+
++ (UIColor *) cardsGreyColor {
+    return [UIColor colorWithRed:89/255.0 green:87/255.0 blue:88/255.0 alpha:1];
+}
+
++ (UIColor *) dashlineGreyColor {
+    return [UIColor colorWithRed:201/255.0 green:203/255.0 blue:202/255.0 alpha:1];
+}
+
 + (UIColor *) darkGreyColor {
     return [UIColor colorWithRed:0.226082 green:0.244034 blue:0.297891 alpha:1];
 }

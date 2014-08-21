@@ -7,6 +7,7 @@
 //
 
 #import "SearchCell.h"
+#import "ED_Color.h"
 
 @implementation SearchCell
 
@@ -29,5 +30,6 @@
 
 -(void)setup{
     self.layer.cornerRadius = 4;
+    self.backgroundColor = [ED_Color cellBlackColor];
 }
 @end

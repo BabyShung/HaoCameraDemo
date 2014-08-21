@@ -26,6 +26,8 @@
 
 #define CROPVIEW_HEIGHT iPhone5?358:298
 
+#define LABEL_COLOR [ED_Color cardsGreyColor]
+
 const NSString *collectionCellIdentity = @"Cell";
 const CGFloat LeftMargin = 15.0f;
 const CGFloat LeftContextMargin = 40.f;
@@ -53,7 +55,6 @@ UICollectionViewDelegate>
 
 @property (strong,nonatomic) NSString *tempFeedbackText;
 
-@property (strong, nonatomic) UIView * separatorLine;
 
 @property (nonatomic) NSInteger selected;
 
@@ -143,9 +144,16 @@ UICollectionViewDelegate>
 
 -(void)loadControls{
     
+    //self.backgroundImageView.image = [UIImage imageNamed:iPhone5?@"cards_ip5.png":@"cards_ip42.png"];
+    
+    UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    backgroundView.image = [UIImage imageNamed:iPhone5?@"cards_ip5.png":@"cards_ip4.png"];
+    [self.view insertSubview:backgroundView belowSubview:self.bottomCollectionView];
+    
+    
     //separator line
     IPDashedLineView *appearance = [IPDashedLineView appearance];
-    [appearance setLineColor:[UIColor whiteColor]];
+    [appearance setLineColor:[ED_Color dashlineGreyColor]];
     [appearance setLengthPattern:@[@12, @4]];
     IPDashedLineView *dash0 = [[IPDashedLineView alloc] initWithFrame:CGRectMake(10, CROPVIEW_HEIGHT, 300, 1)];
     [self.view addSubview:dash0];
@@ -177,7 +185,7 @@ UICollectionViewDelegate>
     
     self.titleLabel = [[UILabel alloc] initWithFrame:_shimmeringView.bounds];
     self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:22];
-    self.titleLabel.textColor = [UIColor whiteColor];
+    self.titleLabel.textColor = LABEL_COLOR;
     self.titleLabel.backgroundColor = [UIColor clearColor];
     _shimmeringView.contentView = self.titleLabel;
     
@@ -190,7 +198,7 @@ UICollectionViewDelegate>
         //[label sizeToFit];
 
           //label.center = self.view.center;
-        label.textColor = [UIColor whiteColor];
+        label.textColor = LABEL_COLOR;
         label;
     });
     [self.view addSubview:self.descriptionLabel];
@@ -314,7 +322,7 @@ UICollectionViewDelegate>
         //[label sizeToFit];
         
         //label.center = self.view.center;
-        label.textColor = [UIColor whiteColor];
+        label.textColor = LABEL_COLOR;
         label;
     });
     [self.view addSubview:self.descriptionLabel];
