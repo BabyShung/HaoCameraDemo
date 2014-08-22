@@ -27,7 +27,7 @@
                                     <constraint firstAttribute="width" constant="300" id="6Ue-Tb-yQy"/>
                                 </constraints>
                                 <color key="textColor" red="0.34901960780000002" green="0.3411764706" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="aboutus_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="dhH-TT-j4M">
