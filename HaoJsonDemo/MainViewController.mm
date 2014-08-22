@@ -168,22 +168,20 @@ static NSString *CellIdentifier = @"Cell";
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     EDCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     Food *food = [self.foodArray objectAtIndex:indexPath.row];
-    NSLog(@"+++++++++++++++++ MVC +++++++++++++++++++ : %@ WILL PASS INTO CELL %d",food.title,indexPath.row);
+    
+    NSLog(@"+++++++++++++++++ MVC +++++++++++++++++++ : %@ WILL PASS INTO CELL %d",food.title,(int)indexPath.row);
+    
     [cell configFIVForCell:indexPath.row withFood: food];
-    NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ : CELL %d -- %@ hidden %d",indexPath.row, food.title,cell.foodInfoView.descripView.isHidden);
+    //NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ : CELL %d -- %@ hidden %d",indexPath.row, food.title,cell.foodInfoView.descripView.isHidden);
     if (food.isFoodInfoCompleted == NO && food.isLoadingInfo == NO) {
-        NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ %@ WILL REQUEST details",food.title);
 
         [food fetchAsyncInfoCompletion:^(NSError *err, BOOL success){
 
             if (success) {
-                NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ %@ Successfully Finish loading WIll reload data",food.title);
 
                 [self.collectionView reloadData];
 
         
-            }else{
-                NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ Failed to load %@",food.title);
             }
             
         }];
