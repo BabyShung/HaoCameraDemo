@@ -141,15 +141,16 @@ static NSString *CellIdentifier = @"Cell";
     
     
 
-//    Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
-//    NSString* str = @"caper cilantro cheese";
-//    [self addFoodItems:[dict localSearchOCRString:str]];
-//    
-//    [self showClearAndNextButton];
-//    [self showCollectionView];
-//    [dict serverSearchOCRString:str inLang:English andCompletion:^(NSArray *results, BOOL success) {
-//        [self addFoodItems:results];
-//    }];
+    Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
+    NSString* str = @"cilantro sushi";
+    //@"ribeye caper cilantro chicken flat bread sushi apple potato starch fillet steak";
+    [self addFoodItems:[dict localSearchOCRString:str]];
+    
+    [self showClearAndNextButton];
+    [self showCollectionView];
+    [dict serverSearchOCRString:str inLang:English andCompletion:^(NSArray *results, BOOL success) {
+        [self addFoodItems:results];
+    }];
     
     
 }
@@ -168,11 +169,27 @@ static NSString *CellIdentifier = @"Cell";
     Food *food = [self.foodArray objectAtIndex:indexPath.row];
     NSLog(@"+++++++++++++++++ MVC +++++++++++++++++++ : %@ WILL PASS INTO CELL %d",food.title,indexPath.row);
     [cell configFIVForCell:indexPath.row withFood: food];
+    NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ : CELL %d -- %@ hidden %d",indexPath.row, food.title,cell.foodInfoView.descripView.isHidden);
     if (food.isFoodInfoCompleted == NO && food.isLoadingInfo == NO) {
         NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ %@ WILL REQUEST details",food.title);
         [food fetchAsyncInfoCompletion:^(NSError *err, BOOL success){
-            NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ %@ Finish loading WIll reload data",food.title);
-            [self.collectionView reloadData];
+
+            if (success) {
+                NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ %@ Successfully Finish loading WIll fetch comments",food.title);
+                [food fetchLatestCommentsSize:5 andSkip:0 completion:^(NSError *err, BOOL success) {
+                    if (success) {
+                        NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ %@ Successfully loaded comments WILL reload CV",food.title);
+                        [self.collectionView reloadData];
+                    }
+                    else{
+                        NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ %@Failed to load comments",food.title);
+                    }
+                }];
+                
+            }else{
+                NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ Failed to load %@",food.title);
+            }
+            
         }];
     }
     return cell;
@@ -357,7 +374,6 @@ static NSString *CellIdentifier = @"Cell";
                 [localFoods addObjectsFromArray:returnResultsFromDB];
                 
                 [self showCollectionView];
-                
                 
                 [self addFoodItems:localFoods];
             

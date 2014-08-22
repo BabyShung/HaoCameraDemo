@@ -332,7 +332,7 @@ const CGFloat CommentRateViewWidth = 260;
     
     Comment *comment = (Comment *)[self.myFood.comments objectAtIndex:[indexPath row]];
     NSString *text = [NSString stringWithFormat:@"%@:\n%@",comment.byUser.Uname,comment.text];
-    //NSLog(@"+++++++++++++++++ FIV +++++++++++++++++++ %@ : INSERT COMMENT TBL text = %@",self.myFood.title,text);
+    NSLog(@"+++++++++++++++++ FIV +++++++++++++++++++ %@ : INSERT COMMENT TBL text = %@",self.myFood.title,text);
     
     CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"Cell %d", (int)indexPath.row]];
 
@@ -475,9 +475,12 @@ const CGFloat CommentRateViewWidth = 260;
     }
 }
 
--(void)refreshPhotoesAndTags{
+-(void)refreshPhotoesTagsComments{
     [self.photoCollectionView reloadData];
-    //[self.commentsTableView reloadData];
+    
+    //Before reload comment table view, resize its frame so that it has enough space to reload data
+    [self updateCommentTableUI];
+    [self.commentsTableView reloadData];
     if (self.myFood.tagNames.count > 0) {
         [_tagview addTags:self.myFood.tagNames];
     }
@@ -486,71 +489,71 @@ const CGFloat CommentRateViewWidth = 260;
 }
 
 //Load More comments
-//-(void)refreshComments{
-//    if (!self.myFood.isLoadingComments) {
-//        //NSLog(@"+++++++++++++ FIV ++++++++++++++++ : refresh comments current count = %d",(int)self.myFood.comments.count);
-//        if (self.myFood.comments.count == 0){
-//            _noCommentLabel.text= AMLocalizedString(@"COMMENT_LOADING_MSG", nil);
-//            _noCommentLabel.hidden = NO;
-//        }
-//        [self.myFood fetchLatestCommentsSize:NumCommentsPerLoad andSkip:self.myFood.comments.count completion:^(NSError *err, BOOL success) {
-//            if(success){
-//                if (self.myFood.comments.count == 0) {
-//                    if ([User sharedInstance].Uid == AnonymousUser) {
-//                        _noCommentLabel.text = [NSString stringWithFormat:AMLocalizedString(@"FIV_NO_COMMENT", nil),self.myFood.title];
-//                    }
-//                    else{
-//                        _noCommentLabel.text = [NSString stringWithFormat:AMLocalizedString(@"FIV_NO_COMMENT_LOGINUSR", nil),[User sharedInstance].name,self.myFood.title];
-//                    }
-//                    _noCommentLabel.hidden = NO;
-//                }else {
-//                    _noCommentLabel.text = @"";
-//                    _noCommentLabel.hidden = YES;
-//                }
-//                [self updateCommentTableUI];
-//            }
-//        }];
-//    }
-//}
+-(void)refreshComments{
+    if (!self.myFood.isLoadingComments) {
+        //NSLog(@"+++++++++++++ FIV ++++++++++++++++ : refresh comments current count = %d",(int)self.myFood.comments.count);
+        if (self.myFood.comments.count == 0){
+            _noCommentLabel.text= AMLocalizedString(@"COMMENT_LOADING_MSG", nil);
+            _noCommentLabel.hidden = NO;
+        }
+        [self.myFood fetchLatestCommentsSize:NumCommentsPerLoad andSkip:self.myFood.comments.count completion:^(NSError *err, BOOL success) {
+            if(success){
+                if (self.myFood.comments.count == 0) {
+                    if ([User sharedInstance].Uid == AnonymousUser) {
+                        _noCommentLabel.text = [NSString stringWithFormat:AMLocalizedString(@"FIV_NO_COMMENT", nil),self.myFood.title];
+                    }
+                    else{
+                        _noCommentLabel.text = [NSString stringWithFormat:AMLocalizedString(@"FIV_NO_COMMENT_LOGINUSR", nil),[User sharedInstance].name,self.myFood.title];
+                    }
+                    _noCommentLabel.hidden = NO;
+                }else {
+                    _noCommentLabel.text = @"";
+                    _noCommentLabel.hidden = YES;
+                }
+                [self updateCommentTableUI];
+            }
+        }];
+    }
+}
 
 //Set up comment table delegate
-//-(void)configCommentTable{
-//    _commentsTableView.dataSource = self;
-//    _commentsTableView.delegate = self;
-//    [_commentsTableView reloadData];
-//}
+-(void)configCommentTable{
+    _commentsTableView.dataSource = self;
+    _commentsTableView.delegate = self;
+    [_commentsTableView reloadData];
+}
 
 //remember to reload data
-//-(void)updateCommentTableUI
-//{
-//    //NSLog(@"+++FIV+++:update comment table");
-//    NSInteger newCount = self.myFood.comments.count;
-//    NSInteger oldCount = [self.commentsTableView numberOfRowsInSection:0];
-//
-//    if (newCount>oldCount){
-//        //NSLog(@"+++ FIV +++ : I refreshed and get %d comments!",(int)(newCount-oldCount));
-//        
-//        CGFloat deltaHeight = 0;
-//        
-//        NSMutableArray *insertIndexPaths = [NSMutableArray arrayWithCapacity:newCount-oldCount];
-//        
-//        for (int ind = 0; ind < newCount-oldCount; ind++)
-//        {
-//            NSIndexPath *newPath =  [NSIndexPath indexPathForRow:oldCount+ind inSection:0];
-//            [insertIndexPaths addObject:newPath];
-//            Comment *comment = (Comment *)[self.myFood.comments objectAtIndex:oldCount+ind];
-//            NSString *text = [NSString stringWithFormat:@"%@:\n%@",comment.byUser.Uname,comment.text];
-//            CGRect rect = [text boundingRectWithSize:(CGSize){252, MAXFLOAT}
-//                                             options:NSStringDrawingUsesLineFragmentOrigin
-//                                          attributes:@{NSFontAttributeName:[UIFont fontWithName:TagTextFontName size:KCommentTextFontSize]}
-//                                             context:nil];
-//            deltaHeight += (int)(CGRectGetHeight(rect)+kCommentCellHeight);
-//        }
-//        //NSLog(@"+++ FIV +++ : deltaH = %f",deltaHeight);
-//        self.commentsTableView.frame =  CGRectMake(self.commentsTableView.frame.origin.x, self.commentsTableView.frame.origin.y, self.commentsTableView.frame.size.width, self.commentsTableView.frame.size.height + deltaHeight);
-//        //self.scrollview.frame =CGRectMake(self.scrollview.frame.origin.x, self.scrollview.frame.origin.y, self.scrollview.frame.size.width, self.scrollview.frame.size.height + deltaHeight);
-//
-//        //NSLog(@"+++ FIV %@ +++ UPD CMT UI: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.contentSize.height,self.scrollview.frame.size.height);
+-(void)updateCommentTableUI
+{
+    NSLog(@"+++FIV+++:update comment table");
+    NSInteger newCount = self.myFood.comments.count;
+    NSInteger oldCount = [self.commentsTableView numberOfRowsInSection:0];
+
+    if (newCount>oldCount){
+        NSLog(@"+++ FIV +++ : I refreshed and get %d comments!",(int)(newCount-oldCount));
+        
+        CGFloat deltaHeight = 0;
+        
+        //NSMutableArray *insertIndexPaths = [NSMutableArray arrayWithCapacity:newCount-oldCount];
+        
+        for (int ind = 0; ind < newCount-oldCount; ind++)
+        {
+            //NSIndexPath *newPath =  [NSIndexPath indexPathForRow:oldCount+ind inSection:0];
+            //[insertIndexPaths addObject:newPath];
+            Comment *comment = (Comment *)[self.myFood.comments objectAtIndex:oldCount+ind];
+            NSString *text = [NSString stringWithFormat:@"%@:\n%@",comment.byUser.Uname,comment.text];
+            CGRect rect = [text boundingRectWithSize:(CGSize){252, MAXFLOAT}
+                                             options:NSStringDrawingUsesLineFragmentOrigin
+                                          attributes:@{NSFontAttributeName:[UIFont fontWithName:TagTextFontName size:KCommentTextFontSize]}
+                                             context:nil];
+            deltaHeight += (int)(CGRectGetHeight(rect)+kCommentCellHeight);
+        }
+        NSLog(@"+++ FIV +++ : deltaH = %f",deltaHeight);
+        self.commentsTableView.frame =  CGRectMake(self.commentsTableView.frame.origin.x, self.commentsTableView.frame.origin.y, self.commentsTableView.frame.size.width, self.commentsTableView.frame.size.height + deltaHeight);
+        //self.scrollview.frame =CGRectMake(self.scrollview.frame.origin.x, self.scrollview.frame.origin.y, self.scrollview.frame.size.width, self.scrollview.frame.size.height + deltaHeight);
+
+        //NSLog(@"+++ FIV %@ +++ UPD CMT UI: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.contentSize.height,self.scrollview.frame.size.height);
 //        if (!self.commentsTableView.delegate) {
 //            [self configCommentTable];
 //        }
@@ -559,9 +562,9 @@ const CGFloat CommentRateViewWidth = 260;
 //            [self.commentsTableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationFade];
 //            
 //        }
-//        self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width,MAX( CGRectGetMaxY(self.commentsTableView.frame),self.scrollview.frame.size.height)+10);
-//    }
-//}
+        self.scrollview.contentSize = CGSizeMake(self.scrollview.contentSize.width,MAX( CGRectGetMaxY(self.commentsTableView.frame),self.scrollview.frame.size.height)+10);
+    }
+}
 
 //this method got called when cell preparing for reuse
 -(void)cleanUpForReuse{
@@ -645,7 +648,7 @@ const CGFloat CommentRateViewWidth = 260;
         self.imgLoaderName =[NSString stringWithFormat:@"%d",(int)cellNo];
         
         [self setDelegates];
-        [self refreshPhotoesAndTags];
+        [self refreshPhotoesTagsComments];
         
 //        if (self.myFood.isFoodInfoCompleted) {
 //            NSLog(@"%@'s info is COMPLETE ...............",self.myFood.title);
@@ -678,7 +681,8 @@ const CGFloat CommentRateViewWidth = 260;
         self.imgLoaderName  = @"Default";
         
         [self setDelegates];
-        [self refreshPhotoesAndTags];
+    
+        [self refreshPhotoesTagsComments];
         
         //If food info is not completed, request it
         if (!self.myFood.isLoadingInfo && !self.myFood.isFoodInfoCompleted) {

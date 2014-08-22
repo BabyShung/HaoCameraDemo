@@ -46,6 +46,15 @@
 
     self.foodInfoView.myFood = food;
     [self.foodInfoView prepareForDisplayInCell:cellno];
+    if (self.frame.size.height == [[UIScreen mainScreen]bounds].size.height) {
+     //The cell is in largelayout
+        [self.foodInfoView setUpForLargeLayout];
+        
+    }else{
+        //The cell is in small layout
+        [self.foodInfoView setUpForSmallLayout];
+    
+    }
 }
 
 -(void)setVCForFoodInfoView:(UIViewController *)vc
