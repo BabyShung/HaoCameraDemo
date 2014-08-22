@@ -16,6 +16,7 @@
 #import "ED_Color.h"
 #import "HATransparentView.h"
 #import "DXStarRatingView.h"
+#import "AppDelegate.h"
 
 static NSString *CellIdentifier = @"Cell";
 
@@ -292,7 +293,11 @@ const CGFloat CommentRateViewWidth = 260;
                                            mode:JTSImageViewControllerMode_Image
                                            backgroundStyle:JTSImageViewControllerBackgroundStyle_ScaledDimmedBlurred];
     // Present the view controller.
-    [imageViewer showFromViewController:self.currentVC transition:JTSImageViewControllerTransition_FromOriginalPosition];
+    
+    AppDelegate *app = [[UIApplication sharedApplication]delegate];
+    
+    
+    [imageViewer showFromViewController:app.window.rootViewController transition:JTSImageViewControllerTransition_FromOriginalPosition];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
