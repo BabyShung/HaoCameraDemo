@@ -21,7 +21,7 @@
 {
     [super viewDidLoad];
 
-    self.backgroundImageView.image = [UIImage imageNamed:iPhone5?@"cards_next_ip5.png":@"cards_next_ip4.png"];
+    self.backgroundImageView.image = [UIImage imageNamed:iPhone5?@"cards_next_no_ip5.png":@"cards_next_no_ip4.png"];
     
     self.contactUsLabel.text = AMLocalizedString(@"CONTACT_US_ABOUT_US", nil);
     

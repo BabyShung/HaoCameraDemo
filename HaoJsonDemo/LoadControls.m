@@ -12,9 +12,9 @@
 #import "LocalizationSystem.h"
 
 #define smallBTNRadius 25
-#define ButtonAvailableAlpha 0.6
+#define ButtonAvailableAlpha 0.8
 #define BUTTON_MARGIN_LEFT_RIGHT 10
-#define BUTTON_MARGIN_DOWN 8
+#define BUTTON_MARGIN_DOWN 12
 
 @implementation LoadControls
 

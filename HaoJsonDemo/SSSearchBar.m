@@ -222,7 +222,7 @@
 
 - (void)drawRect:(CGRect)rect {
     CGContextRef contextRef = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(contextRef, [ED_Color cellBlackColor].CGColor);
+    CGContextSetFillColorWithColor(contextRef, [UIColor whiteColor].CGColor);
     UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:18];
     [path fill];
 }

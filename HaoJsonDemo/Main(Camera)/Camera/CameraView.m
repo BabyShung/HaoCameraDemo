@@ -19,7 +19,7 @@
 #define DEFAULT_MASK_ALPHA 0.50
 #define BUTTON_MARGIN_LEFT_RIGHT 10
 #define BUTTON_Starting_MARGIN_LEFT_RIGHT 30
-#define BUTTON_MARGIN_DOWN 8
+#define BUTTON_MARGIN_DOWN 12
 
 #import "CameraView.h"
 #import "CameraManager.h"
@@ -52,6 +52,7 @@
 @property (strong, nonatomic) HaoCaptureButton * captureBtn;
 @property (strong, nonatomic) UIButton * TorchBtn;
 @property (strong, nonatomic) UIButton * nextPageBtn;
+//@property (strong, nonatomic) UIButton * tutorialBtn;
 //slider
 @property (strong, nonatomic) ASValueTrackingSlider *scaleSlider;
 //previewLayer
@@ -260,6 +261,10 @@
     
     [self drawControls];
     
+}
+
+- (void) tutorialPressed:(id)sender {
+    NSLog(@"xxxs");
 }
 
 - (void) nextPagePressed:(id)sender {
@@ -472,6 +477,11 @@
     
     _captureBtn = [LoadControls createNiceCameraButton_withCameraView:self];
     [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+//    _tutorialBtn = [LoadControls createUIButtonWithRect:CGRectMake(280, 20, 30, 30)];
+//    [_tutorialBtn setImage:[UIImage imageNamed:@"ED_about.png"] forState:UIControlStateNormal];
+//    [_tutorialBtn setTintColor:[ED_Color edibleBlueColor_Deep]];
+//    [_tutorialBtn addTarget:self action:@selector(tutorialPressed:) forControlEvents:UIControlEventTouchUpInside];
 
     
     // -- LOAD BUTTONS END -- //

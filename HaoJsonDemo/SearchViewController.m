@@ -249,7 +249,7 @@ static NSString *CellIdentifier = @"Cell";
 
 -(void)loadControls{
     
-    self.backgroundImageView.image = [UIImage imageNamed:iPhone5?@"cards_next_ip5.png":@"cards_next_ip4.png"];
+    self.backgroundImageView.image = [UIImage imageNamed:iPhone5?@"cards_next_no_ip5.png":@"cards_next_no_ip4.png"];
     
     _backBtn = [LoadControls createRoundedBackButton];
     [_backBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
