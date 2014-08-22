@@ -142,7 +142,7 @@ static NSString *CellIdentifier = @"Cell";
     
 
     Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
-    NSString* str = @"ribeye caper tomato basil";
+    NSString* str = @"ribeye caper tomato basil bread";
     //@"ribeye caper cilantro chicken flat bread sushi apple potato starch fillet steak";
     [self addFoodItems:[dict localSearchOCRString:str]];
     

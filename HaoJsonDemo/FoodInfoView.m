@@ -380,7 +380,7 @@ const CGFloat CommentRateViewWidth = 260;
 
     self.separator.frame = CGRectMake(CLeftMargin, CGRectGetMaxY(self.titleLabel.frame), width-2*CLeftMargin, SeparatorViewHeight);
     
-    self.translateLabel.frame = CGRectMake(CLeftMargin, TitleTopMargin + CGRectGetMaxY(self.titleLabel.frame), width-2*CLeftMargin,  SmallTranslateLabelHeight - (SmallTranslateLabelHeight - LargeTranslateLabelHeight)*sizeMultiplier);//TranslateLabelHeight);
+    self.translateLabel.frame = CGRectMake(CLeftMargin, TitleTopMargin + CGRectGetMaxY(self.titleLabel.frame), width-2*CLeftMargin-(StarNumberLabelWidth+StarImgViewWidth)*sizeMultiplier,  SmallTranslateLabelHeight - (SmallTranslateLabelHeight - LargeTranslateLabelHeight)*sizeMultiplier);//TranslateLabelHeight);
     [self.translateLabel sizeToFit];
     
     self.starNumberLabel.frame =CGRectMake(width-CLeftMargin-StarNumberLabelWidth, self.translateLabel.frame.origin.y, StarNumberLabelWidth*(width/[[UIScreen mainScreen] bounds].size.width), CGRectGetHeight(self.translateLabel.frame));
@@ -691,16 +691,13 @@ const CGFloat CommentRateViewWidth = 260;
         //[self setFoodInfo];
         self.imgLoaderName  = @"Default";
         
-        [self setDelegates];
+    [self setDelegates];
+    [self refreshPhotoesTags];
     
-        [self refreshPhotoesTags];
-        
-        //If food info is not completed, request it
-        if (!self.myFood.isLoadingInfo && !self.myFood.isFoodInfoCompleted) {
-            NSLog(@"------------------- %@ WILL REQUEST FOOD INFO",self.myFood.title);
-            //[self fetchFoodInfo];
+    if (self.myFood.isFoodInfoCompleted == YES && self.myFood.isLoadingComments == NO) {
+        [self refreshComments];
 
-        }
+    }
 //        else if(self.myFood.isFoodInfoCompleted){//Food info is complete, config at once;
 //            [self configPhotoAndTag];
 //            //[self refreshComments];

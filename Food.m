@@ -76,6 +76,8 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
     self.transTitle = [dict objectForKey:@"name"];
     if (![[dict objectForKey:@"description"] isEqualToString:@"N/A"]) {
         self.food_description = [dict objectForKey:@"description"];
+    }else{
+        self.food_description = @"";
     }
     self.rate = [[dict objectForKey:@"avg_rate"] floatValue];
     _webdata = [[NSMutableData alloc]init];

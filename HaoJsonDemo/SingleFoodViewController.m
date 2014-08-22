@@ -38,10 +38,32 @@
     [self.foodInfoView prepareForDisplay];
     [self.view addSubview:self.foodInfoView];
     
-    //2.add backBtn
-    _backBtn = [LoadControls createRoundedBackButton];
-    [_backBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_backBtn];
+
+    
+    //2.fetch food info if needed, block when loading
+    if (self.currentFood.isFoodInfoCompleted == NO && self.currentFood.isLoadingInfo == NO) {
+        [self.currentFood fetchAsyncInfoCompletion:^(NSError *err, BOOL success){
+            
+            //3.add backBtn
+            _backBtn = [LoadControls createRoundedBackButton];
+            [_backBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:_backBtn];
+            
+            if (success) {
+                    self.foodInfoView.myFood = self.currentFood;
+                [self.foodInfoView prepareForDisplay];
+                
+            }
+        }];
+    }else{
+        //Foodinfo completed
+        
+        //3.add backBtn
+        _backBtn = [LoadControls createRoundedBackButton];
+        [_backBtn addTarget:self action:@selector(previousPagePressed:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:_backBtn];
+    
+    }
 }
 
 - (void) previousPagePressed:(id)sender {
