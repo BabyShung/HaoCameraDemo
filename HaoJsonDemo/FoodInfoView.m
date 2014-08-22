@@ -236,6 +236,7 @@ const CGFloat CommentRateViewWidth = 260;
     }
 }
 
+
 /**********************************
  
  collectionView delegate
