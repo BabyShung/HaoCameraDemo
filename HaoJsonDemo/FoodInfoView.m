@@ -101,7 +101,13 @@ const CGFloat CommentRateViewWidth = 260;
     self.currentVC = nil;
     self.currentVC = vc;
 }
-
+-(void)setFood:(Food *)myFood{
+    _myFood=myFood;
+    if (_myFood){
+        [self setFoodInfo];
+    }
+    
+}
 -(void)loadControls{
     
     //CGFloat height = CGRectGetHeight(self.bounds);
@@ -113,6 +119,7 @@ const CGFloat CommentRateViewWidth = 260;
     self.scrollview.scrollEnabled=YES;
     self.scrollview.userInteractionEnabled=YES;
     [self addSubview:self.scrollview];
+    
     
     self.titleLabel = [[UILabel alloc] init];//WithFrame:_shimmeringView.frame];
     self.titleLabel.numberOfLines = 0;
@@ -326,7 +333,7 @@ const CGFloat CommentRateViewWidth = 260;
     
     Comment *comment = (Comment *)[self.myFood.comments objectAtIndex:[indexPath row]];
     NSString *text = [NSString stringWithFormat:@"%@:\n%@",comment.byUser.Uname,comment.text];
-    //NSLog(@"+++++++++++++++++ FIV +++++++++++++++++++ %@ : INSERT COMMENT TBL text = %@",self.myFood.title,text);
+    NSLog(@"+++++++++++++++++ FIV +++++++++++++++++++ %@ : INSERT COMMENT TBL text = %@",self.myFood.title,text);
     
     CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"Cell %d", (int)indexPath.row]];
 
@@ -436,6 +443,19 @@ const CGFloat CommentRateViewWidth = 260;
 
 //Before calling this method, update myFood property
 -(void)setFoodInfo{
+    if (self.myFood.isFoodInfoCompleted == YES) {
+        NSLog(@"+++++++ FIV ++++++ :%@ HIde LOADING MSG",self.myFood.title);
+        [self.loadingIndicator removeFromSuperview];
+        [self showCommentButton];
+    }else{
+        if (!_loadingIndicator) {
+            //Add loading indicator
+            self.loadingIndicator = [[LoadingIndicatorView alloc] initWithFrame:self.frame];
+            [self addSubview:self.loadingIndicator];
+            
+        }
+        [self.loadingIndicator showLoadingMsg];
+    }
     self.titleLabel.text = self.myFood.title;
     self.translateLabel.text = self.myFood.transTitle;
     self.descripView.contentText = self.myFood.food_description;
@@ -456,10 +476,29 @@ const CGFloat CommentRateViewWidth = 260;
     }
 }
 
+-(void)setDelegates{
+    //Set delegates if they haven't be done
+    if (!self.photoCollectionView.delegate) {
+        self.photoCollectionView.delegate = self;
+        self.photoCollectionView.dataSource = self;
+    }
+
+}
+
+-(void)refreshPhotoesTags{
+    [self.photoCollectionView reloadData];
+    
+    if (self.myFood.tagNames.count > 0) {
+        [_tagview addTags:self.myFood.tagNames];
+    }
+    
+    [self.descripView config];
+}
+
 //Load More comments
 -(void)refreshComments{
-    if (!self.myFood.isLoadingComments) {
-        //NSLog(@"+++++++++++++ FIV ++++++++++++++++ : refresh comments current count = %d",(int)self.myFood.comments.count);
+    if (self.myFood.isLoadingComments == NO) {
+        NSLog(@"+++++++++++++ FIV ++++++++++++++++ : refresh comments current count = %d",(int)self.myFood.comments.count);
         if (self.myFood.comments.count == 0){
             _noCommentLabel.text= AMLocalizedString(@"COMMENT_LOADING_MSG", nil);
             _noCommentLabel.hidden = NO;
@@ -494,12 +533,12 @@ const CGFloat CommentRateViewWidth = 260;
 //remember to reload data
 -(void)updateCommentTableUI
 {
-    //NSLog(@"+++FIV+++:update comment table");
+    NSLog(@"+++FIV+++:update comment table");
     NSInteger newCount = self.myFood.comments.count;
     NSInteger oldCount = [self.commentsTableView numberOfRowsInSection:0];
 
     if (newCount>oldCount){
-        //NSLog(@"+++ FIV +++ : I refreshed and get %d comments!",(int)(newCount-oldCount));
+        NSLog(@"+++ FIV +++ : I refreshed and get %d comments!",(int)(newCount-oldCount));
         
         CGFloat deltaHeight = 0;
         
@@ -517,16 +556,16 @@ const CGFloat CommentRateViewWidth = 260;
                                              context:nil];
             deltaHeight += (int)(CGRectGetHeight(rect)+kCommentCellHeight);
         }
-        //NSLog(@"+++ FIV +++ : deltaH = %f",deltaHeight);
+        NSLog(@"+++ FIV +++ : deltaH = %f",deltaHeight);
         self.commentsTableView.frame =  CGRectMake(self.commentsTableView.frame.origin.x, self.commentsTableView.frame.origin.y, self.commentsTableView.frame.size.width, self.commentsTableView.frame.size.height + deltaHeight);
-        //self.scrollview.frame =CGRectMake(self.scrollview.frame.origin.x, self.scrollview.frame.origin.y, self.scrollview.frame.size.width, self.scrollview.frame.size.height + deltaHeight);
+        self.scrollview.frame =CGRectMake(self.scrollview.frame.origin.x, self.scrollview.frame.origin.y, self.scrollview.frame.size.width, self.scrollview.frame.size.height + deltaHeight);
 
         //NSLog(@"+++ FIV %@ +++ UPD CMT UI: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.contentSize.height,self.scrollview.frame.size.height);
         if (!self.commentsTableView.delegate) {
             [self configCommentTable];
         }
         else{
-            //NSLog(@"++++++++++++ FIV +++++++++++++++ : COMMENTTABLE RELOAD WHEN UPDATING UI");
+            NSLog(@"++++++++++++ FIV +++++++++++++++ : COMMENTTABLE RELOAD WHEN UPDATING UI");
             [self.commentsTableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationFade];
             
         }
@@ -548,11 +587,9 @@ const CGFloat CommentRateViewWidth = 260;
     self.noCommentLabel.text = @"";
     self.noCommentLabel.hidden = YES;
     
-    self.myFood.photoNames = nil;//datasource for food photos in bottomCollectionview
     self.photoCollectionView.delegate = nil;
     [self.photoCollectionView reloadData];
     
-    self.myFood.comments = nil;//datasource for comment tableview
     self.commentsTableView.delegate = nil;
     [self.commentsTableView reloadData];
     self.commentsTableView.frame = CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, CGRectGetWidth(self.commentsTableView.frame),  kCommentCellHeight);
@@ -560,69 +597,87 @@ const CGFloat CommentRateViewWidth = 260;
     [self.tagview clear];
 }
 
--(void)fetchFoodInfo{
-    if (!self.loadingIndicator) {
-        self.loadingIndicator = [[LoadingIndicatorView alloc] initWithFrame:self.frame];
-        self.loadingIndicator.delegate = self;
-        [self addSubview:self.loadingIndicator];
-    }
-
-    [_loadingIndicator showLoadingMsg];
-
-    [self.myFood fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
-        //NSLog(@"******************** !!!!!! setting food !!!!!!11 **********************");
-        if (success) {
-            
-            [self.loadingIndicator removeFromSuperview];
-
-            [self setFoodInfo];
-            [self configPhotoAndTag];
-            if (self.myFood.comments.count==0) {
-                [self refreshComments];
-            }
-            [self showCommentButton];
-        }
-        else{
-            [_loadingIndicator showFailureMsg];
-            //[self showLoadingBtnWithFailureMsg];
-        }
-    }];
-    
-}
+//-(void)fetchFoodInfo{
+//    if (!self.loadingIndicator) {
+//        self.loadingIndicator = [[LoadingIndicatorView alloc] initWithFrame:self.frame];
+//        self.loadingIndicator.delegate = self;
+//        [self addSubview:self.loadingIndicator];
+//    }
+//
+//    [_loadingIndicator showLoadingMsg];
+//
+//    [self.myFood fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
+//        //NSLog(@"******************** !!!!!! setting food !!!!!!11 **********************");
+//        if (success) {
+//            
+//            [self.loadingIndicator removeFromSuperview];
+//
+//            [self setFoodInfo];
+//            [self configPhotoAndTag];
+//            if (self.myFood.comments.count==0) {
+//                [self refreshComments];
+//            }
+//            [self showCommentButton];
+//        }
+//        else{
+//            [_loadingIndicator showFailureMsg];
+//            //[self showLoadingBtnWithFailureMsg];
+//        }
+//    }];
+//    
+//}
 
 /******************************************************/
 /************  DISPLAY IN COLLECTION VIEW  ************/
 /******************************************************/
 
 // Fist time display, set up photoview delegate
--(void)configPhotoAndTag{
-    if (self.imgLoaderName && ![self.imgLoaderName isEqualToString:@""]) {
-        //NSLog(@"~~~~~~~~~~CONFIG PHOTO FOR %@ ~~~~~~~~~~~~%d",self.myFood.title,(int)self.myFood.photoNames.count);
-        self.photoCollectionView.dataSource = self;
-        self.photoCollectionView.delegate = self;
-        [self.photoCollectionView reloadData];
-        [_tagview addTags:self.myFood.tagNames];
-        [self.descripView config];
-    }
-}
+//-(void)configPhotoAndTag{
+//    if (self.imgLoaderName && ![self.imgLoaderName isEqualToString:@""]) {
+//        //NSLog(@"~~~~~~~~~~CONFIG PHOTO FOR %@ ~~~~~~~~~~~~%d",self.myFood.title,(int)self.myFood.photoNames.count);
+//        self.photoCollectionView.dataSource = self;
+//        self.photoCollectionView.delegate = self;
+//        [self.photoCollectionView reloadData];
+//        [_tagview addTags:self.myFood.tagNames];
+//        [self.descripView config];
+//    }
+//}
 
-//Prepare data for first time display
+//Prepare data for display
 -(void)prepareForDisplayInCell:(NSInteger)cellNo{
-    if (self.myFood) {
+    
         //Assure title and translation are showed;
-        [self setFoodInfo];
+        //[self setFoodInfo];
+        
+        //Config a imgLoader for photo collectionview
         self.imgLoaderName =[NSString stringWithFormat:@"%d",(int)cellNo];
-        //NSLog(@"******************** !!!!!! setting food !!!!!!00 **********************");
-        //If food info is not completed, request it
-        if (!self.myFood.isLoadingInfo && !self.myFood.isFoodInfoCompleted) {
-            [self fetchFoodInfo];
-        }
-        else if(self.myFood.isFoodInfoCompleted){//Food info is complete, config at once;
-            [self configPhotoAndTag];
-            [self refreshComments];
-            [self showCommentButton];
-        }
+        
+        [self setDelegates];
+        [self refreshPhotoesTags];
+    
+    if (self.myFood.isFoodInfoCompleted == YES && self.myFood.isLoadingComments == NO) {
+        [self refreshComments];
+        
+        
     }
+        
+//        if (self.myFood.isFoodInfoCompleted) {
+//            NSLog(@"%@'s info is COMPLETE ...............",self.myFood.title);
+//        }else if (self.myFood.isLoadingInfo == NO){
+//            NSLog(@"%@ WILL request info ...............",self.myFood.title);
+//            //[self fetchFoodInfo];
+//        }
+//        //If food info is not completed, request it
+//        
+//        if (!self.myFood.isLoadingInfo && !self.myFood.isFoodInfoCompleted) {
+//            [self fetchFoodInfo];
+//        }
+//        else if(self.myFood.isFoodInfoCompleted){//Food info is complete, config at once;
+//            [self configPhotoAndTag];
+//            [self refreshComments];
+//            [self showCommentButton];
+//        }
+
 }
 
 /**************************************************/
@@ -631,23 +686,28 @@ const CGFloat CommentRateViewWidth = 260;
 
 //Prepare data for first time display IN SINGLE FOOD VIEW
 -(void)prepareForDisplay{
-    if (self.myFood) {
+    //if (self.myFood) {
         //Assure title and translation are showed;
-        [self setFoodInfo];
+        //[self setFoodInfo];
         self.imgLoaderName  = @"Default";
+        
+        [self setDelegates];
+    
+        [self refreshPhotoesTags];
         
         //If food info is not completed, request it
         if (!self.myFood.isLoadingInfo && !self.myFood.isFoodInfoCompleted) {
-            [self fetchFoodInfo];
+            NSLog(@"------------------- %@ WILL REQUEST FOOD INFO",self.myFood.title);
+            //[self fetchFoodInfo];
 
         }
-        else if(self.myFood.isFoodInfoCompleted){//Food info is complete, config at once;
-            [self configPhotoAndTag];
-            [self refreshComments];
-            //[self configCommentTable];
-            [self showCommentButton];
-        }
-    }
+//        else if(self.myFood.isFoodInfoCompleted){//Food info is complete, config at once;
+//            [self configPhotoAndTag];
+//            //[self refreshComments];
+//            //[self configCommentTable];
+//            [self showCommentButton];
+//        }
+   // }
 }
 
 
@@ -762,7 +822,7 @@ const CGFloat CommentRateViewWidth = 260;
 #pragma mark - LoadingIndicatorView Delegate
 
 -(void) LoadingIndicatorFireReLoad{
-    [self fetchFoodInfo];
+    //[self fetchFoodInfo];
 }
 
 /************************************/

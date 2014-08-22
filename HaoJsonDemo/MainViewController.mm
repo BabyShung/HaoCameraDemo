@@ -141,14 +141,16 @@ static NSString *CellIdentifier = @"Cell";
     
     
 
-    //Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
-    //NSString* str = @"Potato starch";
-    //[self addFoodItems:[dict localSearchOCRString:str]];
+    Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
+    NSString* str = @"ribeye caper tomato basil";
+    //@"ribeye caper cilantro chicken flat bread sushi apple potato starch fillet steak";
+    [self addFoodItems:[dict localSearchOCRString:str]];
     
-   // [self showResultButtonsAndCollectionView];
-//    [dict serverSearchOCRString:str inLang:English andCompletion:^(NSArray *results, BOOL success) {
-//        [self addFoodItems:results];
-//    }];
+    [self showClearAndNextButton];
+    [self showCollectionView];
+    [dict serverSearchOCRString:str inLang:English andCompletion:^(NSArray *results, BOOL success) {
+        [self addFoodItems:results];
+    }];
     
     
 }
@@ -164,7 +166,27 @@ static NSString *CellIdentifier = @"Cell";
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     EDCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-    [cell configFIVForCell:indexPath.row withFood:self.foodArray[indexPath.row]];
+    Food *food = [self.foodArray objectAtIndex:indexPath.row];
+    NSLog(@"+++++++++++++++++ MVC +++++++++++++++++++ : %@ WILL PASS INTO CELL %d",food.title,indexPath.row);
+    [cell configFIVForCell:indexPath.row withFood: food];
+    NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ : CELL %d -- %@ hidden %d",indexPath.row, food.title,cell.foodInfoView.descripView.isHidden);
+    if (food.isFoodInfoCompleted == NO && food.isLoadingInfo == NO) {
+        NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ %@ WILL REQUEST details",food.title);
+
+        [food fetchAsyncInfoCompletion:^(NSError *err, BOOL success){
+
+            if (success) {
+                NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ %@ Successfully Finish loading WIll reload data",food.title);
+
+                [self.collectionView reloadData];
+
+        
+            }else{
+                NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ Failed to load %@",food.title);
+            }
+            
+        }];
+    }
     return cell;
 }
 
@@ -214,12 +236,16 @@ static NSString *CellIdentifier = @"Cell";
                 [addItems removeObjectAtIndex:i];
             }
         }
+
         [self.collectionView performBatchUpdates:^{
             [self.foodArray replaceObjectsInRange:NSMakeRange(0,0) withObjectsFromArray:addItems];
             [self updateFriendlyResultLabel:self.foodArray.count];
             [self.collectionView insertItemsAtIndexPaths:newIndexPaths];
-            
-        } completion:nil];
+
+        } completion:^(BOOL success){
+            [self.collectionView reloadData];
+        }];
+
     }
 }
 
@@ -251,7 +277,33 @@ static NSString *CellIdentifier = @"Cell";
 //            [self.foodArray addObjectsFromArray:addItems];
 //            [self.collectionView insertItemsAtIndexPaths:newIndexPaths];
 //            
-//        } completion:nil];
+//        } completion:^(BOOL finished){
+////            //NSLog(@"++++++++++  MVC ++++++++++++: After addinglen = %d",self.foodArray.count);
+////            int tmpcount = self.foodArray.count-count;
+////            int len = self.foodArray.count;
+////            for (int i = tmpcount; i <len; i++) {
+////                NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ i = %d; array count = %d; count = %d",i,(int)tmpcount,len);
+////                Food *food = [self.foodArray objectAtIndex:i];
+////                //This food's info is not completed
+////                if (food.isFoodInfoCompleted == NO) {
+////                    
+////                    //This food should fetch details
+////                    NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ %@ WILL REQUEST details",food.title);
+////                    [food fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
+////                        if (success) {
+////                            
+////                            
+////                            //All info is ready, reload collection view
+////                            NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ %@ Finish loading WIll reload data",food.title);
+////                            //[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:[self.foodArray indexOfObject:food] inSection:0]];
+////                            
+////                            
+////                        }
+////                        
+////                    }];
+////               }
+////            }
+//        }];
 //    }
 //}
 
@@ -322,7 +374,6 @@ static NSString *CellIdentifier = @"Cell";
                 
                 [self showCollectionView];
                 
-                
                 [self addFoodItems:localFoods];
             
                 //hao added
@@ -333,14 +384,14 @@ static NSString *CellIdentifier = @"Cell";
         
         if(self.foodArray.count!=0){
             [self showClearAndNextButton];
+
         }else{
             //self.camView.capturedImageView.image = nil;
         }
         
         
         //check serverInputStr before sending to server
-        NSCharacterSet *charSet = [NSCharacterSet whitespaceCharacterSet];
-        NSString *trimmedString = [serverInputStr stringByTrimmingCharactersInSet:charSet];
+        NSString *trimmedString = [serverInputStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         if ([trimmedString isEqualToString:@""]) {
             // it's empty or contains only white spaces
             [self stopAnimationAndShowErrorToast];
@@ -355,7 +406,7 @@ static NSString *CellIdentifier = @"Cell";
                     //stop loading result indicator
                     [self.camView stopLoadingAnimation];
                     
-                    NSLog(@"++++++++++++ MVC +++++++++++++ : SERVER RETURNED %d  food results - - - - - - - - - - - - - ",results.count);
+                    NSLog(@"++++++++++++ MVC +++++++++++++ : SERVER RETURNED %d  food results - - - - - - - - - - - - - ",(int)results.count);
                     
                     [self showClearAndNextButton];
                     [self showCollectionView];

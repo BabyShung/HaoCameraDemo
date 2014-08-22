@@ -46,6 +46,15 @@
 
     self.foodInfoView.myFood = food;
     [self.foodInfoView prepareForDisplayInCell:cellno];
+    if (self.frame.size.height == [[UIScreen mainScreen]bounds].size.height) {
+     //The cell is in largelayout
+        [self.foodInfoView setUpForLargeLayout];
+        
+    }else{
+        //The cell is in small layout
+        [self.foodInfoView setUpForSmallLayout];
+    
+    }
 }
 
 -(void)setVCForFoodInfoView:(UIViewController *)vc
@@ -76,10 +85,12 @@
         
         [self.foodInfoView.scrollview setContentOffset:CGPointZero animated:NO];
         [self.foodInfoView setUpForSmallLayout];
+        NSLog(@"~~~~~~~~~~~~~~~~ %@ setup for SMALL LAYOUT", self.foodInfoView.titleLabel.text);
         
     }
     else{
         [self.foodInfoView setUpForLargeLayout];
+        NSLog(@"~~~~~~~~~~~~~~~~ %@ setup for LARGE LAYOUT", self.foodInfoView.titleLabel.text);
     }
 
     

@@ -77,7 +77,7 @@
  **********************/
 -(void)request:(AmazonServiceRequest *)request didReceiveResponse:(NSURLResponse *)response{
     //Setup to collect image data
-    NSLog(@"************** S3 ********************************************** S3 ******** didReceiveResponse");
+    //NSLog(@"************** S3 ********************************************** S3 ******** didReceiveResponse");
     imageData = [NSMutableData data];
 }
 
@@ -89,7 +89,7 @@
 
 -(void)request:(AmazonServiceRequest *)request didCompleteWithResponse:(AmazonServiceResponse *)response{
     
-    NSLog(@"************** S3 ********************************************** S3 ********");
+    //NSLog(@"************** S3 ********************************************** S3 ********");
     //Canceled, no need to process image.
     if (canceled) {
         imageData = nil;
@@ -120,7 +120,7 @@
                 loading = NO;
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    NSLog(@"&&&&&&&&&&&&&&&&&&&&&&&&& bb");
+                    //NSLog(@"&&&&&&&&&&&&&&&&&&&&&&&&& bb");
                     _completionBlock(YES, M13LoadedLocationExternalFile, image, _fileURL, _target);
                 });
                 
@@ -135,7 +135,7 @@
                 });
             }
         });
-        NSLog(@"************** S3 ********************************************** S3 ********222");
+        //NSLog(@"************** S3 ********************************************** S3 ********222");
     }
 }
 
@@ -147,7 +147,7 @@
     finished = YES;
     loading = NO;
     
-    NSLog(@"Amazon failed To Load Image: %@", error.localizedDescription);
+    //NSLog(@"Amazon failed To Load Image: %@", error.localizedDescription);
     
     dispatch_async(dispatch_get_main_queue(), ^{
         _completionBlock(NO, M13LoadedLocationExternalFile, nil, _fileURL, _target);
