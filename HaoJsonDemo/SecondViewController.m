@@ -79,11 +79,11 @@
     }];
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    for(EDCollectionCell *cell in self.collectionView.visibleCells){
-        [cell setVCForFoodInfoView:self];
-    }
-}
+//-(void)viewWillAppear:(BOOL)animated{
+//    for(EDCollectionCell *cell in self.collectionView.visibleCells){
+//        [cell setVCForFoodInfoView:self];
+//    }
+//}
 
 -(void)viewDidAppear:(BOOL)animated{
     //set up buttons
