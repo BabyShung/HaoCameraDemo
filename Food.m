@@ -154,7 +154,7 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
         if ([action isEqualToString:@"get_review"]) {
             NSLog(@"+++ FOOD +++ : GET review failure");
             
-            _foodInfoCompletionBlock(error,NO);
+            _commentCompletionBlock(error,NO);
             _loadingComments = NO;
             
         }

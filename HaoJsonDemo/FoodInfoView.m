@@ -129,7 +129,7 @@ const CGFloat CommentRateViewWidth = 260;
     self.titleLabel.textColor = [UIColor blackColor];
     self.titleLabel.backgroundColor = [UIColor clearColor];
     [self.scrollview addSubview:self.titleLabel];
-    //_shimmeringView.contentView = self.titleLabel;
+
     
     self.separator = [[UIView alloc] init];
     self.separator.backgroundColor = [UIColor blackColor];
@@ -193,7 +193,7 @@ const CGFloat CommentRateViewWidth = 260;
     //add table view
     //----------------------------comment
     
-    _commentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, width,kCommentCellHeight) style:UITableViewStylePlain];
+    _commentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.photoCollectionView.frame) + GAP, width,kCommentCellHeight+50) style:UITableViewStylePlain];
     _commentsTableView.scrollEnabled = NO;
     //_commentsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     _commentsTableView.separatorColor = [UIColor clearColor];
@@ -201,7 +201,8 @@ const CGFloat CommentRateViewWidth = 260;
     [self.scrollview addSubview:_commentsTableView];
     
     _noCommentLabel = [[UILabel alloc]initWithFrame:_commentsTableView.frame];
-    _noCommentLabel.numberOfLines = 2;
+    _noCommentLabel.numberOfLines = 0;
+    _noCommentLabel.lineBreakMode =NSLineBreakByWordWrapping;
     _noCommentLabel.textAlignment = NSTextAlignmentCenter;
     _noCommentLabel.font = [UIFont fontWithName:PlainTextFontName size:15];
     _noCommentLabel.textColor = [UIColor lightGrayColor];
@@ -380,7 +381,7 @@ const CGFloat CommentRateViewWidth = 260;
     /*Resize views in scroll view*/
     
     CGFloat sizeMultiplier = (height-(iPhone5? 185:155))/( CGRectGetHeight([[UIScreen mainScreen] bounds])-(iPhone5? 185:155));
-    //self.shimmeringView.frame = CGRectMake(CLeftMargin, TitleTopMargin, width-CLeftMargin, ShimmmerViewHeight);
+    
     self.titleLabel.frame = CGRectMake(CLeftMargin, TitleTopMargin, width-CLeftMargin, TitleLabelHeight);
     [self.titleLabel setFont:[UIFont fontWithName:PlainTextFontName size:SmallTitleFontSize + (LargeTitleFontSize-SmallTitleFontSize)*sizeMultiplier]];
 
@@ -414,7 +415,6 @@ const CGFloat CommentRateViewWidth = 260;
     self.photoCollectionView.alpha = newAlpha;
     self.starImgView.alpha = newAlpha;
     self.starNumberLabel.alpha = newAlpha;
-    //self.readMoreBtn.alpha = newAlpha;
     self.noCommentLabel.alpha = newAlpha;
 
     //NSLog(@"+++ FIV %@ +++  %d LAYOUT SUBVIEW: contentSize H = %f, frame H = %f",self.myFood.title,self.scrollview.isScrollEnabled,self.scrollview.contentSize.height,self.scrollview.bounds.size.height);
@@ -454,18 +454,20 @@ const CGFloat CommentRateViewWidth = 260;
         [self.loadingIndicator removeFromSuperview];
         [self showCommentButton];
     }else{
+        NSLog(@"+++++++ FIV ++++++ :%@ SHOW LOADING MSG",self.myFood.title);
         if (!_loadingIndicator) {
             //Add loading indicator
             self.loadingIndicator = [[LoadingIndicatorView alloc] initWithFrame:self.frame];
             [self addSubview:self.loadingIndicator];
             
         }
+        self.loadingIndicator.hidden=NO;
         [self.loadingIndicator showLoadingMsg];
     }
     self.titleLabel.text = self.myFood.title;
     self.translateLabel.text = self.myFood.transTitle;
     self.descripView.contentText = self.myFood.food_description;
-    //[self changeDescriptionLabelText:self.myFood.food_description];
+    
     if (self.myFood.rate >= 0.f) {
         self.starImgView.contentMode =UIViewContentModeScaleAspectFill;
         self.starImgView.image = [UIImage imageNamed:@"star_on.png"];
@@ -603,51 +605,9 @@ const CGFloat CommentRateViewWidth = 260;
     [self.tagview clear];
 }
 
-//-(void)fetchFoodInfo{
-//    if (!self.loadingIndicator) {
-//        self.loadingIndicator = [[LoadingIndicatorView alloc] initWithFrame:self.frame];
-//        self.loadingIndicator.delegate = self;
-//        [self addSubview:self.loadingIndicator];
-//    }
-//
-//    [_loadingIndicator showLoadingMsg];
-//
-//    [self.myFood fetchAsyncInfoCompletion:^(NSError *err, BOOL success) {
-//        //NSLog(@"******************** !!!!!! setting food !!!!!!11 **********************");
-//        if (success) {
-//            
-//            [self.loadingIndicator removeFromSuperview];
-//
-//            [self setFoodInfo];
-//            [self configPhotoAndTag];
-//            if (self.myFood.comments.count==0) {
-//                [self refreshComments];
-//            }
-//            [self showCommentButton];
-//        }
-//        else{
-//            [_loadingIndicator showFailureMsg];
-//            //[self showLoadingBtnWithFailureMsg];
-//        }
-//    }];
-//    
-//}
-
 /******************************************************/
 /************  DISPLAY IN COLLECTION VIEW  ************/
 /******************************************************/
-
-// Fist time display, set up photoview delegate
-//-(void)configPhotoAndTag{
-//    if (self.imgLoaderName && ![self.imgLoaderName isEqualToString:@""]) {
-//        //NSLog(@"~~~~~~~~~~CONFIG PHOTO FOR %@ ~~~~~~~~~~~~%d",self.myFood.title,(int)self.myFood.photoNames.count);
-//        self.photoCollectionView.dataSource = self;
-//        self.photoCollectionView.delegate = self;
-//        [self.photoCollectionView reloadData];
-//        [_tagview addTags:self.myFood.tagNames];
-//        [self.descripView config];
-//    }
-//}
 
 //Prepare data for display
 -(void)prepareForDisplayInCell:(NSInteger)cellNo{
@@ -666,23 +626,6 @@ const CGFloat CommentRateViewWidth = 260;
         
         
     }
-        
-//        if (self.myFood.isFoodInfoCompleted) {
-//            NSLog(@"%@'s info is COMPLETE ...............",self.myFood.title);
-//        }else if (self.myFood.isLoadingInfo == NO){
-//            NSLog(@"%@ WILL request info ...............",self.myFood.title);
-//            //[self fetchFoodInfo];
-//        }
-//        //If food info is not completed, request it
-//        
-//        if (!self.myFood.isLoadingInfo && !self.myFood.isFoodInfoCompleted) {
-//            [self fetchFoodInfo];
-//        }
-//        else if(self.myFood.isFoodInfoCompleted){//Food info is complete, config at once;
-//            [self configPhotoAndTag];
-//            [self refreshComments];
-//            [self showCommentButton];
-//        }
 
 }
 
@@ -692,25 +635,17 @@ const CGFloat CommentRateViewWidth = 260;
 
 //Prepare data for first time display IN SINGLE FOOD VIEW
 -(void)prepareForDisplay{
-    //if (self.myFood) {
-        //Assure title and translation are showed;
-        //[self setFoodInfo];
-        self.imgLoaderName  = @"Default";
-        
+    
+    self.imgLoaderName  = @"Default";
+    
     [self setDelegates];
     [self refreshPhotoesTags];
     
     if (self.myFood.isFoodInfoCompleted == YES && self.myFood.isLoadingComments == NO) {
         [self refreshComments];
-
+        
     }
-//        else if(self.myFood.isFoodInfoCompleted){//Food info is complete, config at once;
-//            [self configPhotoAndTag];
-//            //[self refreshComments];
-//            //[self configCommentTable];
-//            [self showCommentButton];
-//        }
-   // }
+    
 }
 
 
