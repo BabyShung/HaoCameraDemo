@@ -40,7 +40,7 @@
 
 @property (strong,nonatomic) EDCommentView *commentView;
 
-//@property (strong,nonatomic) LoadingIndicatorView *loadingIndicator;
+@property (strong,nonatomic) LoadingIndicatorView *loadingIndicator;
 
 //rendering data
 @property (strong,nonatomic,setter = setFood:) Food *myFood;

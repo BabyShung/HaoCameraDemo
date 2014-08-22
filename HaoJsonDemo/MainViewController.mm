@@ -142,7 +142,7 @@ static NSString *CellIdentifier = @"Cell";
     
 
     Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
-    NSString* str = @"cilantro sushi";
+    NSString* str = @"ribeye caper tomato basil";
     //@"ribeye caper cilantro chicken flat bread sushi apple potato starch fillet steak";
     [self addFoodItems:[dict localSearchOCRString:str]];
     
@@ -172,20 +172,15 @@ static NSString *CellIdentifier = @"Cell";
     NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ : CELL %d -- %@ hidden %d",indexPath.row, food.title,cell.foodInfoView.descripView.isHidden);
     if (food.isFoodInfoCompleted == NO && food.isLoadingInfo == NO) {
         NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ %@ WILL REQUEST details",food.title);
+
         [food fetchAsyncInfoCompletion:^(NSError *err, BOOL success){
 
             if (success) {
-                NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ %@ Successfully Finish loading WIll fetch comments",food.title);
-                [food fetchLatestCommentsSize:5 andSkip:0 completion:^(NSError *err, BOOL success) {
-                    if (success) {
-                        NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ %@ Successfully loaded comments WILL reload CV",food.title);
-                        [self.collectionView reloadData];
-                    }
-                    else{
-                        NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ %@Failed to load comments",food.title);
-                    }
-                }];
-                
+                NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ %@ Successfully Finish loading WIll reload data",food.title);
+
+                [self.collectionView reloadData];
+
+        
             }else{
                 NSLog(@"+++++++++++++++++++++++++ MVC +++++++++++++++++++ Failed to load %@",food.title);
             }
@@ -241,12 +236,16 @@ static NSString *CellIdentifier = @"Cell";
                 [addItems removeObjectAtIndex:i];
             }
         }
+        
+        
         [self.collectionView performBatchUpdates:^{
             [self.foodArray replaceObjectsInRange:NSMakeRange(0,0) withObjectsFromArray:addItems];
             [self updateFriendlyResultLabel:self.foodArray.count];
             [self.collectionView insertItemsAtIndexPaths:newIndexPaths];
             
-        } completion:nil];
+        } completion:^(BOOL success){
+            [self.collectionView reloadData];
+        }];
     }
 }
 

@@ -74,7 +74,9 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
     self.fid = [[dict objectForKey:@"fid"] intValue];
     self.title = [[dict objectForKey:@"title"] capitalizedString];
     self.transTitle = [dict objectForKey:@"name"];
-    self.food_description = [dict objectForKey:@"description"];
+    if (![[dict objectForKey:@"description"] isEqualToString:@"N/A"]) {
+        self.food_description = [dict objectForKey:@"description"];
+    }
     self.rate = [[dict objectForKey:@"avg_rate"] floatValue];
     _webdata = [[NSMutableData alloc]init];
     _async = [[AsyncRequest alloc]initWithDelegate:self];
@@ -189,7 +191,9 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
                 NSDictionary *foodObj = resultArr[0];
                 
                 self.fid = [[foodObj objectForKey:@"fid"] intValue];
-                self.food_description = [foodObj objectForKey:@"description"];
+                if (![[foodObj objectForKey:@"description"] isEqualToString:@"N/A"]) {
+                    self.food_description = [foodObj objectForKey:@"description"];
+                }
                 self.rate = [[foodObj objectForKey:@"avg_rate"] floatValue];
                 
                 NSString *rawTagNams = [foodObj objectForKey:@"tags"];
@@ -201,8 +205,9 @@ typedef void (^edibleBlock)(NSError *err, BOOL success);
                     NSDictionary *photoObj = photoNameArr[i];
                     [self.photoNames addObject: [photoObj objectForKey:@"url"]];
                 }
-                _foodInfoCompletionBlock(nil,YES);
                 _foodInfoComplete = YES;
+                _foodInfoCompletionBlock(nil,YES);
+                
                 _loadingFoodInfo = NO;
             }
         }else if([action isEqualToString:@"get_review"]){//comment
