@@ -78,7 +78,7 @@ typedef vector<vector<cv::Point> > TContours;//global
             counter_noise ++;
             
         }else{
-        
+            
             boundRect[counter_tempRect] = tempRect;
             counter_tempRect++;
         }
@@ -90,7 +90,7 @@ typedef vector<vector<cv::Point> > TContours;//global
         //---remove insider rects
         vector<cv::Rect> outRect;
         outRect = [self removeInsider:boundRect];
-    
+        
         //----merge near
         vector<cv::Rect> merged_rects;
         merged_rects = [self mergeNeighbors:outRect];
