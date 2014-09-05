@@ -19,9 +19,9 @@
     output= [[output componentsSeparatedByCharactersInSet:
               [NSCharacterSet newlineCharacterSet]]componentsJoinedByString:@" "];
     output = [output stringByReplacingOccurrencesOfString:@"," withString:@" "];//replace \s
-    output = [output stringByReplacingOccurrencesOfString:@"-" withString:@" "];//replace \s
+    //output = [output stringByReplacingOccurrencesOfString:@"-" withString:@" "];//replace \s
     output = [output stringByReplacingOccurrencesOfString:@";" withString:@" "];//replace \s
-    output = [output stringByReplacingOccurrencesOfString:@"." withString:@" "];//replace \s
+    //output = [output stringByReplacingOccurrencesOfString:@"." withString:@" "];//replace \s
     output = [output stringByReplacingOccurrencesOfString:@"\r" withString:@""];//replace \s
     output = [output stringByReplacingOccurrencesOfString:@"\n" withString:@""];//replace \s
     output = [output stringByReplacingOccurrencesOfString:@"     " withString:@" "];//replace \s
