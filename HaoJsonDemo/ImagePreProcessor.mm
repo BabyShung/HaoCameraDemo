@@ -55,9 +55,9 @@ using namespace std;
     }
     
     return inputImage;
-
-
-
+    
+    
+    
 }
 
 

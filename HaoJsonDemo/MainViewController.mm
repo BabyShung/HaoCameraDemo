@@ -139,15 +139,14 @@ static NSString *CellIdentifier = @"Cell";
         }
     }];
     
-    
 
-    Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
-    NSString* str = @"ribeye caper tomato basil";
-    //@"ribeye caper cilantro chicken flat bread sushi apple potato starch fillet steak";
-    [self addFoodItems:[dict localSearchOCRString:str]];
-    
-    [self showClearAndNextButton];
-    [self showCollectionView];
+//    Dictionary *dict = [[Dictionary alloc]initDictInDefaultLang];
+//    NSString* str = @"ribeye caper tomato basil apple potato toufu sushi mushroom blue cheese bacon kale";
+//    //@"ribeye caper cilantro chicken flat bread sushi apple potato starch fillet steak";
+//    [self addFoodItems:[dict localSearchOCRString:str]];
+//    
+//    [self showClearAndNextButton];
+//    [self showCollectionView];
 //    [dict serverSearchOCRString:str inLang:English andCompletion:^(NSArray *results, BOOL success) {
 //        [self addFoodItems:results];
 //    }];

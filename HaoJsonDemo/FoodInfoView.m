@@ -256,8 +256,9 @@ const CGFloat CommentRateViewWidth = 260;
     //Load the new image
     NSLog(@"++++++++++++++++ FIV ++++++++++++++++ IN %@ : LOADER %@ ",self.myFood.title,self.imgLoaderName);
     [cell.imageView loadImageFromURLAtAmazonAsync:[NSURL URLWithString:self.myFood.photoNames[indexPath.row]] withLoaderName:self.imgLoaderName completion:^(BOOL success, M13ImageLoadedLocation location, UIImage *image, NSURL *url, id target) {
-        cell.activityView.hidden = YES;
+        
         [cell.activityView stopAnimating];
+        cell.activityView.hidden = YES;
         
         //Set the image if loaded
         if (success) {
