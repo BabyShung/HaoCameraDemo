@@ -147,6 +147,7 @@ static NSString *CellIdentifier = @"Cell";
 //    
 //    [self showClearAndNextButton];
 //    [self showCollectionView];
+
 //    [dict serverSearchOCRString:str inLang:English andCompletion:^(NSArray *results, BOOL success) {
 //        [self addFoodItems:results];
 //    }];

@@ -33,7 +33,7 @@ static ShareData *_shareData = nil;
     
     dispatch_once(&oncePredicate, ^{
         _shareData = [[ShareData alloc] init];
-        _shareData.dbFileNames = @[@"basic_foods_3855_en.txt", @"basic_foods_3855_zh.txt"];
+        _shareData.dbFileNames = @[@"basic_foods_6748_en.txt", @"basic_foods_6748_zh.txt"];
         _shareData.dbLangTableNames = @[@"Chinese",@"Keyword"];
         _shareData.filterwordsFileName = @"filterwords.txt";
         _shareData.defaultTargetLang =Chinese;
