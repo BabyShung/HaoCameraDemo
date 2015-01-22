@@ -81,6 +81,13 @@
         AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         appDlg.cameraView = self;
         appDlg.nvc = self.appliedVC.navigationController;
+        
+        // added Yang WAN
+        // register observer
+        AVCaptureDevice *camDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        int flags = NSKeyValueObservingOptionNew;
+        [camDevice addObserver:self forKeyPath:@"adjustingFocus" options:flags context:nil];
+
     }
     return self;
 }
@@ -193,7 +200,7 @@
             
             
             // Force User Preference
-            _captureBtn.hidden = _hideCaptureButton;
+            _captureBtn.hidden = YES; // _hideCaptureButton, changed by Yang WAN
             _backBtn.hidden = _hideBackButton;
             
             _backBtn.hidden = YES;
@@ -208,14 +215,13 @@
 -(void)imageDidCaptured:(UIImage *)image{
     _capturedImageView.image = image;
     
-    [self drawControls];
+//    [self drawControls];
     
     //start loading animation
     [self startLoadingAnimation];
     
     //don't know why it has to add a little delay, otherwise it will just not show the image first
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
         [self photoCaptured];
     });
 }
@@ -233,13 +239,30 @@
 
 #pragma mark BUTTON EVENTS
 
+static BOOL busyNow = NO;
+
 - (void) captureBtnPressed:(id)sender {
     NSLog(@"*********************** pressed *******************************");
     [Flurry logEvent:@"Photo_Taken"];
     
-    self.captureBtn.enabled = NO;
+//    self.captureBtn.enabled = NO;
+ 
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        // this block runs on a background thread
+        if (!busyNow) {
+            busyNow = YES;
+            [_camManager capturePhoto:self.iot];
+        }
+        
+        // runs on main thread, for UI feedback
+        dispatch_async(dispatch_get_main_queue(), ^{
+            busyNow = NO;
+        }); // end on main thread block
+        
+    }); // end of background thread
+
     
-    [_camManager capturePhoto:self.iot];
+    
 }
 
 - (void) torchBtnPressed:(id)sender {
@@ -337,11 +360,29 @@
         [self clearResourse:completion];
         
         [self.appliedVC removeFromParentViewController];
+        
+        // Added by Yang WAN
+        // unregister observer
+        AVCaptureDevice *camDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        [camDevice removeObserver:self forKeyPath:@"adjustingFocus"];
+
     }];
 }
 
 - (void) closeWithCompletionWithoutDismissing:(void (^)(void))completion {
     [self clearResourse:completion];
+}
+
+
+// callback
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if( [keyPath isEqualToString:@"adjustingFocus"] ){
+        BOOL adjustingFocus = [ [change objectForKey:NSKeyValueChangeNewKey] isEqualToNumber:[NSNumber numberWithInt:1] ];
+        NSLog(@"Is adjusting focus? %@", adjustingFocus ? @"YES" : @"NO" );
+        NSLog(@"Change dictionary: %@", change);
+        
+        [self captureBtnPressed:nil];
+    }
 }
 
 -(void)clearResourse:(void (^)(void))completion{
@@ -389,8 +430,10 @@
     /********************
      captured image view
      ******************/
-    if (_capturedImageView == nil)
+    if (_capturedImageView == nil){
         _capturedImageView = [[UIImageView alloc]init];
+        _capturedImageView.hidden = YES;
+    }
     _capturedImageView.frame = _StreamView.frame; // just to even it out
     _capturedImageView.backgroundColor = [UIColor clearColor];
     _capturedImageView.userInteractionEnabled = YES;
@@ -477,6 +520,10 @@
     
     _captureBtn = [LoadControls createNiceCameraButton_withCameraView:self];
     [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+
+    // added by Yang WAN
+    _captureBtn.hidden = YES;
+    _captureBtn.enabled = NO;
     
 //    _tutorialBtn = [LoadControls createUIButtonWithRect:CGRectMake(280, 20, 30, 30)];
 //    [_tutorialBtn setImage:[UIImage imageNamed:@"ED_about.png"] forState:UIControlStateNormal];

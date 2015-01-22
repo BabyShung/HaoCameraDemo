@@ -368,13 +368,13 @@ static NSString *CellIdentifier = @"Cell";
             
             NSArray *returnResultsFromDB = [dict localSearchOCRString:ocrStr];
             if(returnResultsFromDB){
-
+                
                 [localFoods addObjectsFromArray:returnResultsFromDB];
                 
                 [self showCollectionView];
                 
                 [self addFoodItems:localFoods];
-            
+                
                 //hao added
                 [self.camView stopLoadingAnimation];
                 
@@ -383,11 +383,10 @@ static NSString *CellIdentifier = @"Cell";
         
         if(self.foodArray.count!=0){
             [self showClearAndNextButton];
-
+            
         }else{
             //self.camView.capturedImageView.image = nil;
         }
-        
         
         //check serverInputStr before sending to server
         NSString *trimmedString = [serverInputStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -424,7 +423,8 @@ static NSString *CellIdentifier = @"Cell";
                 }
             }];
         }
-    }
+
+    } // end of image check...
     
 }
 

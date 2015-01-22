@@ -104,6 +104,7 @@
      Capture processing
      
      *******************/
+    
     [_stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error)
      {
          
@@ -135,9 +136,13 @@
                      capturedImage = [UIImage imageWithCGImage:capturedImage.CGImage scale:capturedImage.scale orientation:UIImageOrientationUpMirrored];
              }
          }
+         
+         
          //call delegate
          [self.imageDelegate imageDidCaptured:capturedImage];
+        
      }];
+    
 }
 
 /********************

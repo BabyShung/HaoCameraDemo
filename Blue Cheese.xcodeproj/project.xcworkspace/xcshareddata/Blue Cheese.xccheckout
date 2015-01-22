@@ -10,29 +10,29 @@
 	<string>Blue Cheese</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>B6755F38-0ED9-4FB6-ADEE-30D0C90429F8</key>
+		<key>C38976086F4F95C05AD176DFF8793D71F0F689C6</key>
 		<string>https://github.com/BabyShung/HaoCameraDemo.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Blue Cheese.xcodeproj/project.xcworkspace</string>
+	<string>Blue Cheese.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>B6755F38-0ED9-4FB6-ADEE-30D0C90429F8</key>
+		<key>C38976086F4F95C05AD176DFF8793D71F0F689C6</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/BabyShung/HaoCameraDemo.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>B6755F38-0ED9-4FB6-ADEE-30D0C90429F8</string>
+	<string>C38976086F4F95C05AD176DFF8793D71F0F689C6</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>B6755F38-0ED9-4FB6-ADEE-30D0C90429F8</string>
+			<string>C38976086F4F95C05AD176DFF8793D71F0F689C6</string>
 			<key>IDESourceControlWCCName</key>
 			<string>HaoCameraDemo</string>
 		</dict>
