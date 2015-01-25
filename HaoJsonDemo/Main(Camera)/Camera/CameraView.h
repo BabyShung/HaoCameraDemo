@@ -70,6 +70,12 @@
 - (instancetype)initWithFrame:(CGRect)frame andOrientation:(UIInterfaceOrientation)iot andAppliedVC:(MainViewController *)VC;
 
 - (void)resumeCamera;
+
+// added by Yang WAN
+- (void) registerFocusListener;
+// added by Yang WAN
+- (void) unregisterFocusListener;
+
 - (void)resumeCameraWithBlocking;
 - (void)resumeCameraAndEnterForeground;
 

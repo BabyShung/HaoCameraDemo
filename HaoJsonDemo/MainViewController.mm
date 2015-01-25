@@ -120,6 +120,7 @@ static NSString *CellIdentifier = @"Cell";
 - (void) viewDidAppear:(BOOL)animated {
     
     //[self.camView startLoadingAnimation];
+    [self.camView registerFocusListener];
     
     [self.view bringSubviewToFront:_clearBtn];
     [self.view bringSubviewToFront:_nextBtn];
@@ -154,6 +155,12 @@ static NSString *CellIdentifier = @"Cell";
 
     
     
+}
+
+- (void) viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:YES];
+    [self.camView unregisterFocusListener];
 }
 
 /*******************************

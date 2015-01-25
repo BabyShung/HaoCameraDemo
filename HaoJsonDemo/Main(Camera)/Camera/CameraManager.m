@@ -59,6 +59,7 @@
         //dispatch_queue_t layerQ = dispatch_queue_create("layerQ", NULL);
         dispatch_async(layerQ, ^{
             [_mySesh startRunning];
+            
         });
     }
 }

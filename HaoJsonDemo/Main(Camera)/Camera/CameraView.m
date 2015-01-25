@@ -81,13 +81,7 @@
         AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         appDlg.cameraView = self;
         appDlg.nvc = self.appliedVC.navigationController;
-        
-        // added Yang WAN
-        // register observer
-        AVCaptureDevice *camDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-        int flags = NSKeyValueObservingOptionNew;
-        [camDevice addObserver:self forKeyPath:@"adjustingFocus" options:flags context:nil];
-
+        [self registerFocusListener];
     }
     return self;
 }
@@ -111,15 +105,63 @@
 }
 
 -(void)resumeCameraWithBlocking{
+    [self registerFocusListener];
     //this method is for clicking the back btn in MainVC
     [_camManager startRunningWithBlocking];
 }
 
 - (void)resumeCamera{
+    [self registerFocusListener];
     [_camManager startRunning];
 }
 
+#pragma mark register/unregister: Focus Listener
+
+// added by Yang WAN
+- (void) registerFocusListener
+{
+    // added Yang WAN
+    // register observer
+    AVCaptureDevice *camDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    int flags = NSKeyValueObservingOptionNew;
+    [camDevice addObserver:self forKeyPath:@"adjustingFocus" options:flags context:nil];
+}
+
+// added by Yang WAN
+- (void) unregisterFocusListener
+{
+    // Added by Yang WAN
+    // unregister observer
+    AVCaptureDevice *camDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    @try{
+        [camDevice removeObserver:self forKeyPath:@"adjustingFocus"];
+    }@catch(id anException){
+        //do nothing, obviously it wasn't attached because an exception was thrown
+        // http://stackoverflow.com/questions/1582383/how-can-i-tell-if-an-object-has-a-key-value-observer-attached
+        NSLog(@"This is a bad design, but not found better solution yet");
+    }
+}
+
+// callback
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    
+    if( [keyPath isEqualToString:@"adjustingFocus"] ){
+        
+        BOOL adjustingFocus = [ [change objectForKey:NSKeyValueChangeNewKey] isEqualToNumber:[NSNumber numberWithInt:1] ];
+        NSLog(@"Is adjusting focus? %@", adjustingFocus ? @"YES" : @"NO" );
+        NSLog(@"Change dictionary: %@", change);
+        
+        if (!adjustingFocus) {
+            [self captureBtnPressed:nil];
+        }
+    }
+}
+
 - (void)resumeCameraAndEnterForeground{
+    [self registerFocusListener];
     [UIView animateWithDuration:0.3 animations:^{
         self.capturedImageView.backgroundColor = [UIColor clearColor];
     }];
@@ -127,12 +169,14 @@
 }
 
 - (void)pauseCameraAndEnterBackground{
+    [self unregisterFocusListener];
     //setting transition bg
     self.capturedImageView.backgroundColor = [UIColor blackColor];
     [_camManager stopRunning];
 }
 
 - (void)pauseCamera{
+    [self unregisterFocusListener];
     //setting transition bg
     [_camManager stopRunning];
 }
@@ -292,6 +336,7 @@ static BOOL busyNow = NO;
 
 - (void) nextPagePressed:(id)sender {
     [Flurry logEvent:@"Next_Page_Pressed"];
+    [self unregisterFocusListener];
     [self.appliedVC.Maindelegate slideToNextPage];
 }
 
@@ -360,11 +405,6 @@ static BOOL busyNow = NO;
         [self clearResourse:completion];
         
         [self.appliedVC removeFromParentViewController];
-        
-        // Added by Yang WAN
-        // unregister observer
-        AVCaptureDevice *camDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-        [camDevice removeObserver:self forKeyPath:@"adjustingFocus"];
 
     }];
 }
@@ -374,16 +414,7 @@ static BOOL busyNow = NO;
 }
 
 
-// callback
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if( [keyPath isEqualToString:@"adjustingFocus"] ){
-        BOOL adjustingFocus = [ [change objectForKey:NSKeyValueChangeNewKey] isEqualToNumber:[NSNumber numberWithInt:1] ];
-        NSLog(@"Is adjusting focus? %@", adjustingFocus ? @"YES" : @"NO" );
-        NSLog(@"Change dictionary: %@", change);
-        
-        [self captureBtnPressed:nil];
-    }
-}
+
 
 -(void)clearResourse:(void (^)(void))completion{
     
