@@ -140,10 +140,21 @@
          
          
          //call delegate
-         [self.imageDelegate imageDidCaptured:capturedImage];
+         // this should not on main thread, Yang WAN
+         
+         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+             // this block runs on a background thread
+             [self.imageDelegate imageDidCaptured:capturedImage];
+             
+             // runs on main thread, for UI feedback
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 _busyNow = NO;
+             }); // end on main thread block
+             
+         }); // end of background thread
+
         
      }];
-    
 }
 
 /********************

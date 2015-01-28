@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D0AD5E01A763C7C00EF951D /* DNUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0AD5DF1A763C7C00EF951D /* DNUtils.m */; };
 		0D57CF441A6CF52900063E14 /* Blue Cheese2Tests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0D57CF431A6CF52900063E14 /* Blue Cheese2Tests-Info.plist */; };
 		0D88E4411A71947300F8EDC3 /* Blue Cheese2Tests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0D57CF431A6CF52900063E14 /* Blue Cheese2Tests-Info.plist */; };
 		106FF1A2196B49670099B743 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 106FF1A4196B49670099B743 /* Localizable.strings */; };
@@ -255,6 +256,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D0AD5DE1A763C7C00EF951D /* DNUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNUtils.h; sourceTree = "<group>"; };
+		0D0AD5DF1A763C7C00EF951D /* DNUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNUtils.m; sourceTree = "<group>"; };
 		0D57CF431A6CF52900063E14 /* Blue Cheese2Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Blue Cheese2Tests-Info.plist"; sourceTree = "<group>"; };
 		106FF19B196B48620099B743 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		106FF19C196B48620099B743 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -732,6 +735,8 @@
 				ACA1726A1939209A005E7D51 /* LoadControls.m */,
 				B8D6953A193E71C200E504FA /* ED_Color.h */,
 				B8D6953B193E71C200E504FA /* ED_Color.m */,
+				0D0AD5DE1A763C7C00EF951D /* DNUtils.h */,
+				0D0AD5DF1A763C7C00EF951D /* DNUtils.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -1484,9 +1489,6 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Hao Zheng";
 				TargetAttributes = {
-					B8FA463818F9E954007DA680 = {
-						DevelopmentTeam = GKC6M7WPTT;
-					};
 					B8FA465918F9E954007DA680 = {
 						TestTargetID = B8FA463818F9E954007DA680;
 					};
@@ -1720,6 +1722,7 @@
 				B8B60FF219591E60005268D5 /* EDImageCell.m in Sources */,
 				B8032D0A197C5477001B9040 /* MRImageLayer.m in Sources */,
 				B8FA464D18F9E954007DA680 /* AppDelegate.m in Sources */,
+				0D0AD5E01A763C7C00EF951D /* DNUtils.m in Sources */,
 				3A6959651966FC8200FB21F9 /* TextDetector2.mm in Sources */,
 				10A3AFDF197473CD00C3B2B0 /* languageSetting.m in Sources */,
 				AC1E7760194F580800532F65 /* ShareData.m in Sources */,
