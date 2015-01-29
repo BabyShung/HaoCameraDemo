@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class ImageCropView;
+@class CameraManager;
 #import "MainViewController.h"
 /**************
  
@@ -56,6 +57,8 @@
 
 @property (strong, nonatomic) UIImageView * capturedImageView;//captured image view
 
+@property (strong, nonatomic) CameraManager *camManager; // moved here by Yang WAN
+
 /******************
  
  Camera operations
@@ -70,6 +73,14 @@
 - (instancetype)initWithFrame:(CGRect)frame andOrientation:(UIInterfaceOrientation)iot andAppliedVC:(MainViewController *)VC;
 
 - (void)resumeCamera;
+
+// added by Yang WAN
+- (BOOL) isFocusRegistered;
+- (void) registerFocusListener;
+// added by Yang WAN
+- (void) unregisterFocusListener;
+- (void) startOrStopFocusListener:(id)sender;
+
 - (void)resumeCameraWithBlocking;
 - (void)resumeCameraAndEnterForeground;
 

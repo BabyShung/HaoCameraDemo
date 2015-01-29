@@ -16,9 +16,12 @@
 - (void) imageDidCaptured:(UIImage *) image;
 @end
 
+
 @interface CameraManager : NSObject
 
 @property (retain, nonatomic) id <CameraManageCDelegate> imageDelegate;
+
+@property (atomic, assign) BOOL busyNow; //  added by Yang WAN
 
 //switch camera
 -(void)switchCamera;

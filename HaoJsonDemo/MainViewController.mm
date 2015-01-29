@@ -26,6 +26,8 @@
 #import "NSUserDefaultControls.h"
 #import "introContainer.h"
 
+#import "CameraManager.h"
+#import "DNUtils.h"
 
 #define SCALE_FACTOR_IMAGE 2.5f
 
@@ -38,9 +40,11 @@ static NSString *CellIdentifier = @"Cell";
 }
 @property (strong, nonatomic) UIButton * clearBtn;
 @property (strong, nonatomic) UIButton * nextBtn;
+@property (strong, nonatomic) UIButton * rightTopBtn;
+
 @property (strong, nonatomic) UILabel *friendlyResultLabel;
 
-@property (strong,nonatomic) Tesseract *tesseract;
+@property (strong,atomic) Tesseract *tesseract;
 
 @property (strong,nonatomic) NSMutableArray *imgArray;
 @property (strong,nonatomic) ImagePreProcessor *ipp;
@@ -120,10 +124,9 @@ static NSString *CellIdentifier = @"Cell";
 - (void) viewDidAppear:(BOOL)animated {
     
     //[self.camView startLoadingAnimation];
+    [self.camView registerFocusListener];
     
-    [self.view bringSubviewToFront:_clearBtn];
-    [self.view bringSubviewToFront:_nextBtn];
-    [self.view bringSubviewToFront:self.friendlyResultLabel];
+    [self bringSubViewsToFront];
     //[self updateFriendlyResultLabel:self.foodArray.count];
     
     //scroll DEspeed normal
@@ -152,8 +155,20 @@ static NSString *CellIdentifier = @"Cell";
 //        [self addFoodItems:results];
 //    }];
 
-    
-    
+}
+
+- (void) bringSubViewsToFront
+{
+    [self.view bringSubviewToFront:_clearBtn];
+    [self.view bringSubviewToFront:_nextBtn];
+    [self.view bringSubviewToFront:_rightTopBtn];
+    [self.view bringSubviewToFront:self.friendlyResultLabel];
+}
+
+- (void) viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:YES];
+    [self.camView unregisterFocusListener];
 }
 
 /*******************************
@@ -235,15 +250,19 @@ static NSString *CellIdentifier = @"Cell";
                 [addItems removeObjectAtIndex:i];
             }
         }
+        // added by Yang WAN...
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.collectionView performBatchUpdates:^{
+                [self.foodArray replaceObjectsInRange:NSMakeRange(0,0) withObjectsFromArray:addItems];
+                [self updateFriendlyResultLabel:self.foodArray.count];
+                [self.collectionView insertItemsAtIndexPaths:newIndexPaths];
+                
+            } completion:^(BOOL success){
+                [self.collectionView reloadData];
+            }];
+        }); // end on main thread block
+        
 
-        [self.collectionView performBatchUpdates:^{
-            [self.foodArray replaceObjectsInRange:NSMakeRange(0,0) withObjectsFromArray:addItems];
-            [self updateFriendlyResultLabel:self.foodArray.count];
-            [self.collectionView insertItemsAtIndexPaths:newIndexPaths];
-
-        } completion:^(BOOL success){
-            [self.collectionView reloadData];
-        }];
 
     }
 }
@@ -354,6 +373,10 @@ static NSString *CellIdentifier = @"Cell";
         //for each the region image
         for(UIImage *preImage in _imgArray){
             
+            if (![self.camView isFocusRegistered]) { //  || !self.camView.camManager.busyNow, do we need this?! Yang WAN
+                return;
+            }
+            
             _tempMat= [preImage CVMat];
             
             // Step 3. put Mat into pre processor- Charlie
@@ -368,13 +391,13 @@ static NSString *CellIdentifier = @"Cell";
             
             NSArray *returnResultsFromDB = [dict localSearchOCRString:ocrStr];
             if(returnResultsFromDB){
-
+                
                 [localFoods addObjectsFromArray:returnResultsFromDB];
                 
                 [self showCollectionView];
                 
                 [self addFoodItems:localFoods];
-            
+                
                 //hao added
                 [self.camView stopLoadingAnimation];
                 
@@ -383,11 +406,10 @@ static NSString *CellIdentifier = @"Cell";
         
         if(self.foodArray.count!=0){
             [self showClearAndNextButton];
-
+            
         }else{
             //self.camView.capturedImageView.image = nil;
         }
-        
         
         //check serverInputStr before sending to server
         NSString *trimmedString = [serverInputStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -424,7 +446,8 @@ static NSString *CellIdentifier = @"Cell";
                 }
             }];
         }
-    }
+
+    } // end of image check...
     
 }
 
@@ -463,25 +486,40 @@ static NSString *CellIdentifier = @"Cell";
 
 -(void)showCollectionView{
     
-    if(self.collectionView.isHidden){
-        self.collectionView.hidden = NO;
-        self.collectionView.alpha = 1;
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if(self.collectionView.isHidden){
+            self.collectionView.hidden = NO;
+            self.collectionView.alpha = 1;
+            [DNUtils giveMeABorder:self.collectionView withColor:nil];
+        }
+    }); // end on main thread block
+
 }
 
 -(void)showClearAndNextButton{
-    self.counterForNoResult = 0;
-    if(self.clearBtn.isHidden){
-        [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            self.clearBtn.alpha = .95;
-            self.nextBtn.alpha = .95;
-        } completion:^(BOOL finished) {
-            if (finished) {
-                self.clearBtn.hidden = NO;
-                self.nextBtn.hidden = NO;
-            }
-        }];
-    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self bringSubViewsToFront];
+        self.counterForNoResult = 0;
+        if(self.clearBtn.isHidden){
+            
+            [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                self.clearBtn.alpha = .95;
+                self.nextBtn.alpha = .95;
+                self.rightTopBtn.alpha = .95;
+            } completion:^(BOOL finished) {
+                if (finished) {
+                    self.clearBtn.hidden = NO;
+                    self.nextBtn.hidden = NO;
+                    self.rightTopBtn.hidden = NO;
+                }
+            }];
+            
+            self.clearBtn.hidden = NO;
+            self.nextBtn.hidden = NO;
+            self.rightTopBtn.hidden = NO;
+        }
+    }); // end on main thread block
 }
 
 
@@ -495,11 +533,13 @@ static NSString *CellIdentifier = @"Cell";
                                       self.collectionView.alpha = 0;
                                       self.clearBtn.alpha = 0;
                                       self.nextBtn.alpha = 0;
+                                      self.rightTopBtn.alpha = 0;
                                   }
                                   completion:^(BOOL finished){
                                       //hide collection view and two buttons
                                       self.clearBtn.hidden = YES;
                                       self.nextBtn.hidden = YES;
+                                      self.rightTopBtn.hidden = YES;
                                       self.collectionView.hidden = YES;
                                   }];
     }
@@ -511,8 +551,10 @@ static NSString *CellIdentifier = @"Cell";
     
     /*REQUIRED FOR DEBUGGING ANIMATION*/
     
-    self.collectionView.hidden = YES;
-    self.collectionView.backgroundColor = [UIColor clearColor];
+    self.collectionView.hidden = YES; // changed by Yang WAN
+    self.collectionView.backgroundColor = [UIColor clearColor]; // changed by Yang WAN
+//    self.collectionView.alpha = 0.5;
+    [DNUtils giveMeABorder:self.collectionView withColor:[UIColor blueColor]];
     
     //registering dequueue cell
     [self.collectionView registerClass:[EDCollectionCell class] forCellWithReuseIdentifier:CellIdentifier];
@@ -534,11 +576,49 @@ static NSString *CellIdentifier = @"Cell";
     _nextBtn.hidden = YES;
     [self.view insertSubview:_nextBtn aboveSubview:self.collectionView];
     
+    // these are temporarily left here, by Yang WAN
+    // copied from CameraView...
+    CGFloat screenWidth = self.view.bounds.size.width;
+    CGFloat BUTTON_Starting_MARGIN_LEFT_RIGHT = 30;
+    CGFloat halfButtonSize = _clearBtn.bounds.size.width/2;
+    CGFloat BUTTON_MARGIN_DOWN = 12;
+    CGPoint rightTopBtnPoint = CGPointMake(screenWidth - BUTTON_Starting_MARGIN_LEFT_RIGHT, halfButtonSize + BUTTON_MARGIN_DOWN);
+    
+    _rightTopBtn = [LoadControls createRoundedButton_Image:@"close-icon.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(8, 9, 8, 7) andLeftBottomElseRightBottom:NO andStartingPosition:rightTopBtnPoint];
+    [_rightTopBtn addTarget:self action:@selector(startOrStopFocusListenerOnCollectionView:) forControlEvents:UIControlEventTouchUpInside];
+    _rightTopBtn.hidden = YES;
+    [self.view insertSubview:_rightTopBtn aboveSubview:self.collectionView];
+
+    [DNUtils giveMeABorder:_clearBtn withColor:[UIColor blueColor]];
+    [DNUtils giveMeABorder:_nextBtn withColor:[UIColor blueColor]];
+    [DNUtils giveMeABorder:_rightTopBtn withColor:[UIColor blueColor]];
+    
     
     _friendlyResultLabel = [LoadControls createLabelWithRect:CGRectMake(0, 0, 260, 50) andTextAlignment:NSTextAlignmentCenter andFont:[UIFont fontWithName:@"Heiti TC" size:16] andTextColor:[ED_Color edibleBlueColor_doubleBlue]];
     _friendlyResultLabel.text = @"";
     _friendlyResultLabel.center = CGPointMake(160, ScreenHeight - 35);
     [self.view addSubview:_friendlyResultLabel];
+}
+
+- (void) startOrStopFocusListenerOnCollectionView:(id)sender
+{
+    if (self.camView) {
+        // for collection view's change of image only ...
+        if ([self.camView isFocusRegistered]) {
+            UIImage *tickImg = [UIImage imageNamed:@"check_black.png"];
+            [_rightTopBtn setImage:tickImg forState:UIControlStateNormal];
+        }else{
+            
+            UIImage *tickImg = [UIImage imageNamed:@"close-icon.png"];
+            [_rightTopBtn setImage:tickImg forState:UIControlStateNormal];
+        }
+        
+        
+        [self.camView startOrStopFocusListener:sender];
+        
+
+    }
+
 }
 
 // GETTERs

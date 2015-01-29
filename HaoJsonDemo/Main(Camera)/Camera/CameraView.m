@@ -53,13 +53,15 @@
 @property (strong, nonatomic) UIButton * TorchBtn;
 @property (strong, nonatomic) UIButton * nextPageBtn;
 //@property (strong, nonatomic) UIButton * tutorialBtn;
+@property (strong, nonatomic) UIButton * rightTopBtn;
+
 //slider
 @property (strong, nonatomic) ASValueTrackingSlider *scaleSlider;
 //previewLayer
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer * captureVideoPreviewLayer;
 
 // View Properties
-@property (strong, nonatomic) CameraManager *camManager;
+
 @property (nonatomic) UIInterfaceOrientation iot;
 @property (nonatomic,strong) LoadingAnimation *loadingImage;
 
@@ -81,6 +83,7 @@
         AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         appDlg.cameraView = self;
         appDlg.nvc = self.appliedVC.navigationController;
+        [self registerFocusListener];
     }
     return self;
 }
@@ -104,15 +107,92 @@
 }
 
 -(void)resumeCameraWithBlocking{
+    [self registerFocusListener];
     //this method is for clicking the back btn in MainVC
     [_camManager startRunningWithBlocking];
 }
 
 - (void)resumeCamera{
+    [self registerFocusListener];
     [_camManager startRunning];
 }
 
+#pragma mark register/unregister: Focus Listener
+
+- (BOOL) isFocusRegistered
+{
+    return registeredFocusListener;
+}
+
+static BOOL registeredFocusListener = NO;
+// added by Yang WAN
+- (void) registerFocusListener
+{
+    if (!registeredFocusListener ) {
+        // added Yang WAN
+        // register observer
+        AVCaptureDevice *camDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        int flags = NSKeyValueObservingOptionNew;
+        [camDevice addObserver:self forKeyPath:@"adjustingFocus" options:flags context:nil];
+        registeredFocusListener = YES;
+        [Flurry logEvent:@"registered focus listener..."];
+    }
+}
+
+// added by Yang WAN
+- (void) unregisterFocusListener
+{
+    if (registeredFocusListener) {
+        // Added by Yang WAN
+        // unregister observer
+        AVCaptureDevice *camDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        @try{
+            [camDevice removeObserver:self forKeyPath:@"adjustingFocus"];
+        }@catch(id anException){
+            //do nothing, obviously it wasn't attached because an exception was thrown
+            // http://stackoverflow.com/questions/1582383/how-can-i-tell-if-an-object-has-a-key-value-observer-attached
+            NSLog(@"This is a bad design, but not found better solution yet");
+        }
+        registeredFocusListener = NO;
+        [Flurry logEvent:@"unregistered focus listener..."];
+    }
+}
+
+// callback
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    
+    if( [keyPath isEqualToString:@"adjustingFocus"] ){
+        
+        BOOL adjustingFocus = [ [change objectForKey:NSKeyValueChangeNewKey] isEqualToNumber:[NSNumber numberWithInt:1] ];
+        NSLog(@"Is adjusting focus? %@", adjustingFocus ? @"YES" : @"NO" );
+        NSLog(@"Change dictionary: %@", change);
+        
+        if (!adjustingFocus) {
+            [self captureBtnPressed:nil];
+        }
+    }
+}
+
+- (void) startOrStopFocusListener:(id)sender
+{
+    if (registeredFocusListener) {
+        [self unregisterFocusListener];
+        
+        UIImage *tickImg = [UIImage imageNamed:@"check_black.png"];
+        [_rightTopBtn setImage:tickImg forState:UIControlStateNormal];
+    }else{
+        [self registerFocusListener];
+        
+        UIImage *tickImg = [UIImage imageNamed:@"close-icon.png"];
+        [_rightTopBtn setImage:tickImg forState:UIControlStateNormal];
+    }
+}
+
 - (void)resumeCameraAndEnterForeground{
+    [self registerFocusListener];
     [UIView animateWithDuration:0.3 animations:^{
         self.capturedImageView.backgroundColor = [UIColor clearColor];
     }];
@@ -120,12 +200,14 @@
 }
 
 - (void)pauseCameraAndEnterBackground{
+    [self unregisterFocusListener];
     //setting transition bg
     self.capturedImageView.backgroundColor = [UIColor blackColor];
     [_camManager stopRunning];
 }
 
 - (void)pauseCamera{
+    [self unregisterFocusListener];
     //setting transition bg
     [_camManager stopRunning];
 }
@@ -180,23 +262,25 @@
             _captureBtn.center = CGPointMake(screenWidth/2, screenHeight-(iPhone5?100:90));
             
             _nextPageBtn.center = CGPointMake(screenWidth - BUTTON_MARGIN_LEFT_RIGHT - (_backBtn.bounds.size.width / 2), centerY);
+            
+            _rightTopBtn.center = CGPointMake(screenWidth - BUTTON_MARGIN_LEFT_RIGHT - (_backBtn.bounds.size.width / 2), _backBtn.bounds.size.height/2 + BUTTON_MARGIN_DOWN);
         }
         
         if (_capturedImageView.image) {
             // Hide
-            for (UIButton * btn in @[_captureBtn, _TorchBtn, _nextPageBtn]) btn.hidden = YES;
+            for (UIButton * btn in @[_captureBtn, _TorchBtn, _nextPageBtn, _rightTopBtn]) btn.hidden = YES;
             
         }
         else {  // ELSE camera stream -- show capture controls / hide preview controls
             // Show
-            for (UIButton * btn in @[_TorchBtn,_nextPageBtn]) btn.hidden = NO;
+            for (UIButton * btn in @[_TorchBtn,_nextPageBtn, _rightTopBtn]) btn.hidden = NO;
             
             
             // Force User Preference
-            _captureBtn.hidden = _hideCaptureButton;
+            _captureBtn.hidden = YES; // _hideCaptureButton, changed by Yang WAN
             _backBtn.hidden = _hideBackButton;
             
-            _backBtn.hidden = YES;
+//            _backBtn.hidden = YES;
         }
         
         [self evaluateFlashBtn];
@@ -208,16 +292,16 @@
 -(void)imageDidCaptured:(UIImage *)image{
     _capturedImageView.image = image;
     
-    [self drawControls];
+//    [self drawControls];
     
     //start loading animation
     [self startLoadingAnimation];
     
     //don't know why it has to add a little delay, otherwise it will just not show the image first
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    
         [self photoCaptured];
-    });
+//    });
 }
 
 - (void) photoCaptured {
@@ -233,13 +317,27 @@
 
 #pragma mark BUTTON EVENTS
 
+
 - (void) captureBtnPressed:(id)sender {
     NSLog(@"*********************** pressed *******************************");
     [Flurry logEvent:@"Photo_Taken"];
     
-    self.captureBtn.enabled = NO;
-    
-    [_camManager capturePhoto:self.iot];
+//    self.captureBtn.enabled = NO;
+ 
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        // this block runs on a background thread
+        if (!_camManager.busyNow) {
+            _camManager.busyNow = YES;
+            [_camManager capturePhoto:self.iot];
+        }
+        
+        // runs on main thread, for UI feedback
+        dispatch_async(dispatch_get_main_queue(), ^{
+//            busyNow = NO;
+        }); // end on main thread block
+        
+    }); // end of background thread
+
 }
 
 - (void) torchBtnPressed:(id)sender {
@@ -257,7 +355,7 @@
     isSaveWaitingForResizedImage = NO;
     
     //relative to capture press
-    self.captureBtn.enabled = YES;
+//    self.captureBtn.enabled = YES;
     
     [self drawControls];
     
@@ -269,6 +367,7 @@
 
 - (void) nextPagePressed:(id)sender {
     [Flurry logEvent:@"Next_Page_Pressed"];
+    [self unregisterFocusListener];
     [self.appliedVC.Maindelegate slideToNextPage];
 }
 
@@ -337,12 +436,16 @@
         [self clearResourse:completion];
         
         [self.appliedVC removeFromParentViewController];
+
     }];
 }
 
 - (void) closeWithCompletionWithoutDismissing:(void (^)(void))completion {
     [self clearResourse:completion];
 }
+
+
+
 
 -(void)clearResourse:(void (^)(void))completion{
     
@@ -389,8 +492,10 @@
     /********************
      captured image view
      ******************/
-    if (_capturedImageView == nil)
+    if (_capturedImageView == nil){
         _capturedImageView = [[UIImageView alloc]init];
+        _capturedImageView.hidden = YES;
+    }
     _capturedImageView.frame = _StreamView.frame; // just to even it out
     _capturedImageView.backgroundColor = [UIColor clearColor];
     _capturedImageView.userInteractionEnabled = YES;
@@ -464,6 +569,7 @@
     CGFloat halfButtonSize = _backBtn.bounds.size.width/2;
     CGPoint torchStart = CGPointMake(-BUTTON_Starting_MARGIN_LEFT_RIGHT,screenHeight+ halfButtonSize+ BUTTON_MARGIN_DOWN);
     CGPoint nextStart = CGPointMake(screenWidth + BUTTON_Starting_MARGIN_LEFT_RIGHT, screenHeight+ halfButtonSize+ BUTTON_MARGIN_DOWN);
+    CGPoint rightTopBtnPoint = CGPointMake(screenWidth + BUTTON_Starting_MARGIN_LEFT_RIGHT, halfButtonSize + BUTTON_MARGIN_DOWN);
     
     // -- LOAD BUTTONS BEGIN -- //
     _backBtn = [LoadControls createRoundedBackButton];
@@ -475,8 +581,15 @@
     _nextPageBtn = [LoadControls createRoundedButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(8, 9, 8, 7) andLeftBottomElseRightBottom:NO andStartingPosition:nextStart];
     [_nextPageBtn addTarget:self action:@selector(nextPagePressed:) forControlEvents:UIControlEventTouchUpInside];
     
+    _rightTopBtn = [LoadControls createRoundedButton_Image:@"close-icon.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(8, 9, 8, 7) andLeftBottomElseRightBottom:NO andStartingPosition:rightTopBtnPoint];
+    [_rightTopBtn addTarget:self action:@selector(startOrStopFocusListener:) forControlEvents:UIControlEventTouchUpInside];
+    
     _captureBtn = [LoadControls createNiceCameraButton_withCameraView:self];
     [_captureBtn addTarget:self action:@selector(captureBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+
+    // added by Yang WAN
+    _captureBtn.hidden = YES;
+    _captureBtn.enabled = NO;
     
 //    _tutorialBtn = [LoadControls createUIButtonWithRect:CGRectMake(280, 20, 30, 30)];
 //    [_tutorialBtn setImage:[UIImage imageNamed:@"ED_about.png"] forState:UIControlStateNormal];
@@ -499,7 +612,11 @@
     self.scaleSlider.dataSource = self;
     self.scaleSlider.value = 1.0f;
     
-    for (UIButton * btn in @[_captureBtn, _backBtn, _TorchBtn, _nextPageBtn, _scaleSlider])  {
+    // added by Yang WAN, requested by YiZHANG
+    self.scaleSlider.hidden = YES;
+    self.scaleSlider.enabled = NO;
+    
+    for (UIButton * btn in @[_captureBtn, _backBtn, _TorchBtn, _nextPageBtn, _scaleSlider, _rightTopBtn])  {
         [self addSubview:btn];
     }
     // Draw camera controls
