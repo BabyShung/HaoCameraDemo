@@ -126,10 +126,7 @@ static NSString *CellIdentifier = @"Cell";
     //[self.camView startLoadingAnimation];
     [self.camView registerFocusListener];
     
-    [self.view bringSubviewToFront:_clearBtn];
-    [self.view bringSubviewToFront:_nextBtn];
-    [self.view bringSubviewToFront:_rightTopBtn];
-    [self.view bringSubviewToFront:self.friendlyResultLabel];
+    [self bringSubViewsToFront];
     //[self updateFriendlyResultLabel:self.foodArray.count];
     
     //scroll DEspeed normal
@@ -158,8 +155,14 @@ static NSString *CellIdentifier = @"Cell";
 //        [self addFoodItems:results];
 //    }];
 
-    
-    
+}
+
+- (void) bringSubViewsToFront
+{
+    [self.view bringSubviewToFront:_clearBtn];
+    [self.view bringSubviewToFront:_nextBtn];
+    [self.view bringSubviewToFront:_rightTopBtn];
+    [self.view bringSubviewToFront:self.friendlyResultLabel];
 }
 
 - (void) viewDidDisappear:(BOOL)animated
@@ -483,28 +486,40 @@ static NSString *CellIdentifier = @"Cell";
 
 -(void)showCollectionView{
     
-    if(self.collectionView.isHidden){
-        self.collectionView.hidden = NO;
-        self.collectionView.alpha = 1;
-		[DNUtils giveMeABorder:self.collectionView withColor:nil];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if(self.collectionView.isHidden){
+            self.collectionView.hidden = NO;
+            self.collectionView.alpha = 1;
+            [DNUtils giveMeABorder:self.collectionView withColor:nil];
+        }
+    }); // end on main thread block
+
 }
 
 -(void)showClearAndNextButton{
-    self.counterForNoResult = 0;
-    if(self.clearBtn.isHidden){
-        [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            self.clearBtn.alpha = .95;
-            self.nextBtn.alpha = .95;
-            self.rightTopBtn.alpha = .95;
-        } completion:^(BOOL finished) {
-            if (finished) {
-                self.clearBtn.hidden = NO;
-                self.nextBtn.hidden = NO;
-                self.rightTopBtn.hidden = NO;
-            }
-        }];
-    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self bringSubViewsToFront];
+        self.counterForNoResult = 0;
+        if(self.clearBtn.isHidden){
+            
+            [UIView animateWithDuration:.25 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                self.clearBtn.alpha = .95;
+                self.nextBtn.alpha = .95;
+                self.rightTopBtn.alpha = .95;
+            } completion:^(BOOL finished) {
+                if (finished) {
+                    self.clearBtn.hidden = NO;
+                    self.nextBtn.hidden = NO;
+                    self.rightTopBtn.hidden = NO;
+                }
+            }];
+            
+            self.clearBtn.hidden = NO;
+            self.nextBtn.hidden = NO;
+            self.rightTopBtn.hidden = NO;
+        }
+    }); // end on main thread block
 }
 
 
