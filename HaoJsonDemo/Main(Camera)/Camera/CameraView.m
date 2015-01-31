@@ -33,6 +33,7 @@
 #import "ASValueTrackingSlider.h"
 #import "HaoCaptureButton.h"
 #import "LocalizationSystem.h"
+#import "DNUtils.h"
 
 @interface CameraView () <CameraManageCDelegate,ASValueTrackingSliderDataSource>
 {
@@ -256,14 +257,19 @@ static BOOL registeredFocusListener = NO;
             
             CGFloat centerY = screenHeight - _backBtn.bounds.size.height / 2 - BUTTON_MARGIN_DOWN;
             
-            _backBtn.center = CGPointMake(BUTTON_MARGIN_LEFT_RIGHT + (_backBtn.bounds.size.width / 2), centerY);
-            _TorchBtn.center = _backBtn.center;
+            CGFloat x_left_align = BUTTON_MARGIN_LEFT_RIGHT + (_backBtn.bounds.size.width / 2);
+            CGFloat x_right_align = screenWidth - BUTTON_MARGIN_LEFT_RIGHT - (_backBtn.bounds.size.width / 2);
+            CGFloat y_middle_align = _backBtn.bounds.size.height/2 + BUTTON_MARGIN_DOWN + screenHeight / 5 * 2;
+            
+            _backBtn.center = CGPointMake(x_left_align, centerY);
             
             _captureBtn.center = CGPointMake(screenWidth/2, screenHeight-(iPhone5?100:90));
             
-            _nextPageBtn.center = CGPointMake(screenWidth - BUTTON_MARGIN_LEFT_RIGHT - (_backBtn.bounds.size.width / 2), centerY);
+            _nextPageBtn.center = CGPointMake(x_right_align, centerY);
             
-            _rightTopBtn.center = CGPointMake(screenWidth - BUTTON_MARGIN_LEFT_RIGHT - (_backBtn.bounds.size.width / 2), _backBtn.bounds.size.height/2 + BUTTON_MARGIN_DOWN);
+            _rightTopBtn.center = CGPointMake(x_right_align, y_middle_align);
+            
+            _TorchBtn.center = CGPointMake(x_left_align, y_middle_align); // _backBtn.center, changed by Yang WAN
         }
         
         if (_capturedImageView.image) {
@@ -569,7 +575,7 @@ static BOOL registeredFocusListener = NO;
     CGFloat halfButtonSize = _backBtn.bounds.size.width/2;
     CGPoint torchStart = CGPointMake(-BUTTON_Starting_MARGIN_LEFT_RIGHT,screenHeight+ halfButtonSize+ BUTTON_MARGIN_DOWN);
     CGPoint nextStart = CGPointMake(screenWidth + BUTTON_Starting_MARGIN_LEFT_RIGHT, screenHeight+ halfButtonSize+ BUTTON_MARGIN_DOWN);
-    CGPoint rightTopBtnPoint = CGPointMake(screenWidth + BUTTON_Starting_MARGIN_LEFT_RIGHT, halfButtonSize + BUTTON_MARGIN_DOWN);
+//    CGPoint rightTopBtnPoint = CGPointMake(screenWidth + BUTTON_Starting_MARGIN_LEFT_RIGHT, halfButtonSize + BUTTON_MARGIN_DOWN + screenHeight / 2); // this is useless, added by Yang WAN
     
     // -- LOAD BUTTONS BEGIN -- //
     _backBtn = [LoadControls createRoundedBackButton];
@@ -581,7 +587,10 @@ static BOOL registeredFocusListener = NO;
     _nextPageBtn = [LoadControls createRoundedButton_Image:@"CameraNext.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(8, 9, 8, 7) andLeftBottomElseRightBottom:NO andStartingPosition:nextStart];
     [_nextPageBtn addTarget:self action:@selector(nextPagePressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    _rightTopBtn = [LoadControls createRoundedButton_Image:@"close-icon.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(8, 9, 8, 7) andLeftBottomElseRightBottom:NO andStartingPosition:rightTopBtnPoint];
+    //rightTopBtnPoint, not used anymore
+    _rightTopBtn = [LoadControls createRoundedButton_Image:@"close-icon.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(8, 9, 8, 7) andLeftBottomElseRightBottom:NO andStartingPosition:CGPointZero];
+//    [DNUtils giveMeABorder:_rightTopBtn withColor:[UIColor redColor]];
+    
     [_rightTopBtn addTarget:self action:@selector(startOrStopFocusListener:) forControlEvents:UIControlEventTouchUpInside];
     
     _captureBtn = [LoadControls createNiceCameraButton_withCameraView:self];

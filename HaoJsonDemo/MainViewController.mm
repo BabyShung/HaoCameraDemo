@@ -465,23 +465,27 @@ static NSString *CellIdentifier = @"Cell";
 }
 
 -(void)stopAnimationAndShowErrorToast{
-    //no image coming back, tell users to retake
-    [self.camView stopLoadingAnimation];
     
-    [self.camView backBtnPressed:nil];
-    
-    self.counterForNoResult++;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //no image coming back, tell users to retake
+        [self.camView stopLoadingAnimation];
+        
+        [self.camView backBtnPressed:nil];
+        
+        self.counterForNoResult++;
+        
+        if(self.counterForNoResult>1){
+            self.counterForNoResult = 0;
+            [self.view makeToast:AMLocalizedString(@"NICE_WARNING_CONTEXT", nil)
+                        duration:7.0
+                        position:@"top"
+                           title:AMLocalizedString(@"NICE_WARNING_TITLE", nil)
+                           image:[UIImage imageNamed:@"indicate_1.jpg"]];
+        }
+        
+        [self.view makeToast_ForCamera:AMLocalizedString(@"DETECTOR_NO_RESULT", nil)];
+    });
 
-    if(self.counterForNoResult>1){
-        self.counterForNoResult = 0;
-        [self.view makeToast:AMLocalizedString(@"NICE_WARNING_CONTEXT", nil)
-                    duration:7.0
-                    position:@"top"
-                       title:AMLocalizedString(@"NICE_WARNING_TITLE", nil)
-                       image:[UIImage imageNamed:@"indicate_1.jpg"]];
-    }
-
-    [self.view makeToast_ForCamera:AMLocalizedString(@"DETECTOR_NO_RESULT", nil)];
 }
 
 -(void)showCollectionView{
@@ -579,10 +583,11 @@ static NSString *CellIdentifier = @"Cell";
     // these are temporarily left here, by Yang WAN
     // copied from CameraView...
     CGFloat screenWidth = self.view.bounds.size.width;
+    CGFloat screenHeight = self.view.bounds.size.height;
     CGFloat BUTTON_Starting_MARGIN_LEFT_RIGHT = 30;
     CGFloat halfButtonSize = _clearBtn.bounds.size.width/2;
     CGFloat BUTTON_MARGIN_DOWN = 12;
-    CGPoint rightTopBtnPoint = CGPointMake(screenWidth - BUTTON_Starting_MARGIN_LEFT_RIGHT, halfButtonSize + BUTTON_MARGIN_DOWN);
+    CGPoint rightTopBtnPoint = CGPointMake(screenWidth - BUTTON_Starting_MARGIN_LEFT_RIGHT, halfButtonSize + BUTTON_MARGIN_DOWN +  screenHeight / 5 * 2);
     
     _rightTopBtn = [LoadControls createRoundedButton_Image:@"close-icon.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(8, 9, 8, 7) andLeftBottomElseRightBottom:NO andStartingPosition:rightTopBtnPoint];
     [_rightTopBtn addTarget:self action:@selector(startOrStopFocusListenerOnCollectionView:) forControlEvents:UIControlEventTouchUpInside];
