@@ -8,7 +8,7 @@
 
 #import "DNUtils.h"
 
-#define DEBUG_MODE TRUE
+#define DEBUG_MODE NO
 
 
 @implementation DNUtils
