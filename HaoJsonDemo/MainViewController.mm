@@ -129,6 +129,10 @@ static NSString *CellIdentifier = @"Cell";
     [self bringSubViewsToFront];
     //[self updateFriendlyResultLabel:self.foodArray.count];
     
+    if (!self.collectionView.hidden) {
+        [self showClearAndNextButton];
+    }
+    
     //scroll DEspeed normal
     self.collectionView.decelerationRate = UIScrollViewDecelerationRateNormal;
     
