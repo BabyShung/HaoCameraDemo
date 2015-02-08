@@ -287,9 +287,8 @@ static BOOL registeredFocusListener = NO;
             
             // Force User Preference
             _captureBtn.hidden = YES; // _hideCaptureButton, changed by Yang WAN
-            _backBtn.hidden = _hideBackButton;
-            
-//            _backBtn.hidden = YES;
+//            _backBtn.hidden = _hideBackButton;
+            _backBtn.hidden = YES;
         }
         
         [self evaluateFlashBtn];
