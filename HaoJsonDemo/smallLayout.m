@@ -7,6 +7,7 @@
 //
 
 #import "smallLayout.h"
+#import "DNUtils.h"
 
 @implementation smallLayout
 
@@ -29,7 +30,6 @@
 -(void)setup{
     self.itemSize = CGSizeMake(142, iPhone5? 185:155);
     
-    CGFloat bottomOffset = 68;  // added by Yang WAN
     CGFloat top = (iPhone5 ? 383 - bottomOffset : 325 - bottomOffset);
     CGFloat left = 2, right = 2;
     CGFloat bottom =  bottomOffset;

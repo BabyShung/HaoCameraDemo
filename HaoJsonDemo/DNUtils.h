@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define bottomOffset 68 // the collection view (cells) bottom offset, by Yang WAN
+
 @interface DNUtils : NSObject
 
 + (void) giveMeABorder:(UIView *) view withColor:(UIColor *)color;
