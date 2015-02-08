@@ -255,19 +255,22 @@ static BOOL registeredFocusListener = NO;
         
         if (UIInterfaceOrientationIsPortrait(self.iot)) {
             
-            CGFloat centerY = screenHeight - _backBtn.bounds.size.height / 2 - BUTTON_MARGIN_DOWN;
+            CGFloat y_bottom_align = screenHeight - _backBtn.bounds.size.height / 2 - BUTTON_MARGIN_DOWN;
+            // added by Yang WAN
+            // for register/unregister button to the middle at the bottom
+            CGFloat x_center = screenWidth / 2;
             
             CGFloat x_left_align = BUTTON_MARGIN_LEFT_RIGHT + (_backBtn.bounds.size.width / 2);
             CGFloat x_right_align = screenWidth - BUTTON_MARGIN_LEFT_RIGHT - (_backBtn.bounds.size.width / 2);
             CGFloat y_middle_align = _backBtn.bounds.size.height/2 + BUTTON_MARGIN_DOWN + screenHeight / 5 * 2;
             
-            _backBtn.center = CGPointMake(x_left_align, centerY);
+            _backBtn.center = CGPointMake(x_left_align, y_bottom_align);
             
             _captureBtn.center = CGPointMake(screenWidth/2, screenHeight-(iPhone5?100:90));
             
-            _nextPageBtn.center = CGPointMake(x_right_align, centerY);
+            _nextPageBtn.center = CGPointMake(x_right_align, y_bottom_align);
             
-            _rightTopBtn.center = CGPointMake(x_right_align, y_middle_align);
+            _rightTopBtn.center = CGPointMake(x_center, y_bottom_align);
             
             _TorchBtn.center = CGPointMake(x_left_align, y_middle_align); // _backBtn.center, changed by Yang WAN
         }

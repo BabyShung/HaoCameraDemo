@@ -588,7 +588,10 @@ static NSString *CellIdentifier = @"Cell";
     CGFloat BUTTON_Starting_MARGIN_LEFT_RIGHT = 30;
     CGFloat halfButtonSize = _clearBtn.bounds.size.width/2;
     CGFloat BUTTON_MARGIN_DOWN = 12;
-    CGPoint rightTopBtnPoint = CGPointMake(screenWidth - BUTTON_Starting_MARGIN_LEFT_RIGHT, halfButtonSize + BUTTON_MARGIN_DOWN +  screenHeight / 5 * 2);
+//    screenHeight - _backBtn.bounds.size.height / 2 - BUTTON_MARGIN_DOWN;
+    CGFloat x_center = screenWidth / 2 ;
+    CGFloat y_bottom_align = screenHeight - halfButtonSize - BUTTON_MARGIN_DOWN;
+    CGPoint rightTopBtnPoint = CGPointMake(x_center, y_bottom_align);
     
     _rightTopBtn = [LoadControls createRoundedButton_Image:@"close-icon.png" andTintColor:[ED_Color edibleBlueColor] andImageInset:UIEdgeInsetsMake(8, 9, 8, 7) andLeftBottomElseRightBottom:NO andStartingPosition:rightTopBtnPoint];
     [_rightTopBtn addTarget:self action:@selector(startOrStopFocusListenerOnCollectionView:) forControlEvents:UIControlEventTouchUpInside];
