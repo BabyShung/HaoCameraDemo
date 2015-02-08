@@ -600,9 +600,10 @@ static NSString *CellIdentifier = @"Cell";
     [DNUtils giveMeABorder:_rightTopBtn withColor:[UIColor blueColor]];
     
     
+    CGFloat bottomOffset = 68; // added by Yang WAN
     _friendlyResultLabel = [LoadControls createLabelWithRect:CGRectMake(0, 0, 260, 50) andTextAlignment:NSTextAlignmentCenter andFont:[UIFont fontWithName:@"Heiti TC" size:16] andTextColor:[ED_Color edibleBlueColor_doubleBlue]];
     _friendlyResultLabel.text = @"";
-    _friendlyResultLabel.center = CGPointMake(160, ScreenHeight - 35);
+    _friendlyResultLabel.center = CGPointMake(160, ScreenHeight - 35 - bottomOffset);
     [self.view addSubview:_friendlyResultLabel];
 }
 
