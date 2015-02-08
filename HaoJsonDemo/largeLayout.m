@@ -28,7 +28,10 @@
 }
 
 -(void)setup{
-    self.itemSize = CGSizeMake(CGRectGetWidth([[UIScreen mainScreen] bounds]), CGRectGetHeight([[UIScreen mainScreen] bounds]));//full screen heigh and wide
+    CGFloat width = CGRectGetWidth([[UIScreen mainScreen] bounds]);
+    CGFloat height = CGRectGetHeight([[UIScreen mainScreen] bounds]);
+    self.itemSize = CGSizeMake(width, height);//full screen heigh and wide
+    
     self.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.minimumInteritemSpacing = 10.0f;
     self.minimumLineSpacing = 4.0f;

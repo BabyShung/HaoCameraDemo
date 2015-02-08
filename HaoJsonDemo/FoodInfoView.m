@@ -18,6 +18,8 @@
 #import "DXStarRatingView.h"
 #import "AppDelegate.h"
 
+#import "DNUtils.h"
+
 static NSString *CellIdentifier = @"Cell";
 
 const CGFloat ScrollViewContentSizeHeight = 1000.f;
@@ -111,15 +113,24 @@ const CGFloat CommentRateViewWidth = 260;
 }
 -(void)loadControls{
     
+//    CGRect theOne = self.frame;
+//    theOne.size.width /= 2;
+//    theOne.size.height /= 2;
+//    theOne.origin.x += 100;
+//    theOne.origin.y += 100;
+//    [self setFrame:theOne];
+    
     //CGFloat height = CGRectGetHeight(self.bounds);
     CGFloat width = CGRectGetWidth(self.bounds);
-    
+
     self.scrollview=[[UIScrollView alloc]initWithFrame:self.bounds];
     self.scrollview.delegate = self;
     self.scrollview.showsVerticalScrollIndicator=YES;
     self.scrollview.scrollEnabled=YES;
     self.scrollview.userInteractionEnabled=YES;
     [self addSubview:self.scrollview];
+    [DNUtils giveMeABorder:self.scrollview withColor:nil];
+    [DNUtils giveMeABorder:self withColor:[UIColor yellowColor]];
     
     
     self.titleLabel = [[UILabel alloc] init];//WithFrame:_shimmeringView.frame];
@@ -143,6 +154,7 @@ const CGFloat CommentRateViewWidth = 260;
     self.translateLabel.font = [UIFont fontWithName:PlainTextFontName size:SmallTextFontSize];
     self.translateLabel.textColor = [UIColor blackColor];
     self.translateLabel.backgroundColor = [UIColor clearColor];
+    [DNUtils giveMeABorder:self.translateLabel withColor:nil];
     [self.scrollview addSubview:self.translateLabel];
 
 /*--------------Following Views Will Be Hidden In Small Layout------------------*/

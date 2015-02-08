@@ -10,6 +10,7 @@
 #import "TransitionLayout.h"
 #import "largeLayout.h"
 #import "EDCollectionCell.h"
+#import "DNUtils.h"
 
 @interface TransitionController () 
 
@@ -45,7 +46,7 @@
         
         self.collectionView = collectionView;
         
-        
+//        [DNUtils giveMeABorder:self.view withColor:nil];
         
     }
     return self;

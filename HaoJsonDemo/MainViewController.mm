@@ -557,7 +557,7 @@ static NSString *CellIdentifier = @"Cell";
     
     self.collectionView.hidden = YES; // changed by Yang WAN
     self.collectionView.backgroundColor = [UIColor clearColor]; // changed by Yang WAN
-//    self.collectionView.alpha = 0.5;
+    self.collectionView.alpha = 0.5;
     [DNUtils giveMeABorder:self.collectionView withColor:[UIColor blueColor]];
     
     //registering dequueue cell
@@ -567,6 +567,7 @@ static NSString *CellIdentifier = @"Cell";
     self.transitionController = [[TransitionController alloc] initWithCollectionView:self.collectionView];
     self.transitionController.delegate = self;
     self.navigationController.delegate = self.transitionController;
+    
     
     //add in collectionView
     

@@ -28,7 +28,13 @@
 
 -(void)setup{
     self.itemSize = CGSizeMake(142, iPhone5? 185:155);
-    self.sectionInset = UIEdgeInsetsMake((iPhone5 ? 383 : 325), 2, 0, 2);
+    
+    CGFloat bottomOffset = 68;  // added by Yang WAN
+    CGFloat top = (iPhone5 ? 383 - bottomOffset : 325 - bottomOffset);
+    CGFloat left = 2, right = 2;
+    CGFloat bottom =  bottomOffset;
+    
+    self.sectionInset = UIEdgeInsetsMake(top, left, bottom, right);
     self.minimumInteritemSpacing = 10.0f;
     self.minimumLineSpacing = 2.0f;
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;

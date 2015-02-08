@@ -32,7 +32,7 @@
     [self.foodInfoView setUpForSmallLayout];
 
     [self.contentView addSubview:self.foodInfoView];
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor yellowColor];
     self.layer.cornerRadius = 8.0f;
 }
 
