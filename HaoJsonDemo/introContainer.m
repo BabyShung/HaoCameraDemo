@@ -156,7 +156,7 @@
     page4.descFont = [UIFont fontWithName:@"Heiti TC" size:DescFontFontSize];
     page4.bgImage = [UIImage imageNamed:iPhone5?@"tutorial_4_ip5.png":@"tutorial_4_ip4.png"];
     
-    EAIntroView *intro = [[EAIntroView alloc] initWithFrame:self.bounds andPages:@[page1,page2,page3,page4]];
+    EAIntroView *intro = [[EAIntroView alloc] initWithFrame:self.bounds andPages:@[page1,page3,page4]]; // page2
     [intro setDelegate:self];
     intro.tapToNext = YES;
     
