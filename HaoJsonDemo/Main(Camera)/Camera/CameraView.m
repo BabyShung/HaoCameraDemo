@@ -136,6 +136,11 @@ static BOOL registeredFocusListener = NO;
         int flags = NSKeyValueObservingOptionNew;
         [camDevice addObserver:self forKeyPath:@"adjustingFocus" options:flags context:nil];
         registeredFocusListener = YES;
+        
+        // update UI
+        UIImage *tickImg = [UIImage imageNamed:@"close-icon.png"];
+        [_rightTopBtn setImage:tickImg forState:UIControlStateNormal];
+        
         [Flurry logEvent:@"registered focus listener..."];
     }
 }
@@ -155,6 +160,11 @@ static BOOL registeredFocusListener = NO;
             NSLog(@"This is a bad design, but not found better solution yet");
         }
         registeredFocusListener = NO;
+        
+        // update UI
+        UIImage *tickImg = [UIImage imageNamed:@"check_black.png"];
+        [_rightTopBtn setImage:tickImg forState:UIControlStateNormal];
+        
         [Flurry logEvent:@"unregistered focus listener..."];
     }
 }
@@ -181,14 +191,9 @@ static BOOL registeredFocusListener = NO;
 {
     if (registeredFocusListener) {
         [self unregisterFocusListener];
-        
-        UIImage *tickImg = [UIImage imageNamed:@"check_black.png"];
-        [_rightTopBtn setImage:tickImg forState:UIControlStateNormal];
+
     }else{
         [self registerFocusListener];
-        
-        UIImage *tickImg = [UIImage imageNamed:@"close-icon.png"];
-        [_rightTopBtn setImage:tickImg forState:UIControlStateNormal];
     }
 }
 
