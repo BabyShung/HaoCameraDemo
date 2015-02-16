@@ -480,11 +480,15 @@ static NSString *CellIdentifier = @"Cell";
         
         if(self.counterForNoResult>1){
             self.counterForNoResult = 0;
+            /*
+             // commented by Yang Wan
+             // requested by Yi Zhang
             [self.view makeToast:AMLocalizedString(@"NICE_WARNING_CONTEXT", nil)
                         duration:7.0
                         position:@"top"
                            title:AMLocalizedString(@"NICE_WARNING_TITLE", nil)
                            image:[UIImage imageNamed:@"indicate_1.jpg"]];
+             */
         }
         
         [self.view makeToast_ForCamera:AMLocalizedString(@"DETECTOR_NO_RESULT", nil)];
